@@ -9,3 +9,9 @@ Thumbs.db
 # Logs / temp
 *.log
 _*.html
+
+# Local-only credentials (FTP, etc.) — never commit
+.ftp.local
+*.local
+.env
+.env.*
