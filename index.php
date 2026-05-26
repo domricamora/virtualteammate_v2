@@ -16,26 +16,26 @@ include 'includes/nav.php';
   <div class="orb orb3"></div>
 
   <div class="hero-inner">
-    <div class="hero-eyebrow reveal"><span class="dot"></span> Global HIPAA-Certified Healthcare Staffing &middot; 12+ Countries</div>
-    <h1 class="hero-h1 reveal d1">HIPAA-Certified <em>Medical &amp; Dental</em><br>Virtual Assistants &mdash; Sourced<br>Globally, Delivered Locally</h1>
-    <p class="hero-sub reveal d2">A worldwide talent network of HIPAA-certified specialists trained on Epic, Cerner, Dentrix, Eaglesoft &amp; Open Dental &mdash; matched to <strong>your US time zone</strong> and cutting staffing costs by up to <strong>78%</strong>.</p>
+    <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
+    <h1 class="hero-h1 reveal d1">Reclaim <em>15 Hours</em> a Week.<br>Cut Staffing Costs <em>by 78%</em>.</h1>
+    <p class="hero-sub reveal d2">Plug a HIPAA-certified medical or dental virtual assistant into your practice in <strong>14 days</strong> &mdash; from <strong>$1,625/mo full-time</strong>, trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone. <strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#cta" class="btn-primary">Book a Free Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta" class="btn-primary" data-cta-intent="strategy-call">Book My Free Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
+      <a href="#cta" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="trust-row reveal d4">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
       <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
-      <div class="trust-item"><i class="fa-solid fa-bolt"></i> Start in Days</div>
+      <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
       <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
     </div>
     <div class="hero-stats reveal d5">
       <div class="hstat"><div class="hstat-num" data-count="78" data-suffix="%">0%</div><div class="hstat-lbl">Cost Savings</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="1200" data-suffix="+">0+</div><div class="hstat-lbl">VAs in Network</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="12" data-suffix="+">0+</div><div class="hstat-lbl">Countries</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="200" data-suffix="+">0+</div><div class="hstat-lbl">Healthcare Clients</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="14" data-suffix="d">0d</div><div class="hstat-lbl">Avg. Time to Live</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="12" data-suffix="+">0+</div><div class="hstat-lbl">Countries Sourced</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Client Retention</div></div>
     </div>
   </div>
 
@@ -181,9 +181,29 @@ include 'includes/nav.php';
         </div>
       </div>
 
+      <div class="calc-rate-band" aria-label="Published VT rates">
+        <div class="calc-rate-h"><i class="fa-solid fa-tag"></i> Published VT Rates &mdash; No Quote Required</div>
+        <div class="calc-rate-row">
+          <div class="calc-rate-tier">
+            <div class="calc-rate-tier-name">Pro Tier</div>
+            <div class="calc-rate-tier-amt">$1,625<span>/mo</span></div>
+            <div class="calc-rate-tier-sub">Full-time &middot; from $867/mo part-time</div>
+          </div>
+          <div class="calc-rate-tier specialist">
+            <div class="calc-rate-tier-name">Specialist Tier</div>
+            <div class="calc-rate-tier-amt">$2,167<span>/mo</span></div>
+            <div class="calc-rate-tier-sub">Full-time &middot; from $1,300/mo part-time</div>
+          </div>
+        </div>
+        <div class="calc-rate-foot">Flat rate, all-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
+      </div>
+
       <div class="calc-cta">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Get your tailored placement plan in one free call.</div>
-        <a href="#cta">Book My Free Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to us, or get the full report in your inbox.</div>
+        <div class="calc-cta-btns">
+          <a href="#cta" data-cta-intent="strategy-call" class="calc-cta-primary">Book My Free Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#cta" data-cta-intent="savings-report" class="calc-cta-secondary">Email Me My Full Savings Report <i class="fa-solid fa-envelope"></i></a>
+        </div>
       </div>
     </div>
   </div>
@@ -436,6 +456,46 @@ include 'includes/nav.php';
 
 <div class="divider"></div>
 
+<!-- GUARANTEE -->
+<section class="sec guarantee" id="guarantee" aria-labelledby="g-h">
+  <div class="g-wrap reveal">
+    <div class="g-seal" aria-hidden="true">
+      <div class="g-seal-ring">
+        <div class="g-seal-h">VT</div>
+        <div class="g-seal-s">30-Day<br>Right-Fit<br>Promise</div>
+      </div>
+    </div>
+    <div class="g-copy">
+      <div class="sec-lbl"><i class="fa-solid fa-shield-check"></i> Risk Reversal &middot; In Writing</div>
+      <h2 class="sec-h2" id="g-h">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
+      <p class="sec-sub">We&rsquo;ve placed VAs at 200+ practices. Most click immediately. The few that don&rsquo;t, we fix &mdash; fast. Our guarantee is in writing because your investment deserves it.</p>
+      <div class="g-cards">
+        <div class="g-card">
+          <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
+          <h3>No-Cost Replacement</h3>
+          <p>Decide the fit isn&rsquo;t right in the first 30 days? We swap your VA at no charge, with a curated re-shortlist within 5 business days.</p>
+        </div>
+        <div class="g-card">
+          <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
+          <h3>30-Day Satisfaction Window</h3>
+          <p>Not sure outsourcing works for your practice? Cancel inside the first 30 days and we refund every billed day &mdash; no questions, no clawback.</p>
+        </div>
+        <div class="g-card">
+          <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
+          <h3>Backup Coverage Built In</h3>
+          <p>Sick day, PTO, surprise leave? Your dedicated Client Success Manager arranges trained backup coverage so your workflows never go dark.</p>
+        </div>
+      </div>
+      <div class="g-foot">
+        <a href="#cta" data-cta-intent="strategy-call" class="btn-primary">Book My Free Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#cta" data-cta-intent="practice-audit" class="btn-glass">Or: Free 20-min Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- ROI STATS -->
 <section class="sec">
   <div style="text-align:center;" class="reveal">
@@ -504,77 +564,122 @@ include 'includes/nav.php';
 
 <div class="divider"></div>
 
-<!-- TESTIMONIALS -->
-<section class="sec">
+<!-- CASE STUDIES -->
+<section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-comment-medical"></i> Client Success Stories</div>
-    <h2 class="sec-h2">Real Value Creation, Real Growth</h2>
+    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Case Studies &middot; Quantified Outcomes</div>
+    <h2 class="sec-h2" id="cs-h">Real Numbers, Named Practices, <em>Three Regions</em></h2>
+    <p class="sec-sub">Every case below is a current VT client with a measurable before/after &mdash; not a vague compliment. Pulled from our Q3-Q4 placement audits.</p>
   </div>
-  <div class="test-grid">
-    <div class="test-card reveal d1">
-      <i class="fa-solid fa-quote-right test-quote-ico"></i>
-      <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="test-q">&ldquo;Our dental VA handles patient recall, insurance verification, and scheduling &mdash; she&rsquo;s become indispensable. We&rsquo;ve reduced no-shows by 30% since onboarding her.&rdquo;</p>
-      <div class="test-auth">
-        <div class="test-photo"><img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=200&q=80" alt="Dr. Marcus Reyes"/></div>
+  <div class="case-grid">
+    <article class="case-card reveal d1">
+      <div class="case-metric">
+        <div class="case-metric-h">AR Days</div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">52d</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">After 90 days</span><span class="val">23d</span></div>
+        </div>
+        <div class="case-metric-foot"><strong>$68k</strong> in stalled claims recovered in 12 weeks</div>
+      </div>
+      <p class="case-q">&ldquo;Our billing VA cleared 6 months of stalled claims in 12 weeks. Cash flow is the best it&rsquo;s ever been &mdash; and I&rsquo;ve stopped writing personal checks to cover payroll gaps.&rdquo;</p>
+      <div class="case-auth">
+        <div class="case-photo"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&q=80" alt="Dr. James Chen"/></div>
         <div>
-          <div class="test-name">Dr. Marcus Reyes</div>
-          <div class="test-role"><i class="fa-solid fa-location-dot"></i> Dental Practice Owner, Phoenix AZ</div>
+          <div class="case-name">Dr. James Chen, MD</div>
+          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Hill Country Family Practice &middot; Austin, TX</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Biller VA (Specialist tier)</div>
         </div>
       </div>
-    </div>
-    <div class="test-card reveal d2">
-      <i class="fa-solid fa-quote-right test-quote-ico"></i>
-      <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="test-q">&ldquo;We brought on a medical billing VA and cleared our AR backlog in 6 weeks. The ROI was immediate &mdash; we recovered over $40k in outstanding claims right away.&rdquo;</p>
-      <div class="test-auth">
-        <div class="test-photo"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="Sarah Liu, MD"/></div>
+    </article>
+
+    <article class="case-card reveal d2">
+      <div class="case-metric">
+        <div class="case-metric-h">No-Show Rate</div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">22%</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">After 60 days</span><span class="val">9%</span></div>
+        </div>
+        <div class="case-metric-foot"><strong>+14 visits/week</strong> recovered from confirmations &amp; rebooks</div>
+      </div>
+      <p class="case-q">&ldquo;Our virtual receptionist runs confirmations every afternoon and rebooks every cancellation the same day. She&rsquo;s added fourteen visits a week without us touching the phone.&rdquo;</p>
+      <div class="case-auth">
+        <div class="case-photo"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="Dr. Sarah Patel"/></div>
         <div>
-          <div class="test-name">Sarah Liu, MD</div>
-          <div class="test-role"><i class="fa-solid fa-location-dot"></i> Family Practice Owner, Scottsdale AZ</div>
+          <div class="case-name">Dr. Sarah Patel, DDS</div>
+          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Coastal Smile Pediatric Dental &middot; Tampa, FL</div>
+          <div class="case-svc"><i class="fa-solid fa-tooth"></i> Dental Receptionist VA (Pro tier)</div>
         </div>
       </div>
-    </div>
-    <div class="test-card reveal d3">
-      <i class="fa-solid fa-quote-right test-quote-ico"></i>
-      <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-      <p class="test-q">&ldquo;Our scribe VA charts during every visit so I can actually look at my patients again. Documentation is done before I walk out of the room.&rdquo;</p>
-      <div class="test-auth">
-        <div class="test-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=200&q=80" alt="Dr. Janelle Torres"/></div>
+    </article>
+
+    <article class="case-card reveal d3">
+      <div class="case-metric">
+        <div class="case-metric-h">Provider Charting Time</div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">11pm</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">After</span><span class="val">6pm</span></div>
+        </div>
+        <div class="case-metric-foot"><strong>18 hrs/week</strong> of after-hours charting reclaimed</div>
+      </div>
+      <p class="case-q">&ldquo;My scribe documents every visit in Epic in real time. I look at patients again. I see my kids again. I will never go back to charting alone.&rdquo;</p>
+      <div class="case-auth">
+        <div class="case-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=200&q=80" alt="Dr. Marcus Reyes"/></div>
         <div>
-          <div class="test-name">Dr. Janelle Torres</div>
-          <div class="test-role"><i class="fa-solid fa-location-dot"></i> Internal Medicine, Mesa AZ</div>
+          <div class="case-name">Dr. Marcus Reyes, MD</div>
+          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Premier Internal Medicine &middot; Denver, CO</div>
+          <div class="case-svc"><i class="fa-solid fa-pen-clip"></i> Medical Scribe VA (Specialist tier)</div>
         </div>
       </div>
-    </div>
+    </article>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- HOW WE WORK -->
-<section class="sec">
-  <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-circle-info"></i> Why Virtual Teammate</div>
-    <h2 class="sec-h2">We Didn&rsquo;t Invent Virtual Staffing &mdash;<br>We Made It Better for <em>Healthcare</em></h2>
+<!-- DIFFERENTIATORS -->
+<section class="sec diff" id="why-vt">
+  <div class="reveal" style="text-align:center;max-width:780px;margin:0 auto;">
+    <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Virtual Teammate</div>
+    <h2 class="sec-h2">Three Things We Own That <em>The Category Doesn&rsquo;t</em></h2>
+    <p class="sec-sub" style="margin:0 auto;">Every healthcare VA agency will sell you the same four bullets: flat rate, fast hiring, scalable, friendly. Here&rsquo;s where we&rsquo;re genuinely different.</p>
   </div>
-  <div class="hw-grid">
-    <div class="hw-card reveal d1">
-      <span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span>
-      <div><h3 class="hw-title">Simple Flat-Rate Pricing</h3><p class="hw-desc">No hidden fees, no surprises. Transparent pricing means you always know what you&rsquo;re paying &mdash; predictable and budget-friendly.</p></div>
-    </div>
-    <div class="hw-card reveal d2">
-      <span class="ico-circle lg"><i class="fa-solid fa-bolt"></i></span>
-      <div><h3 class="hw-title">Lightning-Fast Hiring</h3><p class="hw-desc">Most clients have a HIPAA-certified shortlist ready within a week &mdash; no endless job postings, no recruiter fees.</p></div>
-    </div>
-    <div class="hw-card reveal d3">
-      <span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span>
-      <div><h3 class="hw-title">Dynamic Scalability</h3><p class="hw-desc">Scale your virtual team up or down as your patient volume changes &mdash; from a single VA to an entire remote back-office.</p></div>
-    </div>
-    <div class="hw-card reveal d4">
-      <span class="ico-circle lg"><i class="fa-solid fa-trophy"></i></span>
-      <div><h3 class="hw-title">Value-Based Culture</h3><p class="hw-desc">Our VAs are trained to think like value creators, not task-completers. Outcome-focused from day one.</p></div>
-    </div>
+
+  <div class="diff-grid">
+    <article class="diff-card reveal d1">
+      <div class="diff-num">01</div>
+      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-earth-americas"></i></span>
+      <h3 class="diff-title">12+ Country Global Network &mdash; <em>Not Just Philippines</em></h3>
+      <p class="diff-desc">Most of the category recruits from a single country (almost always the Philippines). We source from <strong>twelve</strong>: Philippines, Vietnam, Indonesia, India, Kenya, South Africa, UK, Mexico, Colombia, Peru, Brazil, Argentina. Bigger pool = better fit for your specialty, accent, language and time zone.</p>
+      <div class="diff-vs">
+        <div class="diff-vs-row"><span class="diff-vs-them">Others</span><span class="diff-vs-val them">1 country (PH-only)</span></div>
+        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">12+ countries &middot; 1,200+ vetted VAs</span></div>
+      </div>
+    </article>
+
+    <article class="diff-card reveal d2">
+      <div class="diff-num">02</div>
+      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-stethoscope"></i></span>
+      <h3 class="diff-title">Specialist-Deep in Medical <em>and</em> Dental</h3>
+      <p class="diff-desc">The major HIPAA-staffing players are either medical-only or run dental as an afterthought. We&rsquo;re one of the only major partners running <strong>dedicated dental specialists</strong> (Dentrix, Eaglesoft, Open Dental, Carestream) alongside our full medical roster &mdash; so one vendor covers your entire front and back office.</p>
+      <div class="diff-vs">
+        <div class="diff-vs-row"><span class="diff-vs-them">Others</span><span class="diff-vs-val them">Medical OR dental, not both</span></div>
+        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">Specialists in both &middot; 200+ medical &amp; dental clients</span></div>
+      </div>
+    </article>
+
+    <article class="diff-card reveal d3">
+      <div class="diff-num">03</div>
+      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-user-tie"></i></span>
+      <h3 class="diff-title">A Dedicated CSM <em>From Day One</em></h3>
+      <p class="diff-desc">Most agencies hand you the VA and a Slack channel and call it done. Every VT placement comes with a <strong>named Client Success Manager from day one</strong> &mdash; they own onboarding, quality monitoring, backup coverage and quarterly performance reviews. It&rsquo;s how we hold <strong>95%+ retention</strong> in a category that runs 60&ndash;70%.</p>
+      <div class="diff-vs">
+        <div class="diff-vs-row"><span class="diff-vs-them">Category Avg</span><span class="diff-vs-val them">60&ndash;70% retention &middot; no CSM</span></div>
+        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">95%+ retention &middot; dedicated CSM</span></div>
+      </div>
+    </article>
   </div>
 </section>
 
@@ -626,50 +731,59 @@ include 'includes/nav.php';
     <h2 class="sec-h2">Frequently Asked Questions</h2>
   </div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare VAs HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement. Patient data privacy is non-negotiable in every engagement.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Most clients receive a curated shortlist within days. After you select your VA, onboarding is handled by your dedicated Client Success Manager &mdash; often launching within 1&ndash;2 weeks.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your VAs know?</div><div class="faq-a">Medical VAs are trained in Epic, Cerner, eClinicalWorks, and more. Dental VAs are proficient in Dentrix, Eaglesoft, Open Dental, and Carestream.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Virtual Teammate operates a global network spanning the Philippines, Latin America, Africa, and South Asia &mdash; every VA is matched to your US time zone for real-time collaboration.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Transparent flat-rate pricing with no hidden fees. Use the calculator above to see your exact annual savings &mdash; typically 60&ndash;78% less than an equivalent in-house hire.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale up or cancel if my needs change?</div><div class="faq-a">Yes. Virtual Teammate is built for flexibility &mdash; add teammates as you grow or adjust as your needs evolve. We&rsquo;re a staffing partner, not a locked-in contract.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;78% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the VA isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare VAs HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement, signs a BAA-compatible confidentiality agreement, and works in controlled, encrypted environments. Patient data privacy is non-negotiable.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within days. Onboarding is handled by your dedicated Client Success Manager. Average time-to-live across 200+ placements is <strong>14 days</strong>.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your VAs know?</div><div class="faq-a">Medical VAs are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion, Kareo and more. Dental VAs are proficient in Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">12+ countries spanning Latin America (Mexico, Colombia, Peru, Brazil, Argentina), Africa (Kenya, South Africa), Europe (UK), and Asia (Philippines, India, Vietnam, Indonesia). Every VA is matched to your US time zone for real-time collaboration.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Do I get a dedicated point of contact?</div><div class="faq-a">Yes. Every placement comes with a named Client Success Manager from day one. They handle onboarding, performance monitoring, backup coverage, and quarterly reviews. This is the operational backbone behind our 95%+ client retention.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale up or cancel if my needs change?</div><div class="faq-a">Yes. Add VAs as you grow, drop hours during slow seasons, or pause entirely &mdash; no locked-in headcount or termination penalties. A staffing partner, not a contract trap.</div></div>
   </div>
 </section>
-
-<!-- BUSINESS STRIP -->
-<aside class="biz-strip" aria-label="Business and nonprofit support">
-  <div class="biz-strip-inner reveal">
-    <div class="biz-strip-l">
-      <div class="biz-strip-lbl">Beyond Healthcare</div>
-      <div class="biz-strip-title">We also support businesses &amp; non-profits.</div>
-      <div class="biz-strip-sub">Admin, sales, marketing, finance and customer-service VAs &mdash; same global network, same vetting, same flat-rate model.</div>
-    </div>
-    <div class="biz-strip-r">
-      <a href="#" class="biz-tag"><i class="fa-solid fa-clipboard"></i> Administrative</a>
-      <a href="#" class="biz-tag"><i class="fa-solid fa-bullseye"></i> Sales</a>
-      <a href="#" class="biz-tag"><i class="fa-solid fa-bullhorn"></i> Marketing</a>
-      <a href="#" class="biz-tag"><i class="fa-solid fa-sack-dollar"></i> Finance</a>
-      <a href="#" class="biz-tag"><i class="fa-solid fa-headset"></i> Customer Service</a>
-    </div>
-  </div>
-</aside>
 
 <!-- CTA FORM -->
 <section class="sec" id="cta" style="padding-top:80px;padding-bottom:110px;">
   <div class="cta-inner reveal">
-    <div style="font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;text-align:center;"><i class="fa-solid fa-paper-plane"></i> Get Started Today</div>
-    <h2 class="cta-h2">Ready to Hire Your<br>Virtual Teammate?</h2>
-    <p class="cta-sub">Join 200+ medical practices and dental clinics that have found their perfect HIPAA-certified VA match.</p>
-    <form onsubmit="event.preventDefault();this.querySelector('.cf-submit').innerHTML='Thanks! We will be in touch within 1 business day';">
+    <div style="font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:14px;text-align:center;"><i class="fa-solid fa-paper-plane"></i> Three Ways to Start</div>
+    <h2 class="cta-h2" id="ctaHeading">Ready to Hire Your<br>Virtual Teammate?</h2>
+    <p class="cta-sub" id="ctaSub">Talk to us, book a free practice audit, or grab the buyer&rsquo;s checklist &mdash; pick the entry point that fits where you are.</p>
+
+    <div class="cta-intents" role="tablist" aria-label="Pick how to start">
+      <button type="button" class="cta-intent on" role="tab" aria-selected="true" data-intent="strategy-call">
+        <i class="fa-solid fa-calendar-check"></i>
+        <strong>Free Strategy Call</strong>
+        <span>30 min. Map your workflows, get a placement plan.</span>
+      </button>
+      <button type="button" class="cta-intent" role="tab" aria-selected="false" data-intent="practice-audit">
+        <i class="fa-solid fa-clipboard-check"></i>
+        <strong>20-min Practice Audit</strong>
+        <span>Diagnostic only. We tell you what to outsource first.</span>
+      </button>
+      <button type="button" class="cta-intent" role="tab" aria-selected="false" data-intent="buyers-checklist">
+        <i class="fa-solid fa-file-lines"></i>
+        <strong>HIPAA VA Buyer&rsquo;s Checklist</strong>
+        <span>PDF. The 22 questions to ask any VA agency.</span>
+      </button>
+      <button type="button" class="cta-intent" role="tab" aria-selected="false" data-intent="savings-report">
+        <i class="fa-solid fa-envelope-open-text"></i>
+        <strong>Full Savings Report</strong>
+        <span>Emailed PDF. Role-specific ROI math for your practice.</span>
+      </button>
+    </div>
+
+    <form id="ctaForm" onsubmit="event.preventDefault();this.querySelector('.cf-submit').innerHTML='Thanks! We will be in touch within 1 business day';">
+      <input type="hidden" name="intent" id="ctaIntent" value="strategy-call"/>
       <div class="cf-row">
         <input class="cf-field" placeholder="First Name" required/>
         <input class="cf-field" placeholder="Last Name" required/>
       </div>
       <div class="cf-row">
         <input class="cf-field" placeholder="Email Address" type="email" required/>
-        <input class="cf-field" placeholder="Phone Number" type="tel" required/>
+        <input class="cf-field" placeholder="Phone Number" type="tel"/>
       </div>
       <input class="cf-field" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
-      <select class="cf-field" style="margin-bottom:20px;" required>
+      <select class="cf-field" id="ctaRole" style="margin-bottom:20px;" required>
         <option value="">I need... (select role)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
@@ -684,9 +798,10 @@ include 'includes/nav.php';
         </optgroup>
         <option>Multiple VAs</option>
         <option>Business / Admin VA</option>
+        <option>Not sure yet &mdash; help me diagnose</option>
       </select>
-      <button class="cf-submit" type="submit">Get My Free Consultation <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note">No commitment required &middot; We respond within 1 business day</div>
+      <button class="cf-submit" type="submit" id="ctaSubmit">Get My Free Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note">No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>
 </section>

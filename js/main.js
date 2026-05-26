@@ -59,6 +59,49 @@
     if (!isMobileNav()) closeNav();
   });
 
+  /* CTA intent switching — secondary CTAs deep-link with data-cta-intent,
+     CTA form tabs swap heading/submit copy and a hidden intent input. */
+  var INTENTS = {
+    'strategy-call':    { h: 'Book Your Free Strategy Call',          s: '30-minute call. We map your workflows and hand you a placement plan — no commitment.', btn: 'Get My Free Strategy Call' },
+    'practice-audit':   { h: 'Book Your Free 20-min Practice Audit',  s: 'Diagnostic-only call. We tell you what to outsource first — and what to keep in-house.', btn: 'Book My Free Audit' },
+    'buyers-checklist': { h: 'Send Me the HIPAA VA Buyer’s Checklist', s: 'PDF. The 22 questions to ask any healthcare VA agency before you sign. Emailed within one business day.', btn: 'Email Me the Checklist' },
+    'savings-report':   { h: 'Send Me My Full Savings Report',        s: 'Role-specific ROI math for your practice. PDF emailed within one business day.', btn: 'Email Me the Report' }
+  };
+  var ctaTabs     = document.querySelectorAll('.cta-intent');
+  var ctaHeading  = document.getElementById('ctaHeading');
+  var ctaSub      = document.getElementById('ctaSub');
+  var ctaIntent   = document.getElementById('ctaIntent');
+  var ctaSubmit   = document.getElementById('ctaSubmit');
+
+  function setCtaIntent(key){
+    var cfg = INTENTS[key];
+    if (!cfg) return;
+    if (ctaIntent)  ctaIntent.value = key;
+    if (ctaHeading) ctaHeading.innerHTML = cfg.h;
+    if (ctaSub)     ctaSub.textContent = cfg.s;
+    if (ctaSubmit){
+      ctaSubmit.innerHTML = cfg.btn + ' <i class="fa-solid fa-arrow-right"></i>';
+    }
+    ctaTabs.forEach(function(t){
+      var on = t.getAttribute('data-intent') === key;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+  }
+
+  ctaTabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      setCtaIntent(t.getAttribute('data-intent'));
+    });
+  });
+
+  // Wire all secondary-CTA anchors across the page.
+  document.querySelectorAll('a[data-cta-intent]').forEach(function(a){
+    a.addEventListener('click', function(){
+      setCtaIntent(a.getAttribute('data-cta-intent'));
+    });
+  });
+
   /* Scroll to top button */
   var scrollTopBtn = document.getElementById('scrollTop');
   if (scrollTopBtn){

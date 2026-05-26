@@ -842,30 +842,6 @@ a.pill i{font-size:9px;color:var(--gold);}
 .faq-q i{color:var(--gold);font-size:13px;}
 .faq-a{font-size:14.5px;color:rgba(255,255,255,0.62);line-height:1.7;}
 
-/* ───── BUSINESS STRIP ───── */
-.biz-strip{
-  padding:60px 80px;
-  background:rgba(0,0,0,0.18);
-  border-top:1px solid rgba(255,255,255,0.06);
-  border-bottom:1px solid rgba(255,255,255,0.06);
-}
-.biz-strip-inner{display:flex;align-items:center;justify-content:space-between;gap:50px;}
-.biz-strip-l{max-width:500px;}
-.biz-strip-lbl{font-size:11px;font-weight:800;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:10px;}
-.biz-strip-title{font-size:26px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:8px;letter-spacing:-0.01em;}
-.biz-strip-sub{font-size:14px;color:rgba(255,255,255,0.55);line-height:1.6;}
-.biz-strip-r{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
-.biz-tag{
-  display:inline-flex;align-items:center;gap:9px;
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.12);
-  padding:11px 18px;border-radius:999px;
-  font-size:13px;font-weight:700;color:rgba(255,255,255,0.75);
-  transition:all .25s ease;
-  text-decoration:none;
-}
-.biz-tag:hover{background:rgba(255,255,255,0.09);border-color:rgba(223,169,73,0.4);color:#fff;}
-.biz-tag i{color:var(--gold);font-size:12px;}
 
 /* ───── CTA FORM ───── */
 .cta-inner{
@@ -1078,6 +1054,288 @@ select.cf-field option{color:#1a1535;background:#fff;}
 }
 .nav-mega-cta-btn i{color:var(--gold);font-size:11px;transition:transform .2s ease;}
 .nav-mega-cta-btn:hover i{transform:translateX(3px);}
+
+/* ───── HERO SOFT-LINK (tertiary text CTA) ───── */
+.btn-soft-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13.5px;font-weight:700;color:rgba(255,255,255,0.72);
+  text-decoration:none;letter-spacing:.1px;
+  padding:8px 4px;border-bottom:1px dashed rgba(255,255,255,0.28);
+  transition:color .2s ease, border-color .2s ease, transform .2s ease;
+  width:100%;margin-top:4px;
+}
+.btn-soft-link i{font-size:11px;color:var(--gold);transition:transform .2s ease;}
+.btn-soft-link:hover{color:#fff;border-color:var(--gold);}
+.btn-soft-link:hover i{transform:translateX(3px);}
+
+/* ───── CALCULATOR PRICE BAND ───── */
+.calc-rate-band{
+  margin-top:22px;
+  background:linear-gradient(135deg, rgba(20,15,55,0.55), rgba(57,25,186,0.18));
+  border:1px solid rgba(223,169,73,0.32);
+  border-radius:18px;
+  padding:22px 24px;
+}
+.calc-rate-h{
+  font-size:11.5px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.3px;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:16px;
+}
+.calc-rate-h i{color:var(--gold);}
+.calc-rate-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.calc-rate-tier{
+  padding:18px 18px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--glass-border);
+  border-radius:12px;
+}
+.calc-rate-tier.specialist{
+  background:rgba(223,169,73,0.10);
+  border-color:rgba(223,169,73,0.35);
+}
+.calc-rate-tier-name{
+  font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;
+  color:rgba(255,255,255,0.65);margin-bottom:6px;
+}
+.calc-rate-tier-amt{
+  font-size:30px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.calc-rate-tier-amt span{font-size:14px;font-weight:600;color:rgba(255,255,255,0.55);margin-left:4px;}
+.calc-rate-tier-sub{font-size:12px;color:rgba(255,255,255,0.65);margin-top:8px;font-weight:600;}
+.calc-rate-foot{
+  margin-top:14px;
+  font-size:12px;font-style:italic;color:rgba(255,255,255,0.55);
+  text-align:center;
+}
+
+/* ───── CALCULATOR DUAL CTA BUTTONS ───── */
+.calc-cta-btns{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.calc-cta-primary,
+.calc-cta-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 22px;border-radius:10px;
+  font-size:14px;font-weight:800;text-decoration:none;
+  white-space:nowrap;
+  transition:transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+.calc-cta-primary{
+  background:#fff;color:var(--violet-deep);
+  box-shadow:0 8px 22px rgba(0,0,0,0.25);
+}
+.calc-cta-primary i{color:var(--violet-deep);}
+.calc-cta-primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,0.35);}
+.calc-cta-secondary{
+  background:rgba(255,255,255,0.10);color:#fff;
+  border:1px solid var(--glass-border-strong);
+}
+.calc-cta-secondary i{color:var(--gold);}
+.calc-cta-secondary:hover{background:rgba(255,255,255,0.16);border-color:var(--gold);}
+
+/* ───── GUARANTEE SECTION ───── */
+.guarantee{padding:90px 80px;position:relative;overflow:hidden;}
+.guarantee::before{
+  content:"";position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(700px 500px at 12% 50%, rgba(223,169,73,0.16), transparent 65%),
+    radial-gradient(800px 600px at 90% 50%, rgba(57,25,186,0.20), transparent 70%);
+  pointer-events:none;
+}
+.g-wrap{
+  position:relative;z-index:1;
+  display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:center;
+  background:rgba(20,15,55,0.48);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid rgba(223,169,73,0.32);
+  border-radius:28px;
+  padding:50px 56px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.g-seal{display:flex;justify-content:center;}
+.g-seal-ring{
+  position:relative;
+  width:220px;height:220px;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(245,228,184,0.35), transparent 60%),
+    conic-gradient(from 0deg, var(--gold) 0deg, var(--gold-lt) 90deg, var(--gold) 180deg, var(--gold-lt) 270deg, var(--gold) 360deg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--dark);
+  box-shadow:0 30px 60px rgba(223,169,73,0.35), inset 0 0 0 3px rgba(255,255,255,0.35);
+  animation:spinSlow 80s linear infinite;
+}
+.g-seal-ring::before{
+  content:"";position:absolute;inset:14px;border-radius:50%;
+  background:linear-gradient(135deg, #f5e4b8 0%, #dfa949 60%, #b8882e 100%);
+  z-index:0;
+  animation:spinSlow 80s linear infinite reverse;
+}
+.g-seal-h,.g-seal-s{position:relative;z-index:1;text-align:center;}
+.g-seal-h{font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1;margin-bottom:6px;}
+.g-seal-s{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;line-height:1.25;}
+
+.g-copy .sec-h2{margin-bottom:14px;}
+.g-copy .sec-sub{margin-bottom:28px;}
+.g-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;}
+.g-card{
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  padding:22px 20px;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.g-card:hover{transform:translateY(-3px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.07);}
+.g-card .ico-circle{margin-bottom:14px;}
+.g-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;}
+.g-card p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.7);}
+.g-foot{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+
+/* ───── CASE STUDY CARDS ───── */
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;}
+.case-card{
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:18px;
+  padding:26px 26px 24px;
+  display:flex;flex-direction:column;gap:18px;
+  transition:transform .3s ease, border-color .3s ease, background .3s ease;
+}
+.case-card:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.09);}
+
+.case-metric{
+  background:linear-gradient(135deg, rgba(57,25,186,0.45), rgba(223,169,73,0.18));
+  border:1px solid rgba(223,169,73,0.32);
+  border-radius:14px;
+  padding:18px 18px 14px;
+}
+.case-metric-h{
+  font-size:11px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.3px;margin-bottom:12px;
+}
+.case-metric-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.case-metric-before,
+.case-metric-after{display:flex;flex-direction:column;gap:4px;flex:1;}
+.case-metric-before .lbl,
+.case-metric-after .lbl{
+  font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.6);
+  text-transform:uppercase;letter-spacing:1px;
+}
+.case-metric-before .val{font-size:26px;font-weight:800;color:rgba(255,255,255,0.55);line-height:1;letter-spacing:-0.02em;text-decoration:line-through;text-decoration-color:rgba(255,255,255,0.25);}
+.case-metric-after .val{font-size:30px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.02em;}
+.case-metric-arrow{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.20);
+  display:inline-flex;align-items:center;justify-content:center;
+  flex:0 0 30px;
+}
+.case-metric-arrow i{font-size:12px;color:var(--gold);}
+.case-metric-foot{
+  font-size:12.5px;color:rgba(255,255,255,0.78);font-weight:600;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:10px;line-height:1.4;
+}
+.case-metric-foot strong{color:#fff;font-weight:800;}
+
+.case-q{
+  font-size:15px;line-height:1.6;color:rgba(255,255,255,0.88);
+  font-style:italic;font-weight:500;
+  flex:1;
+}
+.case-auth{display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;}
+.case-photo{
+  width:54px;height:54px;border-radius:50%;overflow:hidden;flex:0 0 54px;
+  border:2px solid rgba(223,169,73,0.45);
+}
+.case-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+.case-name{font-size:14.5px;font-weight:700;color:#fff;letter-spacing:-0.01em;}
+.case-role{font-size:12px;color:rgba(255,255,255,0.62);margin-top:2px;display:flex;align-items:center;gap:5px;}
+.case-role i{color:var(--gold);font-size:10px;}
+.case-svc{font-size:11.5px;color:var(--gold-lt);margin-top:4px;display:flex;align-items:center;gap:5px;font-weight:700;}
+.case-svc i{font-size:10px;}
+
+/* ───── DIFFERENTIATOR CARDS (Why VT) ───── */
+.diff{padding:100px 80px;}
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;}
+.diff-card{
+  position:relative;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:34px 28px 28px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  overflow:hidden;
+}
+.diff-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 100% 0%, rgba(223,169,73,0.10), transparent 50%);
+  pointer-events:none;opacity:.7;
+}
+.diff-card:hover{transform:translateY(-5px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.09);}
+.diff-num{
+  position:absolute;top:18px;right:22px;
+  font-size:48px;font-weight:800;
+  color:rgba(255,255,255,0.06);
+  letter-spacing:-0.04em;line-height:1;
+}
+.diff-ico{position:relative;z-index:1;margin-bottom:6px;}
+.diff-title{
+  position:relative;z-index:1;
+  font-size:20px;font-weight:800;color:#fff;line-height:1.25;letter-spacing:-0.01em;
+}
+.diff-title em{color:var(--gold);font-style:normal;}
+.diff-desc{
+  position:relative;z-index:1;
+  font-size:14.5px;line-height:1.65;color:rgba(255,255,255,0.74);
+}
+.diff-desc strong{color:#fff;font-weight:700;}
+
+.diff-vs{
+  margin-top:auto;
+  border-top:1px solid rgba(255,255,255,0.08);
+  padding-top:16px;
+  display:flex;flex-direction:column;gap:8px;
+  position:relative;z-index:1;
+}
+.diff-vs-row{display:flex;align-items:center;justify-content:space-between;gap:14px;font-size:12.5px;}
+.diff-vs-them,.diff-vs-us{
+  font-weight:800;text-transform:uppercase;letter-spacing:1.1px;font-size:10.5px;
+  padding:4px 10px;border-radius:6px;
+}
+.diff-vs-them{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.55);}
+.diff-vs-us{background:rgba(223,169,73,0.18);color:var(--gold-lt);border:1px solid rgba(223,169,73,0.4);}
+.diff-vs-val{font-weight:600;text-align:right;line-height:1.3;}
+.diff-vs-val.them{color:rgba(255,255,255,0.55);}
+.diff-vs-val.us{color:#fff;}
+
+/* ───── CTA INTENT TABS ───── */
+.cta-intents{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  margin-bottom:30px;
+}
+.cta-intent{
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  padding:18px 18px 16px;
+  text-align:left;cursor:pointer;
+  color:#fff;font-family:inherit;
+  display:flex;flex-direction:column;gap:6px;
+  transition:background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.cta-intent:hover{background:rgba(255,255,255,0.08);border-color:rgba(223,169,73,0.35);transform:translateY(-2px);}
+.cta-intent.on{
+  background:linear-gradient(135deg, rgba(223,169,73,0.22), rgba(57,25,186,0.30));
+  border-color:rgba(223,169,73,0.55);
+  box-shadow:0 0 0 1px rgba(223,169,73,0.25);
+}
+.cta-intent i{color:var(--gold);font-size:18px;margin-bottom:4px;}
+.cta-intent strong{font-size:13.5px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
+.cta-intent span{font-size:12px;color:rgba(255,255,255,0.62);line-height:1.4;font-weight:500;}
+.cta-intent.on span{color:rgba(255,255,255,0.78);}
 
 /* ───── SERVICE PAGES (/services/<slug>/) ───── */
 .svc-hero{
@@ -1395,12 +1653,35 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .test-grid{grid-template-columns:repeat(2,1fr);}
   .prof-grid{grid-template-columns:repeat(2,1fr);}
 
-  .biz-strip{padding:48px 32px;}
-  .biz-strip-inner{flex-direction:column;align-items:flex-start;gap:24px;}
-  .biz-strip-l{max-width:none;}
-
   .cta-inner{padding:42px 32px;}
   .cta-h2{font-size:36px;}
+  .cta-intents{grid-template-columns:repeat(2,1fr);}
+
+  /* Calculator price band + dual buttons */
+  .calc-rate-band{margin-top:18px;padding:18px 18px;}
+  .calc-rate-row{grid-template-columns:1fr;gap:12px;}
+  .calc-rate-tier-amt{font-size:26px;}
+  .calc-cta{flex-direction:column;align-items:stretch;gap:14px;padding:18px 18px;}
+  .calc-cta-btns{flex-direction:row;flex-wrap:wrap;align-items:stretch;}
+  .calc-cta-primary,.calc-cta-secondary{flex:1;justify-content:center;}
+
+  /* Guarantee */
+  .guarantee{padding:70px 32px;}
+  .g-wrap{grid-template-columns:1fr;gap:30px;padding:40px 32px;}
+  .g-seal-ring{width:180px;height:180px;}
+  .g-seal-h{font-size:26px;}
+  .g-seal-s{font-size:11.5px;letter-spacing:1.2px;}
+  .g-cards{grid-template-columns:1fr;gap:12px;}
+
+  /* Case studies */
+  .case-grid{grid-template-columns:repeat(2,1fr);}
+  .case-grid > *:nth-child(3){grid-column:1 / -1;max-width:520px;margin:0 auto;}
+
+  /* Differentiators */
+  .diff{padding:80px 32px;}
+  .diff-grid{grid-template-columns:1fr;gap:18px;}
+  .diff-card{padding:30px 26px 26px;}
+  .diff-num{font-size:42px;}
 
   .footer{padding:60px 32px 28px;}
   .ft-grid{grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;}
@@ -1557,14 +1838,50 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .faq-item{padding:24px 22px;}
   .faq-q{font-size:16.5px;}
 
-  .biz-strip{padding:40px 18px;}
-  .biz-strip-title{font-size:22px;}
-  .biz-strip-r{gap:10px;}
-
   .cta-inner{padding:32px 22px;border-radius:20px;}
   .cta-h2{font-size:26px;}
   .cta-sub{font-size:15px;margin-bottom:28px;}
   .cf-row{grid-template-columns:1fr;}
+  .cta-intents{grid-template-columns:1fr;gap:8px;margin-bottom:24px;}
+  .cta-intent{padding:14px 16px;}
+
+  /* Hero soft-link */
+  .btn-soft-link{font-size:12.5px;text-align:center;justify-content:center;}
+
+  /* Calc price band on mobile */
+  .calc-rate-band{margin-top:14px;padding:16px;border-radius:14px;}
+  .calc-rate-tier{padding:14px;}
+  .calc-rate-tier-amt{font-size:24px;}
+  .calc-cta-btns{flex-direction:column;}
+  .calc-cta-primary,.calc-cta-secondary{width:100%;padding:13px 16px;font-size:13.5px;}
+
+  /* Guarantee */
+  .guarantee{padding:55px 18px;}
+  .g-wrap{padding:30px 22px;border-radius:22px;gap:24px;}
+  .g-seal-ring{width:150px;height:150px;}
+  .g-seal-h{font-size:22px;}
+  .g-seal-s{font-size:10.5px;letter-spacing:1px;}
+  .g-card{padding:18px 16px;}
+  .g-card h3{font-size:15px;}
+  .g-card p{font-size:13px;}
+  .g-foot{flex-direction:column;align-items:stretch;}
+  .g-foot a{width:100%;justify-content:center;}
+
+  /* Case studies on mobile */
+  .case-grid{grid-template-columns:1fr;margin-top:32px;gap:18px;}
+  .case-grid > *:nth-child(3){grid-column:auto;max-width:none;margin:0;}
+  .case-card{padding:22px 20px;}
+  .case-metric-before .val{font-size:22px;}
+  .case-metric-after .val{font-size:26px;}
+  .case-q{font-size:14px;}
+
+  /* Differentiators on mobile */
+  .diff{padding:60px 18px;}
+  .diff-card{padding:26px 22px;}
+  .diff-title{font-size:18px;}
+  .diff-desc{font-size:14px;}
+  .diff-num{font-size:36px;top:14px;right:18px;}
+  .diff-vs-val{font-size:12px;}
 
   .footer{padding:50px 18px 24px;}
   .ft-grid{grid-template-columns:1fr;gap:32px;margin-bottom:40px;}

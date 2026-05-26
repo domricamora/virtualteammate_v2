@@ -37,6 +37,7 @@ TOP_DIRS=(
   "images"
   "includes"
   "services"
+  "business"
 )
 
 upload(){
