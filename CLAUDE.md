@@ -55,7 +55,7 @@ Sections are separated by `.divider`. When adding a new section, follow this sca
 
 ### Page order (top → bottom)
 
-`topbar → nav → hero (+ stats) → press strip → specialties (healthcare + dental + HIPAA strip + business services) → ROI → process → testimonials → how we work → profiles → FAQ → CTA form → footer`
+`topbar → nav → hero (+ stats) → client marquee → global network (world map) → news/press marquee → specialties (healthcare + dental + HIPAA strip + business services) → ROI calculator → process → testimonials → how we work → VA profiles → FAQ → CTA form → footer`
 
 Use this map to locate the right block — search for the section comment (e.g. `<!-- PROCESS -->`) rather than scrolling.
 

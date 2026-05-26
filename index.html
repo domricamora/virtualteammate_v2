@@ -319,16 +319,14 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hv-main{
   width:480px;height:560px;top:0;right:60px;
-  transform:rotate(-2deg);
 }
-.hv-main:hover{transform:rotate(-2deg) translateY(-6px);}
+.hv-main:hover{transform:translateY(-6px);}
 .hv-main img{width:100%;height:100%;object-fit:cover;}
 .hv-side{
-  width:240px;height:300px;
+  width:260px;height:320px;
   bottom:0;left:0;
-  transform:rotate(4deg);
 }
-.hv-side:hover{transform:rotate(4deg) translateY(-6px);}
+.hv-side:hover{transform:translateY(-6px);}
 .hv-side img{width:100%;height:100%;object-fit:cover;}
 
 .hv-chip{
@@ -417,11 +415,11 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .news-item img{
   height:100%;width:auto;max-width:220px;object-fit:contain;
-  filter:grayscale(100%) brightness(0) invert(1) opacity(.55);
-  transition:filter .35s ease, transform .35s ease;
+  opacity:.55;
+  transition:opacity .35s ease, transform .35s ease;
 }
 .news-item:hover img{
-  filter:grayscale(100%) brightness(0) invert(1) opacity(1);
+  opacity:1;
   transform:scale(1.06);
 }
 @keyframes marqueeRight{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
@@ -710,42 +708,72 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 
 /* ───── SPECIALTIES ───── */
-.spec-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px;}
+.spec-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:56px;}
 .spec-card{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
   background:var(--glass-bg2);
   backdrop-filter:var(--glass-blur);
   border:1px solid var(--glass-border);
-  border-radius:22px;overflow:hidden;
-  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  border-radius:28px;overflow:hidden;
+  transition:transform .4s ease, box-shadow .4s ease, border-color .4s ease;
+  min-height:480px;
 }
-.spec-card:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,0.35);border-color:rgba(223,169,73,0.45);}
-.spec-photo{position:relative;height:200px;overflow:hidden;}
-.spec-photo img{width:100%;height:100%;object-fit:cover;transition:transform .9s ease;}
-.spec-card:hover .spec-photo img{transform:scale(1.06);}
+.spec-card:hover{transform:translateY(-6px);box-shadow:0 40px 80px rgba(0,0,0,0.42);border-color:rgba(223,169,73,0.45);}
+.spec-photo{position:relative;height:100%;min-height:480px;overflow:hidden;}
+.spec-photo img{width:100%;height:100%;object-fit:cover;object-position:center top;transition:transform 1.1s ease;}
+.spec-card:hover .spec-photo img{transform:scale(1.04);}
 .spec-photo::after{
   content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg, rgba(26,21,53,0) 30%, rgba(26,21,53,0.85) 100%);
+  background:linear-gradient(90deg, rgba(26,21,53,0) 65%, rgba(26,21,53,0.55) 100%);
 }
-.spec-head{padding:28px 36px 24px;}
-.spec-head.med{border-bottom:1px solid rgba(223,169,73,0.3);}
-.spec-head.dent{border-bottom:1px solid rgba(133,130,195,0.3);}
-.spec-title-row{display:flex;align-items:center;gap:16px;margin-bottom:12px;}
-.spec-title{font-size:26px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
+.spec-card.alt .spec-photo{grid-column:2;grid-row:1;}
+.spec-card.alt .spec-content{grid-column:1;grid-row:1;}
+.spec-card.alt .spec-photo::after{
+  background:linear-gradient(270deg, rgba(26,21,53,0) 65%, rgba(26,21,53,0.55) 100%);
+}
+.spec-content{
+  padding:56px 60px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.spec-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:1.4px;
+  margin-bottom:18px;
+}
+.spec-eyebrow .dot{width:7px;height:7px;border-radius:50%;}
+.spec-eyebrow.med{color:var(--gold-lt);}
+.spec-eyebrow.med .dot{background:var(--gold);box-shadow:0 0 12px rgba(223,169,73,0.6);}
+.spec-eyebrow.dent{color:rgba(220,218,255,0.9);}
+.spec-eyebrow.dent .dot{background:var(--violet);box-shadow:0 0 12px rgba(133,130,195,0.6);}
+.spec-title-row{display:flex;align-items:center;gap:18px;margin-bottom:18px;}
+.spec-title{font-size:36px;font-weight:800;color:#fff;line-height:1.12;letter-spacing:-0.02em;}
 .spec-tag{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.6px;padding:4px 14px;border-radius:20px;}
 .spec-tag.med{background:rgba(223,169,73,0.2);border:1px solid rgba(223,169,73,0.45);color:var(--gold-lt);}
 .spec-tag.dent{background:rgba(133,130,195,0.2);border:1px solid rgba(133,130,195,0.45);color:rgba(220,218,255,0.9);}
-.spec-body{padding:24px 36px 34px;}
-.spec-desc{font-size:15.5px;color:rgba(255,255,255,0.68);line-height:1.7;margin-bottom:22px;}
-.spec-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px;}
+.spec-desc{font-size:16.5px;color:rgba(255,255,255,0.72);line-height:1.7;margin-bottom:28px;max-width:560px;}
+.spec-pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px;}
 .pill{
   font-size:12.5px;font-weight:600;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18);
-  color:rgba(255,255,255,0.78);
-  padding:6px 14px;border-radius:20px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.16);
+  color:rgba(255,255,255,0.82);
+  padding:7px 14px;border-radius:20px;
+  transition:background .25s ease, border-color .25s ease;
 }
-.spec-link{display:inline-flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;color:var(--gold);text-decoration:none;transition:gap .25s ease;}
-.spec-link:hover{gap:14px;}
+.pill:hover{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.3);}
+.spec-link{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:14.5px;font-weight:800;color:var(--gold);text-decoration:none;
+  padding:14px 22px;border-radius:10px;
+  background:rgba(223,169,73,0.12);
+  border:1px solid rgba(223,169,73,0.35);
+  align-self:flex-start;
+  transition:gap .25s ease, background .25s ease, border-color .25s ease, transform .25s ease;
+}
+.spec-link:hover{gap:14px;background:rgba(223,169,73,0.22);border-color:rgba(223,169,73,0.55);transform:translateY(-2px);}
+.spec-link.dent{color:rgba(220,218,255,0.95);background:rgba(133,130,195,0.14);border-color:rgba(133,130,195,0.4);}
+.spec-link.dent:hover{background:rgba(133,130,195,0.24);border-color:rgba(133,130,195,0.6);}
 
 .hipaa{
   background:rgba(255,255,255,0.06);
@@ -1019,6 +1047,12 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .global-grid{grid-template-columns:1fr;gap:40px;}
   .global-l{max-width:none;}
 
+  .spec-card{min-height:400px;}
+  .spec-photo{min-height:400px;}
+  .spec-content{padding:36px 36px;}
+  .spec-title{font-size:28px;}
+  .spec-desc{font-size:15px;}
+
   .roi-grid{gap:18px;}
   .roi-num{font-size:58px;}
   .proc-steps{gap:18px;}
@@ -1105,10 +1139,17 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .global-stats{grid-template-columns:1fr;}
   .gstat-num{font-size:30px;}
 
-  .spec-grid{grid-template-columns:1fr;gap:18px;margin-top:36px;}
-  .spec-head{padding:22px 22px 18px;}
-  .spec-body{padding:18px 22px 26px;}
-  .spec-title{font-size:22px;}
+  .spec-grid{gap:20px;margin-top:36px;}
+  .spec-card{grid-template-columns:1fr;min-height:0;border-radius:22px;}
+  .spec-card.alt .spec-photo,
+  .spec-card .spec-photo{grid-column:1;grid-row:1;min-height:240px;height:240px;}
+  .spec-card.alt .spec-content,
+  .spec-card .spec-content{grid-column:1;grid-row:2;padding:30px 24px 32px;}
+  .spec-photo::after,
+  .spec-card.alt .spec-photo::after{background:linear-gradient(180deg, rgba(26,21,53,0) 50%, rgba(26,21,53,0.7) 100%);}
+  .spec-title{font-size:24px;}
+  .spec-desc{font-size:15px;}
+  .spec-link{padding:12px 18px;font-size:13.5px;}
   .hipaa{flex-direction:column;align-items:flex-start;padding:22px;}
   .hbadges{gap:18px;}
   .btn-gold{width:100%;justify-content:center;}
@@ -1210,10 +1251,10 @@ select.cf-field option{color:#1a1535;background:#fff;}
     <div class="hv-chip t2"><i class="fa-solid fa-earth-americas"></i> 12+ Countries</div>
     <div class="hv-chip t3"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
     <div class="hv-card hv-main">
-      <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80" alt="Healthcare professional using digital records system"/>
+      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=85" alt="American doctor in white coat with stethoscope"/>
     </div>
     <div class="hv-card hv-side">
-      <img src="https://images.unsplash.com/photo-1581595220892-b0739db3ba8c?auto=format&fit=crop&w=600&q=80" alt="Dental clinic team at work"/>
+      <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=85" alt="Dentist examining patient in dental clinic"/>
     </div>
   </div>
 </header>
@@ -1359,14 +1400,6 @@ select.cf-field option{color:#1a1535;background:#fff;}
   <div class="marquee-lbl"><i class="fa-solid fa-handshake-angle"></i> Trusted By Practices &amp; Businesses Across The U.S.</div>
   <div class="marquee-track-wrap">
     <div class="marquee-track" id="mqTrack"></div>
-  </div>
-</div>
-
-<!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
-<div class="news" aria-label="Virtual Teammate in the news and press releases">
-  <div class="news-lbl"><i class="fa-solid fa-newspaper"></i> In The News &amp; Press Releases</div>
-  <div class="news-track-wrap">
-    <div class="news-track" id="newsTrack"></div>
   </div>
 </div>
 
@@ -1518,6 +1551,14 @@ select.cf-field option{color:#1a1535;background:#fff;}
   </div>
 </section>
 
+<!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
+<div class="news" aria-label="Virtual Teammate in the news and press releases">
+  <div class="news-lbl"><i class="fa-solid fa-newspaper"></i> In The News &amp; Press Releases</div>
+  <div class="news-track-wrap">
+    <div class="news-track" id="newsTrack"></div>
+  </div>
+</div>
+
 <div class="divider"></div>
 
 <!-- SPECIALTIES -->
@@ -1531,17 +1572,15 @@ select.cf-field option{color:#1a1535;background:#fff;}
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=900&q=80" alt="Medical professional reviewing patient records"/>
+        <img src="photos/medical-assistant.jpg" alt="Medical assistant in scrubs at work"/>
       </div>
-      <div class="spec-head med">
+      <div class="spec-content">
+        <div class="spec-eyebrow med"><span class="dot"></span> Most Popular &middot; HIPAA Certified</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
           <h3 class="spec-title">Medical Virtual Assistants</h3>
         </div>
-        <span class="spec-tag med">Most Popular</span>
-      </div>
-      <div class="spec-body">
-        <p class="spec-desc">HIPAA-certified medical VAs trained in clinical workflows, EHR systems, and patient communication protocols. From billing and scribing to prior auth &mdash; plug into your practice in days, not weeks.</p>
+        <p class="spec-desc">HIPAA-certified medical VAs trained in clinical workflows, EHR systems, and patient communication. From billing and scribing to prior auth &mdash; plug into your practice in days, not weeks.</p>
         <div class="spec-pills">
           <span class="pill">Medical Billing</span>
           <span class="pill">Medical Scribing</span>
@@ -1549,25 +1588,21 @@ select.cf-field option{color:#1a1535;background:#fff;}
           <span class="pill">Prior Authorization</span>
           <span class="pill">Insurance Verification</span>
           <span class="pill">EHR Data Entry</span>
-          <span class="pill">Referral Coordination</span>
-          <span class="pill">Telemedicine Support</span>
         </div>
         <a href="#calculator" class="spec-link">Calculate Medical VA Savings <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </article>
 
-    <article class="spec-card reveal d2">
+    <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=900&q=80" alt="Dental clinic interior with modern equipment"/>
+        <img src="photos/dental-assistant.jpg" alt="Dental assistant working with patient in dental clinic"/>
       </div>
-      <div class="spec-head dent">
+      <div class="spec-content">
+        <div class="spec-eyebrow dent"><span class="dot"></span> Dental Specialists &middot; PMS Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
           <h3 class="spec-title">Dental Virtual Assistants</h3>
         </div>
-        <span class="spec-tag dent">Dental Specialists</span>
-      </div>
-      <div class="spec-body">
         <p class="spec-desc">Dental-specific VAs fluent in Dentrix, Eaglesoft, Open Dental and Carestream. Patient recall, insurance billing, treatment coordination &mdash; your remote front desk, fully covered.</p>
         <div class="spec-pills">
           <span class="pill">Dental Billing</span>
@@ -1575,11 +1610,9 @@ select.cf-field option{color:#1a1535;background:#fff;}
           <span class="pill">Insurance Claims</span>
           <span class="pill">Appointment Scheduling</span>
           <span class="pill">Treatment Coordination</span>
-          <span class="pill">Records Management</span>
           <span class="pill">EOB Posting</span>
-          <span class="pill">Insurance Coordinator</span>
         </div>
-        <a href="#calculator" class="spec-link">Calculate Dental VA Savings <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#calculator" class="spec-link dent">Calculate Dental VA Savings <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </article>
   </div>
@@ -1991,7 +2024,7 @@ select.cf-field option{color:#1a1535;background:#fff;}
     { name:'Yahoo Finance',      src:'press/yahoo-finance.png',      href:'https://finance.yahoo.com/news/virtual-teammate-celebrates-game-changing-150000931.html' },
     { name:'Star Tribune',       src:'press/star-tribune.png',       href:'https://markets.financialcontent.com/startribune/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
     { name:'Miami Herald',       src:'press/miami-herald.png',       href:'https://www.miamiherald.com/press-releases/article311504009.html' },
-    { name:'Courier Post',       src:'press/courier-post.webp',      href:'https://hannibal.marketminute.com/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'Courier Post',       src:'press/courier-post.png',       href:'https://hannibal.marketminute.com/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
     { name:'WRAL',               src:'press/wral.png',               href:'https://markets.financialcontent.com/wral/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
     { name:'Kansas City Star',   src:'press/kansas-city-star.png',   href:'https://www.kansascity.com/press-releases/article311504009.html' },
     { name:'Charlotte Observer', src:'press/charlotte-observer.png', href:'https://www.charlotteobserver.com/press-releases/article311504009.html' },
