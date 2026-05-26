@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Deploy the Virtual Teammate landing page to the staging FTP server.
-# Reads credentials from .ftp.local (gitignored). Uploads only production
-# assets, skipping git/dev/markdown files.
+# Deploy the Virtual Teammate site to the staging FTP server.
+# Reads credentials from .ftp.local (gitignored). Uploads production
+# assets only — skips git/dev files (.git, *.md, .gitignore, deploy.sh).
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -21,18 +21,21 @@ fi
 USER_PASS="${FTP_USER}:${FTP_PASS}"
 REMOTE_BASE="ftp://${FTP_HOST}/"
 
-# Production files at the repo root.
+# Top-level production files at the repo root.
 TOP_FILES=(
-  "index.html"
-  "logo.webp"
-  "logo-sm.webp"
+  "index.php"
+  ".htaccess"
+  "robots.txt"
+  "sitemap.xml"
+  "favicon.ico"
 )
 
-# Production directories to mirror.
+# Production directories to mirror recursively.
 TOP_DIRS=(
-  "clients"
-  "press"
-  "photos"
+  "css"
+  "js"
+  "images"
+  "includes"
 )
 
 upload(){

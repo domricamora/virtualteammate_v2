@@ -4,65 +4,125 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A single static HTML marketing page for **Virtual Teammate** — a staffing agency for medical, dental, and business virtual assistants. The entire site is one self-contained file: [index.html](index.html). No build step, no package manager, no JavaScript, no external CSS.
+A PHP marketing site for **Virtual Teammate** — a staffing agency for medical, dental, and business virtual assistants. Currently one page ([index.php](index.php)) but structured for multi-page expansion via shared `includes/` partials, a single stylesheet, and a single JS file.
 
 ## Serving / previewing
 
-This project lives inside a WAMP webroot (`c:\wamp64\www\vtnew`), so it is served by the local Apache instance at:
+Lives inside a WAMP webroot (`c:\wamp64\www\vtnew`), served by Apache at:
 
 ```
 http://localhost/vtnew/
 ```
 
-To preview a change, save [index.html](index.html) and refresh that URL. There is no dev server, hot reload, lint, or test command — the only "build" is the browser parsing the file.
+To preview a change, save the file and refresh. No build step. PHP renders the includes server-side.
 
-External dependencies are pulled from CDNs at runtime:
-- Google Fonts: Manrope (all weights — body + display)
-- Font Awesome 6.5.2 (icons, monochromatic — see `i.fa { color: var(--gold); }`)
-- Unsplash images for hero collage, specialty cards, and VA profile photos
+PHP lint a single file:
+
+```
+"c:/wamp64/bin/php/php8.2.26/php.exe" -l includes/head.php
+```
+
+Full render to stdout (for end-to-end smoke tests):
+
+```
+"c:/wamp64/bin/php/php8.2.26/php.exe" index.php > /tmp/out.html
+```
+
+External runtime dependencies (CDN):
+- Google Fonts: Manrope (all weights)
+- Font Awesome 6.5.2
+- Unsplash images for hero collage, testimonials, and VA profile photos (specialty cards now use local `images/photos/`)
+
+## Project layout
+
+```
+.
+├── index.php                # homepage — sets SEO vars, includes head/nav/footer
+├── includes/                # shared PHP partials (denied direct access via .htaccess)
+│   ├── head.php             # meta, schema (Org/Service/FAQ/WebSite/Breadcrumb), CSS link
+│   ├── nav.php              # topbar + main nav (anchors resolve to homepage)
+│   └── footer.php           # footer, scroll-to-top button, main.js load
+├── css/style.css            # all styles, including responsive @media blocks
+├── js/main.js               # all behavior (reveal, ROI calc, marquees, scroll-top)
+├── images/
+│   ├── logo.webp, logo-sm.webp
+│   ├── clients/             # client logo PNGs (loaded by client marquee JS)
+│   ├── press/               # press logo PNGs (loaded by news marquee JS)
+│   └── photos/              # specialty card photos (medical-assistant, dental-assistant)
+├── .htaccess                # DirectoryIndex, gzip, cache headers, security headers, redirects
+├── robots.txt               # allows all; disallows /includes/; points to sitemap
+├── sitemap.xml              # currently only the homepage
+├── deploy.sh                # FTP deploy script (sources .ftp.local for creds)
+└── .ftp.local               # gitignored FTP credentials (never commit)
+```
 
 ## Architecture you need to know before editing
 
-### Responsive layout (fluid up to 1980px, with tablet + mobile breakpoints)
+### Page composition pattern
 
-`body` uses `max-width:1980px; width:100%; margin:0 auto` so the canvas is fluid up to its 1980px ceiling — it doesn't render at a hard-coded 1980px on smaller screens. The viewport meta is `width=device-width, initial-scale=1`.
+A page sets SEO variables, includes head + nav, writes its content inside `<main>`, then includes footer:
 
-Two breakpoints live at the bottom of the `<style>` block:
-- `@media (max-width:1280px)` — tablet / small-laptop: collapses the hero into a single column, stacks the ROI calculator panels, drops side padding from 80px → 32px, and reduces heading sizes.
-- `@media (max-width:768px)` — mobile: hides the nav links and phone, single-column grids everywhere, mobile hero photo collage stacks vertically, floating hero chips and orbs scale down.
-
-When adding new styles, mirror this pattern: write the desktop rule first, then add a `@media (max-width:1280px)` and/or `@media (max-width:768px)` override in the matching responsive block. Don't introduce a third breakpoint without a reason.
-
-### Design tokens in `:root`
-
-Colors and glass-morphism effects are centralized as CSS custom properties at the top of the `<style>` block (`--gold`, `--violet`, `--violet-dk`, `--glass-bg`, `--glass-blur`, etc.). When introducing a new element, reuse these tokens rather than hardcoding hex values or `rgba()`/`blur()` literals — the whole page leans on a consistent "glass over violet→gold gradient" aesthetic and ad-hoc colors will visually drift.
-
-### Section pattern
-
-Each content block follows the same skeleton:
-
-```html
-<div class="sec">
-  <div class="sec-lbl">EYEBROW</div>
-  <div class="sec-h2">Heading</div>
-  <div class="sec-sub">Subhead paragraph.</div>
-  <!-- section-specific grid -->
-</div>
-<div class="divider"></div>
+```php
+<?php
+$page_title       = '...';
+$page_description = '...';
+$canonical        = 'https://virtualteammate.com/about/';
+$is_homepage      = false;
+$breadcrumbs      = [
+  ['name' => 'Home',  'url' => '/'],
+  ['name' => 'About', 'url' => '/about/'],
+];
+include 'includes/head.php';
+include 'includes/nav.php';
+?>
+<main>
+  <!-- page sections -->
+</main>
+<?php include 'includes/footer.php'; ?>
 ```
 
-Sections are separated by `.divider`. When adding a new section, follow this scaffold so spacing/typography stay consistent.
+Available `head.php` parameters:
+- `$page_title`, `$page_description` — primary SEO
+- `$canonical`, `$og_title`, `$og_description` — social/canonical overrides
+- `$is_homepage` — emits Org + Service + FAQ + WebSite JSON-LD only on homepage
+- `$breadcrumbs` — emits BreadcrumbList JSON-LD on inner pages
+- `$robots` — override default index directive (e.g. `'noindex,nofollow'`)
+- `$body_class` — extra classes on `<body>`
 
-### Page order (top → bottom)
+### Responsive layout (fluid up to 1980px)
 
-`topbar → nav → hero (+ stats) → client marquee → global network (world map) → news/press marquee → specialties (healthcare + dental + HIPAA strip + business services) → ROI calculator → process → testimonials → how we work → VA profiles → FAQ → CTA form → footer`
+`body` uses `max-width:1980px; width:100%`. Two breakpoints in [css/style.css](css/style.css):
+- `@media (max-width:1280px)` — tablet/small-laptop overrides
+- `@media (max-width:768px)`  — mobile overrides
 
-Use this map to locate the right block — search for the section comment (e.g. `<!-- PROCESS -->`) rather than scrolling.
+Always write the desktop rule first, then add the breakpoint override.
 
-### Naming conventions in the CSS
+### Design tokens
 
-Class prefixes scope rules to a section: `hero-*`, `spec-*` (specialties), `biz-*` (business services), `roi-*`, `pstep-*`/`proc-*` (process), `test-*` (testimonials), `hw-*` (how we work), `prof-*` (profiles), `faq-*`, `cf-*` (CTA form), `ft-*` (footer). Stay inside the existing prefix when editing a section so styles don't leak.
+Colors and glass-morphism are CSS custom properties at the top of [css/style.css](css/style.css) (`--gold`, `--violet-dk`, `--glass-bg`, `--glass-blur`, etc.). Reuse them when introducing new elements instead of hard-coding rgba/hex.
 
-### Sibling projects in `c:\wamp64\www\`
+### Naming conventions
 
-`vt`, `vtsite`, `vt_saas`, `vtadmin`, `staging_virtualteammate` are separate apps under the same webroot. They are **not** part of this project — don't read or edit them when working on `vtnew` unless the user asks.
+Class prefixes scope rules to a section: `hero-*`, `spec-*` (specialties), `biz-*` (business), `roi-*`, `pstep-*`/`proc-*` (process), `test-*` (testimonials), `hw-*` (how we work), `prof-*` (profiles), `faq-*`, `cf-*` (CTA form), `ft-*` (footer), `calc-*` (ROI calculator), `mq-*` (client marquee), `news-*` (press marquee), `world-*`/`global-*` (world map), `hv-*` (hero visual collage), `scroll-top`.
+
+### Page order on the homepage (top → bottom)
+
+`topbar → nav → hero (+ stats) → ROI calculator → client marquee → global network (world map) → news/press marquee → specialties (split-layout, medical + dental) → ROI stats → process → testimonials → how we work → VA profiles → FAQ → business strip → CTA form → footer → scroll-top button`
+
+### Marquee data lives in JS
+
+Client and press logos are populated dynamically by [js/main.js](js/main.js) — see the `clients` and `press` arrays. Image paths are `images/clients/<slug>.png` and `images/press/<slug>.png`. To add or remove logos, edit those arrays.
+
+## Deployment
+
+`deploy.sh` uploads via plain FTP using credentials in `.ftp.local`. Runs automatically on `git push` via [.git/hooks/pre-push](.git/hooks/pre-push) (non-blocking — push proceeds even if FTP fails).
+
+Uploads: `index.php`, `.htaccess`, `robots.txt`, `sitemap.xml`, `favicon.ico` (if present) + `css/`, `js/`, `images/`, `includes/`.
+
+Skips: `.git/`, `.ftp.local`, `*.md`, `.gitignore`, `deploy.sh` itself.
+
+To deploy manually without pushing: `./deploy.sh`. To push without deploying (rarely needed): `git push --no-verify`.
+
+## Sibling projects in `c:\wamp64\www\`
+
+`vt`, `vtsite`, `vt_saas`, `vtadmin`, `staging`, `staging_virtualteammate` are separate apps under the same webroot. They are **not** part of this project — don't read or edit them when working on `vtnew` unless the user asks.
