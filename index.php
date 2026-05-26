@@ -45,10 +45,10 @@ include 'includes/nav.php';
     <div class="hv-chip t2"><i class="fa-solid fa-earth-americas"></i> 12+ Countries</div>
     <div class="hv-chip t3"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
     <div class="hv-card hv-main">
-      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=85" alt="American doctor in white coat with stethoscope"/>
+      <img src="images/photos/hero-medical-va.jpg" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
     </div>
     <div class="hv-card hv-side">
-      <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=600&q=85" alt="Dentist examining patient in dental clinic"/>
+      <img src="images/photos/hero-dental-va.jpg" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
     </div>
   </div>
 </header>
