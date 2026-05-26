@@ -36,6 +36,7 @@ TOP_DIRS=(
   "js"
   "images"
   "includes"
+  "services"
 )
 
 upload(){

@@ -22,6 +22,10 @@ $og_description   = $og_description   ?? $page_description;
 $is_homepage      = $is_homepage      ?? false;
 $robots           = $robots           ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
 $breadcrumbs      = $breadcrumbs      ?? null;
+// Relative URL prefix back to site root. Homepage uses './'; subpages override
+// (e.g. /services/<slug>/index.php sets '../../') so asset and link refs resolve
+// correctly under both dev (localhost/vtnew/) and prod (virtualteammate.com/).
+$home_base        = $home_base        ?? './';
 $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); };
 ?><!DOCTYPE html>
 <html lang="en">
@@ -50,14 +54,14 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <meta name="twitter:description" content="<?= $h($og_description) ?>"/>
 <meta name="twitter:image" content="<?= $site_url ?>/images/logo.webp"/>
 
-<link rel="icon" href="favicon.ico"/>
-<link rel="preload" as="image" href="images/logo.webp" fetchpriority="high"/>
+<link rel="icon" href="<?= $home_base ?>favicon.ico"/>
+<link rel="preload" as="image" href="<?= $home_base ?>images/logo.webp" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preconnect" href="https://images.unsplash.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<link rel="stylesheet" href="css/style.css"/>
+<link rel="stylesheet" href="<?= $home_base ?>css/style.css"/>
 
 <?php if ($is_homepage): ?>
 <script type="application/ld+json">

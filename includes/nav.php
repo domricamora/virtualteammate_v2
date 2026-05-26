@@ -1,9 +1,12 @@
 <?php
 /**
- * Topbar + main navigation.
- * Anchors point to homepage sections so they resolve correctly from any subpage.
+ * Topbar + main navigation with cascading Healthcare dropdown.
+ *
+ * Anchor links use $home_base (set per-page; defaults to './') so they resolve
+ * correctly from any page depth — homepage uses './', /services/<slug>/ uses '../../'.
+ * Service pages live at $home_base . 'services/<slug>/' and are linked the same way.
  */
-$home_base = './'; // root-relative; works from /, /about/, /services/, etc.
+$home_base = $home_base ?? './';
 ?>
 <!-- TOPBAR -->
 <div class="topbar" role="complementary">
@@ -17,8 +20,55 @@ $home_base = './'; // root-relative; works from /, /about/, /services/, etc.
   <a href="<?= $home_base ?>" class="logo" aria-label="Virtual Teammate home">
     <img src="https://staging.virtualteammate.com/wp-content/uploads/2025/10/BLACK-AND-VIOLET-LOGO-1.png" alt="Virtual Teammate" width="180" height="53"/>
   </a>
-  <div class="nav-links">
-    <a href="<?= $home_base ?>#specialties">Healthcare <span class="nav-badge">Medical &middot; Dental</span></a>
+  <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="primaryNav" aria-expanded="false" type="button">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <div class="nav-links" id="primaryNav">
+    <div class="nav-drop">
+      <a href="<?= $home_base ?>#specialties" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Healthcare
+        <span class="nav-badge">Medical &middot; Dental</span>
+        <i class="fa-solid fa-chevron-down nav-caret" aria-hidden="true"></i>
+      </a>
+      <div class="nav-mega" role="menu" aria-label="Healthcare services">
+        <div class="nav-mega-col">
+          <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-user-doctor"></i></span> Medical</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-administrative-support/" role="menuitem">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span><strong>Medical Administrative Support</strong><em>Charts, intake, records &amp; admin workflows</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-receptionist/" role="menuitem">
+            <i class="fa-solid fa-headset"></i>
+            <span><strong>Medical Receptionist</strong><em>Front-desk calls, scheduling &amp; intake</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-biller/" role="menuitem">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <span><strong>Medical Biller</strong><em>Claims, AR follow-up &amp; RCM</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-scribe/" role="menuitem">
+            <i class="fa-solid fa-pen-clip"></i>
+            <span><strong>Medical Scribe</strong><em>Real-time EHR documentation</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-assistant/" role="menuitem">
+            <i class="fa-solid fa-user-nurse"></i>
+            <span><strong>Medical Assistant</strong><em>Clinical &amp; administrative support</em></span>
+          </a>
+        </div>
+        <div class="nav-mega-col">
+          <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-tooth"></i></span> Dental</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-biller/" role="menuitem">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <span><strong>Dental Biller</strong><em>Insurance billing &amp; EOB posting</em></span>
+          </a>
+          <div class="nav-mega-cta">
+            <div class="nav-mega-cta-h">Need a dental front-desk, recall or treatment coordinator?</div>
+            <a href="<?= $home_base ?>#cta" class="nav-mega-cta-btn">Talk to us <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
     <a href="<?= $home_base ?>#calculator">ROI Calculator</a>
     <a href="<?= $home_base ?>#global">Global Network</a>
     <a href="<?= $home_base ?>#profiles">VA Profiles</a>

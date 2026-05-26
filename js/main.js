@@ -1,6 +1,64 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* Nav hamburger + dropdown accordion (tablet & mobile) */
+  var navToggle = document.getElementById('navToggle');
+  var navLinks  = document.getElementById('primaryNav');
+  var navDrops  = document.querySelectorAll('.nav-drop');
+  var navEl     = document.querySelector('.nav');
+
+  function isMobileNav(){ return matchMedia('(max-width:1280px)').matches; }
+
+  function closeNav(){
+    if (!navToggle || !navLinks) return;
+    navToggle.classList.remove('on');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navLinks.classList.remove('open');
+    navDrops.forEach(function(d){ d.classList.remove('open'); });
+  }
+
+  if (navToggle && navLinks){
+    navToggle.addEventListener('click', function(){
+      var open = !navLinks.classList.contains('open');
+      navLinks.classList.toggle('open', open);
+      navToggle.classList.toggle('on', open);
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  navDrops.forEach(function(d){
+    var trigger = d.querySelector('.nav-drop-trigger');
+    if (!trigger) return;
+    trigger.addEventListener('click', function(e){
+      if (!isMobileNav()) return; // desktop: pure CSS hover dropdown
+      e.preventDefault();
+      d.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', d.classList.contains('open') ? 'true' : 'false');
+    });
+  });
+
+  // Close drawer when any link inside is followed (mobile UX).
+  if (navLinks){
+    navLinks.addEventListener('click', function(e){
+      var a = e.target.closest('a');
+      if (!a || !isMobileNav()) return;
+      if (a.classList.contains('nav-drop-trigger')) return; // accordion toggle, not nav
+      closeNav();
+    });
+  }
+
+  // Close drawer when clicking outside the nav on mobile.
+  document.addEventListener('click', function(e){
+    if (!isMobileNav()) return;
+    if (!navLinks || !navLinks.classList.contains('open')) return;
+    if (navEl && !navEl.contains(e.target)) closeNav();
+  });
+
+  // Reset state if viewport crosses the breakpoint.
+  window.addEventListener('resize', function(){
+    if (!isMobileNav()) closeNav();
+  });
+
   /* Scroll to top button */
   var scrollTopBtn = document.getElementById('scrollTop');
   if (scrollTopBtn){
@@ -180,6 +238,7 @@
   }
 
   function recalc(){
+    if (!$annual) return; // calculator not present on this page
     var t = BIWEEK[state.tier] || BIWEEK.pro;
     var vtBi = (t.vt[state.sched] || 0) * state.count;
     var usBi = (t.us[state.sched] || 0) * state.count;

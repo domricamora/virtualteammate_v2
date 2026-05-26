@@ -376,12 +376,11 @@ include 'includes/nav.php';
         </div>
         <p class="spec-desc">HIPAA-certified medical VAs trained in clinical workflows, EHR systems, and patient communication. From billing and scribing to prior auth &mdash; plug into your practice in days, not weeks.</p>
         <div class="spec-pills">
-          <span class="pill">Medical Billing</span>
-          <span class="pill">Medical Scribing</span>
-          <span class="pill">Patient Scheduling</span>
-          <span class="pill">Prior Authorization</span>
-          <span class="pill">Insurance Verification</span>
-          <span class="pill">EHR Data Entry</span>
+          <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-receptionist/">Medical Receptionist <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-biller/">Medical Biller <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-scribe/">Medical Scribe <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-assistant/">Medical Assistant <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <a href="#calculator" class="spec-link">Calculate Medical VA Savings <i class="fa-solid fa-arrow-right"></i></a>
       </div>
@@ -399,7 +398,7 @@ include 'includes/nav.php';
         </div>
         <p class="spec-desc">Dental-specific VAs fluent in Dentrix, Eaglesoft, Open Dental and Carestream. Patient recall, insurance billing, treatment coordination &mdash; your remote front desk, fully covered.</p>
         <div class="spec-pills">
-          <span class="pill">Dental Billing</span>
+          <a class="pill" href="services/dental-biller/">Dental Biller <i class="fa-solid fa-arrow-right"></i></a>
           <span class="pill">Patient Recall</span>
           <span class="pill">Insurance Claims</span>
           <span class="pill">Appointment Scheduling</span>
@@ -671,11 +670,18 @@ include 'includes/nav.php';
       </div>
       <input class="cf-field" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
       <select class="cf-field" style="margin-bottom:20px;" required>
-        <option value="">I need... (select type)</option>
-        <option>Medical Virtual Assistant</option>
-        <option>Dental Virtual Assistant</option>
-        <option>Medical Billing / RCM Specialist</option>
-        <option>Medical Scribe</option>
+        <option value="">I need... (select role)</option>
+        <optgroup label="Medical">
+          <option>Medical Administrative Support</option>
+          <option>Medical Receptionist</option>
+          <option>Medical Biller / RCM Specialist</option>
+          <option>Medical Scribe</option>
+          <option>Medical Assistant</option>
+        </optgroup>
+        <optgroup label="Dental">
+          <option>Dental Biller</option>
+          <option>Dental Front-Desk / Recall</option>
+        </optgroup>
         <option>Multiple VAs</option>
         <option>Business / Admin VA</option>
       </select>

@@ -2,8 +2,9 @@
 /**
  * Site footer + scroll-to-top button + main JS load.
  * Set $hide_footer = true before include to suppress the footer (rarely needed).
+ * Pages may set $home_base before include (defaults to './' for the homepage).
  */
-$home_base = './';
+$home_base = $home_base ?? './';
 $hide_footer = $hide_footer ?? false;
 ?>
 <?php if (!$hide_footer): ?>
@@ -12,7 +13,7 @@ $hide_footer = $hide_footer ?? false;
   <div class="ft-grid">
     <div>
       <div class="ft-logo">
-        <img src="images/logo.webp" alt="Virtual Teammate" width="180" height="60" loading="lazy"/>
+        <img src="<?= $home_base ?>images/logo.webp" alt="Virtual Teammate" width="180" height="60" loading="lazy"/>
       </div>
       <p class="ft-about">The leading HIPAA-certified virtual staffing solution for medical practices and dental clinics. Global talent network, US time zones, built to scale.</p>
       <address class="ft-contact" style="font-style:normal;">
@@ -21,26 +22,25 @@ $hide_footer = $hide_footer ?? false;
         <i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:clientsuccess@virtualteammate.com">clientsuccess@virtualteammate.com</a>
       </address>
     </div>
-    <nav aria-label="Healthcare services">
-      <div class="ft-h">Healthcare</div>
+    <nav aria-label="Medical services">
+      <div class="ft-h">Medical VAs</div>
       <ul class="ft-links">
-        <li><a href="<?= $home_base ?>#specialties">Medical Virtual Assistants</a></li>
-        <li><a href="<?= $home_base ?>#specialties">Dental Virtual Assistants</a></li>
-        <li><a href="<?= $home_base ?>#specialties">Medical Billing VAs</a></li>
-        <li><a href="<?= $home_base ?>#specialties">Medical Scribing VAs</a></li>
-        <li><a href="<?= $home_base ?>#specialties">Patient Scheduling VAs</a></li>
-        <li><a href="<?= $home_base ?>#specialties">Prior Authorization VAs</a></li>
+        <li><a href="<?= $home_base ?>services/medical-administrative-support/">Medical Administrative Support</a></li>
+        <li><a href="<?= $home_base ?>services/medical-receptionist/">Medical Receptionist</a></li>
+        <li><a href="<?= $home_base ?>services/medical-biller/">Medical Biller</a></li>
+        <li><a href="<?= $home_base ?>services/medical-scribe/">Medical Scribe</a></li>
+        <li><a href="<?= $home_base ?>services/medical-assistant/">Medical Assistant</a></li>
       </ul>
     </nav>
-    <nav aria-label="Resources">
-      <div class="ft-h">Resources</div>
+    <nav aria-label="Dental services">
+      <div class="ft-h">Dental VAs</div>
       <ul class="ft-links">
+        <li><a href="<?= $home_base ?>services/dental-biller/">Dental Biller</a></li>
+        <li><a href="<?= $home_base ?>#specialties">All Dental Services</a></li>
         <li><a href="<?= $home_base ?>#calculator">ROI Calculator</a></li>
         <li><a href="<?= $home_base ?>#global">Global Network</a></li>
         <li><a href="<?= $home_base ?>#profiles">VA Profiles</a></li>
         <li><a href="<?= $home_base ?>#faq">FAQs</a></li>
-        <li><a href="<?= $home_base ?>#testimonials">Case Studies</a></li>
-        <li><a href="<?= $home_base ?>#">Blog</a></li>
       </ul>
     </nav>
     <nav aria-label="Company">
@@ -73,6 +73,6 @@ $hide_footer = $hide_footer ?? false;
   <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
 </button>
 
-<script src="js/main.js" defer></script>
+<script src="<?= $home_base ?>js/main.js" defer></script>
 </body>
 </html>
