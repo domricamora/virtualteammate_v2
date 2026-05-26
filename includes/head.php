@@ -54,7 +54,10 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <meta name="twitter:description" content="<?= $h($og_description) ?>"/>
 <meta name="twitter:image" content="<?= $site_url ?>/images/logo.webp"/>
 
-<link rel="icon" href="<?= $home_base ?>favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="<?= $home_base ?>images/favicon-32x32.png"/>
+<link rel="icon" type="image/png" sizes="192x192" href="<?= $home_base ?>images/favicon-192x192.png"/>
+<link rel="apple-touch-icon" sizes="180x180" href="<?= $home_base ?>images/apple-touch-icon.png"/>
+<meta name="msapplication-TileImage" content="<?= $site_url ?>/images/favicon-192x192.png"/>
 <link rel="preload" as="image" href="<?= $home_base ?>images/logo.webp" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
