@@ -124,6 +124,34 @@ CREATE TABLE IF NOT EXISTS app_settings (
   updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Marketing-site traffic log (one row per pageview beacon).
+CREATE TABLE IF NOT EXISTS traffic (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  path         TEXT    NOT NULL DEFAULT '',
+  ip           TEXT    NOT NULL DEFAULT '',
+  country      TEXT    NOT NULL DEFAULT '',
+  region       TEXT    NOT NULL DEFAULT '',
+  city         TEXT    NOT NULL DEFAULT '',
+  user_agent   TEXT    NOT NULL DEFAULT '',
+  referrer     TEXT    NOT NULL DEFAULT '',
+  created_at   TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Per-IP geolocation cache so we don't re-hit the geo API for repeat visitors.
+CREATE TABLE IF NOT EXISTS geo_cache (
+  ip          TEXT PRIMARY KEY,
+  country     TEXT NOT NULL DEFAULT '',
+  region      TEXT NOT NULL DEFAULT '',
+  city        TEXT NOT NULL DEFAULT '',
+  lat         REAL,
+  lon         REAL,
+  resolved_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX IF NOT EXISTS idx_traffic_created ON traffic(created_at);
+CREATE INDEX IF NOT EXISTS idx_traffic_path    ON traffic(path);
+CREATE INDEX IF NOT EXISTS idx_traffic_ip      ON traffic(ip);
+
 CREATE INDEX IF NOT EXISTS idx_users_role        ON users(role);
 CREATE INDEX IF NOT EXISTS idx_clients_user      ON clients(user_id);
 CREATE INDEX IF NOT EXISTS idx_vt_status         ON vt_profiles(status);

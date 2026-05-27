@@ -28,6 +28,7 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
     $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
     $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync', 'icon' => 'fa-cloud-arrow-down'];
+    $nav[] = ['p' => 'traffic',     'label' => 'Traffic',      'icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'audit',       'label' => 'Audit Log',    'icon' => 'fa-list-check'];
 } elseif ($role === 'client') {
     $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];

@@ -51,6 +51,7 @@ switch ($action) {
     case 'eod.delete':      handle_eod_delete();         break;
 
     case 'audit':           handle_audit_list();         break;
+    case 'traffic':         handle_traffic_list();       break;
 
     /* ───────────────────────── HubSpot sync (super admin) ─────────────────────────── */
     case 'hubspot':                handle_hubspot_page();            break;
@@ -140,7 +141,7 @@ function handle_dashboard(): void
 {
     $u = require_login();
     switch ($u['role']) {
-        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats()]); break;
+        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats(), 'traffic' => dashboard_traffic_summary()]); break;
         case 'client':      render('dashboard-client', ['user' => $u, 'data' => dashboard_client_data($u)]); break;
         case 'csm':         render('dashboard-csm', ['user' => $u, 'data' => dashboard_csm_data($u)]); break;
         case 'vt_hired':
@@ -162,7 +163,43 @@ function dashboard_super_stats(): array
         'clients_active' => (int) $pdo->query("SELECT COUNT(*) FROM clients WHERE contract_status='active'")->fetchColumn(),
         'meetings_upcoming' => (int) $pdo->query("SELECT COUNT(*) FROM meetings WHERE status='scheduled' AND scheduled_at >= datetime('now')")->fetchColumn(),
         'eod_today'      => (int) $pdo->query("SELECT COUNT(*) FROM eod_reports WHERE report_date = date('now')")->fetchColumn(),
+        'traffic_today'  => traffic_table_exists() ? (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE date(created_at) = date('now')")->fetchColumn() : 0,
+        'traffic_7d'     => traffic_table_exists() ? (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE created_at >= datetime('now','-7 days')")->fetchColumn() : 0,
+        'traffic_visitors_7d' => traffic_table_exists() ? (int) $pdo->query("SELECT COUNT(DISTINCT ip) FROM traffic WHERE created_at >= datetime('now','-7 days')")->fetchColumn() : 0,
     ];
+}
+
+/** True if the traffic table has been created (portal installed after the traffic feature). */
+function traffic_table_exists(): bool
+{
+    static $exists = null;
+    if ($exists === null) {
+        $exists = (bool) db()->query("SELECT name FROM sqlite_master WHERE type='table' AND name='traffic'")->fetchColumn();
+    }
+    return $exists;
+}
+
+/** Recent + aggregate traffic for the dashboard panel. */
+function dashboard_traffic_summary(): array
+{
+    if (!traffic_table_exists()) {
+        return ['recent' => [], 'top_countries' => [], 'top_pages' => []];
+    }
+    $pdo = db();
+    $recent = $pdo->query(
+        'SELECT path, ip, country, region, city, user_agent, created_at FROM traffic ORDER BY id DESC LIMIT 10'
+    )->fetchAll();
+    $topCountries = $pdo->query(
+        "SELECT CASE WHEN country='' THEN 'Unknown' ELSE country END AS country, COUNT(*) AS n
+         FROM traffic WHERE created_at >= datetime('now','-30 days')
+         GROUP BY country ORDER BY n DESC LIMIT 6"
+    )->fetchAll();
+    $topPages = $pdo->query(
+        "SELECT CASE WHEN path='' THEN '/' ELSE path END AS path, COUNT(*) AS n
+         FROM traffic WHERE created_at >= datetime('now','-30 days')
+         GROUP BY path ORDER BY n DESC LIMIT 6"
+    )->fetchAll();
+    return ['recent' => $recent, 'top_countries' => $topCountries, 'top_pages' => $topPages];
 }
 
 function dashboard_client_data(array $u): array
@@ -977,6 +1014,61 @@ function handle_audit_list(): void
         'SELECT a.*, u.email AS actor_email FROM audit_log a LEFT JOIN users u ON u.id = a.actor_user_id ORDER BY a.created_at DESC LIMIT 500'
     );
     render('audit-list', ['rows' => $stmt->fetchAll()]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * TRAFFIC MONITORING (super admin) — homepage / marketing pageviews
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_traffic_list(): void
+{
+    require_role('super_admin');
+
+    if (!traffic_table_exists()) {
+        render('traffic-list', [
+            'rows' => [], 'stats' => null, 'top_countries' => [], 'top_pages' => [],
+            'q' => '', 'not_ready' => true,
+        ]);
+        return;
+    }
+
+    $pdo = db();
+    $q   = trim((string) ($_GET['q'] ?? ''));
+
+    $where = '1=1';
+    $params = [];
+    if ($q !== '') {
+        $where = '(ip LIKE :q OR country LIKE :q OR city LIKE :q OR path LIKE :q OR region LIKE :q)';
+        $params[':q'] = '%' . $q . '%';
+    }
+
+    $rows = $pdo->prepare("SELECT * FROM traffic WHERE $where ORDER BY id DESC LIMIT 300");
+    $rows->execute($params);
+
+    $stats = [
+        'today'        => (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE date(created_at)=date('now')")->fetchColumn(),
+        'views_7d'     => (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE created_at >= datetime('now','-7 days')")->fetchColumn(),
+        'views_30d'    => (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE created_at >= datetime('now','-30 days')")->fetchColumn(),
+        'visitors_30d' => (int) $pdo->query("SELECT COUNT(DISTINCT ip) FROM traffic WHERE created_at >= datetime('now','-30 days')")->fetchColumn(),
+        'total'        => (int) $pdo->query("SELECT COUNT(*) FROM traffic")->fetchColumn(),
+    ];
+    $topCountries = $pdo->query(
+        "SELECT CASE WHEN country='' THEN 'Unknown' ELSE country END AS country, COUNT(*) AS n,
+                COUNT(DISTINCT ip) AS visitors
+         FROM traffic WHERE created_at >= datetime('now','-30 days')
+         GROUP BY country ORDER BY n DESC LIMIT 12"
+    )->fetchAll();
+    $topPages = $pdo->query(
+        "SELECT CASE WHEN path='' THEN '/' ELSE path END AS path, COUNT(*) AS n
+         FROM traffic WHERE created_at >= datetime('now','-30 days')
+         GROUP BY path ORDER BY n DESC LIMIT 12"
+    )->fetchAll();
+
+    render('traffic-list', [
+        'rows' => $rows->fetchAll(), 'stats' => $stats,
+        'top_countries' => $topCountries, 'top_pages' => $topPages,
+        'q' => $q, 'not_ready' => false,
+    ]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

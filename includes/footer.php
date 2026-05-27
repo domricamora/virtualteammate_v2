@@ -75,5 +75,24 @@ $hide_footer = $hide_footer ?? false;
 </button>
 
 <script src="<?= $home_base ?>js/main.js" defer></script>
+<!-- Traffic beacon — fires once after load so it never blocks render. -->
+<script>
+(function(){
+  function vtTrack(){
+    try{
+      var qs = 'p=' + encodeURIComponent(location.pathname) +
+               '&r=' + encodeURIComponent(document.referrer || '');
+      var url = '<?= $home_base ?>track.php?' + qs;
+      if (navigator.sendBeacon){
+        navigator.sendBeacon(url);
+      } else {
+        var img = new Image(); img.src = url + '&t=' + Date.now();
+      }
+    }catch(e){}
+  }
+  if (document.readyState === 'complete'){ vtTrack(); }
+  else { window.addEventListener('load', vtTrack); }
+})();
+</script>
 </body>
 </html>

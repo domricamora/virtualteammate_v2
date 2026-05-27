@@ -29,6 +29,7 @@ TOP_FILES=(
   "sitemap.xml"
   "favicon.ico"
   "talent-photo.php"
+  "track.php"
 )
 
 # Production directories to mirror recursively.
