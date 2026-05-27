@@ -159,18 +159,17 @@
     counters.forEach(countUp);
   }
 
-  /* Client logo marquee */
+  /* Client logo marquee — images live in images/clients/marquee/ */
   var clients = [
-    { name:'Dentique',                   src:'images/clients/dentique-logo-300x99.png' },
-    { name:'Synergy HomeCare',           src:'images/clients/synergy-homecare-logo-300x99.png' },
-    { name:'Prostate Cancer Institute',  src:'images/clients/prostate-cancer-institute-logo-300x99.png' },
-    { name:'Homely',                     src:'images/clients/homely-logo-300x99.png' },
-    { name:'Elevate Consulting Group',   src:'images/clients/elevate-consulting-group-logo-300x99.png' },
-    { name:'Vita High School',           src:'images/clients/vita-high-school-logo-300x99.png' },
-    { name:'Phoenix Heat Treating',      src:'images/clients/pheonix-heat-treatment-logo-300x99.png' },
-    { name:'Power Device Corporation',   src:'images/clients/power-device-corporation-logo-300x111.png' },
-    { name:'Source Direct',              src:'images/clients/source-direct-logo-300x99.png' },
-    { name:'Mycabinet',                  src:'images/clients/mycabinet-logo-300x99.png' }
+    { name:'Client', src:'images/clients/marquee/13.png' },
+    { name:'Client', src:'images/clients/marquee/15.png' },
+    { name:'Client', src:'images/clients/marquee/18.png' },
+    { name:'Client', src:'images/clients/marquee/22.png' },
+    { name:'Client', src:'images/clients/marquee/23.png' },
+    { name:'Client', src:'images/clients/marquee/28.png' },
+    { name:'Client', src:'images/clients/marquee/29.png' },
+    { name:'Client', src:'images/clients/marquee/30.png' },
+    { name:'Client', src:'images/clients/marquee/34.png' }
   ];
   var track = document.getElementById('mqTrack');
   if (track){
