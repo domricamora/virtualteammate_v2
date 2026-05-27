@@ -395,7 +395,7 @@ include 'includes/nav.php';
   <div style="text-align:center;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Proven Results</div>
     <h2 class="sec-h2">Real Numbers from Real Healthcare Clients</h2>
-    <p class="sec-sub" style="margin:0 auto;">Medical practices and dental clinics see measurable ROI &mdash; often within the first 30 days.</p>
+    <p class="sec-sub" style="margin:0 auto;">Pulled straight from our latest client KPI audit &mdash; measurable output against the targets we commit to.</p>
   </div>
   <div class="roi-grid">
     <div class="roi-card reveal d1">
@@ -405,13 +405,13 @@ include 'includes/nav.php';
     </div>
     <div class="roi-card reveal d2">
       <span class="ico-circle lg roi-ico"><i class="fa-solid fa-arrow-trend-up"></i></span>
-      <div class="roi-num" data-count="80" data-suffix="%">0%</div>
-      <div class="roi-lbl">Increase in team productivity reported by medical clients</div>
+      <div class="roi-num" data-count="52" data-suffix="%">0%</div>
+      <div class="roi-lbl">Average increase in team productivity &mdash; output delivered over monthly KPI targets</div>
     </div>
     <div class="roi-card reveal d3">
       <span class="ico-circle lg roi-ico"><i class="fa-solid fa-chart-pie"></i></span>
-      <div class="roi-num" data-count="50" data-suffix="%">0%</div>
-      <div class="roi-lbl">Growth in profitable revenue potential within 6 months</div>
+      <div class="roi-num" data-count="67" data-suffix="%">0%</div>
+      <div class="roi-lbl">Growth in profitable revenue &mdash; value created above committed targets</div>
     </div>
   </div>
 </section>
@@ -464,11 +464,11 @@ include 'includes/nav.php';
 <!-- CASE STUDIES -->
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; May 2025</div>
+    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; Latest Audit</div>
     <h2 class="sec-h2" id="cs-h">Targets Set. <em>Targets Beaten.</em></h2>
-    <p class="sec-sub">Straight from our May 2025 client KPI audit &mdash; what each VT healthcare-billing teammate actually delivered against the monthly target we committed to. Real clients, real numbers.</p>
+    <p class="sec-sub">Straight from our most recent client KPI audit &mdash; what each VT healthcare-billing teammate actually delivered against the monthly target we committed to. Real clients, real numbers.</p>
   </div>
-  <div class="case-grid">
+  <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
       <div class="case-metric">
         <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+144%</span></div>
@@ -481,11 +481,12 @@ include 'includes/nav.php';
       </div>
       <p class="case-q">Our RCM virtual teammate cleared nearly <strong>2.5&times;</strong> the monthly insurance-verification goal and more than doubled the payment-posting target &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
-        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="case-logo" data-label="LifeQuest">
+          <img src="images/clients/lifequest.png" alt="LifeQuest Physical Medicine and Rehab" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+        </div>
         <div>
           <div class="case-name">LifeQuest</div>
-          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
-          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
         </div>
       </div>
     </article>
@@ -502,11 +503,12 @@ include 'includes/nav.php';
       </div>
       <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>60% past target</strong> and claims volume <strong>47% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
       <div class="case-auth">
-        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="case-logo" data-label="Elkhart Clinic">
+          <img src="images/clients/elkhart.png" alt="Elkhart Clinic" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+        </div>
         <div>
-          <div class="case-name">Elkhart</div>
-          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
-          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
+          <div class="case-name">Elkhart Clinic</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
         </div>
       </div>
     </article>
@@ -523,11 +525,34 @@ include 'includes/nav.php';
       </div>
       <p class="case-q">Payment posting landed <strong>48% above target</strong> with insurance verifications <strong>30% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
       <div class="case-auth">
-        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
+        <div class="case-logo" data-label="Prostate Cancer Institute">
+          <img src="images/clients/prostate-cancer-institute-logo-full.png" alt="Prostate Cancer Institute of America" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+        </div>
         <div>
-          <div class="case-name">Prostate Cancer Center</div>
-          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
-          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
+          <div class="case-name">Prostate Cancer Institute</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case-card reveal d4">
+      <div class="case-metric">
+        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">30</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">40</span></div>
+        </div>
+        <div class="case-metric-foot">Ramped fast on a high-volume endodontic &amp; oral-surgery caseload</div>
+      </div>
+      <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above the monthly target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
+      <div class="case-auth">
+        <div class="case-logo" data-label="Valley Endodontics &amp; Oral Surgery">
+          <img src="images/clients/valley-endodontics-oral-surgery.png" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo)" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+        </div>
+        <div>
+          <div class="case-name">North Valley Endo</div>
+          <div class="case-svc"><i class="fa-solid fa-tooth"></i> Specialty Billing &amp; RCM VA</div>
         </div>
       </div>
     </article>

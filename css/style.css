@@ -1394,13 +1394,14 @@ select.cf-field option{color:#1a1535;background:#fff;}
 
 /* ───── CASE STUDY CARDS ───── */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;}
+.case-grid-4{grid-template-columns:repeat(4,1fr);gap:18px;}
 .case-card{
   background:rgba(255,255,255,0.07);
   backdrop-filter:var(--glass-blur);
   border:1px solid var(--glass-border);
   border-radius:18px;
-  padding:26px 26px 24px;
-  display:flex;flex-direction:column;gap:18px;
+  padding:24px 22px 22px;
+  display:flex;flex-direction:column;gap:16px;
   transition:transform .3s ease, border-color .3s ease, background .3s ease;
 }
 .case-card:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.09);}
@@ -1462,6 +1463,24 @@ select.cf-field option{color:#1a1535;background:#fff;}
   display:inline-flex;align-items:center;justify-content:center;
   background:linear-gradient(135deg, rgba(57,25,186,0.5), rgba(223,169,73,0.25));
   color:var(--gold-lt);font-size:22px;
+}
+/* Client logo chip — white tile so any-color logos read cleanly */
+.case-logo{
+  flex:0 0 auto;width:96px;height:54px;border-radius:10px;
+  background:#fff;border:1px solid rgba(255,255,255,0.5);
+  display:flex;align-items:center;justify-content:center;
+  padding:7px 9px;overflow:hidden;
+}
+.case-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block;}
+/* Fallback when a logo file isn't present yet — show the client name. */
+.case-logo.is-missing{
+  background:linear-gradient(135deg, rgba(57,25,186,0.5), rgba(223,169,73,0.25));
+  border-color:rgba(223,169,73,0.4);
+}
+.case-logo.is-missing::after{
+  content:attr(data-label);
+  font-size:10px;font-weight:800;line-height:1.15;color:#fff;text-align:center;
+  letter-spacing:.2px;
 }
 .case-name{font-size:14.5px;font-weight:700;color:#fff;letter-spacing:-0.01em;}
 .case-role{font-size:12px;color:rgba(255,255,255,0.62);margin-top:2px;display:flex;align-items:center;gap:5px;}
@@ -1905,7 +1924,8 @@ select.cf-field option{color:#1a1535;background:#fff;}
 
   /* Case studies */
   .case-grid{grid-template-columns:repeat(2,1fr);}
-  .case-grid > *:nth-child(3){grid-column:1 / -1;max-width:520px;margin:0 auto;}
+  .case-grid:not(.case-grid-4) > *:nth-child(3){grid-column:1 / -1;max-width:520px;margin:0 auto;}
+  .case-grid-4{grid-template-columns:repeat(2,1fr);}
 
   /* Differentiators */
   .diff{padding:80px 32px;}
@@ -2126,6 +2146,7 @@ select.cf-field option{color:#1a1535;background:#fff;}
 
   /* Case studies on mobile */
   .case-grid{grid-template-columns:1fr;margin-top:32px;gap:18px;}
+  .case-grid-4{grid-template-columns:1fr;}
   .case-grid > *:nth-child(3){grid-column:auto;max-width:none;margin:0;}
   .case-card{padding:22px 20px;}
   .case-metric-before .val{font-size:22px;}
