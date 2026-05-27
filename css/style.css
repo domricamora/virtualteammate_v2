@@ -299,9 +299,9 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .marquee:hover .marquee-track{animation-play-state:paused;}
 /* Same toned-down treatment as the In The News marquee: dimmed by
    default, full color + slight zoom on hover (no chip). */
-.mq-logo{flex:0 0 auto;height:62px;display:flex;align-items:center;justify-content:center;}
+.mq-logo{flex:0 0 auto;height:104px;display:flex;align-items:center;justify-content:center;}
 .mq-logo img{
-  height:100%;width:auto;max-width:220px;object-fit:contain;
+  height:100%;width:auto;max-width:320px;object-fit:contain;
   opacity:.55;
   transition:opacity .35s ease, transform .35s ease;
 }
@@ -2007,7 +2007,7 @@ select.cf-field option{color:#1a1535;background:#fff;}
 
   .marquee{padding:24px 0;}
   .marquee-track{gap:50px;}
-  .mq-logo{height:42px;}
+  .mq-logo{height:68px;}
   .marquee-track-wrap::before,.marquee-track-wrap::after{width:80px;}
   .news{padding:22px 0 24px;}
   .news-item{height:48px;}
