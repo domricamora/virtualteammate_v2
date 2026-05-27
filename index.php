@@ -464,70 +464,70 @@ include 'includes/nav.php';
 <!-- CASE STUDIES -->
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Case Studies &middot; Quantified Outcomes</div>
-    <h2 class="sec-h2" id="cs-h">Real Numbers, Named Practices, <em>Three Regions</em></h2>
-    <p class="sec-sub">Every case below is a current VT client with a measurable before/after &mdash; not a vague compliment. Pulled from our Q3-Q4 placement audits.</p>
+    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; May 2025</div>
+    <h2 class="sec-h2" id="cs-h">Targets Set. <em>Targets Beaten.</em></h2>
+    <p class="sec-sub">Straight from our May 2025 client KPI audit &mdash; what each VT healthcare-billing teammate actually delivered against the monthly target we committed to. Real clients, real numbers.</p>
   </div>
   <div class="case-grid">
     <article class="case-card reveal d1">
       <div class="case-metric">
-        <div class="case-metric-h">AR Days</div>
+        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+144%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">52d</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">20</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">After 90 days</span><span class="val">23d</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">49</span></div>
         </div>
-        <div class="case-metric-foot"><strong>$68k</strong> in stalled claims recovered in 12 weeks</div>
+        <div class="case-metric-foot">Payment posting also beat target by <strong>140%</strong> &mdash; 20 goal, <strong>48</strong> delivered</div>
       </div>
-      <p class="case-q">&ldquo;Our billing VA cleared 6 months of stalled claims in 12 weeks. Cash flow is the best it&rsquo;s ever been &mdash; and I&rsquo;ve stopped writing personal checks to cover payroll gaps.&rdquo;</p>
+      <p class="case-q">Our RCM virtual teammate cleared nearly <strong>2.5&times;</strong> the monthly insurance-verification goal and more than doubled the payment-posting target &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
-        <div class="case-photo"><img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=200&q=80" alt="Dr. James Chen"/></div>
+        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
         <div>
-          <div class="case-name">Dr. James Chen, MD</div>
-          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Hill Country Family Practice &middot; Austin, TX</div>
-          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Biller VA (Specialist tier)</div>
+          <div class="case-name">LifeQuest</div>
+          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
         </div>
       </div>
     </article>
 
     <article class="case-card reveal d2">
       <div class="case-metric">
-        <div class="case-metric-h">No-Show Rate</div>
+        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+60%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">22%</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">10</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">After 60 days</span><span class="val">9%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">16</span></div>
         </div>
-        <div class="case-metric-foot"><strong>+14 visits/week</strong> recovered from confirmations &amp; rebooks</div>
+        <div class="case-metric-foot">Claims processed beat target by <strong>47%</strong> &mdash; 60 goal, <strong>88</strong> delivered</div>
       </div>
-      <p class="case-q">&ldquo;Our virtual receptionist runs confirmations every afternoon and rebooks every cancellation the same day. She&rsquo;s added fourteen visits a week without us touching the phone.&rdquo;</p>
+      <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>60% past target</strong> and claims volume <strong>47% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
       <div class="case-auth">
-        <div class="case-photo"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=200&q=80" alt="Dr. Sarah Patel"/></div>
+        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
         <div>
-          <div class="case-name">Dr. Sarah Patel, DDS</div>
-          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Coastal Smile Pediatric Dental &middot; Tampa, FL</div>
-          <div class="case-svc"><i class="fa-solid fa-tooth"></i> Dental Receptionist VA (Pro tier)</div>
+          <div class="case-name">Elkhart</div>
+          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
         </div>
       </div>
     </article>
 
     <article class="case-card reveal d3">
       <div class="case-metric">
-        <div class="case-metric-h">Provider Charting Time</div>
+        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+48%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Before</span><span class="val">11pm</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">$250</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">After</span><span class="val">6pm</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">$370</span></div>
         </div>
-        <div class="case-metric-foot"><strong>18 hrs/week</strong> of after-hours charting reclaimed</div>
+        <div class="case-metric-foot">Insurance verifications also beat target by <strong>30%</strong> &mdash; 20 goal, <strong>26</strong> delivered</div>
       </div>
-      <p class="case-q">&ldquo;My scribe documents every visit in Epic in real time. I look at patients again. I see my kids again. I will never go back to charting alone.&rdquo;</p>
+      <p class="case-q">Payment posting landed <strong>48% above target</strong> with insurance verifications <strong>30% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
       <div class="case-auth">
-        <div class="case-photo"><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=200&q=80" alt="Dr. Marcus Reyes"/></div>
+        <div class="case-photo case-photo-icon"><i class="fa-solid fa-hospital"></i></div>
         <div>
-          <div class="case-name">Dr. Marcus Reyes, MD</div>
-          <div class="case-role"><i class="fa-solid fa-location-dot"></i> Premier Internal Medicine &middot; Denver, CO</div>
-          <div class="case-svc"><i class="fa-solid fa-pen-clip"></i> Medical Scribe VA (Specialist tier)</div>
+          <div class="case-name">Prostate Cancer Center</div>
+          <div class="case-role"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+          <div class="case-svc"><i class="fa-solid fa-calendar-check"></i> May 2025 KPI audit</div>
         </div>
       </div>
     </article>
