@@ -910,6 +910,21 @@ a.pill i{font-size:9px;color:var(--gold);}
   display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
   max-width:1100px;margin:0 auto 46px;
 }
+/* Tablet: drop to a single full-width column. The 58px icon-circle on
+   each card forces a minimum card width that overflows a 3-col grid
+   below ~1024px, so collapse straight to 1-col rather than 2 + orphan. */
+@media (max-width:1024px){
+  .cta-stages-grid{grid-template-columns:1fr;max-width:520px;gap:14px;}
+  .cta-stages-section{padding-left:32px;padding-right:32px;}
+}
+@media (max-width:768px){
+  .cta-stages-grid{max-width:none;gap:12px;}
+  .cta-stages-section{padding-left:18px;padding-right:18px;}
+  .cta-stages-h .cta-h2{font-size:28px;}
+  .cta-stage{padding:24px 22px;}
+  .cta-stage h3{font-size:18px;}
+  .cta-stage-lead{font-size:14px;}
+}
 .cta-stage{
   position:relative;
   background:rgba(255,255,255,0.06);
