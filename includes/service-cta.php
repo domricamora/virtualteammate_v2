@@ -13,7 +13,11 @@ $svc_all = [
   'medical-biller'                 => ['title' => 'Medical Biller',                 'sub' => 'Claims, AR & RCM',                   'icon' => 'fa-file-invoice-dollar'],
   'medical-scribe'                 => ['title' => 'Medical Scribe',                 'sub' => 'Real-time EHR documentation',        'icon' => 'fa-pen-clip'],
   'medical-assistant'              => ['title' => 'Medical Assistant',              'sub' => 'Clinical & admin support',           'icon' => 'fa-user-nurse'],
-  'dental-biller'                  => ['title' => 'Dental Biller',                  'sub' => 'Insurance billing & EOBs',           'icon' => 'fa-tooth'],
+  'dental-admin'                   => ['title' => 'Dental Administrative Support', 'sub' => 'Records, verification & plan prep',  'icon' => 'fa-clipboard-list'],
+  'dental-receptionist'            => ['title' => 'Dental Receptionist',            'sub' => 'Live front-desk & recall',           'icon' => 'fa-headset'],
+  'dental-biller'                  => ['title' => 'Dental Biller',                  'sub' => 'Insurance billing & EOBs',           'icon' => 'fa-file-invoice-dollar'],
+  'dental-scribe'                  => ['title' => 'Dental Scribe',                  'sub' => 'Real-time clinical charting',        'icon' => 'fa-pen-clip'],
+  'dental-coordinator'             => ['title' => 'Dental Coordinator',             'sub' => 'Case acceptance & recall',           'icon' => 'fa-handshake-angle'],
 ];
 ?>
 <!-- FINAL CTA -->

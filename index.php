@@ -302,12 +302,11 @@ include 'includes/nav.php';
         </div>
 
         <div class="spec-pills">
+          <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-receptionist/">Dental Receptionist <i class="fa-solid fa-arrow-right"></i></a>
           <a class="pill" href="services/dental-biller/">Dental Biller <i class="fa-solid fa-arrow-right"></i></a>
-          <span class="pill">Patient Recall</span>
-          <span class="pill">Insurance Claims</span>
-          <span class="pill">Appointment Scheduling</span>
-          <span class="pill">Treatment Coordination</span>
-          <span class="pill">EOB Posting</span>
+          <a class="pill" href="services/dental-scribe/">Dental Scribe <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-coordinator/">Dental Coordinator <i class="fa-solid fa-arrow-right"></i></a>
         </div>
         <a href="#calculator" class="spec-link">Calculate Dental VA Savings <i class="fa-solid fa-arrow-right"></i></a>
       </div>

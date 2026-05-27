@@ -58,14 +58,33 @@ $home_base = $home_base ?? './';
         </div>
         <div class="nav-mega-col">
           <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-tooth"></i></span> Dental</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-admin/" role="menuitem">
+            <i class="fa-solid fa-clipboard-list"></i>
+            <span><strong>Dental Administrative Support</strong><em>Records, verification &amp; treatment-plan prep</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-receptionist/" role="menuitem">
+            <i class="fa-solid fa-headset"></i>
+            <span><strong>Dental Receptionist</strong><em>Live front-desk calls, scheduling &amp; recall</em></span>
+          </a>
           <a class="nav-mega-link" href="<?= $home_base ?>services/dental-biller/" role="menuitem">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             <span><strong>Dental Biller</strong><em>Insurance billing &amp; EOB posting</em></span>
           </a>
-          <div class="nav-mega-cta">
-            <div class="nav-mega-cta-h">Need a dental front-desk, recall or treatment coordinator?</div>
-            <a href="<?= $home_base ?>#cta" class="nav-mega-cta-btn">Talk to us <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-scribe/" role="menuitem">
+            <i class="fa-solid fa-pen-clip"></i>
+            <span><strong>Dental Scribe</strong><em>Real-time clinical &amp; perio charting</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-coordinator/" role="menuitem">
+            <i class="fa-solid fa-handshake-angle"></i>
+            <span><strong>Dental Coordinator</strong><em>Case acceptance, recall &amp; scheduling</em></span>
+          </a>
+        </div>
+        <div class="nav-mega-foot">
+          <div class="nav-mega-foot-txt">
+            <i class="fa-solid fa-circle-nodes"></i>
+            <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental &mdash; front desk to back office, all HIPAA-certified.</span>
           </div>
+          <a href="<?= $home_base ?>#cta" class="nav-mega-foot-btn" data-cta-intent="strategy-call">Talk to our team <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>

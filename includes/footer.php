@@ -35,12 +35,11 @@ $hide_footer = $hide_footer ?? false;
     <nav aria-label="Dental services">
       <div class="ft-h">Dental VAs</div>
       <ul class="ft-links">
+        <li><a href="<?= $home_base ?>services/dental-admin/">Dental Administrative Support</a></li>
+        <li><a href="<?= $home_base ?>services/dental-receptionist/">Dental Receptionist</a></li>
         <li><a href="<?= $home_base ?>services/dental-biller/">Dental Biller</a></li>
-        <li><a href="<?= $home_base ?>#specialties">All Dental Services</a></li>
-        <li><a href="<?= $home_base ?>#calculator">ROI Calculator</a></li>
-        <li><a href="<?= $home_base ?>#global">Global Network</a></li>
-        <li><a href="<?= $home_base ?>#profiles">VA Profiles</a></li>
-        <li><a href="<?= $home_base ?>#faq">FAQs</a></li>
+        <li><a href="<?= $home_base ?>services/dental-scribe/">Dental Scribe</a></li>
+        <li><a href="<?= $home_base ?>services/dental-coordinator/">Dental Coordinator</a></li>
       </ul>
     </nav>
     <nav aria-label="Company">
