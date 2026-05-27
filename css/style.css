@@ -295,21 +295,17 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .marquee-track-wrap::before{left:0;background:linear-gradient(to right, rgba(20,15,55,0.95), transparent);}
 .marquee-track-wrap::after {right:0;background:linear-gradient(to left,  rgba(20,15,55,0.95), transparent);}
-.marquee-track{display:flex;width:max-content;gap:42px;animation:marqueeLeft 38s linear infinite;align-items:center;}
+.marquee-track{display:flex;width:max-content;gap:60px;animation:marqueeLeft 38s linear infinite;align-items:center;}
 .marquee:hover .marquee-track{animation-play-state:paused;}
-/* Full-color client logos on white chips — a clean "trusted by" wall. */
-.mq-logo{
-  flex:0 0 auto;height:84px;width:200px;
-  display:flex;align-items:center;justify-content:center;
-  background:#fff;border-radius:14px;
-  padding:14px 20px;
-  box-shadow:0 10px 26px rgba(0,0,0,0.28);
-  transition:transform .35s ease, box-shadow .35s ease;
-}
+/* Same toned-down treatment as the In The News marquee: dimmed by
+   default, full color + slight zoom on hover (no chip). */
+.mq-logo{flex:0 0 auto;height:62px;display:flex;align-items:center;justify-content:center;}
 .mq-logo img{
-  max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;display:block;
+  height:100%;width:auto;max-width:220px;object-fit:contain;
+  opacity:.55;
+  transition:opacity .35s ease, transform .35s ease;
 }
-.mq-logo:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(0,0,0,0.38);}
+.mq-logo:hover img{opacity:1;transform:scale(1.06);}
 
 /* ───── NEWS MARQUEE (press logos, toned-down → full color on hover) ───── */
 .news{
@@ -2010,8 +2006,8 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .orb1,.orb2,.orb3{opacity:.55;transform:scale(.55);}
 
   .marquee{padding:24px 0;}
-  .marquee-track{gap:24px;}
-  .mq-logo{height:64px;width:150px;padding:10px 14px;border-radius:11px;}
+  .marquee-track{gap:50px;}
+  .mq-logo{height:42px;}
   .marquee-track-wrap::before,.marquee-track-wrap::after{width:80px;}
   .news{padding:22px 0 24px;}
   .news-item{height:48px;}
