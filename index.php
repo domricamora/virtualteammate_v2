@@ -54,12 +54,22 @@ include 'includes/nav.php';
 </header>
 
 <!-- CLIENT MARQUEE (sits directly under the hero for trust + recognition) -->
+<?php
+// Auto-scan the marquee logo folder so the track always matches what's on disk
+// — drop/remove logos in images/clients/marquee/ with no code change needed.
+$mq_files = glob(__DIR__ . '/images/clients/marquee/*.{png,jpg,jpeg,webp,svg,PNG,JPG,JPEG,WEBP,SVG}', GLOB_BRACE) ?: [];
+sort($mq_files);
+$mq_srcs = array_values(array_map(static function ($p) {
+    return 'images/clients/marquee/' . rawurlencode(basename($p));
+}, $mq_files));
+?>
 <div class="marquee" aria-label="Companies served by Virtual Teammate">
   <div class="marquee-lbl"><i class="fa-solid fa-handshake-angle"></i> Trusted By Practices &amp; Businesses Across The U.S.</div>
   <div class="marquee-track-wrap">
     <div class="marquee-track" id="mqTrack"></div>
   </div>
 </div>
+<script>window.VT_MARQUEE = <?= json_encode($mq_srcs, JSON_UNESCAPED_SLASHES) ?>;</script>
 
 <!-- ROI CALCULATOR -->
 <section class="calc-wrap" id="calculator" aria-labelledby="calc-h">

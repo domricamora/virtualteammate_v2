@@ -159,18 +159,9 @@
     counters.forEach(countUp);
   }
 
-  /* Client logo marquee — images live in images/clients/marquee/ */
-  var clients = [
-    { name:'Client', src:'images/clients/marquee/13.png' },
-    { name:'Client', src:'images/clients/marquee/15.png' },
-    { name:'Client', src:'images/clients/marquee/18.png' },
-    { name:'Client', src:'images/clients/marquee/22.png' },
-    { name:'Client', src:'images/clients/marquee/23.png' },
-    { name:'Client', src:'images/clients/marquee/28.png' },
-    { name:'Client', src:'images/clients/marquee/29.png' },
-    { name:'Client', src:'images/clients/marquee/30.png' },
-    { name:'Client', src:'images/clients/marquee/34.png' }
-  ];
+  /* Client logo marquee — list is generated server-side from
+     images/clients/marquee/ and injected as window.VT_MARQUEE. */
+  var clients = (window.VT_MARQUEE || []).map(function(src){ return { name:'Client', src:src }; });
   var track = document.getElementById('mqTrack');
   if (track){
     function build(set){
