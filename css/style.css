@@ -295,13 +295,13 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .marquee-track-wrap::before{left:0;background:linear-gradient(to right, rgba(20,15,55,0.95), transparent);}
 .marquee-track-wrap::after {right:0;background:linear-gradient(to left,  rgba(20,15,55,0.95), transparent);}
-.marquee-track{display:flex;width:max-content;gap:60px;animation:marqueeLeft 38s linear infinite;align-items:center;}
+.marquee-track{display:flex;width:max-content;gap:16px;animation:marqueeLeft 38s linear infinite;align-items:center;}
 .marquee:hover .marquee-track{animation-play-state:paused;}
-/* Same toned-down treatment as the In The News marquee: dimmed by
+/* Same toned-down treatment + height as the In The News marquee: dimmed by
    default, full color + slight zoom on hover (no chip). */
-.mq-logo{flex:0 0 auto;height:104px;display:flex;align-items:center;justify-content:center;}
+.mq-logo{flex:0 0 auto;height:62px;display:flex;align-items:center;justify-content:center;}
 .mq-logo img{
-  height:100%;width:auto;max-width:320px;object-fit:contain;
+  height:100%;width:auto;max-width:220px;object-fit:contain;
   opacity:.55;
   transition:opacity .35s ease, transform .35s ease;
 }
@@ -2006,8 +2006,8 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .orb1,.orb2,.orb3{opacity:.55;transform:scale(.55);}
 
   .marquee{padding:24px 0;}
-  .marquee-track{gap:50px;}
-  .mq-logo{height:68px;}
+  .marquee-track{gap:14px;}
+  .mq-logo{height:48px;}
   .marquee-track-wrap::before,.marquee-track-wrap::after{width:80px;}
   .news{padding:22px 0 24px;}
   .news-item{height:48px;}
