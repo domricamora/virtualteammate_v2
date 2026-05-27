@@ -92,10 +92,10 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       "description": "HIPAA-certified medical and dental virtual assistant staffing — sourced from a global talent network, delivered in your time zone.",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "20118 N 67th Ave, Suite 300-523",
-        "addressLocality": "Glendale",
+        "streetAddress": "2425 East Camelback Road",
+        "addressLocality": "Phoenix",
         "addressRegion": "AZ",
-        "postalCode": "85308",
+        "postalCode": "85016",
         "addressCountry": "US"
       },
       "areaServed": ["US","CA","GB","AU"],

@@ -69,7 +69,7 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Verified</div>
+    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-folder-open"></i> EHR Trained</div>
     <div class="hv-card">
       <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=85" alt="Medical administrative assistant working at desk in clinic"/>
@@ -184,7 +184,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1">
       <div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div>
-      <h3 class="pstep-title">Free Strategy Call</h3>
+      <h3 class="pstep-title">Strategy Call</h3>
       <p class="pstep-desc">15-minute call to map your admin workflows, EHR stack, time-zone needs and the exact tasks the VA will own.</p>
     </div>
     <div class="pstep reveal d2">
@@ -210,7 +210,7 @@ include __DIR__ . '/../../includes/nav.php';
   </div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a medical administrative virtual assistant actually do?</div><div class="faq-a">A medical admin VA owns the non-clinical workflows that drain a provider&rsquo;s day: chart prep, patient intake, records requests, prior auth packets, referrals, inbox triage and EHR data hygiene &mdash; all inside your existing systems.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your medical admin VAs HIPAA compliant?</div><div class="faq-a">Yes. Every admin VA completes HIPAA training and certification before placement, signs a BAA-compatible confidentiality agreement, and works only within your approved systems.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your medical admin VAs HIPAA certified?</div><div class="faq-a">Yes. Every admin VA completes HIPAA training and certification before placement, signs a BAA-compatible confidentiality agreement, and works only within your approved systems.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-brain"></i> Which EHR systems do your admin VAs know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more &mdash; plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical admin VA cost?</div><div class="faq-a">Transparent flat-rate pricing, typically 60&ndash;78% less than the fully-loaded cost of an equivalent US in-house hire. Use our ROI calculator on the homepage for an exact, role-specific quote.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can a medical admin VA start?</div><div class="faq-a">Most clients receive a curated shortlist within days. Onboarding (training, tool access, workflow docs) wraps in 1&ndash;2 weeks for a fully-live, productive VA.</div></div>

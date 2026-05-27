@@ -62,10 +62,9 @@
   /* CTA intent switching — secondary CTAs deep-link with data-cta-intent,
      CTA form tabs swap heading/submit copy and a hidden intent input. */
   var INTENTS = {
-    'strategy-call':    { h: 'Book Your Free Strategy Call',          s: '30-minute call. We map your workflows and hand you a placement plan — no commitment.', btn: 'Get My Free Strategy Call' },
-    'practice-audit':   { h: 'Book Your Free 20-min Practice Audit',  s: 'Diagnostic-only call. We tell you what to outsource first — and what to keep in-house.', btn: 'Book My Free Audit' },
-    'buyers-checklist': { h: 'Send Me the HIPAA VA Buyer’s Checklist', s: 'PDF. The 22 questions to ask any healthcare VA agency before you sign. Emailed within one business day.', btn: 'Email Me the Checklist' },
-    'savings-report':   { h: 'Send Me My Full Savings Report',        s: 'Role-specific ROI math for your practice. PDF emailed within one business day.', btn: 'Email Me the Report' }
+    'strategy-call':    { h: 'Strategy Call &amp; Jumpstart',           s: '30-minute call. We map your needs, define the role, and match you to candidates within 5–7 business days.', btn: 'Book My Strategy Call' },
+    'practice-audit':   { h: 'Free 20-min Practice Audit',              s: 'Diagnostic-only call. Workflow inventory + outsourcing priority list + tier and headcount recommendation.', btn: 'Book My Practice Audit' },
+    'buyers-checklist': { h: 'HIPAA VA Buyer’s Checklist',              s: 'PDF emailed within one business day. The 22 questions to ask any healthcare VA agency before you sign.', btn: 'Send Me the Checklist' }
   };
   var ctaTabs     = document.querySelectorAll('.cta-intent');
   var ctaHeading  = document.getElementById('ctaHeading');
@@ -234,7 +233,6 @@
   var schedBtns  = document.querySelectorAll('.calc-seg [data-sched]');
 
   var $annual  = document.getElementById('calcAnnual');
-  var $biwk    = document.getElementById('calcBiWk');
   var $monthly = document.getElementById('calcMonthly');
   var $usAmt   = document.getElementById('calcUsAmt');
   var $vtAmt   = document.getElementById('calcVtAmt');
@@ -294,7 +292,6 @@
     var pct = usAnnual > 0 ? Math.round((annualSave / usAnnual) * 100) : 0;
 
     tweenNum($annual, annualSave);
-    tweenNum($biwk,   saveBi);
     tweenNum($monthly, monthlySave);
     tweenNum($usAmt,  usAnnual, { suffix: ' / yr' });
     tweenNum($vtAmt,  vtAnnual, { suffix: ' / yr' });

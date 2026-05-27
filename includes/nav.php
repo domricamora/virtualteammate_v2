@@ -12,7 +12,7 @@ $home_base = $home_base ?? './';
 <div class="topbar" role="complementary">
   <i class="fa-solid fa-hospital" aria-hidden="true"></i> Specialized in Medical &amp; Dental Virtual Assistants &mdash; HIPAA-Certified &amp; Fully Vetted
   &nbsp;&bull;&nbsp;
-  <a href="<?= $home_base ?>#cta">Book Your Free Strategy Call <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $home_base ?>#cta">Book Your Strategy Call <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->

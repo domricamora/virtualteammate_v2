@@ -15,3 +15,13 @@ _*.html
 *.local
 .env
 .env.*
+
+# Portal SQLite DB — per-environment, never committed or deployed
+data/portal.sqlite
+data/portal.sqlite-journal
+data/portal.sqlite-wal
+data/portal.sqlite-shm
+data/SUPERADMIN_CREDENTIALS.txt
+
+# Synced HubSpot media (per-environment, may contain PII like resumes)
+data/media/

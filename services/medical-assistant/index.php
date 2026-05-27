@@ -34,7 +34,7 @@ include __DIR__ . '/../../includes/nav.php';
   "mainEntity":[
     {"@type":"Question","name":"What does a virtual medical assistant do?","acceptedAnswer":{"@type":"Answer","text":"A virtual medical assistant handles the non-hands-on work that consumes clinical staff time: triage prep, EHR follow-up, refill processing, prior authorization, results routing, patient outreach and care coordination — letting your in-room MAs focus on the patient in front of them."}},
     {"@type":"Question","name":"Can a virtual MA replace my in-house medical assistant?","acceptedAnswer":{"@type":"Answer","text":"It complements them. In-room hands-on work (vitals, injections, rooming) still needs to happen in person. A virtual MA covers the documentation, follow-up and coordination workload — typically 40-60% of a clinical MA's day — so your in-house team can stay focused on patients."}},
-    {"@type":"Question","name":"Are virtual MAs HIPAA compliant?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every virtual MA is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside encrypted environments only."}},
+    {"@type":"Question","name":"Are virtual MAs HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every virtual MA is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside encrypted environments only."}},
     {"@type":"Question","name":"How much does a virtual medical assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-78% less than a fully-loaded US clinical MA. Use the homepage ROI calculator for an exact estimate."}}
   ]
 }
@@ -67,7 +67,7 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Verified</div>
+    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-stethoscope"></i> Clinical Workflows</div>
     <div class="hv-card">
       <img src="<?= $home_base ?>images/photos/medical-assistant.jpg" alt="Virtual medical assistant in scrubs supporting clinical team"/>
@@ -151,7 +151,7 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From Call to Live MA in <em>Under Two Weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Free Strategy Call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified virtual MAs matched to your specialty and EHR. You interview, you choose.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR access, SOP handoff, shadow week, and a Client Success Manager. Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-nurse"></i> What does a virtual medical assistant actually do?</div><div class="faq-a">Triage prep, refill management, prior authorization, results routing, care coordination, patient outreach and EHR follow-up &mdash; the non-hands-on workload that consumes 40&ndash;60% of an in-house MA&rsquo;s shift.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-hand-holding-medical"></i> Can a virtual MA replace my in-house MA?</div><div class="faq-a">It complements them. Hands-on work (vitals, injections, rooming) still happens in person. The virtual MA absorbs the documentation, follow-up and coordination workload so your in-house team can stay focused on patients.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your virtual MAs HIPAA compliant?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your virtual MAs HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your MAs know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more &mdash; plus e-Rx, lab portals and patient-portal platforms.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical assistant cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;78% less than a fully-loaded US clinical MA hire. Use our ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my virtual MA is sick or on leave?</div><div class="faq-a">Trained backup coverage is included &mdash; your Client Success Manager arranges a substitute so workflows never stall.</div></div>

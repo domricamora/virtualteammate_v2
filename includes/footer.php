@@ -17,7 +17,7 @@ $hide_footer = $hide_footer ?? false;
       </div>
       <p class="ft-about">The leading HIPAA-certified virtual staffing solution for medical practices and dental clinics. Global talent network, US time zones, built to scale.</p>
       <address class="ft-contact" style="font-style:normal;">
-        <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 20118 N 67th Ave, Suite 300-523, Glendale, AZ 85308<br>
+        <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 2425 East Camelback Road, Phoenix, AZ 85016<br>
         <i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+14808472498">(480) 847-2498</a><br>
         <i class="fa-solid fa-envelope" aria-hidden="true"></i> <a href="mailto:clientsuccess@virtualteammate.com">clientsuccess@virtualteammate.com</a>
       </address>
@@ -56,7 +56,7 @@ $hide_footer = $hide_footer ?? false;
     </nav>
   </div>
   <div class="ft-bottom">
-    <div class="ft-copy">&copy; <?= date('Y') ?> Virtual Teammate &middot; <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a></div>
+    <div class="ft-copy">&copy; <?= date('Y') ?> Virtual Teammate &middot; <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a> &middot; <a href="<?= $home_base ?>portal/" class="ft-portal-link"><i class="fa-solid fa-lock" aria-hidden="true"></i> Portal Login</a></div>
     <div class="ft-seo" aria-hidden="true">
       <span>Medical Virtual Assistant</span>
       <span>Dental Virtual Assistant</span>

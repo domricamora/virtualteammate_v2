@@ -22,7 +22,7 @@ html{font-size:16px;scroll-behavior:smooth;}
 
 body{
   font-family:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #1a1535 0%, #2e1f6e 35%, #dfa949 100%);
+  background: linear-gradient(180deg, #1a1535 0%, #2e1f6e 35%, #1a1535 70%, var(--violet) 100%);
   min-height:100vh;
   max-width:1980px;
   width:100%;
@@ -142,12 +142,12 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 
 /* ───── HERO ───── */
 .hero{
-  padding:110px 80px 40px;
+  padding:140px 80px 100px;
   position:relative;
   overflow:hidden;
-  min-height:760px;
-  display:grid;grid-template-columns:1fr 720px;
-  gap:80px;align-items:center;
+  min-height:780px;
+  display:grid;grid-template-columns:1fr 700px;
+  gap:90px;align-items:center;
 }
 .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:1;}
 .orb1{width:700px;height:700px;background:rgba(223,169,73,0.22);top:-200px;right:-100px;animation:floatOrb 22s ease-in-out infinite;}
@@ -168,9 +168,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(223,169,73,0.6);animation:pulseGlow 2.4s ease-out infinite;}
 .hero-h1{
-  font-size:78px;line-height:1.04;
-  color:#fff;margin-bottom:20px;font-weight:800;
+  font-size:62px;line-height:1.06;
+  color:#fff;margin-bottom:22px;font-weight:800;
   letter-spacing:-0.02em;
+  max-width:760px;
 }
 .hero-h1 em{
   color:transparent;
@@ -554,6 +555,68 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hub-chip i{color:var(--gold);font-size:11px;}
 
+/* ───── PROCESS step ETA chip ───── */
+.pstep-eta{
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.1px;
+  background:rgba(223,169,73,0.14);
+  border:1px solid rgba(223,169,73,0.4);
+  padding:4px 10px;border-radius:14px;
+  margin-bottom:10px;
+}
+.pstep-eta i{color:var(--gold);font-size:10px;}
+
+/* ───── SPEC proof-point block (medical + dental cards) ───── */
+.spec-proof{
+  background:rgba(0,0,0,0.16);
+  border:1px solid rgba(223,169,73,0.22);
+  border-radius:12px;
+  padding:16px 18px;
+  margin-bottom:24px;
+}
+.spec-proof-h{
+  font-size:11.5px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.1px;
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;
+}
+.spec-proof-h i{color:var(--gold);font-size:11px;}
+.spec-proof ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
+.spec-proof li{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.78);padding-left:16px;position:relative;}
+.spec-proof li::before{content:"\2192";position:absolute;left:0;color:var(--gold);font-weight:800;}
+.spec-proof li strong{color:#fff;font-weight:700;}
+
+/* ───── GUARANTEE — audit detail block ───── */
+.g-audit{
+  margin-top:22px;
+  background:linear-gradient(135deg, rgba(57,25,186,0.30), rgba(223,169,73,0.10));
+  border:1px solid rgba(223,169,73,0.32);
+  border-radius:14px;
+  padding:20px 22px;
+}
+.g-audit-h{
+  font-size:12.5px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.2px;
+  display:flex;align-items:center;gap:10px;margin-bottom:12px;
+}
+.g-audit-h i{color:var(--gold);}
+.g-audit ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
+.g-audit li{font-size:14px;line-height:1.6;color:rgba(255,255,255,0.82);padding-left:18px;position:relative;}
+.g-audit li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:800;}
+.g-audit li strong{color:#fff;font-weight:700;}
+
+/* ───── GLOBAL COVERAGE — tighter, client-benefit framing ───── */
+.global-compact{padding:80px 80px;}
+.global-compact .global-grid{grid-template-columns:1fr 1fr;gap:50px;}
+.global-compact .global-l{max-width:none;}
+.global-benefits{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:14px;}
+.global-benefits li{
+  display:flex;align-items:flex-start;gap:14px;
+  font-size:15px;line-height:1.55;color:rgba(255,255,255,0.78);
+}
+.global-benefits li .ico-circle{flex:0 0 42px;}
+.global-benefits li strong{color:#fff;font-weight:700;}
+
 /* World map */
 .world{
   position:relative;
@@ -826,6 +889,67 @@ a.pill i{font-size:9px;color:var(--gold);}
 .prof-tag{display:inline-block;font-size:11px;font-weight:800;padding:4px 12px;border-radius:20px;}
 .prof-tag.med{background:rgba(223,169,73,0.15);border:1px solid rgba(223,169,73,0.35);color:var(--gold-lt);}
 .prof-tag.dent{background:rgba(133,130,195,0.15);border:1px solid rgba(133,130,195,0.35);color:rgba(220,218,255,0.85);}
+.prof-role{font-size:12.5px;color:rgba(255,255,255,0.72);margin-bottom:8px;line-height:1.35;}
+.prof-meta{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:12px;}
+.prof-meta-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.72);
+  background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+  padding:3px 9px;border-radius:30px;
+}
+.prof-meta-pill i{color:var(--gold);font-size:9px;}
+.prof-empty{text-align:center;padding:36px 28px;max-width:680px;margin:32px auto 0;}
+.prof-empty p{color:rgba(255,255,255,0.78);font-size:15px;line-height:1.55;}
+.prof-empty a{color:var(--gold-lt);font-weight:700;}
+
+/* ───── CTA STAGES — three readiness-stage entry points ───── */
+.cta-stages-section{max-width:1280px;margin:0 auto;}
+.cta-stages-h{text-align:center;max-width:760px;margin:0 auto 36px;}
+.cta-stages-h .sec-lbl{justify-content:center;display:inline-flex;}
+.cta-stages-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+  max-width:1100px;margin:0 auto 46px;
+}
+.cta-stage{
+  position:relative;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:var(--glass-blur);
+  border:1px solid var(--glass-border);
+  border-radius:18px;
+  padding:30px 26px 26px;
+  display:flex;flex-direction:column;gap:14px;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.cta-stage:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.09);}
+.cta-stage-tag{
+  align-self:flex-start;
+  font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;
+  background:rgba(223,169,73,0.14);
+  border:1px solid rgba(223,169,73,0.4);
+  color:var(--gold-lt);
+  padding:4px 12px;border-radius:30px;
+}
+.cta-stage h3{font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.25;}
+.cta-stage-lead{font-size:14.5px;color:rgba(255,255,255,0.78);line-height:1.55;}
+.cta-stage-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;}
+.cta-stage-list li{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.72);padding-left:18px;position:relative;}
+.cta-stage-list li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:800;}
+.btn-cta-stage{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+  background:var(--gold);color:var(--violet-deep);
+  padding:13px 20px;border-radius:10px;
+  font-size:14px;font-weight:800;text-decoration:none;
+  border:1px solid var(--gold-dk);
+  margin-top:auto;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn-cta-stage:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(0,0,0,0.35);}
+.btn-cta-stage i{font-size:12px;color:var(--violet-deep);transition:transform .2s ease;}
+.btn-cta-stage:hover i{transform:translateX(3px);}
+
+/* High-intent (Strategy Call) gets a subtle accent ring */
+.cta-stage-high{border-color:rgba(223,169,73,0.45);box-shadow:0 0 0 1px rgba(223,169,73,0.2);}
+.cta-stage-high .cta-stage-tag{background:rgba(223,169,73,0.25);border-color:rgba(223,169,73,0.55);color:var(--gold-lt);}
 .prof-view{text-align:center;margin-top:44px;}
 
 /* ───── FAQ ───── */
@@ -910,6 +1034,12 @@ select.cf-field option{color:#1a1535;background:#fff;}
   display:flex;align-items:center;justify-content:space-between;
 }
 .ft-copy{font-size:13px;color:rgba(255,255,255,0.28);}
+.ft-copy a{color:rgba(255,255,255,0.55);text-decoration:none;transition:color .2s ease;}
+.ft-copy a:hover{color:#fff;}
+.ft-portal-link{
+  color:var(--gold-lt) !important;font-weight:700;letter-spacing:.2px;
+}
+.ft-portal-link i{font-size:11px;color:var(--gold);margin-right:5px;}
 .ft-seo{display:flex;gap:18px;flex-wrap:wrap;}
 .ft-seo span{font-size:12px;color:rgba(255,255,255,0.18);}
 
@@ -1133,6 +1263,47 @@ select.cf-field option{color:#1a1535;background:#fff;}
 .calc-cta-secondary i{color:var(--gold);}
 .calc-cta-secondary:hover{background:rgba(255,255,255,0.16);border-color:var(--gold);}
 
+/* ───── CALCULATOR REACH-OUT (inline contact-capture CTA) ───── */
+.calc-reachout{
+  margin-top:14px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  padding:18px 20px;
+}
+.calc-reachout-h{
+  font-size:12.5px;font-weight:800;color:var(--gold-lt);
+  text-transform:uppercase;letter-spacing:1.2px;
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;
+}
+.calc-reachout-h i{color:var(--gold);}
+.calc-reachout-row{display:grid;grid-template-columns:1.4fr 1fr auto;gap:10px;align-items:center;}
+.calc-reachout-field{
+  background:rgba(255,255,255,0.08);
+  border:1px solid var(--glass-border);
+  border-radius:8px;
+  padding:11px 14px;
+  font-size:14px;color:#fff;
+  font-family:inherit;width:100%;
+}
+.calc-reachout-field:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,0.12);}
+.calc-reachout-field::placeholder{color:rgba(255,255,255,0.45);}
+.calc-reachout-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  background:var(--gold);color:var(--violet-deep);
+  border:1px solid var(--gold-dk);
+  border-radius:8px;
+  padding:11px 18px;
+  font-size:13.5px;font-weight:800;
+  cursor:pointer;white-space:nowrap;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.calc-reachout-btn:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,0.35);}
+.calc-reachout-btn:disabled{opacity:.7;cursor:default;transform:none;box-shadow:none;}
+.calc-reachout-btn i{font-size:11px;color:var(--violet-deep);}
+.calc-reachout-foot{margin-top:10px;font-size:12px;font-style:italic;color:rgba(255,255,255,0.55);}
+
 /* ───── GUARANTEE SECTION ───── */
 .guarantee{padding:90px 80px;position:relative;overflow:hidden;}
 .guarantee::before{
@@ -1176,7 +1347,7 @@ select.cf-field option{color:#1a1535;background:#fff;}
 
 .g-copy .sec-h2{margin-bottom:14px;}
 .g-copy .sec-sub{margin-bottom:28px;}
-.g-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:26px;}
+.g-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0;}
 .g-card{
   background:rgba(255,255,255,0.05);
   border:1px solid var(--glass-border);
@@ -1188,7 +1359,7 @@ select.cf-field option{color:#1a1535;background:#fff;}
 .g-card .ico-circle{margin-bottom:14px;}
 .g-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;}
 .g-card p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.7);}
-.g-foot{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+.g-foot{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:26px;}
 
 /* ───── CASE STUDY CARDS ───── */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;}
@@ -1613,8 +1784,8 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .nav-mega-link{padding:10px 12px;}
   .nav-mega-cta{margin-top:12px;}
 
-  .hero{padding:70px 32px 40px;grid-template-columns:1fr;gap:50px;min-height:auto;}
-  .hero-h1{font-size:54px;}
+  .hero{padding:80px 32px 60px;grid-template-columns:1fr;gap:50px;min-height:auto;}
+  .hero-h1{font-size:46px;max-width:none;}
   .hero-sub{font-size:18px;max-width:none;}
   .hero-visual{height:480px;max-width:600px;margin:0 auto;}
   .hv-main{width:380px;height:440px;right:30px;}
@@ -1664,6 +1835,10 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .calc-cta{flex-direction:column;align-items:stretch;gap:14px;padding:18px 18px;}
   .calc-cta-btns{flex-direction:row;flex-wrap:wrap;align-items:stretch;}
   .calc-cta-primary,.calc-cta-secondary{flex:1;justify-content:center;}
+
+  /* Calculator reach-out form on tablet — keep on one row but allow wrap. */
+  .calc-reachout-row{grid-template-columns:1fr 1fr;gap:8px;}
+  .calc-reachout-btn{grid-column:1 / -1;}
 
   /* Guarantee */
   .guarantee{padding:70px 32px;}
@@ -1728,8 +1903,8 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .nav-links{padding:14px 16px 22px;}
   .nav-links > a, .nav-drop-trigger{font-size:14.5px;padding:13px 6px;}
 
-  .hero{padding:50px 18px 30px;gap:32px;}
-  .hero-h1{font-size:36px;}
+  .hero{padding:56px 18px 44px;gap:32px;}
+  .hero-h1{font-size:32px;}
   .hero-h1 br{display:none;}
   .hero-sub{font-size:15.5px;}
   .hero-eyebrow{font-size:10.5px;padding:6px 14px;letter-spacing:.6px;}
@@ -1854,6 +2029,17 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .calc-rate-tier-amt{font-size:24px;}
   .calc-cta-btns{flex-direction:column;}
   .calc-cta-primary,.calc-cta-secondary{width:100%;padding:13px 16px;font-size:13.5px;}
+
+  /* Calculator reach-out — stack on mobile so each field gets full width. */
+  .calc-reachout{padding:14px 16px;border-radius:12px;}
+  .calc-reachout-h{font-size:11.5px;margin-bottom:10px;}
+  .calc-reachout-row{grid-template-columns:1fr;gap:8px;}
+  .calc-reachout-btn{grid-column:auto;width:100%;padding:12px 16px;font-size:13.5px;}
+  .calc-reachout-foot{font-size:11.5px;}
+
+  /* Bars / amounts at narrow widths — let the amount wrap below the label. */
+  .calc-bar-head{flex-wrap:wrap;gap:4px;}
+  .calc-bar-amt{font-size:13px;}
 
   /* Guarantee */
   .guarantee{padding:55px 18px;}
