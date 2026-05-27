@@ -28,6 +28,7 @@ TOP_FILES=(
   "robots.txt"
   "sitemap.xml"
   "favicon.ico"
+  "talent-photo.php"
 )
 
 # Production directories to mirror recursively.
@@ -38,6 +39,16 @@ TOP_DIRS=(
   "includes"
   "services"
   "business"
+  "portal"
+)
+
+# data/ is uploaded selectively — never ship the SQLite DB, sync state,
+# super-admin credentials file or downloaded media. The bare directory
+# (with .htaccess deny + .gitkeep) seeds the writable folder the portal
+# installer will populate on first run.
+DATA_FILES=(
+  "data/.htaccess"
+  "data/.gitkeep"
 )
 
 upload(){
@@ -64,5 +75,11 @@ for f in "${TOP_FILES[@]}"; do
 done
 for d in "${TOP_DIRS[@]}"; do
   upload_dir "$d"
+done
+for f in "${DATA_FILES[@]}"; do
+  if [ -f "$f" ]; then
+    echo "  $f"
+    upload "$f" "$f"
+  fi
 done
 echo "Deploy complete."
