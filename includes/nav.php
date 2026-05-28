@@ -102,7 +102,7 @@ $home_base = $home_base ?? './';
             <span><strong>About Virtual Teammate</strong><em>Founder, leadership &amp; mission</em></span>
           </a>
           <a class="nav-mega-link" href="<?= $home_base ?>guarantee/" role="menuitem">
-            <i class="fa-solid fa-shield-check"></i>
+            <i class="fa-solid fa-shield-halved"></i>
             <span><strong>30-Day Right-Fit Promise</strong><em>Our no-risk hiring guarantee</em></span>
           </a>
           <a class="nav-mega-link" href="<?= $home_base ?>careers/" role="menuitem">

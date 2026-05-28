@@ -88,7 +88,7 @@ include __DIR__ . '/../includes/nav.php';
 <!-- HERO -->
 <header class="svc-hero">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-shield-check"></i> The 30-Day Right-Fit Promise</div>
+    <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The 30-Day Right-Fit Promise</div>
     <h1 class="svc-h1">Hire a Virtual Teammate <em>Risk-Free</em>. Period.</h1>
     <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your VA isn&rsquo;t the right fit inside the first 30 days, we make it right &mdash; at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
@@ -124,7 +124,7 @@ include __DIR__ . '/../includes/nav.php';
       </div>
     </div>
     <div class="g-copy">
-      <div class="sec-lbl"><i class="fa-solid fa-shield-check"></i> The Three Commitments</div>
+      <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The Three Commitments</div>
       <h2 class="sec-h2" id="g-h2">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
       <p class="sec-sub">A staffing partner, not a contract trap. Here is exactly what you get the day your VA goes live &mdash; and exactly what happens if anything goes sideways.</p>
       <div class="g-cards">
@@ -253,7 +253,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:60px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Right-Fit Promise FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-check"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost VA replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost VA replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 5 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new VA is live and producing.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-rotate-left"></i> Is the refund really full?</div><div class="faq-a">Yes &mdash; every billed day in the first 30 days, refunded in full inside one billing cycle. No clawbacks, no termination fees, no minimum-term lock-in.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-shield"></i> Do I have to pay extra for backup?</div><div class="faq-a">No. Trained backup coverage is included with every placement. When your VA is on PTO, sick, or unavailable, your CSM arranges a backup within hours at no extra cost.</div></div>

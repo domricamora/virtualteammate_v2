@@ -359,7 +359,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
     </div>
     <div class="g-copy">
-      <div class="sec-lbl"><i class="fa-solid fa-shield-check"></i> The VT 30-Day Right-Fit Promise</div>
+      <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The VT 30-Day Right-Fit Promise</div>
       <h2 class="sec-h2" id="g-h">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
       <p class="sec-sub">Three commitments, published in writing &mdash; no fine print, no sales-call gotchas, no &ldquo;but you signed&rdquo; emails.</p>
       <div class="g-cards">
