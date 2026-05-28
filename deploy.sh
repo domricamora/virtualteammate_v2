@@ -43,6 +43,8 @@ TOP_DIRS=(
   "about"
   "careers"
   "case-studies"
+  "contact"
+  "guarantee"
   "portal"
 )
 

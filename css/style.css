@@ -2205,3 +2205,65 @@ select.cf-field option{color:#1a1535;background:#fff;}
   .svc-related{padding:0 18px 70px;}
   .svc-related-grid{grid-template-columns:1fr;}
 }
+
+/* ───── NEW PAGES: spacing + responsive polish ─────
+   Targets: /about, /careers, /case-studies, /contact, /guarantee
+   These are additive overrides — they don't replace existing service-page rules,
+   they fill gaps for the new inline grids and tighten tap targets on phones. */
+@media (max-width:980px){
+  /* FAQ grid stacks earlier on tablet for the new pages — keeps Q&A scannable. */
+  .faq-grid{grid-template-columns:1fr;gap:14px;}
+}
+@media (max-width:768px){
+  /* Hero CTA buttons stack full-width on phones for tap clarity. */
+  .svc-hero-ctas{display:flex;flex-direction:column;align-items:stretch;gap:12px;width:100%;}
+  .svc-hero-ctas .btn-primary,
+  .svc-hero-ctas .btn-glass{width:100%;justify-content:center;}
+  /* Hero mini-note centers naturally when stacked. */
+  .btn-mini-note{display:block;text-align:center;margin-top:10px;}
+  /* Section heading scale-down so new-page H1/H2 don't clip on phones. */
+  .svc-h1{font-size:36px;line-height:1.1;}
+  .svc-h2{font-size:28px;}
+  /* Bens grid 1-col on mobile (services already handle this, mirror for safety). */
+  .svc-bens-grid{grid-template-columns:1fr;gap:14px;}
+  /* Stats: 2-col on phones */
+  .svc-stats{grid-template-columns:repeat(2,1fr);margin:0 18px;}
+  .svc-stat{padding:18px 10px;}
+  .svc-stat-num{font-size:26px;}
+  .svc-stat-lbl{font-size:11.5px;}
+  /* Service-CTA buttons full-width stack */
+  .svc-cta-btns{flex-direction:column;align-items:stretch;gap:12px;}
+  /* Sections breathing room consistent with service pages */
+  main > section.sec{padding:60px 18px;}
+  main > .divider{margin:0 18px;}
+}
+@media (max-width:520px){
+  /* Contact page — tighten cards + map + meta on small phones. */
+  .ct-grid{gap:14px;}
+  .ct-card{padding:22px 18px;}
+  .ct-card a.ct-link{font-size:15px;word-break:break-word;}
+  .ct-quick{gap:12px;}
+  .ct-map-wrap iframe{height:300px;}
+  .ct-map-meta{flex-direction:column;align-items:flex-start;text-align:left;padding:14px 16px;gap:8px;}
+  /* Case studies — 1-col KPIs per card, smaller logo chip. */
+  .cs-grid{gap:14px;}
+  .cs-card{padding:22px 18px;gap:14px;}
+  .cs-kpis{grid-template-columns:1fr;gap:10px;}
+  .cs-logo{height:54px;max-width:160px;}
+  .cs-by-area{gap:12px;}
+  .cs-area-card{padding:16px 12px;}
+  .cs-area-card .pct{font-size:26px;}
+  /* Guarantee — tighten vs cards + claim steps. */
+  .gp-vs{gap:14px;}
+  .gp-vs-card{padding:22px 18px;}
+  .gp-vs-h{flex-direction:column;align-items:flex-start;gap:8px;}
+  .gp-claim-steps{gap:14px;}
+  .gp-claim-step{padding:18px 16px;}
+  /* Heading scale on smallest phones */
+  .svc-h1{font-size:28px;}
+  .svc-h2{font-size:22px;}
+  .sec-h2{font-size:26px;}
+  .sec-sub{font-size:14.5px;}
+  /* Stats label wrap protection */
+  .svc-stat-lbl{font-size:11px;line-height:1.35;}
+}

@@ -47,10 +47,10 @@ $hide_footer = $hide_footer ?? false;
       <ul class="ft-links">
         <li><a href="<?= $home_base ?>about/">About Us</a></li>
         <li><a href="<?= $home_base ?>business/">Business &amp; Non-Profit VAs</a></li>
-        <li><a href="<?= $home_base ?>#guarantee">30-Day Right-Fit Promise</a></li>
+        <li><a href="<?= $home_base ?>guarantee/">30-Day Right-Fit Promise</a></li>
         <li><a href="<?= $home_base ?>case-studies/">Case Studies</a></li>
         <li><a href="<?= $home_base ?>careers/">Careers</a></li>
-        <li><a href="<?= $home_base ?>#cta">Contact</a></li>
+        <li><a href="<?= $home_base ?>contact/">Contact</a></li>
       </ul>
     </nav>
   </div>
