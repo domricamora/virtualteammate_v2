@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Case Acceptance</div>
     <div class="hv-chip c2"><i class="fa-solid fa-calendar-check"></i> Full Schedule</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental-assistant.jpg" alt="Virtual dental treatment coordinator on a follow-up call"/>
+      <img src="<?= $home_base ?>images/photos/dental/Why-Highly-Skilled-Dental-Virtual-Assistants-Matter.png" alt="Virtual dental treatment coordinator on a follow-up call"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=85" alt="Dental coordinator reviewing treatment plans"/>
+    <img src="<?= $home_base ?>images/photos/dental/Dental-Virtual-Assistants%20Help-You-Stay-Ahead.png" alt="Dental coordinator reviewing treatment plans"/>
   </div>
 </section>
 

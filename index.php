@@ -45,10 +45,10 @@ include 'includes/nav.php';
     <div class="hv-chip t2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
     <div class="hv-chip t3"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
     <div class="hv-card hv-main">
-      <img src="images/photos/hero-medical-va.jpg" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
+      <img src="images/photos/hero-medical-va.png" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
     </div>
     <div class="hv-card hv-side">
-      <img src="images/photos/hero-dental-va.jpg" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
+      <img src="images/photos/hero-dental-va.png" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
     </div>
   </div>
 </header>
@@ -260,7 +260,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/medical-assistant.jpg" alt="Medical virtual assistant working on a computer"/>
+        <img src="images/photos/Medical-Virtual-Assistant.png" alt="Medical virtual assistant working on a computer"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -292,7 +292,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/dental-assistant.jpg" alt="Dental virtual assistant at reception desk on a computer"/>
+        <img src="images/photos/Dental-Virtual-Assistant.png" alt="Dental virtual assistant at reception desk on a computer"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>

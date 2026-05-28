@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Real-Time Notes</div>
     <div class="hv-chip c2"><i class="fa-solid fa-clock"></i> Chairside Chart Closure</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental-assistant.jpg" alt="Virtual dental scribe documenting a dental visit in the PMS"/>
+      <img src="<?= $home_base ?>images/photos/dental/Dental-Virtual-Assistants%20Help-You-Stay-Ahead.png" alt="Virtual dental scribe documenting a dental visit in the PMS"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=900&q=85" alt="Dentist working with a patient while a virtual scribe charts"/>
+    <img src="<?= $home_base ?>images/photos/dental/Why-Highly-Skilled-Dental-Virtual-Assistants-Matter.png" alt="Dentist working with a patient while a virtual scribe charts"/>
   </div>
 </section>
 

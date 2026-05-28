@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-phone"></i> Live Calls</div>
     <div class="hv-chip c2"><i class="fa-solid fa-calendar-check"></i> Fuller Schedule</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental-assistant.jpg" alt="Virtual dental receptionist answering patient calls"/>
+      <img src="<?= $home_base ?>images/photos/dental/Improve-Practice-Operations-Seamlessly.png" alt="Virtual dental receptionist answering patient calls"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=900&q=85" alt="Dental receptionist scheduling appointments on a computer"/>
+    <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-%20the-Overhead.png" alt="Dental receptionist scheduling appointments on a computer"/>
   </div>
 </section>
 

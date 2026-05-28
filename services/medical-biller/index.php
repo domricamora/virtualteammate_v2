@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> 95%+ Clean Claims</div>
     <div class="hv-chip c2"><i class="fa-solid fa-coins"></i> Faster Cash</div>
     <div class="hv-card">
-      <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=85" alt="Virtual medical biller working on claims and AR"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.png" alt="Virtual medical biller working on claims and AR"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=85" alt="Medical biller reviewing claims and AR reports"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.png" alt="Medical biller reviewing claims and AR reports"/>
   </div>
 </section>
 

@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-stethoscope"></i> Clinical Workflows</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/medical-assistant.jpg" alt="Virtual medical assistant in scrubs supporting clinical team"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every%20Day.png" alt="Virtual medical assistant in scrubs supporting clinical team"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=900&q=85" alt="Doctor with medical assistant reviewing patient chart"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.png" alt="Doctor with medical assistant reviewing patient chart"/>
   </div>
 </section>
 
