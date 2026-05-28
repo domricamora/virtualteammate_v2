@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Real-Time Notes</div>
     <div class="hv-chip c2"><i class="fa-solid fa-clock"></i> Chairside Chart Closure</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental/Dental-Virtual-Assistants%20Help-You-Stay-Ahead.png" alt="Virtual dental scribe documenting a dental visit in the PMS"/>
+      <img src="<?= $home_base ?>images/photos/dental/Dental-Virtual-Assistants-Help-You-Stay-Ahead.png" alt="Virtual dental scribe documenting a dental visit in the PMS"/>
     </div>
   </div>
 </header>

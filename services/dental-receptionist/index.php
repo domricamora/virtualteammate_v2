@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-%20the-Overhead.png" alt="Dental receptionist scheduling appointments on a computer"/>
+    <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.png" alt="Dental receptionist scheduling appointments on a computer"/>
   </div>
 </section>
 

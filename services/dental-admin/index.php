@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-tooth"></i> Dentrix &amp; Eaglesoft</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-%20the-Overhead.png" alt="Dental administrative virtual assistant working on a computer"/>
+      <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.png" alt="Dental administrative virtual assistant working on a computer"/>
     </div>
   </div>
 </header>

@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-stethoscope"></i> Clinical Workflows</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every%20Day.png" alt="Virtual medical assistant in scrubs supporting clinical team"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every-Day.png" alt="Virtual medical assistant in scrubs supporting clinical team"/>
     </div>
   </div>
 </header>
