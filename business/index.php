@@ -51,7 +51,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Multi-Stage Vetted</div>
     <div class="hv-chip c2"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
     <div class="hv-card">
-      <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=85" alt="Business virtual assistant working at laptop"/>
+      <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=85" alt="Business virtual assistant working at laptop" loading="lazy"/>
     </div>
   </div>
 </header>

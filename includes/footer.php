@@ -45,11 +45,11 @@ $hide_footer = $hide_footer ?? false;
     <nav aria-label="Company">
       <div class="ft-h">Company</div>
       <ul class="ft-links">
-        <li><a href="<?= $home_base ?>#">About Us</a></li>
+        <li><a href="<?= $home_base ?>about/">About Us</a></li>
         <li><a href="<?= $home_base ?>business/">Business &amp; Non-Profit VAs</a></li>
         <li><a href="<?= $home_base ?>#guarantee">30-Day Right-Fit Promise</a></li>
-        <li><a href="<?= $home_base ?>#testimonials">Case Studies</a></li>
-        <li><a href="<?= $home_base ?>#">Careers</a></li>
+        <li><a href="<?= $home_base ?>case-studies/">Case Studies</a></li>
+        <li><a href="<?= $home_base ?>careers/">Careers</a></li>
         <li><a href="<?= $home_base ?>#cta">Contact</a></li>
       </ul>
     </nav>

@@ -5,7 +5,7 @@ $subtitle  = 'Read-only profile + assigned clients.';
 <div class="card view-head">
   <div class="view-id">
     <?php if (!empty($csm['photo_url'])): ?>
-      <img class="view-photo" src="<?= e($csm['photo_url']) ?>" alt="">
+      <img class="view-photo" src="<?= e($csm['photo_url']) ?>" alt="" loading="lazy">
     <?php else: ?>
       <div class="view-photo placeholder"><?= e(strtoupper(substr($csm['first_name'] ?: $csm['email'], 0, 1))) ?></div>
     <?php endif; ?>

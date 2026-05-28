@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-tooth"></i> Dentrix &amp; Eaglesoft</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.png" alt="Dental administrative virtual assistant working on a computer"/>
+      <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.png" alt="Dental administrative virtual assistant working on a computer" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.png" alt="Dental admin VA reviewing records on laptop"/>
+    <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.png" alt="Dental admin VA reviewing records on laptop" loading="lazy"/>
   </div>
 </section>
 

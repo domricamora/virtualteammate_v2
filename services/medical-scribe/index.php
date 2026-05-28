@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Real-Time Notes</div>
     <div class="hv-chip c2"><i class="fa-solid fa-clock"></i> Save 2&ndash;3 hrs/day</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.png" alt="Virtual medical scribe documenting patient visit in EHR"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.png" alt="Virtual medical scribe documenting patient visit in EHR" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every-Day.png" alt="Physician seeing patient while virtual scribe documents in EHR"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every-Day.png" alt="Physician seeing patient while virtual scribe documents in EHR" loading="lazy"/>
   </div>
 </section>
 

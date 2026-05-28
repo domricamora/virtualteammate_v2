@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> CDT Coded</div>
     <div class="hv-chip c2"><i class="fa-solid fa-coins"></i> Faster Cash</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.png" alt="Virtual dental biller working on insurance claims for dental practice"/>
+      <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.png" alt="Virtual dental biller working on insurance claims for dental practice" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/dental/Improve-Practice-Operations-Seamlessly.png" alt="Dental biller working on insurance claims at desk"/>
+    <img src="<?= $home_base ?>images/photos/dental/Improve-Practice-Operations-Seamlessly.png" alt="Dental biller working on insurance claims at desk" loading="lazy"/>
   </div>
 </section>
 

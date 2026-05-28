@@ -5,7 +5,7 @@ $subtitle  = 'Profile, assignments, media and recent EOD reports.';
 <div class="card view-head">
   <div class="view-id">
     <?php if (!empty($vt['photo_url'])): ?>
-      <img class="view-photo" src="<?= e($vt['photo_url']) ?>" alt="">
+      <img class="view-photo" src="<?= e($vt['photo_url']) ?>" alt="" loading="lazy">
     <?php else: ?>
       <div class="view-photo placeholder"><?= e(strtoupper(substr($vt['first_name'] ?: $vt['email'], 0, 1))) ?></div>
     <?php endif; ?>
@@ -77,7 +77,7 @@ $subtitle  = 'Profile, assignments, media and recent EOD reports.';
     <div class="media-tile">
       <div class="media-tile-h">Photo</div>
       <?php if (!empty($vt['photo_url'])): ?>
-        <img src="<?= e($vt['photo_url']) ?>" alt="" class="media-thumb">
+        <img src="<?= e($vt['photo_url']) ?>" alt="" class="media-thumb" loading="lazy">
         <a class="btn-portal-secondary btn-sm" href="<?= e($vt['photo_url']) ?>" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open</a>
       <?php else: ?>
         <div class="muted">No photo on file.</div>

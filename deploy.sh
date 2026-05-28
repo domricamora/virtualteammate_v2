@@ -40,6 +40,9 @@ TOP_DIRS=(
   "includes"
   "services"
   "business"
+  "about"
+  "careers"
+  "case-studies"
   "portal"
 )
 

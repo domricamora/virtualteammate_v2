@@ -260,7 +260,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/Medical-Virtual-Assistant.png" alt="Medical virtual assistant working on a computer"/>
+        <img src="images/photos/Medical-Virtual-Assistant.png" alt="Medical virtual assistant working on a computer" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -292,7 +292,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/Dental-Virtual-Assistant.png" alt="Dental virtual assistant at reception desk on a computer"/>
+        <img src="images/photos/Dental-Virtual-Assistant.png" alt="Dental virtual assistant at reception desk on a computer" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
