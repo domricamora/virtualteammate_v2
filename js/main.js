@@ -1,13 +1,17 @@
 (function(){
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* Nav hamburger + dropdown accordion (tablet & mobile) */
+  /* Nav hamburger + dropdown accordion (tablet & mobile).
+     We use a single matchMedia change listener for the 1280px breakpoint
+     instead of a resize handler — fires only when the breakpoint is crossed,
+     not on every pixel of a window-drag. */
   var navToggle = document.getElementById('navToggle');
   var navLinks  = document.getElementById('primaryNav');
   var navDrops  = document.querySelectorAll('.nav-drop');
   var navEl     = document.querySelector('.nav');
+  var navMql    = matchMedia('(max-width:1280px)');
 
-  function isMobileNav(){ return matchMedia('(max-width:1280px)').matches; }
+  function isMobileNav(){ return navMql.matches; }
 
   function closeNav(){
     if (!navToggle || !navLinks) return;
@@ -54,10 +58,10 @@
     if (navEl && !navEl.contains(e.target)) closeNav();
   });
 
-  // Reset state if viewport crosses the breakpoint.
-  window.addEventListener('resize', function(){
-    if (!isMobileNav()) closeNav();
-  });
+  // Reset drawer state only when the breakpoint is crossed.
+  function onBreakpointChange(){ if (!navMql.matches) closeNav(); }
+  if (navMql.addEventListener) navMql.addEventListener('change', onBreakpointChange);
+  else if (navMql.addListener) navMql.addListener(onBreakpointChange); // Safari < 14 fallback
 
   /* CTA intent switching — secondary CTAs deep-link with data-cta-intent,
      CTA form tabs swap heading/submit copy and a hidden intent input. */
@@ -159,17 +163,32 @@
     counters.forEach(countUp);
   }
 
+  /* Reusable: append N logo items to a track as a DocumentFragment
+     (avoids innerHTML parsing and any XSS risk from name/href strings). */
+  function buildMarqueeFragment(list, makeItem){
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < list.length; i++) frag.appendChild(makeItem(list[i]));
+    return frag;
+  }
+
   /* Client logo marquee — list is generated server-side from
      images/clients/marquee/ and injected as window.VT_MARQUEE. */
   var clients = (window.VT_MARQUEE || []).map(function(src){ return { name:'Client', src:src }; });
   var track = document.getElementById('mqTrack');
-  if (track){
-    function build(set){
-      return set.map(function(c){
-        return '<div class="mq-logo" title="'+c.name+'"><img src="'+c.src+'" alt="'+c.name+'" loading="lazy"/></div>';
-      }).join('');
+  if (track && clients.length){
+    function makeClientItem(c){
+      var div = document.createElement('div');
+      div.className = 'mq-logo';
+      div.title = c.name;
+      var img = document.createElement('img');
+      img.src = c.src;
+      img.alt = c.name;
+      img.loading = 'lazy';
+      div.appendChild(img);
+      return div;
     }
-    track.innerHTML = build(clients) + build(clients);
+    track.appendChild(buildMarqueeFragment(clients, makeClientItem));
+    track.appendChild(buildMarqueeFragment(clients, makeClientItem));
   }
 
   /* Press / News logo marquee — assets mirrored locally from
@@ -198,14 +217,22 @@
   ];
   var newsTrack = document.getElementById('newsTrack');
   if (newsTrack){
-    function buildPress(set){
-      return set.map(function(p){
-        return '<a class="news-item" href="'+p.href+'" target="_blank" rel="noopener" title="'+p.name+'">'+
-                 '<img src="'+p.src+'" alt="'+p.name+'" loading="lazy"/>'+
-               '</a>';
-      }).join('');
+    function makePressItem(p){
+      var a = document.createElement('a');
+      a.className = 'news-item';
+      a.href = p.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.title = p.name;
+      var img = document.createElement('img');
+      img.src = p.src;
+      img.alt = p.name;
+      img.loading = 'lazy';
+      a.appendChild(img);
+      return a;
     }
-    newsTrack.innerHTML = buildPress(press) + buildPress(press);
+    newsTrack.appendChild(buildMarqueeFragment(press, makePressItem));
+    newsTrack.appendChild(buildMarqueeFragment(press, makePressItem));
   }
 
   /* ROI Calculator — matches live staging plugin BIWEEK rates */
@@ -239,33 +266,72 @@
     return '$' + v.toLocaleString();
   }
 
-  var tweens = new WeakMap();
+  /* Per-element tween state + token. The token mechanism is critical:
+     dragging the count slider used to spawn a new 900ms RAF chain per input
+     event with no cancellation — overlapping chains fought over textContent
+     and burned CPU. We now bump the token on each tween; in-flight frames
+     check their token against current and exit early if superseded. */
+  var tweenState = new WeakMap(); // el -> { value: number, token: number }
   function tweenNum(el, to, opts){
+    if (!el) return;
     opts = opts || {};
-    var prefix = opts.prefix || '$';
+    var prefix = ('prefix' in opts) ? opts.prefix : '$';
     var suffix = opts.suffix || '';
     var dur = reduce ? 0 : (opts.dur || 900);
-    var from = tweens.get(el) || 0;
+    var s = tweenState.get(el) || { value: 0, token: 0 };
+    var from = s.value;
+    var token = s.token + 1;
     if (dur === 0){
-      tweens.set(el, to);
+      tweenState.set(el, { value: to, token: token });
       el.textContent = prefix + Math.round(to).toLocaleString() + suffix;
       return;
     }
+    // Seed with the new token so older frames see they're stale.
+    tweenState.set(el, { value: from, token: token });
     var start = performance.now();
     function frame(now){
+      var cur = tweenState.get(el);
+      if (!cur || cur.token !== token) return; // superseded
       var t = Math.min(1, (now - start) / dur);
       var v = from + (to - from) * easeOutCubic(t);
       el.textContent = prefix + Math.round(v).toLocaleString() + suffix;
+      tweenState.set(el, { value: v, token: token });
       if (t < 1) requestAnimationFrame(frame);
-      else tweens.set(el, to);
     }
     requestAnimationFrame(frame);
+  }
+
+  /* Same cancellation pattern, scoped to the percentage element. */
+  var pctToken = 0;
+  function tweenPct(target){
+    if (!$pct) return;
+    if (reduce){ $pct.textContent = target + '%'; $pct.dataset.cur = target; return; }
+    var startP = +($pct.dataset.cur || 0), durP = 800, t0 = performance.now();
+    var token = ++pctToken;
+    function fr(now){
+      if (token !== pctToken) return; // superseded
+      var k = Math.min(1, (now - t0) / durP);
+      var v = Math.round(startP + (target - startP) * easeOutCubic(k));
+      $pct.textContent = v + '%';
+      if (k < 1) requestAnimationFrame(fr);
+      else $pct.dataset.cur = target;
+    }
+    requestAnimationFrame(fr);
   }
 
   function setActiveBtn(group, key, dataAttr){
     group.forEach(function(b){
       b.classList.toggle('on', b.getAttribute(dataAttr) === key);
     });
+  }
+
+  /* recalc coalesced into a single RAF — multiple input events within the
+     same frame (slider drag, button mashing) collapse to one DOM update batch. */
+  var recalcPending = false;
+  function scheduleRecalc(){
+    if (recalcPending) return;
+    recalcPending = true;
+    requestAnimationFrame(function(){ recalcPending = false; recalc(); });
   }
 
   function recalc(){
@@ -287,31 +353,19 @@
     tweenNum($vtAmt,  vtAnnual, { suffix: ' / yr' });
     tweenNum($3yr,    annualSave * 3);
     tweenNum($perVa,  state.count > 0 ? annualSave / state.count : 0);
+    tweenPct(pct);
 
-    if (reduce){
-      $pct.textContent = pct + '%';
-    } else {
-      var startP = +($pct.dataset.cur || 0), durP = 800, t0 = performance.now();
-      function fr(now){
-        var k = Math.min(1, (now - t0) / durP);
-        var v = Math.round(startP + (pct - startP) * easeOutCubic(k));
-        $pct.textContent = v + '%';
-        if (k < 1) requestAnimationFrame(fr);
-        else $pct.dataset.cur = pct;
-      }
-      requestAnimationFrame(fr);
+    if ($gauge){
+      var C = 2 * Math.PI * 84;
+      var dash = (Math.max(0, Math.min(100, pct)) / 100) * C;
+      $gauge.setAttribute('stroke-dasharray', dash + ' ' + (C - dash));
     }
 
-    var C = 2 * Math.PI * 84;
-    var dash = (Math.max(0, Math.min(100, pct)) / 100) * C;
-    $gauge.setAttribute('stroke-dasharray', dash + ' ' + (C - dash));
-
-    var usPct = 100;
     var vtPct = usAnnual > 0 ? Math.max(4, (vtAnnual / usAnnual) * 100) : 0;
-    $usBar.style.width = usPct + '%';
-    $vtBar.style.width = vtPct + '%';
+    if ($usBar) $usBar.style.width = '100%';
+    if ($vtBar) $vtBar.style.width = vtPct + '%';
 
-    $ctaAmt.textContent = fmt(annualSave) + ' / yr';
+    if ($ctaAmt) $ctaAmt.textContent = fmt(annualSave) + ' / yr';
   }
 
   if (roleSel){
@@ -319,21 +373,21 @@
       var opt = roleSel.options[roleSel.selectedIndex];
       var t = opt && opt.dataset.tier;
       if (t){ state.tier = t; setActiveBtn(tierBtns, t, 'data-tier'); }
-      recalc();
+      scheduleRecalc();
     });
   }
   tierBtns.forEach(function(b){
     b.addEventListener('click', function(){
       state.tier = b.getAttribute('data-tier');
       setActiveBtn(tierBtns, state.tier, 'data-tier');
-      recalc();
+      scheduleRecalc();
     });
   });
   schedBtns.forEach(function(b){
     b.addEventListener('click', function(){
       state.sched = b.getAttribute('data-sched');
       setActiveBtn(schedBtns, state.sched, 'data-sched');
-      recalc();
+      scheduleRecalc();
     });
   });
   if (countEl){
@@ -342,9 +396,13 @@
       countValEl.textContent = state.count;
       var pctFill = ((state.count - countEl.min) / (countEl.max - countEl.min)) * 100;
       countEl.style.background = 'linear-gradient(90deg, var(--gold) 0%, var(--gold) ' + pctFill + '%, rgba(255,255,255,0.12) ' + pctFill + '%)';
-      recalc();
+      scheduleRecalc();
     });
-    countEl.dispatchEvent(new Event('input'));
+    // Seed initial fill + state without dispatching an input event
+    // (avoids the double-recalc on load — scheduleRecalc below handles it).
+    var initFill = ((state.count - countEl.min) / (countEl.max - countEl.min)) * 100;
+    countEl.style.background = 'linear-gradient(90deg, var(--gold) 0%, var(--gold) ' + initFill + '%, rgba(255,255,255,0.12) ' + initFill + '%)';
+    if (countValEl) countValEl.textContent = state.count;
   }
   if (roleSel){
     var opt0 = roleSel.options[roleSel.selectedIndex];

@@ -1151,6 +1151,13 @@ select.cf-field option{color:#1a1535;background:#fff;}
 .nav-mega::before{
   content:"";position:absolute;top:-12px;left:0;right:0;height:20px;
 }
+/* Compact single-column variant for the About dropdown (4 company links). */
+.nav-mega.nav-mega-sm{
+  width:340px;
+  grid-template-columns:1fr;
+  padding:16px;
+}
+.nav-mega.nav-mega-sm .nav-mega-h{margin-bottom:6px;}
 .nav-drop:hover .nav-mega,
 .nav-drop:focus-within .nav-mega{opacity:1;visibility:visible;transform:translate(-50%,0);}
 

@@ -88,10 +88,35 @@ $home_base = $home_base ?? './';
         </div>
       </div>
     </div>
+    <a href="<?= $home_base ?>case-studies/">Case Studies</a>
+    <div class="nav-drop">
+      <a href="<?= $home_base ?>about/" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        About
+        <i class="fa-solid fa-chevron-down nav-caret" aria-hidden="true"></i>
+      </a>
+      <div class="nav-mega nav-mega-sm" role="menu" aria-label="Company">
+        <div class="nav-mega-col">
+          <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-building"></i></span> Company</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>about/" role="menuitem">
+            <i class="fa-solid fa-circle-info"></i>
+            <span><strong>About Virtual Teammate</strong><em>Founder, leadership &amp; mission</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>guarantee/" role="menuitem">
+            <i class="fa-solid fa-shield-check"></i>
+            <span><strong>30-Day Right-Fit Promise</strong><em>Our no-risk hiring guarantee</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>careers/" role="menuitem">
+            <i class="fa-solid fa-rocket"></i>
+            <span><strong>Careers</strong><em>Remote VA jobs &middot; apply now</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>contact/" role="menuitem">
+            <i class="fa-solid fa-headset"></i>
+            <span><strong>Contact Us</strong><em>Phoenix HQ &middot; (480) 847-2498</em></span>
+          </a>
+        </div>
+      </div>
+    </div>
     <a href="<?= $home_base ?>#calculator">ROI Calculator</a>
-    <a href="<?= $home_base ?>#global">Global Network</a>
-    <a href="<?= $home_base ?>#profiles">VA Profiles</a>
-    <a href="<?= $home_base ?>#faq">FAQ</a>
   </div>
   <div class="nav-right">
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
