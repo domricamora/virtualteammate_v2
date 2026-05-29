@@ -100,11 +100,16 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
             <details>
               <summary><strong><?= count($failed) ?> media download failures</strong> — click to view</summary>
               <table class="data-table" style="margin-top:10px;">
-                <thead><tr><th>User</th><th>Kind</th><th>Reason</th><th>URL</th></tr></thead>
+                <thead><tr><th>User</th><th>Email</th><th>Kind</th><th>Reason</th><th>URL</th></tr></thead>
                 <tbody>
-                  <?php foreach ($failed as $f): ?>
+                  <?php foreach ($failed as $f):
+                      $name = (string) ($f['name']  ?? '');
+                      $em   = (string) ($f['email'] ?? '');
+                      $uid  = (string) ($f['user_id'] ?? '');
+                  ?>
                     <tr>
-                      <td><?= e((string) ($f['user_id'] ?? '')) ?></td>
+                      <td><?= e($name !== '' ? $name : '—') ?> <span class="muted small">#<?= e($uid) ?></span></td>
+                      <td class="muted small"><?= e($em) ?></td>
                       <td><?= e((string) ($f['kind'] ?? '')) ?></td>
                       <td class="muted small"><?= e((string) ($f['reason'] ?? '')) ?></td>
                       <td class="muted small" style="max-width:360px;overflow:hidden;text-overflow:ellipsis;"><?= e((string) ($f['url'] ?? '')) ?></td>
@@ -333,23 +338,43 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
       }
     }
 
+    var consecutiveErrors = 0;
     function poll(){
       var form = new FormData(); form.append('_csrf', csrf);
       fetch(stepUrl, { method:'POST', body: form, credentials:'same-origin' })
-        .then(function(r){ return r.json(); })
+        .then(function(r){
+          // Non-2xx (504, 500 from PHP timeout, etc.) → treat as transient.
+          if (!r.ok) { throw new Error('HTTP ' + r.status); }
+          return r.json();
+        })
         .then(function(s){
+          consecutiveErrors = 0;
           setStatus(s);
           if (s.status === 'running') {
             statePoll = setTimeout(poll, 700);
           } else {
             statePoll = null;
-            // Reload to render the last_report panel + correct button states.
             if (s.status === 'done' || s.status === 'error') {
               setTimeout(function(){ location.reload(); }, 600);
             }
           }
         })
-        .catch(function(){ statePoll = null; });
+        .catch(function(err){
+          // Network blip, PHP timeout, browser tab in background. Don't
+          // give up — back off (1.5s → 3s → 6s → 12s → 24s capped) and
+          // keep polling. State is checkpointed per-item in the media
+          // loop so the next successful tick resumes cleanly.
+          consecutiveErrors++;
+          var backoffMs = Math.min(24000, 1500 * Math.pow(2, consecutiveErrors - 1));
+          var logEl = q('log');
+          if (logEl) {
+            var li = document.createElement('li');
+            li.style.color = '#f7b945';
+            li.textContent = '⚠ poll error (' + (err && err.message || 'network') + ') — retry in ' + Math.round(backoffMs/1000) + 's (attempt #' + consecutiveErrors + ')';
+            logEl.insertBefore(li, logEl.firstChild);
+          }
+          statePoll = setTimeout(poll, backoffMs);
+        });
     }
 
     // Kick off polling if we landed on the page mid-run.

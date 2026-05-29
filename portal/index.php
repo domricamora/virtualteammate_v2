@@ -51,7 +51,11 @@ switch ($action) {
     case 'eod.delete':      handle_eod_delete();         break;
 
     case 'audit':           handle_audit_list();         break;
+    case 'audit.delete':    handle_audit_delete();       break;
+    case 'audit.clear':     handle_audit_clear();        break;
     case 'traffic':         handle_traffic_list();       break;
+    case 'traffic.delete':  handle_traffic_delete();     break;
+    case 'traffic.clear':   handle_traffic_clear();      break;
 
     /* ───────────────────────── HubSpot sync (super admin) ─────────────────────────── */
     case 'hubspot':                handle_hubspot_page();            break;
@@ -90,6 +94,9 @@ switch ($action) {
     case 'tasks.edit':             handle_tasks_edit();              break;
     case 'tasks.toggle':           handle_tasks_toggle();            break;
     case 'tasks.delete':           handle_tasks_delete();            break;
+    case 'tasks.attach':           handle_tasks_attach();            break;
+    case 'tasks.attachment':       handle_tasks_attachment_serve();  break;
+    case 'tasks.attachment.delete':handle_tasks_attachment_delete(); break;
     case 'workday':                handle_workday_list();            break;
     case 'notifications':          handle_notifications_list();      break;
     case 'notifications.read':     handle_notifications_read();      break;
@@ -1000,36 +1007,112 @@ function handle_meetings_edit(): void
         $stmt->execute([':id'=>$id]);
         $meeting = $stmt->fetch() ?: null;
         if (!$meeting) { flash('error', 'Meeting not found.'); redirect(portal_url('meetings')); }
+        // Tighten scope: a client may only edit meetings on their own account;
+        // a csm may only edit meetings on a client they're assigned to.
+        if (!meetings_user_can_manage($u, (int) $meeting['client_id'])) {
+            flash('error', 'You can not edit this meeting.');
+            redirect(portal_url('meetings'));
+        }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         csrf_verify();
-        $clientId = (int) ($_POST['client_id'] ?? 0);
-        $attendee = (int) ($_POST['attendee_user_id'] ?? 0) ?: null;
-        $role     = (string) ($_POST['meeting_with_role'] ?? '');
-        $when     = trim((string) ($_POST['scheduled_at'] ?? ''));
-        $duration = max(15, (int) ($_POST['duration_minutes'] ?? 30));
-        $topic    = trim((string) ($_POST['topic'] ?? ''));
-        $notes    = trim((string) ($_POST['notes'] ?? ''));
-        $status   = (string) ($_POST['status'] ?? 'scheduled');
+        $clientId    = (int) ($_POST['client_id'] ?? 0);
+        $attendee    = (int) ($_POST['attendee_user_id'] ?? 0) ?: null;
+        $role        = (string) ($_POST['meeting_with_role'] ?? 'csm');
+        $topic       = trim((string) ($_POST['topic'] ?? ''));
+        $notes       = trim((string) ($_POST['notes'] ?? ''));
+        $status      = (string) ($_POST['status'] ?? 'scheduled');
+        $meetingLink = trim((string) ($_POST['meeting_link'] ?? ''));
+        $callApp     = strtolower(trim((string) ($_POST['call_app'] ?? 'zoom')));
+        if (!in_array($callApp, ['zoom','google_meet','teams','webex','phone','other'], true)) {
+            $callApp = 'other';
+        }
 
-        if ($clientId < 1 || $when === '' || !in_array($role, ['csm','vt'], true)) {
-            flash('error', 'Client, attendee role, and date/time required.');
+        // Combine Day + Starts/Ends. The form posts three separate inputs to
+        // match the user-facing layout; the DB still keeps a canonical
+        // scheduled_at + end_at (ISO datetime).
+        $day   = trim((string) ($_POST['day']   ?? ''));
+        $start = trim((string) ($_POST['start'] ?? ''));
+        $end   = trim((string) ($_POST['end']   ?? ''));
+        // Fallback if the legacy combined input is posted.
+        $legacy = trim((string) ($_POST['scheduled_at'] ?? ''));
+        $startAt = '';
+        $endAt   = '';
+        if ($day !== '' && $start !== '') {
+            $startAt = $day . ' ' . $start . (strlen($start) === 5 ? ':00' : '');
+        } elseif ($legacy !== '') {
+            $startAt = str_replace('T', ' ', $legacy);
+        }
+        if ($day !== '' && $end !== '') {
+            $endAt = $day . ' ' . $end . (strlen($end) === 5 ? ':00' : '');
+        }
+
+        // Derive duration from start/end so old reports keep working.
+        $duration = 30;
+        if ($startAt !== '' && $endAt !== '') {
+            try {
+                $diff = (new DateTime($endAt))->getTimestamp() - (new DateTime($startAt))->getTimestamp();
+                if ($diff > 0) { $duration = (int) round($diff / 60); }
+            } catch (Throwable $_) {}
+        } else {
+            $duration = max(15, (int) ($_POST['duration_minutes'] ?? 30));
+        }
+
+        if ($clientId < 1 || $startAt === '' || $topic === '' || !in_array($role, ['csm','vt'], true)) {
+            flash('error', 'Meeting name, client account, and day/start time are required.');
+            redirect(portal_url('meetings.edit', ['id'=>$id]));
+        }
+        // Defense-in-depth: the posted client_id must be one the caller can
+        // attach a meeting to (super_admin: any; client: own; csm: assigned).
+        if (!meetings_user_can_manage($u, $clientId)) {
+            flash('error', 'You can not schedule a meeting on that client account.');
+            redirect(portal_url('meetings.edit', ['id'=>$id]));
+        }
+        // Same check for the attendee — must be one of the role-scoped
+        // candidates we'd render in the form (prevents form-tampering).
+        if ($attendee !== null) {
+            $allowedAttendeeIds = array_map(static fn($c) => (int) $c['id'], meetings_scoped_candidates($u));
+            if (!in_array((int) $attendee, $allowedAttendeeIds, true)) {
+                flash('error', 'Selected attendee is not available for your account.');
+                redirect(portal_url('meetings.edit', ['id'=>$id]));
+            }
+        }
+        if ($endAt !== '' && $endAt < $startAt) {
+            flash('error', 'End time must be after start time.');
             redirect(portal_url('meetings.edit', ['id'=>$id]));
         }
         if (!in_array($status, ['scheduled','completed','cancelled'], true)) { $status = 'scheduled'; }
 
         if ($id > 0) {
             db()->prepare(
-                'UPDATE meetings SET client_id=:c, attendee_user_id=:a, meeting_with_role=:r, scheduled_at=:w, duration_minutes=:d, topic=:t, notes=:n, status=:s, updated_at=CURRENT_TIMESTAMP WHERE id=:id'
-            )->execute([':c'=>$clientId, ':a'=>$attendee, ':r'=>$role, ':w'=>$when, ':d'=>$duration, ':t'=>$topic, ':n'=>$notes, ':s'=>$status, ':id'=>$id]);
+                'UPDATE meetings
+                 SET client_id=:c, attendee_user_id=:a, meeting_with_role=:r,
+                     scheduled_at=:w, end_at=:e, duration_minutes=:d,
+                     meeting_link=:ml, call_app=:ca,
+                     topic=:t, notes=:n, status=:s, updated_at=CURRENT_TIMESTAMP
+                 WHERE id=:id'
+            )->execute([
+                ':c'=>$clientId, ':a'=>$attendee, ':r'=>$role,
+                ':w'=>$startAt, ':e'=>$endAt, ':d'=>$duration,
+                ':ml'=>$meetingLink, ':ca'=>$callApp,
+                ':t'=>$topic, ':n'=>$notes, ':s'=>$status, ':id'=>$id,
+            ]);
             audit_log('update', 'meeting', $id);
             $finalId = $id;
         } else {
             db()->prepare(
-                'INSERT INTO meetings (client_id, organizer_user_id, attendee_user_id, meeting_with_role, scheduled_at, duration_minutes, topic, notes, status)
-                 VALUES (:c, :o, :a, :r, :w, :d, :t, :n, :s)'
-            )->execute([':c'=>$clientId, ':o'=>$u['id'], ':a'=>$attendee, ':r'=>$role, ':w'=>$when, ':d'=>$duration, ':t'=>$topic, ':n'=>$notes, ':s'=>$status]);
+                'INSERT INTO meetings
+                   (client_id, organizer_user_id, attendee_user_id, meeting_with_role,
+                    scheduled_at, end_at, duration_minutes, meeting_link, call_app,
+                    topic, notes, status)
+                 VALUES (:c, :o, :a, :r, :w, :e, :d, :ml, :ca, :t, :n, :s)'
+            )->execute([
+                ':c'=>$clientId, ':o'=>$u['id'], ':a'=>$attendee, ':r'=>$role,
+                ':w'=>$startAt, ':e'=>$endAt, ':d'=>$duration,
+                ':ml'=>$meetingLink, ':ca'=>$callApp,
+                ':t'=>$topic, ':n'=>$notes, ':s'=>$status,
+            ]);
             $finalId = (int) db()->lastInsertId();
             audit_log('create', 'meeting', $finalId);
         }
@@ -1037,20 +1120,97 @@ function handle_meetings_edit(): void
         redirect(portal_url('meetings'));
     }
 
-    // Scope options for the form by role.
-    if ($u['role'] === 'client') {
-        $stmt = db()->prepare('SELECT id, company_name FROM clients WHERE user_id = :u');
-        $stmt->execute([':u'=>$u['id']]);
-        $clients = $stmt->fetchAll();
-    } elseif ($u['role'] === 'csm') {
-        $stmt = db()->prepare('SELECT c.id, c.company_name FROM csm_clients cc JOIN clients c ON c.id = cc.client_id WHERE cc.csm_user_id = :u');
-        $stmt->execute([':u'=>$u['id']]);
-        $clients = $stmt->fetchAll();
-    } else {
-        $clients = db()->query('SELECT id, company_name FROM clients ORDER BY company_name')->fetchAll();
-    }
-    $candidates = db()->query("SELECT id, first_name, last_name, email, role FROM users WHERE role IN ('csm','vt_hired') AND active=1 ORDER BY role, first_name")->fetchAll();
+    // Client + attendee scoping for the form. Clients see only their own
+    // accounts + only CSMs and VTs actually assigned to them; csms see only
+    // the clients they manage + the VTs in those engagements; super_admin
+    // sees the entire org.
+    $clients    = meetings_scoped_clients($u);
+    $candidates = meetings_scoped_candidates($u);
     render('meetings-edit', ['meeting'=>$meeting, 'clients'=>$clients, 'candidates'=>$candidates, 'user'=>$u]);
+}
+
+/** True if $u may edit / delete a meeting on $clientId. */
+function meetings_user_can_manage(array $u, int $clientId): bool
+{
+    if ($u['role'] === 'super_admin') { return true; }
+    if ($clientId <= 0) { return false; }
+    if ($u['role'] === 'client') {
+        $stmt = db()->prepare('SELECT 1 FROM clients WHERE id = :c AND user_id = :u');
+        $stmt->execute([':c' => $clientId, ':u' => $u['id']]);
+        return (bool) $stmt->fetchColumn();
+    }
+    if ($u['role'] === 'csm') {
+        $stmt = db()->prepare('SELECT 1 FROM csm_clients WHERE client_id = :c AND csm_user_id = :u');
+        $stmt->execute([':c' => $clientId, ':u' => $u['id']]);
+        return (bool) $stmt->fetchColumn();
+    }
+    return false;
+}
+
+/** Clients the user is allowed to attach a meeting to. */
+function meetings_scoped_clients(array $u): array
+{
+    if ($u['role'] === 'client') {
+        $stmt = db()->prepare('SELECT id, company_name FROM clients WHERE user_id = :u ORDER BY company_name');
+        $stmt->execute([':u' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    if ($u['role'] === 'csm') {
+        $stmt = db()->prepare(
+            'SELECT c.id, c.company_name FROM csm_clients cc
+             JOIN clients c ON c.id = cc.client_id
+             WHERE cc.csm_user_id = :u ORDER BY c.company_name'
+        );
+        $stmt->execute([':u' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    return db()->query('SELECT id, company_name FROM clients ORDER BY company_name')->fetchAll();
+}
+
+/** Attendee candidates the user may schedule with. */
+function meetings_scoped_candidates(array $u): array
+{
+    if ($u['role'] === 'super_admin') {
+        return db()->query(
+            "SELECT id, first_name, last_name, email, role FROM users
+             WHERE role IN ('csm','vt_hired','client') AND active = 1
+             ORDER BY role, first_name"
+        )->fetchAll();
+    }
+    if ($u['role'] === 'client') {
+        // Their CSM(s) on csm_clients + the hired VTs in client_vts.
+        $stmt = db()->prepare(
+            "SELECT u.id, u.first_name, u.last_name, u.email, u.role
+             FROM clients c
+             JOIN csm_clients cc ON cc.client_id = c.id
+             JOIN users u ON u.id = cc.csm_user_id AND u.active = 1
+             WHERE c.user_id = :u
+             UNION
+             SELECT u.id, u.first_name, u.last_name, u.email, u.role
+             FROM clients c
+             JOIN client_vts cv ON cv.client_id = c.id AND cv.contract_status = 'active'
+             JOIN users u ON u.id = cv.vt_user_id AND u.active = 1
+             WHERE c.user_id = :u
+             ORDER BY role, first_name"
+        );
+        $stmt->execute([':u' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    if ($u['role'] === 'csm') {
+        // The client login users + the VTs across their assigned clients.
+        $stmt = db()->prepare(
+            "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email, u.role
+             FROM csm_clients cc
+             JOIN clients c ON c.id = cc.client_id
+             LEFT JOIN client_vts cv ON cv.client_id = c.id AND cv.contract_status = 'active'
+             JOIN users u ON u.id IN (c.user_id, cv.vt_user_id) AND u.active = 1
+             WHERE cc.csm_user_id = :u
+             ORDER BY u.role, u.first_name"
+        );
+        $stmt->execute([':u' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    return [];
 }
 
 function handle_meetings_delete(): void
@@ -1059,14 +1219,17 @@ function handle_meetings_delete(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('meetings')); }
     csrf_verify();
     $id = (int) ($_POST['id'] ?? 0);
-    if (!is_super_admin()) {
-        $check = db()->prepare('SELECT organizer_user_id FROM meetings WHERE id = :id');
-        $check->execute([':id'=>$id]);
-        $orgId = (int) $check->fetchColumn();
-        if ($orgId !== (int) $u['id']) {
-            flash('error', 'Only the organizer or a super admin can delete this meeting.');
-            redirect(portal_url('meetings'));
-        }
+    $stmt = db()->prepare('SELECT organizer_user_id, client_id FROM meetings WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch();
+    if (!$row) { redirect(portal_url('meetings')); }
+    // Allowed if the caller can manage the client account (super_admin /
+    // client on their account / csm on assigned client) OR is the organizer.
+    $canDel = meetings_user_can_manage($u, (int) $row['client_id'])
+           || ((int) $row['organizer_user_id'] === (int) $u['id']);
+    if (!$canDel) {
+        flash('error', 'You can not delete this meeting.');
+        redirect(portal_url('meetings'));
     }
     db()->prepare('DELETE FROM meetings WHERE id = :id')->execute([':id'=>$id]);
     audit_log('delete', 'meeting', $id);
@@ -1213,6 +1376,35 @@ function handle_audit_list(): void
     render('audit-list', ['rows' => $stmt->fetchAll()]);
 }
 
+function handle_audit_delete(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('audit')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('audit')); }
+    db()->prepare('DELETE FROM audit_log WHERE id = :id')->execute([':id' => $id]);
+    // Don't audit_log() the deletion — that creates noise immediately after.
+    flash('success', 'Audit entry removed.');
+    redirect(portal_url('audit'));
+}
+
+function handle_audit_clear(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('audit')); }
+    csrf_verify();
+    // Defensive: require a typed confirmation token on the POST.
+    if (($_POST['confirm'] ?? '') !== 'DELETE ALL') {
+        flash('error', 'Confirmation phrase did not match. Audit log untouched.');
+        redirect(portal_url('audit'));
+    }
+    $n = (int) db()->query('SELECT COUNT(*) FROM audit_log')->fetchColumn();
+    db()->exec('DELETE FROM audit_log');
+    flash('success', "Cleared {$n} audit entries.");
+    redirect(portal_url('audit'));
+}
+
 /* ═════════════════════════════════════════════════════════════════════════
  * TRAFFIC MONITORING (super admin) — homepage / marketing pageviews
  * ═════════════════════════════════════════════════════════════════════════ */
@@ -1266,6 +1458,46 @@ function handle_traffic_list(): void
         'top_countries' => $topCountries, 'top_pages' => $topPages,
         'q' => $q, 'not_ready' => false,
     ]);
+}
+
+function handle_traffic_delete(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('traffic')); }
+    csrf_verify();
+    if (!traffic_table_exists()) { redirect(portal_url('traffic')); }
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('traffic')); }
+    db()->prepare('DELETE FROM traffic WHERE id = :id')->execute([':id' => $id]);
+    audit_log('traffic_delete', 'traffic', $id);
+    flash('success', 'Traffic row removed.');
+    redirect(portal_url('traffic'));
+}
+
+function handle_traffic_clear(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('traffic')); }
+    csrf_verify();
+    if (!traffic_table_exists()) { redirect(portal_url('traffic')); }
+    if (($_POST['confirm'] ?? '') !== 'DELETE ALL') {
+        flash('error', 'Confirmation phrase did not match. Traffic log untouched.');
+        redirect(portal_url('traffic'));
+    }
+    $scope = (string) ($_POST['scope'] ?? 'all');
+    $pdo = db();
+    if ($scope === '30d') {
+        $n = (int) $pdo->query("SELECT COUNT(*) FROM traffic WHERE created_at < datetime('now','-30 days')")->fetchColumn();
+        $pdo->exec("DELETE FROM traffic WHERE created_at < datetime('now','-30 days')");
+        audit_log('traffic_clear', 'traffic', 0, "older than 30 days ({$n} rows)");
+        flash('success', "Removed {$n} rows older than 30 days.");
+    } else {
+        $n = (int) $pdo->query('SELECT COUNT(*) FROM traffic')->fetchColumn();
+        $pdo->exec('DELETE FROM traffic');
+        audit_log('traffic_clear', 'traffic', 0, "all ({$n} rows)");
+        flash('success', "Cleared {$n} traffic rows.");
+    }
+    redirect(portal_url('traffic'));
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -1901,7 +2133,7 @@ function handle_vts_view(): void
     require_role('super_admin','csm','client');
     $id = (int) ($_GET['id'] ?? 0);
     $stmt = db()->prepare(
-        "SELECT p.*, u.email, u.first_name, u.last_name, u.phone, u.country, u.photo_url, u.active, u.last_login_at, u.hubspot_contact_id
+        "SELECT p.*, u.email, u.first_name, u.last_name, u.phone, u.country, u.photo_url, u.cover_url, u.active, u.last_login_at, u.hubspot_contact_id, u.job_title
          FROM vt_profiles p JOIN users u ON u.id = p.user_id
          WHERE p.id = :id"
     );
@@ -1983,6 +2215,25 @@ function handle_clients_view(): void
  * ═════════════════════════════════════════════════════════════════════════ */
 
 /** Resolve the client_id the current user is scoped to (or 0 for super_admin). */
+/* ═════════════════════════════════════════════════════════════════════════
+ * TASK MANAGEMENT — full CRUD per role, calendar view, file attachments.
+ *
+ * Permissions matrix (enforced by tasks_can_*):
+ *   super_admin : create / read / update / delete / toggle / attach / detach
+ *                 — any task in the system, can assign to any VT (even
+ *                   without a client context: client_id is nullable now).
+ *   client      : create / read / update / delete / toggle / attach / detach
+ *                 — tasks where task.client_id matches their company.
+ *   csm         : read / update / delete / toggle / attach / detach
+ *                 — tasks where task.client_id is one of their assigned
+ *                   clients (csm_clients).
+ *   vt_hired    : read / update / toggle / attach
+ *                 — tasks where task.assignee_user_id is themselves. Cannot
+ *                   delete or reassign; cannot remove other people's
+ *                   attachments (only their own uploads).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Returns the client_id a non-super-admin user is scoped to (or 0). */
 function tasks_resolve_client_id(array $u): int
 {
     if ($u['role'] === 'super_admin') {
@@ -1994,174 +2245,13 @@ function tasks_resolve_client_id(array $u): int
         return (int) ($stmt->fetchColumn() ?: 0);
     }
     if ($u['role'] === 'csm') {
-        // CSM scoped to one of their assigned clients (?client_id=X).
-        $cid  = (int) ($_GET['client_id'] ?? $_POST['client_id'] ?? 0);
+        $cid = (int) ($_GET['client_id'] ?? $_POST['client_id'] ?? 0);
         if ($cid <= 0) { return 0; }
         $stmt = db()->prepare('SELECT 1 FROM csm_clients WHERE csm_user_id = :uid AND client_id = :cid LIMIT 1');
         $stmt->execute([':uid' => $u['id'], ':cid' => $cid]);
         return $stmt->fetchColumn() ? $cid : 0;
     }
     return 0;
-}
-
-function handle_tasks_list(): void
-{
-    $u = require_login();
-    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
-        render('error', ['title' => 'Forbidden', 'message' => 'No task list for your role.']);
-        return;
-    }
-
-    if ($u['role'] === 'vt_hired') {
-        // VT sees tasks assigned to them across all their client engagements.
-        $stmt = db()->prepare(
-            "SELECT t.*, c.company_name FROM tasks t
-             LEFT JOIN clients c ON c.id = t.client_id
-             WHERE t.assignee_user_id = :uid
-             ORDER BY t.status = 'active' DESC, IFNULL(t.due_date,'9999-12-31'),
-                      CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
-                      t.created_at DESC"
-        );
-        $stmt->execute([':uid' => $u['id']]);
-        render('tasks-list', ['user' => $u, 'tasks' => $stmt->fetchAll(), 'scope' => 'mine', 'assignees' => []]);
-        return;
-    }
-
-    $cid = tasks_resolve_client_id($u);
-    if ($cid <= 0) {
-        render('error', ['title' => 'No client', 'message' => 'No client context found for tasks.']);
-        return;
-    }
-
-    $stmt = db()->prepare(
-        "SELECT t.*, u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
-         FROM tasks t LEFT JOIN users u ON u.id = t.assignee_user_id
-         WHERE t.client_id = :cid
-         ORDER BY t.status = 'active' DESC,
-                  CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
-                  IFNULL(t.due_date,'9999-12-31'), t.created_at DESC"
-    );
-    $stmt->execute([':cid' => $cid]);
-    $tasks = $stmt->fetchAll();
-
-    $assignees = client_hired_vts($cid);
-
-    render('tasks-list', ['user' => $u, 'tasks' => $tasks, 'scope' => 'client', 'client_id' => $cid, 'assignees' => $assignees]);
-}
-
-function handle_tasks_edit(): void
-{
-    $u  = require_login();
-    $id = (int) ($_REQUEST['id'] ?? 0);
-    $pdo = db();
-
-    // Load existing task (if editing) and verify scope access.
-    $task = null;
-    if ($id > 0) {
-        $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
-        $stmt->execute([':id' => $id]);
-        $task = $stmt->fetch();
-        if (!$task) { render('error', ['title' => 'Not found', 'message' => 'Task not found.']); return; }
-    }
-
-    $cid = $task ? (int) $task['client_id'] : tasks_resolve_client_id($u);
-    if ($cid <= 0) { render('error', ['title' => 'No client', 'message' => 'No client context for this task.']); return; }
-    if ($u['role'] !== 'super_admin' && !tasks_user_can_edit_client($u, $cid)) {
-        render('error', ['title' => 'Forbidden', 'message' => 'You can not edit tasks for this client.']);
-        return;
-    }
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        csrf_verify();
-        $title    = trim((string) ($_POST['title'] ?? ''));
-        $desc     = trim((string) ($_POST['description'] ?? ''));
-        $assignee = (int) ($_POST['assignee_user_id'] ?? 0) ?: null;
-        $priority = (string) ($_POST['priority'] ?? 'normal');
-        if (!in_array($priority, ['low','normal','high','urgent'], true)) { $priority = 'normal'; }
-        $due      = trim((string) ($_POST['due_date'] ?? ''));
-        if ($due === '') { $due = null; }
-
-        if ($title === '') {
-            flash('error', 'Title is required.');
-            redirect(portal_url('tasks.edit', $id ? ['id' => $id] : ($u['role'] === 'super_admin' ? ['client_id' => $cid] : [])));
-        }
-
-        if ($task) {
-            $pdo->prepare(
-                'UPDATE tasks SET title=:t, description=:d, assignee_user_id=:a, priority=:p, due_date=:dd, updated_at=CURRENT_TIMESTAMP
-                 WHERE id=:id'
-            )->execute([':t'=>$title, ':d'=>$desc, ':a'=>$assignee, ':p'=>$priority, ':dd'=>$due, ':id'=>$id]);
-            audit_log('task_update', 'task', $id);
-            flash('success', 'Task updated.');
-        } else {
-            $pdo->prepare(
-                'INSERT INTO tasks (client_id, assignee_user_id, created_by, title, description, priority, due_date, status)
-                 VALUES (:c, :a, :cb, :t, :d, :p, :dd, "active")'
-            )->execute([
-                ':c'=>$cid, ':a'=>$assignee, ':cb'=>$u['id'],
-                ':t'=>$title, ':d'=>$desc, ':p'=>$priority, ':dd'=>$due,
-            ]);
-            $newId = (int) $pdo->lastInsertId();
-            audit_log('task_create', 'task', $newId);
-            if ($assignee) {
-                tasks_notify_assignee($assignee, $newId, $title, $cid);
-            }
-            flash('success', 'Task created.');
-        }
-        redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
-    }
-
-    $assignees = client_hired_vts($cid);
-    render('tasks-edit', ['user' => $u, 'task' => $task, 'client_id' => $cid, 'assignees' => $assignees]);
-}
-
-function handle_tasks_toggle(): void
-{
-    $u  = require_login();
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
-    csrf_verify();
-    $id = (int) ($_POST['id'] ?? 0);
-    if ($id <= 0) { redirect(portal_url('tasks')); }
-    $pdo = db();
-    $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
-    $stmt->execute([':id' => $id]);
-    $task = $stmt->fetch();
-    if (!$task) { flash('error', 'Task not found.'); redirect(portal_url('tasks')); }
-    $cid = (int) $task['client_id'];
-    // Authorize: super_admin, the linked client user, an assigned CSM, or the assignee VT.
-    $authorized = $u['role'] === 'super_admin'
-        || tasks_user_can_edit_client($u, $cid)
-        || ((int) ($task['assignee_user_id'] ?? 0) === (int) $u['id']);
-    if (!$authorized) { flash('error', 'Not allowed.'); redirect(portal_url('tasks')); }
-
-    $newStatus  = $task['status'] === 'active' ? 'completed' : 'active';
-    $completed  = $newStatus === 'completed' ? date('Y-m-d H:i:s') : null;
-    $pdo->prepare('UPDATE tasks SET status=:s, completed_at=:c, updated_at=CURRENT_TIMESTAMP WHERE id=:id')
-        ->execute([':s' => $newStatus, ':c' => $completed, ':id' => $id]);
-    audit_log('task_' . ($newStatus === 'completed' ? 'complete' : 'reopen'), 'task', $id);
-    flash('success', $newStatus === 'completed' ? 'Marked complete.' : 'Re-opened.');
-    redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
-}
-
-function handle_tasks_delete(): void
-{
-    $u = require_login();
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
-    csrf_verify();
-    $id = (int) ($_POST['id'] ?? 0);
-    if ($id <= 0) { redirect(portal_url('tasks')); }
-    $pdo = db();
-    $stmt = $pdo->prepare('SELECT client_id FROM tasks WHERE id = :id');
-    $stmt->execute([':id' => $id]);
-    $cid = (int) ($stmt->fetchColumn() ?: 0);
-    if ($cid <= 0) { redirect(portal_url('tasks')); }
-    if ($u['role'] !== 'super_admin' && !tasks_user_can_edit_client($u, $cid)) {
-        flash('error', 'Not allowed.'); redirect(portal_url('tasks'));
-    }
-    $pdo->prepare('DELETE FROM tasks WHERE id = :id')->execute([':id' => $id]);
-    audit_log('task_delete', 'task', $id);
-    flash('success', 'Task deleted.');
-    redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
 }
 
 function tasks_user_can_edit_client(array $u, int $cid): bool
@@ -2180,8 +2270,48 @@ function tasks_user_can_edit_client(array $u, int $cid): bool
     return false;
 }
 
+/** True if $u may view this task at all. */
+function tasks_can_view(array $u, array $task): bool
+{
+    if ($u['role'] === 'super_admin') { return true; }
+    $cid = (int) ($task['client_id'] ?? 0);
+    if ($cid > 0 && tasks_user_can_edit_client($u, $cid)) { return true; }
+    return (int) ($task['assignee_user_id'] ?? 0) === (int) $u['id'];
+}
+
+/** True if $u may edit (title/desc/assignee/priority/due_date) this task. */
+function tasks_can_edit(array $u, array $task): bool
+{
+    if ($u['role'] === 'super_admin') { return true; }
+    $cid = (int) ($task['client_id'] ?? 0);
+    if ($cid > 0 && tasks_user_can_edit_client($u, $cid)) { return true; }
+    // VT can update their own task (description, status, due date) per spec.
+    return $u['role'] === 'vt_hired'
+        && (int) ($task['assignee_user_id'] ?? 0) === (int) $u['id'];
+}
+
+/** True if $u may delete this task entirely. VTs never can. */
+function tasks_can_delete(array $u, array $task): bool
+{
+    if ($u['role'] === 'vt_hired') { return false; }
+    return tasks_can_edit($u, $task);
+}
+
+/** True if $u can mark this task complete / re-open. */
+function tasks_can_toggle(array $u, array $task): bool { return tasks_can_view($u, $task); }
+
+/** True if $u can create a brand-new task in the given (optional) client scope. */
+function tasks_can_create(array $u, int $cid): bool
+{
+    if ($u['role'] === 'super_admin') { return true; }
+    if ($cid > 0) { return tasks_user_can_edit_client($u, $cid); }
+    // client/csm require a client context to create.
+    return false;
+}
+
 function tasks_notify_assignee(int $userId, int $taskId, string $title, int $cid): void
 {
+    if ($userId <= 0) { return; }
     db()->prepare(
         "INSERT INTO notifications (user_id, kind, title, body, link)
          VALUES (:u, 'task', :t, :b, :l)"
@@ -2189,8 +2319,490 @@ function tasks_notify_assignee(int $userId, int $taskId, string $title, int $cid
         ':u' => $userId,
         ':t' => 'New task assigned: ' . mb_substr($title, 0, 80),
         ':b' => 'A new task has been assigned to you.',
-        ':l' => 'index.php?p=tasks&highlight=' . $taskId,
+        ':l' => 'index.php?p=tasks.edit&id=' . $taskId,
     ]);
+}
+
+/** All VTs visible to $u for the "Assign to" picker. Scoped per role. */
+function tasks_assignable_users(array $u, int $cid): array
+{
+    $pdo = db();
+    if ($u['role'] === 'super_admin') {
+        // Super admin can assign across the whole pool.
+        return $pdo->query(
+            "SELECT id AS user_id, first_name, last_name, email
+             FROM users WHERE role = 'vt_hired' AND active = 1
+             ORDER BY first_name, last_name"
+        )->fetchAll();
+    }
+    if ($cid > 0) {
+        return client_hired_vts($cid);
+    }
+    return [];
+}
+
+/**
+ * Resolve the list scope + pull matching tasks for the calling user.
+ * Returns ['scope', 'tasks', 'client_id'] — scope is one of:
+ *   all   — super_admin viewing every task (optionally filtered by client)
+ *   client — client/csm scoped to one client_id
+ *   mine  — vt_hired viewing assigned tasks only
+ */
+function tasks_fetch_for_user(array $u): array
+{
+    $pdo = db();
+
+    if ($u['role'] === 'vt_hired') {
+        $stmt = $pdo->prepare(
+            "SELECT t.*, c.company_name,
+                    u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+             FROM tasks t
+             LEFT JOIN clients c ON c.id = t.client_id
+             LEFT JOIN users u   ON u.id = t.assignee_user_id
+             WHERE t.assignee_user_id = :uid
+             ORDER BY t.status = 'active' DESC, IFNULL(t.due_date,'9999-12-31'),
+                      CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                      t.created_at DESC"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        return ['scope' => 'mine', 'tasks' => $stmt->fetchAll(), 'client_id' => 0];
+    }
+
+    if ($u['role'] === 'super_admin') {
+        // ?client_id=X is optional. With no filter we surface everything,
+        // so the calendar / table cover every active task in the system.
+        $cid = (int) ($_GET['client_id'] ?? 0);
+        $sql = "SELECT t.*, c.company_name,
+                       u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+                FROM tasks t
+                LEFT JOIN clients c ON c.id = t.client_id
+                LEFT JOIN users u   ON u.id = t.assignee_user_id";
+        $params = [];
+        if ($cid > 0) { $sql .= ' WHERE t.client_id = :cid'; $params[':cid'] = $cid; }
+        $sql .= " ORDER BY t.status = 'active' DESC,
+                  CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                  IFNULL(t.due_date,'9999-12-31'), t.created_at DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        return ['scope' => 'all', 'tasks' => $stmt->fetchAll(), 'client_id' => $cid];
+    }
+
+    // client / csm
+    if ($u['role'] === 'csm') {
+        // CSM may want to see every task across their clients OR one client.
+        $cid = (int) ($_GET['client_id'] ?? 0);
+        if ($cid > 0 && !tasks_user_can_edit_client($u, $cid)) { $cid = 0; }
+        $sql = "SELECT t.*, c.company_name,
+                       u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+                FROM tasks t
+                JOIN clients c ON c.id = t.client_id
+                JOIN csm_clients cc ON cc.client_id = c.id AND cc.csm_user_id = :uid
+                LEFT JOIN users u  ON u.id = t.assignee_user_id";
+        $params = [':uid' => (int) $u['id']];
+        if ($cid > 0) { $sql .= ' AND t.client_id = :cid'; $params[':cid'] = $cid; }
+        $sql .= " ORDER BY t.status = 'active' DESC,
+                  CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                  IFNULL(t.due_date,'9999-12-31'), t.created_at DESC";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+        return ['scope' => 'client', 'tasks' => $stmt->fetchAll(), 'client_id' => $cid];
+    }
+
+    // client
+    $cid = tasks_resolve_client_id($u);
+    if ($cid <= 0) {
+        return ['scope' => 'client', 'tasks' => [], 'client_id' => 0];
+    }
+    $stmt = $pdo->prepare(
+        "SELECT t.*, c.company_name,
+                u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+         FROM tasks t
+         LEFT JOIN clients c ON c.id = t.client_id
+         LEFT JOIN users u   ON u.id = t.assignee_user_id
+         WHERE t.client_id = :cid
+         ORDER BY t.status = 'active' DESC,
+                  CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                  IFNULL(t.due_date,'9999-12-31'), t.created_at DESC"
+    );
+    $stmt->execute([':cid' => $cid]);
+    return ['scope' => 'client', 'tasks' => $stmt->fetchAll(), 'client_id' => $cid];
+}
+
+function handle_tasks_list(): void
+{
+    $u = require_login();
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'No task list for your role.']);
+        return;
+    }
+    $bundle = tasks_fetch_for_user($u);
+    $tasks  = $bundle['tasks'];
+
+    // Calendar inputs (the same dataset, just labeled for the calendar view).
+    $view = (string) ($_GET['view'] ?? 'list');
+    if (!in_array($view, ['list','calendar','year'], true)) { $view = 'list'; }
+    $year  = (int) ($_GET['y'] ?? date('Y'));
+    $month = (int) ($_GET['m'] ?? date('n'));
+    if ($month < 1 || $month > 12) { $month = (int) date('n'); }
+    if ($year  < 2000 || $year > 2100) { $year = (int) date('Y'); }
+
+    // Bundle dated tasks into a YYYY-MM-DD map for fast calendar lookup.
+    $tasksByDate = [];
+    foreach ($tasks as $t) {
+        $d = (string) ($t['due_date'] ?? '');
+        if ($d === '') { continue; }
+        $tasksByDate[substr($d, 0, 10)][] = $t;
+    }
+
+    // Assignees: super_admin sees the whole VT pool; other roles only see
+    // their client's hired VTs.
+    $assignees = tasks_assignable_users($u, (int) $bundle['client_id']);
+
+    // Attachment counts per task (one query → keyed map).
+    $attachCounts = [];
+    if (!empty($tasks)) {
+        $ids = array_map(fn($t) => (int) $t['id'], $tasks);
+        $ph  = implode(',', array_fill(0, count($ids), '?'));
+        $stmt = db()->prepare("SELECT task_id, COUNT(*) AS n FROM task_attachments WHERE task_id IN ($ph) GROUP BY task_id");
+        $stmt->execute($ids);
+        foreach ($stmt as $row) { $attachCounts[(int) $row['task_id']] = (int) $row['n']; }
+    }
+
+    render('tasks-list', [
+        'user'           => $u,
+        'tasks'          => $tasks,
+        'scope'          => $bundle['scope'],
+        'client_id'      => (int) $bundle['client_id'],
+        'assignees'      => $assignees,
+        // Name avoids collision with $view inside render() (the view filename).
+        'tm_view'        => $view,
+        'cal_year'       => $year,
+        'cal_month'      => $month,
+        'tasks_by_date'  => $tasksByDate,
+        'attach_counts'  => $attachCounts,
+    ]);
+}
+
+function handle_tasks_edit(): void
+{
+    $u  = require_login();
+    $id = (int) ($_REQUEST['id'] ?? 0);
+    $pdo = db();
+
+    // Load existing task (if editing) and verify scope access.
+    $task = null;
+    if ($id > 0) {
+        $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $task = $stmt->fetch();
+        if (!$task) { render('error', ['title' => 'Not found', 'message' => 'Task not found.']); return; }
+        if (!tasks_can_view($u, $task)) {
+            render('error', ['title' => 'Forbidden', 'message' => 'You can not view this task.']);
+            return;
+        }
+    }
+
+    // For a NEW task, client_id may be supplied via ?client_id=… (super admin
+    // / csm) or auto-resolved (client). super_admin can also create with no
+    // client (cross-client). Anyone else must have a client context to create.
+    $cid = $task ? (int) $task['client_id'] : (int) ($_REQUEST['client_id'] ?? 0);
+    if (!$task) {
+        if ($u['role'] !== 'super_admin') {
+            $cid = tasks_resolve_client_id($u);
+            if ($cid <= 0) {
+                render('error', ['title' => 'No client', 'message' => 'No client context for creating a task.']);
+                return;
+            }
+        }
+        if (!tasks_can_create($u, $cid)) {
+            render('error', ['title' => 'Forbidden', 'message' => 'You can not create tasks in this scope.']);
+            return;
+        }
+    } else {
+        if (!tasks_can_edit($u, $task)) {
+            render('error', ['title' => 'Forbidden', 'message' => 'You can not edit this task.']);
+            return;
+        }
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
+        $title    = trim((string) ($_POST['title'] ?? ''));
+        $desc     = trim((string) ($_POST['description'] ?? ''));
+        $assignee = (int) ($_POST['assignee_user_id'] ?? 0) ?: null;
+        $priority = (string) ($_POST['priority'] ?? 'normal');
+        if (!in_array($priority, ['low','normal','high','urgent'], true)) { $priority = 'normal'; }
+        $due      = trim((string) ($_POST['due_date'] ?? ''));
+        if ($due === '') { $due = null; }
+
+        // VTs can edit only their own task; they cannot change the assignee.
+        if ($u['role'] === 'vt_hired') {
+            $assignee = isset($task['assignee_user_id']) ? (int) $task['assignee_user_id'] : null;
+            $cid      = (int) ($task['client_id'] ?? 0);
+        } else {
+            // super_admin / client / csm: when not super_admin the posted
+            // client_id is ignored — they're scoped to whatever was loaded.
+            if ($u['role'] === 'super_admin') {
+                $cid = (int) ($_POST['client_id'] ?? $cid ?? 0);
+            }
+        }
+        $cidParam = $cid > 0 ? $cid : null;
+
+        if ($title === '') {
+            flash('error', 'Title is required.');
+            redirect(portal_url('tasks.edit', $id ? ['id' => $id] : ($cid ? ['client_id' => $cid] : [])));
+        }
+
+        if ($task) {
+            $pdo->prepare(
+                'UPDATE tasks SET title=:t, description=:d, assignee_user_id=:a, priority=:p,
+                        due_date=:dd, client_id=:c, updated_at=CURRENT_TIMESTAMP
+                 WHERE id=:id'
+            )->execute([
+                ':t'=>$title, ':d'=>$desc, ':a'=>$assignee, ':p'=>$priority,
+                ':dd'=>$due, ':c'=>$cidParam, ':id'=>$id,
+            ]);
+            audit_log('task_update', 'task', $id);
+            flash('success', 'Task updated.');
+            redirect(portal_url('tasks.edit', ['id' => $id]));
+        }
+
+        $pdo->prepare(
+            'INSERT INTO tasks (client_id, assignee_user_id, created_by, title, description, priority, due_date, status)
+             VALUES (:c, :a, :cb, :t, :d, :p, :dd, "active")'
+        )->execute([
+            ':c'=>$cidParam, ':a'=>$assignee, ':cb'=>$u['id'],
+            ':t'=>$title, ':d'=>$desc, ':p'=>$priority, ':dd'=>$due,
+        ]);
+        $newId = (int) $pdo->lastInsertId();
+        audit_log('task_create', 'task', $newId);
+        if ($assignee) {
+            tasks_notify_assignee($assignee, $newId, $title, (int) ($cidParam ?? 0));
+        }
+        flash('success', 'Task created.');
+        redirect(portal_url('tasks.edit', ['id' => $newId]));
+    }
+
+    // Picker scope. For super_admin, also expose the client list so they
+    // can attach (or detach) a task to a specific company.
+    $assignees = tasks_assignable_users($u, $cid);
+    $clients   = ($u['role'] === 'super_admin')
+        ? db()->query("SELECT id, company_name FROM clients WHERE contract_status = 'active' ORDER BY company_name")->fetchAll()
+        : [];
+
+    // Existing attachments (only for saved tasks).
+    $attachments = [];
+    if ($task) {
+        $stmt = db()->prepare(
+            'SELECT a.*, u.first_name, u.last_name, u.email
+             FROM task_attachments a
+             LEFT JOIN users u ON u.id = a.uploaded_by
+             WHERE a.task_id = :t ORDER BY a.created_at DESC'
+        );
+        $stmt->execute([':t' => (int) $task['id']]);
+        $attachments = $stmt->fetchAll();
+    }
+
+    render('tasks-edit', [
+        'user'        => $u,
+        'task'        => $task,
+        'client_id'   => $cid,
+        'assignees'   => $assignees,
+        'clients'     => $clients,
+        'attachments' => $attachments,
+    ]);
+}
+
+function handle_tasks_toggle(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
+    $stmt->execute([':id' => $id]);
+    $task = $stmt->fetch();
+    if (!$task) { flash('error', 'Task not found.'); redirect(portal_url('tasks')); }
+    if (!tasks_can_toggle($u, $task)) { flash('error', 'Not allowed.'); redirect(portal_url('tasks')); }
+
+    $newStatus = $task['status'] === 'active' ? 'completed' : 'active';
+    $completed = $newStatus === 'completed' ? date('Y-m-d H:i:s') : null;
+    $pdo->prepare('UPDATE tasks SET status=:s, completed_at=:c, updated_at=CURRENT_TIMESTAMP WHERE id=:id')
+        ->execute([':s' => $newStatus, ':c' => $completed, ':id' => $id]);
+    audit_log('task_' . ($newStatus === 'completed' ? 'complete' : 'reopen'), 'task', $id);
+    flash('success', $newStatus === 'completed' ? 'Marked complete.' : 'Re-opened.');
+    redirect(portal_url('tasks'));
+}
+
+function handle_tasks_delete(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+    $task = $stmt->fetch();
+    if (!$task) { redirect(portal_url('tasks')); }
+    if (!tasks_can_delete($u, $task)) { flash('error', 'Not allowed.'); redirect(portal_url('tasks')); }
+    // Drop the attachment directory too.
+    $dir = tasks_attachments_dir((int) $id);
+    if (is_dir($dir)) {
+        foreach (glob($dir . '/*') as $f) { @unlink($f); }
+        @rmdir($dir);
+    }
+    $pdo->prepare('DELETE FROM tasks WHERE id = :id')->execute([':id' => $id]);
+    audit_log('task_delete', 'task', $id);
+    flash('success', 'Task deleted.');
+    redirect(portal_url('tasks'));
+}
+
+/* ── Task file attachments ─────────────────────────────────────────── */
+
+function tasks_attachments_dir(int $taskId): string
+{
+    return __DIR__ . '/../data/task-attachments/' . $taskId;
+}
+
+/** Per-extension allowlist + MIME map for uploaded task files. */
+function tasks_attachment_allowed(): array
+{
+    return [
+        'pdf'  => 'application/pdf',
+        'doc'  => 'application/msword',
+        'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'xls'  => 'application/vnd.ms-excel',
+        'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'ppt'  => 'application/vnd.ms-powerpoint',
+        'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+        'csv'  => 'text/csv',
+        'txt'  => 'text/plain',
+        'jpg'  => 'image/jpeg',
+        'jpeg' => 'image/jpeg',
+        'png'  => 'image/png',
+        'gif'  => 'image/gif',
+        'webp' => 'image/webp',
+        'zip'  => 'application/zip',
+    ];
+}
+
+function handle_tasks_attach(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['task_id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+    $task = $stmt->fetch();
+    if (!$task) { redirect(portal_url('tasks')); }
+    if (!tasks_can_edit($u, $task)) { flash('error', 'Not allowed.'); redirect(portal_url('tasks.edit', ['id' => $id])); }
+
+    if (empty($_FILES['file']) || ($_FILES['file']['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+        flash('error', 'No file uploaded (or upload failed).');
+        redirect(portal_url('tasks.edit', ['id' => $id]));
+    }
+    $file = $_FILES['file'];
+    if ((int) $file['size'] > 20 * 1024 * 1024) {
+        flash('error', 'File too large (max 20 MB).');
+        redirect(portal_url('tasks.edit', ['id' => $id]));
+    }
+    $orig = (string) $file['name'];
+    $ext  = strtolower((string) pathinfo($orig, PATHINFO_EXTENSION));
+    $allow = tasks_attachment_allowed();
+    if (!isset($allow[$ext])) {
+        flash('error', 'File type not allowed (' . e($ext) . ').');
+        redirect(portal_url('tasks.edit', ['id' => $id]));
+    }
+    $mime = $allow[$ext];
+
+    $pdo->prepare(
+        'INSERT INTO task_attachments (task_id, uploaded_by, original_name, ext, mime, size_bytes)
+         VALUES (:t, :u, :n, :e, :m, :s)'
+    )->execute([
+        ':t' => $id, ':u' => (int) $u['id'],
+        ':n' => $orig, ':e' => $ext, ':m' => $mime, ':s' => (int) $file['size'],
+    ]);
+    $attId = (int) $pdo->lastInsertId();
+
+    $dir  = tasks_attachments_dir($id);
+    if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
+    $dest = $dir . '/' . $attId . '.' . $ext;
+    if (!move_uploaded_file($file['tmp_name'], $dest)) {
+        // Roll back the metadata row if the disk write failed.
+        $pdo->prepare('DELETE FROM task_attachments WHERE id = :a')->execute([':a' => $attId]);
+        flash('error', 'Could not save the uploaded file.');
+        redirect(portal_url('tasks.edit', ['id' => $id]));
+    }
+    audit_log('task_attach', 'task', $id, $orig);
+    flash('success', 'Attached: ' . $orig);
+    redirect(portal_url('tasks.edit', ['id' => $id]));
+}
+
+function handle_tasks_attachment_serve(): void
+{
+    $u  = require_login();
+    $id = (int) ($_GET['id'] ?? 0);
+    if ($id <= 0) { http_response_code(404); echo 'Not found'; return; }
+    $pdo = db();
+    $stmt = $pdo->prepare(
+        'SELECT a.*, t.client_id, t.assignee_user_id
+         FROM task_attachments a
+         JOIN tasks t ON t.id = a.task_id
+         WHERE a.id = :a'
+    );
+    $stmt->execute([':a' => $id]);
+    $row = $stmt->fetch();
+    if (!$row) { http_response_code(404); echo 'Not found'; return; }
+    if (!tasks_can_view($u, $row)) { http_response_code(403); echo 'Forbidden'; return; }
+
+    $base = realpath(__DIR__ . '/../data/task-attachments');
+    if ($base === false) { http_response_code(404); return; }
+    $file = $base . DIRECTORY_SEPARATOR . (int) $row['task_id'] . DIRECTORY_SEPARATOR . $id . '.' . $row['ext'];
+    $real = realpath($file);
+    if ($real === false || !str_starts_with($real, $base)) { http_response_code(404); return; }
+
+    header('Content-Type: ' . ($row['mime'] ?: 'application/octet-stream'));
+    header('Content-Length: ' . filesize($file));
+    header('Content-Disposition: attachment; filename="' . str_replace('"', '', $row['original_name']) . '"');
+    header('X-Content-Type-Options: nosniff');
+    readfile($file);
+}
+
+function handle_tasks_attachment_delete(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare(
+        'SELECT a.*, t.client_id, t.assignee_user_id
+         FROM task_attachments a JOIN tasks t ON t.id = a.task_id
+         WHERE a.id = :a'
+    );
+    $stmt->execute([':a' => $id]);
+    $row = $stmt->fetch();
+    if (!$row) { redirect(portal_url('tasks')); }
+    // VTs may only delete attachments they uploaded themselves.
+    $isMine = ((int) $row['uploaded_by']) === (int) $u['id'];
+    $canDel = ($u['role'] === 'super_admin')
+           || (tasks_can_edit($u, $row) && ($u['role'] !== 'vt_hired' || $isMine));
+    if (!$canDel) { flash('error', 'Not allowed.'); redirect(portal_url('tasks.edit', ['id' => (int) $row['task_id']])); }
+
+    $file = tasks_attachments_dir((int) $row['task_id']) . '/' . $id . '.' . $row['ext'];
+    if (is_file($file)) { @unlink($file); }
+    $pdo->prepare('DELETE FROM task_attachments WHERE id = :a')->execute([':a' => $id]);
+    audit_log('task_detach', 'task', (int) $row['task_id'], (string) $row['original_name']);
+    flash('success', 'Attachment removed.');
+    redirect(portal_url('tasks.edit', ['id' => (int) $row['task_id']]));
 }
 
 function handle_workday_list(): void
@@ -2549,13 +3161,27 @@ function handle_messages_list(): void
         }
     }
 
-    // Unread badge counts per contact.
+    // Unread badge counts: ONE query, grouped by sender. Previously this was
+    // a per-contact COUNT(*) which made the page slow once contacts grew —
+    // a super admin with 200+ contacts means 200+ round trips. Now we ask
+    // the DB to bucket unread messages-to-me by sender and merge in zeros
+    // for any contact with no unread messages.
     $unreadByContact = [];
-    foreach ($contacts as $c) {
-        $key = messages_conversation_key((int) $u['id'], (int) $c['id']);
-        $stmt = $pdo->prepare('SELECT COUNT(*) FROM messages WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL');
-        $stmt->execute([':k' => $key, ':p' => (int) $c['id']]);
-        $unreadByContact[(int) $c['id']] = (int) $stmt->fetchColumn();
+    foreach ($contacts as $c) { $unreadByContact[(int) $c['id']] = 0; }
+    if (!empty($contacts)) {
+        $stmt = $pdo->prepare(
+            'SELECT sender_user_id, COUNT(*) AS n
+               FROM messages
+              WHERE receiver_user_id = :me AND read_at IS NULL
+              GROUP BY sender_user_id'
+        );
+        $stmt->execute([':me' => (int) $u['id']]);
+        foreach ($stmt as $row) {
+            $sid = (int) $row['sender_user_id'];
+            if (array_key_exists($sid, $unreadByContact)) {
+                $unreadByContact[$sid] = (int) $row['n'];
+            }
+        }
     }
 
     render('messages', [

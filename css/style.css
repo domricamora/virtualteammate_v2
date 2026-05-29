@@ -422,6 +422,26 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   transition:border-color .2s ease, background-color .2s ease;
 }
 .calc-select:focus{border-color:rgba(223,169,73,0.6);background-color:rgba(255,255,255,0.10);}
+
+/* Native dropdowns: the browser-native popup inherits the page colors on
+   Chrome/Edge dark themes, which produces white-on-white text. Force every
+   <select>'s option list to a dark popup with light text — applies to the
+   ROI calculator, the CTA contact form, and any future dropdown. */
+select option,
+select optgroup{background:#1a1535;color:#fff;}
+select optgroup{font-weight:700;color:#e9c879;}
+select option:disabled{color:rgba(255,255,255,.45);}
+select option:checked{background:#3919BA;color:#fff;}
+/* Firefox-specific highlight so the hovered option stays readable. */
+@-moz-document url-prefix() {
+  select option:hover,
+  select option:focus,
+  select option:checked{
+    background-color:#3919BA !important;
+    color:#fff !important;
+    box-shadow:0 0 0 30px #3919BA inset;
+  }
+}
 .calc-select option{background:#1a1535;color:#fff;}
 .calc-slider-wrap{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:13px;padding:18px 18px 14px;}
 .calc-slider-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
@@ -1007,7 +1027,10 @@ a.pill i{font-size:9px;color:var(--gold);}
 }
 .cf-field::placeholder{color:rgba(255,255,255,0.45);font-weight:500;}
 .cf-field:focus{border-color:rgba(223,169,73,0.6);background:rgba(255,255,255,0.12);}
-select.cf-field option{color:#1a1535;background:#fff;}
+select.cf-field option,
+select.cf-field optgroup{color:#1a1535;background:#fff;}
+select.cf-field optgroup{font-weight:700;color:#3919BA;}
+select.cf-field option:checked{background:#3919BA;color:#fff;}
 .cf-submit{
   background:var(--violet-dk);color:#fff;width:100%;
   padding:17px;border-radius:10px;

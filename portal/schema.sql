@@ -134,8 +134,11 @@ CREATE TABLE IF NOT EXISTS meetings (
   organizer_user_id   INTEGER NOT NULL REFERENCES users(id),
   attendee_user_id    INTEGER REFERENCES users(id) ON DELETE SET NULL,
   meeting_with_role   TEXT    NOT NULL CHECK (meeting_with_role IN ('csm','vt')),
-  scheduled_at        TEXT    NOT NULL,
+  scheduled_at        TEXT    NOT NULL,       -- start datetime (kept for back-compat)
+  end_at              TEXT    NOT NULL DEFAULT '',
   duration_minutes    INTEGER NOT NULL DEFAULT 30,
+  meeting_link        TEXT    NOT NULL DEFAULT '',
+  call_app            TEXT    NOT NULL DEFAULT 'zoom',
   topic               TEXT    NOT NULL DEFAULT '',
   notes               TEXT    NOT NULL DEFAULT '',
   status              TEXT    NOT NULL DEFAULT 'scheduled' CHECK (status IN ('scheduled','completed','cancelled')),
@@ -162,9 +165,12 @@ CREATE TABLE IF NOT EXISTS eod_reports (
 -- Tasks: lightweight to-do items a client (or CSM on a client's behalf) creates
 -- and assigns to a specific VT (or leaves unassigned for the team). Modeled on
 -- the staging dashboard's "Active Tasks / Completed Tasks" widget.
+--
+-- client_id is NULLABLE: super_admin can create cross-client tasks (e.g. assign
+-- a VT a task that isn't tied to one of their client engagements).
 CREATE TABLE IF NOT EXISTS tasks (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
-  client_id       INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+  client_id       INTEGER REFERENCES clients(id) ON DELETE CASCADE,
   assignee_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
   created_by      INTEGER NOT NULL REFERENCES users(id),
   title           TEXT    NOT NULL,
@@ -176,6 +182,21 @@ CREATE TABLE IF NOT EXISTS tasks (
   created_at      TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at      TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Task attachments: files uploaded against a task. Files live on disk under
+-- data/task-attachments/{task_id}/{attachment_id}.{ext}. This table only
+-- carries metadata + the original filename for display.
+CREATE TABLE IF NOT EXISTS task_attachments (
+  id              INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id         INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
+  uploaded_by     INTEGER NOT NULL REFERENCES users(id),
+  original_name   TEXT    NOT NULL,
+  ext             TEXT    NOT NULL,
+  mime            TEXT    NOT NULL DEFAULT '',
+  size_bytes      INTEGER NOT NULL DEFAULT 0,
+  created_at      TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_task_attachments_task ON task_attachments(task_id);
 
 -- Messages: 1:1 chat threads between portal users. conversation_key is a
 -- canonical "smaller_id:larger_id" string so the same conversation is keyed

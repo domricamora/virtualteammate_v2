@@ -1,23 +1,29 @@
 <?php /** @var array $clients @var string $q */
 $pageTitle = 'Clients';
 $subtitle  = 'Companies on contract with VT.';
+$totalAll = count($clients);
 ?>
 
-<div class="card">
+<div class="card" data-list>
   <div class="card-h">
-    <form method="get" class="inline-filter">
-      <input type="hidden" name="p" value="clients">
-      <input type="search" name="q" placeholder="Search company or email…" value="<?= e($q) ?>">
-      <button class="btn-portal-secondary btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
-    </form>
+    <div class="list-toolbar">
+      <input type="search" data-list-search placeholder="Search company or email…" value="<?= e($q) ?>" autocomplete="off">
+      <select data-list-pagesize>
+        <option value="25" selected>25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+        <option value="0">All</option>
+      </select>
+      <span class="list-counter">Total <strong><?= (int) $totalAll ?></strong> clients &middot; <span data-list-counter>—</span></span>
+    </div>
     <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('clients.edit')) ?>"><i class="fa-solid fa-plus"></i> New client</a>
   </div>
 
-  <table class="data-table">
+  <table class="data-table" data-paginate>
     <thead><tr><th>Company</th><th>Email</th><th>Login user</th><th>Status</th><th></th></tr></thead>
     <tbody>
       <?php if (empty($clients)): ?>
-        <tr><td colspan="5" class="muted">No clients yet.</td></tr>
+        <tr data-empty><td colspan="5" class="muted">No clients yet.</td></tr>
       <?php else: foreach ($clients as $c): ?>
         <tr>
           <td><?= e($c['company_name']) ?></td>
@@ -37,4 +43,5 @@ $subtitle  = 'Companies on contract with VT.';
       <?php endforeach; endif; ?>
     </tbody>
   </table>
+  <div class="list-pager" data-list-pager></div>
 </div>

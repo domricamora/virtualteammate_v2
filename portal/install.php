@@ -143,6 +143,11 @@ $migrations = [
         'disc_profile             TEXT NOT NULL DEFAULT ""',
         'hipaa_certified          TEXT NOT NULL DEFAULT ""',
     ],
+    'meetings'    => [
+        'end_at        TEXT NOT NULL DEFAULT ""',
+        'meeting_link  TEXT NOT NULL DEFAULT ""',
+        'call_app      TEXT NOT NULL DEFAULT "zoom"',
+    ],
 ];
 foreach ($migrations as $table => $columns) {
     $existing = [];
@@ -252,7 +257,64 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 CREATE INDEX IF NOT EXISTS idx_messages_conv     ON messages(conversation_key, created_at);
 CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_user_id, read_at);
+CREATE TABLE IF NOT EXISTS task_attachments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,
+  uploaded_by INTEGER NOT NULL REFERENCES users(id),
+  original_name TEXT NOT NULL,
+  ext TEXT NOT NULL,
+  mime TEXT NOT NULL DEFAULT '',
+  size_bytes INTEGER NOT NULL DEFAULT 0,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_task_attachments_task ON task_attachments(task_id);
 ");
+
+/* ── tasks.client_id: legacy schemas declared NOT NULL. Rebuild the table
+   so super_admin can create cross-client tasks (client_id = NULL). Same
+   FK-rewrite caveat as the users rebuild → wrap in legacy_alter_table. */
+$tasksTableSql = (string) $pdo->query("SELECT sql FROM sqlite_master WHERE type='table' AND name='tasks'")->fetchColumn();
+if ($tasksTableSql !== '' && preg_match('#client_id\s+INTEGER\s+NOT\s+NULL#i', $tasksTableSql)) {
+    $cols = $pdo->query('PRAGMA table_info(tasks)')->fetchAll(PDO::FETCH_ASSOC);
+    $names = array_column($cols, 'name');
+    $colList = implode(', ', array_map(fn($n) => '"' . $n . '"', $names));
+    $pdo->exec('PRAGMA foreign_keys = OFF');
+    $pdo->exec('PRAGMA legacy_alter_table = ON');
+    $pdo->beginTransaction();
+    try {
+        $pdo->exec('ALTER TABLE tasks RENAME TO tasks_old');
+        $pdo->exec(
+            "CREATE TABLE tasks (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                client_id INTEGER REFERENCES clients(id) ON DELETE CASCADE,
+                assignee_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+                created_by INTEGER NOT NULL REFERENCES users(id),
+                title TEXT NOT NULL,
+                description TEXT NOT NULL DEFAULT '',
+                priority TEXT NOT NULL DEFAULT 'normal' CHECK (priority IN ('low','normal','high','urgent')),
+                status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','completed','cancelled')),
+                due_date TEXT,
+                completed_at TEXT,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )"
+        );
+        $pdo->exec("INSERT INTO tasks ($colList) SELECT $colList FROM tasks_old");
+        $pdo->exec('DROP TABLE tasks_old');
+        $pdo->commit();
+        $pdo->exec('PRAGMA writable_schema = ON');
+        $pdo->exec("UPDATE sqlite_master SET sql = REPLACE(sql, 'tasks_old', 'tasks') WHERE sql LIKE '%tasks_old%' AND name != 'tasks_old'");
+        $pdo->exec('PRAGMA writable_schema = OFF');
+        $pdo->exec('CREATE INDEX IF NOT EXISTS idx_tasks_client   ON tasks(client_id, status)');
+        $pdo->exec('CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks(assignee_user_id, status)');
+        $messages[] = 'Rebuilt tasks table to allow NULL client_id (cross-client super-admin tasks).';
+    } catch (Throwable $ex) {
+        $pdo->rollBack();
+        $messages[] = 'Skip tasks rebuild: ' . $ex->getMessage();
+    }
+    $pdo->exec('PRAGMA legacy_alter_table = OFF');
+    $pdo->exec('PRAGMA foreign_keys = ON');
+}
 
 $stmt = $pdo->prepare('SELECT id FROM users WHERE email = :e LIMIT 1');
 $stmt->execute([':e' => SUPER_ADMIN_EMAIL]);

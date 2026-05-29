@@ -1,22 +1,28 @@
 <?php /** @var array $csms @var string $q */
 $pageTitle = 'CSMs';
 $subtitle  = 'Client Success Managers and their assigned client portfolios.';
+$totalAll = count($csms);
 ?>
-<div class="card">
+<div class="card" data-list>
   <div class="card-h">
-    <form method="get" class="inline-filter">
-      <input type="hidden" name="p" value="csms">
-      <input type="search" name="q" placeholder="Search name or email…" value="<?= e($q) ?>">
-      <button class="btn-portal-secondary btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
-    </form>
+    <div class="list-toolbar">
+      <input type="search" data-list-search placeholder="Search name or email…" value="<?= e($q) ?>" autocomplete="off">
+      <select data-list-pagesize>
+        <option value="25" selected>25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+        <option value="0">All</option>
+      </select>
+      <span class="list-counter">Total <strong><?= (int) $totalAll ?></strong> CSMs &middot; <span data-list-counter>—</span></span>
+    </div>
     <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('users.edit', ['role'=>'csm'])) ?>"><i class="fa-solid fa-user-plus"></i> New CSM</a>
   </div>
 
-  <table class="data-table">
+  <table class="data-table" data-paginate>
     <thead><tr><th>Name</th><th>Email</th><th>Country</th><th>Clients</th><th>Active</th><th>Last login</th><th></th></tr></thead>
     <tbody>
       <?php if (empty($csms)): ?>
-        <tr><td colspan="7" class="muted">No CSMs match those filters.</td></tr>
+        <tr data-empty><td colspan="7" class="muted">No CSMs match those filters.</td></tr>
       <?php else: foreach ($csms as $u): ?>
         <tr>
           <td><?= e(user_display_name($u)) ?></td>
@@ -38,4 +44,5 @@ $subtitle  = 'Client Success Managers and their assigned client portfolios.';
       <?php endforeach; endif; ?>
     </tbody>
   </table>
+  <div class="list-pager" data-list-pager></div>
 </div>

@@ -29,5 +29,8 @@ data/media/
 # User-uploaded profile + cover photos (per-environment user content)
 data/avatars/
 
+# User-uploaded task attachments (per-environment, may contain client docs)
+data/task-attachments/
+
 # Local agent/editor config
 .claude/

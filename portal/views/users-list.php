@@ -1,29 +1,29 @@
 <?php /** @var array $users @var string $filter_role @var string $q */
 $pageTitle = 'Users';
 $subtitle  = 'Create, edit and remove user accounts of any role.';
+$totalAll  = count($users);
 ?>
 
-<div class="card">
+<div class="card" data-list>
   <div class="card-h">
-    <form method="get" class="inline-filter">
-      <input type="hidden" name="p" value="users">
-      <input type="search" name="q" placeholder="Search name or email…" value="<?= e($q) ?>">
-      <select name="role">
-        <option value="">All roles</option>
-        <?php foreach (PORTAL_ROLES as $r): ?>
-          <option value="<?= e($r) ?>"<?= $r === $filter_role ? ' selected' : '' ?>><?= e(role_label($r)) ?></option>
-        <?php endforeach; ?>
+    <div class="list-toolbar">
+      <input type="search" data-list-search placeholder="Search name, email, role…" value="<?= e($q) ?>" autocomplete="off">
+      <select data-list-pagesize>
+        <option value="25" selected>25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+        <option value="0">All</option>
       </select>
-      <button class="btn-portal-secondary btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
-    </form>
+      <span class="list-counter">Total <strong><?= (int) $totalAll ?></strong> users &middot; <span data-list-counter>—</span></span>
+    </div>
     <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('users.edit')) ?>"><i class="fa-solid fa-user-plus"></i> New user</a>
   </div>
 
-  <table class="data-table">
+  <table class="data-table" data-paginate>
     <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Active</th><th>Last login</th><th></th></tr></thead>
     <tbody>
       <?php if (empty($users)): ?>
-        <tr><td colspan="6" class="muted">No users match those filters.</td></tr>
+        <tr data-empty><td colspan="6" class="muted">No users match those filters.</td></tr>
       <?php else: foreach ($users as $u): ?>
         <tr>
           <td><?= e(user_display_name($u)) ?></td>
@@ -43,4 +43,5 @@ $subtitle  = 'Create, edit and remove user accounts of any role.';
       <?php endforeach; endif; ?>
     </tbody>
   </table>
+  <div class="list-pager" data-list-pager></div>
 </div>

@@ -8,16 +8,26 @@ $subtitle  = match ($user['role']) {
     'vt_onpool'   => 'Your daily reports.',
     default       => '',
 };
-$canEdit = in_array($user['role'], ['vt_hired','vt_onpool','super_admin'], true);
+$canEdit  = in_array($user['role'], ['vt_hired','vt_onpool','super_admin'], true);
+$totalAll = count($reports);
 ?>
-<div class="card">
-  <?php if ($canEdit): ?>
-    <div class="card-h">
-      <h3>&nbsp;</h3>
-      <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('eod.edit')) ?>"><i class="fa-solid fa-plus"></i> New report</a>
+<div class="card" data-list>
+  <div class="card-h">
+    <div class="list-toolbar">
+      <input type="search" data-list-search placeholder="Search VT, date, content…" autocomplete="off">
+      <select data-list-pagesize>
+        <option value="25" selected>25 / page</option>
+        <option value="50">50 / page</option>
+        <option value="100">100 / page</option>
+        <option value="0">All</option>
+      </select>
+      <span class="list-counter">Total <strong><?= (int) $totalAll ?></strong> reports &middot; <span data-list-counter>—</span></span>
     </div>
-  <?php endif; ?>
-  <table class="data-table">
+    <?php if ($canEdit): ?>
+      <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('eod.edit')) ?>"><i class="fa-solid fa-plus"></i> New report</a>
+    <?php endif; ?>
+  </div>
+  <table class="data-table" data-paginate>
     <thead>
       <tr>
         <th>Date</th><th>VT</th><th>Best work</th><th>Help needed</th><th>Updated</th><th></th>
@@ -25,7 +35,7 @@ $canEdit = in_array($user['role'], ['vt_hired','vt_onpool','super_admin'], true)
     </thead>
     <tbody>
       <?php if (empty($reports)): ?>
-        <tr><td colspan="6" class="muted">No reports yet.</td></tr>
+        <tr data-empty><td colspan="6" class="muted">No reports yet.</td></tr>
       <?php else: foreach ($reports as $r):
         $vtName = trim(($r['first_name'] ?? '') . ' ' . ($r['last_name'] ?? ''));
       ?>
@@ -49,4 +59,5 @@ $canEdit = in_array($user['role'], ['vt_hired','vt_onpool','super_admin'], true)
       <?php endforeach; endif; ?>
     </tbody>
   </table>
+  <div class="list-pager" data-list-pager></div>
 </div>

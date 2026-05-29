@@ -1,6 +1,7 @@
 <?php /** @var array $rows @var ?array $stats @var array $top_countries @var array $top_pages @var string $q @var bool $not_ready */
 $pageTitle = 'Traffic';
 $subtitle  = 'Marketing-site pageviews with IP + geolocation.';
+$totalAll  = count($rows);
 ?>
 
 <?php if (!empty($not_ready)): ?>
@@ -73,21 +74,37 @@ $subtitle  = 'Marketing-site pageviews with IP + geolocation.';
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" data-list>
     <div class="card-h">
-      <form method="get" class="inline-filter">
-        <input type="hidden" name="p" value="traffic">
-        <input type="search" name="q" placeholder="Search IP, country, city, path…" value="<?= e($q) ?>">
-        <button class="btn-portal-secondary btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
-      </form>
-      <span class="muted small">Showing latest <?= count($rows) ?> of <?= (int) $stats['total'] ?> total</span>
+      <div class="list-toolbar">
+        <input type="search" data-list-search placeholder="Search IP, country, city, path…" value="<?= e($q) ?>" autocomplete="off">
+        <select data-list-pagesize>
+          <option value="50" selected>50 / page</option>
+          <option value="100">100 / page</option>
+          <option value="250">250 / page</option>
+          <option value="0">All</option>
+        </select>
+        <span class="list-counter">Showing latest <strong><?= (int) $totalAll ?></strong> of <strong><?= (int) $stats['total'] ?></strong> total &middot; <span data-list-counter>—</span></span>
+      </div>
+      <details class="hs-danger" style="margin-left:auto;">
+        <summary class="btn-portal-danger btn-sm" style="cursor:pointer;list-style:none;"><i class="fa-solid fa-trash"></i> Clear log</summary>
+        <form method="post" action="<?= e(portal_url('traffic.clear')) ?>" style="margin-top:10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <?= csrf_field() ?>
+          <select name="scope" style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);color:#fff;padding:6px 10px;border-radius:6px;font-size:12.5px;">
+            <option value="30d">Older than 30 days</option>
+            <option value="all">ALL rows</option>
+          </select>
+          <input type="text" name="confirm" placeholder='Type "DELETE ALL"' style="background:rgba(255,255,255,.04);border:1px solid rgba(229,62,62,.4);color:#fff;padding:6px 10px;border-radius:6px;font-size:12.5px;">
+          <button class="btn-portal-danger btn-sm" type="submit">Confirm</button>
+        </form>
+      </details>
     </div>
 
-    <table class="data-table compact">
-      <thead><tr><th>When</th><th>IP</th><th>Location</th><th>Page</th><th>Referrer</th><th>Device</th></tr></thead>
+    <table class="data-table compact" data-paginate>
+      <thead><tr><th>When</th><th>IP</th><th>Location</th><th>Page</th><th>Referrer</th><th>Device</th><th></th></tr></thead>
       <tbody>
         <?php if (empty($rows)): ?>
-          <tr><td colspan="6" class="muted">No traffic matches.</td></tr>
+          <tr data-empty><td colspan="7" class="muted">No traffic matches.</td></tr>
         <?php else: foreach ($rows as $r):
           $loc = trim(($r['city'] ?? '') . (($r['city'] && $r['region']) ? ', ' : '') . ($r['region'] ?? ''));
           $loc = trim($loc . (($loc && $r['country']) ? ' · ' : '') . ($r['country'] ?? '')) ?: '—';
@@ -105,10 +122,18 @@ $subtitle  = 'Marketing-site pageviews with IP + geolocation.';
             <td class="small"><?= e($r['path'] ?: '/') ?></td>
             <td class="muted small"><?= e($r['referrer'] ? (parse_url($r['referrer'], PHP_URL_HOST) ?: $r['referrer']) : '—') ?></td>
             <td><span class="pill pill-default"><?= e($dev) ?></span></td>
+            <td class="row-actions">
+              <form method="post" action="<?= e(portal_url('traffic.delete')) ?>" class="inline-form" onsubmit="return confirm('Remove this row?');">
+                <?= csrf_field() ?>
+                <input type="hidden" name="id" value="<?= (int) $r['id'] ?>">
+                <button class="btn-portal-danger btn-sm" type="submit" title="Delete"><i class="fa-solid fa-trash"></i></button>
+              </form>
+            </td>
           </tr>
         <?php endforeach; endif; ?>
       </tbody>
     </table>
+    <div class="list-pager" data-list-pager></div>
   </div>
 
 <?php endif; ?>

@@ -1,27 +1,28 @@
 <?php /** @var array $vts @var string $status @var string $q */
 $pageTitle = 'VT profiles';
 $subtitle  = 'Virtual Teammates — both hired and on-pool.';
+$totalAll = count($vts);
 ?>
-<div class="card">
+<div class="card" data-list>
   <div class="card-h">
-    <form method="get" class="inline-filter">
-      <input type="hidden" name="p" value="vts">
-      <input type="search" name="q" placeholder="Search name, email, role…" value="<?= e($q) ?>">
-      <select name="status">
-        <option value="">All statuses</option>
-        <option value="hired"<?= $status === 'hired' ? ' selected' : '' ?>>Hired</option>
-        <option value="onpool"<?= $status === 'onpool' ? ' selected' : '' ?>>On-pool</option>
+    <div class="list-toolbar">
+      <input type="search" data-list-search placeholder="Search name, email, role…" value="<?= e($q) ?>" autocomplete="off">
+      <select data-list-pagesize>
+        <option value="25">25 / page</option>
+        <option value="50" selected>50 / page</option>
+        <option value="100">100 / page</option>
+        <option value="0">All</option>
       </select>
-      <button class="btn-portal-secondary btn-sm" type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
-    </form>
+      <span class="list-counter">Total <strong><?= (int) $totalAll ?></strong> VTs &middot; <span data-list-counter>—</span></span>
+    </div>
     <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('vts.edit')) ?>"><i class="fa-solid fa-plus"></i> New profile</a>
   </div>
 
-  <table class="data-table">
+  <table class="data-table" data-paginate>
     <thead><tr><th>Name</th><th>Email</th><th>Role title</th><th>Department</th><th>Country</th><th>Status</th><th></th></tr></thead>
     <tbody>
       <?php if (empty($vts)): ?>
-        <tr><td colspan="7" class="muted">No VT profiles yet.</td></tr>
+        <tr data-empty><td colspan="7" class="muted">No VT profiles yet.</td></tr>
       <?php else: foreach ($vts as $p): ?>
         <tr>
           <td><?= e(trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''))) ?></td>
@@ -43,4 +44,5 @@ $subtitle  = 'Virtual Teammates — both hired and on-pool.';
       <?php endforeach; endif; ?>
     </tbody>
   </table>
+  <div class="list-pager" data-list-pager></div>
 </div>

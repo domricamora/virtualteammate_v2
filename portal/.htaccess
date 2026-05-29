@@ -1,0 +1,37 @@
+# Portal-only overrides. The portal does long-running work (HubSpot sync,
+# media downloads) that the marketing site never does, so we relax the
+# PHP execution + upload limits here without touching the rest of the site.
+
+<IfModule mod_php.c>
+  # Allow up to 10 minutes per request for the HubSpot sync ticks +
+  # large-file media downloads (videos can take a couple of minutes).
+  php_value max_execution_time 600
+  php_value max_input_time     600
+  # Match the in-app 20 MB task-attachment limit; allow a little headroom
+  # so multipart wrappers don't push the request over.
+  php_value upload_max_filesize 24M
+  php_value post_max_size       28M
+  php_value memory_limit        256M
+</IfModule>
+<IfModule mod_php7.c>
+  php_value max_execution_time 600
+  php_value max_input_time     600
+  php_value upload_max_filesize 24M
+  php_value post_max_size       28M
+  php_value memory_limit        256M
+</IfModule>
+<IfModule mod_php8.c>
+  php_value max_execution_time 600
+  php_value max_input_time     600
+  php_value upload_max_filesize 24M
+  php_value post_max_size       28M
+  php_value memory_limit        256M
+</IfModule>
+
+# Block direct access to /portal/data — even though data/ lives one level up
+# in the project root, defensively reject anything under /portal/data here.
+<FilesMatch "\.(sqlite|sqlite-journal|sqlite-wal|sqlite-shm)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</FilesMatch>

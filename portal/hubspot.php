@@ -29,6 +29,10 @@ const HS_STATE_KEY       = 'hs_sync_state';
 const HS_MEDIA_ROOT      = __DIR__ . '/../data/media';
 const HS_SEARCH_PAGE_MAX = 100;   // HubSpot cap.
 const HS_PROCESS_BATCH   = 20;    // Contacts per process step (raised from 5 per user request).
+// Media downloads are an order of magnitude slower than DB upserts (each video
+// can take 30–60s). Smaller batch + per-item state checkpointing keeps every
+// tick under typical PHP max_execution_time so the UI poller doesn't see 5xx.
+const HS_MEDIA_BATCH     = 4;
 
 /**
  * Resolve a CA bundle path so cURL HTTPS works on WAMP / shared hosts where
@@ -292,7 +296,13 @@ function hs_normalize_media_url(string $url, string $kind): string
     //     (vt-hubspot-user-sync.php lines 6241-6248): if we can pull a Drive
     //     file ID out of any of the supported URL forms, swap to `uc?export=download`.
     //     Patterns: /file/d/{ID}/view, /open?id={ID}, ?id={ID}, &id={ID}.
+    //     Folder URLs (/drive/.../folders/{ID}) are NOT fetchable — Drive serves
+    //     a folder-listing HTML page, never a file body. Skip them so the caller
+    //     reports a clean error instead of "not a valid PDF/image".
     if (preg_match('#drive\.google\.com#i', $url)) {
+        if (preg_match('#drive\.google\.com/(?:drive/)?(?:[a-z0-9/]+/)?folders/#i', $url)) {
+            return '';
+        }
         $fileId = '';
         foreach ([
             '#drive\.google\.com/file/d/([A-Za-z0-9_\-]+)#i',
@@ -352,6 +362,9 @@ function hs_normalize_media_url(string $url, string $kind): string
 function hs_import_media(string $url, string $entity, int $id, string $kind, string $currentSourceUrl = '', bool &$skipped = false): string
 {
     $skipped = false;
+    if (preg_match('#drive\.google\.com/(?:drive/)?(?:[a-z0-9/]+/)?folders/#i', trim($url))) {
+        return ''; // Drive folder URLs are not fetchable — caller should treat as no-op.
+    }
     $url = hs_normalize_media_url($url, $kind);
     if ($url === '' || !preg_match('#^https?://#i', $url)) { return ''; }
     if (!isset(hs_media_kind_map()[$kind])) { return ''; }
@@ -574,7 +587,8 @@ function hs_process_vt_one(array $contact, array $settings, array &$state): void
     $role = hs_map_vt_role($vtStatus, $leadStatus);
     if ($role === '') {
         $state['stats']['vts']['skipped']++;
-        hs_state_log($state, "Skipped {$email}: unmapped vt_status \"{$vtStatus}\".");
+        $who = hs_contact_label_from_props($contact);
+        hs_state_log($state, "Skipped {$who}: unmapped vt_status \"{$vtStatus}\".");
         return;
     }
 
@@ -1107,6 +1121,10 @@ function hs_talent_state_default(): array
         'updated_at'   => null,
         'finished_at'  => null,
         'last_error'   => null,
+        // Per-stage retry counter; bumped on transient stage exceptions and
+        // reset once the stage advances. Lets a transient network blip retry
+        // instead of permanently parking the pipeline in 'error'.
+        'stage_attempts' => [],
         'stats' => [
             'fetched_total'   => ['eligible' => 0, 'matched' => 0, 'contracted' => 0],
             'vts'             => ['created'=>0,'updated'=>0,'skipped_role'=>0,'skipped_no_email'=>0,'errors'=>0],
@@ -1153,6 +1171,7 @@ function hs_client_state_default(): array
         'updated_at'   => null,
         'finished_at'  => null,
         'last_error'   => null,
+        'stage_attempts' => [],
         'stats' => [
             'fetched_total'   => ['companies'=>0,'contracts'=>0,'first_day_contracts'=>0,'hired_contacts'=>0],
             'clients'         => ['created'=>0,'updated'=>0,'skipped'=>0,'errors'=>0],
@@ -1187,8 +1206,113 @@ function hs_client_state_save(array $s): void { hs_pipeline_state_save(HS_CLIENT
 
 /* ─── Talent pipeline ─── */
 
+/**
+ * Build a log label from a raw HubSpot contact item (the shape returned by
+ * the /crm/v3/objects/contacts search endpoint):
+ *   "First Last <email> (HS#contactId)"
+ */
+function hs_contact_label_from_props(array $item): string
+{
+    $cid   = (string) ($item['id'] ?? '');
+    $props = is_array($item['properties'] ?? null) ? $item['properties'] : [];
+    $first = trim((string) ($props['firstname'] ?? ''));
+    $last  = trim((string) ($props['lastname']  ?? ''));
+    $name  = trim($first . ' ' . $last);
+    $email = strtolower(trim((string) ($props['email'] ?? '')));
+    $bits  = [];
+    if ($name  !== '') { $bits[] = $name; }
+    if ($email !== '') { $bits[] = "<{$email}>"; }
+    if ($cid   !== '') { $bits[] = "(HS#{$cid})"; }
+    return $bits ? implode(' ', $bits) : 'contact (unknown)';
+}
+
+/**
+ * Build a log label from a raw HubSpot company item:
+ *   "Acme Inc <acme.com> (HS#companyId)"
+ */
+function hs_company_label_from_props(array $item): string
+{
+    $cid     = (string) ($item['id'] ?? '');
+    $props   = is_array($item['properties'] ?? null) ? $item['properties'] : [];
+    $name    = trim((string) ($props['name']    ?? ''));
+    $domain  = trim((string) ($props['domain']  ?? ''));
+    $bits    = [];
+    if ($name   !== '') { $bits[] = $name; }
+    if ($domain !== '') { $bits[] = "<{$domain}>"; }
+    if ($cid    !== '') { $bits[] = "(HS#{$cid})"; }
+    return $bits ? implode(' ', $bits) : 'company (unknown)';
+}
+
+/**
+ * Resolve a user row into a one-line label suitable for the activity log:
+ * "First Last <email> (#id)". Falls back to "user #id" if the row is gone.
+ *
+ * @return array{tag:string,name:string,email:string}
+ */
+function hs_user_label_for_log(PDO $pdo, int $uid): array
+{
+    static $cache = [];
+    if (isset($cache[$uid])) { return $cache[$uid]; }
+    try {
+        $stmt = $pdo->prepare('SELECT first_name, last_name, email FROM users WHERE id = :u');
+        $stmt->execute([':u' => $uid]);
+        $row = $stmt->fetch() ?: [];
+    } catch (Throwable $ex) {
+        $row = [];
+    }
+    $name  = trim(((string)($row['first_name'] ?? '')) . ' ' . ((string)($row['last_name'] ?? '')));
+    $email = (string) ($row['email'] ?? '');
+    if ($name !== '' && $email !== '') {
+        $tag = "{$name} <{$email}> (#{$uid})";
+    } elseif ($name !== '') {
+        $tag = "{$name} (#{$uid})";
+    } elseif ($email !== '') {
+        $tag = "<{$email}> (#{$uid})";
+    } else {
+        $tag = "user #{$uid}";
+    }
+    return $cache[$uid] = ['tag' => $tag, 'name' => $name, 'email' => $email];
+}
+
+/**
+ * Per-stage exception handler. Lets the pipeline push through transient
+ * failures instead of permanently halting on the first throw.
+ *
+ *   - Retries the same stage on the next dispatcher tick up to MAX attempts.
+ *   - Once the budget is exhausted, logs the failure, advances past the
+ *     stage and resets the counter so subsequent stages still run.
+ *   - The pipeline stays in 'running' status until a stage truly cannot
+ *     recover (we never escalate to 'error' here — the caller can if it
+ *     needs a hard stop).
+ */
+function hs_handle_stage_exception(array &$state, string $stage, Throwable $ex): void
+{
+    $max = 3;
+    $attempts = (int) ($state['stage_attempts'][$stage] ?? 0) + 1;
+    $state['stage_attempts'][$stage] = $attempts;
+    $state['last_error'] = $ex->getMessage();
+    if ($attempts < $max) {
+        hs_state_log($state, "Stage '{$stage}' failed (attempt {$attempts}/{$max}): " . $ex->getMessage() . ' — will retry.');
+        return;
+    }
+    hs_state_log($state, "Stage '{$stage}' giving up after {$max} attempts: " . $ex->getMessage() . ' — skipping to next stage.');
+    unset($state['stage_attempts'][$stage]);
+    try { hs_state_advance_stage($state); }
+    catch (Throwable $ex2) {
+        $state['status']     = 'error';
+        $state['last_error'] = 'Fatal: ' . $ex2->getMessage();
+        hs_state_log($state, 'Fatal: ' . $ex2->getMessage());
+    }
+}
+
 function hs_talent_step(): array
 {
+    // A single step may download several large files (videos) before returning.
+    // 300s ceiling keeps Apache + PHP from killing the request mid-batch and
+    // making the JS poller think the pipeline died.
+    if (function_exists('set_time_limit')) { @set_time_limit(600); }
+    ignore_user_abort(true);
+
     $state = hs_talent_state_load();
     if ($state['status'] !== 'running') { return $state; }
     if ($state['stage'] === 'done') {
@@ -1200,6 +1324,7 @@ function hs_talent_step(): array
 
     $settings = hs_settings();
     $hs = new HubSpotClient((string) $settings['hs_token']);
+    $stageBefore = $state['stage'];
 
     try {
         switch ($state['stage']) {
@@ -1221,10 +1346,12 @@ function hs_talent_step(): array
                 hs_state_advance_stage($state);
                 break;
         }
+        // Stage made progress (or advanced) — clear its retry counter.
+        if (($state['stage'] ?? '') !== $stageBefore) {
+            unset($state['stage_attempts'][$stageBefore]);
+        }
     } catch (Throwable $ex) {
-        $state['status']     = 'error';
-        $state['last_error'] = $ex->getMessage();
-        hs_state_log($state, 'Fatal: ' . $ex->getMessage());
+        hs_handle_stage_exception($state, $stageBefore, $ex);
     }
 
     if ($state['stage'] === 'done' && $state['status'] !== 'error') {
@@ -1412,7 +1539,8 @@ function hs_talent_step_process(array &$state, HubSpotClient $hs, array $setting
             hs_process_vt_contact($item, $state);
         } catch (Throwable $ex) {
             $state['stats']['vts']['errors']++;
-            hs_state_log($state, 'Process VT failed: ' . $ex->getMessage());
+            $who = hs_contact_label_from_props($item);
+            hs_state_log($state, "Process VT failed for {$who}: " . $ex->getMessage());
         }
     }
     if (empty($state['pending']['vts'])) {
@@ -1444,7 +1572,8 @@ function hs_process_vt_contact(array $item, array &$state): void
     $roleMap = hs_map_vt_role_and_status($vtStatus, $contractHired);
     if ($roleMap === null) {
         $state['stats']['vts']['skipped_role']++;
-        hs_state_log($state, "Skipped {$email}: vt_status=\"{$vtStatus}\" / contract_hired_status=\"{$contractHired}\" — not eligible for portal.");
+        $who = hs_contact_label_from_props($item);
+        hs_state_log($state, "Skipped {$who}: vt_status=\"{$vtStatus}\" / contract_hired_status=\"{$contractHired}\" — not eligible for portal.");
         return;
     }
     $role   = $roleMap['role'];
@@ -1625,6 +1754,10 @@ function hs_url_is_hubspot_hosted(string $url): bool
  */
 function hs_download_media_with_auth(string $url, string $entity, int $id, string $kind, string $token): array
 {
+    $orig = trim($url);
+    if (preg_match('#drive\.google\.com/(?:drive/)?(?:[a-z0-9/]+/)?folders/#i', $orig)) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'Google Drive folder URL — needs a direct file link, not a folder'];
+    }
     $url = hs_normalize_media_url($url, $kind);
     if ($url === '' || !preg_match('#^https?://#i', $url)) {
         return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'invalid url'];
@@ -1733,68 +1866,98 @@ function hs_talent_step_download_media(array &$state, HubSpotClient $hs, array $
 
     $token = (string) ($settings['hs_token'] ?? '');
     $pdo   = db();
-    $batch = array_splice($state['pending']['media'], 0, HS_PROCESS_BATCH);
+    // PEEK at the batch but do NOT remove from pending yet — we shift each
+    // item off + checkpoint to DB only after the item is fully processed.
+    // Previously array_splice'd 20 items up front; if PHP died mid-batch
+    // those items vanished from pending without their work being done,
+    // leaving the run permanently stuck. Now a tick can be killed at any
+    // point and the next tick safely picks up the remaining items.
+    $batch = array_slice($state['pending']['media'], 0, HS_MEDIA_BATCH);
 
     foreach ($batch as $item) {
-        $uid   = (int)    ($item['user_id'] ?? 0);
-        $kind  = (string) ($item['kind'] ?? '');
-        $src   = (string) ($item['source_url'] ?? '');
-        if ($uid < 1 || $src === '' || !in_array($kind, ['photo','resume','video'], true)) {
-            $state['stats']['media']['errors']++;
-            continue;
-        }
-
-        // Cache lookup: if the previously-stored source URL matches AND the
-        // local file is still on disk, skip the network round trip.
-        $existingSource = '';
-        if ($kind === 'photo') {
-            $s = $pdo->prepare('SELECT photo_source_url FROM users WHERE id = :u');
-            $s->execute([':u' => $uid]);
-            $existingSource = (string) ($s->fetchColumn() ?: '');
-        } else {
-            $col = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
-            $s = $pdo->prepare("SELECT {$col} FROM vt_profiles WHERE user_id = :u");
-            $s->execute([':u' => $uid]);
-            $existingSource = (string) ($s->fetchColumn() ?: '');
-        }
-        $normalized = hs_normalize_media_url($src, $kind);
-        if ($existingSource !== '' && $existingSource === $normalized) {
-            $dir = hs_media_dir('vt', $uid);
-            if (glob($dir . '/' . $kind . '.*')) {
-                $state['stats']['media']['cache_hits']++;
+        // Per-item try/catch so one unexpected failure (a bad SELECT, a
+        // network exception, a malformed item) cannot abort the whole batch.
+        try {
+            $uid   = (int)    ($item['user_id'] ?? 0);
+            $kind  = (string) ($item['kind'] ?? '');
+            $src   = (string) ($item['source_url'] ?? '');
+            if ($uid < 1 || $src === '' || !in_array($kind, ['photo','resume','video'], true)) {
+                $state['stats']['media']['errors']++;
                 continue;
             }
-        }
 
-        $r = hs_download_media_with_auth($src, 'vt', $uid, $kind, $token);
-        if (!$r['ok']) {
-            $state['stats']['media']['errors']++;
-            $msg = ($r['error'] ?: 'unknown') . ' (http=' . $r['http'] . ')';
-            if (count($state['stats']['media']['failed_urls']) < 30) {
-                $state['stats']['media']['failed_urls'][] = [
-                    'user_id' => $uid, 'kind' => $kind, 'url' => $src, 'reason' => $msg,
-                ];
-            }
-            hs_state_log($state, "Media {$kind} for user {$uid} FAILED: {$msg}");
-            continue;
-        }
+            // Pre-fetch identity so the activity log + report show the actual
+            // person/email instead of just a user id (the user needs that to
+            // know which HubSpot contact to fix).
+            $who    = hs_user_label_for_log($pdo, $uid);
+            $whoTag = $who['tag'];   // "Michelle Pena <michelle@…> (#755)" or "user #755"
+            $name   = $who['name'];
+            $email  = $who['email'];
 
-        // Persist new URLs.
-        try {
+            // Cache lookup: if the previously-stored source URL matches AND
+            // the local file is still on disk, skip the network round trip.
+            $existingSource = '';
             if ($kind === 'photo') {
-                $pdo->prepare('UPDATE users SET photo_url = :u, photo_source_url = :s, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-                    ->execute([':u' => $r['served_url'], ':s' => $normalized, ':id' => $uid]);
+                $s = $pdo->prepare('SELECT photo_source_url FROM users WHERE id = :u');
+                $s->execute([':u' => $uid]);
+                $existingSource = (string) ($s->fetchColumn() ?: '');
             } else {
-                $col   = $kind === 'resume' ? 'resume_url' : 'video_url';
-                $scol  = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
-                $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, {$scol} = :s, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
-                    ->execute([':u' => $r['served_url'], ':s' => $normalized, ':uid' => $uid]);
+                $col = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
+                $s = $pdo->prepare("SELECT {$col} FROM vt_profiles WHERE user_id = :u");
+                $s->execute([':u' => $uid]);
+                $existingSource = (string) ($s->fetchColumn() ?: '');
             }
-            $state['stats']['media']['downloaded']++;
+            $normalized = hs_normalize_media_url($src, $kind);
+            if ($existingSource !== '' && $existingSource === $normalized) {
+                $dir = hs_media_dir('vt', $uid);
+                if (glob($dir . '/' . $kind . '.*')) {
+                    $state['stats']['media']['cache_hits']++;
+                    continue;
+                }
+            }
+
+            $r = hs_download_media_with_auth($src, 'vt', $uid, $kind, $token);
+            if (!$r['ok']) {
+                $state['stats']['media']['errors']++;
+                $msg = ($r['error'] ?: 'unknown') . ' (http=' . $r['http'] . ')';
+                if (count($state['stats']['media']['failed_urls']) < 30) {
+                    $state['stats']['media']['failed_urls'][] = [
+                        'user_id' => $uid, 'name' => $name, 'email' => $email,
+                        'kind' => $kind, 'url' => $src, 'reason' => $msg,
+                    ];
+                }
+                hs_state_log($state, "Media {$kind} FAILED for {$whoTag}: {$msg}");
+                continue;
+            }
+
+            // Persist new URLs.
+            try {
+                if ($kind === 'photo') {
+                    $pdo->prepare('UPDATE users SET photo_url = :u, photo_source_url = :s, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
+                        ->execute([':u' => $r['served_url'], ':s' => $normalized, ':id' => $uid]);
+                } else {
+                    $col   = $kind === 'resume' ? 'resume_url' : 'video_url';
+                    $scol  = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
+                    $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, {$scol} = :s, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
+                        ->execute([':u' => $r['served_url'], ':s' => $normalized, ':uid' => $uid]);
+                }
+                $state['stats']['media']['downloaded']++;
+            } catch (Throwable $ex) {
+                $state['stats']['media']['errors']++;
+                hs_state_log($state, "Media {$kind} DB write failed for {$whoTag}: " . $ex->getMessage());
+            }
         } catch (Throwable $ex) {
             $state['stats']['media']['errors']++;
-            hs_state_log($state, "Media {$kind} DB write failed for user {$uid}: " . $ex->getMessage());
+            $uid = (int) ($item['user_id'] ?? 0);
+            $whoTag = isset($who) ? $who['tag'] : ('user #' . $uid);
+            hs_state_log($state, "Media item for {$whoTag} crashed: " . $ex->getMessage() . ' — continuing.');
         }
+        // Checkpoint after EACH media item: drop the one we just finished
+        // from pending and persist state. If PHP / Apache kills the tick
+        // mid-batch from here on, the next tick resumes on the next item
+        // (not on the one we just processed).
+        array_shift($state['pending']['media']);
+        hs_talent_state_save($state);
     }
 
     if (empty($state['pending']['media'])) {
@@ -2127,6 +2290,9 @@ function hs_talent_control(string $action): array
 
 function hs_client_step(): array
 {
+    if (function_exists('set_time_limit')) { @set_time_limit(600); }
+    ignore_user_abort(true);
+
     $state = hs_client_state_load();
     if ($state['status'] !== 'running') { return $state; }
     if ($state['stage'] === 'done') {
@@ -2138,6 +2304,7 @@ function hs_client_step(): array
 
     $settings = hs_settings();
     $hs = new HubSpotClient((string) $settings['hs_token']);
+    $stageBefore = $state['stage'];
 
     try {
         switch ($state['stage']) {
@@ -2153,10 +2320,11 @@ function hs_client_step(): array
             case 'process_associations':     hs_client_step_process_associations($state, $hs); break;
             default:                         hs_state_advance_stage($state); break;
         }
+        if (($state['stage'] ?? '') !== $stageBefore) {
+            unset($state['stage_attempts'][$stageBefore]);
+        }
     } catch (Throwable $ex) {
-        $state['status']     = 'error';
-        $state['last_error'] = $ex->getMessage();
-        hs_state_log($state, 'Fatal: ' . $ex->getMessage());
+        hs_handle_stage_exception($state, $stageBefore, $ex);
     }
 
     if ($state['stage'] === 'done' && $state['status'] !== 'error') {
@@ -2838,7 +3006,8 @@ function hs_client_step_process_clients(array &$state, HubSpotClient $hs): void
             hs_process_one_client($co, $primary, $state);
         } catch (Throwable $ex) {
             $state['stats']['clients']['errors']++;
-            hs_state_log($state, 'Process client failed: ' . $ex->getMessage());
+            $who = hs_company_label_from_props($co);
+            hs_state_log($state, "Process client failed for {$who}: " . $ex->getMessage());
         }
     }
     if (empty($state['pending']['companies'])) {
