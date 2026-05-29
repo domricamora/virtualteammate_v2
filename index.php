@@ -850,7 +850,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" placeholder="Phone Number" type="tel"/>
       </div>
       <input class="cf-field" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
-      <select class="cf-field" id="ctaRole" style="margin-bottom:20px;" required>
+      <select class="cf-field" id="ctaRole" style="margin-bottom:14px;" required>
         <option value="">I need... (select role)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
@@ -867,6 +867,29 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Business / Admin VA</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
+      <select class="cf-field" id="ctaSource" name="source"
+              style="margin-bottom:14px;" required
+              onchange="document.getElementById('ctaSourceOtherWrap').style.display = this.value === 'Other' ? '' : 'none'; var o = document.getElementById('ctaSourceOther'); if (this.value === 'Other') { o.required = true; o.focus(); } else { o.required = false; o.value=''; }">
+        <option value="">Where did you hear about us?</option>
+        <option>Google search</option>
+        <option>Referral from a colleague or friend</option>
+        <option>Existing client / Word of mouth</option>
+        <option>Facebook</option>
+        <option>Instagram</option>
+        <option>LinkedIn</option>
+        <option>YouTube</option>
+        <option>TikTok</option>
+        <option>Podcast</option>
+        <option>Webinar / Event</option>
+        <option>Industry publication or news</option>
+        <option>Email newsletter</option>
+        <option>Online ad</option>
+        <option>Other</option>
+      </select>
+      <div id="ctaSourceOtherWrap" style="display:none;margin-bottom:20px;">
+        <input class="cf-field" id="ctaSourceOther" name="source_other" type="text"
+               placeholder="Please tell us where" maxlength="120"/>
+      </div>
       <button class="cf-submit" type="submit" id="ctaSubmit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note">No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
