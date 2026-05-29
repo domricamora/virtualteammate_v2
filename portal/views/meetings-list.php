@@ -52,6 +52,16 @@ $totalAll  = count($meetings);
         $orgName = trim(($m['org_fn'] ?? '') . ' ' . ($m['org_ln'] ?? ''));
         $attName = trim(($m['att_fn'] ?? '') . ' ' . ($m['att_ln'] ?? ''));
         [$ico, $col, $appLabel] = $appIcon((string) ($m['call_app'] ?? 'other'));
+        // Prefer the multi-attendee table; fall back to the legacy single
+        // attendee name when no rows are present (older meetings).
+        $atts = $attendees_by_meeting[(int) $m['id']] ?? [];
+        if (!$atts && $attName !== '') {
+            $atts = [['first_name' => $m['att_fn'] ?? '', 'last_name' => $m['att_ln'] ?? '', 'email' => '', 'role' => '']];
+        }
+        $nameOfAtt = static function (array $a): string {
+            $n = trim(($a['first_name'] ?? '') . ' ' . ($a['last_name'] ?? ''));
+            return $n !== '' ? $n : (string) ($a['email'] ?? '');
+        };
       ?>
         <tr>
           <td>
@@ -65,7 +75,17 @@ $totalAll  = count($meetings);
           </td>
           <td><?= e($m['company_name']) ?></td>
           <td>
-            <div><?= e(ucfirst($m['meeting_with_role'])) ?><?= $attName ? ' &mdash; ' . e($attName) : '' ?></div>
+            <?php if (!empty($atts)):
+              $first = $nameOfAtt($atts[0]);
+              $extra = count($atts) - 1;
+              $tooltip = implode("\n", array_map($nameOfAtt, $atts));
+            ?>
+              <div title="<?= e($tooltip) ?>">
+                <strong><?= e($first) ?></strong><?= $extra > 0 ? ' <span class="muted small">+' . (int) $extra . '</span>' : '' ?>
+              </div>
+            <?php else: ?>
+              <div class="muted small">No attendees yet</div>
+            <?php endif; ?>
             <div class="muted small">organized by <?= e($orgName ?: '—') ?></div>
           </td>
           <td><?= e($m['topic']) ?></td>

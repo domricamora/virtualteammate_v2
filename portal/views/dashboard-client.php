@@ -43,23 +43,45 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
     <p>Your user account isn't linked to a client (company) record. Ask your super admin to create one and link it to your user.</p>
   </div>
 <?php else:
-  // ROI calc data: compute lifetime months engaged per VT for the gauge.
-  $MONTHLY_FT = 5250;
+  // ROI calc data — mirrors the staging mu-plugin's roi-savings-calculator
+  // logic (roi-savings-calculator-shortcode.php). Whole-month diff using
+  // year/month math (not 86400/30.4), capped at 240 months (20yr), and the
+  // critical rule from staging line 1497: an ACTIVE engagement that hasn't
+  // yet hit one month is bumped to 1 so the lifetime value isn't $0 the
+  // day a VT is hired. End-of-service engagements keep their real month
+  // count even when that's 0.
+  $MONTHLY_FT     = 5250;
+  $MAX_MONTHS_CAP = 240;
   $hiredHistory = $data['hired_history'] ?? [];
+
+  $monthsBetween = static function (?string $start, ?string $end) use ($MAX_MONTHS_CAP): int {
+      if (!$start) return 0;
+      try {
+          $a = new DateTimeImmutable(substr($start, 0, 10));
+          $b = $end ? new DateTimeImmutable(substr($end, 0, 10)) : new DateTimeImmutable('today');
+          if ($b < $a) return 0;
+          $months = ((int) $b->format('Y') - (int) $a->format('Y')) * 12
+                  + ((int) $b->format('n') - (int) $a->format('n'));
+          if ((int) $b->format('j') < (int) $a->format('j')) { $months -= 1; }
+          $months = max(0, $months);
+          return min($months, $MAX_MONTHS_CAP);
+      } catch (Throwable $_) { return 0; }
+  };
+
   $hiredWithMonths = [];
   foreach ($hiredHistory as $h) {
-      $start = $h['started_at'] ?? null;
-      $end   = !empty($h['ended_at']) ? $h['ended_at'] : null;
-      $months = 0;
-      if ($start) {
-          $sts = strtotime($start); $ets = $end ? strtotime($end) : time();
-          if ($sts && $ets && $ets >= $sts) { $months = (int) floor(($ets - $sts) / (86400 * 30.4375)); }
-      }
+      $start  = $h['started_at'] ?? null;
+      $end    = !empty($h['ended_at']) ? $h['ended_at'] : null;
+      $isEOS  = !empty($end);
+      $months = $monthsBetween($start, $end);
+      // Active VT with under-a-month tenure → credit 1 month so the gauge
+      // reflects current relationship value. Ended engagements stay accurate.
+      if (!$isEOS && $months === 0) { $months = 1; }
       $hiredWithMonths[] = [
           'name'    => trim(($h['first_name'] ?? '') . ' ' . ($h['last_name'] ?? '')) ?: ($h['email'] ?? '—'),
           'role'    => trim(($h['role_title'] ?? '') ?: ($h['department'] ?? '')),
           'months'  => $months,
-          'active'  => empty($end),
+          'active'  => !$isEOS,
           'started' => $start,
       ];
   }
@@ -154,14 +176,16 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
             <p class="muted small">No VT engagements yet.</p>
           <?php else: ?>
             <table class="roiX__tbl">
-              <thead><tr><th>VT</th><th>Role</th><th>Started</th><th>Months</th><th>Value</th><th>Status</th></tr></thead>
+              <thead><tr><th>VT</th><th>Role</th><th>Started</th><th>Tenure</th><th>Value</th><th>Status</th></tr></thead>
               <tbody>
-                <?php foreach ($hiredWithMonths as $h): $val = $h['months'] * $MONTHLY_FT; ?>
+                <?php foreach ($hiredWithMonths as $h):
+                  $val = $h['months'] * $MONTHLY_FT;
+                ?>
                   <tr>
                     <td><strong><?= e($h['name']) ?></strong></td>
                     <td class="muted small"><?= e($h['role'] ?: '—') ?></td>
                     <td class="muted small"><?= e($h['started'] ? substr($h['started'], 0, 10) : '—') ?></td>
-                    <td><?= (int) $h['months'] ?></td>
+                    <td><?= (int) $h['months'] ?> mo</td>
                     <td>$<?= number_format($val) ?></td>
                     <td><?php if ($h['active']): ?><span class="pill pill-active">Active</span><?php else: ?><span class="pill pill-paused">Ended</span><?php endif; ?></td>
                   </tr>
@@ -282,44 +306,101 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
   var fmtUSD = function(n){ return '$' + Math.round(n).toLocaleString(); };
   var pickMilestone = function(v){ var m=[10000,25000,50000,100000,250000,500000,1000000,2000000,5000000,10000000]; for(var i=0;i<m.length;i++){ if(v<=m[i]) return m[i]; } return m[m.length-1]; };
 
-  // Lifetime gauge
+  // ── Count-up animation. Tweens an integer dollar value from -> to over
+  // `dur` ms with ease-out-cubic so big jumps feel smooth instead of jarring.
+  // Each element gets its own cancellation token via _raf so rapid recalcs
+  // (slider drag) don't stack overlapping animations.
+  function animateNumber(el, to, dur){
+    if (!el) return;
+    if (el._raf) cancelAnimationFrame(el._raf);
+    var from = parseFloat((el.textContent || '0').replace(/[^\d.-]/g,'')) || 0;
+    to = Math.round(to); dur = dur || 600;
+    if (from === to) { el.textContent = fmtUSD(to); return; }
+    var start = performance.now();
+    function step(now){
+      var t = Math.min(1, (now - start) / dur);
+      var e = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      var v = from + (to - from) * e;
+      el.textContent = fmtUSD(v);
+      if (t < 1) { el._raf = requestAnimationFrame(step); }
+      else { el.textContent = fmtUSD(to); el._raf = null; }
+    }
+    el._raf = requestAnimationFrame(step);
+  }
+
+  // ── Lifetime gauge — animate stroke fill + value
   var monthly = parseInt(wrap.getAttribute('data-monthly-ft'),10) || 5250;
   var hired = <?= json_encode($hiredWithMonths) ?>;
-  var lifetime = 0; for (var i=0;i<hired.length;i++){ lifetime += (hired[i].months||0) * monthly; }
-  $('[data-el="lifetimeVal"]').textContent = fmtUSD(lifetime);
+  var lifetime = 0; for (var i=0;i<hired.length;i++){ lifetime += (parseFloat(hired[i].months)||0) * monthly; }
   var ms = pickMilestone(lifetime);
   $('[data-el="milestone"]').textContent = fmtUSD(ms);
   var pct = ms > 0 ? Math.max(0, Math.min(1, lifetime/ms)) : 0;
   var c = 2 * Math.PI * 72, dash = pct * c;
   var prog = document.getElementById('roiGaugeProg');
-  if (prog){ setTimeout(function(){ prog.setAttribute('stroke-dasharray', dash + ' ' + (c - dash)); prog.style.transition='stroke-dasharray .9s ease'; }, 100); }
 
-  // Scenario
+  // Trigger gauge + count-up when the calculator scrolls into view, so the
+  // animation actually plays for the user instead of finishing before they
+  // see it.
+  function runActualAnimation(){
+    animateNumber($('[data-el="lifetimeVal"]'), lifetime, 1200);
+    if (prog) {
+      prog.style.transition = 'stroke-dasharray 1.2s cubic-bezier(.16,1,.3,1)';
+      // Start from empty so the fill visibly sweeps to its target.
+      prog.setAttribute('stroke-dasharray', '0 ' + c);
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          prog.setAttribute('stroke-dasharray', dash + ' ' + (c - dash));
+        });
+      });
+    }
+  }
+  if ('IntersectionObserver' in window){
+    var seen = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting && !seen){ seen = true; runActualAnimation(); io.disconnect(); }
+      });
+    }, { threshold: 0.2 });
+    io.observe(wrap);
+  } else {
+    setTimeout(runActualAnimation, 100);
+  }
+
+  // ── Scenario panel
   var jobSel = $('[data-el="jobSelect"]'), tierSel = $('[data-el="tierSelect"]'), schedSel = $('[data-el="schedSelect"]');
   var cntRng = $('[data-el="vtCount"]'), cntVal = $('[data-el="vtCountVal"]');
   var bubble = wrap.querySelector('.roiX__bubble');
-  function recalc(){
+  function recalc(animate){
     var t = BIWEEK[tierSel.value] || BIWEEK.pro;
     var sched = schedSel.value || 'ft';
     var n = parseInt(cntRng.value,10) || 0;
     var vtBi = (t.vt[sched]||0)*n, usBi = (t.us[sched]||0)*n, save = usBi - vtBi;
-    $('[data-el="biSavings"]').textContent = fmtUSD(save);
-    $('[data-el="annualSavings"]').textContent = fmtUSD(save * 26);
-    $('[data-el="usBi"]').textContent = fmtUSD(usBi);
-    $('[data-el="vtBi"]').textContent = fmtUSD(vtBi);
-    $('[data-el="savedBi"]').textContent = fmtUSD(save);
+    var dur = animate ? 450 : 0;
+    animateNumber($('[data-el="biSavings"]'),     save,      dur);
+    animateNumber($('[data-el="annualSavings"]'), save * 26, dur);
+    animateNumber($('[data-el="usBi"]'),          usBi,      dur);
+    animateNumber($('[data-el="vtBi"]'),          vtBi,      dur);
+    animateNumber($('[data-el="savedBi"]'),       save,      dur);
     cntVal.textContent = n + ' VT' + (n === 1 ? '' : 's');
+    var min = parseInt(cntRng.min,10)||0, max = parseInt(cntRng.max,10)||20;
+    var p = max > min ? (n - min) / (max - min) : 0;
+    // Update the CSS variable so the gradient fill visually tracks the
+    // thumb. Without this the track stays frozen at the hardcoded 50%.
+    cntRng.style.setProperty('--p', (p * 100) + '%');
     if (bubble){
-      var min = parseInt(cntRng.min,10)||0, max = parseInt(cntRng.max,10)||20;
-      var p = max > min ? (n - min) / (max - min) : 0;
-      bubble.style.left = (p * 100) + '%'; bubble.style.right='auto'; bubble.style.transform='translateX(-50%)';
+      bubble.style.left = (p * 100) + '%';
+      bubble.style.right = 'auto';
+      bubble.style.transform = 'translateX(-50%)';
     }
   }
-  jobSel.addEventListener('change', function(){ tierSel.value = JOB_DEFAULT_TIER[jobSel.value] || 'pro'; recalc(); });
-  tierSel.addEventListener('change', recalc);
-  schedSel.addEventListener('change', recalc);
-  cntRng.addEventListener('input', recalc);
-  recalc();
+  jobSel.addEventListener('change',  function(){ tierSel.value = JOB_DEFAULT_TIER[jobSel.value] || 'pro'; recalc(true); });
+  tierSel.addEventListener('change', function(){ recalc(true); });
+  schedSel.addEventListener('change',function(){ recalc(true); });
+  // Slider scrub: snappier 0-duration so the numbers track the drag tightly;
+  // a longer 'change' (mouse-up) animation then settles the final number.
+  cntRng.addEventListener('input',   function(){ recalc(false); });
+  cntRng.addEventListener('change',  function(){ recalc(true); });
+  recalc(false);
 })();
 </script>
 

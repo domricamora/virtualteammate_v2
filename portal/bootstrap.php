@@ -222,6 +222,141 @@ function audit_log(string $action, string $entityType = '', ?int $entityId = nul
     }
 }
 
+/* ───────────────────────── Notifications ─────────────────────────── */
+
+/**
+ * Create one notification + optionally email it.
+ *
+ * All notification triggers (task assigned/updated/completed, meeting
+ * invite, new message, hubspot sync done, …) funnel through here so the
+ * per-user `users.notify_by_email` opt-in is honored everywhere from a
+ * single place.
+ *
+ * - $userId   recipient user id
+ * - $kind     short category ('task' | 'meeting' | 'message' | 'sync' | 'info')
+ *             used to pick the bell-icon glyph + colour in the views
+ * - $title    short headline (≤120 chars)
+ * - $body     plain-text body (no markup; emails strip HTML)
+ * - $link     portal-relative link (e.g. `index.php?p=tasks.edit&id=42`)
+ *             gets shown as the "Open" button + included verbatim in email
+ */
+function notify(int $userId, string $kind, string $title, string $body = '', string $link = ''): void
+{
+    if ($userId <= 0) { return; }
+    try {
+        $pdo = db();
+        $pdo->prepare(
+            "INSERT INTO notifications (user_id, kind, title, body, link)
+             VALUES (:u, :k, :t, :b, :l)"
+        )->execute([
+            ':u' => $userId, ':k' => $kind,
+            ':t' => mb_substr($title, 0, 200),
+            ':b' => mb_substr($body,  0, 1000),
+            ':l' => $link,
+        ]);
+
+        // Per-user opt-in email. Best-effort: mail() failures don't bubble.
+        $row = $pdo->prepare('SELECT email, notify_by_email FROM users WHERE id = :u AND active = 1');
+        $row->execute([':u' => $userId]);
+        $r = $row->fetch();
+        if ($r && (int) ($r['notify_by_email'] ?? 0) === 1 && !empty($r['email'])) {
+            notify_send_email((string) $r['email'], $title, $body, $link);
+        }
+    } catch (Throwable $_) {
+        // Notifying must never crash the request.
+    }
+}
+
+/**
+ * HTML + plain-text email for a portal notification. From info@virtualteammate.com,
+ * branded with the VT gradient + a primary CTA button to the original link.
+ * Silent on failure (mail() returns false on hosts without a relay).
+ */
+function notify_send_email(string $to, string $title, string $body, string $link = ''): void
+{
+    $absLink = '';
+    if ($link !== '') {
+        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+        $host   = $_SERVER['HTTP_HOST'] ?? 'virtualteammate.com';
+        $absLink = $scheme . '://' . $host . '/portal/' . ltrim($link, '/');
+    }
+    $clean = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
+    $subject = preg_replace('/\s+/', ' ', trim($title));
+
+    // Resolve absolute site URL once for use in both the logo + footer link.
+    $scheme   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host     = $_SERVER['HTTP_HOST'] ?? 'virtualteammate.com';
+    $siteBase = $scheme . '://' . $host;
+    $logoSrc  = $siteBase . '/images/logo.webp';
+    $portalUrl= $siteBase . '/portal/';
+
+    $titleHtml = $clean($title);
+    $bodyHtml  = $body !== '' ? nl2br($clean($body)) : '';
+    $btnHtml   = $absLink !== ''
+        ? '<table cellpadding="0" cellspacing="0" border="0" align="left" style="margin:22px 0 6px;">'
+        . '<tr><td align="center" bgcolor="#3919BA" style="border-radius:10px;background:linear-gradient(135deg,#3919BA 0%,#7c3aed 100%);">'
+        . '<a href="' . $clean($absLink) . '" style="display:inline-block;padding:14px 26px;font-family:Manrope,Arial,sans-serif;font-size:14px;font-weight:800;letter-spacing:.2px;color:#ffffff;text-decoration:none;border-radius:10px;">Open in portal &rarr;</a>'
+        . '</td></tr></table><div style="clear:both;"></div>'
+        : '';
+
+    $html = '<!doctype html><html><head><meta charset="UTF-8"><title>' . $titleHtml . '</title></head>'
+        . '<body style="margin:0;padding:0;background:#f4f3f8;font-family:\'Manrope\',Helvetica,Arial,sans-serif;color:#1a1535;-webkit-font-smoothing:antialiased;">'
+        . '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f3f8;padding:36px 16px;">'
+        . '<tr><td align="center">'
+        . '<table width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 16px 40px rgba(57,25,186,.14);">'
+        // Branded gradient header (matches the marketing site + portal hero gradient).
+        . '<tr><td style="background:linear-gradient(135deg,#3919BA 0%,#7c3aed 55%,#F6B845 100%);padding:26px 30px;text-align:left;">'
+        . '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
+        . '<td valign="middle"><img src="' . $clean($logoSrc) . '" alt="Virtual Teammate" width="120" style="display:block;border:0;height:auto;max-width:120px;"></td>'
+        . '<td valign="middle" align="right" style="color:rgba(255,255,255,.92);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;">Portal notification</td>'
+        . '</tr></table>'
+        . '</td></tr>'
+        // Body
+        . '<tr><td style="padding:30px 30px 10px;">'
+        . '<h2 style="margin:0 0 12px;font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:19px;font-weight:800;color:#1a1535;line-height:1.3;letter-spacing:-.2px;">' . $titleHtml . '</h2>'
+        . ($bodyHtml !== '' ? '<div style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#444163;">' . $bodyHtml . '</div>' : '')
+        . $btnHtml
+        . '</td></tr>'
+        // Footer
+        . '<tr><td style="padding:18px 30px 26px;border-top:1px solid #eee9f5;background:#fafafd;">'
+        . '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
+        . '<td style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;color:#6b6588;font-size:11.5px;line-height:1.6;">'
+        . 'You\'re receiving this because email notifications are turned on for your portal account.<br>'
+        . 'You can turn them off any time from the <a href="' . $clean($portalUrl) . '?p=notifications" style="color:#3919BA;text-decoration:none;font-weight:700;">Notifications</a> page.'
+        . '</td>'
+        . '<td align="right" valign="top" style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:10.5px;color:#9b97b4;letter-spacing:.4px;">'
+        . '<a href="' . $clean($siteBase) . '" style="color:#9b97b4;text-decoration:none;">virtualteammate.com</a>'
+        . '</td>'
+        . '</tr></table>'
+        . '</td></tr>'
+        . '</table>'
+        . '</td></tr></table>'
+        . '</body></html>';
+
+    // Plain-text fallback (must come first in multipart body).
+    $text = trim($title) . ($body !== '' ? "\n\n" . $body : '') . ($absLink !== '' ? "\n\nOpen: " . $absLink : '');
+
+    $boundary = 'vtp_' . bin2hex(random_bytes(8));
+    $from     = 'info@virtualteammate.com';
+    $headers  = implode("\r\n", [
+        'From: Virtual Teammate <' . $from . '>',
+        'Reply-To: ' . $from,
+        'MIME-Version: 1.0',
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+        'X-Mailer: VT Portal',
+    ]);
+    $payload  = "--{$boundary}\r\n"
+              . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+              . $text . "\r\n"
+              . "--{$boundary}\r\n"
+              . "Content-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
+              . $html . "\r\n"
+              . "--{$boundary}--";
+
+    try { @mail($to, $subject, $payload, $headers, '-f' . $from); }
+    catch (Throwable $_) {}
+}
+
 /* ───────────────────────── Misc helpers ─────────────────────────── */
 
 /** Generate a strong human-friendly password (no ambiguous chars). */

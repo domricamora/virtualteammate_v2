@@ -161,6 +161,12 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .portal-nav-link i{width:18px;text-align:center;color:var(--text-dim);font-size:14px;}
 .portal-nav-link:hover{background:rgba(255,255,255,0.05);color:var(--text);}
 .portal-nav-link:hover i{color:var(--gold);}
+.portal-nav-link span:first-of-type{flex:1;}
+.portal-nav-badge{
+  margin-left:auto;background:#e53e3e;color:#fff;font-size:10.5px;font-weight:800;
+  min-width:20px;height:18px;padding:0 6px;border-radius:30px;
+  display:inline-flex;align-items:center;justify-content:center;line-height:1;
+}
 .portal-nav-link.is-active{
   background:linear-gradient(135deg, rgba(223,169,73,0.18), rgba(57,25,186,0.25));
   color:var(--text);
@@ -184,6 +190,20 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .portal-top-h{font-size:22px;font-weight:800;letter-spacing:-0.01em;}
 .portal-top-sub{font-size:13px;color:var(--text-mute);margin-top:2px;}
 .portal-top-r{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-mute);}
+.portal-top-bell{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.75);text-decoration:none;transition:background .15s,border-color .15s,color .15s;
+}
+.portal-top-bell:hover{background:rgba(247,185,69,.12);border-color:rgba(247,185,69,.35);color:var(--gold-lt,#e9c879);}
+.portal-top-bell i{font-size:14px;}
+.portal-top-bell-badge{
+  position:absolute;top:-4px;right:-4px;min-width:18px;height:18px;padding:0 5px;
+  background:#e53e3e;color:#fff;font-size:10.5px;font-weight:800;
+  border-radius:30px;display:inline-flex;align-items:center;justify-content:center;
+  border:2px solid #16142e;line-height:1;
+}
 .portal-me{display:inline-flex;align-items:center;gap:10px;}
 .portal-me-link{
   width:36px;height:36px;border-radius:8px;
@@ -613,16 +633,33 @@ select option:checked{background-color:#3919BA;color:#fff;}
 
 /* Cover + profile photo (dashboard hero, profile preview) */
 .cd-cover-card{position:relative;}
-.cd-cover{height:200px;background:linear-gradient(135deg,#3919BA 0%,#7c3aed 50%,#F6B845 100%);background-size:cover;background-position:center;position:relative;}
+/* Facebook page-cover ratio (851:315 ≈ 2.7:1), full-width — scales
+   proportionally with the dashboard width. */
+.cd-cover{
+  width:100%;
+  aspect-ratio:851/315;
+  background:linear-gradient(135deg,#3919BA 0%,#7c3aed 50%,#F6B845 100%);
+  background-size:cover;background-position:center;
+  position:relative;
+}
 .cd-cover-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.65);font-size:13px;}
 .cd-cover-empty a{color:#fff;text-decoration:underline;}
-.cd-cover-body{display:flex;align-items:flex-end;gap:18px;padding:0 24px 18px;margin-top:-50px;flex-wrap:wrap;position:relative;}
-.cd-cover-photo-wrap{flex:0 0 auto;}
-.cd-cover-photo{width:110px;height:110px;border-radius:50%;border:4px solid #0f0c28;background:#1a1535;object-fit:cover;display:block;box-shadow:0 14px 30px rgba(0,0,0,.5);}
-.cd-cover-photo.placeholder{display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:#fff;background:linear-gradient(135deg,#4a4178,#322a5a);}
-.cd-cover-meta{flex:1;min-width:240px;padding-bottom:6px;}
-.cd-cover-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;padding-bottom:6px;}
-@media (max-width:780px){.cd-cover{height:160px;}.cd-cover-photo{width:88px;height:88px;}.cd-cover-body{margin-top:-40px;}}
+/* Body sits BELOW the cover; only the circular avatar overlaps upward.
+   Previously the whole body was -50px which dragged the company name
+   text into the cover image — fixed below by lifting only the photo. */
+.cd-cover-body{
+  display:flex;align-items:center;gap:18px;
+  padding:16px 24px 22px;flex-wrap:wrap;position:relative;
+}
+.cd-cover-photo-wrap{flex:0 0 auto;margin-top:-72px;}
+.cd-cover-photo{width:120px;height:120px;border-radius:50%;border:4px solid #0f0c28;background:#1a1535;object-fit:cover;display:block;box-shadow:0 14px 30px rgba(0,0,0,.5);}
+.cd-cover-photo.placeholder{display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:800;color:#fff;background:linear-gradient(135deg,#4a4178,#322a5a);}
+.cd-cover-meta{flex:1;min-width:240px;}
+.cd-cover-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+@media (max-width:780px){
+  .cd-cover-photo{width:92px;height:92px;}
+  .cd-cover-photo-wrap{margin-top:-56px;}
+}
 
 /* Profile editor preview (mirrors the dashboard look) */
 .pf-preview{padding:0;overflow:hidden;}
@@ -676,7 +713,8 @@ select option:checked{background-color:#3919BA;color:#fff;}
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
 }
 .vt-hero-cover{
-  height:160px;
+  width:100%;
+  aspect-ratio:851/315;
   background:linear-gradient(135deg,#3919BA 0%,#7e2ed4 45%,#d4a64a 100%);
   background-size:cover;background-position:center;
 }
@@ -830,11 +868,47 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .roiX__select optgroup{font-weight:700;color:var(--gold,#d4a64a);}
 .roiX__grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;}
 @media (max-width:520px){.roiX__grid2{grid-template-columns:1fr;}}
-.roiX__slider input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:30px;background:linear-gradient(90deg,var(--gold,#d4a64a) 0%,var(--gold,#d4a64a) 50%,rgba(255,255,255,.12) 50%,rgba(255,255,255,.12) 100%);outline:none;}
-.roiX__slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold,#d4a64a);border:3px solid #1a1535;box-shadow:0 4px 10px rgba(247,185,69,.45);cursor:pointer;}
-.roiX__slider input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold,#d4a64a);border:3px solid #1a1535;box-shadow:0 4px 10px rgba(247,185,69,.45);cursor:pointer;}
-.roiX__sliderMeta{display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-size:10.5px;color:rgba(255,255,255,.45);position:relative;}
-.roiX__bubble{position:absolute;top:-30px;left:0;background:var(--gold,#d4a64a);color:#1a1535;font-size:11px;font-weight:800;padding:3px 10px;border-radius:30px;white-space:nowrap;box-shadow:0 4px 12px rgba(247,185,69,.4);transition:left .15s ease;}
+.roiX__slider{padding:6px 0;}
+/* Track fill is driven by a CSS custom property `--p` (0..100) that the
+   JS updates on every `input` event so the gold fill visually follows
+   the thumb. Bumped thumb to 22px for a comfortable touch target +
+   touch-action:manipulation so mobile drags don't get hijacked by scroll. */
+.roiX__slider input[type=range]{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:8px;border-radius:30px;outline:none;cursor:grab;
+  touch-action:manipulation;
+  background:linear-gradient(90deg,
+    var(--gold,#d4a64a) 0%,
+    var(--gold,#d4a64a) var(--p, 50%),
+    rgba(255,255,255,.12) var(--p, 50%),
+    rgba(255,255,255,.12) 100%
+  );
+}
+.roiX__slider input[type=range]:active{cursor:grabbing;}
+.roiX__slider input[type=range]::-webkit-slider-runnable-track{height:8px;background:transparent;border-radius:30px;}
+.roiX__slider input[type=range]::-moz-range-track{height:8px;background:transparent;border-radius:30px;border:none;}
+.roiX__slider input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:22px;height:22px;border-radius:50%;
+  background:var(--gold,#d4a64a);border:3px solid #1a1535;
+  box-shadow:0 4px 14px rgba(247,185,69,.55);
+  cursor:grab;margin-top:-7px;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.roiX__slider input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.1);}
+.roiX__slider input[type=range]:active::-webkit-slider-thumb{transform:scale(1.18);cursor:grabbing;box-shadow:0 6px 18px rgba(247,185,69,.75);}
+.roiX__slider input[type=range]::-moz-range-thumb{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--gold,#d4a64a);border:3px solid #1a1535;
+  box-shadow:0 4px 14px rgba(247,185,69,.55);
+  cursor:grab;
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.roiX__slider input[type=range]::-moz-range-thumb:hover{transform:scale(1.1);}
+.roiX__slider input[type=range]:active::-moz-range-thumb{transform:scale(1.18);cursor:grabbing;box-shadow:0 6px 18px rgba(247,185,69,.75);}
+.roiX__slider input[type=range]:focus-visible{box-shadow:0 0 0 3px rgba(247,185,69,.25);}
+.roiX__sliderMeta{display:flex;justify-content:space-between;align-items:center;margin-top:18px;font-size:10.5px;color:rgba(255,255,255,.45);position:relative;pointer-events:none;}
+.roiX__bubble{position:absolute;top:-30px;left:0;background:var(--gold,#d4a64a);color:#1a1535;font-size:11px;font-weight:800;padding:3px 10px;border-radius:30px;white-space:nowrap;box-shadow:0 4px 12px rgba(247,185,69,.4);transition:left .15s ease;pointer-events:none;}
 .roiX__results{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
 @media (max-width:520px){.roiX__results{grid-template-columns:1fr;}}
 .roiX__kpi{padding:16px;border-radius:12px;background:linear-gradient(135deg,rgba(247,185,69,.12),rgba(57,25,186,.18));border:1px solid rgba(247,185,69,.28);}

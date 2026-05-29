@@ -24,16 +24,30 @@ $roleLabel = static function (string $role): string {
 };
 ?>
 <div class="msg-shell">
-  <!-- Sidebar: contacts list -->
+  <!-- Sidebar: contacts list + search -->
   <aside class="msg-side">
-    <div class="msg-side-h"><strong>Conversations</strong> <span class="muted small">(<?= count($contacts) ?>)</span></div>
+    <div class="msg-side-h">
+      <strong>Conversations</strong>
+      <span class="muted small">(<span data-msg-count><?= count($contacts) ?></span>)</span>
+    </div>
+    <div class="msg-side-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="search" data-msg-search placeholder="Search name, email, role…" autocomplete="off">
+    </div>
+    <div class="msg-side-list">
     <?php if (empty($contacts)): ?>
       <p class="muted" style="padding:18px;">No people you can chat with yet.</p>
     <?php else: foreach ($contacts as $c):
       $isActive = $partner && (int) $partner['id'] === (int) $c['id'];
       $cu = $unread[(int) $c['id']] ?? 0;
+      $searchBlob = strtolower(trim(
+        $nameOf($c) . ' ' . (string) ($c['email'] ?? '') . ' ' . $roleLabel($c['role'] ?? '')
+      ));
     ?>
-      <a class="msg-contact <?= $isActive ? 'is-active' : '' ?>" href="<?= e(portal_url('messages', ['with' => (int) $c['id']])) ?>">
+      <a class="msg-contact <?= $isActive ? 'is-active' : '' ?>"
+         href="<?= e(portal_url('messages', ['with' => (int) $c['id']])) ?>"
+         data-msg-blob="<?= e($searchBlob) ?>"
+         data-msg-unread="<?= (int) $cu ?>">
         <?php if (!empty($c['photo_url'])): ?>
           <img class="msg-contact-photo" src="<?= e($c['photo_url']) ?>" alt="" loading="lazy"
                onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
@@ -47,6 +61,8 @@ $roleLabel = static function (string $role): string {
         <?php if ($cu > 0): ?><span class="msg-unread"><?= (int) $cu ?></span><?php endif; ?>
       </a>
     <?php endforeach; endif; ?>
+    <p class="muted small" data-msg-empty style="display:none;padding:14px;text-align:center;">No matches.</p>
+    </div>
   </aside>
 
   <!-- Thread / empty state -->
@@ -105,8 +121,13 @@ $roleLabel = static function (string $role): string {
 <style>
 .msg-shell{display:grid;grid-template-columns:280px 1fr;gap:14px;min-height:560px;}
 @media (max-width:880px){.msg-shell{grid-template-columns:1fr;}}
-.msg-side{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;}
+.msg-side{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;max-height:640px;}
 .msg-side-h{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:rgba(255,255,255,.85);}
+.msg-side-search{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);background:rgba(255,255,255,.02);}
+.msg-side-search i{color:rgba(255,255,255,.45);font-size:12px;}
+.msg-side-search input{flex:1;background:transparent;border:0;color:#fff;font-family:inherit;font-size:13px;outline:none;padding:2px 0;}
+.msg-side-search input::placeholder{color:rgba(255,255,255,.35);}
+.msg-side-list{flex:1;overflow-y:auto;}
 .msg-contact{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);text-decoration:none;color:inherit;transition:background .15s;}
 .msg-contact:hover{background:rgba(247,185,69,.06);}
 .msg-contact.is-active{background:rgba(247,185,69,.12);border-left:3px solid var(--gold,#d4a64a);padding-left:11px;}
@@ -139,5 +160,33 @@ $roleLabel = static function (string $role): string {
 <script>
 (function(){
   var t = document.getElementById('msgThread'); if (t) t.scrollTop = t.scrollHeight;
+})();
+</script>
+
+<script>
+(function(){
+  var search    = document.querySelector('[data-msg-search]');
+  var list      = document.querySelector('.msg-side-list');
+  var emptyEl   = document.querySelector('[data-msg-empty]');
+  var countEl   = document.querySelector('[data-msg-count]');
+  if (!search || !list) return;
+  var contacts  = Array.prototype.slice.call(list.querySelectorAll('.msg-contact'));
+  var total     = contacts.length;
+  var t = null;
+  search.addEventListener('input', function(){
+    clearTimeout(t);
+    t = setTimeout(function(){
+      var q = search.value.trim().toLowerCase();
+      var shown = 0;
+      contacts.forEach(function(c){
+        var blob = c.getAttribute('data-msg-blob') || '';
+        var match = q === '' || blob.indexOf(q) !== -1;
+        c.style.display = match ? '' : 'none';
+        if (match) shown++;
+      });
+      if (emptyEl) emptyEl.style.display = shown === 0 ? '' : 'none';
+      if (countEl) countEl.textContent = q === '' ? total : shown;
+    }, 80);
+  });
 })();
 </script>

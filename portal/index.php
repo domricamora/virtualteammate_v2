@@ -98,10 +98,14 @@ switch ($action) {
     case 'tasks.attachment':       handle_tasks_attachment_serve();  break;
     case 'tasks.attachment.delete':handle_tasks_attachment_delete(); break;
     case 'workday':                handle_workday_list();            break;
-    case 'notifications':          handle_notifications_list();      break;
-    case 'notifications.read':     handle_notifications_read();      break;
+    case 'notifications':              handle_notifications_list();           break;
+    case 'notifications.read':         handle_notifications_read();           break;
+    case 'notifications.delete':       handle_notifications_delete();         break;
+    case 'notifications.delete_all':   handle_notifications_delete_all();     break;
+    case 'notifications.toggle_email': handle_notifications_toggle_email();   break;
     case 'resources':              handle_resources();               break;
     case 'my-vts':                 handle_my_vts();                  break;
+    case 'vts.profile_json':       handle_vts_profile_json();        break;
     case 'messages':               handle_messages_list();           break;
     case 'messages.send':          handle_messages_send();           break;
     case 'productivity':           handle_productivity();            break;
@@ -397,11 +401,11 @@ function dashboard_vt_data(array $u): array
     $csms   = [];
     if ($profile && $profile['status'] === 'hired') {
         $cv = db()->prepare(
-            'SELECT cv.*, c.company_name, c.id AS cid
+            "SELECT cv.*, c.company_name, c.id AS cid
              FROM client_vts cv
              JOIN clients c ON c.id = cv.client_id
-             WHERE cv.vt_user_id = :uid AND cv.contract_status = "active"
-             LIMIT 1'
+             WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active'
+             LIMIT 1"
         );
         $cv->execute([':uid' => $u['id']]);
         $client = $cv->fetch() ?: null;
@@ -425,14 +429,14 @@ function dashboard_vt_data(array $u): array
 function client_hired_vts(int $clientId): array
 {
     $stmt = db()->prepare(
-        'SELECT cv.*, u.first_name, u.last_name, u.email, u.photo_url, u.country,
+        "SELECT cv.*, u.first_name, u.last_name, u.email, u.photo_url, u.country,
                 p.department, p.role_title, p.experience_years, p.english_level,
                 p.workday_link AS profile_workday_link
          FROM client_vts cv
          JOIN users u ON u.id = cv.vt_user_id
          LEFT JOIN vt_profiles p ON p.user_id = cv.vt_user_id
-         WHERE cv.client_id = :cid AND cv.contract_status = "active"
-         ORDER BY u.first_name'
+         WHERE cv.client_id = :cid AND cv.contract_status = 'active'
+         ORDER BY u.first_name"
     );
     $stmt->execute([':cid' => $clientId]);
     return $stmt->fetchAll();
@@ -903,7 +907,7 @@ function handle_assignments_view(): void
         $csmLinks[(int) $r['csm_user_id']][(int) $r['client_id']] = true;
     }
     $vtLinks = [];
-    foreach ($pdo->query('SELECT client_id, vt_user_id FROM client_vts WHERE contract_status = "active"')->fetchAll() as $r) {
+    foreach ($pdo->query("SELECT client_id, vt_user_id FROM client_vts WHERE contract_status = 'active'")->fetchAll() as $r) {
         $vtLinks[(int) $r['vt_user_id']][(int) $r['client_id']] = true;
     }
     render('assignments', [
@@ -943,7 +947,7 @@ function handle_assignment_vt_toggle(): void
     $on     = !empty($_POST['on']);
     if ($vt < 1 || $client < 1) { redirect(portal_url('assignments')); }
     if ($on) {
-        db()->prepare('INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status) VALUES (:cl, :v, "active")')
+        db()->prepare("INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status) VALUES (:cl, :v, 'active')")
             ->execute([':cl'=>$client, ':v'=>$vt]);
         audit_log('assign', 'client_vt', $client, 'vt=' . $vt);
     } else {
@@ -982,14 +986,49 @@ function handle_meetings_list(): void
             break;
         case 'vt_hired':
         case 'vt_onpool':
-            $sql .= ' WHERE m.attendee_user_id = :uid';
+            // VT sees any meeting they're invited to — through the
+            // meeting_attendees table (preferred) OR the legacy single
+            // attendee_user_id column (back-compat).
+            $sql .= ' WHERE (m.attendee_user_id = :uid
+                         OR EXISTS (SELECT 1 FROM meeting_attendees ma
+                                    WHERE ma.meeting_id = m.id AND ma.user_id = :uid))';
             $params[':uid'] = $u['id'];
             break;
     }
     $sql .= ' ORDER BY m.scheduled_at DESC';
     $stmt = db()->prepare($sql);
     $stmt->execute($params);
-    render('meetings-list', ['meetings' => $stmt->fetchAll(), 'user' => $u]);
+    $meetings = $stmt->fetchAll();
+
+    // Pull every attendee for the visible meetings in one query, then group
+    // by meeting_id so the view can render the full invitee list.
+    $attendeesByMeeting = [];
+    if ($meetings) {
+        $ids = array_map(fn($m) => (int) $m['id'], $meetings);
+        $ph  = implode(',', array_fill(0, count($ids), '?'));
+        $a = db()->prepare(
+            "SELECT ma.meeting_id, u.id, u.first_name, u.last_name, u.email, u.role
+             FROM meeting_attendees ma
+             JOIN users u ON u.id = ma.user_id
+             WHERE ma.meeting_id IN ($ph)
+             ORDER BY u.first_name, u.last_name"
+        );
+        $a->execute($ids);
+        foreach ($a as $row) {
+            $attendeesByMeeting[(int) $row['meeting_id']][] = [
+                'id'         => (int) $row['id'],
+                'first_name' => $row['first_name'],
+                'last_name'  => $row['last_name'],
+                'email'      => $row['email'],
+                'role'       => $row['role'],
+            ];
+        }
+    }
+    render('meetings-list', [
+        'meetings'             => $meetings,
+        'user'                 => $u,
+        'attendees_by_meeting' => $attendeesByMeeting,
+    ]);
 }
 
 function handle_meetings_edit(): void
@@ -1018,7 +1057,24 @@ function handle_meetings_edit(): void
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         csrf_verify();
         $clientId    = (int) ($_POST['client_id'] ?? 0);
-        $attendee    = (int) ($_POST['attendee_user_id'] ?? 0) ?: null;
+        // Multi-attendee: accept attendee_user_ids[] from the multi-select
+        // picker. Fall back to the legacy single-select attendee_user_id so
+        // older form posts (or other entry points) still work.
+        $rawAttendees = $_POST['attendee_user_ids'] ?? null;
+        $attendeeIds  = [];
+        if (is_array($rawAttendees)) {
+            foreach ($rawAttendees as $aid) {
+                $aid = (int) $aid;
+                if ($aid > 0 && !in_array($aid, $attendeeIds, true)) { $attendeeIds[] = $aid; }
+            }
+        } else {
+            $legacyAttendee = (int) ($_POST['attendee_user_id'] ?? 0);
+            if ($legacyAttendee > 0) { $attendeeIds[] = $legacyAttendee; }
+        }
+        // The legacy single-attendee column stays in sync with the FIRST
+        // attendee so old code paths (dashboard "Today's meetings" widget,
+        // older queries) still surface a name.
+        $primaryAttendee = $attendeeIds[0] ?? null;
         $role        = (string) ($_POST['meeting_with_role'] ?? 'csm');
         $topic       = trim((string) ($_POST['topic'] ?? ''));
         $notes       = trim((string) ($_POST['notes'] ?? ''));
@@ -1069,13 +1125,16 @@ function handle_meetings_edit(): void
             flash('error', 'You can not schedule a meeting on that client account.');
             redirect(portal_url('meetings.edit', ['id'=>$id]));
         }
-        // Same check for the attendee — must be one of the role-scoped
-        // candidates we'd render in the form (prevents form-tampering).
-        if ($attendee !== null) {
+        // Same check for EVERY attendee — must be one of the role-scoped
+        // candidates we'd render in the form (prevents form-tampering with
+        // arbitrary user ids).
+        if ($attendeeIds) {
             $allowedAttendeeIds = array_map(static fn($c) => (int) $c['id'], meetings_scoped_candidates($u));
-            if (!in_array((int) $attendee, $allowedAttendeeIds, true)) {
-                flash('error', 'Selected attendee is not available for your account.');
-                redirect(portal_url('meetings.edit', ['id'=>$id]));
+            foreach ($attendeeIds as $aid) {
+                if (!in_array($aid, $allowedAttendeeIds, true)) {
+                    flash('error', 'One of the selected invitees is not available for your account.');
+                    redirect(portal_url('meetings.edit', ['id'=>$id]));
+                }
             }
         }
         if ($endAt !== '' && $endAt < $startAt) {
@@ -1093,7 +1152,7 @@ function handle_meetings_edit(): void
                      topic=:t, notes=:n, status=:s, updated_at=CURRENT_TIMESTAMP
                  WHERE id=:id'
             )->execute([
-                ':c'=>$clientId, ':a'=>$attendee, ':r'=>$role,
+                ':c'=>$clientId, ':a'=>$primaryAttendee, ':r'=>$role,
                 ':w'=>$startAt, ':e'=>$endAt, ':d'=>$duration,
                 ':ml'=>$meetingLink, ':ca'=>$callApp,
                 ':t'=>$topic, ':n'=>$notes, ':s'=>$status, ':id'=>$id,
@@ -1108,7 +1167,7 @@ function handle_meetings_edit(): void
                     topic, notes, status)
                  VALUES (:c, :o, :a, :r, :w, :e, :d, :ml, :ca, :t, :n, :s)'
             )->execute([
-                ':c'=>$clientId, ':o'=>$u['id'], ':a'=>$attendee, ':r'=>$role,
+                ':c'=>$clientId, ':o'=>$u['id'], ':a'=>$primaryAttendee, ':r'=>$role,
                 ':w'=>$startAt, ':e'=>$endAt, ':d'=>$duration,
                 ':ml'=>$meetingLink, ':ca'=>$callApp,
                 ':t'=>$topic, ':n'=>$notes, ':s'=>$status,
@@ -1116,6 +1175,52 @@ function handle_meetings_edit(): void
             $finalId = (int) db()->lastInsertId();
             audit_log('create', 'meeting', $finalId);
         }
+
+        // Sync attendees: figure out who's NEW (vs already on the meeting)
+        // so we only fire one notification per actually-new invite.
+        $existingAttendees = [];
+        if ($id > 0) {
+            $existingAttendees = db()->query("SELECT user_id FROM meeting_attendees WHERE meeting_id = {$finalId}")
+                ->fetchAll(PDO::FETCH_COLUMN);
+            $existingAttendees = array_map('intval', $existingAttendees);
+        }
+        // Wipe + re-insert is simplest and lets us also drop people who
+        // were removed from the invite list.
+        db()->prepare('DELETE FROM meeting_attendees WHERE meeting_id = :m')->execute([':m' => $finalId]);
+        $insAtt = db()->prepare('INSERT OR IGNORE INTO meeting_attendees (meeting_id, user_id) VALUES (:m, :u)');
+        foreach ($attendeeIds as $aid) {
+            $insAtt->execute([':m' => $finalId, ':u' => $aid]);
+        }
+        // Notify everyone newly added (don't re-spam the existing attendees
+        // every time the organizer edits the notes).
+        $organizerName = trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? ''));
+        if ($organizerName === '') { $organizerName = (string) ($u['email'] ?? 'A teammate'); }
+        $newlyInvited = array_diff($attendeeIds, $existingAttendees);
+        if ($newlyInvited) {
+            meetings_notify_invitees($newlyInvited, $finalId, $topic, $organizerName, $startAt);
+        }
+        // On EDIT (not create), ping the existing attendees with a
+        // "details changed" notice — minus the organizer themselves and
+        // minus anyone who was just newly invited (they get the invite).
+        if ($id > 0) {
+            $kept = array_diff($existingAttendees, $newlyInvited);
+            $kept = array_diff($kept, [(int) $u['id']]);
+            $whenLabel = '';
+            if ($startAt !== '') {
+                try { $whenLabel = (new DateTime($startAt))->format('M j, Y · g:i a'); }
+                catch (Throwable $_) { $whenLabel = $startAt; }
+            }
+            foreach ($kept as $uid) {
+                notify(
+                    (int) $uid, 'meeting',
+                    'Meeting updated: ' . mb_substr($topic !== '' ? $topic : 'Untitled meeting', 0, 80),
+                    $organizerName . ' updated the details'
+                        . ($whenLabel !== '' ? ' for the meeting on ' . $whenLabel : '') . '.',
+                    'index.php?p=meetings.edit&id=' . $finalId,
+                );
+            }
+        }
+
         flash('success', 'Meeting saved.');
         redirect(portal_url('meetings'));
     }
@@ -1126,7 +1231,40 @@ function handle_meetings_edit(): void
     // sees the entire org.
     $clients    = meetings_scoped_clients($u);
     $candidates = meetings_scoped_candidates($u);
-    render('meetings-edit', ['meeting'=>$meeting, 'clients'=>$clients, 'candidates'=>$candidates, 'user'=>$u]);
+
+    // Existing attendees on edit — feeds the multi-select preselection.
+    $selectedAttendeeIds = [];
+    if ($meeting) {
+        $stmt = db()->prepare('SELECT user_id FROM meeting_attendees WHERE meeting_id = :m');
+        $stmt->execute([':m' => (int) $meeting['id']]);
+        $selectedAttendeeIds = array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN));
+    }
+    render('meetings-edit', [
+        'meeting'              => $meeting,
+        'clients'              => $clients,
+        'candidates'           => $candidates,
+        'user'                 => $u,
+        'selected_attendee_ids'=> $selectedAttendeeIds,
+    ]);
+}
+
+/**
+ * Send a "you've been invited" notification to a list of user ids.
+ * Used by handle_meetings_edit when attendees are added.
+ */
+function meetings_notify_invitees(array $userIds, int $meetingId, string $topic, string $organizerName, string $startAt): void
+{
+    if (!$userIds) { return; }
+    $whenLabel = '';
+    if ($startAt !== '') {
+        try { $whenLabel = (new DateTime($startAt))->format('M j, Y · g:i a'); }
+        catch (Throwable $_) { $whenLabel = $startAt; }
+    }
+    $title = 'Meeting invite: ' . mb_substr($topic !== '' ? $topic : 'Untitled meeting', 0, 80);
+    $body  = $organizerName . ' invited you to a meeting'
+           . ($whenLabel !== '' ? ' on ' . $whenLabel : '') . '.';
+    $link  = 'index.php?p=meetings.edit&id=' . $meetingId;
+    foreach ($userIds as $uid) { notify((int) $uid, 'meeting', $title, $body, $link); }
 }
 
 /** True if $u may edit / delete a meeting on $clientId. */
@@ -1219,7 +1357,7 @@ function handle_meetings_delete(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('meetings')); }
     csrf_verify();
     $id = (int) ($_POST['id'] ?? 0);
-    $stmt = db()->prepare('SELECT organizer_user_id, client_id FROM meetings WHERE id = :id');
+    $stmt = db()->prepare('SELECT id, organizer_user_id, client_id, topic, scheduled_at FROM meetings WHERE id = :id');
     $stmt->execute([':id' => $id]);
     $row = $stmt->fetch();
     if (!$row) { redirect(portal_url('meetings')); }
@@ -1231,8 +1369,32 @@ function handle_meetings_delete(): void
         flash('error', 'You can not delete this meeting.');
         redirect(portal_url('meetings'));
     }
+    // Capture attendees BEFORE delete (the CASCADE wipes meeting_attendees).
+    $atts = db()->prepare('SELECT user_id FROM meeting_attendees WHERE meeting_id = :m');
+    $atts->execute([':m' => $id]);
+    $attendeeIds = array_map('intval', $atts->fetchAll(PDO::FETCH_COLUMN));
+
     db()->prepare('DELETE FROM meetings WHERE id = :id')->execute([':id'=>$id]);
     audit_log('delete', 'meeting', $id);
+
+    // Notify attendees the meeting was cancelled.
+    $topic = (string) ($row['topic'] ?? 'Untitled meeting');
+    $when  = '';
+    if (!empty($row['scheduled_at'])) {
+        try { $when = (new DateTime($row['scheduled_at']))->format('M j, Y · g:i a'); }
+        catch (Throwable $_) { $when = (string) $row['scheduled_at']; }
+    }
+    $actorId = (int) $u['id'];
+    foreach ($attendeeIds as $uid) {
+        if ($uid === $actorId) { continue; }
+        notify(
+            (int) $uid, 'meeting',
+            'Meeting cancelled: ' . mb_substr($topic, 0, 80),
+            'The meeting' . ($when !== '' ? ' on ' . $when : '') . ' has been cancelled.',
+            'index.php?p=meetings',
+        );
+    }
+
     flash('success', 'Meeting deleted.');
     redirect(portal_url('meetings'));
 }
@@ -1797,8 +1959,8 @@ function handle_hubspot_seed_demo(): void
         $clientRowId = (int) ($stmt->fetchColumn() ?: 0);
         if ($clientRowId === 0) {
             $pdo->prepare(
-                'INSERT INTO clients (user_id, company_name, company_email, contract_status)
-                 VALUES (:u, :n, :e, "active")'
+                "INSERT INTO clients (user_id, company_name, company_email, contract_status)
+                 VALUES (:u, :n, :e, 'active')"
             )->execute([
                 ':u' => $ids['client'],
                 ':n' => 'Demo Client Practice',
@@ -1826,8 +1988,8 @@ function handle_hubspot_seed_demo(): void
             if ($uid <= 0) { continue; }
             $started = date('Y-m-d H:i:s', strtotime($hiredStartOffsets[$email] ?? 'now'));
             $pdo->prepare(
-                'INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status, started_at, workday_tracker_id)
-                 VALUES (:c, :v, "active", :s, :w)'
+                "INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status, started_at, workday_tracker_id)
+                 VALUES (:c, :v, 'active', :s, :w)"
             )->execute([
                 ':c' => $clientRowId, ':v' => $uid, ':s' => $started,
                 ':w' => 'demo-tracker-' . $uid,
@@ -2312,15 +2474,13 @@ function tasks_can_create(array $u, int $cid): bool
 function tasks_notify_assignee(int $userId, int $taskId, string $title, int $cid): void
 {
     if ($userId <= 0) { return; }
-    db()->prepare(
-        "INSERT INTO notifications (user_id, kind, title, body, link)
-         VALUES (:u, 'task', :t, :b, :l)"
-    )->execute([
-        ':u' => $userId,
-        ':t' => 'New task assigned: ' . mb_substr($title, 0, 80),
-        ':b' => 'A new task has been assigned to you.',
-        ':l' => 'index.php?p=tasks.edit&id=' . $taskId,
-    ]);
+    notify(
+        $userId,
+        'task',
+        'New task assigned: ' . mb_substr($title, 0, 80),
+        'A new task has been assigned to you. Click "Open in portal" to view the details and start working.',
+        'index.php?p=tasks.edit&id=' . $taskId,
+    );
 }
 
 /** All VTs visible to $u for the "Assign to" picker. Scoped per role. */
@@ -2554,6 +2714,7 @@ function handle_tasks_edit(): void
         }
 
         if ($task) {
+            $oldAssignee = (int) ($task['assignee_user_id'] ?? 0);
             $pdo->prepare(
                 'UPDATE tasks SET title=:t, description=:d, assignee_user_id=:a, priority=:p,
                         due_date=:dd, client_id=:c, updated_at=CURRENT_TIMESTAMP
@@ -2563,13 +2724,26 @@ function handle_tasks_edit(): void
                 ':dd'=>$due, ':c'=>$cidParam, ':id'=>$id,
             ]);
             audit_log('task_update', 'task', $id);
+            // Notify when the task is re-assigned to a new person.
+            if ($assignee !== null && (int) $assignee !== $oldAssignee) {
+                tasks_notify_assignee((int) $assignee, $id, $title, (int) ($cidParam ?? 0));
+            } elseif ($assignee !== null && (int) $assignee === $oldAssignee && $assignee !== (int) $u['id']) {
+                // Quiet "this task changed" ping to the current assignee
+                // (skipped if they're the one editing).
+                notify(
+                    (int) $assignee, 'task',
+                    'Task updated: ' . mb_substr($title, 0, 80),
+                    'A task assigned to you was just updated. Check the latest details.',
+                    'index.php?p=tasks.edit&id=' . $id,
+                );
+            }
             flash('success', 'Task updated.');
             redirect(portal_url('tasks.edit', ['id' => $id]));
         }
 
         $pdo->prepare(
-            'INSERT INTO tasks (client_id, assignee_user_id, created_by, title, description, priority, due_date, status)
-             VALUES (:c, :a, :cb, :t, :d, :p, :dd, "active")'
+            "INSERT INTO tasks (client_id, assignee_user_id, created_by, title, description, priority, due_date, status)
+             VALUES (:c, :a, :cb, :t, :d, :p, :dd, 'active')"
         )->execute([
             ':c'=>$cidParam, ':a'=>$assignee, ':cb'=>$u['id'],
             ':t'=>$title, ':d'=>$desc, ':p'=>$priority, ':dd'=>$due,
@@ -2632,6 +2806,24 @@ function handle_tasks_toggle(): void
     $pdo->prepare('UPDATE tasks SET status=:s, completed_at=:c, updated_at=CURRENT_TIMESTAMP WHERE id=:id')
         ->execute([':s' => $newStatus, ':c' => $completed, ':id' => $id]);
     audit_log('task_' . ($newStatus === 'completed' ? 'complete' : 'reopen'), 'task', $id);
+
+    // Notify the OTHER party (creator if assignee toggled, assignee if creator
+    // toggled) so both sides see the status change in their inbox.
+    $taskTitle = (string) ($task['title'] ?? 'Task');
+    $creatorId = (int) ($task['created_by'] ?? 0);
+    $asgneeId  = (int) ($task['assignee_user_id'] ?? 0);
+    $actorId   = (int) $u['id'];
+    $notifyIds = array_unique(array_filter([$creatorId, $asgneeId], static fn($v) => $v > 0 && $v !== $actorId));
+    $actionLbl = $newStatus === 'completed' ? 'completed' : 're-opened';
+    foreach ($notifyIds as $nid) {
+        notify(
+            (int) $nid, 'task',
+            'Task ' . $actionLbl . ': ' . mb_substr($taskTitle, 0, 80),
+            'The task "' . $taskTitle . '" was ' . $actionLbl . '.',
+            'index.php?p=tasks.edit&id=' . $id,
+        );
+    }
+
     flash('success', $newStatus === 'completed' ? 'Marked complete.' : 'Re-opened.');
     redirect(portal_url('tasks'));
 }
@@ -2657,6 +2849,24 @@ function handle_tasks_delete(): void
     }
     $pdo->prepare('DELETE FROM tasks WHERE id = :id')->execute([':id' => $id]);
     audit_log('task_delete', 'task', $id);
+
+    // Tell the assignee + creator (besides whoever clicked delete) the
+    // task is gone. Link goes to the tasks list since the task is dead.
+    $taskTitle = (string) ($task['title'] ?? 'Task');
+    $actorId   = (int) $u['id'];
+    $notifyIds = array_unique(array_filter(
+        [(int) ($task['created_by'] ?? 0), (int) ($task['assignee_user_id'] ?? 0)],
+        static fn($v) => $v > 0 && $v !== $actorId
+    ));
+    foreach ($notifyIds as $nid) {
+        notify(
+            (int) $nid, 'task',
+            'Task deleted: ' . mb_substr($taskTitle, 0, 80),
+            'The task "' . $taskTitle . '" was deleted from your workspace.',
+            'index.php?p=tasks',
+        );
+    }
+
     flash('success', 'Task deleted.');
     redirect(portal_url('tasks'));
 }
@@ -2841,9 +3051,31 @@ function handle_workday_list(): void
 function handle_notifications_list(): void
 {
     $u = require_login();
-    $stmt = db()->prepare("SELECT * FROM notifications WHERE user_id = :uid ORDER BY created_at DESC LIMIT 100");
+    // Refresh notify_by_email from the DB so the toggle reflects the latest
+    // value (current_user() caches the row for the request).
+    $stmt = db()->prepare('SELECT notify_by_email FROM users WHERE id = :u');
+    $stmt->execute([':u' => $u['id']]);
+    $u['notify_by_email'] = (int) ($stmt->fetchColumn() ?: 0);
+
+    $stmt = db()->prepare('SELECT * FROM notifications WHERE user_id = :uid ORDER BY created_at DESC LIMIT 200');
     $stmt->execute([':uid' => $u['id']]);
     render('notifications-list', ['user' => $u, 'notifications' => $stmt->fetchAll()]);
+}
+
+/** Detect AJAX-style POST: the JS-driven notifications page posts with
+ *  `_ajax=1` so handlers can JSON-respond instead of redirecting. */
+function notifications_is_ajax(): bool
+{
+    return !empty($_POST['_ajax'])
+        || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+}
+
+function notifications_json_reply(int $uid, array $extra = []): void
+{
+    $unread = (int) db()->query("SELECT COUNT(*) FROM notifications WHERE user_id = {$uid} AND read_at IS NULL")->fetchColumn();
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo json_encode(array_merge(['ok' => true, 'unread' => $unread], $extra), JSON_UNESCAPED_SLASHES);
 }
 
 function handle_notifications_read(): void
@@ -2859,6 +3091,48 @@ function handle_notifications_read(): void
         db()->prepare('UPDATE notifications SET read_at = CURRENT_TIMESTAMP WHERE user_id = :uid AND read_at IS NULL')
             ->execute([':uid' => $u['id']]);
     }
+    if (notifications_is_ajax()) { notifications_json_reply((int) $u['id']); return; }
+    redirect(portal_url('notifications'));
+}
+
+function handle_notifications_delete(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id > 0) {
+        db()->prepare('DELETE FROM notifications WHERE id = :id AND user_id = :uid')
+            ->execute([':id' => $id, ':uid' => $u['id']]);
+    }
+    if (notifications_is_ajax()) { notifications_json_reply((int) $u['id']); return; }
+    redirect(portal_url('notifications'));
+}
+
+function handle_notifications_delete_all(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    db()->prepare('DELETE FROM notifications WHERE user_id = :uid')->execute([':uid' => $u['id']]);
+    if (notifications_is_ajax()) { notifications_json_reply((int) $u['id']); return; }
+    flash('success', 'All notifications cleared.');
+    redirect(portal_url('notifications'));
+}
+
+function handle_notifications_toggle_email(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    $on = !empty($_POST['on']) ? 1 : 0;
+    db()->prepare('UPDATE users SET notify_by_email = :on, updated_at = CURRENT_TIMESTAMP WHERE id = :uid')
+        ->execute([':on' => $on, ':uid' => $u['id']]);
+    if (notifications_is_ajax()) {
+        notifications_json_reply((int) $u['id'], ['notify_by_email' => $on]);
+        return;
+    }
+    flash('success', $on ? 'Email notifications turned ON.' : 'Email notifications turned OFF.');
     redirect(portal_url('notifications'));
 }
 
@@ -2896,6 +3170,97 @@ function handle_resources(): void
  * MY VTs — dedicated tab listing assigned Virtual Teammates, modeled on
  * the staging [selected_va_list] shortcode (large circular avatar cards).
  * ═════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * VT profile modal data — returns one VT's full profile as JSON.
+ * Authorization mirrors handle_media_serve: super_admin sees everyone;
+ * client / csm see only VTs in their assigned engagements; vt_hired
+ * can fetch themselves.
+ */
+function handle_vts_profile_json(): void
+{
+    $u   = require_login();
+    $vid = (int) ($_GET['id'] ?? 0);
+    if ($vid <= 0) { http_response_code(400); echo json_encode(['error' => 'bad id']); return; }
+    $pdo = db();
+
+    // Authorize the requester can see this VT.
+    $allowed = false;
+    if ($u['role'] === 'super_admin') {
+        $allowed = true;
+    } elseif ((int) $u['id'] === $vid) {
+        $allowed = true;
+    } elseif ($u['role'] === 'client') {
+        $stmt = $pdo->prepare(
+            "SELECT 1 FROM clients c JOIN client_vts cv ON cv.client_id = c.id
+             WHERE c.user_id = :uid AND cv.vt_user_id = :vid
+               AND cv.contract_status = 'active' LIMIT 1"
+        );
+        $stmt->execute([':uid' => $u['id'], ':vid' => $vid]);
+        $allowed = (bool) $stmt->fetchColumn();
+    } elseif ($u['role'] === 'csm') {
+        $stmt = $pdo->prepare(
+            "SELECT 1 FROM csm_clients cc
+             JOIN client_vts cv ON cv.client_id = cc.client_id
+             WHERE cc.csm_user_id = :uid AND cv.vt_user_id = :vid LIMIT 1"
+        );
+        $stmt->execute([':uid' => $u['id'], ':vid' => $vid]);
+        $allowed = (bool) $stmt->fetchColumn();
+    }
+    if (!$allowed) {
+        http_response_code(403);
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'forbidden']);
+        return;
+    }
+
+    // Pull the full profile (vt_profiles + users join).
+    $stmt = $pdo->prepare(
+        "SELECT p.*, u.email, u.first_name, u.last_name, u.phone, u.country,
+                u.photo_url, u.cover_url, u.active, u.last_login_at,
+                u.hubspot_contact_id, u.job_title
+         FROM vt_profiles p
+         JOIN users u ON u.id = p.user_id
+         WHERE p.user_id = :id"
+    );
+    $stmt->execute([':id' => $vid]);
+    $vt = $stmt->fetch();
+    if (!$vt) {
+        http_response_code(404);
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'not found']);
+        return;
+    }
+
+    // Engaged clients (active only).
+    $cs = $pdo->prepare(
+        "SELECT c.id, c.company_name, cv.started_at, cv.ended_at, cv.contract_status
+         FROM client_vts cv JOIN clients c ON c.id = cv.client_id
+         WHERE cv.vt_user_id = :id AND cv.contract_status = 'active'
+         ORDER BY cv.started_at"
+    );
+    $cs->execute([':id' => $vid]);
+    $clients = $cs->fetchAll();
+
+    // CSMs covering those engagements.
+    $cm = $pdo->prepare(
+        "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email
+         FROM client_vts cv
+         JOIN csm_clients cc ON cc.client_id = cv.client_id
+         JOIN users u ON u.id = cc.csm_user_id
+         WHERE cv.vt_user_id = :id"
+    );
+    $cm->execute([':id' => $vid]);
+    $csms = $cm->fetchAll();
+
+    header('Content-Type: application/json');
+    header('Cache-Control: private, no-store');
+    echo json_encode([
+        'vt'      => $vt,
+        'clients' => $clients,
+        'csms'    => $csms,
+    ], JSON_UNESCAPED_SLASHES);
+}
 
 function handle_my_vts(): void
 {
@@ -2967,15 +3332,15 @@ function handle_productivity(): void
     if ($u['role'] === 'vt_hired') {
         // VT sees their own workday tracker link + their own EOD reports.
         $stmt = $pdo->prepare(
-            'SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+            "SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
                     p.workday_link, p.workday_tracker_id, p.role_title, p.department,
                     cv.client_id, cv.workday_link AS cv_workday_link, cv.workday_tracker_id AS cv_workday_tracker_id,
                     c.company_name
              FROM users u
              LEFT JOIN vt_profiles p ON p.user_id = u.id
-             LEFT JOIN client_vts  cv ON cv.vt_user_id = u.id AND cv.contract_status = "active"
+             LEFT JOIN client_vts  cv ON cv.vt_user_id = u.id AND cv.contract_status = 'active'
              LEFT JOIN clients      c ON c.id = cv.client_id
-             WHERE u.id = :uid'
+             WHERE u.id = :uid"
         );
         $stmt->execute([':uid' => $u['id']]);
         $vts = $stmt->fetchAll();
@@ -2992,15 +3357,15 @@ function handle_productivity(): void
         $cid = (int) $client['id'];
 
         $stmt = $pdo->prepare(
-            'SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+            "SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
                     p.workday_link AS profile_workday_link, p.workday_tracker_id AS profile_tracker_id,
                     p.role_title, p.department,
                     cv.workday_link AS cv_workday_link, cv.workday_tracker_id AS cv_workday_tracker_id
              FROM client_vts cv
              JOIN users u ON u.id = cv.vt_user_id
              LEFT JOIN vt_profiles p ON p.user_id = u.id
-             WHERE cv.client_id = :cid AND cv.contract_status = "active"
-             ORDER BY u.first_name'
+             WHERE cv.client_id = :cid AND cv.contract_status = 'active'
+             ORDER BY u.first_name"
         );
         $stmt->execute([':cid' => $cid]);
         $vts = $stmt->fetchAll();
@@ -3214,16 +3579,15 @@ function handle_messages_send(): void
          VALUES (:k, :s, :r, :b)'
     )->execute([':k' => $key, ':s' => $u['id'], ':r' => $with, ':b' => mb_substr($body, 0, 4000)]);
 
-    // Surface to the recipient as a notification.
-    db()->prepare(
-        "INSERT INTO notifications (user_id, kind, title, body, link)
-         VALUES (:u, 'message', :t, :b, :l)"
-    )->execute([
-        ':u' => $with,
-        ':t' => 'New message from ' . trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: $u['email'],
-        ':b' => mb_substr($body, 0, 160),
-        ':l' => 'index.php?p=messages&with=' . (int) $u['id'],
-    ]);
+    // Surface to the recipient as a notification (+ email when opted-in).
+    $senderName = trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: (string) ($u['email'] ?? 'A teammate');
+    notify(
+        $with,
+        'message',
+        'New message from ' . $senderName,
+        mb_substr($body, 0, 220),
+        'index.php?p=messages&with=' . (int) $u['id'],
+    );
 
     redirect(portal_url('messages', ['with' => $with]));
 }

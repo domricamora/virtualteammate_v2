@@ -3,7 +3,7 @@
  * One-shot portal installer.
  *
  * - Creates data/portal.sqlite if missing and applies schema.sql.
- * - Seeds aiagent@virtualteammate.com as super_admin with a generated
+ * - Seeds nricamora@virtualteammate.com as super_admin with a generated
  *   20-char password — shown once in the browser + written to
  *   data/SUPERADMIN_CREDENTIALS.txt (gitignored, web-blocked).
  *
@@ -13,7 +13,7 @@
 
 require __DIR__ . '/bootstrap.php';
 
-const SUPER_ADMIN_EMAIL = 'aiagent@virtualteammate.com';
+const SUPER_ADMIN_EMAIL = 'nricamora@virtualteammate.com';
 
 $messages = [];
 $dbPath   = PORTAL_DB_PATH;
@@ -125,6 +125,9 @@ $migrations = [
         'hs_lead_status       TEXT NOT NULL DEFAULT ""',
         'is_hired             INTEGER NOT NULL DEFAULT 0',
         'assigned_reviewer_id INTEGER',
+        // Email notifications opt-in. 0 = off (default), 1 = on. When on,
+        // notify() also sends a plain-text email to the user.
+        'notify_by_email      INTEGER NOT NULL DEFAULT 0',
     ],
     'clients'     => [
         'hubspot_company_id TEXT NOT NULL DEFAULT ""',
@@ -257,6 +260,19 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 CREATE INDEX IF NOT EXISTS idx_messages_conv     ON messages(conversation_key, created_at);
 CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_user_id, read_at);
+CREATE TABLE IF NOT EXISTS meeting_attendees (
+  meeting_id INTEGER NOT NULL REFERENCES meetings(id) ON DELETE CASCADE,
+  user_id    INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  invited_at TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (meeting_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_meeting_attendees_user ON meeting_attendees(user_id);
+-- Backfill: copy the legacy single attendee into meeting_attendees for any
+-- meeting whose row isn't already represented. Safe to re-run.
+INSERT OR IGNORE INTO meeting_attendees (meeting_id, user_id, invited_at)
+SELECT m.id, m.attendee_user_id, m.created_at
+FROM meetings m
+WHERE m.attendee_user_id IS NOT NULL;
 CREATE TABLE IF NOT EXISTS task_attachments (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   task_id INTEGER NOT NULL REFERENCES tasks(id) ON DELETE CASCADE,

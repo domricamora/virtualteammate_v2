@@ -20,7 +20,7 @@ $resolveWorkday = static function (array $v): string {
     $pLink = (string) ($v['profile_workday_link'] ?? ($v['workday_link'] ?? ''));
     if ($pLink !== '' && preg_match('#^https?://#i', $pLink)) { return $pLink; }
     $tid = (string) ($v['cv_workday_tracker_id'] ?? ($v['profile_tracker_id'] ?? ($v['workday_tracker_id'] ?? '')));
-    if ($tid !== '') { return 'https://workdaytracker.com/' . rawurlencode($tid); }
+    if ($tid !== '') { return 'https://workdaytracker.com/app/public-report/' . rawurlencode($tid) . '/'; }
     return '';
 };
 ?>

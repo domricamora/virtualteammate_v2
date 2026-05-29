@@ -146,6 +146,17 @@ CREATE TABLE IF NOT EXISTS meetings (
   updated_at          TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Many-to-many attendees per meeting. `meetings.attendee_user_id` stays for
+-- back-compat (mirrored to the first attendee on save), but this table is
+-- authoritative for listing / notifying.
+CREATE TABLE IF NOT EXISTS meeting_attendees (
+  meeting_id  INTEGER NOT NULL REFERENCES meetings(id) ON DELETE CASCADE,
+  user_id     INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  invited_at  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (meeting_id, user_id)
+);
+CREATE INDEX IF NOT EXISTS idx_meeting_attendees_user ON meeting_attendees(user_id);
+
 CREATE TABLE IF NOT EXISTS eod_reports (
   id                  INTEGER PRIMARY KEY AUTOINCREMENT,
   vt_user_id          INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -212,6 +223,8 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 -- Notifications: per-user, simple bell-style dashboard items.
+-- Per-user setting: opt-in to receive an email copy of every notification.
+-- Lives on users.notify_by_email (added via install.php migration).
 CREATE TABLE IF NOT EXISTS notifications (
   id              INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id         INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,

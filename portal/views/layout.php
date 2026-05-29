@@ -28,8 +28,10 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'relationships', 'label' => 'Relationships', 'icon' => 'fa-share-nodes'];
     $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
     $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
+    $nav[] = ['p' => 'messages',    'label' => 'Messages',     'icon' => 'fa-comments'];
     $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync', 'icon' => 'fa-cloud-arrow-down'];
     $nav[] = ['p' => 'traffic',     'label' => 'Traffic',      'icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'notifications','label' => 'Notifications','icon' => 'fa-bell'];
     $nav[] = ['p' => 'audit',       'label' => 'Audit Log',    'icon' => 'fa-list-check'];
 } elseif ($role === 'client') {
     $nav[] = ['p' => 'my-vts',        'label' => 'My VTs',              'icon' => 'fa-user-doctor'];
@@ -63,6 +65,17 @@ if ($role === 'super_admin') {
 $nav[] = ['p' => 'profile',     'label' => 'My Profile',   'icon' => 'fa-id-card'];
 
 $pageTitle = $title ?? 'Virtual Teammate Portal';
+
+// Unread-notifications count for the top-bar bell badge. Try/catch so the
+// portal still renders if the notifications table somehow isn't ready yet.
+$unreadNotiCount = 0;
+if ($me) {
+    try {
+        $stmt = db()->prepare('SELECT COUNT(*) FROM notifications WHERE user_id = :u AND read_at IS NULL');
+        $stmt->execute([':u' => (int) $me['id']]);
+        $unreadNotiCount = (int) $stmt->fetchColumn();
+    } catch (Throwable $_) {}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,6 +102,9 @@ $pageTitle = $title ?? 'Virtual Teammate Portal';
         <a class="portal-nav-link<?= $baseFlag($item['p']) ?>" href="<?= e(portal_url($item['p'])) ?>">
           <i class="fa-solid <?= e($item['icon']) ?>"></i>
           <span><?= e($item['label']) ?></span>
+          <?php if ($item['p'] === 'notifications' && $unreadNotiCount > 0): ?>
+            <span class="portal-nav-badge"><?= $unreadNotiCount > 99 ? '99+' : (int) $unreadNotiCount ?></span>
+          <?php endif; ?>
         </a>
       <?php endforeach; ?>
     </nav>
@@ -108,6 +124,12 @@ $pageTitle = $title ?? 'Virtual Teammate Portal';
         <?php endif; ?>
       </div>
       <div class="portal-top-r">
+        <a class="portal-top-bell" href="<?= e(portal_url('notifications')) ?>" title="<?= (int) $unreadNotiCount ?> unread notification<?= $unreadNotiCount === 1 ? '' : 's' ?>">
+          <i class="fa-solid fa-bell"></i>
+          <?php if ($unreadNotiCount > 0): ?>
+            <span class="portal-top-bell-badge"><?= $unreadNotiCount > 99 ? '99+' : (int) $unreadNotiCount ?></span>
+          <?php endif; ?>
+        </a>
         <span class="portal-me"><?= e(user_display_name($me)) ?> <?= role_badge($role) ?></span>
         <a class="portal-me-link" href="<?= e(portal_url('profile')) ?>" title="My profile"><i class="fa-solid fa-id-card"></i></a>
       </div>

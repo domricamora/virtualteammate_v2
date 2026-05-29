@@ -495,6 +495,57 @@ function hs_state_log(array &$state, string $message): void
     }
 }
 
+/**
+ * Notify every active super_admin that a sync pipeline just finished, with
+ * the headline stats so they can decide whether to dig in. Funnels through
+ * notify() so the per-user email opt-in is honored.
+ */
+function hs_notify_sync_complete(string $pipeline, array $state): void
+{
+    $pipelineLbl = $pipeline === 'talent' ? 'Talent' : ($pipeline === 'client' ? 'Client' : ucfirst($pipeline));
+    $stats = is_array($state['stats'] ?? null) ? $state['stats'] : [];
+
+    // Build a short, human-readable summary line from the stats bucket
+    // most relevant to the pipeline.
+    $parts = [];
+    if ($pipeline === 'talent') {
+        $v = $stats['vts']   ?? [];
+        $m = $stats['media'] ?? [];
+        if (isset($v['created']))   { $parts[] = (int) $v['created']  . ' created'; }
+        if (isset($v['updated']))   { $parts[] = (int) $v['updated']  . ' updated'; }
+        $skip = (int) (($v['skipped_role'] ?? 0) + ($v['skipped_no_email'] ?? 0));
+        if ($skip > 0)              { $parts[] = $skip . ' skipped'; }
+        if (isset($m['downloaded'])){ $parts[] = (int) $m['downloaded'] . ' media downloaded'; }
+        if (!empty($m['errors']))   { $parts[] = (int) $m['errors']   . ' errors'; }
+    } else {
+        $c = $stats['clients']       ?? [];
+        $r = $stats['relationships'] ?? [];
+        if (isset($c['created']))       { $parts[] = (int) $c['created']        . ' clients created'; }
+        if (isset($c['updated']))       { $parts[] = (int) $c['updated']        . ' updated'; }
+        if (isset($r['vt_links']))      { $parts[] = (int) $r['vt_links']       . ' VT links'; }
+        if (isset($r['csm_links']))     { $parts[] = (int) $r['csm_links']      . ' CSM links'; }
+        if (!empty($c['errors']))       { $parts[] = (int) $c['errors']         . ' errors'; }
+    }
+    $summary = $parts ? implode(' · ', $parts) : 'No record-level changes recorded.';
+
+    $duration = '';
+    if (!empty($state['started_at']) && !empty($state['finished_at'])) {
+        $sec = max(0, strtotime($state['finished_at']) - strtotime($state['started_at']));
+        if ($sec > 60) { $duration = floor($sec / 60) . 'm ' . ($sec % 60) . 's'; }
+        else { $duration = $sec . 's'; }
+    }
+
+    $title = $pipelineLbl . ' sync finished';
+    $body  = $summary . ($duration !== '' ? ' (ran ' . $duration . ')' : '');
+    $link  = 'index.php?p=hubspot';
+
+    try {
+        foreach (db()->query("SELECT id FROM users WHERE role = 'super_admin' AND active = 1") as $row) {
+            notify((int) $row['id'], 'sync', $title, $body, $link);
+        }
+    } catch (Throwable $_) {}
+}
+
 function hs_state_advance_stage(array &$state): void
 {
     $stages = $state['stages'];
@@ -735,8 +786,8 @@ function hs_process_client_one(array $company, array $settings, array &$state): 
         $userId = (int) ($stmt->fetchColumn() ?: 0);
         if ($userId === 0) {
             $pdo->prepare(
-                'INSERT INTO users (email, password_hash, role, first_name, last_name, active)
-                 VALUES (:e, :h, "client", "", :ln, 1)'
+                "INSERT INTO users (email, password_hash, role, first_name, last_name, active)
+                 VALUES (:e, :h, 'client', '', :ln, 1)"
             )->execute([
                 ':e' => $email, ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT), ':ln' => $name,
             ]);
@@ -748,10 +799,10 @@ function hs_process_client_one(array $company, array $settings, array &$state): 
 
     if ($row) {
         $pdo->prepare(
-            'UPDATE clients SET user_id=:u, company_name=:n, company_email=:e, company_domain=:d,
-                                contract_status="active", hubspot_company_id=:h, hubspot_owner_id=:o,
+            "UPDATE clients SET user_id=:u, company_name=:n, company_email=:e, company_domain=:d,
+                                contract_status='active', hubspot_company_id=:h, hubspot_owner_id=:o,
                                 updated_at=CURRENT_TIMESTAMP
-             WHERE id=:id'
+             WHERE id=:id"
         )->execute([
             ':u'=>$userId ?: $row['user_id'], ':n'=>$name, ':e'=>$email, ':d'=>$domain,
             ':h'=>$companyId, ':o'=>$ownerId, ':id'=>$row['id'],
@@ -760,8 +811,8 @@ function hs_process_client_one(array $company, array $settings, array &$state): 
         audit_log('hs_sync_upsert', 'client', (int) $row['id'], 'company=' . $companyId);
     } else {
         $pdo->prepare(
-            'INSERT INTO clients (user_id, company_name, company_email, company_domain, contract_status, hubspot_company_id, hubspot_owner_id)
-             VALUES (:u, :n, :e, :d, "active", :h, :o)'
+            "INSERT INTO clients (user_id, company_name, company_email, company_domain, contract_status, hubspot_company_id, hubspot_owner_id)
+             VALUES (:u, :n, :e, :d, 'active', :h, :o)"
         )->execute([
             ':u'=>$userId, ':n'=>$name, ':e'=>$email, ':d'=>$domain, ':h'=>$companyId, ':o'=>$ownerId,
         ]);
@@ -786,9 +837,9 @@ function hs_process_csm_one(array $contact, array $settings, array &$state): voi
     $existing = hs_find_user_for_contact($contactId, $email);
     if ($existing) {
         $pdo->prepare(
-            'UPDATE users SET email=:e, role="csm", first_name=:fn, last_name=:ln, phone=:p, country=:c,
+            "UPDATE users SET email=:e, role='csm', first_name=:fn, last_name=:ln, phone=:p, country=:c,
                               hubspot_contact_id=:h, updated_at=CURRENT_TIMESTAMP
-             WHERE id=:id'
+             WHERE id=:id"
         )->execute([
             ':e'=>$email, ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country,
             ':h'=>$contactId, ':id'=>$existing['id'],
@@ -796,8 +847,8 @@ function hs_process_csm_one(array $contact, array $settings, array &$state): voi
         $state['stats']['csms']['updated']++;
     } else {
         $pdo->prepare(
-            'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
-             VALUES (:e, :h, "csm", :fn, :ln, :p, :c, :hcid, 1)'
+            "INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
+             VALUES (:e, :h, 'csm', :fn, :ln, :p, :c, :hcid, 1)"
         )->execute([
             ':e'=>$email, ':h'=>password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
             ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country, ':hcid'=>$contactId,
@@ -892,8 +943,8 @@ function hs_resolve_owner_as_csm(string $ownerId, HubSpotClient $hs, array &$sta
 
     // Create new CSM user from owner details.
     $pdo->prepare(
-        'INSERT INTO users (email, password_hash, role, first_name, last_name, hubspot_owner_id, active)
-         VALUES (:e, :h, "csm", :fn, :ln, :o, 1)'
+        "INSERT INTO users (email, password_hash, role, first_name, last_name, hubspot_owner_id, active)
+         VALUES (:e, :h, 'csm', :fn, :ln, :o, 1)"
     )->execute([
         ':e'  => $email,
         ':h'  => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
@@ -1355,10 +1406,14 @@ function hs_talent_step(): array
     }
 
     if ($state['stage'] === 'done' && $state['status'] !== 'error') {
+        $wasAlreadyDone = ($state['status'] === 'done');
         $state['status']      = 'done';
         $state['finished_at'] = date('c');
         $state['last_report'] = hs_build_report($state);
         hs_state_log($state, 'Talent sync finished.');
+        if (!$wasAlreadyDone) {
+            hs_notify_sync_complete('talent', $state);
+        }
     }
 
     hs_talent_state_save($state);
@@ -2252,10 +2307,10 @@ function hs_client_sync_one(string $companyId): array
 function hs_upsert_vt_profile_meta(int $userId, string $key, ?string $value): void
 {
     db()->prepare(
-        'INSERT INTO vt_profile_meta (user_id, meta_key, meta_value, record_state, updated_at)
-         VALUES (:u, :k, :v, "active", CURRENT_TIMESTAMP)
+        "INSERT INTO vt_profile_meta (user_id, meta_key, meta_value, record_state, updated_at)
+         VALUES (:u, :k, :v, 'active', CURRENT_TIMESTAMP)
          ON CONFLICT (user_id, meta_key, record_state)
-         DO UPDATE SET meta_value = :v, updated_at = CURRENT_TIMESTAMP'
+         DO UPDATE SET meta_value = :v, updated_at = CURRENT_TIMESTAMP"
     )->execute([':u' => $userId, ':k' => $key, ':v' => $value]);
 }
 
@@ -2328,10 +2383,14 @@ function hs_client_step(): array
     }
 
     if ($state['stage'] === 'done' && $state['status'] !== 'error') {
+        $wasAlreadyDone = ($state['status'] === 'done');
         $state['status']      = 'done';
         $state['finished_at'] = date('c');
         $state['last_report'] = hs_build_report($state);
         hs_state_log($state, 'Client sync finished.');
+        if (!$wasAlreadyDone) {
+            hs_notify_sync_complete('client', $state);
+        }
     }
 
     hs_client_state_save($state);
@@ -2668,6 +2727,15 @@ function hs_client_step_filter_first_day_complete(array &$state, HubSpotClient $
     $maps = $state['maps'] ?? [];
     $maps['first_day_contract_ids'] = $maps['first_day_contract_ids'] ?? [];
     $maps['contract_seen']          = $maps['contract_seen'] ?? [];
+    // contract_id => ['start' => 'YYYY-MM-DD'|'', 'end' => 'YYYY-MM-DD'|''].
+    // Populated here so the assoc step can stamp client_vts.started_at /
+    // ended_at with the real HubSpot dates instead of the sync timestamp.
+    $maps['contract_dates']         = $maps['contract_dates']         ?? [];
+    // contract_id => ['id' => string, 'link' => string]. Workday tracker
+    // properties live on the CONTRACT object, not the contact — so the
+    // same VT can have different trackers for different clients. Threaded
+    // into client_vts via the assoc step.
+    $maps['contract_workday']       = $maps['contract_workday']       ?? [];
 
     // Resolve numeric stage ID -> label once per run; cache in maps.
     if (!isset($maps['contract_stage_labels'])) {
@@ -2691,7 +2759,33 @@ function hs_client_step_filter_first_day_complete(array &$state, HubSpotClient $
     $batch = array_slice($pending, 0, HS_PROCESS_BATCH);
     $objs = hs_batch_read_objects($hs, HS_CONTRACT_OBJECT_TYPE, $batch, [
         'hs_pipeline_stage','pipeline_stage','contract_hired_status','pipeline_stage_label','hs_pipeline_stage_label','hs_object_id',
+        // Contract dates — same property-name fallbacks vtadmin uses
+        // (includes/hubspot_sync.php lines 2022 + 2027): try the canonical
+        // names first, then progressively more generic ones.
+        'contract_start_date','start_date','contract_start','service_start_date',
+        'date___end_of_service','end_of_service_date','contract_end_date','service_end_date',
+        // Workday tracker — staging mu-plugin's full candidate list
+        // (vt-hubspot-user-sync.php lines 9487-9508). Either a direct link
+        // or just the report id; we derive whichever's missing below.
+        'vt_wdt_link','vt_workday_tracker_link','vt_hired_workday_tracker_link',
+        'vt_wdt_url','workday_tracker_link','workday_report_url','workdaytracker_report_url',
+        'vt_hired_workday_tracker_id','vt_hired_workday_report_id','vt_workday_tracker_id',
+        'workday_report_id','workdaytracker_report_id','workday_tracker_report_id','workday_tracker_id',
     ]);
+    // Normalize a HubSpot date property — either an epoch-ms string or a
+    // 'YYYY-MM-DD' / ISO date — into 'YYYY-MM-DD' so SQLite text comparison
+    // and our display layer treat it consistently.
+    $normalizeDate = static function ($v): string {
+        $v = trim((string) $v);
+        if ($v === '') return '';
+        if (ctype_digit($v) && strlen($v) >= 10) {
+            // Epoch milliseconds → seconds.
+            $ts = (int) substr($v, 0, 10);
+            return $ts > 0 ? gmdate('Y-m-d', $ts) : '';
+        }
+        $t = strtotime($v);
+        return $t ? gmdate('Y-m-d', $t) : substr($v, 0, 10);
+    };
     foreach ($batch as $id) {
         $maps['contract_seen'][$id] = true;
         $row = $objs[$id] ?? null;
@@ -2714,8 +2808,62 @@ function hs_client_step_filter_first_day_complete(array &$state, HubSpotClient $
         if ($stageLbl === 'first day complete') {
             $maps['first_day_contract_ids'][$id] = true;
         }
+
+        // Cache the contract's start + end dates regardless of stage so a
+        // contract that subsequently moves to EOS still resolves correctly.
+        $start = '';
+        foreach (['contract_start_date','start_date','contract_start','service_start_date'] as $k) {
+            if (!empty($props[$k])) { $start = $normalizeDate($props[$k]); if ($start !== '') break; }
+        }
+        $end = '';
+        foreach (['date___end_of_service','end_of_service_date','contract_end_date','service_end_date'] as $k) {
+            if (!empty($props[$k])) { $end = $normalizeDate($props[$k]); if ($end !== '') break; }
+        }
+        $maps['contract_dates'][$id] = ['start' => $start, 'end' => $end];
+
+        // Workday tracker — pull link + id from any candidate property.
+        $wdLink = '';
+        foreach (['vt_wdt_link','vt_workday_tracker_link','vt_hired_workday_tracker_link',
+                  'vt_wdt_url','workday_tracker_link','workday_report_url','workdaytracker_report_url'] as $k) {
+            if (!empty($props[$k])) { $wdLink = trim((string) $props[$k]); break; }
+        }
+        $wdId = '';
+        foreach (['vt_hired_workday_tracker_id','vt_hired_workday_report_id','vt_workday_tracker_id',
+                  'workday_report_id','workdaytracker_report_id','workday_tracker_report_id','workday_tracker_id'] as $k) {
+            if (!empty($props[$k])) { $wdId = trim((string) $props[$k]); break; }
+        }
+        // If link has the canonical workdaytracker.com/app/public-report/{id}
+        // shape, pull the id from it when the id field was empty.
+        if ($wdId === '' && $wdLink !== '') { $wdId = hs_extract_workday_report_id($wdLink); }
+        // Always derive a canonical link from the id when we have one.
+        if ($wdId !== '') { $wdLink = hs_build_workday_url($wdId); }
+        if ($wdId !== '' || $wdLink !== '') {
+            $maps['contract_workday'][$id] = ['id' => $wdId, 'link' => $wdLink];
+        }
     }
     $state['maps'] = $maps;
+}
+
+/** Mirror of staging's extract_workday_report_id_from_value()
+ *  (vt-hubspot-user-sync.php lines 9615-9627). */
+function hs_extract_workday_report_id(string $raw): string
+{
+    $v = trim($raw);
+    if ($v === '') return '';
+    if (preg_match('#workdaytracker\.com/app/public-report/([^/?]+)#i', $v, $m)) {
+        return trim($m[1]);
+    }
+    return preg_replace('/\s+/', '', $v) ?: '';
+}
+
+/** Mirror of staging's build_workday_tracker_url()
+ *  (vt-hubspot-user-sync.php lines 9605-9613). Canonical form:
+ *  https://workdaytracker.com/app/public-report/{id}/ */
+function hs_build_workday_url(string $id): string
+{
+    $id = hs_extract_workday_report_id($id);
+    if ($id === '') return '';
+    return 'https://workdaytracker.com/app/public-report/' . rawurlencode($id) . '/';
 }
 
 /** Stage 5: contracts → contacts; filter assoc typeId=28 (hired). */
@@ -2725,6 +2873,13 @@ function hs_client_step_fetch_contract_contacts(array &$state, HubSpotClient $hs
     $maps['hired_contacts_by_company'] = $maps['hired_contacts_by_company'] ?? [];
     $maps['contract_processed']        = $maps['contract_processed'] ?? [];
     $maps['hired_contact_ids']         = $maps['hired_contact_ids'] ?? [];
+    // "compId|contactId" => ['start' => '', 'end' => ''] — pulled from the
+    // contract that linked this (company, contact) pair so the assoc step
+    // can stamp client_vts.started_at / ended_at with real HubSpot dates.
+    $maps['vt_link_dates']             = $maps['vt_link_dates']             ?? [];
+    // "compId|contactId" => ['id' => '', 'link' => ''] — workday tracker
+    // info from the matching contract, written to client_vts.workday_*.
+    $maps['vt_link_workday']           = $maps['vt_link_workday']           ?? [];
 
     $allIds = array_keys($maps['first_day_contract_ids'] ?? []);
     $pending = [];
@@ -2753,6 +2908,14 @@ function hs_client_step_fetch_contract_contacts(array &$state, HubSpotClient $hs
         $rows = is_array($resp['map'][$contractId] ?? null) ? $resp['map'][$contractId] : [];
         $compId = $companyByContract[$contractId] ?? '';
         if ($compId === '') { continue; }
+        // Dates + workday of THIS contract — attached to each (company,contact)
+        // pair this contract introduces. If a contact has multiple contracts
+        // across history we keep the EARLIEST start_date, LATEST end_date
+        // (or null when any contract is still active), and the workday from
+        // whichever contract is most recently associated (last write wins
+        // since contracts are processed roughly in creation order).
+        $dates = $maps['contract_dates'][$contractId]   ?? ['start' => '', 'end' => ''];
+        $wd    = $maps['contract_workday'][$contractId] ?? null;
         foreach ($rows as $row) {
             $assocTypes = is_array($row['association_types'] ?? null) ? $row['association_types'] : [];
             if (!hs_assoc_is_hired_teammate($assocTypes)) { continue; }
@@ -2763,6 +2926,29 @@ function hs_client_step_fetch_contract_contacts(array &$state, HubSpotClient $hs
             }
             $maps['hired_contacts_by_company'][$compId][$contactId] = true;
             $maps['hired_contact_ids'][$contactId] = true;
+
+            // Reconcile dates across multiple contracts for the same VT/company.
+            $key = $compId . '|' . $contactId;
+            $cur = $maps['vt_link_dates'][$key] ?? null;
+            if ($cur === null) {
+                $maps['vt_link_dates'][$key] = $dates;
+            } else {
+                if ($dates['start'] !== '' && ($cur['start'] === '' || $dates['start'] < $cur['start'])) {
+                    $cur['start'] = $dates['start'];
+                }
+                if ($cur['end'] === '' || $dates['end'] === '') {
+                    $cur['end'] = '';
+                } elseif ($dates['end'] > $cur['end']) {
+                    $cur['end'] = $dates['end'];
+                }
+                $maps['vt_link_dates'][$key] = $cur;
+            }
+            // Stash workday — keep the first non-empty (an existing tracker
+            // is more authoritative than later renewal contracts that
+            // may not have it set yet).
+            if ($wd !== null && empty($maps['vt_link_workday'][$key])) {
+                $maps['vt_link_workday'][$key] = $wd;
+            }
         }
     }
     $state['maps'] = $maps;
@@ -2862,9 +3048,9 @@ function hs_upsert_csm_from_contact_props(array $props, string $contactId, array
         return (int) $u['id'];
     }
     $pdo->prepare(
-        'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+        "INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
                             phone, country, hubspot_contact_id, active)
-         VALUES (:e, :h, "csm", :fn, :ln, :full, :p, :c, :hcid, 1)'
+         VALUES (:e, :h, 'csm', :fn, :ln, :full, :p, :c, :hcid, 1)"
     )->execute([
         ':e' => $email, ':h' => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
         ':fn' => $first, ':ln' => $last, ':full' => $full, ':p' => $phone, ':c' => $country,
@@ -2963,7 +3149,7 @@ function hs_client_step_upsert_hired_vts(array &$state, HubSpotClient $hs): void
         $exists = $pdo->prepare('SELECT 1 FROM vt_profiles WHERE user_id = :u');
         $exists->execute([':u' => $userId]);
         if (!$exists->fetchColumn()) {
-            $pdo->prepare('INSERT INTO vt_profiles (user_id, status) VALUES (:u, "hired")')
+            $pdo->prepare("INSERT INTO vt_profiles (user_id, status) VALUES (:u, 'hired')")
                 ->execute([':u' => $userId]);
         } else {
             $pdo->prepare("UPDATE vt_profiles SET status = 'hired', updated_at = CURRENT_TIMESTAMP WHERE user_id = :u")
@@ -3070,10 +3256,10 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
         $userId = (int) ($userStmt->fetchColumn() ?: 0);
         if ($userId > 0) {
             $pdo->prepare(
-                'UPDATE users SET role = "client", first_name = :fn, last_name = :ln, full_name = :full,
+                "UPDATE users SET role = 'client', first_name = :fn, last_name = :ln, full_name = :full,
                                   phone = :p, country = :c, job_title = :jt,
                                   hubspot_contact_id = :hcid, active = 1, updated_at = CURRENT_TIMESTAMP
-                 WHERE id = :id'
+                 WHERE id = :id"
             )->execute([
                 ':fn' => $pFirst, ':ln' => $pLast, ':full' => $clientLoginFull,
                 ':p' => $pPhone, ':c' => $pCountry, ':jt' => $pJob,
@@ -3081,9 +3267,9 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
             ]);
         } else {
             $pdo->prepare(
-                'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+                "INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
                                     phone, country, job_title, hubspot_contact_id, active)
-                 VALUES (:e, :h, "client", :fn, :ln, :full, :p, :c, :jt, :hcid, 1)'
+                 VALUES (:e, :h, 'client', :fn, :ln, :full, :p, :c, :jt, :hcid, 1)"
             )->execute([
                 ':e' => $clientLoginEmail,
                 ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT),
@@ -3105,11 +3291,11 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
         }
         if ($clientId > 0) {
             $pdo->prepare(
-                'UPDATE clients SET user_id = :u, company_name = :n, company_email = :ce,
-                                    company_domain = :d, contract_status = "active",
+                "UPDATE clients SET user_id = :u, company_name = :n, company_email = :ce,
+                                    company_domain = :d, contract_status = 'active',
                                     hubspot_company_id = :hcid, hubspot_owner_id = :hoid,
                                     updated_at = CURRENT_TIMESTAMP
-                 WHERE id = :id'
+                 WHERE id = :id"
             )->execute([
                 ':u' => $userId, ':n' => $companyName, ':ce' => $clientLoginEmail,
                 ':d' => $domain, ':hcid' => $companyId, ':hoid' => $ownerId, ':id' => $clientId,
@@ -3117,9 +3303,9 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
             $state['stats']['clients']['updated']++;
         } else {
             $pdo->prepare(
-                'INSERT INTO clients (user_id, company_name, company_email, company_domain,
+                "INSERT INTO clients (user_id, company_name, company_email, company_domain,
                                        contract_status, hubspot_company_id, hubspot_owner_id)
-                 VALUES (:u, :n, :ce, :d, "active", :hcid, :hoid)'
+                 VALUES (:u, :n, :ce, :d, 'active', :hcid, :hoid)"
             )->execute([
                 ':u' => $userId, ':n' => $companyName, ':ce' => $clientLoginEmail,
                 ':d' => $domain, ':hcid' => $companyId, ':hoid' => $ownerId,
@@ -3134,19 +3320,19 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
         $cpId = (int) ($cpStmt->fetchColumn() ?: 0);
         if ($cpId > 0) {
             $pdo->prepare(
-                'UPDATE company_profiles SET website = :w, industry = :i, company_size = :sz,
+                "UPDATE company_profiles SET website = :w, industry = :i, company_size = :sz,
                                               description = :ds, address = :ad, city = :ct, state = :st,
-                                              record_state = "active", updated_at = CURRENT_TIMESTAMP
-                 WHERE id = :id'
+                                              record_state = 'active', updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id"
             )->execute([
                 ':w' => $website, ':i' => $industry, ':sz' => $employees, ':ds' => $descr,
                 ':ad' => $address, ':ct' => $city, ':st' => $state2, ':id' => $cpId,
             ]);
         } else {
             $pdo->prepare(
-                'INSERT INTO company_profiles (client_id, website, industry, company_size,
+                "INSERT INTO company_profiles (client_id, website, industry, company_size,
                                                 description, address, city, state, record_state)
-                 VALUES (:c, :w, :i, :sz, :ds, :ad, :ct, :st, "active")'
+                 VALUES (:c, :w, :i, :sz, :ds, :ad, :ct, :st, 'active')"
             )->execute([
                 ':c' => $clientId, ':w' => $website, ':i' => $industry, ':sz' => $employees,
                 ':ds' => $descr, ':ad' => $address, ':ct' => $city, ':st' => $state2,
@@ -3206,12 +3392,34 @@ function hs_client_step_process_associations(array &$state, HubSpotClient $hs): 
                  WHERE hubspot_contact_id IN ($placeholders) AND role IN ('vt_hired','vt_onpool')"
             );
             $vtsStmt->execute($hiredContactIds);
+            // Use INSERT OR REPLACE so a re-sync OVERWRITES previously-stored
+            // sync-time defaults with the real values from HubSpot contracts.
+            $linkStmt = $pdo->prepare(
+                'INSERT OR REPLACE INTO client_vts
+                   (client_id, vt_user_id, contract_status, started_at, ended_at,
+                    workday_tracker_id, workday_link)
+                 VALUES (:c, :v, :s, :start, :end, :wid, :wlink)'
+            );
             foreach ($vtsStmt as $row) {
-                $status = $row['role'] === 'vt_hired' ? 'active' : 'pool';
-                $pdo->prepare(
-                    'INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status)
-                     VALUES (:c, :v, :s)'
-                )->execute([':c' => $clientId, ':v' => (int) $row['id'], ':s' => $status]);
+                $status   = $row['role'] === 'vt_hired' ? 'active' : 'pool';
+                $linkKey  = (string) $companyId . '|' . (string) $row['hubspot_contact_id'];
+                $linkDate = $maps['vt_link_dates'][$linkKey]   ?? ['start' => '', 'end' => ''];
+                $linkWd   = $maps['vt_link_workday'][$linkKey] ?? ['id' => '', 'link' => ''];
+                // Fall back to NULL when we have no contract start — SQLite
+                // CURRENT_TIMESTAMP default doesn't apply on REPLACE, so we
+                // pass an explicit ISO 'now()' as a safety net. The DB
+                // schema column is TEXT so '' would compare badly later.
+                $start = $linkDate['start'] !== '' ? $linkDate['start'] : date('Y-m-d H:i:s');
+                $end   = $linkDate['end']   !== '' ? $linkDate['end']   : null;
+                $linkStmt->execute([
+                    ':c'     => $clientId,
+                    ':v'     => (int) $row['id'],
+                    ':s'     => $status,
+                    ':start' => $start,
+                    ':end'   => $end,
+                    ':wid'   => $linkWd['id']   ?? '',
+                    ':wlink' => $linkWd['link'] ?? '',
+                ]);
                 $state['stats']['relationships']['vt_links']++;
             }
         }
