@@ -26,5 +26,8 @@ data/SUPERADMIN_CREDENTIALS.txt
 # Synced HubSpot media (per-environment, may contain PII like resumes)
 data/media/
 
+# User-uploaded profile + cover photos (per-environment user content)
+data/avatars/
+
 # Local agent/editor config
 .claude/

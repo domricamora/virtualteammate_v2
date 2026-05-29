@@ -60,14 +60,45 @@ switch ($action) {
     case 'hubspot.control':        handle_hubspot_control();         break;
     case 'hubspot.step':           handle_hubspot_step();            break;
     case 'hubspot.purge':          handle_hubspot_purge();           break;
+    /* Two-pipeline endpoints (talent + client). Each runs independently
+       with its own pause/resume/reset and step polling. */
+    case 'hubspot.talent_control': handle_hubspot_talent_control();  break;
+    case 'hubspot.talent_step':    handle_hubspot_talent_step();     break;
+    case 'hubspot.client_control': handle_hubspot_client_control();  break;
+    case 'hubspot.client_step':    handle_hubspot_client_step();     break;
+    /* Single-fetch endpoints — search HubSpot + sync one record by id. */
+    case 'hubspot.talent_search':  handle_hubspot_talent_search();   break;
+    case 'hubspot.talent_sync_one':handle_hubspot_talent_sync_one(); break;
+    case 'hubspot.client_search':  handle_hubspot_client_search();   break;
+    case 'hubspot.client_sync_one':handle_hubspot_client_sync_one(); break;
+    case 'hubspot.seed_demo':      handle_hubspot_seed_demo();       break;
+    case 'hubspot.purge_all':      handle_hubspot_purge_all();       break;
 
     /* ───────────────────────── CSMs (super admin) ─────────────────────────── */
     case 'csms':                   handle_csms_list();               break;
     case 'csms.view':              handle_csms_view();               break;
 
+    /* ───────────────────────── Relationships (super admin) ─────────────────────────── */
+    case 'relationships':          handle_relationships();           break;
+
     /* ───────────────────────── Detail views ─────────────────────────── */
     case 'vts.view':               handle_vts_view();                break;
     case 'clients.view':           handle_clients_view();            break;
+
+    /* ───────────────────────── Client dashboard features ─────────────────────────── */
+    case 'tasks':                  handle_tasks_list();              break;
+    case 'tasks.edit':             handle_tasks_edit();              break;
+    case 'tasks.toggle':           handle_tasks_toggle();            break;
+    case 'tasks.delete':           handle_tasks_delete();            break;
+    case 'workday':                handle_workday_list();            break;
+    case 'notifications':          handle_notifications_list();      break;
+    case 'notifications.read':     handle_notifications_read();      break;
+    case 'resources':              handle_resources();               break;
+    case 'my-vts':                 handle_my_vts();                  break;
+    case 'messages':               handle_messages_list();           break;
+    case 'messages.send':          handle_messages_send();           break;
+    case 'productivity':           handle_productivity();            break;
+    case 'avatar':                 handle_avatar_serve();            break;
 
     /* ───────────────────────── Media serve (auth-gated) ─────────────────────────── */
     case 'media':                  handle_media_serve();             break;
@@ -208,17 +239,119 @@ function dashboard_client_data(array $u): array
     $client->execute([':uid' => $u['id']]);
     $client = $client->fetch();
     if (!$client) {
-        return ['client' => null, 'vts' => [], 'csms' => [], 'meetings' => []];
+        return ['client' => null, 'vts' => [], 'csms' => [], 'meetings' => [], 'tasks_active' => [], 'tasks_done_recent' => [], 'eod_recent' => [], 'workday_week' => [], 'notifications' => []];
     }
-    $vts  = client_hired_vts((int) $client['id']);
-    $csms = client_csms((int) $client['id']);
+    $cid = (int) $client['id'];
+
+    $vts  = client_hired_vts($cid);
+    $csms = client_csms($cid);
+
     $meet = db()->prepare('SELECT * FROM meetings WHERE client_id = :cid ORDER BY scheduled_at DESC LIMIT 5');
-    $meet->execute([':cid' => $client['id']]);
+    $meet->execute([':cid' => $cid]);
+
+    // Active tasks (open) and the 5 most-recently completed for context.
+    $stmt = db()->prepare(
+        "SELECT t.*, u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+         FROM tasks t LEFT JOIN users u ON u.id = t.assignee_user_id
+         WHERE t.client_id = :cid AND t.status = 'active'
+         ORDER BY CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                  IFNULL(t.due_date, '9999-12-31'), t.created_at DESC"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $tasksActive = $stmt->fetchAll();
+
+    $stmt = db()->prepare(
+        "SELECT t.*, u.first_name AS a_fn, u.last_name AS a_ln
+         FROM tasks t LEFT JOIN users u ON u.id = t.assignee_user_id
+         WHERE t.client_id = :cid AND t.status = 'completed'
+         ORDER BY t.completed_at DESC LIMIT 5"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $tasksDone = $stmt->fetchAll();
+
+    // Last 5 EOD reports from this client's VTs.
+    $stmt = db()->prepare(
+        "SELECT er.*, u.first_name, u.last_name, u.email
+         FROM eod_reports er
+         JOIN client_vts cv ON cv.vt_user_id = er.vt_user_id
+         JOIN users u ON u.id = er.vt_user_id
+         WHERE cv.client_id = :cid AND cv.contract_status = 'active'
+         ORDER BY er.report_date DESC, er.created_at DESC LIMIT 5"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $eodRecent = $stmt->fetchAll();
+
+    // This-week workday rollup per assigned VT (minutes since Monday).
+    $stmt = db()->prepare(
+        "SELECT wl.vt_user_id, SUM(wl.minutes) AS minutes, COUNT(*) AS days
+         FROM workday_logs wl
+         JOIN client_vts cv ON cv.vt_user_id = wl.vt_user_id AND cv.client_id = wl.client_id
+         WHERE cv.client_id = :cid AND wl.work_date >= date('now','weekday 1','-7 days')
+         GROUP BY wl.vt_user_id"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $weekRows = $stmt->fetchAll();
+    $weekByVt = [];
+    foreach ($weekRows as $r) { $weekByVt[(int) $r['vt_user_id']] = ['minutes' => (int) $r['minutes'], 'days' => (int) $r['days']]; }
+
+    // Recent notifications for the client user (top 5).
+    $stmt = db()->prepare(
+        "SELECT * FROM notifications WHERE user_id = :uid ORDER BY read_at IS NULL DESC, created_at DESC LIMIT 5"
+    );
+    $stmt->execute([':uid' => $u['id']]);
+    $notes = $stmt->fetchAll();
+
+    // Today's meetings (scheduled or completed, for this client).
+    $stmt = db()->prepare(
+        "SELECT m.*,
+                CASE WHEN m.attendee_user_id IS NOT NULL
+                     THEN (SELECT first_name || ' ' || last_name FROM users WHERE id = m.attendee_user_id)
+                     ELSE NULL END AS attendee_name
+         FROM meetings m
+         WHERE m.client_id = :cid
+           AND date(m.scheduled_at) = date('now','localtime')
+         ORDER BY m.scheduled_at"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $todayMeetings = $stmt->fetchAll();
+
+    // Recent messages — last 5 message receipts to this user, with sender name.
+    $stmt = db()->prepare(
+        "SELECT m.*, u.first_name AS s_fn, u.last_name AS s_ln, u.email AS s_email, u.photo_url AS s_photo
+         FROM messages m
+         JOIN users u ON u.id = m.sender_user_id
+         WHERE m.receiver_user_id = :uid
+         ORDER BY m.created_at DESC LIMIT 5"
+    );
+    $stmt->execute([':uid' => $u['id']]);
+    $recentMessages = $stmt->fetchAll();
+
+    // Full hired history (active + ended engagements) for the ROI Actual gauge.
+    $stmt = db()->prepare(
+        "SELECT u.first_name, u.last_name, u.email, cv.started_at, cv.ended_at, cv.contract_status,
+                p.role_title, p.department
+         FROM client_vts cv
+         JOIN users u ON u.id = cv.vt_user_id
+         LEFT JOIN vt_profiles p ON p.user_id = u.id
+         WHERE cv.client_id = :cid
+         ORDER BY cv.started_at"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $hiredHistory = $stmt->fetchAll();
+
     return [
-        'client'   => $client,
-        'vts'      => $vts,
-        'csms'     => $csms,
-        'meetings' => $meet->fetchAll(),
+        'client'             => $client,
+        'vts'                => $vts,
+        'csms'               => $csms,
+        'meetings'           => $meet->fetchAll(),
+        'tasks_active'       => $tasksActive,
+        'tasks_done_recent'  => $tasksDone,
+        'eod_recent'         => $eodRecent,
+        'workday_week'       => $weekByVt,
+        'notifications'      => $notes,
+        'meetings_today'     => $todayMeetings,
+        'recent_messages'    => $recentMessages,
+        'hired_history'      => $hiredHistory,
     ];
 }
 
@@ -285,8 +418,9 @@ function dashboard_vt_data(array $u): array
 function client_hired_vts(int $clientId): array
 {
     $stmt = db()->prepare(
-        'SELECT cv.*, u.first_name, u.last_name, u.email, u.photo_url,
-                p.department, p.role_title, p.workday_link AS profile_workday_link
+        'SELECT cv.*, u.first_name, u.last_name, u.email, u.photo_url, u.country,
+                p.department, p.role_title, p.experience_years, p.english_level,
+                p.workday_link AS profile_workday_link
          FROM client_vts cv
          JOIN users u ON u.id = cv.vt_user_id
          LEFT JOIN vt_profiles p ON p.user_id = cv.vt_user_id
@@ -322,16 +456,79 @@ function handle_profile(): void
         $phone   = trim((string) ($_POST['phone'] ?? ''));
         $country = trim((string) ($_POST['country'] ?? ''));
         $photo   = trim((string) ($_POST['photo_url'] ?? ''));
+        $cover   = trim((string) ($_POST['cover_url'] ?? ''));
+
+        // Handle file uploads for photo + cover (either or both). Files saved
+        // to data/avatars/{user_id}/{kind}.{ext}; users.{photo_url,cover_url}
+        // is updated to point at the in-portal serving URL.
+        foreach (['photo' => 'photo_url', 'cover' => 'cover_url'] as $kind => $col) {
+            $f = $_FILES[$kind . '_upload'] ?? null;
+            if (!$f || empty($f['tmp_name']) || (int) $f['error'] !== UPLOAD_ERR_OK) { continue; }
+            if ((int) $f['size'] > 8 * 1024 * 1024) { flash('error', ucfirst($kind) . ' upload must be under 8MB.'); continue; }
+            $info = getimagesize($f['tmp_name']);
+            if (!$info) { flash('error', 'Uploaded ' . $kind . ' is not a valid image.'); continue; }
+            $extMap = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_GIF => 'gif', IMAGETYPE_WEBP => 'webp'];
+            $ext = $extMap[$info[2]] ?? null;
+            if (!$ext) { flash('error', ucfirst($kind) . ' must be JPG/PNG/GIF/WebP.'); continue; }
+            $dir = __DIR__ . '/../data/avatars/' . (int) $u['id'];
+            if (!is_dir($dir) && !@mkdir($dir, 0775, true)) { flash('error', 'Could not create avatars folder.'); continue; }
+            foreach (glob($dir . '/' . $kind . '.*') as $old) { @unlink($old); }
+            $dest = $dir . '/' . $kind . '.' . $ext;
+            if (!move_uploaded_file($f['tmp_name'], $dest)) { flash('error', 'Could not save ' . $kind . ' upload.'); continue; }
+            // Bust caches per upload with a timestamp param.
+            $served = 'index.php?p=avatar&id=' . (int) $u['id'] . '&k=' . $kind . '&t=' . time();
+            if ($kind === 'photo') { $photo = $served; } else { $cover = $served; }
+        }
+
         db()->prepare(
-            'UPDATE users SET first_name=:fn, last_name=:ln, phone=:p, country=:c, photo_url=:ph, updated_at=CURRENT_TIMESTAMP WHERE id=:id'
+            'UPDATE users SET first_name=:fn, last_name=:ln, phone=:p, country=:c, photo_url=:ph, cover_url=:cv, updated_at=CURRENT_TIMESTAMP WHERE id=:id'
         )->execute([
-            ':fn' => $first, ':ln' => $last, ':p' => $phone, ':c' => $country, ':ph' => $photo, ':id' => $u['id'],
+            ':fn' => $first, ':ln' => $last, ':p' => $phone, ':c' => $country,
+            ':ph' => $photo, ':cv' => $cover, ':id' => $u['id'],
         ]);
         audit_log('update', 'user.self', (int) $u['id']);
         flash('success', 'Profile updated.');
         redirect(portal_url('profile'));
     }
     render('profile', ['user' => $u]);
+}
+
+/**
+ * Avatar serve — readfile of data/avatars/{user_id}/{kind}.{ext}.
+ * Public (no auth) so cover/profile photos render on the dashboard without
+ * a session bounce; only stored avatars are served, no path traversal.
+ */
+function handle_avatar_serve(): void
+{
+    $id   = (int) ($_GET['id'] ?? 0);
+    $kind = preg_replace('#[^a-z]#i', '', (string) ($_GET['k'] ?? ''));
+    if ($id < 1 || !in_array($kind, ['photo', 'cover'], true)) {
+        http_response_code(404); echo 'Not found'; return;
+    }
+    $base = realpath(__DIR__ . '/../data/avatars');
+    if ($base === false) { http_response_code(404); echo 'Not found'; return; }
+    $glob = $base . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . $kind . '.*';
+    $matches = glob($glob);
+    if (empty($matches)) {
+        // Fall back to the SVG placeholder for missing avatars.
+        $ph = __DIR__ . '/../images/photos/placeholder-avatar.svg';
+        if (is_file($ph)) {
+            header('Content-Type: image/svg+xml');
+            header('Cache-Control: public, max-age=3600');
+            readfile($ph);
+            return;
+        }
+        http_response_code(404); return;
+    }
+    $file = $matches[0];
+    $real = realpath($file);
+    if ($real === false || !str_starts_with($real, $base)) { http_response_code(403); return; }
+    $ext  = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+    $mime = ['jpg'=>'image/jpeg','jpeg'=>'image/jpeg','png'=>'image/png','gif'=>'image/gif','webp'=>'image/webp'][$ext] ?? 'application/octet-stream';
+    header('Content-Type: ' . $mime);
+    header('Content-Length: ' . filesize($file));
+    header('Cache-Control: public, max-age=3600');
+    readfile($file);
 }
 
 function handle_password_change(): void
@@ -1080,9 +1277,11 @@ function handle_hubspot_page(): void
     require_role('super_admin');
     require_once __DIR__ . '/hubspot.php';
     render('hubspot', [
-        'settings'   => hs_settings(),
-        'state'      => hs_state_load(),
-        'test_result'=> $_SESSION['hs_test_result'] ?? null,
+        'settings'     => hs_settings(),
+        'state'        => hs_state_load(),
+        'talent_state' => hs_talent_state_load(),
+        'client_state' => hs_client_state_load(),
+        'test_result'  => $_SESSION['hs_test_result'] ?? null,
     ]);
     unset($_SESSION['hs_test_result']);
 }
@@ -1161,12 +1360,359 @@ function handle_hubspot_step(): void
     echo json_encode($state, JSON_UNESCAPED_SLASHES);
 }
 
+/* ─────── Two-pipeline endpoints (talent + client) ─────── */
+
+function handle_hubspot_talent_control(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('hubspot')); }
+    csrf_verify();
+    $action = (string) ($_POST['action'] ?? '');
+    if (!in_array($action, ['start','pause','resume','reset'], true)) {
+        flash('error', 'Unknown talent sync action.');
+        redirect(portal_url('hubspot'));
+    }
+    hs_talent_control($action);
+    audit_log('hs_talent_control', 'hubspot', null, $action);
+    flash('success', 'Talent sync: ' . $action . '.');
+    redirect(portal_url('hubspot'));
+}
+
+function handle_hubspot_talent_step(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'POST required']);
+        return;
+    }
+    csrf_verify();
+    $state = hs_talent_step();
+    header('Content-Type: application/json');
+    echo json_encode($state, JSON_UNESCAPED_SLASHES);
+}
+
+function handle_hubspot_client_control(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('hubspot')); }
+    csrf_verify();
+    $action = (string) ($_POST['action'] ?? '');
+    if (!in_array($action, ['start','pause','resume','reset'], true)) {
+        flash('error', 'Unknown client sync action.');
+        redirect(portal_url('hubspot'));
+    }
+    hs_client_control($action);
+    audit_log('hs_client_control', 'hubspot', null, $action);
+    flash('success', 'Client sync: ' . $action . '.');
+    redirect(portal_url('hubspot'));
+}
+
+function handle_hubspot_client_step(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Content-Type: application/json');
+        echo json_encode(['error' => 'POST required']);
+        return;
+    }
+    csrf_verify();
+    $state = hs_client_step();
+    header('Content-Type: application/json');
+    echo json_encode($state, JSON_UNESCAPED_SLASHES);
+}
+
+/* ─── Phase 6: single-fetch handlers ───
+ * search: GET or POST, params q (string), returns up to 10 HubSpot matches as JSON.
+ * sync_one: POST, params id (hubspot id), runs the per-record processor inline. */
+
+function handle_hubspot_talent_search(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    $q = trim((string) ($_REQUEST['q'] ?? ''));
+    header('Content-Type: application/json');
+    echo json_encode(hs_talent_search($q), JSON_UNESCAPED_SLASHES);
+}
+
+function handle_hubspot_talent_sync_one(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Content-Type: application/json');
+        echo json_encode(['ok' => false, 'error' => 'POST required']);
+        return;
+    }
+    csrf_verify();
+    $id = trim((string) ($_POST['id'] ?? ''));
+    $res = hs_talent_sync_one($id);
+    if (!empty($res['ok'])) {
+        audit_log('hs_talent_sync_one', 'user', (int) ($res['user_id'] ?? 0), 'contact=' . $id . ' action=' . (string) ($res['action'] ?? ''));
+    }
+    header('Content-Type: application/json');
+    echo json_encode($res, JSON_UNESCAPED_SLASHES);
+}
+
+function handle_hubspot_client_search(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    $q = trim((string) ($_REQUEST['q'] ?? ''));
+    header('Content-Type: application/json');
+    echo json_encode(hs_client_search($q), JSON_UNESCAPED_SLASHES);
+}
+
+function handle_hubspot_client_sync_one(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        header('Content-Type: application/json');
+        echo json_encode(['ok' => false, 'error' => 'POST required']);
+        return;
+    }
+    csrf_verify();
+    $id = trim((string) ($_POST['id'] ?? ''));
+    $res = hs_client_sync_one($id);
+    if (!empty($res['ok'])) {
+        audit_log('hs_client_sync_one', 'client', (int) ($res['client_id'] ?? 0), 'company=' . $id);
+    }
+    header('Content-Type: application/json');
+    echo json_encode($res, JSON_UNESCAPED_SLASHES);
+}
+
 /**
  * DANGER: wipe everything imported from HubSpot — synced users (VT + CSM),
  * synced client companies + their linked login users, all downloaded media
  * files, and the sync state. Requires the typed confirmation "DELETE".
  * Wrapped in a transaction so a mid-purge failure leaves the DB consistent.
  */
+/* ═════════════════════════════════════════════════════════════════════════
+ * DEMO USERS — idempotent seeder for one of each role (client/csm/vt_hired/
+ * vt_onpool) plus their relationships. Emails use the 'demo-' prefix so the
+ * Phase 9 "purge ALL" sweep can spare them.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_hubspot_seed_demo(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('hubspot')); }
+    csrf_verify();
+
+    $pdo = db();
+    $created = 0;
+    $existed = 0;
+
+    $demos = [
+        ['email' => 'demo-client@virtualteammate.com',     'role' => 'client',    'fn' => 'Demo',   'ln' => 'Client'],
+        ['email' => 'demo-csm@virtualteammate.com',        'role' => 'csm',       'fn' => 'Demo',   'ln' => 'CSM'],
+        ['email' => 'demo-vt-hired@virtualteammate.com',   'role' => 'vt_hired',  'fn' => 'Maya',   'ln' => 'Reyes'],
+        ['email' => 'demo-vt-hired-2@virtualteammate.com', 'role' => 'vt_hired',  'fn' => 'Carlos', 'ln' => 'Diaz'],
+        ['email' => 'demo-vt-hired-3@virtualteammate.com', 'role' => 'vt_hired',  'fn' => 'Aisha',  'ln' => 'Khan'],
+        ['email' => 'demo-vt-onpool@virtualteammate.com',  'role' => 'vt_onpool', 'fn' => 'Demo',   'ln' => 'On-Pool'],
+    ];
+    $ids = [];
+    $hiredKeys = ['demo-vt-hired@virtualteammate.com','demo-vt-hired-2@virtualteammate.com','demo-vt-hired-3@virtualteammate.com'];
+    $hiredIds  = [];
+
+    foreach ($demos as $d) {
+        $stmt = $pdo->prepare('SELECT id FROM users WHERE email = :e LIMIT 1');
+        $stmt->execute([':e' => $d['email']]);
+        $uid = (int) ($stmt->fetchColumn() ?: 0);
+        if ($uid > 0) {
+            $ids[$d['role']] = $uid;
+            $existed++;
+            continue;
+        }
+        $pdo->prepare(
+            'INSERT INTO users (email, password_hash, role, first_name, last_name, country, active)
+             VALUES (:e, :h, :r, :fn, :ln, "US", 1)'
+        )->execute([
+            ':e'  => $d['email'],
+            ':h'  => password_hash(hs_default_password($d['role']), PASSWORD_DEFAULT),
+            ':r'  => $d['role'], ':fn' => $d['fn'], ':ln' => $d['ln'],
+        ]);
+        $newId = (int) $pdo->lastInsertId();
+        // For VT hired we need to keep all three IDs (not just the last), so collect them.
+        if (in_array($d['email'], $hiredKeys, true)) { $hiredIds[$d['email']] = $newId; }
+        // For non-VT roles, just stash by role.
+        $ids[$d['role']] = $newId;
+        $created++;
+    }
+    // If a VT-hired user existed already, capture its id.
+    foreach ($hiredKeys as $he) {
+        if (isset($hiredIds[$he])) { continue; }
+        $s = $pdo->prepare('SELECT id FROM users WHERE email = :e LIMIT 1');
+        $s->execute([':e' => $he]);
+        $hiredIds[$he] = (int) ($s->fetchColumn() ?: 0);
+    }
+
+    // Ensure a clients row backs the demo client user.
+    $clientRowId = 0;
+    if (isset($ids['client'])) {
+        $stmt = $pdo->prepare('SELECT id FROM clients WHERE user_id = :u LIMIT 1');
+        $stmt->execute([':u' => $ids['client']]);
+        $clientRowId = (int) ($stmt->fetchColumn() ?: 0);
+        if ($clientRowId === 0) {
+            $pdo->prepare(
+                'INSERT INTO clients (user_id, company_name, company_email, contract_status)
+                 VALUES (:u, :n, :e, "active")'
+            )->execute([
+                ':u' => $ids['client'],
+                ':n' => 'Demo Client Practice',
+                ':e' => 'demo-client@virtualteammate.com',
+            ]);
+            $clientRowId = (int) $pdo->lastInsertId();
+        }
+    }
+
+    // CSM -> client link
+    if ($clientRowId && isset($ids['csm'])) {
+        $pdo->prepare('INSERT OR IGNORE INTO csm_clients (csm_user_id, client_id) VALUES (:csm, :c)')
+            ->execute([':csm' => $ids['csm'], ':c' => $clientRowId]);
+    }
+
+    // All 3 hired VTs -> client link, with staggered start dates so the ROI
+    // gauge actually shows lifetime months.
+    $hiredStartOffsets = [
+        'demo-vt-hired@virtualteammate.com'   => '-9 months',
+        'demo-vt-hired-2@virtualteammate.com' => '-5 months',
+        'demo-vt-hired-3@virtualteammate.com' => '-2 months',
+    ];
+    if ($clientRowId) {
+        foreach ($hiredIds as $email => $uid) {
+            if ($uid <= 0) { continue; }
+            $started = date('Y-m-d H:i:s', strtotime($hiredStartOffsets[$email] ?? 'now'));
+            $pdo->prepare(
+                'INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status, started_at, workday_tracker_id)
+                 VALUES (:c, :v, "active", :s, :w)'
+            )->execute([
+                ':c' => $clientRowId, ':v' => $uid, ':s' => $started,
+                ':w' => 'demo-tracker-' . $uid,
+            ]);
+        }
+    }
+
+    // VT profile rows for each VT demo.
+    $vtSpecs = [
+        'demo-vt-hired@virtualteammate.com'   => ['fn'=>'Maya',  'role'=>'Medical Receptionist', 'dept'=>'Healthcare',   'years'=>5],
+        'demo-vt-hired-2@virtualteammate.com' => ['fn'=>'Carlos','role'=>'Medical Biller',       'dept'=>'Healthcare',   'years'=>7],
+        'demo-vt-hired-3@virtualteammate.com' => ['fn'=>'Aisha', 'role'=>'Executive Assistant',  'dept'=>'Admin Support','years'=>4],
+        'demo-vt-onpool@virtualteammate.com'  => ['fn'=>'Demo',  'role'=>'On-Pool Candidate',    'dept'=>'Pool',         'years'=>3],
+    ];
+    foreach ($vtSpecs as $email => $spec) {
+        $uid = (int) ($hiredIds[$email] ?? ($ids['vt_onpool'] ?? 0));
+        if ($email === 'demo-vt-onpool@virtualteammate.com') { $uid = (int) ($ids['vt_onpool'] ?? 0); }
+        if ($uid <= 0) { continue; }
+        $stmt = $pdo->prepare('SELECT id FROM vt_profiles WHERE user_id = :u LIMIT 1');
+        $stmt->execute([':u' => $uid]);
+        if ($stmt->fetchColumn()) { continue; }
+        $status = $email === 'demo-vt-onpool@virtualteammate.com' ? 'onpool' : 'hired';
+        $pdo->prepare(
+            'INSERT INTO vt_profiles (user_id, status, department, role_title, english_level, experience_years, summary, experience_text, workday_tracker_id)
+             VALUES (:u, :s, :dep, :role, "C1", :yrs, :sm, :ex, :w)'
+        )->execute([
+            ':u'   => $uid,
+            ':s'   => $status,
+            ':dep' => $spec['dept'],
+            ':role'=> $spec['role'],
+            ':yrs' => $spec['years'],
+            ':sm'  => $spec['fn'] . ' is a ' . $status . ' VT seeded for portal testing.',
+            ':ex'  => $spec['years'] . '+ years of professional experience.',
+            ':w'   => 'demo-tracker-' . $uid,
+        ]);
+    }
+
+    audit_log('hs_seed_demo', 'user', null, "created={$created} existed={$existed}");
+    flash('success', "Demo users seeded — created {$created}, already existed {$existed}.");
+    redirect(portal_url('hubspot'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * PURGE ALL — wipe every VT/CSM/client user + their media so the user can
+ * start fresh. Spares super_admin, demo users (email starts with "demo-"),
+ * and any manually-created portal accounts in other roles.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_hubspot_purge_all(): void
+{
+    require_role('super_admin');
+    require_once __DIR__ . '/hubspot.php';
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('hubspot')); }
+    csrf_verify();
+
+    if (strtoupper(trim((string) ($_POST['confirm'] ?? ''))) !== 'PURGE ALL') {
+        flash('error', 'Type PURGE ALL in the confirmation box to confirm.');
+        redirect(portal_url('hubspot'));
+    }
+
+    $pdo = db();
+    $pdo->beginTransaction();
+    try {
+        // Snapshot client user_ids (so we can delete those user rows after the
+        // clients table — clients.user_id is ON DELETE SET NULL, not CASCADE).
+        $stmt = $pdo->query("SELECT user_id FROM clients WHERE user_id IS NOT NULL");
+        $clientUserIds = array_column($stmt->fetchAll(PDO::FETCH_ASSOC), 'user_id');
+
+        // All clients (every clients row).
+        $cClients = $pdo->exec("DELETE FROM clients");
+
+        // Non-demo, non-super_admin users in the synced roles. Demo users
+        // (email starts with 'demo-') are spared so login testing keeps working.
+        $cUsers = $pdo->exec(
+            "DELETE FROM users
+              WHERE role IN ('vt_hired','vt_onpool','csm','client')
+                AND email NOT LIKE 'demo-%'"
+        );
+
+        $pdo->commit();
+    } catch (Throwable $ex) {
+        $pdo->rollBack();
+        flash('error', 'Purge failed: ' . $ex->getMessage());
+        redirect(portal_url('hubspot'));
+    }
+
+    // Wipe downloaded media for VT and any other entity directories. Skip
+    // anything under data/media/<entity>/<id>/ for IDs that match a demo user.
+    $demoIds = [];
+    foreach ($pdo->query("SELECT id FROM users WHERE email LIKE 'demo-%'") as $r) {
+        $demoIds[(int) $r['id']] = true;
+    }
+    $fileCount = 0;
+    foreach (['vt', 'client', 'csm'] as $entity) {
+        $base = __DIR__ . '/../data/media/' . $entity;
+        if (!is_dir($base)) { continue; }
+        foreach (glob($base . '/*', GLOB_ONLYDIR) ?: [] as $idDir) {
+            $idNum = (int) basename($idDir);
+            if (isset($demoIds[$idNum])) { continue; } // spare demo media
+            $iter = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($idDir, RecursiveDirectoryIterator::SKIP_DOTS),
+                RecursiveIteratorIterator::CHILD_FIRST
+            );
+            foreach ($iter as $f) {
+                $f->isDir() ? @rmdir($f->getPathname()) : (@unlink($f->getPathname()) && $fileCount++);
+            }
+            @rmdir($idDir);
+        }
+    }
+
+    hs_control('reset');
+
+    audit_log('hs_purge_all', 'hubspot', null, "clients=$cClients users=$cUsers media=$fileCount");
+    flash('success', "Hard-purged: {$cClients} clients, {$cUsers} users, {$fileCount} media files. Demo users spared. Sync state reset.");
+    redirect(portal_url('hubspot'));
+}
+
 function handle_hubspot_purge(): void
 {
     require_role('super_admin');
@@ -1235,6 +1781,71 @@ function handle_hubspot_purge(): void
 /* ═════════════════════════════════════════════════════════════════════════
  * CSMs (super admin)
  * ═════════════════════════════════════════════════════════════════════════ */
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * RELATIONSHIPS — three-table dashboard mirroring the WP plugin
+ * (clients -> CSMs+VTs, CSMs -> clients+VTs, VTs -> client+CSM)
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_relationships(): void
+{
+    require_role('super_admin');
+    $u   = current_user();
+    $pdo = db();
+
+    $clients = $pdo->query(
+        "SELECT id, company_name, contract_status, hubspot_company_id, hubspot_owner_id
+         FROM clients ORDER BY company_name COLLATE NOCASE"
+    )->fetchAll();
+
+    // CSM <-> client links, fetched once and bucketed both ways.
+    $csmsByClient   = [];
+    $clientsByCsm   = [];
+    foreach ($pdo->query(
+        "SELECT cc.client_id, u.id AS uid, u.email, u.first_name, u.last_name
+         FROM csm_clients cc JOIN users u ON u.id = cc.csm_user_id"
+    ) as $r) {
+        $csmsByClient[(int) $r['client_id']][] = $r;
+        $clientsByCsm[(int) $r['uid']][]       = (int) $r['client_id'];
+    }
+
+    // VT <-> client links, same approach.
+    $vtsByClient    = [];
+    $clientsByVt    = [];
+    foreach ($pdo->query(
+        "SELECT cv.client_id, cv.contract_status, u.id AS uid, u.email, u.first_name, u.last_name, u.role
+         FROM client_vts cv JOIN users u ON u.id = cv.vt_user_id"
+    ) as $r) {
+        $vtsByClient[(int) $r['client_id']][] = $r;
+        $clientsByVt[(int) $r['uid']][]       = (int) $r['client_id'];
+    }
+
+    $allCsms = $pdo->query(
+        "SELECT id, email, first_name, last_name, country, hubspot_owner_id
+         FROM users WHERE role = 'csm' ORDER BY last_name, first_name, email"
+    )->fetchAll();
+
+    $allVts = $pdo->query(
+        "SELECT id, email, first_name, last_name, country, role
+         FROM users WHERE role IN ('vt_hired','vt_onpool') ORDER BY last_name, first_name, email"
+    )->fetchAll();
+
+    // Lookup table so the VT/CSM views can show client names without re-querying.
+    $clientNames = [];
+    foreach ($clients as $c) { $clientNames[(int) $c['id']] = $c['company_name']; }
+
+    render('relationships', [
+        'user'         => $u,
+        'clients'      => $clients,
+        'csmsByClient' => $csmsByClient,
+        'vtsByClient'  => $vtsByClient,
+        'allCsms'      => $allCsms,
+        'clientsByCsm' => $clientsByCsm,
+        'allVts'       => $allVts,
+        'clientsByVt'  => $clientsByVt,
+        'clientNames'  => $clientNames,
+    ]);
+}
 
 function handle_csms_list(): void
 {
@@ -1366,6 +1977,632 @@ function handle_clients_view(): void
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
+ * CLIENT DASHBOARD FEATURES — tasks, workday log, notifications.
+ * Mirrors the staging dashboard's task/calendar widgets, EOD pane, and
+ * notification bell so a client can run day-to-day work in-portal.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Resolve the client_id the current user is scoped to (or 0 for super_admin). */
+function tasks_resolve_client_id(array $u): int
+{
+    if ($u['role'] === 'super_admin') {
+        return (int) ($_GET['client_id'] ?? $_POST['client_id'] ?? 0);
+    }
+    if ($u['role'] === 'client') {
+        $stmt = db()->prepare('SELECT id FROM clients WHERE user_id = :uid LIMIT 1');
+        $stmt->execute([':uid' => $u['id']]);
+        return (int) ($stmt->fetchColumn() ?: 0);
+    }
+    if ($u['role'] === 'csm') {
+        // CSM scoped to one of their assigned clients (?client_id=X).
+        $cid  = (int) ($_GET['client_id'] ?? $_POST['client_id'] ?? 0);
+        if ($cid <= 0) { return 0; }
+        $stmt = db()->prepare('SELECT 1 FROM csm_clients WHERE csm_user_id = :uid AND client_id = :cid LIMIT 1');
+        $stmt->execute([':uid' => $u['id'], ':cid' => $cid]);
+        return $stmt->fetchColumn() ? $cid : 0;
+    }
+    return 0;
+}
+
+function handle_tasks_list(): void
+{
+    $u = require_login();
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'No task list for your role.']);
+        return;
+    }
+
+    if ($u['role'] === 'vt_hired') {
+        // VT sees tasks assigned to them across all their client engagements.
+        $stmt = db()->prepare(
+            "SELECT t.*, c.company_name FROM tasks t
+             LEFT JOIN clients c ON c.id = t.client_id
+             WHERE t.assignee_user_id = :uid
+             ORDER BY t.status = 'active' DESC, IFNULL(t.due_date,'9999-12-31'),
+                      CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                      t.created_at DESC"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        render('tasks-list', ['user' => $u, 'tasks' => $stmt->fetchAll(), 'scope' => 'mine', 'assignees' => []]);
+        return;
+    }
+
+    $cid = tasks_resolve_client_id($u);
+    if ($cid <= 0) {
+        render('error', ['title' => 'No client', 'message' => 'No client context found for tasks.']);
+        return;
+    }
+
+    $stmt = db()->prepare(
+        "SELECT t.*, u.first_name AS a_fn, u.last_name AS a_ln, u.email AS a_email
+         FROM tasks t LEFT JOIN users u ON u.id = t.assignee_user_id
+         WHERE t.client_id = :cid
+         ORDER BY t.status = 'active' DESC,
+                  CASE t.priority WHEN 'urgent' THEN 0 WHEN 'high' THEN 1 WHEN 'normal' THEN 2 ELSE 3 END,
+                  IFNULL(t.due_date,'9999-12-31'), t.created_at DESC"
+    );
+    $stmt->execute([':cid' => $cid]);
+    $tasks = $stmt->fetchAll();
+
+    $assignees = client_hired_vts($cid);
+
+    render('tasks-list', ['user' => $u, 'tasks' => $tasks, 'scope' => 'client', 'client_id' => $cid, 'assignees' => $assignees]);
+}
+
+function handle_tasks_edit(): void
+{
+    $u  = require_login();
+    $id = (int) ($_REQUEST['id'] ?? 0);
+    $pdo = db();
+
+    // Load existing task (if editing) and verify scope access.
+    $task = null;
+    if ($id > 0) {
+        $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
+        $stmt->execute([':id' => $id]);
+        $task = $stmt->fetch();
+        if (!$task) { render('error', ['title' => 'Not found', 'message' => 'Task not found.']); return; }
+    }
+
+    $cid = $task ? (int) $task['client_id'] : tasks_resolve_client_id($u);
+    if ($cid <= 0) { render('error', ['title' => 'No client', 'message' => 'No client context for this task.']); return; }
+    if ($u['role'] !== 'super_admin' && !tasks_user_can_edit_client($u, $cid)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'You can not edit tasks for this client.']);
+        return;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
+        $title    = trim((string) ($_POST['title'] ?? ''));
+        $desc     = trim((string) ($_POST['description'] ?? ''));
+        $assignee = (int) ($_POST['assignee_user_id'] ?? 0) ?: null;
+        $priority = (string) ($_POST['priority'] ?? 'normal');
+        if (!in_array($priority, ['low','normal','high','urgent'], true)) { $priority = 'normal'; }
+        $due      = trim((string) ($_POST['due_date'] ?? ''));
+        if ($due === '') { $due = null; }
+
+        if ($title === '') {
+            flash('error', 'Title is required.');
+            redirect(portal_url('tasks.edit', $id ? ['id' => $id] : ($u['role'] === 'super_admin' ? ['client_id' => $cid] : [])));
+        }
+
+        if ($task) {
+            $pdo->prepare(
+                'UPDATE tasks SET title=:t, description=:d, assignee_user_id=:a, priority=:p, due_date=:dd, updated_at=CURRENT_TIMESTAMP
+                 WHERE id=:id'
+            )->execute([':t'=>$title, ':d'=>$desc, ':a'=>$assignee, ':p'=>$priority, ':dd'=>$due, ':id'=>$id]);
+            audit_log('task_update', 'task', $id);
+            flash('success', 'Task updated.');
+        } else {
+            $pdo->prepare(
+                'INSERT INTO tasks (client_id, assignee_user_id, created_by, title, description, priority, due_date, status)
+                 VALUES (:c, :a, :cb, :t, :d, :p, :dd, "active")'
+            )->execute([
+                ':c'=>$cid, ':a'=>$assignee, ':cb'=>$u['id'],
+                ':t'=>$title, ':d'=>$desc, ':p'=>$priority, ':dd'=>$due,
+            ]);
+            $newId = (int) $pdo->lastInsertId();
+            audit_log('task_create', 'task', $newId);
+            if ($assignee) {
+                tasks_notify_assignee($assignee, $newId, $title, $cid);
+            }
+            flash('success', 'Task created.');
+        }
+        redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
+    }
+
+    $assignees = client_hired_vts($cid);
+    render('tasks-edit', ['user' => $u, 'task' => $task, 'client_id' => $cid, 'assignees' => $assignees]);
+}
+
+function handle_tasks_toggle(): void
+{
+    $u  = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare('SELECT * FROM tasks WHERE id = :id LIMIT 1');
+    $stmt->execute([':id' => $id]);
+    $task = $stmt->fetch();
+    if (!$task) { flash('error', 'Task not found.'); redirect(portal_url('tasks')); }
+    $cid = (int) $task['client_id'];
+    // Authorize: super_admin, the linked client user, an assigned CSM, or the assignee VT.
+    $authorized = $u['role'] === 'super_admin'
+        || tasks_user_can_edit_client($u, $cid)
+        || ((int) ($task['assignee_user_id'] ?? 0) === (int) $u['id']);
+    if (!$authorized) { flash('error', 'Not allowed.'); redirect(portal_url('tasks')); }
+
+    $newStatus  = $task['status'] === 'active' ? 'completed' : 'active';
+    $completed  = $newStatus === 'completed' ? date('Y-m-d H:i:s') : null;
+    $pdo->prepare('UPDATE tasks SET status=:s, completed_at=:c, updated_at=CURRENT_TIMESTAMP WHERE id=:id')
+        ->execute([':s' => $newStatus, ':c' => $completed, ':id' => $id]);
+    audit_log('task_' . ($newStatus === 'completed' ? 'complete' : 'reopen'), 'task', $id);
+    flash('success', $newStatus === 'completed' ? 'Marked complete.' : 'Re-opened.');
+    redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
+}
+
+function handle_tasks_delete(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('tasks')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id <= 0) { redirect(portal_url('tasks')); }
+    $pdo = db();
+    $stmt = $pdo->prepare('SELECT client_id FROM tasks WHERE id = :id');
+    $stmt->execute([':id' => $id]);
+    $cid = (int) ($stmt->fetchColumn() ?: 0);
+    if ($cid <= 0) { redirect(portal_url('tasks')); }
+    if ($u['role'] !== 'super_admin' && !tasks_user_can_edit_client($u, $cid)) {
+        flash('error', 'Not allowed.'); redirect(portal_url('tasks'));
+    }
+    $pdo->prepare('DELETE FROM tasks WHERE id = :id')->execute([':id' => $id]);
+    audit_log('task_delete', 'task', $id);
+    flash('success', 'Task deleted.');
+    redirect(portal_url('tasks', $u['role'] === 'super_admin' || $u['role'] === 'csm' ? ['client_id' => $cid] : []));
+}
+
+function tasks_user_can_edit_client(array $u, int $cid): bool
+{
+    if ($u['role'] === 'super_admin') { return true; }
+    if ($u['role'] === 'client') {
+        $stmt = db()->prepare('SELECT 1 FROM clients WHERE id = :c AND user_id = :u');
+        $stmt->execute([':c' => $cid, ':u' => $u['id']]);
+        return (bool) $stmt->fetchColumn();
+    }
+    if ($u['role'] === 'csm') {
+        $stmt = db()->prepare('SELECT 1 FROM csm_clients WHERE csm_user_id = :u AND client_id = :c');
+        $stmt->execute([':u' => $u['id'], ':c' => $cid]);
+        return (bool) $stmt->fetchColumn();
+    }
+    return false;
+}
+
+function tasks_notify_assignee(int $userId, int $taskId, string $title, int $cid): void
+{
+    db()->prepare(
+        "INSERT INTO notifications (user_id, kind, title, body, link)
+         VALUES (:u, 'task', :t, :b, :l)"
+    )->execute([
+        ':u' => $userId,
+        ':t' => 'New task assigned: ' . mb_substr($title, 0, 80),
+        ':b' => 'A new task has been assigned to you.',
+        ':l' => 'index.php?p=tasks&highlight=' . $taskId,
+    ]);
+}
+
+function handle_workday_list(): void
+{
+    $u = require_login();
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'No workday view for your role.']);
+        return;
+    }
+    $pdo = db();
+
+    if ($u['role'] === 'vt_hired') {
+        $stmt = $pdo->prepare(
+            "SELECT wl.*, c.company_name FROM workday_logs wl
+             LEFT JOIN clients c ON c.id = wl.client_id
+             WHERE wl.vt_user_id = :uid
+             ORDER BY wl.work_date DESC LIMIT 60"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        render('workday-list', ['user' => $u, 'logs' => $stmt->fetchAll(), 'scope' => 'mine']);
+        return;
+    }
+
+    $cid = tasks_resolve_client_id($u);
+    if ($cid <= 0) { render('error', ['title' => 'No client', 'message' => 'No client context for workday view.']); return; }
+    $stmt = $pdo->prepare(
+        "SELECT wl.*, u.first_name, u.last_name FROM workday_logs wl
+         JOIN users u ON u.id = wl.vt_user_id
+         WHERE wl.client_id = :cid
+         ORDER BY wl.work_date DESC, u.last_name LIMIT 200"
+    );
+    $stmt->execute([':cid' => $cid]);
+    render('workday-list', ['user' => $u, 'logs' => $stmt->fetchAll(), 'scope' => 'client', 'client_id' => $cid]);
+}
+
+function handle_notifications_list(): void
+{
+    $u = require_login();
+    $stmt = db()->prepare("SELECT * FROM notifications WHERE user_id = :uid ORDER BY created_at DESC LIMIT 100");
+    $stmt->execute([':uid' => $u['id']]);
+    render('notifications-list', ['user' => $u, 'notifications' => $stmt->fetchAll()]);
+}
+
+function handle_notifications_read(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id > 0) {
+        db()->prepare('UPDATE notifications SET read_at = CURRENT_TIMESTAMP WHERE id = :id AND user_id = :uid')
+            ->execute([':id' => $id, ':uid' => $u['id']]);
+    } else {
+        db()->prepare('UPDATE notifications SET read_at = CURRENT_TIMESTAMP WHERE user_id = :uid AND read_at IS NULL')
+            ->execute([':uid' => $u['id']]);
+    }
+    redirect(portal_url('notifications'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * RESOURCES — Downloads/playbook tab, mirrors the staging
+ * [client_resources] shortcode.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function resources_definitions(): array
+{
+    return [
+        ['title' => 'Outcome-Based Responsibilities (OBR) Worksheet', 'description' => 'Define outcomes and accountability clearly — then reuse it for every role.',                   'url' => 'https://baa78665-b905-489f-a89a-dea3af4d293d.filesusr.com/ugd/739bab_d2efa46efff347d49c2bd8e129a541af.pdf', 'accent' => '#3919BA'],
+        ['title' => 'OBR Guide (Healthcare)',                         'description' => 'Examples and best practices tailored for healthcare workflows.',                           'url' => 'https://baa78665-b905-489f-a89a-dea3af4d293d.filesusr.com/ugd/e9e902_13ea922a5746474094b89ac726b0ee2c.pdf', 'accent' => '#16a34a'],
+        ['title' => 'OBR Guide (Business)',                           'description' => 'A simple blueprint for outcomes, KPIs, and ownership across teams.',                        'url' => 'https://baa78665-b905-489f-a89a-dea3af4d293d.filesusr.com/ugd/e9e902_cdd544927f544dad96b408d9590f53ba.pdf', 'accent' => '#2563eb'],
+        ['title' => 'A Decade of Change',                             'description' => 'A quick read on modern staffing and what it means for your business today.',               'url' => 'https://baa78665-b905-489f-a89a-dea3af4d293d.filesusr.com/ugd/3a288b_ef4040c0dc39463aa55f3da4defc39ed.pdf', 'accent' => '#ea580c'],
+        ['title' => 'Minutes to Millions Workbook',                   'description' => 'Delegate, systematize operations, and reclaim strategic focus to scale.',                  'url' => 'https://virtualteammate.com/wp-content/uploads/2025/12/BBYT-Workbook.pdf',                                   'accent' => '#9333ea'],
+        ['title' => 'Time Clarity Worksheet',                         'description' => 'Find time drains, prioritize high-value work, and structure your day with clarity.',       'url' => 'https://virtualteammate.com/wp-content/uploads/2025/11/VTM%20-%20Time%20Clarity%20(1).pdf',                  'accent' => '#0ea5e9'],
+    ];
+}
+
+function handle_resources(): void
+{
+    require_login();
+    render('resources', [
+        'resources' => resources_definitions(),
+        'playbook'  => [
+            'title' => 'Virtual Teammate Client Playbook',
+            'desc'  => 'Start here to align expectations, simplify communication, and establish a smooth workflow — so your Virtual Teammate can deliver faster.',
+            'url'   => 'https://virtualteammate.com/client-playbook-3/',
+        ],
+    ]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * MY VTs — dedicated tab listing assigned Virtual Teammates, modeled on
+ * the staging [selected_va_list] shortcode (large circular avatar cards).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_my_vts(): void
+{
+    $u = require_login();
+    $pdo = db();
+    if ($u['role'] === 'client') {
+        $stmt = $pdo->prepare('SELECT id FROM clients WHERE user_id = :uid LIMIT 1');
+        $stmt->execute([':uid' => $u['id']]);
+        $cid = (int) ($stmt->fetchColumn() ?: 0);
+        if ($cid === 0) { render('error', ['title'=>'No client', 'message'=>'No client record linked.']); return; }
+        $vts = client_hired_vts($cid);
+    } elseif ($u['role'] === 'csm') {
+        // Union of VTs across all clients assigned to this CSM.
+        $stmt = $pdo->prepare(
+            "SELECT DISTINCT vp.*, u.first_name, u.last_name, u.email, u.country, u.photo_url, cv.client_id, c.company_name
+             FROM csm_clients cc
+             JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+             JOIN users u ON u.id = cv.vt_user_id
+             LEFT JOIN vt_profiles vp ON vp.user_id = u.id
+             LEFT JOIN clients c ON c.id = cv.client_id
+             WHERE cc.csm_user_id = :uid
+             ORDER BY u.last_name, u.first_name"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        $vts = $stmt->fetchAll();
+    } elseif ($u['role'] === 'super_admin') {
+        $stmt = $pdo->query(
+            "SELECT vp.*, u.first_name, u.last_name, u.email, u.country, u.photo_url
+             FROM vt_profiles vp JOIN users u ON u.id = vp.user_id
+             ORDER BY vp.status = 'hired' DESC, u.last_name, u.first_name"
+        );
+        $vts = $stmt->fetchAll();
+    } else {
+        render('error', ['title'=>'Forbidden', 'message'=>'My VTs is a client/CSM/admin view.']);
+        return;
+    }
+    render('my-vts', ['user' => $u, 'vts' => $vts]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * MESSAGES — minimal 1:1 chat, modeled on the [va_chat_window] shortcode.
+ * Polling-based (no websocket). Authorized to messages between paired
+ * client <-> hired VT, CSM <-> their clients/VTs, super_admin <-> anyone.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * ROI CALCULATOR — Value Creation calc, modeled on the staging
+ * [roi_savings_calculator] shortcode. Two panels: Actual (hired VTs +
+ * months engaged) and Scenario (bi-weekly cost comparison).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * PRODUCTIVITY REPORTS — Unifies workday tracker (external links per VT)
+ * with EOD reports into a single nav item. Workday entries link out to
+ * https://workdaytracker.com/ (per VT's workday_link / workday_tracker_id).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_productivity(): void
+{
+    $u   = require_login();
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'No productivity reports for your role.']);
+        return;
+    }
+    $pdo = db();
+    $vts = [];
+    $eod = [];
+
+    if ($u['role'] === 'vt_hired') {
+        // VT sees their own workday tracker link + their own EOD reports.
+        $stmt = $pdo->prepare(
+            'SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+                    p.workday_link, p.workday_tracker_id, p.role_title, p.department,
+                    cv.client_id, cv.workday_link AS cv_workday_link, cv.workday_tracker_id AS cv_workday_tracker_id,
+                    c.company_name
+             FROM users u
+             LEFT JOIN vt_profiles p ON p.user_id = u.id
+             LEFT JOIN client_vts  cv ON cv.vt_user_id = u.id AND cv.contract_status = "active"
+             LEFT JOIN clients      c ON c.id = cv.client_id
+             WHERE u.id = :uid'
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        $vts = $stmt->fetchAll();
+
+        $stmt = $pdo->prepare("SELECT * FROM eod_reports WHERE vt_user_id = :uid ORDER BY report_date DESC LIMIT 30");
+        $stmt->execute([':uid' => $u['id']]);
+        $eod = $stmt->fetchAll();
+
+    } elseif ($u['role'] === 'client') {
+        $stmt = $pdo->prepare('SELECT id, company_name FROM clients WHERE user_id = :uid LIMIT 1');
+        $stmt->execute([':uid' => $u['id']]);
+        $client = $stmt->fetch();
+        if (!$client) { render('error', ['title' => 'No client', 'message' => 'No client record linked.']); return; }
+        $cid = (int) $client['id'];
+
+        $stmt = $pdo->prepare(
+            'SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+                    p.workday_link AS profile_workday_link, p.workday_tracker_id AS profile_tracker_id,
+                    p.role_title, p.department,
+                    cv.workday_link AS cv_workday_link, cv.workday_tracker_id AS cv_workday_tracker_id
+             FROM client_vts cv
+             JOIN users u ON u.id = cv.vt_user_id
+             LEFT JOIN vt_profiles p ON p.user_id = u.id
+             WHERE cv.client_id = :cid AND cv.contract_status = "active"
+             ORDER BY u.first_name'
+        );
+        $stmt->execute([':cid' => $cid]);
+        $vts = $stmt->fetchAll();
+
+        $stmt = $pdo->prepare(
+            "SELECT er.*, u.first_name, u.last_name, u.email
+             FROM eod_reports er
+             JOIN client_vts cv ON cv.vt_user_id = er.vt_user_id AND cv.contract_status = 'active'
+             JOIN users u ON u.id = er.vt_user_id
+             WHERE cv.client_id = :cid
+             ORDER BY er.report_date DESC, er.created_at DESC LIMIT 30"
+        );
+        $stmt->execute([':cid' => $cid]);
+        $eod = $stmt->fetchAll();
+
+    } elseif ($u['role'] === 'csm') {
+        $stmt = $pdo->prepare(
+            "SELECT DISTINCT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+                    p.workday_link AS profile_workday_link, p.workday_tracker_id AS profile_tracker_id,
+                    p.role_title, p.department,
+                    cv.workday_link AS cv_workday_link, cv.workday_tracker_id AS cv_workday_tracker_id,
+                    c.company_name
+             FROM csm_clients cc
+             JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+             JOIN users u ON u.id = cv.vt_user_id
+             LEFT JOIN vt_profiles p ON p.user_id = u.id
+             LEFT JOIN clients c ON c.id = cv.client_id
+             WHERE cc.csm_user_id = :uid
+             ORDER BY u.first_name"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        $vts = $stmt->fetchAll();
+
+        $stmt = $pdo->prepare(
+            "SELECT er.*, u.first_name, u.last_name FROM eod_reports er
+             JOIN users u ON u.id = er.vt_user_id
+             JOIN client_vts cv ON cv.vt_user_id = er.vt_user_id AND cv.contract_status = 'active'
+             JOIN csm_clients cc ON cc.client_id = cv.client_id
+             WHERE cc.csm_user_id = :uid
+             ORDER BY er.report_date DESC, er.created_at DESC LIMIT 50"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        $eod = $stmt->fetchAll();
+
+    } else { // super_admin
+        $stmt = $pdo->query(
+            "SELECT u.id AS user_id, u.first_name, u.last_name, u.email, u.photo_url,
+                    p.workday_link AS profile_workday_link, p.workday_tracker_id AS profile_tracker_id,
+                    p.role_title, p.department
+             FROM users u
+             LEFT JOIN vt_profiles p ON p.user_id = u.id
+             WHERE u.role IN ('vt_hired','vt_onpool')
+             ORDER BY u.first_name LIMIT 50"
+        );
+        $vts = $stmt->fetchAll();
+        $stmt = $pdo->query("SELECT er.*, u.first_name, u.last_name FROM eod_reports er JOIN users u ON u.id = er.vt_user_id ORDER BY er.report_date DESC LIMIT 50");
+        $eod = $stmt->fetchAll();
+    }
+
+    render('productivity', ['user' => $u, 'vts' => $vts, 'eod' => $eod]);
+}
+
+function messages_conversation_key(int $a, int $b): string
+{
+    if ($a > $b) { [$a, $b] = [$b, $a]; }
+    return $a . ':' . $b;
+}
+
+/** People the current user is allowed to chat with. */
+function messages_contacts(array $u): array
+{
+    $pdo = db();
+    if ($u['role'] === 'super_admin') {
+        return $pdo->query(
+            "SELECT id, first_name, last_name, email, role, photo_url FROM users
+             WHERE id != " . (int) $u['id'] . " AND role != 'vt_onpool'
+             ORDER BY last_name, first_name"
+        )->fetchAll();
+    }
+    if ($u['role'] === 'client') {
+        $stmt = $pdo->prepare(
+            "SELECT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+             FROM clients c
+             JOIN client_vts cv ON cv.client_id = c.id AND cv.contract_status = 'active'
+             JOIN users u ON u.id = cv.vt_user_id
+             WHERE c.user_id = :uid
+             UNION
+             SELECT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+             FROM clients c
+             JOIN csm_clients cc ON cc.client_id = c.id
+             JOIN users u ON u.id = cc.csm_user_id
+             WHERE c.user_id = :uid"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    if ($u['role'] === 'csm') {
+        $stmt = $pdo->prepare(
+            "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+             FROM csm_clients cc
+             LEFT JOIN clients c ON c.id = cc.client_id
+             LEFT JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+             LEFT JOIN users u ON u.id = COALESCE(cv.vt_user_id, c.user_id)
+             WHERE cc.csm_user_id = :uid AND u.id IS NOT NULL"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    if ($u['role'] === 'vt_hired') {
+        $stmt = $pdo->prepare(
+            "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+             FROM client_vts cv
+             JOIN clients c ON c.id = cv.client_id
+             LEFT JOIN csm_clients cc ON cc.client_id = c.id
+             LEFT JOIN users u ON u.id = COALESCE(c.user_id, cc.csm_user_id)
+             WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active' AND u.id IS NOT NULL"
+        );
+        $stmt->execute([':uid' => $u['id']]);
+        return $stmt->fetchAll();
+    }
+    return [];
+}
+
+function handle_messages_list(): void
+{
+    $u = require_login();
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+        render('error', ['title' => 'Forbidden', 'message' => 'Messages not available for your role.']);
+        return;
+    }
+    $pdo = db();
+    $contacts = messages_contacts($u);
+    $with = (int) ($_GET['with'] ?? 0);
+
+    $messages = [];
+    $partner  = null;
+    if ($with > 0) {
+        // Authorize: $with must be in our contacts list (or super_admin sees all).
+        $allowed = $u['role'] === 'super_admin';
+        foreach ($contacts as $c) { if ((int) $c['id'] === $with) { $allowed = true; $partner = $c; break; } }
+        if ($allowed) {
+            if (!$partner) {
+                $stmt = $pdo->prepare('SELECT id, first_name, last_name, email, role, photo_url FROM users WHERE id = :id');
+                $stmt->execute([':id' => $with]);
+                $partner = $stmt->fetch() ?: null;
+            }
+            if ($partner) {
+                $key = messages_conversation_key((int) $u['id'], $with);
+                $stmt = $pdo->prepare(
+                    "SELECT * FROM messages WHERE conversation_key = :k ORDER BY created_at ASC LIMIT 500"
+                );
+                $stmt->execute([':k' => $key]);
+                $messages = $stmt->fetchAll();
+                // Mark partner-sent messages as read.
+                $pdo->prepare("UPDATE messages SET read_at = CURRENT_TIMESTAMP WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL")
+                    ->execute([':k' => $key, ':p' => $with]);
+            }
+        }
+    }
+
+    // Unread badge counts per contact.
+    $unreadByContact = [];
+    foreach ($contacts as $c) {
+        $key = messages_conversation_key((int) $u['id'], (int) $c['id']);
+        $stmt = $pdo->prepare('SELECT COUNT(*) FROM messages WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL');
+        $stmt->execute([':k' => $key, ':p' => (int) $c['id']]);
+        $unreadByContact[(int) $c['id']] = (int) $stmt->fetchColumn();
+    }
+
+    render('messages', [
+        'user'     => $u,
+        'contacts' => $contacts,
+        'partner'  => $partner,
+        'messages' => $messages,
+        'unread'   => $unreadByContact,
+    ]);
+}
+
+function handle_messages_send(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('messages')); }
+    csrf_verify();
+    $with = (int) ($_POST['with'] ?? 0);
+    $body = trim((string) ($_POST['body'] ?? ''));
+    if ($with <= 0 || $body === '') { redirect(portal_url('messages', $with ? ['with' => $with] : [])); }
+
+    // Authorize the recipient is in our contacts.
+    $contacts = messages_contacts($u);
+    $ok = $u['role'] === 'super_admin';
+    foreach ($contacts as $c) { if ((int) $c['id'] === $with) { $ok = true; break; } }
+    if (!$ok) { flash('error', 'You can not message that user.'); redirect(portal_url('messages')); }
+
+    $key = messages_conversation_key((int) $u['id'], $with);
+    db()->prepare(
+        'INSERT INTO messages (conversation_key, sender_user_id, receiver_user_id, body)
+         VALUES (:k, :s, :r, :b)'
+    )->execute([':k' => $key, ':s' => $u['id'], ':r' => $with, ':b' => mb_substr($body, 0, 4000)]);
+
+    // Surface to the recipient as a notification.
+    db()->prepare(
+        "INSERT INTO notifications (user_id, kind, title, body, link)
+         VALUES (:u, 'message', :t, :b, :l)"
+    )->execute([
+        ':u' => $with,
+        ':t' => 'New message from ' . trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: $u['email'],
+        ':b' => mb_substr($body, 0, 160),
+        ':l' => 'index.php?p=messages&with=' . (int) $u['id'],
+    ]);
+
+    redirect(portal_url('messages', ['with' => $with]));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
  * MEDIA SERVE — auth-gated readfile of data/media/<entity>/<id>/<kind>.<ext>
  * ═════════════════════════════════════════════════════════════════════════ */
 
@@ -1426,9 +2663,56 @@ function handle_media_serve(): void
         'mp4'=>'video/mp4','mov'=>'video/quicktime','m4v'=>'video/x-m4v','webm'=>'video/webm',
     ][$ext] ?? 'application/octet-stream';
 
+    // Browser-renderable formats display inline; office docs force a download.
+    $inlineExts  = ['jpg','jpeg','png','gif','webp','pdf','mp4','m4v','webm','mov'];
+    $disposition = in_array($ext, $inlineExts, true) ? 'inline' : 'attachment';
+    $safeName    = preg_replace('#[^A-Za-z0-9._-]#', '_', basename($file));
+
+    $size = filesize($file);
+
+    // Kill any output buffering so streaming + partial responses aren't corrupted.
+    while (ob_get_level() > 0) { ob_end_clean(); }
+
     header('Content-Type: ' . $mime);
-    header('Content-Length: ' . filesize($file));
+    header('Accept-Ranges: bytes'); // Required so <video> can seek/scrub.
     header('Cache-Control: private, max-age=3600');
-    header('Content-Disposition: inline; filename="' . basename($file) . '"');
+    header('Content-Disposition: ' . $disposition . '; filename="' . $safeName . '"');
+
+    // Range request handling — critical for <video> in Chrome/Safari/iOS.
+    $rangeHeader = $_SERVER['HTTP_RANGE'] ?? '';
+    if ($rangeHeader !== '' && preg_match('/bytes=(\d+)-(\d*)/', $rangeHeader, $m)) {
+        $start = (int) $m[1];
+        $end   = ($m[2] !== '') ? (int) $m[2] : $size - 1;
+        if ($end >= $size) { $end = $size - 1; }
+        if ($start > $end || $start < 0) {
+            http_response_code(416);
+            header('Content-Range: bytes */' . $size);
+            return;
+        }
+        $length = $end - $start + 1;
+        http_response_code(206);
+        header('Content-Range: bytes ' . $start . '-' . $end . '/' . $size);
+        header('Content-Length: ' . $length);
+
+        // Stream the requested byte range; never load the whole file in memory.
+        $fp = fopen($file, 'rb');
+        if ($fp === false) { return; }
+        fseek($fp, $start);
+        $buf       = 8192;
+        $remaining = $length;
+        while ($remaining > 0 && !feof($fp)) {
+            $read  = $remaining > $buf ? $buf : $remaining;
+            $chunk = fread($fp, $read);
+            if ($chunk === false) { break; }
+            echo $chunk;
+            @flush();
+            $remaining -= strlen($chunk);
+        }
+        fclose($fp);
+        return;
+    }
+
+    // Full content (no range header).
+    header('Content-Length: ' . $size);
     readfile($file);
 }

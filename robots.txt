@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /includes/
 
-Sitemap: https://virtualteammate.com/sitemap.xml
+Sitemap: https://staging.virtualteammate.com/staginghtml/sitemap.xml

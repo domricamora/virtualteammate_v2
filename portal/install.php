@@ -38,10 +38,111 @@ $messages[] = $freshDb
     ? 'Created data/portal.sqlite and applied schema.'
     : 'Schema verified (no destructive changes).';
 
+/* ── Rebuild users.role CHECK to allow vt_ci + vt_onboarded (idempotent).
+   SQLite can't ALTER a CHECK constraint in place, so we detect the old
+   CHECK via PRAGMA table_info and recreate when needed. Safe no-op when
+   the constraint is already current. */
+$usersTableSql = $pdo->query("SELECT sql FROM sqlite_master WHERE type='table' AND name='users'")->fetchColumn();
+// Trigger rebuild if any of the new columns are missing (signals an old schema)
+// OR if the CHECK still contains vt_onboarded (legacy state we no longer want).
+$usersNeedsRebuild = $usersTableSql && (
+    strpos((string) $usersTableSql, 'full_name') === false ||
+    strpos((string) $usersTableSql, 'vt_onboarded') !== false
+);
+if ($usersNeedsRebuild) {
+    $cols = $pdo->query('PRAGMA table_info(users)')->fetchAll(PDO::FETCH_ASSOC);
+    $names = array_column($cols, 'name');
+    $colList = implode(', ', array_map(fn($n) => '"' . $n . '"', $names));
+    $pdo->exec('PRAGMA foreign_keys = OFF');
+    // legacy_alter_table = ON prevents SQLite from rewriting child-table FK
+    // references when we RENAME away the table being rebuilt. Without this,
+    // every FK pointing at users gets silently rewritten to `users_old`.
+    $pdo->exec('PRAGMA legacy_alter_table = ON');
+    $pdo->beginTransaction();
+    try {
+        $pdo->exec('ALTER TABLE users RENAME TO users_old');
+        $pdo->exec(
+            'CREATE TABLE users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT NOT NULL UNIQUE,
+                password_hash TEXT NOT NULL,
+                role TEXT NOT NULL CHECK (role IN ("super_admin","client","csm","vt_hired","vt_onpool")),
+                first_name TEXT NOT NULL DEFAULT "",
+                last_name TEXT NOT NULL DEFAULT "",
+                full_name TEXT NOT NULL DEFAULT "",
+                phone TEXT NOT NULL DEFAULT "",
+                country TEXT NOT NULL DEFAULT "",
+                job_title TEXT NOT NULL DEFAULT "",
+                photo_url TEXT NOT NULL DEFAULT "",
+                photo_source_url TEXT NOT NULL DEFAULT "",
+                cover_url TEXT NOT NULL DEFAULT "",
+                hubspot_contact_id TEXT NOT NULL DEFAULT "",
+                hubspot_owner_id TEXT NOT NULL DEFAULT "",
+                vt_status TEXT NOT NULL DEFAULT "",
+                hs_lead_status TEXT NOT NULL DEFAULT "",
+                is_hired INTEGER NOT NULL DEFAULT 0,
+                assigned_reviewer_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+                active INTEGER NOT NULL DEFAULT 1,
+                last_login_at TEXT,
+                created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+            )'
+        );
+        $pdo->exec("INSERT INTO users ($colList) SELECT $colList FROM users_old");
+        $pdo->exec('DROP TABLE users_old');
+        $pdo->commit();
+        // Defensive: even with legacy_alter_table ON, some SQLite builds still
+        // rewrite a few FK refs. Sweep sqlite_master and undo any leakage.
+        $pdo->exec('PRAGMA writable_schema = ON');
+        $pdo->exec(
+            "UPDATE sqlite_master SET sql = REPLACE(sql, '\"users_old\"', 'users')
+             WHERE sql LIKE '%users_old%' AND name != 'users_old'"
+        );
+        $pdo->exec(
+            "UPDATE sqlite_master SET sql = REPLACE(sql, 'users_old', 'users')
+             WHERE sql LIKE '%users_old%' AND name != 'users_old'"
+        );
+        $pdo->exec('PRAGMA writable_schema = OFF');
+        $messages[] = 'Rebuilt users table CHECK + repaired child-table FK refs.';
+    } catch (Throwable $ex) {
+        $pdo->rollBack();
+        $messages[] = 'Skip users CHECK rebuild: ' . $ex->getMessage();
+    }
+    $pdo->exec('PRAGMA legacy_alter_table = OFF');
+    $pdo->exec('PRAGMA foreign_keys = ON');
+}
+
 /* ── Idempotent additive migrations (safe to run repeatedly) ── */
 $migrations = [
-    'users'   => ['hubspot_contact_id TEXT NOT NULL DEFAULT ""'],
-    'clients' => ['hubspot_company_id TEXT NOT NULL DEFAULT ""'],
+    'users'       => [
+        'hubspot_contact_id   TEXT NOT NULL DEFAULT ""',
+        'hubspot_owner_id     TEXT NOT NULL DEFAULT ""',
+        'photo_source_url     TEXT NOT NULL DEFAULT ""',
+        'cover_url            TEXT NOT NULL DEFAULT ""',
+        'full_name            TEXT NOT NULL DEFAULT ""',
+        'job_title            TEXT NOT NULL DEFAULT ""',
+        'vt_status            TEXT NOT NULL DEFAULT ""',
+        'hs_lead_status       TEXT NOT NULL DEFAULT ""',
+        'is_hired             INTEGER NOT NULL DEFAULT 0',
+        'assigned_reviewer_id INTEGER',
+    ],
+    'clients'     => [
+        'hubspot_company_id TEXT NOT NULL DEFAULT ""',
+        'hubspot_owner_id   TEXT NOT NULL DEFAULT ""',
+    ],
+    'vt_profiles' => [
+        'resume_source_url        TEXT NOT NULL DEFAULT ""',
+        'video_source_url         TEXT NOT NULL DEFAULT ""',
+        'primary_skills           TEXT NOT NULL DEFAULT ""',
+        'predictive_index         TEXT NOT NULL DEFAULT ""',
+        'quiz_tier                TEXT NOT NULL DEFAULT ""',
+        'engagement_score         TEXT NOT NULL DEFAULT ""',
+        'predictive_contact_score TEXT NOT NULL DEFAULT ""',
+        'personality_profile      TEXT NOT NULL DEFAULT ""',
+        'ci_role                  TEXT NOT NULL DEFAULT ""',
+        'disc_profile             TEXT NOT NULL DEFAULT ""',
+        'hipaa_certified          TEXT NOT NULL DEFAULT ""',
+    ],
 ];
 foreach ($migrations as $table => $columns) {
     $existing = [];
@@ -60,9 +161,98 @@ foreach ($migrations as $table => $columns) {
         }
     }
 }
-// Indexes for the new HubSpot columns (idempotent).
+// Indexes for the HubSpot ID columns (idempotent).
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_contact   ON users(hubspot_contact_id)');
+$pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_owner    ON users(hubspot_owner_id)');
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_clients_hubspot_company ON clients(hubspot_company_id)');
+$pdo->exec('CREATE INDEX IF NOT EXISTS idx_clients_hubspot_owner  ON clients(hubspot_owner_id)');
+
+// Audit / profile-meta + company_profiles tables for vtadmin-parity sync.
+$pdo->exec("
+CREATE TABLE IF NOT EXISTS vt_profile_meta (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  meta_key TEXT NOT NULL,
+  meta_value TEXT,
+  record_state TEXT NOT NULL DEFAULT 'active',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (user_id, meta_key, record_state)
+);
+CREATE INDEX IF NOT EXISTS idx_vt_profile_meta_user ON vt_profile_meta(user_id, meta_key);
+CREATE TABLE IF NOT EXISTS company_profiles (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  client_id INTEGER NOT NULL UNIQUE REFERENCES clients(id) ON DELETE CASCADE,
+  website TEXT NOT NULL DEFAULT '',
+  industry TEXT NOT NULL DEFAULT '',
+  company_size TEXT NOT NULL DEFAULT '',
+  description TEXT NOT NULL DEFAULT '',
+  address TEXT NOT NULL DEFAULT '',
+  city TEXT NOT NULL DEFAULT '',
+  state TEXT NOT NULL DEFAULT '',
+  record_state TEXT NOT NULL DEFAULT 'active',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+");
+// Client-dashboard feature tables (idempotent — schema.sql already declares them
+// for fresh installs; this exec re-runs the CREATE TABLE IF NOT EXISTS lines
+// on upgrades from a pre-feature DB).
+$pdo->exec("
+CREATE TABLE IF NOT EXISTS tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  client_id INTEGER NOT NULL REFERENCES clients(id) ON DELETE CASCADE,
+  assignee_user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  created_by INTEGER NOT NULL REFERENCES users(id),
+  title TEXT NOT NULL,
+  description TEXT NOT NULL DEFAULT '',
+  priority TEXT NOT NULL DEFAULT 'normal' CHECK (priority IN ('low','normal','high','urgent')),
+  status TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active','completed','cancelled')),
+  due_date TEXT,
+  completed_at TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS notifications (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  kind TEXT NOT NULL DEFAULT 'info',
+  title TEXT NOT NULL,
+  body TEXT NOT NULL DEFAULT '',
+  link TEXT NOT NULL DEFAULT '',
+  read_at TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS workday_logs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  vt_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  client_id INTEGER REFERENCES clients(id) ON DELETE SET NULL,
+  work_date TEXT NOT NULL,
+  started_at TEXT,
+  ended_at TEXT,
+  minutes INTEGER NOT NULL DEFAULT 0,
+  notes TEXT NOT NULL DEFAULT '',
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (vt_user_id, work_date)
+);
+CREATE INDEX IF NOT EXISTS idx_tasks_client       ON tasks(client_id, status);
+CREATE INDEX IF NOT EXISTS idx_tasks_assignee     ON tasks(assignee_user_id, status);
+CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id, created_at);
+CREATE INDEX IF NOT EXISTS idx_workday_vt         ON workday_logs(vt_user_id, work_date);
+CREATE INDEX IF NOT EXISTS idx_workday_client     ON workday_logs(client_id, work_date);
+CREATE TABLE IF NOT EXISTS messages (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  conversation_key TEXT NOT NULL,
+  sender_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  receiver_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  body TEXT NOT NULL,
+  read_at TEXT,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE INDEX IF NOT EXISTS idx_messages_conv     ON messages(conversation_key, created_at);
+CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_user_id, read_at);
+");
 
 $stmt = $pdo->prepare('SELECT id FROM users WHERE email = :e LIMIT 1');
 $stmt->execute([':e' => SUPER_ADMIN_EMAIL]);

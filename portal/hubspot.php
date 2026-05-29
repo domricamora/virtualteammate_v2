@@ -28,7 +28,7 @@ const HS_API_BASE        = 'https://api.hubapi.com';
 const HS_STATE_KEY       = 'hs_sync_state';
 const HS_MEDIA_ROOT      = __DIR__ . '/../data/media';
 const HS_SEARCH_PAGE_MAX = 100;   // HubSpot cap.
-const HS_PROCESS_BATCH   = 5;     // Contacts per process step (media downloads are expensive).
+const HS_PROCESS_BATCH   = 20;    // Contacts per process step (raised from 5 per user request).
 
 /**
  * Resolve a CA bundle path so cURL HTTPS works on WAMP / shared hosts where
@@ -185,7 +185,7 @@ function hs_vt_properties(): array
 
 function hs_company_properties(): array
 {
-    return ['name','domain','website','hs_contact_email','company_email','billing_email','hs_lead_status'];
+    return ['name','domain','website','hs_contact_email','company_email','billing_email','hs_lead_status','hubspot_owner_id'];
 }
 
 function hs_csm_properties(): array
@@ -211,6 +211,23 @@ function hs_map_vt_role(string $vtStatus, string $leadStatusFallback = ''): stri
     if (in_array($n, ['unmatched / eligible', 'matched'], true)) return 'vt_onpool';
     if ($leadStatusFallback !== '')                               return 'vt_onpool';
     return '';
+}
+
+/**
+ * Default password assigned when the sync creates a new user. Matches the
+ * convention the marketing-site admin asked for so freshly synced accounts
+ * can log into the portal immediately. Only applied on INSERT — existing
+ * users keep whatever password they already have.
+ */
+function hs_default_password(string $role): string
+{
+    return match ($role) {
+        'client'    => 'client12345',
+        'csm'       => 'csm12345',
+        'vt_hired'  => 'vthired12345',
+        'vt_onpool' => 'vtonpool12345',
+        default     => bin2hex(random_bytes(16)),
+    };
 }
 
 function hs_find_user_for_contact(string $contactId, string $email): ?array
@@ -271,6 +288,31 @@ function hs_normalize_media_url(string $url, string $kind): string
     $url = trim($url);
     if ($url === '') { return $url; }
 
+    // 0a. Google Drive viewer URL → direct-download. Mirrors staging's logic
+    //     (vt-hubspot-user-sync.php lines 6241-6248): if we can pull a Drive
+    //     file ID out of any of the supported URL forms, swap to `uc?export=download`.
+    //     Patterns: /file/d/{ID}/view, /open?id={ID}, ?id={ID}, &id={ID}.
+    if (preg_match('#drive\.google\.com#i', $url)) {
+        $fileId = '';
+        foreach ([
+            '#drive\.google\.com/file/d/([A-Za-z0-9_\-]+)#i',
+            '#drive\.google\.com/open\?id=([A-Za-z0-9_\-]+)#i',
+            '#[?&]id=([A-Za-z0-9_\-]+)#i',
+        ] as $rx) {
+            if (preg_match($rx, $url, $m)) { $fileId = $m[1]; break; }
+        }
+        if ($fileId !== '') {
+            return 'https://drive.google.com/uc?export=download&id=' . rawurlencode($fileId);
+        }
+    }
+    // 0b. Google Docs document → export as PDF for resume, plain link otherwise.
+    if (preg_match('#docs\.google\.com/document/d/([A-Za-z0-9_\-]+)#i', $url, $m)) {
+        $docId = $m[1];
+        if ($kind === 'resume') {
+            return 'https://docs.google.com/document/d/' . rawurlencode($docId) . '/export?format=pdf';
+        }
+    }
+
     // 1. Google user content (lh3.googleusercontent.com, photos.app.goog, drive)
     //    serves thumbnails when a "=sXXX" / "=w200-h200" qualifier follows the
     //    base URL. Strip everything from the first "=" in the *final* path segment.
@@ -307,8 +349,9 @@ function hs_normalize_media_url(string $url, string $kind): string
  * - Returns the portal-served URL (`index.php?p=media&...`) for downloaded
  *   files, the original URL for embed-only videos, or '' on any failure.
  */
-function hs_import_media(string $url, string $entity, int $id, string $kind): string
+function hs_import_media(string $url, string $entity, int $id, string $kind, string $currentSourceUrl = '', bool &$skipped = false): string
 {
+    $skipped = false;
     $url = hs_normalize_media_url($url, $kind);
     if ($url === '' || !preg_match('#^https?://#i', $url)) { return ''; }
     if (!isset(hs_media_kind_map()[$kind])) { return ''; }
@@ -316,6 +359,17 @@ function hs_import_media(string $url, string $entity, int $id, string $kind): st
     if ($kind === 'video' && hs_is_embedded_video_url($url)) {
         // Keep the embed URL intact — we don't re-encode YouTube / Vimeo / Loom.
         return $url;
+    }
+
+    // Re-sync cache: if the source URL matches the one we previously downloaded
+    // AND the local file is still on disk, skip the network round-trip.
+    if ($currentSourceUrl !== '' && $currentSourceUrl === $url) {
+        $dir   = hs_media_dir($entity, $id);
+        $exist = glob($dir . '/' . $kind . '.*');
+        if (!empty($exist) && is_file($exist[0])) {
+            $skipped = true;
+            return 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+        }
     }
 
     $ch = curl_init();
@@ -381,19 +435,23 @@ function hs_state_default(): array
             'init', 'fetch_vts', 'process_vts',
             'fetch_clients', 'process_clients',
             'fetch_csms', 'process_csms',
+            'link_associations',
             'done',
         ],
-        'after_cursor' => null,
-        'pending'      => ['vts' => [], 'clients' => [], 'csms' => []],
-        'started_at'   => null,
-        'updated_at'   => null,
-        'finished_at'  => null,
-        'last_error'   => null,
+        'after_cursor'      => null,
+        'pending'           => ['vts' => [], 'clients' => [], 'csms' => [], 'links' => []],
+        'link_initialized'  => false,
+        'started_at'        => null,
+        'updated_at'        => null,
+        'finished_at'       => null,
+        'last_error'        => null,
         'stats' => [
             'vts'             => ['created'=>0,'updated'=>0,'skipped'=>0,'deleted'=>0,'errors'=>0],
             'clients'         => ['created'=>0,'updated'=>0,'skipped'=>0,'errors'=>0],
             'csms'            => ['created'=>0,'updated'=>0,'skipped'=>0,'errors'=>0],
+            'relationships'   => ['vt_links'=>0,'csm_links'=>0,'owners_resolved'=>0,'errors'=>0],
             'media_downloads' => 0,
+            'media_skipped'   => 0,
             'fetched_total'   => ['vts' => 0, 'clients' => 0, 'csms' => 0],
         ],
         'messages' => [],
@@ -555,23 +613,45 @@ function hs_process_vt_one(array $contact, array $settings, array &$state): void
             'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
              VALUES (:e, :h, :r, :fn, :ln, :p, :c, :hcid, 1)'
         )->execute([
-            ':e'=>$email, ':h'=>password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT),
+            ':e'=>$email, ':h'=>password_hash(hs_default_password($role), PASSWORD_DEFAULT),
             ':r'=>$role, ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country, ':hcid'=>$contactId,
         ]);
         $userId = (int) $pdo->lastInsertId();
         $state['stats']['vts']['created']++;
     }
 
-    // Media import (high-quality, original bytes).
+    // Media import (high-quality, original bytes) with cache-by-source-URL.
     $localPhoto = $localResume = $localVideo = '';
+    $newPhotoSrc = hs_normalize_media_url($remotePhoto, 'photo');
+    $newResumeSrc = hs_normalize_media_url($remoteResume, 'resume');
+    $newVideoSrc  = hs_normalize_media_url($remoteVideo, 'video');
     if (!empty($settings['hs_import_media'])) {
-        $localPhoto  = hs_import_media($remotePhoto,  'vt', $userId, 'photo');
-        $localResume = hs_import_media($remoteResume, 'vt', $userId, 'resume');
-        $localVideo  = hs_import_media($remoteVideo,  'vt', $userId, 'video');
-        $state['stats']['media_downloads'] += (int) ($localPhoto !== '') + (int) ($localResume !== '') + (int) ($localVideo !== '');
+        // Pull existing source URLs so we can short-circuit downloads when nothing changed.
+        $stmt = $pdo->prepare('SELECT photo_source_url FROM users WHERE id = :id');
+        $stmt->execute([':id' => $userId]);
+        $existPhotoSrc = (string) $stmt->fetchColumn();
+        $stmt = $pdo->prepare('SELECT resume_source_url, video_source_url FROM vt_profiles WHERE user_id = :u LIMIT 1');
+        $stmt->execute([':u' => $userId]);
+        $rowSrc = $stmt->fetch() ?: ['resume_source_url' => '', 'video_source_url' => ''];
+
+        $sk = false;
+        $localPhoto = hs_import_media($remotePhoto, 'vt', $userId, 'photo', $existPhotoSrc, $sk);
+        if ($sk) { $state['stats']['media_skipped']++; }
+        elseif ($localPhoto !== '') { $state['stats']['media_downloads']++; }
+
+        $sk = false;
+        $localResume = hs_import_media($remoteResume, 'vt', $userId, 'resume', (string) $rowSrc['resume_source_url'], $sk);
+        if ($sk) { $state['stats']['media_skipped']++; }
+        elseif ($localResume !== '') { $state['stats']['media_downloads']++; }
+
+        $sk = false;
+        $localVideo = hs_import_media($remoteVideo, 'vt', $userId, 'video', (string) $rowSrc['video_source_url'], $sk);
+        if ($sk) { $state['stats']['media_skipped']++; }
+        elseif ($localVideo !== '') { $state['stats']['media_downloads']++; }
     }
     if ($localPhoto !== '') {
-        $pdo->prepare('UPDATE users SET photo_url = :ph WHERE id = :id')->execute([':ph' => $localPhoto, ':id' => $userId]);
+        $pdo->prepare('UPDATE users SET photo_url = :ph, photo_source_url = :ps WHERE id = :id')
+            ->execute([':ph' => $localPhoto, ':ps' => $newPhotoSrc, ':id' => $userId]);
     }
 
     // Upsert the VT profile row.
@@ -586,7 +666,9 @@ function hs_process_vt_one(array $contact, array $settings, array &$state): void
         'summary'            => hs_pick($props, ['summary','vt_skills_summary','professional_summary']),
         'experience_text'    => hs_pick($props, ['vt_experience_summary','professional_summary']),
         'resume_url'         => $localResume !== '' ? $localResume : hs_pick($props, ['resume_url','resume_link','cv_url','resume','cv']),
+        'resume_source_url'  => $newResumeSrc,
         'video_url'          => $localVideo  !== '' ? $localVideo  : hs_pick($props, ['intro_video_link','intro_video_url','intro_video','introduction_video','video_url']),
+        'video_source_url'   => $newVideoSrc,
         'workday_tracker_id' => hs_pick($props, ['workday_tracker_id','workday_report_id','workdaytracker_report_id','workday_tracker_report_id']),
     ];
     $existsStmt = $pdo->prepare('SELECT id FROM vt_profiles WHERE user_id = :u LIMIT 1');
@@ -642,28 +724,32 @@ function hs_process_client_one(array $company, array $settings, array &$state): 
                 'INSERT INTO users (email, password_hash, role, first_name, last_name, active)
                  VALUES (:e, :h, "client", "", :ln, 1)'
             )->execute([
-                ':e' => $email, ':h' => password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT), ':ln' => $name,
+                ':e' => $email, ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT), ':ln' => $name,
             ]);
             $userId = (int) $pdo->lastInsertId();
         }
     }
 
+    $ownerId = trim((string) ($props['hubspot_owner_id'] ?? ''));
+
     if ($row) {
         $pdo->prepare(
             'UPDATE clients SET user_id=:u, company_name=:n, company_email=:e, company_domain=:d,
-                                contract_status="active", hubspot_company_id=:h, updated_at=CURRENT_TIMESTAMP
+                                contract_status="active", hubspot_company_id=:h, hubspot_owner_id=:o,
+                                updated_at=CURRENT_TIMESTAMP
              WHERE id=:id'
         )->execute([
-            ':u'=>$userId ?: $row['user_id'], ':n'=>$name, ':e'=>$email, ':d'=>$domain, ':h'=>$companyId, ':id'=>$row['id'],
+            ':u'=>$userId ?: $row['user_id'], ':n'=>$name, ':e'=>$email, ':d'=>$domain,
+            ':h'=>$companyId, ':o'=>$ownerId, ':id'=>$row['id'],
         ]);
         $state['stats']['clients']['updated']++;
         audit_log('hs_sync_upsert', 'client', (int) $row['id'], 'company=' . $companyId);
     } else {
         $pdo->prepare(
-            'INSERT INTO clients (user_id, company_name, company_email, company_domain, contract_status, hubspot_company_id)
-             VALUES (:u, :n, :e, :d, "active", :h)'
+            'INSERT INTO clients (user_id, company_name, company_email, company_domain, contract_status, hubspot_company_id, hubspot_owner_id)
+             VALUES (:u, :n, :e, :d, "active", :h, :o)'
         )->execute([
-            ':u'=>$userId, ':n'=>$name, ':e'=>$email, ':d'=>$domain, ':h'=>$companyId,
+            ':u'=>$userId, ':n'=>$name, ':e'=>$email, ':d'=>$domain, ':h'=>$companyId, ':o'=>$ownerId,
         ]);
         $state['stats']['clients']['created']++;
         audit_log('hs_sync_create', 'client', (int) $pdo->lastInsertId(), 'company=' . $companyId);
@@ -699,7 +785,7 @@ function hs_process_csm_one(array $contact, array $settings, array &$state): voi
             'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
              VALUES (:e, :h, "csm", :fn, :ln, :p, :c, :hcid, 1)'
         )->execute([
-            ':e'=>$email, ':h'=>password_hash(bin2hex(random_bytes(16)), PASSWORD_DEFAULT),
+            ':e'=>$email, ':h'=>password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
             ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country, ':hcid'=>$contactId,
         ]);
         $state['stats']['csms']['created']++;
@@ -743,6 +829,161 @@ function hs_step_process_csms(array &$state, HubSpotClient $hs, array $settings)
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
+ * Relationship linking — populates csm_clients + client_vts from HubSpot
+ * company-to-contact associations + company owners. Runs after all entities
+ * have been ingested so the user lookups by hubspot_contact_id / owner_id
+ * succeed. Mirrors the WP plugin's `relationship_*` summary keys.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/**
+ * Resolve a HubSpot owner ID to a portal CSM user. If the owner is already
+ * a user (by email or owner_id), return it; otherwise fetch /crm/v3/owners/{id}
+ * and create a new CSM user. Returns 0 on failure.
+ */
+function hs_resolve_owner_as_csm(string $ownerId, HubSpotClient $hs, array &$state): int
+{
+    if ($ownerId === '') { return 0; }
+    $pdo = db();
+
+    // Already linked by owner ID?
+    $stmt = $pdo->prepare('SELECT id FROM users WHERE hubspot_owner_id = :o LIMIT 1');
+    $stmt->execute([':o' => $ownerId]);
+    if ($uid = (int) ($stmt->fetchColumn() ?: 0)) { return $uid; }
+
+    // Fetch owner details from HubSpot.
+    $resp = $hs->request('GET', '/crm/v3/owners/' . rawurlencode($ownerId));
+    if (!$resp['ok']) {
+        $state['stats']['relationships']['errors']++;
+        hs_state_log($state, "Owner {$ownerId} fetch failed: " . ($resp['error'] ?: 'unknown'));
+        return 0;
+    }
+    $owner = is_array($resp['data']) ? $resp['data'] : [];
+    $email = strtolower(trim((string) ($owner['email'] ?? '')));
+    if ($email === '') { return 0; }
+
+    $first = trim((string) ($owner['firstName'] ?? ''));
+    $last  = trim((string) ($owner['lastName']  ?? ''));
+
+    // Existing user by email? Upgrade to csm + stamp owner_id.
+    $stmt = $pdo->prepare('SELECT id, role FROM users WHERE email = :e LIMIT 1');
+    $stmt->execute([':e' => $email]);
+    if ($u = $stmt->fetch()) {
+        // Don't demote a super_admin; otherwise reclassify as csm.
+        $newRole = $u['role'] === 'super_admin' ? 'super_admin' : 'csm';
+        $pdo->prepare('UPDATE users SET role=:r, hubspot_owner_id=:o, updated_at=CURRENT_TIMESTAMP WHERE id=:id')
+            ->execute([':r' => $newRole, ':o' => $ownerId, ':id' => $u['id']]);
+        $state['stats']['relationships']['owners_resolved']++;
+        return (int) $u['id'];
+    }
+
+    // Create new CSM user from owner details.
+    $pdo->prepare(
+        'INSERT INTO users (email, password_hash, role, first_name, last_name, hubspot_owner_id, active)
+         VALUES (:e, :h, "csm", :fn, :ln, :o, 1)'
+    )->execute([
+        ':e'  => $email,
+        ':h'  => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
+        ':fn' => $first, ':ln' => $last, ':o' => $ownerId,
+    ]);
+    $state['stats']['relationships']['owners_resolved']++;
+    $state['stats']['csms']['created']++;
+    return (int) $pdo->lastInsertId();
+}
+
+/** Link a single client's relationships from HubSpot to local join tables. */
+function hs_link_one_client(array $item, HubSpotClient $hs, array &$state): void
+{
+    $pdo       = db();
+    $clientId  = (int) $item['client_id'];
+    $companyId = (string) $item['company_id'];
+    $ownerId   = (string) $item['owner_id'];
+
+    // Wipe stale associations for this client so the sync is authoritative
+    // (handles VT leaving the company, owner changing, etc.).
+    $pdo->prepare('DELETE FROM client_vts  WHERE client_id = :c')->execute([':c' => $clientId]);
+    $pdo->prepare('DELETE FROM csm_clients WHERE client_id = :c')->execute([':c' => $clientId]);
+
+    // 1) Company -> contact associations -> client_vts
+    if ($companyId !== '') {
+        $resp = $hs->request('GET', '/crm/v3/objects/companies/' . rawurlencode($companyId) . '/associations/contacts');
+        if ($resp['ok']) {
+            $assocs = is_array($resp['data']['results'] ?? null) ? $resp['data']['results'] : [];
+            foreach ($assocs as $assoc) {
+                $contactId = (string) ($assoc['id'] ?? '');
+                if ($contactId === '') { continue; }
+                $stmt = $pdo->prepare('SELECT id, role FROM users WHERE hubspot_contact_id = :c LIMIT 1');
+                $stmt->execute([':c' => $contactId]);
+                $u = $stmt->fetch();
+                if (!$u) { continue; }
+                if (!in_array($u['role'], ['vt_hired', 'vt_onpool'], true)) { continue; }
+                $contractStatus = $u['role'] === 'vt_hired' ? 'active' : 'pool';
+                $pdo->prepare(
+                    'INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status)
+                     VALUES (:c, :v, :s)'
+                )->execute([':c' => $clientId, ':v' => (int) $u['id'], ':s' => $contractStatus]);
+                $state['stats']['relationships']['vt_links']++;
+            }
+        } else {
+            $state['stats']['relationships']['errors']++;
+            hs_state_log($state, "Assoc fetch failed for company {$companyId}: " . ($resp['error'] ?: 'unknown'));
+        }
+    }
+
+    // 2) Company owner -> CSM user -> csm_clients
+    if ($ownerId !== '') {
+        $csmUserId = hs_resolve_owner_as_csm($ownerId, $hs, $state);
+        if ($csmUserId > 0) {
+            $pdo->prepare(
+                'INSERT OR IGNORE INTO csm_clients (csm_user_id, client_id)
+                 VALUES (:csm, :c)'
+            )->execute([':csm' => $csmUserId, ':c' => $clientId]);
+            $state['stats']['relationships']['csm_links']++;
+        }
+    }
+}
+
+function hs_step_link_associations(array &$state, HubSpotClient $hs, array $settings): void
+{
+    $pdo = db();
+
+    // Seed the queue from local DB the first time this stage runs.
+    if (empty($state['link_initialized'])) {
+        $state['pending']['links'] = [];
+        $stmt = $pdo->query("SELECT id, hubspot_company_id, hubspot_owner_id FROM clients WHERE hubspot_company_id != ''");
+        foreach ($stmt as $row) {
+            $state['pending']['links'][] = [
+                'client_id'  => (int) $row['id'],
+                'company_id' => (string) $row['hubspot_company_id'],
+                'owner_id'   => (string) $row['hubspot_owner_id'],
+            ];
+        }
+        $state['link_initialized'] = true;
+        hs_state_log($state, 'Queued ' . count($state['pending']['links']) . ' client companies for association linking.');
+    }
+
+    if (empty($state['pending']['links'])) {
+        hs_state_log($state, 'All client relationships linked.');
+        hs_state_advance_stage($state);
+        return;
+    }
+
+    $batch = array_splice($state['pending']['links'], 0, HS_PROCESS_BATCH);
+    foreach ($batch as $item) {
+        try {
+            hs_link_one_client($item, $hs, $state);
+        } catch (Throwable $ex) {
+            $state['stats']['relationships']['errors']++;
+            hs_state_log($state, "Link client {$item['client_id']} failed: " . $ex->getMessage());
+        }
+    }
+
+    if (empty($state['pending']['links'])) {
+        hs_state_log($state, 'All client relationships linked.');
+        hs_state_advance_stage($state);
+    }
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
  * Dispatcher
  * ═════════════════════════════════════════════════════════════════════════ */
 
@@ -773,9 +1014,10 @@ function hs_step(): array
             case 'process_vts':     hs_step_process_vts($state, $hs, $settings);    break;
             case 'fetch_clients':   hs_step_fetch_clients($state, $hs, $settings);  break;
             case 'process_clients': hs_step_process_clients($state, $hs, $settings);break;
-            case 'fetch_csms':      hs_step_fetch_csms($state, $hs, $settings);     break;
-            case 'process_csms':    hs_step_process_csms($state, $hs, $settings);   break;
-            default:                hs_state_advance_stage($state);                 break;
+            case 'fetch_csms':         hs_step_fetch_csms($state, $hs, $settings);      break;
+            case 'process_csms':       hs_step_process_csms($state, $hs, $settings);    break;
+            case 'link_associations':  hs_step_link_associations($state, $hs, $settings); break;
+            default:                   hs_state_advance_stage($state);                  break;
         }
     } catch (Throwable $ex) {
         $state['status']     = 'error';
@@ -822,4 +1064,2044 @@ function hs_control(string $action): array
     }
     hs_state_save($state);
     return $state;
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * PHASE 2 — Two-pipeline state machine.
+ *
+ * Talent and Client sync each get an independent state object so they can
+ * be started / paused / resumed / reset on their own. The legacy combined
+ * `hs_step()` / `hs_control()` above stays in place for the existing UI
+ * until Phase 7 retires it. The new pipelines live under:
+ *
+ *   app_settings.hs_talent_state    — drives talent (VT) sync
+ *   app_settings.hs_client_state    — drives client + CSM + associations sync
+ *
+ * Phase 2 (this commit) wires the plumbing only — the per-stage processors
+ * are stubs that just advance the stage to `done`. Phase 3 fills in talent,
+ * Phase 4 fills in client.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+const HS_TALENT_STATE_KEY = 'hs_talent_state';
+const HS_CLIENT_STATE_KEY = 'hs_client_state';
+
+function hs_talent_state_default(): array
+{
+    return [
+        'version'      => 1,
+        'pipeline'     => 'talent',
+        'status'       => 'idle',                    // idle | running | paused | done | error
+        'stage'        => 'init',
+        'stages'       => [
+            'init',
+            'fetch_vts_eligible',                    // filterGroup 1: lead=VT + vt_status=Unmatched / Eligible
+            'fetch_vts_matched',                     // filterGroup 2: lead=VT + vt_status=Matched
+            'fetch_vts_contracted',                  // filterGroup 3: lead=VT + vt_status=Contracted + contract_hired_status=First Day Complete
+            'process_vts',
+            'download_media',                        // Phase 5 fills this in
+            'done',
+        ],
+        'after_cursor' => null,
+        'pending'      => ['vts' => [], 'media' => [], 'ci_roles' => []],
+        'started_at'   => null,
+        'updated_at'   => null,
+        'finished_at'  => null,
+        'last_error'   => null,
+        'stats' => [
+            'fetched_total'   => ['eligible' => 0, 'matched' => 0, 'contracted' => 0],
+            'vts'             => ['created'=>0,'updated'=>0,'skipped_role'=>0,'skipped_no_email'=>0,'errors'=>0],
+            'media'           => ['downloaded'=>0,'cache_hits'=>0,'errors'=>0,'failed_urls'=>[]],
+            'ci_roles'        => ['fetched'=>0,'linked'=>0,'errors'=>0],
+        ],
+        'messages'     => [],
+        // The latest summary report (rendered in the UI after a run completes).
+        'last_report'  => null,
+    ];
+}
+
+function hs_client_state_default(): array
+{
+    return [
+        'version'      => 1,
+        'pipeline'     => 'client',
+        'status'       => 'idle',
+        'stage'        => 'init',
+        'stages'       => [
+            'init',
+            'fetch_companies',                       // companies w/ lead=Client - Active
+            'fetch_primary_contacts',                // company -> contacts assoc, pick Primary + collect Teammate-labeled hired contacts
+            'fetch_contracts',                       // company -> contracts (object 2-31153232)
+            'filter_first_day_complete',             // keep contracts at stage "First Day Complete" (pipeline-label resolved)
+            'fetch_contract_contacts',               // contracts -> contacts (assoc type 28 = hired)
+            'fetch_owner_csms',                      // resolve hubspot_owner_id -> CSM users
+            'upsert_hired_vts',                      // bulk-fetch + upsert hired contacts as vt_hired users
+            'process_clients',                       // upsert clients + login user from Primary Contact
+            'process_associations',                  // write csm_clients + client_vts
+            'done',
+        ],
+        'after_cursor' => null,
+        'pending'      => [
+            'companies' => [],
+            'primary_contacts' => [],
+            'contracts' => [],
+            'first_day_contracts' => [],
+            'contract_contacts' => [],
+            'owners' => [],
+            'links' => [],
+        ],
+        'started_at'   => null,
+        'updated_at'   => null,
+        'finished_at'  => null,
+        'last_error'   => null,
+        'stats' => [
+            'fetched_total'   => ['companies'=>0,'contracts'=>0,'first_day_contracts'=>0,'hired_contacts'=>0],
+            'clients'         => ['created'=>0,'updated'=>0,'skipped'=>0,'errors'=>0],
+            'csms'            => ['created'=>0,'updated'=>0,'errors'=>0],
+            'relationships'   => ['vt_links'=>0,'csm_links'=>0,'owners_resolved'=>0,'errors'=>0],
+        ],
+        'messages'     => [],
+        'last_report'  => null,
+    ];
+}
+
+/** Generic JSON load — used by both pipeline loaders. */
+function hs_pipeline_state_load(string $key, callable $defaultFn): array
+{
+    $raw = get_setting($key, '');
+    if ($raw === '') { return $defaultFn(); }
+    $s = json_decode($raw, true);
+    if (!is_array($s) || ($s['version'] ?? 0) !== 1) { return $defaultFn(); }
+    return array_replace_recursive($defaultFn(), $s);
+}
+
+function hs_pipeline_state_save(string $key, array $state): void
+{
+    $state['updated_at'] = date('c');
+    set_setting($key, json_encode($state, JSON_UNESCAPED_SLASHES));
+}
+
+function hs_talent_state_load(): array { return hs_pipeline_state_load(HS_TALENT_STATE_KEY, 'hs_talent_state_default'); }
+function hs_talent_state_save(array $s): void { hs_pipeline_state_save(HS_TALENT_STATE_KEY, $s); }
+function hs_client_state_load(): array { return hs_pipeline_state_load(HS_CLIENT_STATE_KEY, 'hs_client_state_default'); }
+function hs_client_state_save(array $s): void { hs_pipeline_state_save(HS_CLIENT_STATE_KEY, $s); }
+
+/* ─── Talent pipeline ─── */
+
+function hs_talent_step(): array
+{
+    $state = hs_talent_state_load();
+    if ($state['status'] !== 'running') { return $state; }
+    if ($state['stage'] === 'done') {
+        $state['status'] = 'done';
+        $state['finished_at'] = $state['finished_at'] ?? date('c');
+        hs_talent_state_save($state);
+        return $state;
+    }
+
+    $settings = hs_settings();
+    $hs = new HubSpotClient((string) $settings['hs_token']);
+
+    try {
+        switch ($state['stage']) {
+            case 'init':
+                hs_talent_step_init($state);
+                break;
+            case 'fetch_vts_eligible':
+            case 'fetch_vts_matched':
+            case 'fetch_vts_contracted':
+                hs_talent_step_fetch($state, $hs, $settings);
+                break;
+            case 'process_vts':
+                hs_talent_step_process($state, $hs, $settings);
+                break;
+            case 'download_media':
+                hs_talent_step_download_media($state, $hs, $settings);
+                break;
+            default:
+                hs_state_advance_stage($state);
+                break;
+        }
+    } catch (Throwable $ex) {
+        $state['status']     = 'error';
+        $state['last_error'] = $ex->getMessage();
+        hs_state_log($state, 'Fatal: ' . $ex->getMessage());
+    }
+
+    if ($state['stage'] === 'done' && $state['status'] !== 'error') {
+        $state['status']      = 'done';
+        $state['finished_at'] = date('c');
+        $state['last_report'] = hs_build_report($state);
+        hs_state_log($state, 'Talent sync finished.');
+    }
+
+    hs_talent_state_save($state);
+    return $state;
+}
+
+function hs_talent_step_init(array &$state): void
+{
+    $state['started_at']   = date('c');
+    $state['finished_at']  = null;
+    $state['last_error']   = null;
+    $state['after_cursor'] = null;
+    $state['pending']      = hs_talent_state_default()['pending'];
+    $state['stats']        = hs_talent_state_default()['stats'];
+    $state['messages']     = [];
+    $state['last_report']  = null;
+    hs_state_log($state, 'Talent sync started.');
+    hs_state_advance_stage($state);
+}
+
+/* ─── Phase 3: talent fetch + process implementations ─── */
+
+/**
+ * Full property list for the contact search — mirrors the staging mu-plugin's
+ * `pick_property` fallback chains plus vtadmin's superset. Pulling them all
+ * once means we can fall back to alternate property names per role / badge.
+ */
+function hs_vt_properties_full(): array
+{
+    return array_values(array_unique([
+        // Identity
+        'email','firstname','lastname','fullname','phone','mobilephone','country','jobtitle',
+        // Status / lead
+        'hs_lead_status','vt_status','hs_vt_status','contract_hired_status',
+        // Role / department / skills
+        'department','vt_department','primary_role','primary_roles','role','position',
+        'primary_skillset','primary_skills',
+        // Experience
+        'years_of_experience','years_of_experience__vt_','experience_years',
+        // Narrative
+        'summary','vt_skills_summary','vt_experience_summary','professional_summary',
+        // Media URLs (raw; Phase 5 downloads)
+        'vt_profile_picture_link','profile_picture','profile_picture_url','vt_profile_picture_url',
+        'headshot','headshot_url','photo','photo_url',
+        'resume','resume_url','resume_link','cv','cv_url',
+        'intro_video_link','intro_video','intro_video_url','introduction_video','video_url',
+        // Badges — English
+        'english_proficiency','english_level','english_badge','english','language_score','english_rate',
+        // Badges — IQ / Cognitive (CI)
+        'iq_level','iq_description','iq_test_score__max_10_','iq_score','cognitive_level','aptitude_level',
+        'ci_role','ci','cognitive_index','ci_score','ci_level','ci_badge','cognitive_index_score','cognitive_score',
+        // Badges — Technical
+        'technical_proficiency__max_5_','technical_skills_level','technical_skills_badge','tech_level',
+        'technical_level','technical_skills_rate','technical_proficiency',
+        // Badges — DISC / Personality
+        'disc_profile','disc_badge','culture_index','personality_profile','personality',
+        // Badges — HIPAA
+        'hipaa_certified','hipaa','hipaa_badge',
+        // Engagement / predictive
+        'engagement_score','hs_predictivecontactscore','predictive_index','quiz_tier',
+        // Workday
+        'workday_tracker_id','workday_report_id','workdaytracker_report_id','workday_tracker_report_id',
+        'workday_tracker_link','vt_wdt_link','vt_workday_tracker_link','workday_report_url',
+        // Company linkage
+        'company','company_name','associatedcompanyid',
+    ]));
+}
+
+/**
+ * vtadmin-faithful role mapping. Returns null to mean SKIP entirely (the
+ * "vt_onboarded" state — Contracted but not yet First-Day-Complete is
+ * excluded from the portal per user requirements).
+ *
+ * @return null|array{role:string, active:int}
+ */
+function hs_map_vt_role_and_status(string $vtStatus, string $contractHiredStatus = ''): ?array
+{
+    $vt = strtolower(preg_replace('/\s+/', ' ', trim($vtStatus)));
+    $ch = strtolower(preg_replace('/\s+/', ' ', trim($contractHiredStatus)));
+
+    if ($vt === 'contracted') {
+        return $ch === 'first day complete' ? ['role' => 'vt_hired', 'active' => 1] : null;
+    }
+    if ($vt === 'unmatched / eligible' || $vt === 'matched') {
+        return ['role' => 'vt_onpool', 'active' => 1];
+    }
+    // Anything else (Pending, No longer eligible, blank) → SKIP.
+    return null;
+}
+
+/** filterGroups for each of the 3 fetch stages. */
+function hs_talent_filter_for_stage(string $stage, array $settings): array
+{
+    $leadField  = $settings['hs_vt_lead_status_field']  ?: 'hs_lead_status';
+    $leadValue  = $settings['hs_vt_lead_status_value']  ?: 'Virtual Teammate';
+    $statusField = $settings['hs_vt_status_field']      ?: 'hs_vt_status';
+
+    return match ($stage) {
+        'fetch_vts_eligible' => [
+            ['propertyName' => $leadField,   'operator' => 'EQ', 'value' => $leadValue],
+            ['propertyName' => $statusField, 'operator' => 'EQ', 'value' => 'Unmatched / Eligible'],
+        ],
+        'fetch_vts_matched' => [
+            ['propertyName' => $leadField,   'operator' => 'EQ', 'value' => $leadValue],
+            ['propertyName' => $statusField, 'operator' => 'EQ', 'value' => 'Matched'],
+        ],
+        'fetch_vts_contracted' => [
+            ['propertyName' => $leadField,             'operator' => 'EQ', 'value' => $leadValue],
+            ['propertyName' => $statusField,           'operator' => 'EQ', 'value' => 'Contracted'],
+            ['propertyName' => 'contract_hired_status','operator' => 'EQ', 'value' => 'First Day Complete'],
+        ],
+        default => [],
+    };
+}
+
+/** Single-page contact search; queues results into pending['vts']. */
+function hs_talent_step_fetch(array &$state, HubSpotClient $hs, array $settings): void
+{
+    $stage = $state['stage'];
+    $bucketKey = match ($stage) {
+        'fetch_vts_eligible'   => 'eligible',
+        'fetch_vts_matched'    => 'matched',
+        'fetch_vts_contracted' => 'contracted',
+        default                => 'unknown',
+    };
+
+    $payload = [
+        'filterGroups' => [['filters' => hs_talent_filter_for_stage($stage, $settings)]],
+        'properties'   => hs_vt_properties_full(),
+        'limit'        => 100,
+    ];
+    if (!empty($state['after_cursor'])) {
+        $payload['after'] = (string) $state['after_cursor'];
+    }
+
+    $resp = $hs->request('POST', '/crm/v3/objects/contacts/search', $payload);
+    if (!$resp['ok']) {
+        $state['status']     = 'error';
+        $state['last_error'] = (string) ($resp['error'] ?: ('HTTP ' . $resp['status']));
+        hs_state_log($state, "Fetch {$bucketKey} failed: " . $state['last_error']);
+        return;
+    }
+
+    $results = is_array($resp['data']['results'] ?? null) ? $resp['data']['results'] : [];
+    foreach ($results as $contact) {
+        if (!is_array($contact)) { continue; }
+        $state['pending']['vts'][] = [
+            'id'           => (string) ($contact['id'] ?? ''),
+            'properties'   => is_array($contact['properties'] ?? null) ? $contact['properties'] : [],
+            'source_stage' => $bucketKey,
+        ];
+    }
+    $state['stats']['fetched_total'][$bucketKey] += count($results);
+
+    $after = $resp['data']['paging']['next']['after'] ?? null;
+    if ($after !== null && $after !== '') {
+        $state['after_cursor'] = (string) $after;
+        // Stay on this stage; next step() will fetch the next page.
+        return;
+    }
+
+    hs_state_log($state, "Fetched {$state['stats']['fetched_total'][$bucketKey]} '{$bucketKey}' contacts from HubSpot.");
+    $state['after_cursor'] = null;
+    hs_state_advance_stage($state);
+}
+
+/** Drain HS_PROCESS_BATCH from pending['vts'] and upsert each. */
+function hs_talent_step_process(array &$state, HubSpotClient $hs, array $settings): void
+{
+    if (empty($state['pending']['vts'])) {
+        hs_state_log($state, 'All VTs processed (' . array_sum($state['stats']['fetched_total']) . ' fetched).');
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_splice($state['pending']['vts'], 0, HS_PROCESS_BATCH);
+    foreach ($batch as $item) {
+        try {
+            hs_process_vt_contact($item, $state);
+        } catch (Throwable $ex) {
+            $state['stats']['vts']['errors']++;
+            hs_state_log($state, 'Process VT failed: ' . $ex->getMessage());
+        }
+    }
+    if (empty($state['pending']['vts'])) {
+        hs_state_log($state, 'All VTs processed.');
+        hs_state_advance_stage($state);
+    }
+}
+
+/**
+ * Upsert one HubSpot contact into users + vt_profiles + vt_profile_meta.
+ * vt_onboarded (Contracted without First-Day-Complete) is skipped.
+ */
+function hs_process_vt_contact(array $item, array &$state): void
+{
+    $pdo       = db();
+    $contactId = (string) ($item['id'] ?? '');
+    $props     = is_array($item['properties'] ?? null) ? $item['properties'] : [];
+    $email     = strtolower(trim((string) ($props['email'] ?? '')));
+
+    if ($email === '') {
+        $state['stats']['vts']['skipped_no_email']++;
+        return;
+    }
+
+    $vtStatus      = hs_pick($props, ['hs_vt_status','vt_status','vtstatus']);
+    $contractHired = hs_pick($props, ['contract_hired_status']);
+    $leadStatus    = hs_pick($props, ['hs_lead_status']);
+
+    $roleMap = hs_map_vt_role_and_status($vtStatus, $contractHired);
+    if ($roleMap === null) {
+        $state['stats']['vts']['skipped_role']++;
+        hs_state_log($state, "Skipped {$email}: vt_status=\"{$vtStatus}\" / contract_hired_status=\"{$contractHired}\" — not eligible for portal.");
+        return;
+    }
+    $role   = $roleMap['role'];
+    $active = $roleMap['active'];
+
+    // Identity fields with vtadmin-style fallbacks
+    $first = hs_pick($props, ['firstname']);
+    $last  = hs_pick($props, ['lastname']);
+    $full  = trim($first . ' ' . $last);
+    if ($full === '') { $full = hs_pick($props, ['fullname']) ?: $email; }
+    $phone    = hs_pick($props, ['phone','mobilephone']);
+    $country  = hs_pick($props, ['country']);
+    $jobTitle = hs_pick($props, ['jobtitle']);
+
+    // Media — stored as raw source URLs (Phase 5 downloads).
+    $photoUrl  = hs_pick($props, [
+        'vt_profile_picture_link','profile_picture_url','vt_profile_picture_url',
+        'headshot_url','photo','photo_url','profile_picture','headshot',
+    ]);
+    $resumeUrl = hs_pick($props, ['resume_url','resume_link','cv_url','resume','cv']);
+    $videoUrl  = hs_pick($props, ['intro_video_link','intro_video_url','intro_video','introduction_video','video_url']);
+
+    // VT profile extended fields
+    $department       = hs_pick($props, ['vt_department','department']);
+    $roleTitle        = hs_pick($props, ['primary_role','primary_roles','role','position','jobtitle']);
+    $experienceYears  = (int) (hs_pick($props, ['years_of_experience__vt_','years_of_experience','experience_years'], '0') ?: 0);
+    $englishLevel     = hs_pick($props, ['english_proficiency','english_level','english_badge','language_score','english_rate','english']);
+    $iqBand           = hs_pick($props, ['iq_level','iq_description','cognitive_level','aptitude_level','iq_test_score__max_10_','iq_score']);
+    $technicalBand    = hs_pick($props, ['technical_skills_level','technical_skills_badge','tech_level','technical_level','technical_proficiency__max_5_','technical_skills_rate','technical_proficiency']);
+    $summary          = hs_pick($props, ['summary','vt_skills_summary','vt_experience_summary','professional_summary']);
+    $experienceText   = hs_pick($props, ['vt_experience_summary','professional_summary','summary']);
+    $primarySkills    = hs_pick($props, ['primary_skillset','primary_skills']);
+    $predictiveIndex  = hs_pick($props, ['predictive_index']);
+    $quizTier         = hs_pick($props, ['quiz_tier']);
+    $engagementScore  = hs_pick($props, ['engagement_score']);
+    $predictiveScore  = hs_pick($props, ['hs_predictivecontactscore']);
+    $personalityRaw   = hs_pick($props, ['personality_profile','personality']);
+
+    // Badges (mirrors staging mu-plugin fallback chains).
+    $ciRole      = hs_pick($props, ['ci_role','ci','cognitive_index','ci_score','ci_level','ci_badge','cognitive_index_score','cognitive_score']);
+    $discProfile = hs_pick($props, ['disc_profile','disc_badge','culture_index','personality_profile']);
+    $hipaaCert   = hs_pick($props, ['hipaa_certified','hipaa','hipaa_badge']);
+
+    $workdayTrackerId = hs_pick($props, ['workday_tracker_id','workday_report_id','workdaytracker_report_id','workday_tracker_report_id']);
+    $workdayLink      = hs_pick($props, ['workday_tracker_link','vt_wdt_link','vt_workday_tracker_link','workday_report_url']);
+
+    $pdo->beginTransaction();
+    try {
+        // Find existing user (by HubSpot contact id, then email).
+        $existing = hs_find_user_for_contact($contactId, $email);
+
+        if ($existing) {
+            $userId = (int) $existing['id'];
+            $pdo->prepare(
+                'UPDATE users SET email = :e, role = :r, first_name = :fn, last_name = :ln, full_name = :full,
+                                  phone = :p, country = :c, job_title = :jt, photo_url = :ph,
+                                  hubspot_contact_id = :hcid, vt_status = :vs, hs_lead_status = :ls,
+                                  is_hired = :ih, active = :act, updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id'
+            )->execute([
+                ':e'=>$email, ':r'=>$role, ':fn'=>$first, ':ln'=>$last, ':full'=>$full,
+                ':p'=>$phone, ':c'=>$country, ':jt'=>$jobTitle, ':ph'=>$photoUrl,
+                ':hcid'=>$contactId, ':vs'=>$vtStatus, ':ls'=>$leadStatus,
+                ':ih'=> ($role === 'vt_hired' ? 1 : 0), ':act'=>$active, ':id'=>$userId,
+            ]);
+            $state['stats']['vts']['updated']++;
+        } else {
+            $pdo->prepare(
+                'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+                                    phone, country, job_title, photo_url,
+                                    hubspot_contact_id, vt_status, hs_lead_status,
+                                    is_hired, active)
+                 VALUES (:e, :pwh, :r, :fn, :ln, :full,
+                         :p, :c, :jt, :ph,
+                         :hcid, :vs, :ls,
+                         :ih, :act)'
+            )->execute([
+                ':e'=>$email,
+                ':pwh'=>password_hash(hs_default_password($role), PASSWORD_DEFAULT),
+                ':r'=>$role, ':fn'=>$first, ':ln'=>$last, ':full'=>$full,
+                ':p'=>$phone, ':c'=>$country, ':jt'=>$jobTitle, ':ph'=>$photoUrl,
+                ':hcid'=>$contactId, ':vs'=>$vtStatus, ':ls'=>$leadStatus,
+                ':ih'=> ($role === 'vt_hired' ? 1 : 0), ':act'=>$active,
+            ]);
+            $userId = (int) $pdo->lastInsertId();
+            $state['stats']['vts']['created']++;
+        }
+
+        // Upsert vt_profiles row (one per user).
+        $profileStatus = $role === 'vt_hired' ? 'hired' : 'onpool';
+        $profileFields = [
+            'status'                   => $profileStatus,
+            'department'               => $department,
+            'role_title'               => $roleTitle,
+            'experience_years'         => $experienceYears,
+            'english_level'            => $englishLevel,
+            'iq_band'                  => $iqBand,
+            'technical_band'           => $technicalBand,
+            'primary_skills'           => $primarySkills,
+            'predictive_index'         => $predictiveIndex,
+            'quiz_tier'                => $quizTier,
+            'engagement_score'         => $engagementScore,
+            'predictive_contact_score' => $predictiveScore,
+            'personality_profile'      => $personalityRaw,
+            'ci_role'                  => $ciRole,
+            'disc_profile'             => $discProfile,
+            'hipaa_certified'          => $hipaaCert,
+            'summary'                  => $summary,
+            'experience_text'          => $experienceText,
+            'resume_url'               => $resumeUrl,
+            'video_url'                => $videoUrl,
+            'workday_tracker_id'       => $workdayTrackerId,
+            'workday_link'             => $workdayLink,
+        ];
+        $stmt = $pdo->prepare('SELECT id FROM vt_profiles WHERE user_id = :u LIMIT 1');
+        $stmt->execute([':u' => $userId]);
+        $vpId = (int) ($stmt->fetchColumn() ?: 0);
+        if ($vpId > 0) {
+            $sets = implode(', ', array_map(fn($k) => "$k = :$k", array_keys($profileFields)));
+            $params = [];
+            foreach ($profileFields as $k => $v) { $params[":$k"] = $v; }
+            $params[':id'] = $vpId;
+            $pdo->prepare("UPDATE vt_profiles SET $sets, updated_at = CURRENT_TIMESTAMP WHERE id = :id")
+                ->execute($params);
+        } else {
+            $cols = array_merge(['user_id'], array_keys($profileFields));
+            $vals = array_merge([':user_id'], array_map(fn($k) => ":$k", array_keys($profileFields)));
+            $params = [':user_id' => $userId];
+            foreach ($profileFields as $k => $v) { $params[":$k"] = $v; }
+            $pdo->prepare('INSERT INTO vt_profiles (' . implode(',', $cols) . ') VALUES (' . implode(',', $vals) . ')')
+                ->execute($params);
+        }
+
+        // Dump every HubSpot property to vt_profile_meta for audit + future use.
+        foreach ($props as $k => $v) {
+            if (!is_string($k) || trim($k) === '') { continue; }
+            $val = trim((string) $v);
+            hs_upsert_vt_profile_meta($userId, $k, $val === '' ? null : $val);
+        }
+        if ($contactId !== '') {
+            hs_upsert_vt_profile_meta($userId, 'hubspot_contact_id', $contactId);
+        }
+
+        // Queue media for Phase 5 to download. Empty URLs are skipped.
+        foreach ([['photo', $photoUrl], ['resume', $resumeUrl], ['video', $videoUrl]] as [$kind, $url]) {
+            if ($url === '') { continue; }
+            $state['pending']['media'][] = ['user_id' => $userId, 'kind' => $kind, 'source_url' => $url];
+        }
+
+        $pdo->commit();
+        audit_log('hs_talent_upsert', 'user', $userId, 'role=' . $role . ' contact=' . $contactId);
+    } catch (Throwable $ex) {
+        if ($pdo->inTransaction()) { $pdo->rollBack(); }
+        throw $ex;
+    }
+}
+
+/* ─── Phase 5: authenticated media downloader ─── */
+
+/** Returns true if the URL is hosted on HubSpot and warrants the Bearer token. */
+function hs_url_is_hubspot_hosted(string $url): bool
+{
+    $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+    return $host !== '' && (
+        str_contains($host, 'hubspot.com') ||
+        str_contains($host, 'hubspotusercontent') ||
+        str_contains($host, 'hubspot.net') ||
+        str_contains($host, 'hubspotfeedback.com')
+    );
+}
+
+/**
+ * Download a media URL to data/media/{entity}/{id}/{kind}.{ext} using the
+ * HubSpot Bearer token when the URL is on a HubSpot-hosted domain. Returns
+ * a result struct so the caller can update stats + DB precisely.
+ *
+ * @return array{ok:bool, served_url:string, ext:string, size:int, http:int, error:?string}
+ */
+function hs_download_media_with_auth(string $url, string $entity, int $id, string $kind, string $token): array
+{
+    $url = hs_normalize_media_url($url, $kind);
+    if ($url === '' || !preg_match('#^https?://#i', $url)) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'invalid url'];
+    }
+    if (!isset(hs_media_kind_map()[$kind])) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'unknown kind'];
+    }
+    // Embed-only video hosts: don't download, just return the URL.
+    if ($kind === 'video' && hs_is_embedded_video_url($url)) {
+        return ['ok'=>true, 'served_url'=>$url, 'ext'=>'embed', 'size'=>0, 'http'=>200, 'error'=>null];
+    }
+
+    $headers = ['User-Agent: VT-Portal-Sync/1.0', 'Accept: */*'];
+    if ($token !== '' && hs_url_is_hubspot_hosted($url)) {
+        $headers[] = 'Authorization: Bearer ' . $token;
+    }
+
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL            => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_MAXREDIRS      => 8,
+        CURLOPT_TIMEOUT        => 180,
+        CURLOPT_CONNECTTIMEOUT => 12,
+        CURLOPT_HTTPHEADER     => $headers,
+        CURLOPT_HEADER         => false,
+    ]);
+    hs_apply_curl_ssl($ch);
+    $body  = curl_exec($ch);
+    $code  = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $ctype = (string) curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    $errno = curl_errno($ch);
+    $err   = curl_error($ch);
+    curl_close($ch);
+
+    if ($errno !== 0) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>$code, 'error'=>'curl: ' . $err];
+    }
+    if ($code < 200 || $code >= 300 || !is_string($body) || $body === '') {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>(int)strlen((string)$body), 'http'=>$code, 'error'=>'HTTP ' . $code];
+    }
+
+    // Resolve the file extension: prefer URL path, fall back to Content-Type.
+    $pathExt = strtolower(pathinfo((string)(parse_url($url, PHP_URL_PATH) ?: ''), PATHINFO_EXTENSION));
+    $ctMain  = strtolower(trim(explode(';', $ctype)[0] ?? ''));
+    $ctExt   = strtolower(preg_replace('#[^a-z0-9]#', '', explode('/', $ctMain)[1] ?? ''));
+    if ($ctExt === 'jpeg') { $ctExt = 'jpg'; }
+    $ext = $pathExt !== '' ? $pathExt : $ctExt;
+    $allowed = hs_media_kind_map()[$kind];
+    if (!in_array($ext, $allowed, true)) { $ext = $allowed[0]; }
+
+    // MIME sanity check — reject obvious wrong types (e.g. HTML error pages).
+    if ($kind === 'photo') {
+        $tmp = tmpfile();
+        fwrite($tmp, $body);
+        fflush($tmp);
+        $meta = stream_get_meta_data($tmp);
+        $info = @getimagesize($meta['uri']);
+        fclose($tmp);
+        if (!$info) {
+            return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'not a valid image'];
+        }
+    } elseif ($kind === 'resume') {
+        // PDF starts with %PDF. DOC/DOCX has a different signature — accept if extension is doc/docx.
+        $head4 = substr($body, 0, 4);
+        if ($ext === 'pdf' && $head4 !== '%PDF') {
+            return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'not a valid PDF (probably an HTML login page)'];
+        }
+    }
+
+    $dir  = hs_media_dir($entity, $id);
+    $file = $dir . '/' . $kind . '.' . $ext;
+    if (file_put_contents($file, $body) === false) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'write failed'];
+    }
+    // Remove stale files for the same kind with a different extension.
+    foreach (glob($dir . '/' . $kind . '.*') ?: [] as $existing) {
+        if ($existing !== $file) { @unlink($existing); }
+    }
+
+    $served = 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+    return ['ok'=>true, 'served_url'=>$served, 'ext'=>$ext, 'size'=>strlen($body), 'http'=>$code, 'error'=>null];
+}
+
+/** Drain HS_PROCESS_BATCH items from state.pending.media. Photos update users
+ *  table; resumes + videos update vt_profiles. Successful downloads also update
+ *  the matching *_source_url column so a re-sync skips unchanged sources. */
+function hs_talent_step_download_media(array &$state, HubSpotClient $hs, array $settings): void
+{
+    if (empty($state['pending']['media'])) {
+        $d = $state['stats']['media']['downloaded'] ?? 0;
+        $h = $state['stats']['media']['cache_hits'] ?? 0;
+        $e = $state['stats']['media']['errors']     ?? 0;
+        hs_state_log($state, "Media: downloaded={$d}, cache_hits={$h}, errors={$e}.");
+        hs_state_advance_stage($state);
+        return;
+    }
+    // Are we even allowed to download? `hs_import_media=0` skips this stage.
+    if (empty($settings['hs_import_media']) || (string)$settings['hs_import_media'] === '0') {
+        hs_state_log($state, 'Media import disabled in settings — skipping.');
+        $state['pending']['media'] = [];
+        hs_state_advance_stage($state);
+        return;
+    }
+
+    $token = (string) ($settings['hs_token'] ?? '');
+    $pdo   = db();
+    $batch = array_splice($state['pending']['media'], 0, HS_PROCESS_BATCH);
+
+    foreach ($batch as $item) {
+        $uid   = (int)    ($item['user_id'] ?? 0);
+        $kind  = (string) ($item['kind'] ?? '');
+        $src   = (string) ($item['source_url'] ?? '');
+        if ($uid < 1 || $src === '' || !in_array($kind, ['photo','resume','video'], true)) {
+            $state['stats']['media']['errors']++;
+            continue;
+        }
+
+        // Cache lookup: if the previously-stored source URL matches AND the
+        // local file is still on disk, skip the network round trip.
+        $existingSource = '';
+        if ($kind === 'photo') {
+            $s = $pdo->prepare('SELECT photo_source_url FROM users WHERE id = :u');
+            $s->execute([':u' => $uid]);
+            $existingSource = (string) ($s->fetchColumn() ?: '');
+        } else {
+            $col = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
+            $s = $pdo->prepare("SELECT {$col} FROM vt_profiles WHERE user_id = :u");
+            $s->execute([':u' => $uid]);
+            $existingSource = (string) ($s->fetchColumn() ?: '');
+        }
+        $normalized = hs_normalize_media_url($src, $kind);
+        if ($existingSource !== '' && $existingSource === $normalized) {
+            $dir = hs_media_dir('vt', $uid);
+            if (glob($dir . '/' . $kind . '.*')) {
+                $state['stats']['media']['cache_hits']++;
+                continue;
+            }
+        }
+
+        $r = hs_download_media_with_auth($src, 'vt', $uid, $kind, $token);
+        if (!$r['ok']) {
+            $state['stats']['media']['errors']++;
+            $msg = ($r['error'] ?: 'unknown') . ' (http=' . $r['http'] . ')';
+            if (count($state['stats']['media']['failed_urls']) < 30) {
+                $state['stats']['media']['failed_urls'][] = [
+                    'user_id' => $uid, 'kind' => $kind, 'url' => $src, 'reason' => $msg,
+                ];
+            }
+            hs_state_log($state, "Media {$kind} for user {$uid} FAILED: {$msg}");
+            continue;
+        }
+
+        // Persist new URLs.
+        try {
+            if ($kind === 'photo') {
+                $pdo->prepare('UPDATE users SET photo_url = :u, photo_source_url = :s, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
+                    ->execute([':u' => $r['served_url'], ':s' => $normalized, ':id' => $uid]);
+            } else {
+                $col   = $kind === 'resume' ? 'resume_url' : 'video_url';
+                $scol  = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
+                $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, {$scol} = :s, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
+                    ->execute([':u' => $r['served_url'], ':s' => $normalized, ':uid' => $uid]);
+            }
+            $state['stats']['media']['downloaded']++;
+        } catch (Throwable $ex) {
+            $state['stats']['media']['errors']++;
+            hs_state_log($state, "Media {$kind} DB write failed for user {$uid}: " . $ex->getMessage());
+        }
+    }
+
+    if (empty($state['pending']['media'])) {
+        $d = $state['stats']['media']['downloaded'] ?? 0;
+        $h = $state['stats']['media']['cache_hits'] ?? 0;
+        $e = $state['stats']['media']['errors']     ?? 0;
+        hs_state_log($state, "Media stage finished: downloaded={$d}, cache_hits={$h}, errors={$e}.");
+        hs_state_advance_stage($state);
+    }
+}
+
+/* ─── Phase 6: single-fetch endpoints (talent + client) ─── */
+
+/**
+ * Search HubSpot contacts matching a query (email exact, then name LIKE).
+ * Returns at most $limit lightweight matches so the UI can render a picker.
+ */
+function hs_talent_search(string $q, int $limit = 10): array
+{
+    $q = trim($q);
+    if ($q === '') { return ['ok' => false, 'matches' => [], 'error' => 'Query is empty.']; }
+    $settings = hs_settings();
+    $token = (string) $settings['hs_token'];
+    if ($token === '') { return ['ok' => false, 'matches' => [], 'error' => 'HubSpot token not configured.']; }
+    $hs = new HubSpotClient($token);
+
+    // Email LIKE — HubSpot CONTAINS_TOKEN matches the value as a token in the property.
+    $isEmail = (bool) filter_var($q, FILTER_VALIDATE_EMAIL);
+    $filterGroups = $isEmail
+        ? [['filters' => [['propertyName'=>'email','operator'=>'EQ','value'=>strtolower($q)]]]]
+        : [
+            // Either firstname or lastname contains the token.
+            ['filters' => [['propertyName'=>'firstname','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
+            ['filters' => [['propertyName'=>'lastname','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
+            ['filters' => [['propertyName'=>'email','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
+        ];
+    $resp = $hs->request('POST', '/crm/v3/objects/contacts/search', [
+        'filterGroups' => $filterGroups,
+        'properties' => ['email','firstname','lastname','jobtitle','country','hs_lead_status','vt_status','hs_vt_status','contract_hired_status'],
+        'limit' => $limit,
+    ]);
+    if (!$resp['ok']) {
+        return ['ok' => false, 'matches' => [], 'error' => (string) ($resp['error'] ?: ('HTTP ' . $resp['status']))];
+    }
+    $matches = [];
+    foreach ((array) ($resp['data']['results'] ?? []) as $c) {
+        $p = is_array($c['properties'] ?? null) ? $c['properties'] : [];
+        $matches[] = [
+            'id'            => (string) ($c['id'] ?? ''),
+            'email'         => (string) ($p['email'] ?? ''),
+            'firstname'     => (string) ($p['firstname'] ?? ''),
+            'lastname'      => (string) ($p['lastname'] ?? ''),
+            'full_name'     => trim((string) ($p['firstname'] ?? '') . ' ' . (string) ($p['lastname'] ?? '')) ?: (string) ($p['email'] ?? ''),
+            'jobtitle'      => (string) ($p['jobtitle'] ?? ''),
+            'country'       => (string) ($p['country'] ?? ''),
+            'hs_lead_status'=> (string) ($p['hs_lead_status'] ?? ''),
+            'vt_status'     => (string) ($p['hs_vt_status'] ?? ($p['vt_status'] ?? '')),
+            'contract_hired_status' => (string) ($p['contract_hired_status'] ?? ''),
+        ];
+    }
+    return ['ok' => true, 'matches' => $matches, 'error' => null];
+}
+
+/**
+ * Re-sync ONE HubSpot contact by ID through the same processor as the batched
+ * talent sync, then download its media inline. Returns a per-record result.
+ */
+function hs_talent_sync_one(string $contactId): array
+{
+    $contactId = trim($contactId);
+    if ($contactId === '') { return ['ok' => false, 'error' => 'contact_id is required.']; }
+    $settings = hs_settings();
+    $token = (string) $settings['hs_token'];
+    if ($token === '') { return ['ok' => false, 'error' => 'HubSpot token not configured.']; }
+    $hs = new HubSpotClient($token);
+
+    // Pull the contact's full property bag so the role-mapper has everything.
+    $objs = hs_batch_read_objects($hs, 'contacts', [$contactId], hs_vt_properties_full());
+    $contact = $objs[$contactId] ?? null;
+    if (!is_array($contact)) {
+        return ['ok' => false, 'error' => 'Contact not found in HubSpot.'];
+    }
+
+    // Use a transient state struct so the per-record processor records stats locally.
+    $state = hs_talent_state_default();
+    $item  = [
+        'id' => (string) ($contact['id'] ?? ''),
+        'properties' => is_array($contact['properties'] ?? null) ? $contact['properties'] : [],
+        'source_stage' => 'single_fetch',
+    ];
+    $action = 'unknown';
+    try {
+        hs_process_vt_contact($item, $state);
+        if ($state['stats']['vts']['created'] > 0) { $action = 'created'; }
+        elseif ($state['stats']['vts']['updated'] > 0) { $action = 'updated'; }
+        elseif ($state['stats']['vts']['skipped_role'] > 0) { $action = 'skipped_role'; }
+        elseif ($state['stats']['vts']['skipped_no_email'] > 0) { $action = 'skipped_no_email'; }
+        elseif ($state['stats']['vts']['errors'] > 0) { $action = 'error'; }
+    } catch (Throwable $ex) {
+        return ['ok' => false, 'error' => $ex->getMessage(), 'matches' => []];
+    }
+
+    // Drain media queue synchronously — there are at most 3 per VT.
+    $mediaSummary = ['downloaded' => 0, 'cache_hits' => 0, 'errors' => 0, 'failed_urls' => []];
+    while (!empty($state['pending']['media'])) {
+        $batchBefore = $state['stats']['media'];
+        hs_talent_step_download_media($state, $hs, $settings);
+        // Safety: detect no-progress loop.
+        if ($batchBefore === $state['stats']['media'] && !empty($state['pending']['media'])) { break; }
+    }
+    $mediaSummary = $state['stats']['media'];
+
+    // Resolve the user we just upserted so the UI can deep-link to them.
+    $userId = 0;
+    $email  = strtolower(trim((string) (($item['properties']['email'] ?? ''))));
+    $found  = hs_find_user_for_contact($contactId, $email);
+    if ($found) { $userId = (int) $found['id']; }
+
+    return [
+        'ok' => true, 'action' => $action, 'user_id' => $userId,
+        'stats' => [
+            'vts'   => $state['stats']['vts'],
+            'media' => $mediaSummary,
+        ],
+        'log' => $state['messages'],
+        'error' => null,
+    ];
+}
+
+/** Search HubSpot companies by name token or domain. */
+function hs_client_search(string $q, int $limit = 10): array
+{
+    $q = trim($q);
+    if ($q === '') { return ['ok' => false, 'matches' => [], 'error' => 'Query is empty.']; }
+    $settings = hs_settings();
+    $token = (string) $settings['hs_token'];
+    if ($token === '') { return ['ok' => false, 'matches' => [], 'error' => 'HubSpot token not configured.']; }
+    $hs = new HubSpotClient($token);
+
+    $filterGroups = [
+        ['filters' => [['propertyName'=>'name','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
+        ['filters' => [['propertyName'=>'domain','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
+    ];
+    $resp = $hs->request('POST', '/crm/v3/objects/companies/search', [
+        'filterGroups' => $filterGroups,
+        'properties' => ['name','domain','website','hs_lead_status','industry','hubspot_owner_id','csm'],
+        'limit' => $limit,
+    ]);
+    if (!$resp['ok']) {
+        return ['ok' => false, 'matches' => [], 'error' => (string) ($resp['error'] ?: ('HTTP ' . $resp['status']))];
+    }
+    $matches = [];
+    foreach ((array) ($resp['data']['results'] ?? []) as $c) {
+        $p = is_array($c['properties'] ?? null) ? $c['properties'] : [];
+        $matches[] = [
+            'id'             => (string) ($c['id'] ?? ''),
+            'name'           => (string) ($p['name'] ?? ''),
+            'domain'         => (string) ($p['domain'] ?? ''),
+            'website'        => (string) ($p['website'] ?? ''),
+            'industry'       => (string) ($p['industry'] ?? ''),
+            'hs_lead_status' => (string) ($p['hs_lead_status'] ?? ''),
+            'hubspot_owner_id'=>(string) ($p['hubspot_owner_id'] ?? ''),
+            'csm'            => (string) ($p['csm'] ?? ''),
+        ];
+    }
+    return ['ok' => true, 'matches' => $matches, 'error' => null];
+}
+
+/**
+ * Re-sync ONE HubSpot company by ID. Runs the same per-record logic as the
+ * batched client sync — fetch primary contact, resolve CSM, fetch Teammate-
+ * labeled hired contacts, upsert clients + login user + company_profiles +
+ * csm_clients + client_vts (authoritative).
+ */
+function hs_client_sync_one(string $companyId): array
+{
+    $companyId = trim($companyId);
+    if ($companyId === '') { return ['ok' => false, 'error' => 'company_id is required.']; }
+    $settings = hs_settings();
+    $token = (string) $settings['hs_token'];
+    if ($token === '') { return ['ok' => false, 'error' => 'HubSpot token not configured.']; }
+    $hs = new HubSpotClient($token);
+
+    // 1. Read the company.
+    $objs = hs_batch_read_objects($hs, 'companies', [$companyId], hs_company_properties_full());
+    $company = $objs[$companyId] ?? null;
+    if (!is_array($company)) { return ['ok' => false, 'error' => 'Company not found in HubSpot.']; }
+    $props = is_array($company['properties'] ?? null) ? $company['properties'] : [];
+
+    // 2. Fetch companies→contacts assocs to pick Primary + collect hired Teammates.
+    $assocResp = hs_batch_read_associations($hs, 'companies', 'contacts', [$companyId]);
+    $assocRows = is_array($assocResp['map'][$companyId] ?? null) ? $assocResp['map'][$companyId] : [];
+    $primaryCid = hs_pick_primary_contact_id($assocRows);
+
+    $hiredContactIds = [];
+    foreach ($assocRows as $row) {
+        if (hs_assoc_is_hired_teammate(is_array($row['association_types'] ?? null) ? $row['association_types'] : [])) {
+            $tid = (string) ($row['to_id'] ?? '');
+            if ($tid !== '') { $hiredContactIds[$tid] = true; }
+        }
+    }
+
+    // 3. Fetch Primary Contact full record (drives the client login user).
+    $primary = null;
+    if ($primaryCid !== '') {
+        $pcObjs = hs_batch_read_objects($hs, 'contacts', [$primaryCid], [
+            'email','firstname','lastname','phone','mobilephone','country','jobtitle',
+        ]);
+        $primary = $pcObjs[$primaryCid] ?? null;
+    }
+
+    // 4. Resolve CSM (owner-first, contact-fallback, then hubspot_owner_id).
+    $state = hs_client_state_default(); // transient state for stats
+    $csmUserId = 0;
+    $csmRef = trim((string) ($props['csm'] ?? ''));
+    $csmId  = '';
+    if ($csmRef !== '' && preg_match('/\b(\d{3,})\b/', $csmRef, $m)) { $csmId = (string) $m[1]; }
+    if ($csmId !== '') {
+        $csmUserId = hs_resolve_owner_as_csm($csmId, $hs, $state);
+        if ($csmUserId === 0) {
+            $contactObjs = hs_batch_read_objects($hs, 'contacts', [$csmId], ['email','firstname','lastname','phone','country']);
+            if (is_array($contactObjs[$csmId] ?? null)) {
+                $csmUserId = hs_upsert_csm_from_contact_props(
+                    is_array($contactObjs[$csmId]['properties'] ?? null) ? $contactObjs[$csmId]['properties'] : [],
+                    $csmId, $state
+                );
+            }
+        }
+    }
+    if ($csmUserId === 0) {
+        $ownerId = trim((string) ($props['hubspot_owner_id'] ?? ''));
+        if ($ownerId !== '') { $csmUserId = hs_resolve_owner_as_csm($ownerId, $hs, $state); }
+    }
+
+    // 5. Bulk-fetch hired contacts → upsert as vt_hired users so client_vts has rows to link.
+    if ($hiredContactIds) {
+        $hiredObjs = hs_batch_read_objects($hs, 'contacts', array_keys($hiredContactIds), [
+            'email','firstname','lastname','phone','mobilephone','country','jobtitle',
+            'hs_lead_status','vt_status','hs_vt_status','contract_hired_status',
+        ]);
+        foreach ($hiredObjs as $cid => $row) {
+            // Push into the state.maps.hired_contact_ids list and call the talent
+            // upsert helper indirectly by injecting a single-item state for it.
+            $tmp = hs_client_state_default();
+            $tmp['maps']['hired_contact_ids'] = [$cid => true];
+            $tmp['maps']['hired_vt_seen'] = [];
+            // Reuse the existing stage handler by giving it one batch of size 1.
+            // It reads from maps.hired_contact_ids on its own.
+            try {
+                // The stage function loads from $tmp; do a single drain pass.
+                hs_client_step_upsert_hired_vts($tmp, $hs);
+            } catch (Throwable $_) {}
+        }
+    }
+
+    // 6. Upsert the client row + login user + company_profiles.
+    $state['maps'] = $state['maps'] ?? [];
+    $state['maps']['client_id_by_company'] = [];
+    try {
+        hs_process_one_client($company, $primary, $state);
+    } catch (Throwable $ex) {
+        return ['ok' => false, 'error' => 'Client upsert failed: ' . $ex->getMessage()];
+    }
+    $clientId = (int) ($state['maps']['client_id_by_company'][$companyId] ?? 0);
+    if ($clientId === 0) {
+        return ['ok' => false, 'error' => 'Client row not created.', 'stats' => $state['stats']];
+    }
+
+    // 7. Authoritative association write for THIS company.
+    $state['maps']['csm_user_by_company']      = [$companyId => $csmUserId];
+    $state['maps']['hired_contacts_by_company']= [$companyId => $hiredContactIds];
+    // Drain process_associations once (it processes HS_PROCESS_BATCH companies).
+    hs_client_step_process_associations($state, $hs);
+
+    return [
+        'ok' => true,
+        'client_id' => $clientId,
+        'company_id' => $companyId,
+        'primary_contact_id' => $primaryCid,
+        'csm_user_id' => $csmUserId,
+        'hired_contact_count' => count($hiredContactIds),
+        'stats' => [
+            'clients'       => $state['stats']['clients'] ?? null,
+            'csms'          => $state['stats']['csms'] ?? null,
+            'relationships' => $state['stats']['relationships'] ?? null,
+        ],
+        'error' => null,
+    ];
+}
+
+/** Idempotent upsert for vt_profile_meta (key/value HubSpot property dump). */
+function hs_upsert_vt_profile_meta(int $userId, string $key, ?string $value): void
+{
+    db()->prepare(
+        'INSERT INTO vt_profile_meta (user_id, meta_key, meta_value, record_state, updated_at)
+         VALUES (:u, :k, :v, "active", CURRENT_TIMESTAMP)
+         ON CONFLICT (user_id, meta_key, record_state)
+         DO UPDATE SET meta_value = :v, updated_at = CURRENT_TIMESTAMP'
+    )->execute([':u' => $userId, ':k' => $key, ':v' => $value]);
+}
+
+function hs_talent_control(string $action): array
+{
+    $state = hs_talent_state_load();
+    switch ($action) {
+        case 'start':
+            if ($state['status'] === 'running') { break; }
+            $state = hs_talent_state_default();
+            $state['status'] = 'running';
+            $state['stage']  = 'init';
+            break;
+        case 'pause':
+            if ($state['status'] === 'running') { $state['status'] = 'paused'; }
+            break;
+        case 'resume':
+            if (in_array($state['status'], ['paused', 'error'], true)) {
+                $state['status']     = 'running';
+                $state['last_error'] = null;
+            }
+            break;
+        case 'reset':
+            $state = hs_talent_state_default();
+            break;
+    }
+    hs_talent_state_save($state);
+    return $state;
+}
+
+/* ─── Client pipeline ─── */
+
+function hs_client_step(): array
+{
+    $state = hs_client_state_load();
+    if ($state['status'] !== 'running') { return $state; }
+    if ($state['stage'] === 'done') {
+        $state['status'] = 'done';
+        $state['finished_at'] = $state['finished_at'] ?? date('c');
+        hs_client_state_save($state);
+        return $state;
+    }
+
+    $settings = hs_settings();
+    $hs = new HubSpotClient((string) $settings['hs_token']);
+
+    try {
+        switch ($state['stage']) {
+            case 'init':                     hs_client_step_init($state); break;
+            case 'fetch_companies':          hs_client_step_fetch_companies($state, $hs, $settings); break;
+            case 'fetch_primary_contacts':   hs_client_step_fetch_primary_contacts($state, $hs); break;
+            case 'fetch_contracts':          hs_client_step_fetch_contracts($state, $hs); break;
+            case 'filter_first_day_complete':hs_client_step_filter_first_day_complete($state, $hs); break;
+            case 'fetch_contract_contacts':  hs_client_step_fetch_contract_contacts($state, $hs); break;
+            case 'fetch_owner_csms':         hs_client_step_fetch_owner_csms($state, $hs); break;
+            case 'upsert_hired_vts':         hs_client_step_upsert_hired_vts($state, $hs); break;
+            case 'process_clients':          hs_client_step_process_clients($state, $hs); break;
+            case 'process_associations':     hs_client_step_process_associations($state, $hs); break;
+            default:                         hs_state_advance_stage($state); break;
+        }
+    } catch (Throwable $ex) {
+        $state['status']     = 'error';
+        $state['last_error'] = $ex->getMessage();
+        hs_state_log($state, 'Fatal: ' . $ex->getMessage());
+    }
+
+    if ($state['stage'] === 'done' && $state['status'] !== 'error') {
+        $state['status']      = 'done';
+        $state['finished_at'] = date('c');
+        $state['last_report'] = hs_build_report($state);
+        hs_state_log($state, 'Client sync finished.');
+    }
+
+    hs_client_state_save($state);
+    return $state;
+}
+
+function hs_client_step_init(array &$state): void
+{
+    $state['started_at']   = date('c');
+    $state['finished_at']  = null;
+    $state['last_error']   = null;
+    $state['after_cursor'] = null;
+    $state['pending']      = hs_client_state_default()['pending'];
+    $state['stats']        = hs_client_state_default()['stats'];
+    $state['messages']     = [];
+    $state['last_report']  = null;
+    hs_state_log($state, 'Client sync started.');
+    hs_state_advance_stage($state);
+}
+
+/* ─── Phase 4: client sync implementations
+ *
+ *   Algorithm (vtadmin parity + staging mu-plugin Primary Contact resolution):
+ *     fetch_companies          → search companies w/ hs_lead_status = Client - Active
+ *     fetch_primary_contacts   → batch companies->contacts associations; pick the
+ *                                association whose label = "Primary"
+ *     fetch_contracts          → batch companies->contracts (object 2-31153232)
+ *     filter_first_day_complete→ batch-read contracts; keep only ones whose
+ *                                hs_pipeline_stage == "First Day Complete"
+ *     fetch_contract_contacts  → batch contracts->contacts; filter assoc typeId=28
+ *                                (the "hired" association type per vtadmin)
+ *     fetch_owner_csms         → resolve company.hubspot_owner_id or .csm to a CSM
+ *                                user (upsert into users with role=csm)
+ *     process_clients          → batch-read primary contact records; upsert
+ *                                clients + login user + company_profiles
+ *     process_associations     → write csm_clients + client_vts rows from the
+ *                                resolved maps
+ *
+ *   All API calls use the HubSpot Bearer token via HubSpotClient.
+ * ─── */
+
+const HS_CONTRACT_OBJECT_TYPE       = '2-31153232';
+const HS_HIRED_ASSOCIATION_TYPE_ID  = 28;
+const HS_PRIMARY_CONTACT_LABEL_RX   = '/^(primary|primary contact|contact with primary company)$/i';
+
+/** Settings fallback resolver — keeps the same defaults vtadmin uses. */
+function hs_client_settings(array $settings): array
+{
+    return [
+        'lead_field'  => $settings['hs_client_lead_status_field']  ?: 'hs_lead_status',
+        'lead_value'  => $settings['hs_client_lead_status_value']  ?: 'Client - Active',
+    ];
+}
+
+/** Properties to pull on each company (staging + vtadmin superset). */
+function hs_company_properties_full(): array
+{
+    return array_values(array_unique([
+        'name','domain','website','phone',
+        'country','city','state','address','address_line_1','address_line_2',
+        'industry','description','numberofemployees',
+        'hs_lead_status','lifecyclestage',
+        'hs_contact_email','company_email','billing_email','billing_contact_email',
+        'hubspot_owner_id','csm',
+    ]));
+}
+
+/** Primary-contact pick logic mirrors staging's pick_oldest_contact_id_by_label:
+ *  pick the LOWEST-numbered contact id (= oldest) among associations whose
+ *  label looks like "Primary". */
+function hs_pick_primary_contact_id(array $assocRows): string
+{
+    $candidates = [];
+    foreach ($assocRows as $row) {
+        $assocTypes = is_array($row['association_types'] ?? null) ? $row['association_types'] : [];
+        $matched = false;
+        foreach ($assocTypes as $at) {
+            $label = trim((string) ($at['label'] ?? ''));
+            if ($label !== '' && preg_match(HS_PRIMARY_CONTACT_LABEL_RX, $label)) {
+                $matched = true; break;
+            }
+        }
+        if (!$matched) { continue; }
+        $tid = trim((string) ($row['to_id'] ?? ''));
+        if ($tid !== '') { $candidates[] = $tid; }
+    }
+    if (!$candidates) { return ''; }
+    // Sort numerically — older IDs are smaller.
+    usort($candidates, static fn($a, $b) => (int)$a <=> (int)$b);
+    return (string) $candidates[0];
+}
+
+/** Stage 1: companies search, paginated 100 per page. */
+function hs_client_step_fetch_companies(array &$state, HubSpotClient $hs, array $settings): void
+{
+    $cs = hs_client_settings($settings);
+    $payload = [
+        'filterGroups' => [['filters' => [[
+            'propertyName' => $cs['lead_field'],
+            'operator'     => 'EQ',
+            'value'        => $cs['lead_value'],
+        ]]]],
+        'properties' => hs_company_properties_full(),
+        'limit'      => 100,
+    ];
+    if (!empty($state['after_cursor'])) { $payload['after'] = (string) $state['after_cursor']; }
+
+    $resp = $hs->request('POST', '/crm/v3/objects/companies/search', $payload);
+    if (!$resp['ok']) {
+        $state['status']     = 'error';
+        $state['last_error'] = (string) ($resp['error'] ?: ('HTTP ' . $resp['status']));
+        hs_state_log($state, 'Company fetch failed: ' . $state['last_error']);
+        return;
+    }
+    $results = is_array($resp['data']['results'] ?? null) ? $resp['data']['results'] : [];
+    foreach ($results as $co) {
+        if (!is_array($co)) { continue; }
+        $state['pending']['companies'][] = $co;
+    }
+    $state['stats']['fetched_total']['companies'] += count($results);
+
+    $after = $resp['data']['paging']['next']['after'] ?? null;
+    if ($after !== null && $after !== '') {
+        $state['after_cursor'] = (string) $after;
+        return;
+    }
+    hs_state_log($state, 'Fetched ' . $state['stats']['fetched_total']['companies'] . ' client companies.');
+    $state['after_cursor'] = null;
+    hs_state_advance_stage($state);
+}
+
+/** Helper: fetch the pipeline stage labels for a HubSpot object type so we
+ *  can translate numeric stage IDs (e.g. 1016146705) to human-readable labels
+ *  (e.g. "First Day Complete"). Mirrors staging's `fetch_hubspot_pipeline_stage_labels`.
+ *
+ *  Returns ['stage_id' => 'lowercased label', ...]. Empty array on failure. */
+function hs_fetch_pipeline_stage_labels(HubSpotClient $hs, string $objectType): array
+{
+    $labels = [];
+    $resp = $hs->request('GET', '/crm/v3/pipelines/' . rawurlencode($objectType), null);
+    if (!$resp['ok']) { return $labels; }
+    foreach ((array) ($resp['data']['results'] ?? []) as $pipeline) {
+        foreach ((array) ($pipeline['stages'] ?? []) as $stage) {
+            $id  = (string) ($stage['id'] ?? '');
+            $lbl = strtolower(preg_replace('/\s+/', ' ', trim((string) ($stage['label'] ?? ''))));
+            if ($id !== '' && $lbl !== '') { $labels[$id] = $lbl; }
+        }
+    }
+    return $labels;
+}
+
+/** Returns true if an association_types array contains a "Teammate" / hired
+ *  contact association (either label match or vtadmin's typeId 28). */
+function hs_assoc_is_hired_teammate(array $assocTypes): bool
+{
+    foreach ($assocTypes as $at) {
+        if (!is_array($at)) { continue; }
+        $tid = (int) ($at['typeId'] ?? 0);
+        if ($tid === HS_HIRED_ASSOCIATION_TYPE_ID || $tid === 108) { return true; }
+        $label = strtolower(trim((string) ($at['label'] ?? '')));
+        if ($label !== '' && (str_contains($label, 'teammate') || str_contains($label, 'hired'))) { return true; }
+    }
+    return false;
+}
+
+/** Helper: HubSpot v4 batch association read. */
+function hs_batch_read_associations(HubSpotClient $hs, string $fromType, string $toType, array $fromIds): array
+{
+    if (!$fromIds) { return ['map' => [], 'ok' => true]; }
+    $inputs = array_values(array_map(static fn($id) => ['id' => (string) $id], $fromIds));
+    $path = '/crm/v4/associations/' . rawurlencode($fromType) . '/' . rawurlencode($toType) . '/batch/read';
+    $resp = $hs->request('POST', $path, ['inputs' => $inputs]);
+    if (!$resp['ok']) { return ['map' => [], 'ok' => false, 'error' => $resp['error']]; }
+    $map = [];
+    $results = is_array($resp['data']['results'] ?? null) ? $resp['data']['results'] : [];
+    foreach ($results as $r) {
+        $from = (string) ($r['from']['id'] ?? '');
+        if ($from === '') { continue; }
+        $toResults = is_array($r['to'] ?? null) ? $r['to'] : [];
+        $rows = [];
+        foreach ($toResults as $tr) {
+            $rows[] = [
+                'to_id'             => (string) ($tr['toObjectId'] ?? ''),
+                'association_types' => is_array($tr['associationTypes'] ?? null) ? $tr['associationTypes'] : [],
+            ];
+        }
+        $map[$from] = $rows;
+    }
+    return ['map' => $map, 'ok' => true];
+}
+
+/** Helper: HubSpot v3 batch object read. */
+function hs_batch_read_objects(HubSpotClient $hs, string $objectType, array $ids, array $properties): array
+{
+    if (!$ids) { return []; }
+    $inputs = array_values(array_map(static fn($id) => ['id' => (string) $id], $ids));
+    $path = '/crm/v3/objects/' . rawurlencode($objectType) . '/batch/read';
+    $resp = $hs->request('POST', $path, ['inputs' => $inputs, 'properties' => array_values(array_unique($properties))]);
+    if (!$resp['ok']) { return []; }
+    $out = [];
+    foreach ((array) ($resp['data']['results'] ?? []) as $obj) {
+        $id = (string) ($obj['id'] ?? '');
+        if ($id !== '') { $out[$id] = is_array($obj) ? $obj : []; }
+    }
+    return $out;
+}
+
+/** Stage 2: companies → contacts associations; pick Primary per company AND
+ *  collect hired Teammate-labeled contacts in the same pass (one API call
+ *  serves two purposes, and the Teammate label is the actual hired indicator
+ *  in this HubSpot tenant). */
+function hs_client_step_fetch_primary_contacts(array &$state, HubSpotClient $hs): void
+{
+    // Drain companies that don't yet have their primary resolved.
+    $maps = $state['maps'] ?? [];
+    $maps['primary_contact_by_company']    = $maps['primary_contact_by_company']    ?? [];
+    $maps['primary_contact_ids']           = $maps['primary_contact_ids']           ?? [];
+    $maps['hired_contacts_by_company']     = $maps['hired_contacts_by_company']     ?? [];
+    $maps['hired_contact_ids']             = $maps['hired_contact_ids']             ?? [];
+
+    $companyIdsAll = [];
+    foreach ($state['pending']['companies'] as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        if ($cid !== '' && !isset($maps['primary_contact_by_company'][$cid])) {
+            $companyIdsAll[] = $cid;
+        }
+    }
+    if (!$companyIdsAll) {
+        hs_state_log($state, 'No companies pending primary-contact resolution.');
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($companyIdsAll, 0, HS_PROCESS_BATCH);
+
+    $resp = hs_batch_read_associations($hs, 'companies', 'contacts', $batch);
+    if (!$resp['ok']) {
+        $state['stats']['relationships']['errors']++;
+        hs_state_log($state, 'companies->contacts batch failed: ' . ($resp['error'] ?? ''));
+        // Still mark them resolved (empty) so we move on.
+    }
+    foreach ($batch as $cid) {
+        $rows = is_array($resp['map'][$cid] ?? null) ? $resp['map'][$cid] : [];
+        // (a) Pick Primary Contact for the client login user.
+        $primary = hs_pick_primary_contact_id($rows);
+        $maps['primary_contact_by_company'][$cid] = $primary;
+        if ($primary !== '') { $maps['primary_contact_ids'][$primary] = true; }
+
+        // (b) Same pass: any contact tagged "Teammate" / hired association
+        //     becomes a candidate for client_vts. This catches your actual
+        //     data shape (typeId 108 / label "Teammate") without depending
+        //     on the Contracts pipeline being properly configured.
+        foreach ($rows as $row) {
+            $assocTypes = is_array($row['association_types'] ?? null) ? $row['association_types'] : [];
+            if (!hs_assoc_is_hired_teammate($assocTypes)) { continue; }
+            $contactId = trim((string) ($row['to_id'] ?? ''));
+            if ($contactId === '') { continue; }
+            if (!isset($maps['hired_contacts_by_company'][$cid])) { $maps['hired_contacts_by_company'][$cid] = []; }
+            $maps['hired_contacts_by_company'][$cid][$contactId] = true;
+            $maps['hired_contact_ids'][$contactId] = true;
+        }
+    }
+    $state['maps'] = $maps;
+
+    // Done?
+    $unresolved = 0;
+    foreach ($state['pending']['companies'] as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        if ($cid !== '' && !isset($maps['primary_contact_by_company'][$cid])) { $unresolved++; }
+    }
+    if ($unresolved === 0) {
+        $picked = count(array_filter($maps['primary_contact_by_company'], static fn($v) => $v !== ''));
+        hs_state_log($state, 'Primary contacts resolved for ' . $picked . '/' . count($maps['primary_contact_by_company']) . ' companies.');
+        hs_state_advance_stage($state);
+    }
+}
+
+/** Stage 3: companies → contracts associations. */
+function hs_client_step_fetch_contracts(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $maps['contracts_by_company'] = $maps['contracts_by_company'] ?? [];
+    $maps['contract_ids']         = $maps['contract_ids'] ?? [];
+
+    $companyIdsAll = [];
+    foreach ($state['pending']['companies'] as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        if ($cid !== '' && !isset($maps['contracts_by_company'][$cid])) {
+            $companyIdsAll[] = $cid;
+        }
+    }
+    if (!$companyIdsAll) {
+        hs_state_log($state, 'No companies pending contract resolution.');
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($companyIdsAll, 0, HS_PROCESS_BATCH);
+
+    $resp = hs_batch_read_associations($hs, 'companies', HS_CONTRACT_OBJECT_TYPE, $batch);
+    if (!$resp['ok']) {
+        $state['stats']['relationships']['errors']++;
+        hs_state_log($state, 'companies->contracts batch failed: ' . ($resp['error'] ?? ''));
+    }
+    foreach ($batch as $cid) {
+        $rows = is_array($resp['map'][$cid] ?? null) ? $resp['map'][$cid] : [];
+        $cids = [];
+        foreach ($rows as $r) {
+            $tid = (string) ($r['to_id'] ?? '');
+            if ($tid === '') { continue; }
+            $cids[] = $tid;
+            $maps['contract_ids'][$tid] = true;
+        }
+        $maps['contracts_by_company'][$cid] = $cids;
+    }
+    $state['stats']['fetched_total']['contracts'] = count($maps['contract_ids']);
+    $state['maps'] = $maps;
+
+    $unresolved = 0;
+    foreach ($state['pending']['companies'] as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        if ($cid !== '' && !isset($maps['contracts_by_company'][$cid])) { $unresolved++; }
+    }
+    if ($unresolved === 0) {
+        hs_state_log($state, 'Found ' . count($maps['contract_ids']) . ' contract objects across ' . count($maps['contracts_by_company']) . ' companies.');
+        hs_state_advance_stage($state);
+    }
+}
+
+/** Stage 4: batch-read contracts, translate numeric stage IDs via the pipeline
+ *  stage-label map, keep only ones whose label == "first day complete". */
+function hs_client_step_filter_first_day_complete(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $maps['first_day_contract_ids'] = $maps['first_day_contract_ids'] ?? [];
+    $maps['contract_seen']          = $maps['contract_seen'] ?? [];
+
+    // Resolve numeric stage ID -> label once per run; cache in maps.
+    if (!isset($maps['contract_stage_labels'])) {
+        $maps['contract_stage_labels'] = hs_fetch_pipeline_stage_labels($hs, HS_CONTRACT_OBJECT_TYPE);
+        hs_state_log($state, 'Resolved ' . count($maps['contract_stage_labels']) . ' contract pipeline stage labels.');
+    }
+    $labels = $maps['contract_stage_labels'];
+
+    $allIds = array_keys($maps['contract_ids'] ?? []);
+    $pending = [];
+    foreach ($allIds as $id) {
+        if (!isset($maps['contract_seen'][$id])) { $pending[] = $id; }
+    }
+    if (!$pending) {
+        $state['stats']['fetched_total']['first_day_contracts'] = count($maps['first_day_contract_ids']);
+        hs_state_log($state, 'First-Day-Complete filter: ' . count($maps['first_day_contract_ids']) . ' contracts pass.');
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($pending, 0, HS_PROCESS_BATCH);
+    $objs = hs_batch_read_objects($hs, HS_CONTRACT_OBJECT_TYPE, $batch, [
+        'hs_pipeline_stage','pipeline_stage','contract_hired_status','pipeline_stage_label','hs_pipeline_stage_label','hs_object_id',
+    ]);
+    foreach ($batch as $id) {
+        $maps['contract_seen'][$id] = true;
+        $row = $objs[$id] ?? null;
+        if (!is_array($row)) { continue; }
+        $props = is_array($row['properties'] ?? null) ? $row['properties'] : [];
+
+        // Try resolving from label fields first (string), then numeric stage id via lookup.
+        $stageLbl = strtolower(preg_replace('/\s+/', ' ', trim(
+            (string) ($props['pipeline_stage_label']
+                   ?? $props['hs_pipeline_stage_label']
+                   ?? $props['contract_hired_status']
+                   ?? '')
+        )));
+        if ($stageLbl === '') {
+            $numeric = trim((string) ($props['hs_pipeline_stage'] ?? $props['pipeline_stage'] ?? ''));
+            if ($numeric !== '' && isset($labels[$numeric])) {
+                $stageLbl = $labels[$numeric];
+            }
+        }
+        if ($stageLbl === 'first day complete') {
+            $maps['first_day_contract_ids'][$id] = true;
+        }
+    }
+    $state['maps'] = $maps;
+}
+
+/** Stage 5: contracts → contacts; filter assoc typeId=28 (hired). */
+function hs_client_step_fetch_contract_contacts(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $maps['hired_contacts_by_company'] = $maps['hired_contacts_by_company'] ?? [];
+    $maps['contract_processed']        = $maps['contract_processed'] ?? [];
+    $maps['hired_contact_ids']         = $maps['hired_contact_ids'] ?? [];
+
+    $allIds = array_keys($maps['first_day_contract_ids'] ?? []);
+    $pending = [];
+    foreach ($allIds as $id) {
+        if (!isset($maps['contract_processed'][$id])) { $pending[] = $id; }
+    }
+    if (!$pending) {
+        $state['stats']['fetched_total']['hired_contacts'] = count($maps['hired_contact_ids']);
+        $companyCount = count(array_filter($maps['hired_contacts_by_company'], static fn($l) => !empty($l)));
+        hs_state_log($state, count($maps['hired_contact_ids']) . ' hired contacts found across ' . $companyCount . ' companies.');
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($pending, 0, HS_PROCESS_BATCH);
+    $resp = hs_batch_read_associations($hs, HS_CONTRACT_OBJECT_TYPE, 'contacts', $batch);
+
+    // Reverse-lookup: which company owns which contract?
+    $companyByContract = [];
+    foreach (($maps['contracts_by_company'] ?? []) as $compId => $contractIds) {
+        foreach ((array) $contractIds as $cid) { $companyByContract[(string)$cid] = (string)$compId; }
+    }
+
+    foreach ($batch as $contractId) {
+        $maps['contract_processed'][$contractId] = true;
+        $rows = is_array($resp['map'][$contractId] ?? null) ? $resp['map'][$contractId] : [];
+        $compId = $companyByContract[$contractId] ?? '';
+        if ($compId === '') { continue; }
+        foreach ($rows as $row) {
+            $assocTypes = is_array($row['association_types'] ?? null) ? $row['association_types'] : [];
+            if (!hs_assoc_is_hired_teammate($assocTypes)) { continue; }
+            $contactId = (string) ($row['to_id'] ?? '');
+            if ($contactId === '') { continue; }
+            if (!isset($maps['hired_contacts_by_company'][$compId])) {
+                $maps['hired_contacts_by_company'][$compId] = [];
+            }
+            $maps['hired_contacts_by_company'][$compId][$contactId] = true;
+            $maps['hired_contact_ids'][$contactId] = true;
+        }
+    }
+    $state['maps'] = $maps;
+}
+
+/** Stage 6: for each company, resolve its CSM (csm contact-id property OR
+ *  hubspot_owner_id Owner) and upsert into users as role=csm. */
+function hs_client_step_fetch_owner_csms(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $maps['csm_user_by_company'] = $maps['csm_user_by_company'] ?? [];
+    $maps['company_seen_for_csm'] = $maps['company_seen_for_csm'] ?? [];
+
+    $pendingCompanies = [];
+    foreach ($state['pending']['companies'] as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        if ($cid === '' || isset($maps['company_seen_for_csm'][$cid])) { continue; }
+        $pendingCompanies[] = $co;
+    }
+    if (!$pendingCompanies) {
+        $resolved = count(array_filter($maps['csm_user_by_company'], static fn($v) => (int)$v > 0));
+        hs_state_log($state, "CSM resolution done: {$resolved}/" . count($maps['company_seen_for_csm']) . ' companies linked.');
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($pendingCompanies, 0, HS_PROCESS_BATCH);
+    foreach ($batch as $co) {
+        $cid   = (string) ($co['id'] ?? '');
+        $props = is_array($co['properties'] ?? null) ? $co['properties'] : [];
+        $maps['company_seen_for_csm'][$cid] = true;
+
+        $csmUserId = 0;
+        // The `csm` property in this tenant typically holds a HubSpot OWNER id
+        // (e.g. 86501355), not a Contact id. Resolve order:
+        //   1) csm-property → try Owners API first, then Contacts API as fallback
+        //   2) hubspot_owner_id (the company's HubSpot Owner) → Owners API
+        $csmRef = trim((string) ($props['csm'] ?? ''));
+        $csmId  = '';
+        if ($csmRef !== '' && preg_match('/\b(\d{3,})\b/', $csmRef, $m)) {
+            $csmId = (string) $m[1];
+        }
+        if ($csmId !== '') {
+            // Try Owners API first.
+            $csmUserId = hs_resolve_owner_as_csm($csmId, $hs, $state);
+            // If not an owner, try treating it as a Contact.
+            if ($csmUserId === 0) {
+                $contactObjs = hs_batch_read_objects($hs, 'contacts', [$csmId], ['email','firstname','lastname','phone','country']);
+                $row = $contactObjs[$csmId] ?? null;
+                if (is_array($row)) {
+                    $csmUserId = hs_upsert_csm_from_contact_props(
+                        is_array($row['properties'] ?? null) ? $row['properties'] : [],
+                        $csmId,
+                        $state
+                    );
+                }
+            }
+        }
+        // Fall back to the company's HubSpot Owner if `csm` didn't resolve.
+        if ($csmUserId === 0) {
+            $ownerId = trim((string) ($props['hubspot_owner_id'] ?? ''));
+            if ($ownerId !== '') {
+                $csmUserId = hs_resolve_owner_as_csm($ownerId, $hs, $state);
+            }
+        }
+        $maps['csm_user_by_company'][$cid] = $csmUserId;
+    }
+    $state['maps'] = $maps;
+}
+
+/** Upsert a CSM user from contact properties. Returns user id (0 on failure). */
+function hs_upsert_csm_from_contact_props(array $props, string $contactId, array &$state): int
+{
+    $pdo   = db();
+    $email = strtolower(trim((string) ($props['email'] ?? '')));
+    if ($email === '') { return 0; }
+    $first = trim((string) ($props['firstname'] ?? ''));
+    $last  = trim((string) ($props['lastname']  ?? ''));
+    $phone = trim((string) ($props['phone'] ?? ($props['mobilephone'] ?? '')));
+    $country = trim((string) ($props['country'] ?? ''));
+    $full  = trim($first . ' ' . $last) ?: $email;
+
+    $stmt = $pdo->prepare('SELECT id, role FROM users WHERE email = :e LIMIT 1');
+    $stmt->execute([':e' => $email]);
+    if ($u = $stmt->fetch()) {
+        $newRole = $u['role'] === 'super_admin' ? 'super_admin' : 'csm';
+        $pdo->prepare(
+            'UPDATE users SET role = :r, first_name = :fn, last_name = :ln, full_name = :full,
+                              phone = :p, country = :c, hubspot_contact_id = :hcid,
+                              updated_at = CURRENT_TIMESTAMP
+             WHERE id = :id'
+        )->execute([
+            ':r' => $newRole, ':fn' => $first, ':ln' => $last, ':full' => $full,
+            ':p' => $phone, ':c' => $country, ':hcid' => $contactId, ':id' => $u['id'],
+        ]);
+        $state['stats']['csms']['updated']++;
+        return (int) $u['id'];
+    }
+    $pdo->prepare(
+        'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+                            phone, country, hubspot_contact_id, active)
+         VALUES (:e, :h, "csm", :fn, :ln, :full, :p, :c, :hcid, 1)'
+    )->execute([
+        ':e' => $email, ':h' => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
+        ':fn' => $first, ':ln' => $last, ':full' => $full, ':p' => $phone, ':c' => $country,
+        ':hcid' => $contactId,
+    ]);
+    $state['stats']['csms']['created']++;
+    return (int) $pdo->lastInsertId();
+}
+
+/** Stage 7 (NEW): batch-fetch each hired contact and upsert it as a vt_hired
+ *  user so the association stage finds a matching local user row. This makes
+ *  the client sync self-sufficient — it doesn't require the talent sync to
+ *  have run first for the same contacts. (Same pattern vtadmin uses inside
+ *  `sync_hubspot_client_profiles`'s upsertContactUser closure.) */
+function hs_client_step_upsert_hired_vts(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $hired = array_keys((array) ($maps['hired_contact_ids'] ?? []));
+    $maps['hired_vt_seen'] = $maps['hired_vt_seen'] ?? [];
+
+    $pending = [];
+    foreach ($hired as $cid) {
+        $cid = (string) $cid;
+        if (!isset($maps['hired_vt_seen'][$cid])) { $pending[] = $cid; }
+    }
+    if (!$pending) {
+        $created = (int) ($maps['hired_vt_created'] ?? 0);
+        $updated = (int) ($maps['hired_vt_updated'] ?? 0);
+        hs_state_log($state, "Hired VTs ensured locally: {$created} created, {$updated} updated.");
+        $state['maps'] = $maps;
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_slice($pending, 0, HS_PROCESS_BATCH);
+    $objs = hs_batch_read_objects($hs, 'contacts', $batch, [
+        'email','firstname','lastname','phone','mobilephone','country','jobtitle',
+        'hs_lead_status','vt_status','hs_vt_status','contract_hired_status',
+    ]);
+    $pdo = db();
+    foreach ($batch as $contactId) {
+        $maps['hired_vt_seen'][$contactId] = true;
+        $row = $objs[$contactId] ?? null;
+        if (!is_array($row)) { continue; }
+        $props = is_array($row['properties'] ?? null) ? $row['properties'] : [];
+        $email = strtolower(trim((string) ($props['email'] ?? '')));
+        if ($email === '') { continue; }
+        $first = trim((string) ($props['firstname'] ?? ''));
+        $last  = trim((string) ($props['lastname']  ?? ''));
+        $full  = trim($first . ' ' . $last) ?: $email;
+        $phone = trim((string) ($props['phone'] ?? ($props['mobilephone'] ?? '')));
+        $country = trim((string) ($props['country'] ?? ''));
+        $jobTitle = trim((string) ($props['jobtitle'] ?? ''));
+        $vtStatus = trim((string) ($props['hs_vt_status'] ?? ($props['vt_status'] ?? '')));
+        $leadStatus = trim((string) ($props['hs_lead_status'] ?? ''));
+
+        // These contacts are linked to a Client company via Teammate label or hired
+        // contract — treat as vt_hired by default. If the contact's vt_status says
+        // otherwise (e.g. Contracted but not First Day Complete) we still default
+        // to vt_hired because the contract-side check already filtered them in.
+        $role = 'vt_hired';
+        $existing = hs_find_user_for_contact($contactId, $email);
+        if ($existing) {
+            $userId = (int) $existing['id'];
+            // Don't demote a super_admin/csm if they happen to be in this list.
+            $newRole = in_array($existing['role'], ['super_admin','csm','client'], true) ? $existing['role'] : $role;
+            $pdo->prepare(
+                'UPDATE users SET role = :r, first_name = :fn, last_name = :ln, full_name = :full,
+                                  phone = :p, country = :c, job_title = :jt,
+                                  hubspot_contact_id = :hcid, vt_status = :vs, hs_lead_status = :ls,
+                                  is_hired = :ih, active = 1, updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id'
+            )->execute([
+                ':r' => $newRole, ':fn' => $first, ':ln' => $last, ':full' => $full,
+                ':p' => $phone, ':c' => $country, ':jt' => $jobTitle,
+                ':hcid' => $contactId, ':vs' => $vtStatus, ':ls' => $leadStatus,
+                ':ih' => ($newRole === 'vt_hired' ? 1 : 0), ':id' => $userId,
+            ]);
+            $maps['hired_vt_updated'] = ($maps['hired_vt_updated'] ?? 0) + 1;
+        } else {
+            $pdo->prepare(
+                'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+                                    phone, country, job_title, hubspot_contact_id, vt_status, hs_lead_status,
+                                    is_hired, active)
+                 VALUES (:e, :h, :r, :fn, :ln, :full, :p, :c, :jt, :hcid, :vs, :ls, 1, 1)'
+            )->execute([
+                ':e' => $email, ':h' => password_hash(hs_default_password($role), PASSWORD_DEFAULT),
+                ':r' => $role, ':fn' => $first, ':ln' => $last, ':full' => $full,
+                ':p' => $phone, ':c' => $country, ':jt' => $jobTitle,
+                ':hcid' => $contactId, ':vs' => $vtStatus, ':ls' => $leadStatus,
+            ]);
+            $userId = (int) $pdo->lastInsertId();
+            $maps['hired_vt_created'] = ($maps['hired_vt_created'] ?? 0) + 1;
+        }
+
+        // Ensure a vt_profiles row exists so subsequent UI views render.
+        $exists = $pdo->prepare('SELECT 1 FROM vt_profiles WHERE user_id = :u');
+        $exists->execute([':u' => $userId]);
+        if (!$exists->fetchColumn()) {
+            $pdo->prepare('INSERT INTO vt_profiles (user_id, status) VALUES (:u, "hired")')
+                ->execute([':u' => $userId]);
+        } else {
+            $pdo->prepare("UPDATE vt_profiles SET status = 'hired', updated_at = CURRENT_TIMESTAMP WHERE user_id = :u")
+                ->execute([':u' => $userId]);
+        }
+    }
+    $state['maps'] = $maps;
+}
+
+/** Stage 8: process each company → upsert clients + login user + company_profiles.
+ *  Primary Contact properties drive the login user identity. */
+function hs_client_step_process_clients(array &$state, HubSpotClient $hs): void
+{
+    if (empty($state['pending']['companies'])) {
+        hs_state_log($state, 'All client companies upserted.');
+        hs_state_advance_stage($state);
+        return;
+    }
+    $batch = array_splice($state['pending']['companies'], 0, HS_PROCESS_BATCH);
+
+    // Bulk-fetch the primary contacts for this batch.
+    $maps = $state['maps'] ?? [];
+    $batchPrimaryIds = [];
+    foreach ($batch as $co) {
+        $cid = (string) ($co['id'] ?? '');
+        $pcid = (string) ($maps['primary_contact_by_company'][$cid] ?? '');
+        if ($pcid !== '') { $batchPrimaryIds[] = $pcid; }
+    }
+    $primaryContacts = $batchPrimaryIds
+        ? hs_batch_read_objects($hs, 'contacts', $batchPrimaryIds, [
+            'email','firstname','lastname','phone','mobilephone','country','jobtitle',
+        ])
+        : [];
+
+    foreach ($batch as $co) {
+        try {
+            $companyId   = (string) ($co['id'] ?? '');
+            $primaryCid  = (string) ($maps['primary_contact_by_company'][$companyId] ?? '');
+            $primary     = $primaryCid !== '' ? ($primaryContacts[$primaryCid] ?? null) : null;
+            hs_process_one_client($co, $primary, $state);
+        } catch (Throwable $ex) {
+            $state['stats']['clients']['errors']++;
+            hs_state_log($state, 'Process client failed: ' . $ex->getMessage());
+        }
+    }
+    if (empty($state['pending']['companies'])) {
+        hs_state_log($state, 'All client companies upserted.');
+        hs_state_advance_stage($state);
+    }
+}
+
+/** Upsert one (company, primary contact) tuple → clients + users + company_profiles. */
+function hs_process_one_client(array $company, ?array $primary, array &$state): void
+{
+    $pdo       = db();
+    $companyId = (string) ($company['id'] ?? '');
+    $props     = is_array($company['properties'] ?? null) ? $company['properties'] : [];
+    $companyName = trim((string) ($props['name'] ?? ''));
+    if ($companyName === '') {
+        $state['stats']['clients']['skipped']++;
+        return;
+    }
+
+    // Primary Contact drives the login user; fall back if missing.
+    $pProps  = is_array(($primary['properties'] ?? null)) ? $primary['properties'] : [];
+    $pEmail  = strtolower(trim((string) ($pProps['email'] ?? '')));
+    $pFirst  = trim((string) ($pProps['firstname'] ?? ''));
+    $pLast   = trim((string) ($pProps['lastname']  ?? ''));
+    $pPhone  = trim((string) ($pProps['phone'] ?? ''));
+    if ($pPhone === '') { $pPhone = trim((string) ($pProps['mobilephone'] ?? '')); }
+    $pCountry= trim((string) ($pProps['country'] ?? ''));
+    $pJob    = trim((string) ($pProps['jobtitle'] ?? ''));
+    $pContactId = (string) ($primary['id'] ?? '');
+
+    $clientLoginEmail = $pEmail;
+    if ($clientLoginEmail === '') {
+        // No Primary Contact → fall back to company-level email or synthesize.
+        $clientLoginEmail = strtolower(trim((string) hs_pick($props, [
+            'hs_contact_email','company_email','billing_email','billing_contact_email',
+        ])));
+        if ($clientLoginEmail === '') {
+            $domain = trim((string) ($props['domain'] ?? ''));
+            $clientLoginEmail = 'client+' . $companyId . '@' . ($domain !== '' ? $domain : 'imported.local');
+        }
+    }
+    $clientLoginFull = trim($pFirst . ' ' . $pLast) ?: ($companyName ?: $clientLoginEmail);
+
+    $domain   = trim((string) ($props['domain'] ?? ''));
+    $website  = trim((string) ($props['website'] ?? ''));
+    $industry = trim((string) ($props['industry'] ?? ''));
+    $employees= trim((string) ($props['numberofemployees'] ?? ''));
+    $descr    = trim((string) ($props['description'] ?? ''));
+    $city     = trim((string) ($props['city'] ?? ''));
+    $state2   = trim((string) ($props['state'] ?? ''));
+    $address  = trim((string) ($props['address'] ?? ''));
+    $ownerId  = trim((string) ($props['hubspot_owner_id'] ?? ''));
+
+    $pdo->beginTransaction();
+    try {
+        // ── Upsert the client login user ──
+        $userStmt = $pdo->prepare('SELECT id FROM users WHERE email = :e LIMIT 1');
+        $userStmt->execute([':e' => $clientLoginEmail]);
+        $userId = (int) ($userStmt->fetchColumn() ?: 0);
+        if ($userId > 0) {
+            $pdo->prepare(
+                'UPDATE users SET role = "client", first_name = :fn, last_name = :ln, full_name = :full,
+                                  phone = :p, country = :c, job_title = :jt,
+                                  hubspot_contact_id = :hcid, active = 1, updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id'
+            )->execute([
+                ':fn' => $pFirst, ':ln' => $pLast, ':full' => $clientLoginFull,
+                ':p' => $pPhone, ':c' => $pCountry, ':jt' => $pJob,
+                ':hcid' => $pContactId, ':id' => $userId,
+            ]);
+        } else {
+            $pdo->prepare(
+                'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
+                                    phone, country, job_title, hubspot_contact_id, active)
+                 VALUES (:e, :h, "client", :fn, :ln, :full, :p, :c, :jt, :hcid, 1)'
+            )->execute([
+                ':e' => $clientLoginEmail,
+                ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT),
+                ':fn' => $pFirst, ':ln' => $pLast, ':full' => $clientLoginFull,
+                ':p' => $pPhone, ':c' => $pCountry, ':jt' => $pJob,
+                ':hcid' => $pContactId,
+            ]);
+            $userId = (int) $pdo->lastInsertId();
+        }
+
+        // ── Upsert the clients row ──
+        $clientStmt = $pdo->prepare('SELECT id FROM clients WHERE hubspot_company_id = :h LIMIT 1');
+        $clientStmt->execute([':h' => $companyId]);
+        $clientId = (int) ($clientStmt->fetchColumn() ?: 0);
+        if ($clientId === 0) {
+            $byNameStmt = $pdo->prepare('SELECT id FROM clients WHERE company_name = :n LIMIT 1');
+            $byNameStmt->execute([':n' => $companyName]);
+            $clientId = (int) ($byNameStmt->fetchColumn() ?: 0);
+        }
+        if ($clientId > 0) {
+            $pdo->prepare(
+                'UPDATE clients SET user_id = :u, company_name = :n, company_email = :ce,
+                                    company_domain = :d, contract_status = "active",
+                                    hubspot_company_id = :hcid, hubspot_owner_id = :hoid,
+                                    updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id'
+            )->execute([
+                ':u' => $userId, ':n' => $companyName, ':ce' => $clientLoginEmail,
+                ':d' => $domain, ':hcid' => $companyId, ':hoid' => $ownerId, ':id' => $clientId,
+            ]);
+            $state['stats']['clients']['updated']++;
+        } else {
+            $pdo->prepare(
+                'INSERT INTO clients (user_id, company_name, company_email, company_domain,
+                                       contract_status, hubspot_company_id, hubspot_owner_id)
+                 VALUES (:u, :n, :ce, :d, "active", :hcid, :hoid)'
+            )->execute([
+                ':u' => $userId, ':n' => $companyName, ':ce' => $clientLoginEmail,
+                ':d' => $domain, ':hcid' => $companyId, ':hoid' => $ownerId,
+            ]);
+            $clientId = (int) $pdo->lastInsertId();
+            $state['stats']['clients']['created']++;
+        }
+
+        // ── Upsert company_profiles ──
+        $cpStmt = $pdo->prepare('SELECT id FROM company_profiles WHERE client_id = :c LIMIT 1');
+        $cpStmt->execute([':c' => $clientId]);
+        $cpId = (int) ($cpStmt->fetchColumn() ?: 0);
+        if ($cpId > 0) {
+            $pdo->prepare(
+                'UPDATE company_profiles SET website = :w, industry = :i, company_size = :sz,
+                                              description = :ds, address = :ad, city = :ct, state = :st,
+                                              record_state = "active", updated_at = CURRENT_TIMESTAMP
+                 WHERE id = :id'
+            )->execute([
+                ':w' => $website, ':i' => $industry, ':sz' => $employees, ':ds' => $descr,
+                ':ad' => $address, ':ct' => $city, ':st' => $state2, ':id' => $cpId,
+            ]);
+        } else {
+            $pdo->prepare(
+                'INSERT INTO company_profiles (client_id, website, industry, company_size,
+                                                description, address, city, state, record_state)
+                 VALUES (:c, :w, :i, :sz, :ds, :ad, :ct, :st, "active")'
+            )->execute([
+                ':c' => $clientId, ':w' => $website, ':i' => $industry, ':sz' => $employees,
+                ':ds' => $descr, ':ad' => $address, ':ct' => $city, ':st' => $state2,
+            ]);
+        }
+
+        $pdo->commit();
+        audit_log('hs_client_upsert', 'client', $clientId, 'company=' . $companyId . ' primary=' . $pContactId);
+
+        // Stash the resolved client id for stage 8.
+        $state['maps']['client_id_by_company'][$companyId] = $clientId;
+    } catch (Throwable $ex) {
+        if ($pdo->inTransaction()) { $pdo->rollBack(); }
+        throw $ex;
+    }
+}
+
+/** Stage 8: write csm_clients + client_vts using the maps built in earlier stages.
+ *  Authoritative: existing rows for these clients get wiped + re-inserted so the
+ *  sync mirrors HubSpot truth (VTs that left a company get unlinked). */
+function hs_client_step_process_associations(array &$state, HubSpotClient $hs): void
+{
+    $maps = $state['maps'] ?? [];
+    $clientByCompany = $maps['client_id_by_company'] ?? [];
+    if (!$clientByCompany) {
+        hs_state_log($state, 'No clients to link associations for.');
+        hs_state_advance_stage($state);
+        return;
+    }
+
+    $pdo = db();
+    $companyIds = array_keys($clientByCompany);
+    $batch = array_slice($companyIds, 0, HS_PROCESS_BATCH);
+
+    foreach ($batch as $companyId) {
+        $clientId = (int) ($clientByCompany[$companyId] ?? 0);
+        if ($clientId <= 0) { continue; }
+
+        // Wipe existing associations for this client so we're authoritative.
+        $pdo->prepare('DELETE FROM client_vts  WHERE client_id = :c')->execute([':c' => $clientId]);
+        $pdo->prepare('DELETE FROM csm_clients WHERE client_id = :c')->execute([':c' => $clientId]);
+
+        // ── CSM link ──
+        $csmUserId = (int) ($maps['csm_user_by_company'][$companyId] ?? 0);
+        if ($csmUserId > 0) {
+            $pdo->prepare('INSERT OR IGNORE INTO csm_clients (csm_user_id, client_id) VALUES (:csm, :c)')
+                ->execute([':csm' => $csmUserId, ':c' => $clientId]);
+            $state['stats']['relationships']['csm_links']++;
+        }
+
+        // ── VT links (hired contacts, via contracts pipeline) ──
+        $hiredContactIds = array_keys((array) ($maps['hired_contacts_by_company'][$companyId] ?? []));
+        if ($hiredContactIds) {
+            $placeholders = implode(',', array_fill(0, count($hiredContactIds), '?'));
+            $vtsStmt = $pdo->prepare(
+                "SELECT id, role, hubspot_contact_id FROM users
+                 WHERE hubspot_contact_id IN ($placeholders) AND role IN ('vt_hired','vt_onpool')"
+            );
+            $vtsStmt->execute($hiredContactIds);
+            foreach ($vtsStmt as $row) {
+                $status = $row['role'] === 'vt_hired' ? 'active' : 'pool';
+                $pdo->prepare(
+                    'INSERT OR IGNORE INTO client_vts (client_id, vt_user_id, contract_status)
+                     VALUES (:c, :v, :s)'
+                )->execute([':c' => $clientId, ':v' => (int) $row['id'], ':s' => $status]);
+                $state['stats']['relationships']['vt_links']++;
+            }
+        }
+        unset($clientByCompany[$companyId]);
+    }
+    $state['maps']['client_id_by_company'] = $clientByCompany;
+
+    if (empty($clientByCompany)) {
+        hs_state_log($state,
+            'Linked ' . $state['stats']['relationships']['vt_links'] . ' VT' .
+            ' + ' . $state['stats']['relationships']['csm_links'] . ' CSM associations.'
+        );
+        hs_state_advance_stage($state);
+    }
+}
+
+function hs_client_control(string $action): array
+{
+    $state = hs_client_state_load();
+    switch ($action) {
+        case 'start':
+            if ($state['status'] === 'running') { break; }
+            $state = hs_client_state_default();
+            $state['status'] = 'running';
+            $state['stage']  = 'init';
+            break;
+        case 'pause':
+            if ($state['status'] === 'running') { $state['status'] = 'paused'; }
+            break;
+        case 'resume':
+            if (in_array($state['status'], ['paused', 'error'], true)) {
+                $state['status']     = 'running';
+                $state['last_error'] = null;
+            }
+            break;
+        case 'reset':
+            $state = hs_client_state_default();
+            break;
+    }
+    hs_client_state_save($state);
+    return $state;
+}
+
+/* ─── Shared: build a compact report snapshot from a finished state ─── */
+
+function hs_build_report(array $state): array
+{
+    return [
+        'pipeline'     => (string) ($state['pipeline'] ?? 'unknown'),
+        'started_at'   => $state['started_at'] ?? null,
+        'finished_at'  => $state['finished_at'] ?? null,
+        'duration_sec' => ($state['started_at'] && $state['finished_at'])
+            ? max(0, strtotime($state['finished_at']) - strtotime($state['started_at']))
+            : null,
+        'stats'        => $state['stats'] ?? [],
+        'errors'       => array_values(array_filter(array_map(
+            static fn(array $m): string => (string) ($m['m'] ?? ''),
+            $state['messages'] ?? []
+        ), static fn(string $line): bool => stripos($line, 'failed') !== false || stripos($line, 'error') !== false)),
+        'last_error'   => $state['last_error'] ?? null,
+    ];
 }

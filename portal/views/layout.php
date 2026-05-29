@@ -25,22 +25,40 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'csms',        'label' => 'CSMs',         'icon' => 'fa-user-tie'];
     $nav[] = ['p' => 'vts',         'label' => 'VT Profiles',  'icon' => 'fa-user-doctor'];
     $nav[] = ['p' => 'assignments', 'label' => 'Assignments',  'icon' => 'fa-diagram-project'];
+    $nav[] = ['p' => 'relationships', 'label' => 'Relationships', 'icon' => 'fa-share-nodes'];
     $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
     $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
     $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync', 'icon' => 'fa-cloud-arrow-down'];
     $nav[] = ['p' => 'traffic',     'label' => 'Traffic',      'icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'audit',       'label' => 'Audit Log',    'icon' => 'fa-list-check'];
 } elseif ($role === 'client') {
-    $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
-    $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
+    $nav[] = ['p' => 'my-vts',        'label' => 'My VTs',              'icon' => 'fa-user-doctor'];
+    $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'csm') {
-    $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
-    $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
+    $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'vt_hired' || $role === 'vt_onpool') {
-    $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
     if ($role === 'vt_hired') {
-        $nav[] = ['p' => 'meetings','label' => 'My Meetings',  'icon' => 'fa-calendar-check'];
+        $nav[] = ['p' => 'tasks',         'label' => 'My Assignments',      'icon' => 'fa-list-check'];
+        $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+        $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    } else {
+        $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     }
+    if ($role === 'vt_hired') {
+        $nav[] = ['p' => 'meetings',  'label' => 'My Meetings',     'icon' => 'fa-calendar-check'];
+    }
+    $nav[] = ['p' => 'resources',     'label' => 'Resources',       'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',   'icon' => 'fa-bell'];
 }
 $nav[] = ['p' => 'profile',     'label' => 'My Profile',   'icon' => 'fa-id-card'];
 

@@ -15,10 +15,26 @@
 declare(strict_types=1);
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-if ($id < 1) { http_response_code(400); exit; }
+
+/**
+ * Fallback path — served whenever we can't return a real photo. Lets the
+ * marketing site show a graceful avatar instead of a broken-image icon.
+ */
+function tp_serve_placeholder(): void
+{
+    $placeholder = __DIR__ . '/images/photos/placeholder-avatar.svg';
+    if (!is_file($placeholder)) { http_response_code(404); exit; }
+    header('Content-Type: image/svg+xml');
+    header('Content-Length: ' . filesize($placeholder));
+    header('Cache-Control: public, max-age=86400');
+    readfile($placeholder);
+    exit;
+}
+
+if ($id < 1) { tp_serve_placeholder(); }
 
 $dbPath = __DIR__ . '/data/portal.sqlite';
-if (!file_exists($dbPath)) { http_response_code(404); exit; }
+if (!file_exists($dbPath)) { tp_serve_placeholder(); }
 
 try {
     $pdo = new PDO('sqlite:' . $dbPath);
@@ -31,13 +47,13 @@ try {
 }
 
 if (!in_array($role, ['vt_hired', 'vt_onpool'], true)) {
-    http_response_code(404); exit;
+    tp_serve_placeholder();
 }
 
 $base = realpath(__DIR__ . '/data/media');
-if ($base === false) { http_response_code(404); exit; }
+if ($base === false) { tp_serve_placeholder(); }
 $matches = glob($base . DIRECTORY_SEPARATOR . 'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*');
-if (empty($matches)) { http_response_code(404); exit; }
+if (empty($matches)) { tp_serve_placeholder(); }
 $file = $matches[0];
 $real = realpath($file);
 if ($real === false || !str_starts_with($real, $base)) { http_response_code(403); exit; }
