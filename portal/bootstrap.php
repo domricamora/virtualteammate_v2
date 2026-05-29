@@ -23,6 +23,15 @@ if (PHP_SAPI !== 'cli') {
         session_name('vtportal');
         session_start();
     }
+
+    // Portal pages are always dynamic + session-bound — never cache the HTML.
+    // Static assets (portal.css / portal.js) are cache-busted via ?v={mtime}
+    // on their <link>/<script> tags in views/layout.php.
+    if (!headers_sent()) {
+        header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+        header('Pragma: no-cache');
+        header('Expires: 0');
+    }
 }
 
 const PORTAL_DB_PATH = __DIR__ . '/../data/portal.sqlite';

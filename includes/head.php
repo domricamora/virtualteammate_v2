@@ -1,4 +1,15 @@
 <?php
+// HTML pages must never be cached by browsers or intermediaries — otherwise
+// content edits stay invisible until a hard refresh. The .htaccess sets
+// `text/html access plus 0 seconds` via mod_expires, but not every host has
+// mod_expires loaded; explicit headers here guarantee the no-cache promise.
+// Static assets keep their own long-lived cache; they're invalidated via
+// `?v={mtime}` query strings on the <link>/<script> tags below.
+if (!headers_sent()) {
+    header('Cache-Control: no-cache, no-store, must-revalidate, max-age=0');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+}
 /**
  * Site head partial — meta, schema, font loads, CSS link.
  * Set the following BEFORE including this file to override defaults:
@@ -64,7 +75,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <link rel="preconnect" href="https://images.unsplash.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<link rel="stylesheet" href="<?= $home_base ?>css/style.css"/>
+<link rel="stylesheet" href="<?= $home_base ?>css/style.css?v=<?= @filemtime(__DIR__ . '/../css/style.css') ?: time() ?>"/>
 
 <?php if ($is_homepage): ?>
 <script type="application/ld+json">

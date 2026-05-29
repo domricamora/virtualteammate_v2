@@ -73,7 +73,7 @@ $pageTitle = $title ?? 'Virtual Teammate Portal';
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="<?= e(site_url('images/favicon-32x32.png')) ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
-<link rel="stylesheet" href="assets/portal.css">
+<link rel="stylesheet" href="assets/portal.css?v=<?= @filemtime(__DIR__ . '/../assets/portal.css') ?: time() ?>">
 </head>
 <body class="portal-app">
 <div class="portal-shell">
@@ -127,6 +127,6 @@ $pageTitle = $title ?? 'Virtual Teammate Portal';
   </main>
 
 </div>
-<script src="assets/portal.js" defer></script>
+<script src="assets/portal.js?v=<?= @filemtime(__DIR__ . '/../assets/portal.js') ?: time() ?>" defer></script>
 </body>
 </html>
