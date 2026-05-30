@@ -21,6 +21,11 @@ fi
 USER_PASS="${FTP_USER}:${FTP_PASS}"
 REMOTE_BASE="ftp://${FTP_HOST}/"
 
+# Number of concurrent uploads. Each curl opens its own FTP connection, so
+# uploading in parallel is dramatically faster than one-file-at-a-time.
+# Override with FTP_PARALLEL=N ./deploy.sh if the host rejects many connections.
+MAX_PAR="${FTP_PARALLEL:-8}"
+
 # Top-level production files at the repo root.
 TOP_FILES=(
   "index.php"
@@ -60,34 +65,38 @@ DATA_FILES=(
 )
 
 upload(){
-  local src="$1" dest="$2"
-  curl -sS --user "$USER_PASS" --ftp-create-dirs -T "$src" "${REMOTE_BASE}${dest}"
+  # --retry rides out transient FTP drops; --ftp-create-dirs tolerates dirs
+  # that already exist (so parallel uploads to the same folder don't clash).
+  curl -sS --user "$USER_PASS" --ftp-create-dirs --retry 2 -T "$1" "${REMOTE_BASE}$2" \
+    || echo "  ! FAILED: $2" >&2
+}
+
+# Block until fewer than $MAX_PAR background uploads are running.
+gate(){ while [ "$(jobs -rp | wc -l)" -ge "$MAX_PAR" ]; do wait -n 2>/dev/null || true; done; }
+
+queue(){            # queue <src> <dest> — launch upload in the background pool
+  echo "  $2"
+  gate
+  upload "$1" "$2" &
 }
 
 upload_dir(){
   local dir="$1"
   [ -d "$dir" ] || return 0
   while IFS= read -r -d '' f; do
-    local rel="${f#./}"
-    echo "  $rel"
-    upload "$f" "$rel"
+    queue "$f" "${f#./}"
   done < <(find "$dir" -type f -print0)
 }
 
-echo "Deploying to ${FTP_HOST} as ${FTP_USER}"
+echo "Deploying to ${FTP_HOST} as ${FTP_USER} (parallel x${MAX_PAR})"
 for f in "${TOP_FILES[@]}"; do
-  if [ -f "$f" ]; then
-    echo "  $f"
-    upload "$f" "$f"
-  fi
+  if [ -f "$f" ]; then queue "$f" "$f"; fi
 done
 for d in "${TOP_DIRS[@]}"; do
   upload_dir "$d"
 done
 for f in "${DATA_FILES[@]}"; do
-  if [ -f "$f" ]; then
-    echo "  $f"
-    upload "$f" "$f"
-  fi
+  if [ -f "$f" ]; then queue "$f" "$f"; fi
 done
+wait
 echo "Deploy complete."
