@@ -317,3 +317,17 @@ CREATE INDEX IF NOT EXISTS idx_workday_vt           ON workday_logs(vt_user_id, 
 CREATE INDEX IF NOT EXISTS idx_workday_client       ON workday_logs(client_id, work_date);
 CREATE INDEX IF NOT EXISTS idx_messages_conv        ON messages(conversation_key, created_at);
 CREATE INDEX IF NOT EXISTS idx_messages_receiver    ON messages(receiver_user_id, read_at);
+
+-- Foreign-key indexes that make cascade / SET NULL / RESTRICT checks fast on
+-- delete. Without these, deleting users (e.g. a HubSpot purge) forces a full
+-- scan of each child table per row — and the self-referential reviewer FK below
+-- makes a users purge roughly O(N^2). These turn the danger-zone purge from
+-- minutes into milliseconds.
+CREATE INDEX IF NOT EXISTS idx_users_reviewer         ON users(assigned_reviewer_id);
+CREATE INDEX IF NOT EXISTS idx_vt_profile_meta_user   ON vt_profile_meta(user_id);
+CREATE INDEX IF NOT EXISTS idx_client_vts_vt          ON client_vts(vt_user_id);
+CREATE INDEX IF NOT EXISTS idx_csm_clients_client     ON csm_clients(client_id);
+CREATE INDEX IF NOT EXISTS idx_meetings_organizer     ON meetings(organizer_user_id);
+CREATE INDEX IF NOT EXISTS idx_tasks_created_by       ON tasks(created_by);
+CREATE INDEX IF NOT EXISTS idx_task_attachments_user  ON task_attachments(uploaded_by);
+CREATE INDEX IF NOT EXISTS idx_messages_sender        ON messages(sender_user_id);

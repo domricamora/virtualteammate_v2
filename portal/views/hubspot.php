@@ -267,24 +267,6 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
     </label>
     <button class="btn-portal-danger" type="submit"><i class="fa-solid fa-trash"></i> Delete all HubSpot data</button>
   </form>
-
-  <hr style="border:none;border-top:1px solid rgba(255,255,255,.1);margin:22px 0;">
-
-  <h3 style="margin-top:0;"><i class="fa-solid fa-skull-crossbones"></i> Purge all (hard reset)</h3>
-  <p class="muted">
-    Wipe <strong>every VT, CSM and client user</strong> (HubSpot-synced <em>and</em> any in those roles),
-    all clients, profiles and downloaded media — regardless of whether a row carries a HubSpot id.
-    Only the super_admin and seeded <code>demo-</code> users survive. The user id counter is reset to
-    continue after the seeded demo users, and sync state is cleared.
-  </p>
-  <form method="post" action="<?= e(portal_url('hubspot.purge_all')) ?>" class="hs-danger-form"
-        onsubmit="return confirm('FINAL WARNING — this hard-deletes ALL VT/CSM/client users and media, sparing only super_admin + demo users. This cannot be undone. Continue?');">
-    <?= csrf_field() ?>
-    <label class="hs-danger-label">Type <code>PURGE ALL</code> to confirm
-      <input type="text" name="confirm" autocomplete="off" pattern="PURGE ALL" required placeholder="PURGE ALL">
-    </label>
-    <button class="btn-portal-danger" type="submit"><i class="fa-solid fa-radiation"></i> Purge everything</button>
-  </form>
 </div>
 
 <style>
