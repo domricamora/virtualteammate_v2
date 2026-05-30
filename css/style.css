@@ -1366,6 +1366,9 @@ select.cf-field option:checked{background:#3919BA;color:#fff;}
 .calc-reachout-btn:disabled{opacity:.7;cursor:default;transform:none;box-shadow:none;}
 .calc-reachout-btn i{font-size:11px;color:var(--violet-deep);}
 .calc-reachout-foot{margin-top:10px;font-size:12px;font-style:italic;color:rgba(255,255,255,0.55);}
+/* In the narrower left controls column: email+phone share a row, button full-width below */
+.calc-controls .calc-reachout-row{grid-template-columns:1fr 1fr;}
+.calc-controls .calc-reachout-btn{grid-column:1 / -1;width:100%;}
 
 /* ───── GUARANTEE SECTION ───── */
 .guarantee{padding:90px 80px;position:relative;overflow:hidden;}
