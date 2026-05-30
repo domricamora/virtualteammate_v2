@@ -12,19 +12,29 @@
  */
 declare(strict_types=1);
 
-header('Content-Type: application/json; charset=UTF-8');
+// Buffer everything so a stray notice/whitespace from the bootstrap include
+// can never corrupt the JSON body (which would make fetch().json() throw and
+// the form appear to "do nothing"). All responses go through lead_respond().
+ob_start();
+
+function lead_respond(array $payload, int $code = 200): void
+{
+    while (ob_get_level() > 0) { ob_end_clean(); }
+    http_response_code($code);
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode($payload);
+    exit;
+}
 
 function lead_fail(string $msg, int $code = 400): void
 {
-    http_response_code($code);
-    echo json_encode(['ok' => false, 'error' => $msg]);
-    exit;
+    lead_respond(['ok' => false, 'error' => $msg], $code);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { lead_fail('Method not allowed.', 405); }
 
 // Honeypot — bots fill this hidden field; pretend success so they don't retry.
-if (trim((string) ($_POST['company_site'] ?? '')) !== '') { echo json_encode(['ok' => true]); exit; }
+if (trim((string) ($_POST['company_site'] ?? '')) !== '') { lead_respond(['ok' => true]); }
 
 /* ── Collect fields generically ── */
 $control = ['company_site' => 1, '_csrf' => 1];
@@ -133,4 +143,4 @@ try {
     }
 } catch (Throwable $_) { /* non-fatal */ }
 
-echo json_encode(['ok' => true]);
+lead_respond(['ok' => true]);

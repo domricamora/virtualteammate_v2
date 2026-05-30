@@ -412,13 +412,14 @@
     }
   }
   recalc();
+})();
 
-  /* ── Branded lead forms ──────────────────────────────────────────────
-     Any <form data-lead-form> posts to its action (default lead.php) and
-     swaps in an inline thank-you on success. Pair with a hidden honeypot
-     input name="company_site" and hidden name="source"/"form". An optional
-     [data-lead-note] element shows error text; [data-lead-thanks] overrides
-     the success copy. */
+/* ── Branded lead forms — in their OWN IIFE so an error in any other feature
+   can never stop them attaching. Posts to the form's action (default lead.php)
+   and swaps in a thank-you on success. Pair with a hidden honeypot input
+   name="company_site" + hidden name="source"/"form". Optional [data-lead-note]
+   shows error text; [data-lead-thanks] overrides the success copy. */
+(function(){
   document.querySelectorAll('form[data-lead-form]').forEach(function(form){
     form.addEventListener('submit', function(e){
       e.preventDefault();
