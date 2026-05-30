@@ -226,6 +226,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
             data-lead-form data-lead-thanks="Thanks! We’ll reach out within 1 business day.">
         <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
+        <input class="calc-reachout-field" type="text" name="name" placeholder="Your name" required autocomplete="name" style="width:100%;margin-bottom:10px;">
         <div class="calc-reachout-row">
           <input class="calc-reachout-field" type="email" name="email" placeholder="Email address" required autocomplete="email">
           <input class="calc-reachout-field" type="tel"   name="phone" placeholder="Phone (optional)" autocomplete="tel">
