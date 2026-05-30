@@ -29,6 +29,7 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
     $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
     $nav[] = ['p' => 'messages',    'label' => 'Messages',     'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'email',       'label' => 'Email',        'icon' => 'fa-paper-plane'];
     $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync', 'icon' => 'fa-cloud-arrow-down'];
     $nav[] = ['p' => 'traffic',     'label' => 'Traffic',      'icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'notifications','label' => 'Notifications','icon' => 'fa-bell'];

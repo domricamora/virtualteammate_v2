@@ -78,6 +78,10 @@ switch ($action) {
     case 'hubspot.seed_demo':      handle_hubspot_seed_demo();       break;
     case 'hubspot.purge_all':      handle_hubspot_purge_all();       break;
 
+    /* ───────────────────────── Email composer (super admin) ─────────────────────────── */
+    case 'email':                  handle_email_compose();           break;
+    case 'email.send':             handle_email_send();              break;
+
     /* ───────────────────────── CSMs (super admin) ─────────────────────────── */
     case 'csms':                   handle_csms_list();               break;
     case 'csms.view':              handle_csms_view();               break;
@@ -1660,6 +1664,63 @@ function handle_traffic_clear(): void
         flash('success', "Cleared {$n} traffic rows.");
     }
     redirect(portal_url('traffic'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * EMAIL COMPOSER (super admin only)
+ * Compose + send an email through the portal mailer, and a quick "send test"
+ * to verify mail delivery on the host.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_email_compose(): void
+{
+    $u = require_role('super_admin');
+    render('email-compose', [
+        'title'    => 'Email',
+        'subtitle' => 'Compose and send an email through the portal mailer, or send a quick test to verify delivery.',
+        'user'     => $u,
+        'result'   => $_SESSION['email_result'] ?? null,
+        'draft'    => $_SESSION['email_draft']  ?? [],
+    ]);
+    unset($_SESSION['email_result'], $_SESSION['email_draft']);
+}
+
+function handle_email_send(): void
+{
+    $u = require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('email')); }
+    csrf_verify();
+
+    $to      = trim((string) ($_POST['to'] ?? ''));
+    $subject = trim((string) ($_POST['subject'] ?? ''));
+    $message = trim((string) ($_POST['message'] ?? ''));
+
+    $errors = [];
+    if ($to === '' || !filter_var($to, FILTER_VALIDATE_EMAIL)) { $errors[] = 'A valid recipient email is required.'; }
+    if ($subject === '') { $errors[] = 'A subject is required.'; }
+    if ($message === '') { $errors[] = 'A message is required.'; }
+
+    if ($errors) {
+        $_SESSION['email_result'] = ['ok' => false, 'msg' => implode(' ', $errors)];
+        $_SESSION['email_draft']  = ['to' => $to, 'subject' => $subject, 'message' => $message];
+        redirect(portal_url('email'));
+    }
+
+    $clean    = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
+    $bodyHtml = nl2br($clean($message));
+    $footer   = 'Sent from the Virtual Teammate portal by ' . $clean((string) ($u['name'] ?: $u['email'])) . '.';
+    $html     = portal_email_shell($subject, $bodyHtml, '', $footer, '');
+    $ok       = portal_send_mail($to, $subject, $html, $message);
+
+    audit_log('email_send', 'email', null, ($ok ? 'sent: ' : 'FAILED: ') . $to . ' — ' . mb_substr($subject, 0, 80));
+
+    if ($ok) {
+        $_SESSION['email_result'] = ['ok' => true, 'msg' => 'Email sent to ' . $to . '.'];
+    } else {
+        $_SESSION['email_result'] = ['ok' => false, 'msg' => 'mail() could not hand the message to a mail transport. On localhost (no mail server) this is expected — it should deliver on the production host.'];
+        $_SESSION['email_draft']  = ['to' => $to, 'subject' => $subject, 'message' => $message];
+    }
+    redirect(portal_url('email'));
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

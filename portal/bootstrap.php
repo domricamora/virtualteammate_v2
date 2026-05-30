@@ -277,39 +277,34 @@ function notify(int $userId, string $kind, string $title, string $body = '', str
     }
 }
 
-/**
- * HTML + plain-text email for a portal notification. From info@virtualteammate.com,
- * branded with the VT gradient + a primary CTA button to the original link.
- * Silent on failure (mail() returns false on hosts without a relay).
- */
-function notify_send_email(string $to, string $title, string $body, string $link = ''): void
+/** Absolute https?:// base for the current host (falls back to the prod domain). */
+function portal_site_base(): string
 {
-    $absLink = '';
-    if ($link !== '') {
-        $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-        $host   = $_SERVER['HTTP_HOST'] ?? 'virtualteammate.com';
-        $absLink = $scheme . '://' . $host . '/portal/' . ltrim($link, '/');
-    }
-    $clean = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
-    $subject = preg_replace('/\s+/', ' ', trim($title));
+    $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+    $host   = $_SERVER['HTTP_HOST'] ?? 'virtualteammate.com';
+    return $scheme . '://' . $host;
+}
 
-    // Resolve absolute site URL once for use in both the logo + footer link.
-    $scheme   = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-    $host     = $_SERVER['HTTP_HOST'] ?? 'virtualteammate.com';
-    $siteBase = $scheme . '://' . $host;
+/**
+ * Wrap content in the branded VT email shell: gradient header with logo +
+ * white card + footer (left note + virtualteammate.com link). Matches the
+ * marketing site / portal hero gradient. Used by both portal notifications
+ * and the super-admin email composer.
+ *
+ * - $heading    H2 headline (escaped here — pass raw text)
+ * - $bodyHtml   body markup (already-safe HTML — caller escapes)
+ * - $ctaHtml    optional button block HTML
+ * - $footerNote small grey footer text HTML (left column); '' hides it
+ * - $eyebrow    uppercase tag in the header's top-right
+ */
+function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml = '', string $footerNote = '', string $eyebrow = 'Portal notification'): string
+{
+    $clean    = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
+    $siteBase = portal_site_base();
     $logoSrc  = $siteBase . '/images/logo.webp';
-    $portalUrl= $siteBase . '/portal/';
+    $headHtml = $clean($heading);
 
-    $titleHtml = $clean($title);
-    $bodyHtml  = $body !== '' ? nl2br($clean($body)) : '';
-    $btnHtml   = $absLink !== ''
-        ? '<table cellpadding="0" cellspacing="0" border="0" align="left" style="margin:22px 0 6px;">'
-        . '<tr><td align="center" bgcolor="#3919BA" style="border-radius:10px;background:linear-gradient(135deg,#3919BA 0%,#7c3aed 100%);">'
-        . '<a href="' . $clean($absLink) . '" style="display:inline-block;padding:14px 26px;font-family:Manrope,Arial,sans-serif;font-size:14px;font-weight:800;letter-spacing:.2px;color:#ffffff;text-decoration:none;border-radius:10px;">Open in portal &rarr;</a>'
-        . '</td></tr></table><div style="clear:both;"></div>'
-        : '';
-
-    $html = '<!doctype html><html><head><meta charset="UTF-8"><title>' . $titleHtml . '</title></head>'
+    return '<!doctype html><html><head><meta charset="UTF-8"><title>' . $headHtml . '</title></head>'
         . '<body style="margin:0;padding:0;background:#f4f3f8;font-family:\'Manrope\',Helvetica,Arial,sans-serif;color:#1a1535;-webkit-font-smoothing:antialiased;">'
         . '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f4f3f8;padding:36px 16px;">'
         . '<tr><td align="center">'
@@ -318,21 +313,20 @@ function notify_send_email(string $to, string $title, string $body, string $link
         . '<tr><td style="background:linear-gradient(135deg,#3919BA 0%,#7c3aed 55%,#F6B845 100%);padding:26px 30px;text-align:left;">'
         . '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
         . '<td valign="middle"><img src="' . $clean($logoSrc) . '" alt="Virtual Teammate" width="120" style="display:block;border:0;height:auto;max-width:120px;"></td>'
-        . '<td valign="middle" align="right" style="color:rgba(255,255,255,.92);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;">Portal notification</td>'
+        . ($eyebrow !== '' ? '<td valign="middle" align="right" style="color:rgba(255,255,255,.92);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;">' . $clean($eyebrow) . '</td>' : '')
         . '</tr></table>'
         . '</td></tr>'
         // Body
         . '<tr><td style="padding:30px 30px 10px;">'
-        . '<h2 style="margin:0 0 12px;font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:19px;font-weight:800;color:#1a1535;line-height:1.3;letter-spacing:-.2px;">' . $titleHtml . '</h2>'
+        . '<h2 style="margin:0 0 12px;font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:19px;font-weight:800;color:#1a1535;line-height:1.3;letter-spacing:-.2px;">' . $headHtml . '</h2>'
         . ($bodyHtml !== '' ? '<div style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:14px;line-height:1.6;color:#444163;">' . $bodyHtml . '</div>' : '')
-        . $btnHtml
+        . $ctaHtml
         . '</td></tr>'
         // Footer
         . '<tr><td style="padding:18px 30px 26px;border-top:1px solid #eee9f5;background:#fafafd;">'
         . '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
         . '<td style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;color:#6b6588;font-size:11.5px;line-height:1.6;">'
-        . 'You\'re receiving this because email notifications are turned on for your portal account.<br>'
-        . 'You can turn them off any time from the <a href="' . $clean($portalUrl) . '?p=notifications" style="color:#3919BA;text-decoration:none;font-weight:700;">Notifications</a> page.'
+        . ($footerNote !== '' ? $footerNote : '&nbsp;')
         . '</td>'
         . '<td align="right" valign="top" style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:10.5px;color:#9b97b4;letter-spacing:.4px;">'
         . '<a href="' . $clean($siteBase) . '" style="color:#9b97b4;text-decoration:none;">virtualteammate.com</a>'
@@ -342,14 +336,21 @@ function notify_send_email(string $to, string $title, string $body, string $link
         . '</table>'
         . '</td></tr></table>'
         . '</body></html>';
+}
 
-    // Plain-text fallback (must come first in multipart body).
-    $text = trim($title) . ($body !== '' ? "\n\n" . $body : '') . ($absLink !== '' ? "\n\nOpen: " . $absLink : '');
-
+/**
+ * Low-level multipart (plain + HTML) sender via native PHP mail(). From
+ * support@virtualteammate.com. Returns mail()'s result — true if the message
+ * was handed to a transport, false otherwise (e.g. localhost with no MTA).
+ * Never throws.
+ */
+function portal_send_mail(string $to, string $subject, string $html, string $text, string $fromName = 'Virtual Teammate'): bool
+{
+    $from     = 'support@virtualteammate.com';
+    $subject  = preg_replace('/\s+/', ' ', trim($subject));
     $boundary = 'vtp_' . bin2hex(random_bytes(8));
-    $from     = 'info@virtualteammate.com';
     $headers  = implode("\r\n", [
-        'From: Virtual Teammate <' . $from . '>',
+        'From: ' . $fromName . ' <' . $from . '>',
         'Reply-To: ' . $from,
         'MIME-Version: 1.0',
         'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
@@ -363,8 +364,40 @@ function notify_send_email(string $to, string $title, string $body, string $link
               . $html . "\r\n"
               . "--{$boundary}--";
 
-    try { @mail($to, $subject, $payload, $headers, '-f' . $from); }
-    catch (Throwable $_) {}
+    try { return @mail($to, $subject, $payload, $headers, '-f' . $from); }
+    catch (Throwable $_) { return false; }
+}
+
+/**
+ * Branded HTML + plain-text email for a portal notification, with a primary
+ * CTA button to the original link. Sent via native PHP mail(). Returns whether
+ * mail() accepted it (false on hosts without a relay, e.g. localhost; works on
+ * the production host).
+ */
+function notify_send_email(string $to, string $title, string $body, string $link = ''): bool
+{
+    $absLink = '';
+    if ($link !== '') {
+        $absLink = portal_site_base() . '/portal/' . ltrim($link, '/');
+    }
+    $clean = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
+
+    $bodyHtml = $body !== '' ? nl2br($clean($body)) : '';
+    $btnHtml  = $absLink !== ''
+        ? '<table cellpadding="0" cellspacing="0" border="0" align="left" style="margin:22px 0 6px;">'
+        . '<tr><td align="center" bgcolor="#3919BA" style="border-radius:10px;background:linear-gradient(135deg,#3919BA 0%,#7c3aed 100%);">'
+        . '<a href="' . $clean($absLink) . '" style="display:inline-block;padding:14px 26px;font-family:Manrope,Arial,sans-serif;font-size:14px;font-weight:800;letter-spacing:.2px;color:#ffffff;text-decoration:none;border-radius:10px;">Open in portal &rarr;</a>'
+        . '</td></tr></table><div style="clear:both;"></div>'
+        : '';
+
+    $portalUrl = portal_site_base() . '/portal/';
+    $footer    = 'You\'re receiving this because email notifications are turned on for your portal account.<br>'
+        . 'You can turn them off any time from the <a href="' . $clean($portalUrl) . '?p=notifications" style="color:#3919BA;text-decoration:none;font-weight:700;">Notifications</a> page.';
+
+    $html = portal_email_shell($title, $bodyHtml, $btnHtml, $footer, 'Portal notification');
+    $text = trim($title) . ($body !== '' ? "\n\n" . $body : '') . ($absLink !== '' ? "\n\nOpen: " . $absLink : '');
+
+    return portal_send_mail($to, $title, $html, $text);
 }
 
 /* ───────────────────────── Misc helpers ─────────────────────────── */
