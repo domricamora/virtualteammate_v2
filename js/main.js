@@ -412,4 +412,36 @@
     }
   }
   recalc();
+
+  /* ── Branded lead forms ──────────────────────────────────────────────
+     Any <form data-lead-form> posts to its action (default lead.php) and
+     swaps in an inline thank-you on success. Pair with a hidden honeypot
+     input name="company_site" and hidden name="source"/"form". An optional
+     [data-lead-note] element shows error text; [data-lead-thanks] overrides
+     the success copy. */
+  document.querySelectorAll('form[data-lead-form]').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var url  = form.getAttribute('action') || 'lead.php';
+      var btn  = form.querySelector('[type=submit]');
+      var note = form.querySelector('[data-lead-note]');
+      if (note){ note.textContent = ''; note.classList.remove('is-err'); }
+      if (btn) btn.disabled = true;
+      fetch(url, { method:'POST', body: new FormData(form), credentials:'same-origin' })
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (res && res.ok){
+            var msg = form.getAttribute('data-lead-thanks') || 'Thank you! We’ll be in touch within 1 business day.';
+            form.innerHTML = '<div class="lead-thanks"><i class="fa-solid fa-circle-check"></i><p>' + msg + '</p></div>';
+          } else {
+            if (note){ note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
+            if (btn) btn.disabled = false;
+          }
+        })
+        .catch(function(){
+          if (note){ note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); }
+          if (btn) btn.disabled = false;
+        });
+    });
+  });
 })();

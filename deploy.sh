@@ -30,6 +30,7 @@ TOP_FILES=(
   "favicon.ico"
   "talent-photo.php"
   "track.php"
+  "lead.php"
 )
 
 # Production directories to mirror recursively.
@@ -45,6 +46,7 @@ TOP_DIRS=(
   "case-studies"
   "contact"
   "guarantee"
+  "virtual-teammates"
   "portal"
 )
 

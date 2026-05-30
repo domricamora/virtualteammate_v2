@@ -81,6 +81,11 @@ switch ($action) {
     /* ───────────────────────── Email composer (super admin) ─────────────────────────── */
     case 'email':                  handle_email_compose();           break;
     case 'email.send':             handle_email_send();              break;
+    case 'email.settings':         handle_email_save_settings();     break;
+
+    /* ───────────────────────── Leads (super admin) ─────────────────────────── */
+    case 'leads':                  handle_leads_list();              break;
+    case 'leads.delete':           handle_leads_delete();            break;
 
     /* ───────────────────────── CSMs (super admin) ─────────────────────────── */
     case 'csms':                   handle_csms_list();               break;
@@ -1676,13 +1681,77 @@ function handle_email_compose(): void
 {
     $u = require_role('super_admin');
     render('email-compose', [
-        'title'    => 'Email',
-        'subtitle' => 'Compose and send an email through the portal mailer, or send a quick test to verify delivery.',
-        'user'     => $u,
-        'result'   => $_SESSION['email_result'] ?? null,
-        'draft'    => $_SESSION['email_draft']  ?? [],
+        'title'      => 'Email',
+        'subtitle'   => 'Compose and send an email through the portal mailer, or send a quick test to verify delivery.',
+        'user'       => $u,
+        'result'     => $_SESSION['email_result'] ?? null,
+        'draft'      => $_SESSION['email_draft']  ?? [],
+        'lead_email' => get_setting('lead_notify_email', 'nricamora@virtualteammate.com'),
     ]);
     unset($_SESSION['email_result'], $_SESSION['email_draft']);
+}
+
+function handle_email_save_settings(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('email')); }
+    csrf_verify();
+    $addr = trim((string) ($_POST['lead_notify_email'] ?? ''));
+    if (!filter_var($addr, FILTER_VALIDATE_EMAIL)) {
+        flash('error', 'Enter a valid email address for lead notifications.');
+        redirect(portal_url('email'));
+    }
+    set_setting('lead_notify_email', $addr);
+    audit_log('lead_email_set', 'settings', null, $addr);
+    flash('success', 'Lead notifications will now be sent to ' . $addr . '.');
+    redirect(portal_url('email'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * LEADS (super admin) — website lead-form submissions, captured by /lead.php
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Shared DDL so the page works even before the first lead is captured. */
+function leads_ensure_table(PDO $pdo): void
+{
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS leads (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL DEFAULT '', email TEXT NOT NULL DEFAULT '',
+            phone TEXT NOT NULL DEFAULT '', company TEXT NOT NULL DEFAULT '',
+            message TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT '',
+            form TEXT NOT NULL DEFAULT '', vt_id INTEGER NOT NULL DEFAULT 0,
+            vt_interest TEXT NOT NULL DEFAULT '', details TEXT NOT NULL DEFAULT '',
+            ip TEXT NOT NULL DEFAULT '', created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )"
+    );
+}
+
+function handle_leads_list(): void
+{
+    require_role('super_admin');
+    $pdo = db();
+    leads_ensure_table($pdo);
+    $rows = $pdo->query('SELECT * FROM leads ORDER BY datetime(created_at) DESC, id DESC LIMIT 1000')->fetchAll();
+    render('leads-list', [
+        'title'    => 'Leads',
+        'subtitle' => 'Lead-form submissions captured from the marketing website.',
+        'rows'     => $rows,
+    ]);
+}
+
+function handle_leads_delete(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('leads')); }
+    csrf_verify();
+    $id = (int) ($_POST['id'] ?? 0);
+    if ($id > 0) {
+        db()->prepare('DELETE FROM leads WHERE id = :id')->execute([':id' => $id]);
+        audit_log('lead_delete', 'lead', $id);
+        flash('success', 'Lead deleted.');
+    }
+    redirect(portal_url('leads'));
 }
 
 function handle_email_send(): void

@@ -223,15 +223,18 @@ $mq_srcs = array_values(array_map(static function ($p) {
         </div>
       </div>
 
-      <form class="calc-reachout" id="calcReachout"
-            onsubmit="event.preventDefault();var b=this.querySelector('button');b.disabled=true;b.innerHTML='Thanks! We&rsquo;ll reach out within 1 business day';">
+      <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
+            data-lead-form data-lead-thanks="Thanks! We’ll reach out within 1 business day.">
         <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
         <div class="calc-reachout-row">
           <input class="calc-reachout-field" type="email" name="email" placeholder="Email address" required autocomplete="email">
           <input class="calc-reachout-field" type="tel"   name="phone" placeholder="Phone (optional)" autocomplete="tel">
           <button class="calc-reachout-btn" type="submit">Get a callback <i class="fa-solid fa-arrow-right"></i></button>
         </div>
-        <div class="calc-reachout-foot">No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</div>
+        <input type="hidden" name="source" value="roi-calculator">
+        <input type="hidden" name="form" value="roi-callback">
+        <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+        <div class="calc-reachout-foot" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</div>
       </form>
     </div>
   </div>
@@ -839,18 +842,19 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <h2 class="cta-h2" id="ctaHeading" style="font-size:30px;">Tell Us About Your Practice</h2>
     <p class="cta-sub" id="ctaSub">Pick a stage above and complete the form &mdash; we&rsquo;ll reply within one business day.</p>
 
-    <form id="ctaForm" onsubmit="event.preventDefault();this.querySelector('.cf-submit').innerHTML='Thanks! We will be in touch within 1 business day';">
+    <form id="ctaForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+          data-lead-thanks="Thanks! We will be in touch within 1 business day.">
       <input type="hidden" name="intent" id="ctaIntent" value="strategy-call"/>
       <div class="cf-row">
-        <input class="cf-field" placeholder="First Name" required/>
-        <input class="cf-field" placeholder="Last Name" required/>
+        <input class="cf-field" name="first_name" placeholder="First Name" required/>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required/>
       </div>
       <div class="cf-row">
-        <input class="cf-field" placeholder="Email Address" type="email" required/>
-        <input class="cf-field" placeholder="Phone Number" type="tel"/>
+        <input class="cf-field" name="email" placeholder="Email Address" type="email" required/>
+        <input class="cf-field" name="phone" placeholder="Phone Number" type="tel"/>
       </div>
-      <input class="cf-field" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
-      <select class="cf-field" id="ctaRole" style="margin-bottom:14px;" required>
+      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
+      <select class="cf-field" id="ctaRole" name="role" style="margin-bottom:14px;" required>
         <option value="">I need... (select role)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
@@ -890,8 +894,10 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" id="ctaSourceOther" name="source_other" type="text"
                placeholder="Please tell us where" maxlength="120"/>
       </div>
+      <input type="hidden" name="form" value="homepage-cta">
+      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit" id="ctaSubmit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note">No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
+      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>
 </section>

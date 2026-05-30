@@ -299,12 +299,10 @@ function portal_site_base(): string
  */
 function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml = '', string $footerNote = '', string $eyebrow = 'Portal notification'): string
 {
-    $clean    = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
-    // Canonical public URLs for email assets — emails are read off-site, so the
-    // logo must be an absolute URL on the live domain in a format every client
-    // renders. PNG (not WebP — Outlook/Apple Mail don't show WebP in email).
+    $clean = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
+    // Text-only branding (no logo image) — renders identically in every client
+    // with no remote-image fetch to fail. $publicBase is just the footer link.
     $publicBase = 'https://virtualteammate.com';
-    $logoSrc    = $publicBase . '/images/logo-email.png';
     $headHtml   = $clean($heading);
 
     return '<!doctype html><html><head><meta charset="UTF-8"><title>' . $headHtml . '</title></head>'
@@ -315,7 +313,7 @@ function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml =
         // Branded gradient header (matches the marketing site + portal hero gradient).
         . '<tr><td style="background:linear-gradient(135deg,#3919BA 0%,#7c3aed 55%,#F6B845 100%);padding:26px 30px;text-align:left;">'
         . '<table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>'
-        . '<td valign="middle"><img src="' . $clean($logoSrc) . '" alt="Virtual Teammate" width="120" style="display:block;border:0;height:auto;max-width:120px;"></td>'
+        . '<td valign="middle"><span style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:21px;font-weight:800;letter-spacing:-.3px;color:#ffffff;line-height:1;">Virtual Teammate</span></td>'
         . ($eyebrow !== '' ? '<td valign="middle" align="right" style="color:rgba(255,255,255,.92);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:1.6px;">' . $clean($eyebrow) . '</td>' : '')
         . '</tr></table>'
         . '</td></tr>'

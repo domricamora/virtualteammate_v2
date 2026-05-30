@@ -88,6 +88,7 @@ $home_base = $home_base ?? './';
         </div>
       </div>
     </div>
+    <a href="<?= $home_base ?>virtual-teammates/">Virtual Teammates</a>
     <a href="<?= $home_base ?>case-studies/">Case Studies</a>
     <div class="nav-drop">
       <a href="<?= $home_base ?>about/" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">

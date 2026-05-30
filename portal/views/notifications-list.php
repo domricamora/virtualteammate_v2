@@ -115,6 +115,8 @@ $kindIcon = static function (string $k): string {
   var emailToggle    = card.querySelector('[data-noti-email-toggle]');
   var topBellBadge   = document.querySelector('.portal-top-bell-badge');
   var topBellLink    = document.querySelector('.portal-top-bell');
+  var navLink        = document.querySelector('.portal-nav-link[href*="p=notifications"]');
+  var navBadge       = navLink ? navLink.querySelector('.portal-nav-badge') : null;
 
   function post(action, params){
     var fd = new FormData();
@@ -141,6 +143,21 @@ $kindIcon = static function (string $k): string {
       } else if (topBellBadge){
         topBellBadge.remove();
         topBellBadge = null;
+      }
+    }
+    // Mirror to the left-nav badge too. Create/remove it the same way so
+    // clearing or deleting all notifications zeroes it out without a reload.
+    if (navLink){
+      if (n > 0){
+        if (!navBadge){
+          navBadge = document.createElement('span');
+          navBadge.className = 'portal-nav-badge';
+          navLink.appendChild(navBadge);
+        }
+        navBadge.textContent = n > 99 ? '99+' : n;
+      } else if (navBadge){
+        navBadge.remove();
+        navBadge = null;
       }
     }
   }

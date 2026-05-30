@@ -46,6 +46,7 @@ $hide_footer = $hide_footer ?? false;
       <div class="ft-h">Company</div>
       <ul class="ft-links">
         <li><a href="<?= $home_base ?>about/">About Us</a></li>
+        <li><a href="<?= $home_base ?>virtual-teammates/">Virtual Teammates</a></li>
         <li><a href="<?= $home_base ?>business/">Business &amp; Non-Profit VAs</a></li>
         <li><a href="<?= $home_base ?>guarantee/">30-Day Right-Fit Promise</a></li>
         <li><a href="<?= $home_base ?>case-studies/">Case Studies</a></li>

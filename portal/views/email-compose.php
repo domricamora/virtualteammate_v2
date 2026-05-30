@@ -44,6 +44,27 @@ $message = (string) ($draft['message'] ?? '');
   </p>
 </div>
 
+<div class="card" style="margin-top:18px;">
+  <div class="card-h">
+    <h3 style="margin:0;"><i class="fa-solid fa-bullseye"></i> Lead notifications</h3>
+    <span class="muted small">Where website lead-form submissions are sent</span>
+  </div>
+  <form method="post" action="<?= e(portal_url('email.settings')) ?>" class="form-grid" style="margin-top:6px;">
+    <?= csrf_field() ?>
+    <label class="span-2">Send lead-generation emails to
+      <input type="email" name="lead_notify_email" value="<?= e($lead_email ?? '') ?>" placeholder="name@virtualteammate.com" required>
+    </label>
+    <div class="span-2 form-actions">
+      <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-floppy-disk"></i> Save recipient</button>
+    </div>
+  </form>
+  <p class="muted small" style="margin:14px 0 0;">
+    <i class="fa-solid fa-circle-info"></i>
+    Every website form (homepage CTA, ROI reach-out, Virtual Teammates funnel) emails this address and is logged on the
+    <a href="<?= e(portal_url('leads')) ?>" style="color:#3919BA;font-weight:700;text-decoration:none;">Leads</a> page.
+  </p>
+</div>
+
 <script>
 (function(){
   var btn = document.querySelector('[data-fill-test]');
