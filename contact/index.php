@@ -316,4 +316,14 @@ include __DIR__ . '/../includes/nav.php';
 </section>
 
 </main>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php
+$lf_source     = 'contact';
+$lf_form       = 'contact';
+$lf_title      = 'Send Us a Message';
+$lf_sub        = 'Questions about scope, pricing or a custom engagement? Send a note and a US-based teammate replies within one business day.';
+$lf_cta        = 'Send message';
+$lf_thanks     = 'Thanks for reaching out! A teammate will reply within 1 business day.';
+$lf_company_ph = 'Practice / company (optional)';
+$lf_msg_ph     = 'How can we help?';
+include __DIR__ . '/../includes/footer.php';
+?>

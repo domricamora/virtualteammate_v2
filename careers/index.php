@@ -210,4 +210,15 @@ include __DIR__ . '/../includes/nav.php';
 </section>
 
 </main>
-<?php include __DIR__ . '/../includes/footer.php'; ?>
+<?php
+$lf_source     = 'careers';
+$lf_form       = 'careers-application';
+$lf_title      = 'Start Your Application';
+$lf_sub        = 'Tell us about yourself and the role you\'re after. Our talent team reviews every application within 1–2 business days.';
+$lf_cta        = 'Submit application';
+$lf_thanks     = 'Thank you for applying! Our talent team will review your application and reach out within 1–2 business days.';
+$lf_company_ph = 'City / country';
+$lf_msg_ph     = 'Tell us about your experience and the role you want.';
+$lf_roles      = ['Healthcare VA', 'Dental VA', 'Administrative Support', 'Customer Service', 'Financial Services', 'Marketing', 'Sales', 'Business Intelligence'];
+include __DIR__ . '/../includes/footer.php';
+?>

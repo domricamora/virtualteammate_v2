@@ -1733,6 +1733,10 @@ function handle_leads_list(): void
     $pdo = db();
     leads_ensure_table($pdo);
     $rows = $pdo->query('SELECT * FROM leads ORDER BY datetime(created_at) DESC, id DESC LIMIT 1000')->fetchAll();
+    // Mark all current leads as seen so the nav badge clears (uses the newest
+    // lead's own timestamp so the comparison basis matches stored values).
+    $max = $pdo->query('SELECT MAX(created_at) FROM leads')->fetchColumn();
+    if ($max) { set_setting('leads_last_seen_at', (string) $max); }
     render('leads-list', [
         'title'    => 'Leads',
         'subtitle' => 'Lead-form submissions captured from the marketing website.',

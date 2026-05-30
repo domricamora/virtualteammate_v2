@@ -426,7 +426,13 @@
       var btn  = form.querySelector('[type=submit]');
       var note = form.querySelector('[data-lead-note]');
       if (note){ note.textContent = ''; note.classList.remove('is-err'); }
-      if (btn) btn.disabled = true;
+      function resetBtn(){ if (btn){ btn.disabled=false; btn.classList.remove('is-loading'); if(btn.dataset.orig!==undefined){ btn.innerHTML=btn.dataset.orig; } } }
+      if (btn){
+        btn.dataset.orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+        btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
+      }
       fetch(url, { method:'POST', body: new FormData(form), credentials:'same-origin' })
         .then(function(r){ return r.json(); })
         .then(function(res){
@@ -435,12 +441,12 @@
             form.innerHTML = '<div class="lead-thanks"><i class="fa-solid fa-circle-check"></i><p>' + msg + '</p></div>';
           } else {
             if (note){ note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
-            if (btn) btn.disabled = false;
+            resetBtn();
           }
         })
         .catch(function(){
           if (note){ note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); }
-          if (btn) btn.disabled = false;
+          resetBtn();
         });
     });
   });

@@ -2459,6 +2459,14 @@ textarea.vtd-field{resize:vertical;min-height:52px;}
   .vtd-m-media embed{height:280px;}
 }
 
+/* Sending spinner for lead-form submit buttons */
+.vtd-spinner{display:inline-block;width:15px;height:15px;vertical-align:-2px;margin-right:4px;
+  border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;
+  animation:vtdSpin .6s linear infinite;}
+button.is-loading{opacity:.85;cursor:progress;}
+@keyframes vtdSpin{to{transform:rotate(360deg);}}
+@media (prefers-reduced-motion: reduce){ .vtd-spinner{animation-duration:1.4s;} }
+
 /* Shared inline thank-you for branded lead forms (homepage CTA, ROI reach-out) */
 .lead-thanks{display:flex;align-items:center;gap:12px;color:#fff;font-size:14.5px;line-height:1.5;
   background:rgba(78,196,126,.12);border:1px solid rgba(78,196,126,.4);border-radius:12px;padding:16px 18px;}
@@ -2508,4 +2516,25 @@ textarea.vtd-field{resize:vertical;min-height:52px;}
 }
 @media (prefers-reduced-motion: reduce){
   .vtd-hero-pic img,.vtd-hero-pic:hover img{transition:none;transform:none;}
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Sitewide lead-capture band (includes/lead-form.php)
+   ════════════════════════════════════════════════════════════════════ */
+.lead-band-card{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+  max-width:1180px;margin:0 auto;background:var(--glass-bg);backdrop-filter:var(--glass-blur-sm);
+  -webkit-backdrop-filter:var(--glass-blur-sm);border:1px solid var(--glass-border);
+  border-radius:22px;padding:40px;}
+.lead-band-l{min-width:0;}
+.lead-band-sub{font-size:16px;line-height:1.7;color:rgba(255,255,255,.78);margin:14px 0 0;max-width:48ch;}
+.lead-band-points{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:9px;}
+.lead-band-points li{font-size:14px;color:rgba(255,255,255,.82);display:flex;align-items:center;gap:10px;}
+.lead-band-points i{color:var(--gold);font-size:12px;}
+.lead-band-form{min-width:0;}
+.lead-band-form .cf-submit{width:100%;justify-content:center;}
+@media (max-width:1024px){
+  .lead-band-card{grid-template-columns:1fr;gap:26px;padding:30px;}
+}
+@media (max-width:768px){
+  .lead-band-card .cf-row{grid-template-columns:1fr;}
 }

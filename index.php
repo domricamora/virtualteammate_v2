@@ -903,4 +903,5 @@ $homepage_profiles = vtnew_homepage_profiles(8);
 </section>
 
 </main>
+<?php $hide_lead_band = true; /* homepage already has the #cta + ROI forms */ ?>
 <?php include 'includes/footer.php'; ?>

@@ -567,7 +567,14 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       e.preventDefault();
       var note = document.getElementById('vtdLeadNote');
       var btn  = leadForm.querySelector('.vtd-form-submit');
-      if (btn){ btn.disabled = true; }
+      function resetBtn(){ if (btn){ btn.disabled=false; btn.classList.remove('is-loading'); if(btn.dataset.orig!==undefined){ btn.innerHTML=btn.dataset.orig; } } }
+      if (btn){
+        btn.dataset.orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+        btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
+      }
+      if (note){ note.textContent = ''; note.classList.remove('is-err'); }
       fetch('<?= $home_base ?>lead.php', { method:'POST', body: new FormData(leadForm), credentials:'same-origin' })
         .then(function(r){ return r.json(); })
         .then(function(res){
@@ -575,12 +582,13 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             leadForm.innerHTML = '<div class="vtd-thanks"><i class="fa-solid fa-circle-check"></i><h3>Thank you!</h3><p>We\'ve received your request and will reach out within 1 business day with your matched shortlist.</p></div>';
           } else {
             if (note){ note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
-            if (btn){ btn.disabled = false; }
+            resetBtn();
           }
         })
-        .catch(function(){ if (note){ note.textContent='Network error — please try again.'; note.classList.add('is-err'); } if (btn){ btn.disabled=false; } });
+        .catch(function(){ if (note){ note.textContent='Network error — please try again.'; note.classList.add('is-err'); } resetBtn(); });
     });
   }
 })();
 </script>
+<?php $hide_lead_band = true; /* this page already has the match/lead form */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

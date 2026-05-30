@@ -7,6 +7,9 @@
 $home_base = $home_base ?? './';
 $hide_footer = $hide_footer ?? false;
 ?>
+<?php /* Sitewide lead-capture band — emails + saves to the leads DB. Pages with
+         their own prominent form set $hide_lead_band = true to skip it. */ ?>
+<?php if (empty($hide_lead_band)) { include __DIR__ . '/lead-form.php'; } ?>
 <?php if (!$hide_footer): ?>
 <!-- FOOTER -->
 <footer class="footer" role="contentinfo">

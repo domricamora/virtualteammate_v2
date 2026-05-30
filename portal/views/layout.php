@@ -78,6 +78,22 @@ if ($me) {
         $unreadNotiCount = (int) $stmt->fetchColumn();
     } catch (Throwable $_) {}
 }
+
+// New-lead count for the Leads nav badge (super admin). Counts leads captured
+// since the admin last opened the Leads page (app_settings leads_last_seen_at).
+$newLeadsCount = 0;
+if ($me && $role === 'super_admin') {
+    try {
+        $seen = get_setting('leads_last_seen_at', '');
+        if ($seen !== '') {
+            $stmt = db()->prepare('SELECT COUNT(*) FROM leads WHERE datetime(created_at) > datetime(:s)');
+            $stmt->execute([':s' => $seen]);
+        } else {
+            $stmt = db()->query('SELECT COUNT(*) FROM leads');
+        }
+        $newLeadsCount = (int) $stmt->fetchColumn();
+    } catch (Throwable $_) {}
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,8 +120,9 @@ if ($me) {
         <a class="portal-nav-link<?= $baseFlag($item['p']) ?>" href="<?= e(portal_url($item['p'])) ?>">
           <i class="fa-solid <?= e($item['icon']) ?>"></i>
           <span><?= e($item['label']) ?></span>
-          <?php if ($item['p'] === 'notifications' && $unreadNotiCount > 0): ?>
-            <span class="portal-nav-badge"><?= $unreadNotiCount > 99 ? '99+' : (int) $unreadNotiCount ?></span>
+          <?php $navBadge = $item['p'] === 'notifications' ? $unreadNotiCount : ($item['p'] === 'leads' ? $newLeadsCount : 0); ?>
+          <?php if ($navBadge > 0): ?>
+            <span class="portal-nav-badge"><?= $navBadge > 99 ? '99+' : (int) $navBadge ?></span>
           <?php endif; ?>
         </a>
       <?php endforeach; ?>
