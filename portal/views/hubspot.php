@@ -91,14 +91,25 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
         $duration = (int) ($r['duration_sec'] ?? 0);
         $dHuman = $duration > 60 ? floor($duration / 60) . 'm ' . ($duration % 60) . 's' : $duration . 's';
         $failed = (array) ($st['stats']['media']['failed_urls'] ?? []);
+        $media  = (array) ($st['stats']['media'] ?? []);
       ?>
         <div class="card" style="margin-top:18px;background:rgba(126,194,126,.06);border:1px solid rgba(126,194,126,.25);">
           <div class="card-h"><h3 style="margin:0;color:#7ec27e;">📊 Last run report</h3>
             <span class="muted small">Finished <?= e(fmt_dt($r['finished_at'])) ?> &middot; ran for <?= e($dHuman) ?></span>
           </div>
+          <?php if (!empty($media)): ?>
+            <p class="muted small" style="margin:6px 0 4px;">
+              Media:
+              <strong><?= (int) ($media['downloaded'] ?? 0) ?></strong> downloaded &middot;
+              <strong><?= (int) ($media['cache_hits'] ?? 0) ?></strong> cached &middot;
+              <strong><?= (int) ($media['fallbacks'] ?? 0) ?></strong> external-link fallbacks &middot;
+              <strong><?= (int) ($media['skipped'] ?? 0) ?></strong> skipped &middot;
+              <strong><?= (int) ($media['errors'] ?? 0) ?></strong> errors
+            </p>
+          <?php endif; ?>
           <?php if ($failed): ?>
             <details>
-              <summary><strong><?= count($failed) ?> media download failures</strong> — click to view</summary>
+              <summary><strong><?= count($failed) ?> media items needing attention</strong> (skipped / fallback / failed) — click to view</summary>
               <table class="data-table" style="margin-top:10px;">
                 <thead><tr><th>User</th><th>Email</th><th>Kind</th><th>Reason</th><th>URL</th></tr></thead>
                 <tbody>
@@ -255,6 +266,24 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
       <input type="text" name="confirm" autocomplete="off" pattern="DELETE" required placeholder="DELETE">
     </label>
     <button class="btn-portal-danger" type="submit"><i class="fa-solid fa-trash"></i> Delete all HubSpot data</button>
+  </form>
+
+  <hr style="border:none;border-top:1px solid rgba(255,255,255,.1);margin:22px 0;">
+
+  <h3 style="margin-top:0;"><i class="fa-solid fa-skull-crossbones"></i> Purge all (hard reset)</h3>
+  <p class="muted">
+    Wipe <strong>every VT, CSM and client user</strong> (HubSpot-synced <em>and</em> any in those roles),
+    all clients, profiles and downloaded media — regardless of whether a row carries a HubSpot id.
+    Only the super_admin and seeded <code>demo-</code> users survive. The user id counter is reset to
+    continue after the seeded demo users, and sync state is cleared.
+  </p>
+  <form method="post" action="<?= e(portal_url('hubspot.purge_all')) ?>" class="hs-danger-form"
+        onsubmit="return confirm('FINAL WARNING — this hard-deletes ALL VT/CSM/client users and media, sparing only super_admin + demo users. This cannot be undone. Continue?');">
+    <?= csrf_field() ?>
+    <label class="hs-danger-label">Type <code>PURGE ALL</code> to confirm
+      <input type="text" name="confirm" autocomplete="off" pattern="PURGE ALL" required placeholder="PURGE ALL">
+    </label>
+    <button class="btn-portal-danger" type="submit"><i class="fa-solid fa-radiation"></i> Purge everything</button>
   </form>
 </div>
 

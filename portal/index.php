@@ -2069,6 +2069,10 @@ function handle_hubspot_purge_all(): void
                 AND email NOT LIKE 'demo-%'"
         );
 
+        // Reset the AUTOINCREMENT counter so the next user id continues right
+        // after the highest surviving (seeded demo / super_admin) row.
+        $pdo->exec("UPDATE sqlite_sequence SET seq = (SELECT COALESCE(MAX(id), 0) FROM users) WHERE name = 'users'");
+
         $pdo->commit();
     } catch (Throwable $ex) {
         $pdo->rollBack();
@@ -2103,7 +2107,7 @@ function handle_hubspot_purge_all(): void
     hs_control('reset');
 
     audit_log('hs_purge_all', 'hubspot', null, "clients=$cClients users=$cUsers media=$fileCount");
-    flash('success', "Hard-purged: {$cClients} clients, {$cUsers} users, {$fileCount} media files. Demo users spared. Sync state reset.");
+    flash('success', "Hard-purged: {$cClients} clients, {$cUsers} users (incl. CSMs), {$fileCount} media files. Demo users spared. User counter reset. Sync state reset.");
     redirect(portal_url('hubspot'));
 }
 
@@ -2120,7 +2124,7 @@ function handle_hubspot_purge(): void
     }
 
     $pdo = db();
-    $cClients = $cClientUsers = $cUsers = 0;
+    $cClients = $cClientUsers = $cUsers = $cCsm = 0;
     $pdo->beginTransaction();
     try {
         // Snapshot the client login users tied to HubSpot-synced clients so
@@ -2144,6 +2148,20 @@ function handle_hubspot_purge(): void
         // VT and CSM users marked by HubSpot (FK cascades vt_profiles, eod_reports, links).
         $cUsers = $pdo->exec("DELETE FROM users WHERE hubspot_contact_id != ''");
 
+        // CSM users created from a company's HubSpot Owner have ONLY
+        // hubspot_owner_id set (no contact id), so the clause above misses
+        // them. Sweep those too (spare demo + any super_admin owner).
+        $cCsm = $pdo->exec(
+            "DELETE FROM users
+              WHERE role = 'csm' AND hubspot_owner_id != ''
+                AND email NOT LIKE 'demo-%'"
+        );
+
+        // Reset the AUTOINCREMENT counter so the next user id continues right
+        // after the highest surviving (seeded demo / super_admin) row instead
+        // of wherever the purged HubSpot rows pushed it.
+        $pdo->exec("UPDATE sqlite_sequence SET seq = (SELECT COALESCE(MAX(id), 0) FROM users) WHERE name = 'users'");
+
         $pdo->commit();
     } catch (Throwable $ex) {
         $pdo->rollBack();
@@ -2166,9 +2184,9 @@ function handle_hubspot_purge(): void
 
     hs_control('reset');
 
-    $totalUsers = $cUsers + $cClientUsers;
-    audit_log('hs_purge', 'hubspot', null, "clients=$cClients users=$totalUsers media_files=$fileCount");
-    flash('success', "Purged: {$cClients} HubSpot clients, {$totalUsers} synced users, {$fileCount} media files. Sync state reset.");
+    $totalUsers = $cUsers + $cClientUsers + $cCsm;
+    audit_log('hs_purge', 'hubspot', null, "clients=$cClients users=$totalUsers csm=$cCsm media_files=$fileCount");
+    flash('success', "Purged: {$cClients} HubSpot clients, {$totalUsers} synced users (incl. {$cCsm} owner-only CSMs), {$fileCount} media files. User counter reset. Sync state reset.");
     redirect(portal_url('hubspot'));
 }
 

@@ -29,10 +29,16 @@ const HS_STATE_KEY       = 'hs_sync_state';
 const HS_MEDIA_ROOT      = __DIR__ . '/../data/media';
 const HS_SEARCH_PAGE_MAX = 100;   // HubSpot cap.
 const HS_PROCESS_BATCH   = 20;    // Contacts per process step (raised from 5 per user request).
-// Media downloads are an order of magnitude slower than DB upserts (each video
-// can take 30–60s). Smaller batch + per-item state checkpointing keeps every
-// tick under typical PHP max_execution_time so the UI poller doesn't see 5xx.
-const HS_MEDIA_BATCH     = 4;
+// Media downloads run concurrently (curl_multi) so a single tick pulls several
+// files at once instead of one-at-a-time. Per-item state is checkpointed after
+// each file, so a tick killed mid-batch resumes cleanly on the next item.
+const HS_MEDIA_BATCH           = 8;     // items peeked + drained per tick
+const HS_MEDIA_PARALLEL        = 4;     // concurrent downloads in flight
+const HS_MEDIA_TIMEOUT         = 150;   // hard per-file ceiling (seconds)
+const HS_MEDIA_CONNECT_TIMEOUT = 10;    // connect-phase ceiling (seconds)
+const HS_MEDIA_LOW_SPEED_BYTES = 1024;  // abort a transfer slower than 1KB/s…
+const HS_MEDIA_LOW_SPEED_SECS  = 30;    // …sustained this long (kills stalls)
+const HS_MEDIA_MAX_ATTEMPTS    = 3;     // skip a file that keeps dying mid-import
 
 /**
  * Resolve a CA bundle path so cURL HTTPS works on WAMP / shared hosts where
@@ -63,6 +69,27 @@ function hs_apply_curl_ssl($ch): void
     if ($ca !== '') {
         curl_setopt($ch, CURLOPT_CAINFO, $ca);
     }
+}
+
+/**
+ * Lift PHP runtime ceilings for the long-running, network-heavy sync so a large
+ * media batch can't be killed mid-flight by max_execution_time, memory_limit,
+ * or socket timeouts. Mirrors the staging WordPress bootstrap (wp-config.php)
+ * values. Every call is @-suppressed and is a safe no-op on hosts that forbid
+ * ini_set / set_time_limit.
+ */
+function hs_raise_runtime_limits(): void
+{
+    @set_time_limit(0);
+    @ini_set('max_execution_time', '3360000');
+    @ini_set('max_input_time', '0');
+    @ini_set('memory_limit', '2048M');
+    @ini_set('upload_max_filesize', '1024M');
+    @ini_set('post_max_size', '1024M');
+    @ini_set('max_input_vars', '50000');
+    @ini_set('max_file_uploads', '2000');
+    @ini_set('default_socket_timeout', '6000');
+    @ignore_user_abort(true);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -312,7 +339,9 @@ function hs_normalize_media_url(string $url, string $kind): string
             if (preg_match($rx, $url, $m)) { $fileId = $m[1]; break; }
         }
         if ($fileId !== '') {
-            return 'https://drive.google.com/uc?export=download&id=' . rawurlencode($fileId);
+            // confirm=t bypasses Drive's "can't scan for viruses" interstitial
+            // HTML page that it serves for larger files (a common resume failure).
+            return 'https://drive.google.com/uc?export=download&confirm=t&id=' . rawurlencode($fileId);
         }
     }
     // 0b. Google Docs document → export as PDF for resume, plain link otherwise.
@@ -1179,7 +1208,7 @@ function hs_talent_state_default(): array
         'stats' => [
             'fetched_total'   => ['eligible' => 0, 'matched' => 0, 'contracted' => 0],
             'vts'             => ['created'=>0,'updated'=>0,'skipped_role'=>0,'skipped_no_email'=>0,'errors'=>0],
-            'media'           => ['downloaded'=>0,'cache_hits'=>0,'errors'=>0,'failed_urls'=>[]],
+            'media'           => ['downloaded'=>0,'cache_hits'=>0,'fallbacks'=>0,'skipped'=>0,'errors'=>0,'failed_urls'=>[]],
             'ci_roles'        => ['fetched'=>0,'linked'=>0,'errors'=>0],
         ],
         'messages'     => [],
@@ -1359,10 +1388,8 @@ function hs_handle_stage_exception(array &$state, string $stage, Throwable $ex):
 function hs_talent_step(): array
 {
     // A single step may download several large files (videos) before returning.
-    // 300s ceiling keeps Apache + PHP from killing the request mid-batch and
-    // making the JS poller think the pipeline died.
-    if (function_exists('set_time_limit')) { @set_time_limit(600); }
-    ignore_user_abort(true);
+    // Lift PHP runtime ceilings so a big media batch can't be killed mid-flight.
+    hs_raise_runtime_limits();
 
     $state = hs_talent_state_load();
     if ($state['status'] !== 'running') { return $state; }
@@ -1801,63 +1828,153 @@ function hs_url_is_hubspot_hosted(string $url): bool
 }
 
 /**
- * Download a media URL to data/media/{entity}/{id}/{kind}.{ext} using the
- * HubSpot Bearer token when the URL is on a HubSpot-hosted domain. Returns
- * a result struct so the caller can update stats + DB precisely.
+ * Optimum cURL options shared by the single- and parallel-download paths.
+ * Tuned to prevent hangs and respect limits: transparent gzip, TCP keep-alive,
+ * a hard ceiling timeout, and a low-speed guard that aborts a stalled transfer
+ * (slower than HS_MEDIA_LOW_SPEED_BYTES/s for HS_MEDIA_LOW_SPEED_SECS) instead
+ * of blocking until the full timeout elapses.
+ */
+function hs_media_curl_opts(string $url, array $headers): array
+{
+    return [
+        CURLOPT_URL             => $url,
+        CURLOPT_RETURNTRANSFER  => true,
+        CURLOPT_FOLLOWLOCATION  => true,
+        CURLOPT_MAXREDIRS       => 8,
+        CURLOPT_TIMEOUT         => HS_MEDIA_TIMEOUT,
+        CURLOPT_CONNECTTIMEOUT  => HS_MEDIA_CONNECT_TIMEOUT,
+        CURLOPT_LOW_SPEED_LIMIT => HS_MEDIA_LOW_SPEED_BYTES,
+        CURLOPT_LOW_SPEED_TIME  => HS_MEDIA_LOW_SPEED_SECS,
+        CURLOPT_ENCODING        => '',        // accept gzip/deflate transparently
+        CURLOPT_TCP_KEEPALIVE   => 1,
+        CURLOPT_HTTPHEADER      => $headers,
+        CURLOPT_HEADER          => false,
+        CURLOPT_FAILONERROR     => false,
+    ];
+}
+
+/**
+ * Resolve a media URL into a fetch plan WITHOUT touching the network:
+ *   ['mode'=>'error', 'error'=>…]            bad input — skip
+ *   ['mode'=>'embed', 'url'=>…]              store URL as-is, no download
+ *   ['mode'=>'fetch', 'url'=>…, 'headers'=>…] download with these headers
+ * Centralizes Drive-folder rejection, normalization, kind check, embed
+ * detection, and the HubSpot Bearer-auth decision.
+ */
+function hs_media_prepare(string $url, string $kind, string $token): array
+{
+    if (preg_match('#drive\.google\.com/(?:drive/)?(?:[a-z0-9/]+/)?folders/#i', trim($url))) {
+        return ['mode'=>'error', 'error'=>'Google Drive folder URL — needs a direct file link, not a folder'];
+    }
+    $norm = hs_normalize_media_url($url, $kind);
+    if ($norm === '' || !preg_match('#^https?://#i', $norm)) {
+        return ['mode'=>'error', 'error'=>'invalid url'];
+    }
+    if (!isset(hs_media_kind_map()[$kind])) {
+        return ['mode'=>'error', 'error'=>'unknown kind'];
+    }
+    if ($kind === 'video' && hs_is_embedded_video_url($norm)) {
+        return ['mode'=>'embed', 'url'=>$norm];
+    }
+    $headers = ['User-Agent: VT-Portal-Sync/1.0', 'Accept: */*'];
+    if ($token !== '' && hs_url_is_hubspot_hosted($norm)) {
+        $headers[] = 'Authorization: Bearer ' . $token;
+    }
+    return ['mode'=>'fetch', 'url'=>$norm, 'headers'=>$headers];
+}
+
+/** True for fetch results worth one automatic retry (transient network/server). */
+function hs_media_is_transient(array $r): bool
+{
+    if ((int) ($r['errno'] ?? 0) !== 0) { return true; }         // curl-level (timeout, reset)
+    return in_array((int) ($r['http'] ?? 0), [429, 500, 502, 503, 504], true);
+}
+
+/**
+ * Download many media URLs concurrently via curl_multi, capped at
+ * HS_MEDIA_PARALLEL handles in flight. $reqs is a list of
+ * ['key'=>mixed, 'url'=>string, 'headers'=>array]. Returns a map
+ * key => ['ok'=>bool, 'body'=>?string, 'http'=>int, 'ctype'=>string,
+ *         'errno'=>int, 'error'=>?string]. Transient failures are retried once.
+ */
+function hs_fetch_media_multi(array $reqs, int $concurrency = HS_MEDIA_PARALLEL): array
+{
+    $run = static function (array $reqs) use ($concurrency): array {
+        $results = [];
+        if (empty($reqs)) { return $results; }
+        $conc  = max(1, min($concurrency, count($reqs)));
+        $mh    = curl_multi_init();
+        $queue = array_values($reqs);
+        $live  = []; // (int)handle => key
+
+        $add = static function () use (&$queue, &$live, $mh): void {
+            if (empty($queue)) { return; }
+            $req = array_shift($queue);
+            $ch  = curl_init();
+            curl_setopt_array($ch, hs_media_curl_opts($req['url'], $req['headers']));
+            hs_apply_curl_ssl($ch);
+            curl_multi_add_handle($mh, $ch);
+            $live[(int) $ch] = $req['key'];
+        };
+        for ($i = 0; $i < $conc; $i++) { $add(); }
+
+        do {
+            curl_multi_exec($mh, $running);
+            if ($running > 0) { curl_multi_select($mh, 1.0); }
+            while ($info = curl_multi_info_read($mh)) {
+                $ch    = $info['handle'];
+                $key   = $live[(int) $ch] ?? null;
+                $body  = curl_multi_getcontent($ch);
+                $http  = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                $ctype = (string) curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+                $errno = curl_errno($ch);
+                $err   = curl_error($ch);
+                if ($key !== null) {
+                    if ($errno !== 0) {
+                        $results[$key] = ['ok'=>false, 'body'=>null, 'http'=>$http, 'ctype'=>$ctype, 'errno'=>$errno, 'error'=>'curl: ' . $err];
+                    } elseif ($http < 200 || $http >= 300 || !is_string($body) || $body === '') {
+                        $results[$key] = ['ok'=>false, 'body'=>null, 'http'=>$http, 'ctype'=>$ctype, 'errno'=>0, 'error'=>'HTTP ' . $http];
+                    } else {
+                        $results[$key] = ['ok'=>true, 'body'=>$body, 'http'=>$http, 'ctype'=>$ctype, 'errno'=>0, 'error'=>null];
+                    }
+                }
+                curl_multi_remove_handle($mh, $ch);
+                curl_close($ch);
+                unset($live[(int) $ch]);
+                $add(); // keep the pipe full
+            }
+        } while ($running > 0 || !empty($queue) || !empty($live));
+
+        curl_multi_close($mh);
+        return $results;
+    };
+
+    $results = $run($reqs);
+    $retry = [];
+    foreach ($reqs as $req) {
+        $k = $req['key'];
+        if (isset($results[$k]) && !$results[$k]['ok'] && hs_media_is_transient($results[$k])) {
+            $retry[] = $req;
+        }
+    }
+    if (!empty($retry)) {
+        foreach ($run($retry) as $k => $r) { $results[$k] = $r; }
+    }
+    return $results;
+}
+
+/**
+ * Validate downloaded bytes and persist to data/media/{entity}/{id}/{kind}.{ext}.
+ * Returns the result struct used by both download paths. On a content mismatch
+ * (e.g. an HTML login/interstitial page instead of a PDF/image) returns
+ * ok=false with a descriptive error so the caller can fall back gracefully.
  *
  * @return array{ok:bool, served_url:string, ext:string, size:int, http:int, error:?string}
  */
-function hs_download_media_with_auth(string $url, string $entity, int $id, string $kind, string $token): array
+function hs_media_write(string $body, int $code, string $ctype, string $url, string $entity, int $id, string $kind): array
 {
-    $orig = trim($url);
-    if (preg_match('#drive\.google\.com/(?:drive/)?(?:[a-z0-9/]+/)?folders/#i', $orig)) {
-        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'Google Drive folder URL — needs a direct file link, not a folder'];
-    }
-    $url = hs_normalize_media_url($url, $kind);
-    if ($url === '' || !preg_match('#^https?://#i', $url)) {
-        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'invalid url'];
-    }
-    if (!isset(hs_media_kind_map()[$kind])) {
-        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>'unknown kind'];
-    }
-    // Embed-only video hosts: don't download, just return the URL.
-    if ($kind === 'video' && hs_is_embedded_video_url($url)) {
-        return ['ok'=>true, 'served_url'=>$url, 'ext'=>'embed', 'size'=>0, 'http'=>200, 'error'=>null];
-    }
-
-    $headers = ['User-Agent: VT-Portal-Sync/1.0', 'Accept: */*'];
-    if ($token !== '' && hs_url_is_hubspot_hosted($url)) {
-        $headers[] = 'Authorization: Bearer ' . $token;
-    }
-
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL            => $url,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_MAXREDIRS      => 8,
-        CURLOPT_TIMEOUT        => 180,
-        CURLOPT_CONNECTTIMEOUT => 12,
-        CURLOPT_HTTPHEADER     => $headers,
-        CURLOPT_HEADER         => false,
-    ]);
-    hs_apply_curl_ssl($ch);
-    $body  = curl_exec($ch);
-    $code  = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $ctype = (string) curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
-    $errno = curl_errno($ch);
-    $err   = curl_error($ch);
-    curl_close($ch);
-
-    if ($errno !== 0) {
-        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>$code, 'error'=>'curl: ' . $err];
-    }
-    if ($code < 200 || $code >= 300 || !is_string($body) || $body === '') {
-        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>(int)strlen((string)$body), 'http'=>$code, 'error'=>'HTTP ' . $code];
-    }
-
     // Resolve the file extension: prefer URL path, fall back to Content-Type.
-    $pathExt = strtolower(pathinfo((string)(parse_url($url, PHP_URL_PATH) ?: ''), PATHINFO_EXTENSION));
+    $pathExt = strtolower(pathinfo((string) (parse_url($url, PHP_URL_PATH) ?: ''), PATHINFO_EXTENSION));
     $ctMain  = strtolower(trim(explode(';', $ctype)[0] ?? ''));
     $ctExt   = strtolower(preg_replace('#[^a-z0-9]#', '', explode('/', $ctMain)[1] ?? ''));
     if ($ctExt === 'jpeg') { $ctExt = 'jpg'; }
@@ -1865,7 +1982,13 @@ function hs_download_media_with_auth(string $url, string $entity, int $id, strin
     $allowed = hs_media_kind_map()[$kind];
     if (!in_array($ext, $allowed, true)) { $ext = $allowed[0]; }
 
-    // MIME sanity check — reject obvious wrong types (e.g. HTML error pages).
+    // An HTML body where we expected a binary file means a login / permission /
+    // "virus scan" wall — never a real asset.
+    $head = substr($body, 0, 512);
+    $looksHtml = stripos($ctMain, 'text/html') !== false
+              || stripos($head, '<!doctype html') !== false
+              || stripos($head, '<html') !== false;
+
     if ($kind === 'photo') {
         $tmp = tmpfile();
         fwrite($tmp, $body);
@@ -1877,11 +2000,15 @@ function hs_download_media_with_auth(string $url, string $entity, int $id, strin
             return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'not a valid image'];
         }
     } elseif ($kind === 'resume') {
+        if ($looksHtml) {
+            return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'received an HTML page, not a file (login/permission wall)'];
+        }
         // PDF starts with %PDF. DOC/DOCX has a different signature — accept if extension is doc/docx.
-        $head4 = substr($body, 0, 4);
-        if ($ext === 'pdf' && $head4 !== '%PDF') {
+        if ($ext === 'pdf' && substr($body, 0, 4) !== '%PDF') {
             return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'not a valid PDF (probably an HTML login page)'];
         }
+    } elseif ($kind === 'video' && $looksHtml) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'received an HTML page, not a video file'];
     }
 
     $dir  = hs_media_dir($entity, $id);
@@ -1898,130 +2025,346 @@ function hs_download_media_with_auth(string $url, string $entity, int $id, strin
     return ['ok'=>true, 'served_url'=>$served, 'ext'=>$ext, 'size'=>strlen($body), 'http'=>$code, 'error'=>null];
 }
 
-/** Drain HS_PROCESS_BATCH items from state.pending.media. Photos update users
- *  table; resumes + videos update vt_profiles. Successful downloads also update
- *  the matching *_source_url column so a re-sync skips unchanged sources. */
+/**
+ * Record that a media file now exists, by writing the locally-served URL plus
+ * the source URL into the DB. The presence of the `index.php?p=media…` URL IS
+ * the "file exists" record — re-syncs trust it instead of stat-ing the disk.
+ */
+function hs_media_persist(PDO $pdo, int $uid, string $kind, string $servedUrl, string $sourceUrl): void
+{
+    if ($kind === 'photo') {
+        $pdo->prepare('UPDATE users SET photo_url = :u, photo_source_url = :s, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
+            ->execute([':u'=>$servedUrl, ':s'=>$sourceUrl, ':id'=>$uid]);
+    } else {
+        $col  = $kind === 'resume' ? 'resume_url'        : 'video_url';
+        $scol = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
+        $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, {$scol} = :s, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
+            ->execute([':u'=>$servedUrl, ':s'=>$sourceUrl, ':uid'=>$uid]);
+    }
+}
+
+/**
+ * Fallback persist: store ONLY the external link (leave *_source_url untouched
+ * so a later sync still retries the real byte download). Used when we can't
+ * fetch the file itself but at least want it reachable from the portal — the
+ * resume/video views render an "Open external link" button for non-local URLs.
+ */
+function hs_media_persist_link_only(PDO $pdo, int $uid, string $kind, string $linkUrl): void
+{
+    if ($kind === 'photo') {
+        $pdo->prepare('UPDATE users SET photo_url = :u, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
+            ->execute([':u'=>$linkUrl, ':id'=>$uid]);
+    } else {
+        $col = $kind === 'resume' ? 'resume_url' : 'video_url';
+        $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
+            ->execute([':u'=>$linkUrl, ':uid'=>$uid]);
+    }
+}
+
+/** Append a media problem row to the report's failed_urls list (capped at 50). */
+function hs_media_log_problem(array &$state, array $p, string $reason): void
+{
+    if (count($state['stats']['media']['failed_urls'] ?? []) < 50) {
+        $state['stats']['media']['failed_urls'][] = [
+            'user_id' => $p['uid']          ?? 0,
+            'name'    => $p['who']['name']  ?? '',
+            'email'   => $p['who']['email'] ?? '',
+            'kind'    => $p['kind']         ?? '',
+            'url'     => $p['src']          ?? '',
+            'reason'  => $reason,
+        ];
+    }
+}
+
+/**
+ * Single-item download (ad-hoc path). The batch sync uses hs_fetch_media_multi;
+ * this shares the same prepare + write helpers for a one-off fetch.
+ *
+ * @return array{ok:bool, served_url:string, ext:string, size:int, http:int, error:?string}
+ */
+function hs_download_media_with_auth(string $url, string $entity, int $id, string $kind, string $token): array
+{
+    $prep = hs_media_prepare($url, $kind, $token);
+    if ($prep['mode'] === 'error') {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>0, 'error'=>$prep['error']];
+    }
+    if ($prep['mode'] === 'embed') {
+        return ['ok'=>true, 'served_url'=>$prep['url'], 'ext'=>'embed', 'size'=>0, 'http'=>200, 'error'=>null];
+    }
+    $ch = curl_init();
+    curl_setopt_array($ch, hs_media_curl_opts($prep['url'], $prep['headers']));
+    hs_apply_curl_ssl($ch);
+    $body  = curl_exec($ch);
+    $code  = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $ctype = (string) curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+    $errno = curl_errno($ch);
+    $err   = curl_error($ch);
+    curl_close($ch);
+    if ($errno !== 0) {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>0, 'http'=>$code, 'error'=>'curl: ' . $err];
+    }
+    if ($code < 200 || $code >= 300 || !is_string($body) || $body === '') {
+        return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>(int) strlen((string) $body), 'http'=>$code, 'error'=>'HTTP ' . $code];
+    }
+    return hs_media_write($body, $code, $ctype, $prep['url'], $entity, $id, $kind);
+}
+
+/**
+ * Drain HS_MEDIA_BATCH items from state.pending.media in three phases:
+ *   A) resolve identity + cache (DB only, no network, no disk stat) and build
+ *      a per-item plan;
+ *   B) download everything that needs fetching CONCURRENTLY (curl_multi);
+ *   C) apply outcomes in order, with EXACTLY one array_shift + checkpoint per
+ *      item so pending always drains.
+ *
+ * Resilience guarantees:
+ *   - One bad file never stops the run: each item is isolated and, on failure,
+ *     resumes/videos fall back to keeping the external link while photos are
+ *     recorded as skipped. All problem items land in the summary report.
+ *   - A file that keeps dying mid-import (attempts > HS_MEDIA_MAX_ATTEMPTS) is
+ *     skipped permanently instead of blocking the queue.
+ *   - The cache check is DB-only: a stored `index.php?p=media…` URL is the
+ *     "file exists" record, so re-syncs never stat the filesystem.
+ */
 function hs_talent_step_download_media(array &$state, HubSpotClient $hs, array $settings): void
 {
     if (empty($state['pending']['media'])) {
-        $d = $state['stats']['media']['downloaded'] ?? 0;
-        $h = $state['stats']['media']['cache_hits'] ?? 0;
-        $e = $state['stats']['media']['errors']     ?? 0;
-        hs_state_log($state, "Media: downloaded={$d}, cache_hits={$h}, errors={$e}.");
+        hs_media_log_stage_summary($state, 'Media');
         hs_state_advance_stage($state);
         return;
     }
     // Are we even allowed to download? `hs_import_media=0` skips this stage.
-    if (empty($settings['hs_import_media']) || (string)$settings['hs_import_media'] === '0') {
+    if (empty($settings['hs_import_media']) || (string) $settings['hs_import_media'] === '0') {
         hs_state_log($state, 'Media import disabled in settings — skipping.');
         $state['pending']['media'] = [];
         hs_state_advance_stage($state);
         return;
     }
 
+    hs_raise_runtime_limits();
     $token = (string) ($settings['hs_token'] ?? '');
     $pdo   = db();
-    // PEEK at the batch but do NOT remove from pending yet — we shift each
-    // item off + checkpoint to DB only after the item is fully processed.
-    // Previously array_splice'd 20 items up front; if PHP died mid-batch
-    // those items vanished from pending without their work being done,
-    // leaving the run permanently stuck. Now a tick can be killed at any
-    // point and the next tick safely picks up the remaining items.
+    // PEEK only — every item is array_shift'd + checkpointed individually in
+    // Phase C, so a tick killed mid-batch resumes cleanly on the next item.
     $batch = array_slice($state['pending']['media'], 0, HS_MEDIA_BATCH);
 
+    // Bulk-prefetch the stored source + served URL per kind in ONE query each
+    // (instead of a SELECT per item) — the fast path for re-syncs full of cache
+    // hits. Maps: uid => ['src'=>source_url, 'url'=>served_url].
+    $photoIds = $vtIds = [];
     foreach ($batch as $item) {
-        // Per-item try/catch so one unexpected failure (a bad SELECT, a
-        // network exception, a malformed item) cannot abort the whole batch.
+        $uid = (int) ($item['user_id'] ?? 0);
+        if ($uid < 1) { continue; }
+        if (($item['kind'] ?? '') === 'photo') { $photoIds[$uid] = true; }
+        else { $vtIds[$uid] = true; }
+    }
+    $photoCache = hs_media_prefetch_photo($pdo, array_keys($photoIds));
+    $vtCache    = hs_media_prefetch_vt($pdo, array_keys($vtIds));
+
+    // ── Phase A — plan each item (no network). Bump the per-item attempt
+    //    counter on the REAL pending entry first and checkpoint, so a file that
+    //    crashes the process still has its attempt recorded for next tick.
+    $plan = [];
+    foreach ($batch as $i => $item) {
+        $state['pending']['media'][$i]['attempts'] = (int) ($state['pending']['media'][$i]['attempts'] ?? 0) + 1;
+    }
+    hs_talent_state_save($state);
+
+    $toFetch = [];
+    foreach ($batch as $i => $item) {
         try {
-            $uid   = (int)    ($item['user_id'] ?? 0);
-            $kind  = (string) ($item['kind'] ?? '');
-            $src   = (string) ($item['source_url'] ?? '');
+            $uid      = (int)    ($item['user_id'] ?? 0);
+            $kind     = (string) ($item['kind'] ?? '');
+            $src      = (string) ($item['source_url'] ?? '');
+            $attempts = (int)    ($state['pending']['media'][$i]['attempts'] ?? 1);
             if ($uid < 1 || $src === '' || !in_array($kind, ['photo','resume','video'], true)) {
-                $state['stats']['media']['errors']++;
+                $plan[$i] = ['action'=>'skip', 'uid'=>$uid, 'kind'=>$kind, 'src'=>$src,
+                             'who'=>['name'=>'','email'=>'','tag'=>'user #'.$uid],
+                             'reason'=>'invalid media item (missing id/url/kind)'];
                 continue;
             }
-
-            // Pre-fetch identity so the activity log + report show the actual
-            // person/email instead of just a user id (the user needs that to
-            // know which HubSpot contact to fix).
-            $who    = hs_user_label_for_log($pdo, $uid);
-            $whoTag = $who['tag'];   // "Michelle Pena <michelle@…> (#755)" or "user #755"
-            $name   = $who['name'];
-            $email  = $who['email'];
-
-            // Cache lookup: if the previously-stored source URL matches AND
-            // the local file is still on disk, skip the network round trip.
-            $existingSource = '';
-            if ($kind === 'photo') {
-                $s = $pdo->prepare('SELECT photo_source_url FROM users WHERE id = :u');
-                $s->execute([':u' => $uid]);
-                $existingSource = (string) ($s->fetchColumn() ?: '');
-            } else {
-                $col = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
-                $s = $pdo->prepare("SELECT {$col} FROM vt_profiles WHERE user_id = :u");
-                $s->execute([':u' => $uid]);
-                $existingSource = (string) ($s->fetchColumn() ?: '');
-            }
+            $who        = hs_user_label_for_log($pdo, $uid);
             $normalized = hs_normalize_media_url($src, $kind);
-            if ($existingSource !== '' && $existingSource === $normalized) {
-                $dir = hs_media_dir('vt', $uid);
-                if (glob($dir . '/' . $kind . '.*')) {
-                    $state['stats']['media']['cache_hits']++;
-                    continue;
-                }
-            }
+            $base = ['uid'=>$uid, 'kind'=>$kind, 'src'=>$src, 'who'=>$who, 'normalized'=>$normalized];
 
-            $r = hs_download_media_with_auth($src, 'vt', $uid, $kind, $token);
-            if (!$r['ok']) {
-                $state['stats']['media']['errors']++;
-                $msg = ($r['error'] ?: 'unknown') . ' (http=' . $r['http'] . ')';
-                if (count($state['stats']['media']['failed_urls']) < 30) {
-                    $state['stats']['media']['failed_urls'][] = [
-                        'user_id' => $uid, 'name' => $name, 'email' => $email,
-                        'kind' => $kind, 'url' => $src, 'reason' => $msg,
-                    ];
-                }
-                hs_state_log($state, "Media {$kind} FAILED for {$whoTag}: {$msg}");
+            // Give up on a file that keeps killing the tick mid-import.
+            if ($attempts > HS_MEDIA_MAX_ATTEMPTS) {
+                $plan[$i] = ['action'=>'skip'] + $base
+                          + ['reason'=>"skipped after {$attempts} attempts (file keeps failing/stalling mid-import)"];
                 continue;
             }
 
-            // Persist new URLs.
-            try {
-                if ($kind === 'photo') {
-                    $pdo->prepare('UPDATE users SET photo_url = :u, photo_source_url = :s, updated_at = CURRENT_TIMESTAMP WHERE id = :id')
-                        ->execute([':u' => $r['served_url'], ':s' => $normalized, ':id' => $uid]);
-                } else {
-                    $col   = $kind === 'resume' ? 'resume_url' : 'video_url';
-                    $scol  = $kind === 'resume' ? 'resume_source_url' : 'video_source_url';
-                    $pdo->prepare("UPDATE vt_profiles SET {$col} = :u, {$scol} = :s, updated_at = CURRENT_TIMESTAMP WHERE user_id = :uid")
-                        ->execute([':u' => $r['served_url'], ':s' => $normalized, ':uid' => $uid]);
-                }
-                $state['stats']['media']['downloaded']++;
-            } catch (Throwable $ex) {
-                $state['stats']['media']['errors']++;
-                hs_state_log($state, "Media {$kind} DB write failed for {$whoTag}: " . $ex->getMessage());
+            // Cache (DB only): same source URL + a locally-served URL on record
+            // means the file already exists — no network, no disk stat.
+            $rec = $kind === 'photo' ? ($photoCache[$uid] ?? null) : ($vtCache[$uid] ?? null);
+            $existingSource = $kind === 'photo' ? (string) ($rec['src'] ?? '')
+                            : (string) ($rec[$kind . '_src'] ?? '');
+            $existingUrl    = $kind === 'photo' ? (string) ($rec['url'] ?? '')
+                            : (string) ($rec[$kind . '_url'] ?? '');
+            if ($existingSource !== '' && $existingSource === $normalized
+                && str_starts_with($existingUrl, 'index.php?p=media')) {
+                $plan[$i] = ['action'=>'cache'] + $base;
+                continue;
+            }
+
+            $prep = hs_media_prepare($src, $kind, $token);
+            if ($prep['mode'] === 'error') {
+                $plan[$i] = ['action'=>'fail', 'error'=>$prep['error'], 'http'=>0] + $base;
+                continue;
+            }
+            if ($prep['mode'] === 'embed') {
+                $plan[$i] = ['action'=>'embed', 'served'=>$prep['url']] + $base;
+                continue;
+            }
+            $plan[$i]  = ['action'=>'fetch', 'prepUrl'=>$prep['url']] + $base;
+            $toFetch[] = ['key'=>$i, 'url'=>$prep['url'], 'headers'=>$prep['headers']];
+        } catch (Throwable $ex) {
+            $plan[$i] = ['action'=>'skip', 'uid'=>(int)($item['user_id'] ?? 0), 'kind'=>(string)($item['kind'] ?? ''),
+                         'src'=>(string)($item['source_url'] ?? ''),
+                         'who'=>['name'=>'','email'=>'','tag'=>'user #'.(int)($item['user_id'] ?? 0)],
+                         'reason'=>'planning error: ' . $ex->getMessage()];
+        }
+    }
+
+    // ── Phase B — parallel download (bounded concurrency + one retry).
+    $fetched = hs_fetch_media_multi($toFetch);
+
+    // ── Phase C — apply outcomes in order; ALWAYS shift + checkpoint per item.
+    foreach ($batch as $i => $item) {
+        try {
+            $p = $plan[$i] ?? ['action'=>'skip', 'uid'=>0, 'kind'=>'', 'src'=>'',
+                               'who'=>['name'=>'','email'=>'','tag'=>'user #0'], 'reason'=>'no plan'];
+            switch ($p['action']) {
+                case 'cache':
+                    $state['stats']['media']['cache_hits']++;
+                    break;
+
+                case 'skip':
+                    $state['stats']['media']['skipped']++;
+                    hs_media_log_problem($state, $p, 'SKIPPED — ' . ($p['reason'] ?? 'unknown'));
+                    hs_state_log($state, "Media {$p['kind']} SKIPPED for {$p['who']['tag']}: " . ($p['reason'] ?? 'unknown'));
+                    break;
+
+                case 'embed':
+                    hs_media_persist($pdo, $p['uid'], $p['kind'], $p['served'], $p['normalized']);
+                    $state['stats']['media']['downloaded']++;
+                    break;
+
+                case 'fail':
+                    hs_media_handle_failure($state, $pdo, $p, ($p['error'] ?: 'unknown') . ' (http=' . ($p['http'] ?? 0) . ')');
+                    break;
+
+                case 'fetch':
+                    $fr = $fetched[$i] ?? ['ok'=>false, 'error'=>'no fetch result', 'http'=>0, 'body'=>null, 'ctype'=>''];
+                    $w  = $fr['ok']
+                        ? hs_media_write((string) $fr['body'], (int) $fr['http'], (string) $fr['ctype'], $p['prepUrl'], 'vt', $p['uid'], $p['kind'])
+                        : ['ok'=>false, 'error'=>($fr['error'] ?: 'download failed'), 'http'=>(int) $fr['http']];
+                    if (!$w['ok']) {
+                        hs_media_handle_failure($state, $pdo, $p, ($w['error'] ?: 'unknown') . ' (http=' . ($w['http'] ?? 0) . ')');
+                        break;
+                    }
+                    try {
+                        hs_media_persist($pdo, $p['uid'], $p['kind'], $w['served_url'], $p['normalized']);
+                        $state['stats']['media']['downloaded']++;
+                    } catch (Throwable $ex) {
+                        $state['stats']['media']['errors']++;
+                        hs_media_log_problem($state, $p, 'DB write failed: ' . $ex->getMessage());
+                        hs_state_log($state, "Media {$p['kind']} DB write failed for {$p['who']['tag']}: " . $ex->getMessage());
+                    }
+                    break;
             }
         } catch (Throwable $ex) {
+            // Truly unexpected — never let it abort the batch.
             $state['stats']['media']['errors']++;
             $uid = (int) ($item['user_id'] ?? 0);
-            $whoTag = isset($who) ? $who['tag'] : ('user #' . $uid);
-            hs_state_log($state, "Media item for {$whoTag} crashed: " . $ex->getMessage() . ' — continuing.');
+            hs_state_log($state, "Media item for user #{$uid} crashed: " . $ex->getMessage() . ' — continuing.');
         }
-        // Checkpoint after EACH media item: drop the one we just finished
-        // from pending and persist state. If PHP / Apache kills the tick
-        // mid-batch from here on, the next tick resumes on the next item
-        // (not on the one we just processed).
+        // EXACTLY one drain + checkpoint per item, regardless of outcome above.
+        // (The previous code skipped this on cache hits/failures via `continue`,
+        // so a batch of all-cache-hits never drained → the run hung forever.)
         array_shift($state['pending']['media']);
         hs_talent_state_save($state);
     }
 
     if (empty($state['pending']['media'])) {
-        $d = $state['stats']['media']['downloaded'] ?? 0;
-        $h = $state['stats']['media']['cache_hits'] ?? 0;
-        $e = $state['stats']['media']['errors']     ?? 0;
-        hs_state_log($state, "Media stage finished: downloaded={$d}, cache_hits={$h}, errors={$e}.");
+        hs_media_log_stage_summary($state, 'Media stage finished');
         hs_state_advance_stage($state);
     }
+}
+
+/** One-query prefetch of photo source + served URL for a set of user ids. */
+function hs_media_prefetch_photo(PDO $pdo, array $ids): array
+{
+    $out = [];
+    if (empty($ids)) { return $out; }
+    try {
+        $in = implode(',', array_fill(0, count($ids), '?'));
+        $st = $pdo->prepare("SELECT id, photo_source_url, photo_url FROM users WHERE id IN ($in)");
+        $st->execute(array_values($ids));
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $out[(int) $row['id']] = ['src'=>(string) ($row['photo_source_url'] ?? ''), 'url'=>(string) ($row['photo_url'] ?? '')];
+        }
+    } catch (Throwable $ex) { /* fall back to per-item miss → re-download */ }
+    return $out;
+}
+
+/** One-query prefetch of resume/video source + served URLs for user ids. */
+function hs_media_prefetch_vt(PDO $pdo, array $ids): array
+{
+    $out = [];
+    if (empty($ids)) { return $out; }
+    try {
+        $in = implode(',', array_fill(0, count($ids), '?'));
+        $st = $pdo->prepare("SELECT user_id, resume_source_url, resume_url, video_source_url, video_url FROM vt_profiles WHERE user_id IN ($in)");
+        $st->execute(array_values($ids));
+        foreach ($st->fetchAll(PDO::FETCH_ASSOC) as $row) {
+            $out[(int) $row['user_id']] = [
+                'resume_src'=>(string) ($row['resume_source_url'] ?? ''), 'resume_url'=>(string) ($row['resume_url'] ?? ''),
+                'video_src' =>(string) ($row['video_source_url'] ?? ''),  'video_url' =>(string) ($row['video_url'] ?? ''),
+            ];
+        }
+    } catch (Throwable $ex) { /* fall back to per-item miss → re-download */ }
+    return $out;
+}
+
+/**
+ * Apply a failed download. "Find a way around" the error for resumes/videos by
+ * keeping the external source URL so the file stays reachable from the portal
+ * (the views render an "Open external link" button for non-local URLs), and
+ * leave *_source_url untouched so a later sync retries the real byte download.
+ * Photos have no useful external fallback → recorded as a hard error. Every
+ * case is added to the summary report.
+ */
+function hs_media_handle_failure(array &$state, PDO $pdo, array $p, string $msg): void
+{
+    $kind = (string) ($p['kind'] ?? '');
+    $src  = (string) ($p['src'] ?? '');
+    if (($kind === 'resume' || $kind === 'video') && preg_match('#^https?://#i', $src)) {
+        try {
+            hs_media_persist_link_only($pdo, (int) $p['uid'], $kind, $src);
+            $state['stats']['media']['fallbacks']++;
+            hs_media_log_problem($state, $p, 'kept external link (could not fetch file): ' . $msg);
+            hs_state_log($state, "Media {$kind} for {$p['who']['tag']} could not be fetched ({$msg}) — kept external link as fallback.");
+            return;
+        } catch (Throwable $ex) {
+            // fall through to a hard failure
+        }
+    }
+    $state['stats']['media']['errors']++;
+    hs_media_log_problem($state, $p, $msg);
+    hs_state_log($state, "Media {$kind} FAILED for {$p['who']['tag']}: {$msg}");
+}
+
+/** Emit the media tallies line used at stage start/finish. */
+function hs_media_log_stage_summary(array &$state, string $label): void
+{
+    $m = $state['stats']['media'] ?? [];
+    $d = (int) ($m['downloaded'] ?? 0);
+    $h = (int) ($m['cache_hits'] ?? 0);
+    $f = (int) ($m['fallbacks']  ?? 0);
+    $s = (int) ($m['skipped']    ?? 0);
+    $e = (int) ($m['errors']     ?? 0);
+    hs_state_log($state, "{$label}: downloaded={$d}, cache_hits={$h}, fallback_links={$f}, skipped={$s}, errors={$e}.");
 }
 
 /* ─── Phase 6: single-fetch endpoints (talent + client) ─── */
@@ -2345,8 +2688,7 @@ function hs_talent_control(string $action): array
 
 function hs_client_step(): array
 {
-    if (function_exists('set_time_limit')) { @set_time_limit(600); }
-    ignore_user_abort(true);
+    hs_raise_runtime_limits();
 
     $state = hs_client_state_load();
     if ($state['status'] !== 'running') { return $state; }

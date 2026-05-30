@@ -51,10 +51,20 @@ function db(): PDO
         die('Portal database not initialized. Run the installer first: '
             . '<a href="' . htmlspecialchars($installUrl) . '">' . htmlspecialchars($installUrl) . '</a>');
     }
-    $pdo = new PDO('sqlite:' . PORTAL_DB_PATH);
+    // ATTR_TIMEOUT makes the driver wait (not throw) when the DB is briefly
+    // locked while opening; busy_timeout below covers per-statement waits.
+    $pdo = new PDO('sqlite:' . PORTAL_DB_PATH, null, null, [PDO::ATTR_TIMEOUT => 15]);
     $pdo->setAttribute(PDO::ATTR_ERRMODE,            PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,   false);
+    // Concurrency hardening — the HubSpot sync writes a checkpoint after every
+    // media item while the UI poller reads the same DB. WAL lets readers and a
+    // writer coexist; busy_timeout makes a contended write WAIT up to 15s for
+    // the lock instead of throwing "database is locked". synchronous=NORMAL is
+    // the safe, fast pairing for WAL.
+    $pdo->exec('PRAGMA busy_timeout = 15000');
+    $pdo->exec('PRAGMA journal_mode = WAL');
+    $pdo->exec('PRAGMA synchronous = NORMAL');
     $pdo->exec('PRAGMA foreign_keys = ON');
     return $pdo;
 }
