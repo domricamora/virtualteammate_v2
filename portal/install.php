@@ -125,9 +125,9 @@ $migrations = [
         'hs_lead_status       TEXT NOT NULL DEFAULT ""',
         'is_hired             INTEGER NOT NULL DEFAULT 0',
         'assigned_reviewer_id INTEGER',
-        // Email notifications opt-in. 0 = off (default), 1 = on. When on,
-        // notify() also sends a plain-text email to the user.
-        'notify_by_email      INTEGER NOT NULL DEFAULT 0',
+        // Email notifications. 1 = on (default), 0 = off. When on, notify()
+        // also sends the branded email. Users can opt out per-account.
+        'notify_by_email      INTEGER NOT NULL DEFAULT 1',
     ],
     'clients'     => [
         'hubspot_company_id TEXT NOT NULL DEFAULT ""',
@@ -169,6 +169,23 @@ foreach ($migrations as $table => $columns) {
         }
     }
 }
+// One-time: turn email notifications ON for all existing users. Guarded by an
+// app_settings flag so it runs exactly once — re-running the installer won't
+// re-enable anyone who has since opted out.
+try {
+    $done = $pdo->query("SELECT value FROM app_settings WHERE key = 'mig_email_notify_default_on'")->fetchColumn();
+    if (!$done) {
+        $n = $pdo->exec('UPDATE users SET notify_by_email = 1 WHERE notify_by_email = 0');
+        $pdo->prepare(
+            "INSERT INTO app_settings (key, value, updated_at) VALUES ('mig_email_notify_default_on', '1', CURRENT_TIMESTAMP)
+             ON CONFLICT(key) DO UPDATE SET value = '1', updated_at = CURRENT_TIMESTAMP"
+        )->execute();
+        $messages[] = "Enabled email notifications for {$n} existing user(s).";
+    }
+} catch (Throwable $ex) {
+    $messages[] = 'Skip email-notify backfill: ' . $ex->getMessage();
+}
+
 // Indexes for the HubSpot ID columns (idempotent).
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_contact   ON users(hubspot_contact_id)');
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_owner    ON users(hubspot_owner_id)');

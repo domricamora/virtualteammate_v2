@@ -656,8 +656,8 @@ function handle_users_edit(): void
             if (strlen($pw) < 10) { flash('error', 'Password (at least 10 chars) required for new user.'); redirect(portal_url('users.edit')); }
             try {
                 $ins = db()->prepare(
-                    'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, photo_url, active)
-                     VALUES (:e, :h, :r, :fn, :ln, :p, :c, :ph, :a)'
+                    'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, photo_url, active, notify_by_email)
+                     VALUES (:e, :h, :r, :fn, :ln, :p, :c, :ph, :a, 1)'
                 );
                 $ins->execute([
                     ':e'=>$email, ':h'=>password_hash($pw, PASSWORD_DEFAULT), ':r'=>$role,
@@ -1990,8 +1990,8 @@ function handle_hubspot_seed_demo(): void
             continue;
         }
         $pdo->prepare(
-            'INSERT INTO users (email, password_hash, role, first_name, last_name, country, active)
-             VALUES (:e, :h, :r, :fn, :ln, "US", 1)'
+            'INSERT INTO users (email, password_hash, role, first_name, last_name, country, active, notify_by_email)
+             VALUES (:e, :h, :r, :fn, :ln, "US", 1, 1)'
         )->execute([
             ':e'  => $d['email'],
             ':h'  => password_hash(hs_default_password($d['role']), PASSWORD_DEFAULT),

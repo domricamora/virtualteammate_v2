@@ -300,9 +300,12 @@ function portal_site_base(): string
 function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml = '', string $footerNote = '', string $eyebrow = 'Portal notification'): string
 {
     $clean    = static fn(string $s): string => htmlspecialchars(trim($s), ENT_QUOTES, 'UTF-8');
-    $siteBase = portal_site_base();
-    $logoSrc  = $siteBase . '/images/logo.webp';
-    $headHtml = $clean($heading);
+    // Canonical public URLs for email assets — emails are read off-site, so the
+    // logo must be an absolute URL on the live domain in a format every client
+    // renders. PNG (not WebP — Outlook/Apple Mail don't show WebP in email).
+    $publicBase = 'https://virtualteammate.com';
+    $logoSrc    = $publicBase . '/images/logo-email.png';
+    $headHtml   = $clean($heading);
 
     return '<!doctype html><html><head><meta charset="UTF-8"><title>' . $headHtml . '</title></head>'
         . '<body style="margin:0;padding:0;background:#f4f3f8;font-family:\'Manrope\',Helvetica,Arial,sans-serif;color:#1a1535;-webkit-font-smoothing:antialiased;">'
@@ -329,7 +332,7 @@ function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml =
         . ($footerNote !== '' ? $footerNote : '&nbsp;')
         . '</td>'
         . '<td align="right" valign="top" style="font-family:\'Manrope\',Helvetica,Arial,sans-serif;font-size:10.5px;color:#9b97b4;letter-spacing:.4px;">'
-        . '<a href="' . $clean($siteBase) . '" style="color:#9b97b4;text-decoration:none;">virtualteammate.com</a>'
+        . '<a href="' . $clean($publicBase) . '" style="color:#9b97b4;text-decoration:none;">virtualteammate.com</a>'
         . '</td>'
         . '</tr></table>'
         . '</td></tr>'

@@ -704,8 +704,8 @@ function hs_process_vt_one(array $contact, array $settings, array &$state): void
         $state['stats']['vts']['updated']++;
     } else {
         $pdo->prepare(
-            'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
-             VALUES (:e, :h, :r, :fn, :ln, :p, :c, :hcid, 1)'
+            'INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active, notify_by_email)
+             VALUES (:e, :h, :r, :fn, :ln, :p, :c, :hcid, 1, 1)'
         )->execute([
             ':e'=>$email, ':h'=>password_hash(hs_default_password($role), PASSWORD_DEFAULT),
             ':r'=>$role, ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country, ':hcid'=>$contactId,
@@ -815,8 +815,8 @@ function hs_process_client_one(array $company, array $settings, array &$state): 
         $userId = (int) ($stmt->fetchColumn() ?: 0);
         if ($userId === 0) {
             $pdo->prepare(
-                "INSERT INTO users (email, password_hash, role, first_name, last_name, active)
-                 VALUES (:e, :h, 'client', '', :ln, 1)"
+                "INSERT INTO users (email, password_hash, role, first_name, last_name, active, notify_by_email)
+                 VALUES (:e, :h, 'client', '', :ln, 1, 1)"
             )->execute([
                 ':e' => $email, ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT), ':ln' => $name,
             ]);
@@ -876,8 +876,8 @@ function hs_process_csm_one(array $contact, array $settings, array &$state): voi
         $state['stats']['csms']['updated']++;
     } else {
         $pdo->prepare(
-            "INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active)
-             VALUES (:e, :h, 'csm', :fn, :ln, :p, :c, :hcid, 1)"
+            "INSERT INTO users (email, password_hash, role, first_name, last_name, phone, country, hubspot_contact_id, active, notify_by_email)
+             VALUES (:e, :h, 'csm', :fn, :ln, :p, :c, :hcid, 1, 1)"
         )->execute([
             ':e'=>$email, ':h'=>password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
             ':fn'=>$first, ':ln'=>$last, ':p'=>$phone, ':c'=>$country, ':hcid'=>$contactId,
@@ -972,8 +972,8 @@ function hs_resolve_owner_as_csm(string $ownerId, HubSpotClient $hs, array &$sta
 
     // Create new CSM user from owner details.
     $pdo->prepare(
-        "INSERT INTO users (email, password_hash, role, first_name, last_name, hubspot_owner_id, active)
-         VALUES (:e, :h, 'csm', :fn, :ln, :o, 1)"
+        "INSERT INTO users (email, password_hash, role, first_name, last_name, hubspot_owner_id, active, notify_by_email)
+         VALUES (:e, :h, 'csm', :fn, :ln, :o, 1, 1)"
     )->execute([
         ':e'  => $email,
         ':h'  => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
@@ -1727,11 +1727,11 @@ function hs_process_vt_contact(array $item, array &$state): void
                 'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
                                     phone, country, job_title, photo_url,
                                     hubspot_contact_id, vt_status, hs_lead_status,
-                                    is_hired, active)
+                                    is_hired, active, notify_by_email)
                  VALUES (:e, :pwh, :r, :fn, :ln, :full,
                          :p, :c, :jt, :ph,
                          :hcid, :vs, :ls,
-                         :ih, :act)'
+                         :ih, :act, 1)'
             )->execute([
                 ':e'=>$email,
                 ':pwh'=>password_hash(hs_default_password($role), PASSWORD_DEFAULT),
@@ -3391,8 +3391,8 @@ function hs_upsert_csm_from_contact_props(array $props, string $contactId, array
     }
     $pdo->prepare(
         "INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
-                            phone, country, hubspot_contact_id, active)
-         VALUES (:e, :h, 'csm', :fn, :ln, :full, :p, :c, :hcid, 1)"
+                            phone, country, hubspot_contact_id, active, notify_by_email)
+         VALUES (:e, :h, 'csm', :fn, :ln, :full, :p, :c, :hcid, 1, 1)"
     )->execute([
         ':e' => $email, ':h' => password_hash(hs_default_password('csm'), PASSWORD_DEFAULT),
         ':fn' => $first, ':ln' => $last, ':full' => $full, ':p' => $phone, ':c' => $country,
@@ -3475,8 +3475,8 @@ function hs_client_step_upsert_hired_vts(array &$state, HubSpotClient $hs): void
             $pdo->prepare(
                 'INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
                                     phone, country, job_title, hubspot_contact_id, vt_status, hs_lead_status,
-                                    is_hired, active)
-                 VALUES (:e, :h, :r, :fn, :ln, :full, :p, :c, :jt, :hcid, :vs, :ls, 1, 1)'
+                                    is_hired, active, notify_by_email)
+                 VALUES (:e, :h, :r, :fn, :ln, :full, :p, :c, :jt, :hcid, :vs, :ls, 1, 1, 1)'
             )->execute([
                 ':e' => $email, ':h' => password_hash(hs_default_password($role), PASSWORD_DEFAULT),
                 ':r' => $role, ':fn' => $first, ':ln' => $last, ':full' => $full,
@@ -3610,8 +3610,8 @@ function hs_process_one_client(array $company, ?array $primary, array &$state): 
         } else {
             $pdo->prepare(
                 "INSERT INTO users (email, password_hash, role, first_name, last_name, full_name,
-                                    phone, country, job_title, hubspot_contact_id, active)
-                 VALUES (:e, :h, 'client', :fn, :ln, :full, :p, :c, :jt, :hcid, 1)"
+                                    phone, country, job_title, hubspot_contact_id, active, notify_by_email)
+                 VALUES (:e, :h, 'client', :fn, :ln, :full, :p, :c, :jt, :hcid, 1, 1)"
             )->execute([
                 ':e' => $clientLoginEmail,
                 ':h' => password_hash(hs_default_password('client'), PASSWORD_DEFAULT),
