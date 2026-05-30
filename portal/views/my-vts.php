@@ -61,12 +61,10 @@ $resolveWorkday = static function (array $v): string {
                aria-label="<?= e('Open profile for ' . $nameOf($v)) ?>">
         <div class="codex-selected-va-card__inner">
           <div class="codex-selected-va-card__media">
-            <?php if (!empty($v['photo_url'])): ?>
-              <img src="<?= e($v['photo_url']) ?>" alt="<?= e($nameOf($v)) ?>" loading="lazy"
-                   onerror="this.onerror=null;this.outerHTML='<span class=&quot;codex-selected-va-card__avatar&quot;><?= e($initial($v)) ?></span>';">
-            <?php else: ?>
-              <span class="codex-selected-va-card__avatar"><?= e($initial($v)) ?></span>
-            <?php endif; ?>
+            <?php /* Initials only — photo_url is a PHP-served endpoint (p=avatar|media),
+                     so one <img> per VT card fired a full portal request and slowed the grid.
+                     The selected-VT detail panel still loads the real photo on click. */ ?>
+            <span class="codex-selected-va-card__avatar"><?= e($initial($v)) ?></span>
           </div>
           <p class="codex-selected-va-card__meta"><?= e($isHired ? 'Team member' : 'On talent pool') ?></p>
           <h3 class="codex-selected-va-card__name"><?= e($nameOf($v)) ?></h3>

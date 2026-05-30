@@ -44,12 +44,9 @@ $resolveWorkday = static function (array $v): string {
         $href = $resolveWorkday($v);
       ?>
         <div class="prod-card">
-          <?php if (!empty($v['photo_url'])): ?>
-            <img class="prod-photo" src="<?= e($v['photo_url']) ?>" alt="" loading="lazy"
-                 onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
-          <?php else: ?>
-            <div class="prod-photo placeholder"><?= e($initial($v)) ?></div>
-          <?php endif; ?>
+          <?php /* Initials only — photo_url is a PHP-served endpoint (p=avatar|media),
+                   so one <img> per VT fired a full portal request and slowed the page. */ ?>
+          <div class="prod-photo placeholder"><?= e($initial($v)) ?></div>
           <div class="prod-meta">
             <div class="prod-name"><?= e($nameOrEmail($v)) ?></div>
             <div class="prod-role"><?= e($v['role_title'] ?? ($v['department'] ?? 'Virtual Teammate')) ?></div>

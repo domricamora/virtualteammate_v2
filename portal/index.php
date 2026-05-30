@@ -3518,9 +3518,10 @@ function messages_contacts(array $u): array
 {
     $pdo = db();
     if ($u['role'] === 'super_admin') {
+        // Super admin can message everyone — including pool VTs (vt_onpool).
         return $pdo->query(
             "SELECT id, first_name, last_name, email, role, photo_url FROM users
-             WHERE id != " . (int) $u['id'] . " AND role != 'vt_onpool'
+             WHERE id != " . (int) $u['id'] . " AND active = 1
              ORDER BY last_name, first_name"
         )->fetchAll();
     }

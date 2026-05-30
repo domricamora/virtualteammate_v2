@@ -48,12 +48,11 @@ $roleLabel = static function (string $role): string {
          href="<?= e(portal_url('messages', ['with' => (int) $c['id']])) ?>"
          data-msg-blob="<?= e($searchBlob) ?>"
          data-msg-unread="<?= (int) $cu ?>">
-        <?php if (!empty($c['photo_url'])): ?>
-          <img class="msg-contact-photo" src="<?= e($c['photo_url']) ?>" alt="" loading="lazy"
-               onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
-        <?php else: ?>
-          <div class="msg-contact-photo placeholder"><?= e($initial($c)) ?></div>
-        <?php endif; ?>
+        <?php /* Initials only — each contact's photo_url is a PHP-served endpoint
+                 (index.php?p=avatar|media), so rendering one <img> per contact fired
+                 dozens of full portal requests and stalled the page (and navigation
+                 away from it). The placeholder needs zero network requests. */ ?>
+        <div class="msg-contact-photo placeholder"><?= e($initial($c)) ?></div>
         <div class="msg-contact-meta">
           <div class="msg-contact-name"><?= e($nameOf($c)) ?></div>
           <div class="muted small"><?= e($roleLabel($c['role'])) ?></div>
