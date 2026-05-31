@@ -243,7 +243,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       <div class="vtd-hero-visual" aria-hidden="true">
         <div class="vtd-hero-collage">
           <?php foreach ($heroIds as $hi): ?>
-            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>" alt="" loading="lazy" width="150" height="150"
+            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>&amp;thumb=1" alt="" loading="lazy" width="150" height="150"
                   onerror="this.style.display='none';this.parentNode.classList.add('vtd-hero-pic--empty');"></span>
           <?php endforeach; ?>
         </div>
