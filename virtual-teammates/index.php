@@ -593,7 +593,13 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       // ── Media (moved to the bottom): intro video + résumé side-by-side ──
       if (f.videoUrl || f.resumeUrl){
         var vBlock = f.videoUrl ? videoEmbed(f.videoUrl) : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-video-slash"></i><span>No intro video on file.</span></div>';
-        var rBlock = f.resumeUrl ? '<iframe class="vtd-cv-pdf" src="'+esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH" title="Résumé" loading="lazy"></iframe>' : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
+        var rBlock = f.resumeUrl
+          ? '<iframe class="vtd-cv-pdf" src="'+esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH" title="Résumé" loading="lazy"></iframe>'
+            + '<div class="vtd-cv-pdf-actions">'
+            + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl)+'" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open in new window</a>'
+            + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl+'&dl=1')+'" download><i class="fa-solid fa-download"></i> Download résumé</a>'
+            + '</div>'
+          : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
         html += '<div class="vtd-cv-media">';
         html += '<div class="vtd-cv-media-h"><i class="fa-solid fa-photo-film"></i> Media <span>Résumé + intro video imported from HubSpot, served locally.</span></div>';
         html += '<div class="vtd-cv-media-grid">';

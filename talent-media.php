@@ -55,7 +55,9 @@ while (ob_get_level() > 0) { ob_end_clean(); }
 header('Content-Type: ' . $mime);
 header('Accept-Ranges: bytes');
 header('Cache-Control: private, max-age=3600');
-header('Content-Disposition: inline; filename="' . preg_replace('#[^A-Za-z0-9._-]#', '_', basename($file)) . '"');
+// ?dl=1 forces a download (attachment); otherwise serve inline for the viewer.
+$dispo = !empty($_GET['dl']) ? 'attachment' : 'inline';
+header('Content-Disposition: ' . $dispo . '; filename="' . preg_replace('#[^A-Za-z0-9._-]#', '_', basename($file)) . '"');
 
 $range = $_SERVER['HTTP_RANGE'] ?? '';
 if ($range !== '' && preg_match('/bytes=(\d+)-(\d*)/', $range, $m)) {

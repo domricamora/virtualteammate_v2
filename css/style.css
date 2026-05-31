@@ -35,6 +35,25 @@ body{
 a{color:inherit;}
 img{display:block;max-width:100%;}
 
+/* ───── THEMED SCROLLBARS (site-wide, incl. modals) ───── */
+*{
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,0.30) transparent;
+}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.24);
+  border-radius:10px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-thumb:hover{
+  background:var(--gold,#dfa949);
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-corner{background:transparent;}
+
 /* ───── ICON SYSTEM (Font Awesome, monochromatic) ───── */
 i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); }
 .ico-circle{
@@ -2485,6 +2504,13 @@ textarea.vtd-field{resize:vertical;min-height:52px;}
 .vtd-cv-dl dt:first-child{margin-top:0;}
 .vtd-cv-dl dd{color:#fff;font-size:14px;margin:2px 0 0;font-weight:600;}
 .vtd-cv-pdf{width:100%;height:580px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#fff;}
+.vtd-cv-pdf-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+.vtd-cv-pdf-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;
+  font-size:12.5px;font-weight:700;text-decoration:none;cursor:pointer;
+  background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);
+  transition:background .15s,border-color .15s,transform .15s;}
+.vtd-cv-pdf-btn:hover{background:rgba(247,185,69,.16);border-color:rgba(247,185,69,.5);transform:translateY(-1px);}
+.vtd-cv-pdf-btn i{color:var(--gold,#dfa949);font-size:12px;}
 .vtd-cv-cta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
   padding:20px 28px;border-top:1px solid rgba(255,255,255,.1);background:rgba(57,25,186,.12);}
 .vtd-cv-cta-t{color:#fff;font-size:15px;font-weight:600;}

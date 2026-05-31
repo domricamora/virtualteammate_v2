@@ -148,6 +148,28 @@ select option:checked{background-color:#3919BA;color:#fff;}
   display:flex;flex-direction:column;
   padding:18px 14px;
 }
+/* ── Themed scrollbars (portal-wide) ──────────────────────────────────────
+   portal.css is loaded only by the portal, so this styles every scroll area
+   — side nav, content, message thread/list, tables, textareas, modals — to
+   match the glass theme: thin, translucent, gold on hover. Firefox uses the
+   scrollbar-* props; WebKit/Chromium/Edge use ::-webkit-scrollbar. */
+* {
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,0.28) transparent;
+}
+::-webkit-scrollbar{width:10px;height:10px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,0.22);
+  border-radius:10px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-thumb:hover{
+  background:rgba(247,185,69,0.55);
+  background-clip:padding-box;
+}
+::-webkit-scrollbar-corner{background:transparent;}
 .portal-brand{
   display:flex;align-items:center;gap:10px;
   text-decoration:none;color:var(--text);
