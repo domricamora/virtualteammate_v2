@@ -219,6 +219,21 @@ try {
     $messages[] = 'Skip photo→vtmedia migration: ' . $ex->getMessage();
 }
 
+// Backfill 150x150 thumbnails (vtmedia/vt_thumbs/<id>.<ext>) for any photo that
+// lacks one, so existing rosters get thumbs without a full re-sync. Idempotent.
+try {
+    require_once __DIR__ . '/hubspot.php';
+    $thumbs = 0;
+    foreach (glob(__DIR__ . '/../vtmedia/vt/*/photo.*') ?: [] as $photo) {
+        $id = (int) basename(dirname($photo));
+        if ($id < 1 || glob(__DIR__ . '/../vtmedia/vt_thumbs/' . $id . '.*')) { continue; }
+        if (function_exists('hs_make_thumb') && hs_make_thumb($photo, $id) !== '') { $thumbs++; }
+    }
+    if ($thumbs > 0) { $messages[] = "Generated {$thumbs} photo thumbnail(s)."; }
+} catch (Throwable $ex) {
+    $messages[] = 'Skip thumbnail backfill: ' . $ex->getMessage();
+}
+
 // Indexes for the HubSpot ID columns (idempotent).
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_contact   ON users(hubspot_contact_id)');
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_owner    ON users(hubspot_owner_id)');

@@ -50,13 +50,22 @@ if (!in_array($role, ['vt_hired', 'vt_onpool'], true)) {
     tp_serve_placeholder();
 }
 
-// Photos now live in the web-accessible /vtmedia/ tree; fall back to the legacy
-// data/media location for any VT not yet re-synced/migrated.
+// ?thumb=1 → prefer the 150x150 thumbnail (vtmedia/vt_thumbs/<id>.*); fall back
+// to the full-size photo. Full photos live in /vtmedia/vt/<id>/, with the legacy
+// data/media location as a fallback for any VT not yet re-synced/migrated.
+$wantThumb = !empty($_GET['thumb']);
+$candidates = [];
+if ($wantThumb) {
+    $candidates[] = ['vtmedia', 'vt_thumbs' . DIRECTORY_SEPARATOR . $id . '.*'];
+}
+$candidates[] = ['vtmedia',    'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*'];
+$candidates[] = ['data/media', 'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*'];
+
 $file = null;
-foreach (['vtmedia', 'data/media'] as $rel) {
+foreach ($candidates as [$rel, $pattern]) {
     $base = realpath(__DIR__ . '/' . $rel);
     if ($base === false) { continue; }
-    $matches = glob($base . DIRECTORY_SEPARATOR . 'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*');
+    $matches = glob($base . DIRECTORY_SEPARATOR . $pattern);
     if (!empty($matches)) {
         $real = realpath($matches[0]);
         if ($real !== false && str_starts_with($real, $base)) { $file = $real; break; }

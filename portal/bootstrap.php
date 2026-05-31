@@ -111,8 +111,16 @@ function media_src(?string $url): string
  */
 function tbl_thumb(?string $photoUrl, string $name): string
 {
-    $src = media_src($photoUrl);
+    $u   = trim((string) $photoUrl);
     $ini = strtoupper(mb_substr(trim($name) !== '' ? trim($name) : '?', 0, 1));
+    // For synced VT photos use the lightweight 150x150 thumbnail; otherwise fall
+    // back to the stored photo/avatar. Missing thumb → onerror swaps to initials.
+    $src = '';
+    if (preg_match('#^vtmedia/vt/(\d+)/photo\.([a-z0-9]+)$#i', $u, $m)) {
+        $src = site_url('vtmedia/vt_thumbs/' . $m[1] . '.' . strtolower($m[2]));
+    } elseif ($u !== '') {
+        $src = media_src($u);
+    }
     if ($src !== '') {
         return '<img class="tbl-thumb" src="' . e($src) . '" alt="" loading="lazy" '
              . 'onerror="this.outerHTML=&quot;<span class=\'tbl-thumb tbl-thumb-ph\'>' . e($ini) . '</span>&quot;;">';
@@ -148,8 +156,12 @@ function rrmdir(string $dir): int
 function delete_user_media(int $userId): int
 {
     if ($userId < 1) { return 0; }
-    return rrmdir(__DIR__ . '/../vtmedia/vt/' . $userId)
-         + rrmdir(__DIR__ . '/../data/media/vt/' . $userId);
+    $n = rrmdir(__DIR__ . '/../vtmedia/vt/' . $userId)
+       + rrmdir(__DIR__ . '/../data/media/vt/' . $userId);
+    foreach (glob(__DIR__ . '/../vtmedia/vt_thumbs/' . $userId . '.*') ?: [] as $t) {
+        if (@unlink($t)) { $n++; }
+    }
+    return $n;
 }
 
 function redirect(string $location): void

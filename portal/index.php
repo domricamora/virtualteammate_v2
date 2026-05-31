@@ -2248,6 +2248,11 @@ function handle_hubspot_purge_all(): void
             }
         }
     }
+    // Public 150x150 thumbnails (vtmedia/vt_thumbs/<id>.<ext>), sparing demo ids.
+    foreach (glob(__DIR__ . '/../vtmedia/vt_thumbs/*') ?: [] as $thumb) {
+        if (is_dir($thumb) || isset($demoIds[(int) pathinfo($thumb, PATHINFO_FILENAME)])) { continue; }
+        if (@unlink($thumb)) { $fileCount++; }
+    }
 
     hs_control('reset');
 
@@ -2312,12 +2317,16 @@ function handle_hubspot_purge(): void
         redirect(portal_url('hubspot'));
     }
 
-    // Wipe downloaded media from BOTH trees: gated data/media/vt and public vtmedia/vt.
+    // Wipe downloaded media from BOTH trees: gated data/media/vt and public
+    // vtmedia/vt, plus the public 150x150 thumbnails in vtmedia/vt_thumbs.
     $fileCount = 0;
     foreach ([__DIR__ . '/../data/media/vt', __DIR__ . '/../vtmedia/vt'] as $mediaDir) {
         foreach (glob($mediaDir . '/*', GLOB_ONLYDIR) ?: [] as $idDir) {
             $fileCount += rrmdir($idDir);
         }
+    }
+    foreach (glob(__DIR__ . '/../vtmedia/vt_thumbs/*') ?: [] as $thumb) {
+        if (!is_dir($thumb) && @unlink($thumb)) { $fileCount++; }
     }
 
     hs_control('reset');

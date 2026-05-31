@@ -327,6 +327,59 @@ function hs_media_url_is_local(string $url): bool
     return $url !== '' && (str_starts_with($url, 'index.php?p=media') || str_starts_with($url, 'vtmedia/'));
 }
 
+/** Root-relative web path of a VT's square thumbnail (vtmedia/vt_thumbs/<id>.<ext>). */
+function hs_thumb_rel(int $id, string $ext): string
+{
+    return 'vtmedia/vt_thumbs/' . $id . '.' . strtolower($ext);
+}
+
+/**
+ * Generate a 150x150 square (center-cropped) thumbnail of a downloaded profile
+ * photo into vtmedia/vt_thumbs/<id>.<ext>. The full-size original is left intact.
+ * Returns the thumb's root-relative path, or '' if GD/format unsupported.
+ */
+function hs_make_thumb(string $srcFile, int $id): string
+{
+    if (!is_file($srcFile) || !function_exists('imagecreatetruecolor')) { return ''; }
+    $ext = strtolower(pathinfo($srcFile, PATHINFO_EXTENSION));
+    $loaders = [
+        'jpg' => 'imagecreatefromjpeg', 'jpeg' => 'imagecreatefromjpeg',
+        'png' => 'imagecreatefrompng',  'gif'  => 'imagecreatefromgif',
+        'webp'=> 'imagecreatefromwebp',
+    ];
+    if (!isset($loaders[$ext]) || !function_exists($loaders[$ext])) { return ''; }
+    $src = @$loaders[$ext]($srcFile);
+    if (!$src) { return ''; }
+
+    $sw = imagesx($src); $sh = imagesy($src);
+    $side = max(1, min($sw, $sh));
+    $sx = (int) (($sw - $side) / 2);
+    $sy = (int) (($sh - $side) / 2);
+    $T = 150;
+    $dst = imagecreatetruecolor($T, $T);
+    if (in_array($ext, ['png', 'gif', 'webp'], true)) {
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+        imagefilledrectangle($dst, 0, 0, $T, $T, imagecolorallocatealpha($dst, 0, 0, 0, 127));
+    }
+    imagecopyresampled($dst, $src, 0, 0, $sx, $sy, $T, $T, $side, $side);
+
+    $dir = HS_VTMEDIA_ROOT . '/vt_thumbs';
+    if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
+    $out = $dir . '/' . $id . '.' . $ext;
+    // Drop any stale thumb for this id in a different extension.
+    foreach (glob($dir . '/' . $id . '.*') ?: [] as $old) { if ($old !== $out) { @unlink($old); } }
+    $ok = match ($ext) {
+        'png'  => imagepng($dst, $out, 6),
+        'gif'  => imagegif($dst, $out),
+        'webp' => function_exists('imagewebp') ? imagewebp($dst, $out, 82) : false,
+        default=> imagejpeg($dst, $out, 82),
+    };
+    imagedestroy($src);
+    imagedestroy($dst);
+    return $ok ? hs_thumb_rel($id, $ext) : '';
+}
+
 /** Returns true for embed-only video hosts we can't download as raw files. */
 function hs_is_embedded_video_url(string $url): bool
 {
@@ -479,6 +532,8 @@ function hs_import_media(string $url, string $entity, int $id, string $kind, str
     foreach (glob($dir . '/' . $kind . '.*') as $existing) {
         if ($existing !== $file) { @unlink($existing); }
     }
+    // Keep the full-size original AND generate a 150x150 thumbnail for lists/cards.
+    if ($kind === 'photo') { hs_make_thumb($file, $id); }
     return hs_media_served_url($entity, $id, $kind, $ext);
 }
 
@@ -2044,6 +2099,7 @@ function hs_media_write(string $body, int $code, string $ctype, string $url, str
         if ($existing !== $file) { @unlink($existing); }
     }
 
+    if ($kind === 'photo') { hs_make_thumb($file, $id); }   // 150x150 thumb alongside the original
     $served = hs_media_served_url($entity, $id, $kind, $ext);
     return ['ok'=>true, 'served_url'=>$served, 'ext'=>$ext, 'size'=>strlen($body), 'http'=>$code, 'error'=>null];
 }

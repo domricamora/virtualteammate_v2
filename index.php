@@ -748,7 +748,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         $delay = 'd' . (($i % 4) + 1);
       ?>
         <div class="prof-card reveal <?= htmlspecialchars($delay) ?>">
-          <div class="prof-photo"><img src="talent-photo.php?id=<?= (int) $p['id'] ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" loading="lazy"/></div>
+          <div class="prof-photo"><img src="talent-photo.php?id=<?= (int) $p['id'] ?>&amp;thumb=1" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" loading="lazy"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
           <?php if (!empty($p['country'])): ?>
