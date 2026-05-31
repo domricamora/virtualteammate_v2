@@ -421,6 +421,10 @@
    shows error text; [data-lead-thanks] overrides the success copy. */
 (function(){
   document.querySelectorAll('form[data-lead-form]').forEach(function(form){
+    // A page-level handler (e.g. the homepage inline script) may already own
+    // this form — skip it so we never double-submit.
+    if (form.dataset.leadBound) { return; }
+    form.dataset.leadBound = '1';
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var url  = form.getAttribute('action') || 'lead.php';

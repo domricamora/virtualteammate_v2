@@ -719,10 +719,14 @@ function vtnew_homepage_profiles(int $limit = 6): array
         // Include only VTs with a real photo. Photos now live in the public
         // vtmedia folder (thumbnail or full-size); the legacy data/media path
         // is kept as a fallback. Mirrors talent-photo.php's resolution order.
-        $hasPhoto = glob(__DIR__ . '/vtmedia/vt_thumbs/' . $rid . '.*')
+        $thumbGlob = glob(__DIR__ . '/vtmedia/vt_thumbs/' . $rid . '.*');
+        $hasPhoto = $thumbGlob
                  || glob(__DIR__ . '/vtmedia/vt/' . $rid . '/photo.*')
                  || glob(__DIR__ . '/data/media/vt/' . $rid . '/photo.*');
         if (!$hasPhoto) { continue; }
+        // Prefer the lightweight 150x150 static thumbnail file; fall back to the
+        // (thumb-preferring) PHP endpoint when no static thumb exists yet.
+        $r['_thumb'] = $thumbGlob ? 'vtmedia/vt_thumbs/' . basename($thumbGlob[0]) : '';
         // Classify Medical vs Dental for the tag.
         $hay = strtolower(($r['department'] ?? '') . ' ' . ($r['role_title'] ?? ''));
         $r['_tag'] = str_contains($hay, 'dental') ? 'Dental VA' : 'Medical VA';
@@ -752,9 +756,10 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         $years = (int) $p['experience_years'];
         $ehr   = trim((string) $p['ehr_software']);
         $delay = 'd' . (($i % 4) + 1);
+        $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
         <div class="prof-card reveal <?= htmlspecialchars($delay) ?>">
-          <div class="prof-photo"><img src="talent-photo.php?id=<?= (int) $p['id'] ?>&amp;thumb=1" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" loading="lazy"/></div>
+          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" loading="lazy"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
           <?php if (!empty($p['country'])): ?>
@@ -912,3 +917,59 @@ $homepage_profiles = vtnew_homepage_profiles(8);
 </main>
 <?php $hide_lead_band = true; /* homepage already has the #cta + ROI forms */ ?>
 <?php include 'includes/footer.php'; ?>
+
+<!-- Dedicated lead handler for the homepage forms (#ctaForm + #calcReachout).
+     Self-contained and inline so it is NEVER blocked by an error elsewhere in
+     js/main.js — lead capture is too important to depend on the shared bundle.
+     Sets data-lead-bound so the generic handler in main.js skips these forms
+     (no double submit). Posts to the form's action (lead.php) and swaps in a
+     thank-you on success. -->
+<script>
+(function () {
+  function bind(form) {
+    if (!form || form.dataset.leadBound) { return; }
+    form.dataset.leadBound = '1';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var url  = form.getAttribute('action') || 'lead.php';
+      var btn  = form.querySelector('[type=submit]');
+      var note = form.querySelector('[data-lead-note]');
+      if (note) { note.textContent = ''; note.classList.remove('is-err'); }
+      function resetBtn() {
+        if (btn) {
+          btn.disabled = false;
+          btn.classList.remove('is-loading');
+          if (btn.dataset.orig !== undefined) { btn.innerHTML = btn.dataset.orig; }
+        }
+      }
+      if (btn) {
+        btn.dataset.orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+        btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
+      }
+      fetch(url, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res && res.ok) {
+            var msg = form.getAttribute('data-lead-thanks') || 'Thank you! We’ll be in touch within 1 business day.';
+            form.innerHTML = '<div class="lead-thanks"><i class="fa-solid fa-circle-check"></i><p>' + msg + '</p></div>';
+          } else {
+            if (note) { note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
+            resetBtn();
+          }
+        })
+        .catch(function () {
+          if (note) { note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); }
+          resetBtn();
+        });
+    });
+  }
+  function init() {
+    bind(document.getElementById('ctaForm'));
+    bind(document.getElementById('calcReachout'));
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); }
+  else { init(); }
+})();
+</script>

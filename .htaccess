@@ -28,15 +28,30 @@ DirectoryIndex index.php index.html
 </IfModule>
 
 # --- Browser caching ----------------------------------------------------------
-# TEMP ("prevent caching for now"): caching is DISABLED site-wide — every
-# response (HTML + css/js/images/fonts) is no-store. To RESTORE long-lived asset
-# caching, put back the "access plus 1 year" ExpiresByType lines for
-# css/js/image/font types and remove the Cache-Control "no-store" header in the
-# security-headers block below. (HTML stays "0 seconds" either way.)
+# HTML is never cached (content edits + portal/session pages must stay live).
+# Static assets cache for a year: CSS/JS are invalidated via ?v={mtime} query
+# strings on their <link>/<script> tags; images/fonts are content-stable.
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault                                "access plus 0 seconds"
   ExpiresByType text/html                       "access plus 0 seconds"
+
+  ExpiresByType text/css                        "access plus 1 year"
+  ExpiresByType text/javascript                 "access plus 1 year"
+  ExpiresByType application/javascript          "access plus 1 year"
+  ExpiresByType image/jpeg                      "access plus 1 year"
+  ExpiresByType image/png                       "access plus 1 year"
+  ExpiresByType image/gif                       "access plus 1 year"
+  ExpiresByType image/webp                      "access plus 1 year"
+  ExpiresByType image/svg+xml                   "access plus 1 year"
+  ExpiresByType image/x-icon                    "access plus 1 year"
+  ExpiresByType image/vnd.microsoft.icon        "access plus 1 year"
+  ExpiresByType font/woff                       "access plus 1 year"
+  ExpiresByType font/woff2                      "access plus 1 year"
+  ExpiresByType application/font-woff           "access plus 1 year"
+  ExpiresByType application/vnd.ms-fontobject   "access plus 1 year"
+  ExpiresByType font/ttf                        "access plus 1 year"
+  ExpiresByType application/pdf                 "access plus 1 month"
 </IfModule>
 
 # --- Security headers ---------------------------------------------------------
@@ -45,10 +60,20 @@ DirectoryIndex index.php index.html
   Header set X-Frame-Options "SAMEORIGIN"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
   Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
-  # TEMP ("prevent caching for now") — force no-store on every response. Remove
-  # these two lines to restore normal asset caching.
-  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
-  Header set Pragma "no-cache"
+</IfModule>
+
+# --- Cache-Control: static assets immutable, everything else no-store ---------
+# Flag static asset requests by extension, then set a strong immutable cache for
+# them and a hard no-store for everything else (HTML, portal/session pages,
+# lead.php/track.php JSON). Falls back safely if mod_setenvif is unavailable
+# (assets still get their max-age from mod_expires above).
+<IfModule mod_setenvif.c>
+  SetEnvIf Request_URI "\.(css|js|mjs|jpe?g|png|gif|webp|svg|ico|woff2?|ttf|eot|pdf)$" VT_STATIC=1
+</IfModule>
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable" env=VT_STATIC
+  Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0" env=!VT_STATIC
+  Header set Pragma "no-cache" env=!VT_STATIC
 </IfModule>
 
 # --- Disable MultiViews (avoid serving index.html when index.php exists) ------
