@@ -34,6 +34,7 @@ TOP_FILES=(
   "sitemap.xml"
   "favicon.ico"
   "talent-photo.php"
+  "talent-media.php"
   "track.php"
   "lead.php"
 )

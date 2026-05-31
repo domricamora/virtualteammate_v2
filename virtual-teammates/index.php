@@ -72,12 +72,17 @@ $splitSkills = static function (string $s): array {
     }
     return array_keys($out);
 };
-/** Build an absolute, member-only media URL from the stored value. */
+/** Build a member-only média URL. Résumé/video stream from the gated, ANY-member
+ *  endpoint ../talent-media.php (so clients can preview any VT on the bench, not
+ *  only ones they're engaged with — unlike the portal's per-engagement endpoint).
+ *  External (YouTube/Vimeo) links pass through for the modal's iframe embed. */
 $mediaUrl = static function (string $u): string {
     $u = trim($u);
     if ($u === '') { return ''; }
     if (preg_match('#^https?://#i', $u)) { return $u; }
-    if (str_starts_with($u, 'index.php?p=media')) { return '/portal/' . $u; }
+    if (preg_match('#index\.php\?p=media&e=vt&id=(\d+)&k=(\w+)#', $u, $m)) {
+        return '../talent-media.php?id=' . $m[1] . '&k=' . $m[2];
+    }
     return $u;
 };
 
@@ -117,20 +122,30 @@ foreach ($rows as $r) {
         'has_photo'  => trim((string) ($r['photo_url'] ?? '')) !== '',
     ];
 
-    // Full payload (PII / media) — ONLY for authenticated members.
+    // Full CV payload (PII / media) — ONLY for authenticated members.
     if ($isMember) {
         $card['full'] = [
-            'name'      => trim($first . ' ' . $ln) ?: $card['public_name'],
-            'videoUrl'  => $mediaUrl((string) ($r['video_url'] ?? '')),
-            'resumeUrl' => $mediaUrl((string) ($r['resume_url'] ?? '')),
-            'summary'   => trim((string) ($r['summary'] ?? '')) ?: trim((string) ($r['experience_text'] ?? '')),
-            'english'   => trim((string) ($r['english_level'] ?? '')),
-            'iq'        => trim((string) ($r['iq_band'] ?? '')),
-            'technical' => trim((string) ($r['technical_band'] ?? '')),
-            'disc'      => trim((string) ($r['disc_profile'] ?? '')),
-            'persona'   => trim((string) ($r['personality_profile'] ?? '')),
-            'ci'        => trim((string) ($r['ci_role'] ?? '')),
-            'hipaa'     => trim((string) ($r['hipaa_certified'] ?? '')),
+            'name'       => trim($first . ' ' . $ln) ?: $card['public_name'],
+            'role'       => $card['role'],
+            'dept'       => $dept,
+            'country'    => $card['country'],
+            'years'      => $card['years'],
+            'status'     => $card['status'],
+            'is_hired'   => $isHired,
+            'photo'      => '../talent-photo.php?id=' . $card['id'],   // full-size, site-hosted
+            'scores'     => $scores,
+            'skills'     => $skills,
+            'summary'    => trim((string) ($r['summary'] ?? '')),
+            'experience' => trim((string) ($r['experience_text'] ?? '')),
+            'videoUrl'   => $mediaUrl((string) ($r['video_url'] ?? '')),
+            'resumeUrl'  => $mediaUrl((string) ($r['resume_url'] ?? '')),
+            'english'    => trim((string) ($r['english_level'] ?? '')),
+            'iq'         => trim((string) ($r['iq_band'] ?? '')),
+            'technical'  => trim((string) ($r['technical_band'] ?? '')),
+            'disc'       => trim((string) ($r['disc_profile'] ?? '')),
+            'persona'    => trim((string) ($r['personality_profile'] ?? '')),
+            'ci'         => trim((string) ($r['ci_role'] ?? '')),
+            'hipaa'      => trim((string) ($r['hipaa_certified'] ?? '')),
         ];
     }
     $vts[] = $card;
@@ -228,7 +243,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       <div class="vtd-hero-visual" aria-hidden="true">
         <div class="vtd-hero-collage">
           <?php foreach ($heroIds as $hi): ?>
-            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>&amp;thumb=1" alt="" loading="lazy" width="150" height="150"
+            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>" alt="" loading="lazy" width="150" height="150"
                   onerror="this.style.display='none';this.parentNode.classList.add('vtd-hero-pic--empty');"></span>
           <?php endforeach; ?>
         </div>
@@ -523,21 +538,77 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   var idForm   = document.getElementById('vtdLeadVtId');
   var lastFocus = null;
 
+  // Embed an intro video inline — hosted file → native <video>; YouTube/Vimeo → iframe.
+  function videoEmbed(url){
+    var u = url || '';
+    var yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
+    if (yt){ return '<div class="vtd-cv-video"><iframe src="https://www.youtube.com/embed/'+yt[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
+    var vm = u.match(/vimeo\.com\/(\d+)/);
+    if (vm){ return '<div class="vtd-cv-video"><iframe src="https://player.vimeo.com/video/'+vm[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
+    return '<div class="vtd-cv-video"><video controls preload="metadata" playsinline src="'+esc(u)+'"></video></div>';
+  }
+
   function openModal(card){
     var id = card.getAttribute('data-id');
     var name = card.getAttribute('data-name');
     var html = '';
     if (IS_MEMBER && FULL[id]){
       var f = FULL[id];
-      html += '<h2 class="vtd-m-name" id="vtdModalName">'+esc(f.name)+'</h2>';
-      html += '<div class="vtd-m-sub">'+esc(card.getAttribute('data-role'))+(card.getAttribute('data-country')?' · '+esc(card.getAttribute('data-country')):'')+'</div>';
-      if (f.videoUrl){ html += '<div class="vtd-m-media"><div class="vtd-m-h"><i class="fa-solid fa-video"></i> Intro video</div><video controls preload="metadata" playsinline src="'+esc(f.videoUrl)+'"></video></div>'; }
-      if (f.resumeUrl){ html += '<div class="vtd-m-media"><div class="vtd-m-h"><i class="fa-solid fa-file-pdf"></i> Résumé</div><embed src="'+esc(f.resumeUrl)+'#toolbar=1&navpanes=0" type="application/pdf"><div class="vtd-m-actions"><a class="vtd-view" href="'+esc(f.resumeUrl)+'" target="_blank" rel="noopener">Open résumé</a></div></div>'; }
-      if (f.summary){ html += '<div class="vtd-m-sec"><h3>Summary</h3><p>'+esc(f.summary)+'</p></div>'; }
-      var kv = [['English',f.english],['IQ band',f.iq],['Technical',f.technical],['DISC',f.disc],['Personality',f.persona],['CI role',f.ci],['HIPAA',f.hipaa]].filter(function(r){return r[1];});
-      if (kv.length){ html += '<div class="vtd-m-sec"><h3>Assessment</h3><dl class="vtd-m-dl">'+kv.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>';}).join('')+'</dl></div>'; }
+      var ini = esc((f.name || '?').charAt(0).toUpperCase());
+      var fn  = esc((f.name || '').split(' ')[0] || 'this teammate');
+      var nl  = function(s){ return esc(s).replace(/\n/g, '<br>'); };
+
+      html += '<div class="vtd-cv">';
+      // ── Header: photo + identity + score badges ──
+      html += '<header class="vtd-cv-head">';
+      html += '<img class="vtd-cv-photo" src="'+esc(f.photo)+'" alt="'+esc(f.name)+'" '
+            + 'onerror="this.outerHTML=&quot;<span class=\'vtd-cv-photo vtd-cv-photo-ph\'>'+ini+'</span>&quot;;">';
+      html += '<div class="vtd-cv-id">';
+      html += '<span class="vtd-cv-status '+(f.is_hired?'is-engaged':'is-avail')+'">'+esc(f.status)+'</span>';
+      html += '<h2 class="vtd-cv-name" id="vtdModalName">'+esc(f.name)+'</h2>';
+      html += '<div class="vtd-cv-role">'+esc(f.role || 'Virtual Teammate')+'</div>';
+      var meta = [];
+      if (f.dept)    meta.push(esc(f.dept));
+      if (f.country) meta.push('<i class="fa-solid fa-location-dot"></i> '+esc(f.country));
+      if (f.years>0) meta.push(esc(f.years)+(f.years==1?' yr':' yrs')+' experience');
+      if (meta.length) html += '<div class="vtd-cv-meta">'+meta.join('<span class="vtd-cv-dot">&bull;</span>')+'</div>';
+      if (f.scores && f.scores.length){ html += '<div class="vtd-scores">'+f.scores.map(function(s){return '<span class="vtd-score">'+esc(s)+'</span>';}).join('')+'</div>'; }
+      html += '</div></header>';
+
+      // ── Two-column body: Details + Skills | Summary + Experience (media is below) ──
+      html += '<div class="vtd-cv-body">';
+      html += '<aside class="vtd-cv-side">';
+      var kv = [['Role',f.role],['Department',f.dept],['Experience',f.years>0?(f.years+(f.years==1?' yr':' yrs')):''],['English',f.english],['IQ band',f.iq],['Technical',f.technical],['Cognitive role',f.ci],['DISC',f.disc],['Personality',f.persona],['HIPAA',f.hipaa]].filter(function(r){return r[1];});
+      if (kv.length){ html += '<section class="vtd-cv-sec"><h4><i class="fa-solid fa-id-badge"></i> Details</h4><dl class="vtd-cv-dl">'+kv.map(function(r){return '<dt>'+esc(r[0])+'</dt><dd>'+esc(r[1])+'</dd>';}).join('')+'</dl></section>'; }
+      if (f.skills && f.skills.length){ html += '<section class="vtd-cv-sec"><h4><i class="fa-solid fa-screwdriver-wrench"></i> Core Skills</h4><div class="vtd-skills">'+f.skills.map(function(s){return '<span class="vtd-skill">'+esc(s)+'</span>';}).join('')+'</div></section>'; }
+      html += '</aside>';
+
+      html += '<main class="vtd-cv-main">';
+      if (f.summary){    html += '<section class="vtd-cv-sec"><h4><i class="fa-solid fa-user"></i> Professional Summary</h4><p class="vtd-cv-text">'+nl(f.summary)+'</p></section>'; }
+      if (f.experience){ html += '<section class="vtd-cv-sec"><h4><i class="fa-solid fa-briefcase"></i> Experience</h4><p class="vtd-cv-text">'+nl(f.experience)+'</p></section>'; }
+      if (!f.summary && !f.experience){ html += '<section class="vtd-cv-sec"><p class="vtd-cv-text">A detailed summary for this teammate is being finalized.</p></section>'; }
+      html += '</main>';
+      html += '</div>'; // body
+
+      // ── Media (moved to the bottom): intro video + résumé side-by-side ──
+      if (f.videoUrl || f.resumeUrl){
+        var vBlock = f.videoUrl ? videoEmbed(f.videoUrl) : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-video-slash"></i><span>No intro video on file.</span></div>';
+        var rBlock = f.resumeUrl ? '<iframe class="vtd-cv-pdf" src="'+esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH" title="Résumé" loading="lazy"></iframe>' : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
+        html += '<div class="vtd-cv-media">';
+        html += '<div class="vtd-cv-media-h"><i class="fa-solid fa-photo-film"></i> Media <span>Résumé + intro video imported from HubSpot, served locally.</span></div>';
+        html += '<div class="vtd-cv-media-grid">';
+        html += '<div class="vtd-cv-media-card"><div class="vtd-cv-media-lbl"><i class="fa-solid fa-video"></i> Intro video</div>'+vBlock+'</div>';
+        html += '<div class="vtd-cv-media-card"><div class="vtd-cv-media-lbl"><i class="fa-solid fa-file-pdf"></i> Résumé</div>'+rBlock+'</div>';
+        html += '</div></div>';
+      }
+
+      // ── Funnel CTA ──
+      html += '<div class="vtd-cv-cta"><div class="vtd-cv-cta-t">Ready to add <strong>'+fn+'</strong> to your team?</div>'
+            + '<button type="button" class="btn-primary" data-match="'+esc(id)+'" data-matchname="'+esc(f.name)+'">Request '+fn+' <i class="fa-solid fa-arrow-right"></i></button></div>';
+      html += '</div>'; // vtd-cv
     } else {
       // Teaser → funnel to lead form.
+      html += '<div class="vtd-m-teaser">';
       html += '<h2 class="vtd-m-name" id="vtdModalName">'+esc(name)+'</h2>';
       html += '<div class="vtd-m-sub">'+esc(card.getAttribute('data-role'))+(card.getAttribute('data-country')?' · '+esc(card.getAttribute('data-country')):'')+'</div>';
       var scores = (card.getAttribute('data-scores')||'').split('||').filter(Boolean);
@@ -546,6 +617,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       if (skills.length){ html += '<div class="vtd-skills-h">Skills</div><div class="vtd-skills">'+skills.slice(0,8).map(function(s){return '<span class="vtd-skill">'+esc(s)+'</span>';}).join('')+'</div>'; }
       html += '<div class="vtd-m-lock"><i class="fa-solid fa-lock"></i> Intro video, full résumé and assessment scores are available to members.</div>';
       html += '<button type="button" class="btn-primary vtd-m-cta" data-match="'+esc(id)+'" data-matchname="'+esc(name)+'">Get matched with '+esc(name)+' <i class="fa-solid fa-arrow-right"></i></button>';
+      html += '</div>';
     }
     body.innerHTML = html;
     lastFocus = document.activeElement;
@@ -556,6 +628,11 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   function closeModal(){
     modal.hidden = true;
     document.body.style.overflow = '';
+    // Stop any media still playing: pause <video>, then clear the body so
+    // embedded iframes (YouTube/Vimeo) and the PDF stop too.
+    var vid = body ? body.querySelector('video') : null;
+    if (vid){ try { vid.pause(); vid.removeAttribute('src'); vid.load(); } catch(e){} }
+    if (body) body.innerHTML = '';
     if (lastFocus) lastFocus.focus();
   }
 
