@@ -118,6 +118,7 @@ switch ($action) {
     case 'messages':               handle_messages_list();           break;
     case 'messages.send':          handle_messages_send();           break;
     case 'messages.fetch':         handle_messages_fetch();          break;
+    case 'messages.clear':         handle_messages_clear();          break;
     case 'productivity':           handle_productivity();            break;
     case 'avatar':                 handle_avatar_serve();            break;
 
@@ -3876,6 +3877,27 @@ function handle_messages_fetch(): void
         $unread[] = ['id' => (int) $row['sender_user_id'], 'n' => (int) $row['n']];
     }
     echo json_encode(['ok' => true, 'messages' => $newMsgs, 'unread' => $unread]);
+}
+
+/** Super-admin: delete an entire conversation thread (both directions). */
+function handle_messages_clear(): void
+{
+    $u = require_login();
+    if (($u['role'] ?? '') !== 'super_admin') {
+        http_response_code(403);
+        render('error', ['title' => 'Forbidden', 'message' => 'Only an administrator can delete conversations.']);
+        return;
+    }
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('messages')); }
+    csrf_verify();
+    $with = (int) ($_POST['with'] ?? 0);
+    if ($with <= 0) { redirect(portal_url('messages')); }
+
+    $key = messages_conversation_key((int) $u['id'], $with);
+    $n   = chatdb()->prepare('DELETE FROM messages WHERE conversation_key = :k');
+    $n->execute([':k' => $key]);
+    flash('success', 'Conversation deleted (' . $n->rowCount() . ' message' . ($n->rowCount() === 1 ? '' : 's') . ').');
+    redirect(portal_url('messages', ['with' => $with]));
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

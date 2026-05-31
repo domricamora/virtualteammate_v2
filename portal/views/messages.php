@@ -99,6 +99,14 @@ $roleLabel = static function (string $role): string {
           <div class="msg-head-name"><?= e($nameOf($partner)) ?></div>
           <div class="muted small"><?= e($roleLabel($partner['role'])) ?></div>
         </div>
+        <?php if (($user['role'] ?? '') === 'super_admin'): ?>
+          <form method="post" action="<?= e(portal_url('messages.clear')) ?>" class="msg-head-clear"
+                onsubmit="return confirm('Delete this entire conversation? This permanently removes every message in the thread and cannot be undone.');">
+            <?= csrf_field() ?>
+            <input type="hidden" name="with" value="<?= (int) $partner['id'] ?>">
+            <button type="submit" class="msg-clear-btn" title="Delete conversation"><i class="fa-solid fa-trash"></i></button>
+          </form>
+        <?php endif; ?>
       </div>
 
       <div class="msg-thread" id="msgThread">
@@ -161,6 +169,9 @@ $roleLabel = static function (string $role): string {
 .msg-head-photo{width:42px;height:42px;border-radius:50%;object-fit:cover;flex:0 0 42px;background:#1a1535;}
 .msg-head-photo.placeholder{display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:rgba(255,255,255,.85);background:linear-gradient(135deg,#4a4178,#322a5a);}
 .msg-head-name{font-size:15px;font-weight:700;color:#fff;}
+.msg-head-clear{margin-left:auto;}
+.msg-clear-btn{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.55);width:32px;height:32px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:13px;transition:background .15s,border-color .15s,color .15s;}
+.msg-clear-btn:hover{background:rgba(225,87,87,.16);border-color:rgba(225,87,87,.5);color:#ff7a7a;}
 .msg-thread{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:8px;max-height:520px;}
 .msg-day{display:flex;align-items:center;justify-content:center;margin:8px 0;color:rgba(255,255,255,.4);font-size:11px;}
 .msg-day span{padding:2px 12px;background:rgba(255,255,255,.04);border-radius:30px;}
