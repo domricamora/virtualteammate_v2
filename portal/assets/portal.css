@@ -8,6 +8,7 @@
 html{font-size:15px;}
 
 :root{
+  color-scheme: dark;   /* native browser/window scrollbars + form controls render dark to match */
   --gold:       #dfa949;
   --gold-dk:    #b8882e;
   --gold-lt:    #f5e4b8;
