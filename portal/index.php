@@ -3608,57 +3608,80 @@ function messages_conversation_key(int $a, int $b): string
 /** People the current user is allowed to chat with. */
 function messages_contacts(array $u): array
 {
-    $pdo = db();
+    $pdo  = db();
+    $uid  = (int) $u['id'];
+    $cols = 'u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url';
+
     if ($u['role'] === 'super_admin') {
         // Super admin can message everyone — including pool VTs (vt_onpool).
         return $pdo->query(
             "SELECT id, first_name, last_name, email, role, photo_url FROM users
-             WHERE id != " . (int) $u['id'] . " AND active = 1
+             WHERE id != {$uid} AND active = 1
              ORDER BY last_name, first_name"
         )->fetchAll();
     }
+
+    $rows = [];
     if ($u['role'] === 'client') {
         $stmt = $pdo->prepare(
-            "SELECT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+            "SELECT {$cols}
              FROM clients c
              JOIN client_vts cv ON cv.client_id = c.id AND cv.contract_status = 'active'
              JOIN users u ON u.id = cv.vt_user_id
              WHERE c.user_id = :uid
              UNION
-             SELECT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+             SELECT {$cols}
              FROM clients c
              JOIN csm_clients cc ON cc.client_id = c.id
              JOIN users u ON u.id = cc.csm_user_id
              WHERE c.user_id = :uid"
         );
-        $stmt->execute([':uid' => $u['id']]);
-        return $stmt->fetchAll();
-    }
-    if ($u['role'] === 'csm') {
+        $stmt->execute([':uid' => $uid]);
+        $rows = $stmt->fetchAll();
+    } elseif ($u['role'] === 'csm') {
         $stmt = $pdo->prepare(
-            "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+            "SELECT DISTINCT {$cols}
              FROM csm_clients cc
              LEFT JOIN clients c ON c.id = cc.client_id
              LEFT JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
              LEFT JOIN users u ON u.id = COALESCE(cv.vt_user_id, c.user_id)
              WHERE cc.csm_user_id = :uid AND u.id IS NOT NULL"
         );
-        $stmt->execute([':uid' => $u['id']]);
-        return $stmt->fetchAll();
-    }
-    if ($u['role'] === 'vt_hired') {
+        $stmt->execute([':uid' => $uid]);
+        $rows = $stmt->fetchAll();
+    } elseif ($u['role'] === 'vt_hired') {
         $stmt = $pdo->prepare(
-            "SELECT DISTINCT u.id, u.first_name, u.last_name, u.email, u.role, u.photo_url
+            "SELECT DISTINCT {$cols}
              FROM client_vts cv
              JOIN clients c ON c.id = cv.client_id
              LEFT JOIN csm_clients cc ON cc.client_id = c.id
              LEFT JOIN users u ON u.id = COALESCE(c.user_id, cc.csm_user_id)
              WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active' AND u.id IS NOT NULL"
         );
-        $stmt->execute([':uid' => $u['id']]);
-        return $stmt->fetchAll();
+        $stmt->execute([':uid' => $uid]);
+        $rows = $stmt->fetchAll();
     }
-    return [];
+
+    // Always reachable: the admin team (so support can be messaged AND replied
+    // to), plus ANYONE the user already has a conversation with — otherwise a
+    // thread the other party started could never be answered (the root cause of
+    // "can't send": the partner wasn't in this list so the send was rejected).
+    $extra = $pdo->query(
+        "SELECT id, first_name, last_name, email, role, photo_url FROM users
+          WHERE active = 1 AND id != {$uid} AND (
+                role = 'super_admin'
+             OR id IN (
+                  SELECT CASE WHEN sender_user_id = {$uid} THEN receiver_user_id ELSE sender_user_id END
+                    FROM messages WHERE sender_user_id = {$uid} OR receiver_user_id = {$uid}
+                )
+          )
+          ORDER BY last_name, first_name"
+    )->fetchAll();
+
+    // Merge + dedupe by id (role-based contacts first, then admins / existing chats).
+    $byId = [];
+    foreach (array_merge($rows, $extra) as $r) { $byId[(int) $r['id']] = $r; }
+    return array_values($byId);
 }
 
 function handle_messages_list(): void
