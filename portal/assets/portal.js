@@ -1,4 +1,21 @@
 (function () {
+  // ── Mobile nav hamburger ────────────────────────────────────────────
+  var ham   = document.getElementById('portalHamburger');
+  var shell = document.getElementById('portalShell');
+  if (ham && shell) {
+    ham.addEventListener('click', function () {
+      var open = shell.classList.toggle('nav-open');
+      ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    // Collapse the menu after tapping a nav link (mobile).
+    shell.querySelectorAll('.portal-nav-link, .portal-side-link').forEach(function (a) {
+      a.addEventListener('click', function () {
+        shell.classList.remove('nav-open');
+        ham.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   // ── Flash auto-dismiss ──────────────────────────────────────────────
   document.querySelectorAll('.portal-flash').forEach(function (el) {
     setTimeout(function () {

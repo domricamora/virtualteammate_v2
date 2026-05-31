@@ -40,13 +40,19 @@ $resolveWorkday = static function (array $v): string {
   <?php else: ?>
     <div class="prod-grid">
       <?php foreach ($vts as $v):
-        $vid  = (int) ($v['user_id'] ?? 0);
-        $href = $resolveWorkday($v);
+        $vid   = (int) ($v['user_id'] ?? 0);
+        $href  = $resolveWorkday($v);
+        $thumb = media_thumb_src($v['photo_url'] ?? '');
       ?>
         <div class="prod-card">
-          <?php /* Initials only — photo_url is a PHP-served endpoint (p=avatar|media),
-                   so one <img> per VT fired a full portal request and slowed the page. */ ?>
-          <div class="prod-photo placeholder"><?= e($initial($v)) ?></div>
+          <?php /* Static 150x150 thumbnail when synced (lightweight static file);
+                   initials fallback otherwise — the old p=avatar endpoint was slow. */ ?>
+          <?php if ($thumb !== ''): ?>
+            <img class="prod-photo" src="<?= e($thumb) ?>" alt="" loading="lazy"
+                 onerror="this.onerror=null;this.outerHTML='<div class=&quot;prod-photo placeholder&quot;><?= e($initial($v)) ?></div>';">
+          <?php else: ?>
+            <div class="prod-photo placeholder"><?= e($initial($v)) ?></div>
+          <?php endif; ?>
           <div class="prod-meta">
             <div class="prod-name"><?= e($nameOrEmail($v)) ?></div>
             <div class="prod-role"><?= e($v['role_title'] ?? ($v['department'] ?? 'Virtual Teammate')) ?></div>

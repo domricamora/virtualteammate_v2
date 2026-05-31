@@ -128,6 +128,21 @@ function tbl_thumb(?string $photoUrl, string $name): string
     return '<span class="tbl-thumb tbl-thumb-ph">' . e($ini) . '</span>';
 }
 
+/**
+ * Resolved web URL of a VT's lightweight 150x150 thumbnail, or '' when the
+ * stored photo isn't a synced vtmedia file (so callers can fall back to
+ * initials). Use this for card grids / avatars instead of the full-size photo
+ * or a PHP-served endpoint — vtmedia/vt_thumbs/<id>.<ext> is a static file.
+ */
+function media_thumb_src(?string $photoUrl): string
+{
+    $u = trim((string) $photoUrl);
+    if (preg_match('#^vtmedia/vt/(\d+)/photo\.([a-z0-9]+)$#i', $u, $m)) {
+        return site_url('vtmedia/vt_thumbs/' . $m[1] . '.' . strtolower($m[2]));
+    }
+    return '';
+}
+
 /* ───────────────────────── Media cleanup ───────────────────────── */
 
 /** Recursively delete a directory's contents + the dir itself. Returns files removed. No-op if missing. */

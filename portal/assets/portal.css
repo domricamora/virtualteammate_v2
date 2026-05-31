@@ -215,6 +215,36 @@ select option:checked{background-color:#3919BA;color:#fff;}
 }
 .portal-me-link:hover{background:rgba(255,255,255,0.1);border-color:var(--gold);color:var(--gold-lt);}
 
+/* Hamburger toggle — hidden on desktop, shown on mobile (see media query). */
+.portal-hamburger{display:none;background:rgba(255,255,255,.05);border:1px solid var(--line);
+  color:var(--text);width:40px;height:40px;border-radius:9px;cursor:pointer;font-size:17px;
+  align-items:center;justify-content:center;}
+.portal-hamburger:hover{border-color:var(--gold);color:var(--gold-lt);}
+
+/* ── Top-nav layout (clients / CSMs / VTs): horizontal bar across the top ── */
+.nav-top .portal-shell{display:flex;flex-direction:column;}
+.nav-top .portal-side{flex-direction:row;align-items:center;gap:20px;
+  border-right:none;border-bottom:1px solid var(--line);padding:10px 26px;}
+.nav-top .portal-brand{border-bottom:none;margin:0;padding:2px 0;flex:0 0 auto;}
+.nav-top .portal-nav{flex-direction:row;flex-wrap:wrap;gap:4px;flex:1;}
+.nav-top .portal-nav-link{padding:8px 13px;}
+.nav-top .portal-nav-link span:first-of-type{flex:0 0 auto;}
+.nav-top .portal-nav-badge{margin-left:7px;}
+.nav-top .portal-side-foot{flex-direction:row;align-items:center;margin:0;padding:0;border-top:none;gap:6px;flex:0 0 auto;}
+
+/* Desktop: header on top (sticky), navigation bar BELOW it. display:contents
+   dissolves .portal-main so the header, nav and content all order in the shell. */
+@media (min-width:901px){
+  .nav-top .portal-main{display:contents;}
+  .nav-top .portal-top{order:1;}
+  /* Header scrolls away; the nav bar sticks to the top once reached. */
+  .nav-top .portal-side{order:2;position:sticky;top:0;z-index:20;}
+  .nav-top .portal-flashes{order:3;}
+  .nav-top .portal-content{order:4;}
+  /* Sidebar layout (super admin): keep the sidebar in view while content scrolls. */
+  .nav-side .portal-side{position:sticky;top:0;height:100vh;overflow-y:auto;align-self:start;}
+}
+
 .portal-content{padding:24px 30px 60px;display:flex;flex-direction:column;gap:18px;}
 
 .portal-flashes{padding:14px 30px 0;display:flex;flex-direction:column;gap:8px;}
@@ -316,6 +346,32 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .form-grid textarea{font-family:inherit;resize:vertical;}
 .form-grid input:focus,.form-grid select:focus,.form-grid textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,0.10);}
 .form-grid input:disabled,.form-grid select:disabled{opacity:.5;cursor:not-allowed;}
+/* File inputs: themed drop-zone with a gold "Choose file" button. */
+.form-grid input[type=file]{
+  background:rgba(255,255,255,0.05);
+  border:1px dashed var(--line-2);
+  border-radius:8px;
+  padding:9px 12px;
+  font-size:13px;color:var(--text-mute);
+  font-weight:500;
+  text-transform:none;letter-spacing:0;
+  width:100%;cursor:pointer;
+  transition:border-color .15s ease,background .15s ease;
+}
+.form-grid input[type=file]:hover{border-color:var(--gold);background:rgba(255,255,255,0.08);}
+.form-grid input[type=file]:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,0.10);}
+.form-grid input[type=file]::file-selector-button{
+  margin-right:12px;
+  padding:8px 16px;
+  border:none;border-radius:7px;
+  background:linear-gradient(135deg,var(--gold),#fbd97a);
+  color:#1a1330;font-size:12.5px;font-weight:800;
+  text-transform:uppercase;letter-spacing:.5px;
+  cursor:pointer;
+  transition:filter .15s ease,transform .05s ease;
+}
+.form-grid input[type=file]::file-selector-button:hover{filter:brightness(1.07);}
+.form-grid input[type=file]::file-selector-button:active{transform:translateY(1px);}
 .form-actions{display:flex;gap:10px;align-items:center;}
 @media (max-width:768px){ .form-grid{grid-template-columns:1fr;} .form-grid label.span-2{grid-column:span 1;} }
 
@@ -519,17 +575,30 @@ select option:checked{background-color:#3919BA;color:#fff;}
 /* ───────────── Mobile ───────────── */
 
 @media (max-width:900px){
-  .portal-shell{grid-template-columns:1fr;}
-  .portal-side{
-    flex-direction:row;flex-wrap:wrap;align-items:center;
-    border-right:none;border-bottom:1px solid var(--line);
-    padding:10px 14px;
+  /* Both layouts collapse to: a top bar (brand + hamburger) with the nav +
+     footer links hidden until the hamburger toggles .nav-open. */
+  .portal-shell, .nav-top .portal-shell{display:flex;flex-direction:column;}
+  /* The brand+hamburger bar stays pinned so the menu is always reachable;
+     the page title (.portal-top) is not sticky on mobile to avoid overlap. */
+  .portal-side, .nav-top .portal-side{
+    position:sticky;top:0;z-index:30;flex-direction:column;align-items:stretch;gap:0;
+    border-right:none;border-bottom:1px solid var(--line);padding:12px 16px;background:var(--side);
   }
-  .portal-brand{border-bottom:none;margin:0;padding:6px 8px;}
-  .portal-nav{flex-direction:row;flex-wrap:wrap;gap:4px;flex:1;justify-content:flex-end;}
-  .portal-nav-link{padding:7px 10px;font-size:13px;}
-  .portal-nav-link span{display:none;}
-  .portal-side-foot{flex-direction:row;border-top:none;padding-top:0;margin:0;gap:6px;}
+  .portal-top{position:static;}
+  .portal-brand, .nav-top .portal-brand{border-bottom:none;margin:0;padding:4px 0;}
+  .portal-hamburger{display:inline-flex;position:absolute;top:12px;right:14px;}
+
+  /* Hidden by default; revealed when the shell has .nav-open */
+  .portal-nav, .nav-top .portal-nav,
+  .portal-side-foot, .nav-top .portal-side-foot{display:none;}
+  #portalShell.nav-open .portal-nav{display:flex;flex-direction:column;gap:2px;margin-top:10px;}
+  #portalShell.nav-open .portal-side-foot{display:flex;flex-direction:row;flex-wrap:wrap;gap:6px;
+    margin-top:8px;padding-top:10px;border-top:1px solid var(--line);}
+  .portal-nav-link{padding:10px 12px;font-size:14px;}
+  .portal-nav-link span,.nav-top .portal-nav-link span{display:inline;}
+  .portal-nav-link span:first-of-type,.nav-top .portal-nav-link span:first-of-type{flex:1;}
+  .portal-nav-badge,.nav-top .portal-nav-badge{margin-left:auto;}
+
   .portal-top{padding:14px 18px;}
   .portal-content{padding:18px 18px 50px;}
   .portal-flashes{padding:14px 18px 0;}
@@ -637,7 +706,7 @@ select option:checked{background-color:#3919BA;color:#fff;}
    proportionally with the dashboard width. */
 .cd-cover{
   width:100%;
-  aspect-ratio:851/315;
+  height:200px;
   background:linear-gradient(135deg,#3919BA 0%,#7c3aed 50%,#F6B845 100%);
   background-size:cover;background-position:center;
   position:relative;
@@ -665,11 +734,13 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .pf-preview{padding:0;overflow:hidden;}
 .pf-cover{height:200px;background:linear-gradient(135deg,#3919BA 0%,#7c3aed 50%,#F6B845 100%);background-size:cover;background-position:center;position:relative;}
 .pf-cover-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:13px;}
-.pf-photo-wrap{display:flex;align-items:flex-end;gap:18px;padding:0 24px 18px;margin-top:-50px;flex-wrap:wrap;}
-.pf-photo{width:110px;height:110px;border-radius:50%;border:4px solid #0f0c28;background:#1a1535;object-fit:cover;flex:0 0 110px;box-shadow:0 14px 30px rgba(0,0,0,.5);}
+/* Row sits BELOW the cover; only the circular avatar overlaps upward so the
+   name text never collides with the cover image (mirrors .cd-cover-body). */
+.pf-photo-wrap{display:flex;align-items:center;gap:18px;padding:16px 24px 18px;flex-wrap:wrap;position:relative;}
+.pf-photo{width:120px;height:120px;border-radius:50%;border:4px solid #0f0c28;background:#1a1535;object-fit:cover;flex:0 0 120px;box-shadow:0 14px 30px rgba(0,0,0,.5);margin-top:-72px;}
 .pf-photo.placeholder{display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:800;color:#fff;background:linear-gradient(135deg,#4a4178,#322a5a);}
-.pf-name{flex:1;min-width:200px;padding-bottom:6px;}
-@media (max-width:780px){.pf-cover{height:160px;}.pf-photo{width:88px;height:88px;flex-basis:88px;}.pf-photo-wrap{margin-top:-40px;}}
+.pf-name{flex:1;min-width:200px;}
+@media (max-width:780px){.pf-cover{height:160px;}.pf-photo{width:92px;height:92px;flex-basis:92px;margin-top:-56px;}}
 
 /* ───────── ROI / Value Creation calculator (staging-look, dark-portal adapted) ───────── */
 .roiX{display:block;width:100%;}

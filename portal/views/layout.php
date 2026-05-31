@@ -65,6 +65,8 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',   'icon' => 'fa-bell'];
 }
 $nav[] = ['p' => 'profile',     'label' => 'My Profile',   'icon' => 'fa-id-card'];
+// Public talent directory (marketing site) — opens in a new tab.
+$nav[] = ['p' => 'virtual-teammates', 'label' => 'Virtual Teammates', 'icon' => 'fa-user-group', 'url' => site_url('virtual-teammates/'), 'external' => true];
 
 $pageTitle = $title ?? 'Virtual Teammate Portal';
 
@@ -106,18 +108,22 @@ if ($me && $role === 'super_admin') {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
 <link rel="stylesheet" href="assets/portal.css?v=<?= @filemtime(__DIR__ . '/../assets/portal.css') ?: time() ?>">
 </head>
-<body class="portal-app">
-<div class="portal-shell">
+<body class="portal-app <?= $role === 'super_admin' ? 'nav-side' : 'nav-top' ?>">
+<div class="portal-shell" id="portalShell">
 
   <aside class="portal-side">
     <a class="portal-brand" href="<?= e(site_url()) ?>">
       <span class="portal-brand-mark">VT</span>
       <span class="portal-brand-text">Virtual Teammate<br><em>Portal</em></span>
     </a>
+    <button class="portal-hamburger" id="portalHamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="portalShell">
+      <i class="fa-solid fa-bars"></i>
+    </button>
 
     <nav class="portal-nav" aria-label="Portal">
       <?php foreach ($nav as $item): ?>
-        <a class="portal-nav-link<?= $baseFlag($item['p']) ?>" href="<?= e(portal_url($item['p'])) ?>">
+        <?php $itemUrl = $item['url'] ?? portal_url($item['p']); $itemExt = !empty($item['external']); ?>
+        <a class="portal-nav-link<?= $itemExt ? '' : $baseFlag($item['p']) ?>" href="<?= e($itemUrl) ?>"<?= $itemExt ? ' target="_blank" rel="noopener"' : '' ?>>
           <i class="fa-solid <?= e($item['icon']) ?>"></i>
           <span><?= e($item['label']) ?></span>
           <?php $navBadge = $item['p'] === 'notifications' ? $unreadNotiCount : ($item['p'] === 'leads' ? $newLeadsCount : 0); ?>

@@ -55,16 +55,22 @@ $resolveWorkday = static function (array $v): string {
       $company    = trim((string) ($v['company_name'] ?? ''));
       $meta       = implode(' | ', array_filter([$department, $country]));
       $workdayUrl = $resolveWorkday($v);
+      $thumb      = media_thumb_src($v['photo_url'] ?? '');
     ?>
       <article class="codex-selected-va-card" tabindex="0"
                data-vt-id="<?= $vid ?>"
                aria-label="<?= e('Open profile for ' . $nameOf($v)) ?>">
         <div class="codex-selected-va-card__inner">
           <div class="codex-selected-va-card__media">
-            <?php /* Initials only — photo_url is a PHP-served endpoint (p=avatar|media),
-                     so one <img> per VT card fired a full portal request and slowed the grid.
-                     The selected-VT detail panel still loads the real photo on click. */ ?>
-            <span class="codex-selected-va-card__avatar"><?= e($initial($v)) ?></span>
+            <?php /* Static 150x150 thumbnail (vtmedia/vt_thumbs) when synced — a
+                     lightweight static file, not the old slow p=avatar endpoint.
+                     Falls back to initials when there's no synced photo. */ ?>
+            <?php if ($thumb !== ''): ?>
+              <img class="codex-selected-va-card__avatar" src="<?= e($thumb) ?>" alt="" loading="lazy"
+                   onerror="this.outerHTML='<span class=&quot;codex-selected-va-card__avatar&quot;><?= e($initial($v)) ?></span>';">
+            <?php else: ?>
+              <span class="codex-selected-va-card__avatar"><?= e($initial($v)) ?></span>
+            <?php endif; ?>
           </div>
           <p class="codex-selected-va-card__meta"><?= e($isHired ? 'Team member' : 'On talent pool') ?></p>
           <h3 class="codex-selected-va-card__name"><?= e($nameOf($v)) ?></h3>

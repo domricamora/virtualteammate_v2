@@ -48,11 +48,17 @@ $roleLabel = static function (string $role): string {
          href="<?= e(portal_url('messages', ['with' => (int) $c['id']])) ?>"
          data-msg-blob="<?= e($searchBlob) ?>"
          data-msg-unread="<?= (int) $cu ?>">
-        <?php /* Initials only — each contact's photo_url is a PHP-served endpoint
-                 (index.php?p=avatar|media), so rendering one <img> per contact fired
-                 dozens of full portal requests and stalled the page (and navigation
-                 away from it). The placeholder needs zero network requests. */ ?>
-        <div class="msg-contact-photo placeholder"><?= e($initial($c)) ?></div>
+        <?php /* Use the static 150x150 thumbnail when the contact has a synced VT
+                 photo (zero PHP requests). Other photo_urls are PHP-served endpoints
+                 (index.php?p=avatar|media) that stalled the list, so those stay as a
+                 no-network initials placeholder. */ ?>
+        <?php $cThumb = media_thumb_src($c['photo_url'] ?? ''); ?>
+        <?php if ($cThumb !== ''): ?>
+          <img class="msg-contact-photo" src="<?= e($cThumb) ?>" alt="" loading="lazy"
+               onerror="this.onerror=null;this.outerHTML='<div class=&quot;msg-contact-photo placeholder&quot;><?= e($initial($c)) ?></div>';">
+        <?php else: ?>
+          <div class="msg-contact-photo placeholder"><?= e($initial($c)) ?></div>
+        <?php endif; ?>
         <div class="msg-contact-meta">
           <div class="msg-contact-name"><?= e($nameOf($c)) ?></div>
           <div class="muted small"><?= e($roleLabel($c['role'])) ?></div>
@@ -74,8 +80,9 @@ $roleLabel = static function (string $role): string {
       </div>
     <?php else: ?>
       <div class="msg-head">
-        <?php if (!empty($partner['photo_url'])): ?>
-          <img class="msg-head-photo" src="<?= e(media_src($partner['photo_url'])) ?>" alt="" loading="lazy"
+        <?php $pPhoto = media_thumb_src($partner['photo_url'] ?? '') ?: media_src($partner['photo_url'] ?? ''); ?>
+        <?php if ($pPhoto !== ''): ?>
+          <img class="msg-head-photo" src="<?= e($pPhoto) ?>" alt="" loading="lazy"
                onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
         <?php else: ?>
           <div class="msg-head-photo placeholder"><?= e($initial($partner)) ?></div>

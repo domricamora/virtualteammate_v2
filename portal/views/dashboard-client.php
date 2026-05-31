@@ -485,11 +485,12 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
     <?php else: ?>
       <ul class="cd-mini-list">
         <?php foreach ($recentMsgs as $m):
-          $sName = trim(($m['s_fn'] ?? '') . ' ' . ($m['s_ln'] ?? '')) ?: ($m['s_email'] ?? '—');
+          $sName  = trim(($m['s_fn'] ?? '') . ' ' . ($m['s_ln'] ?? '')) ?: ($m['s_email'] ?? '—');
+          $sPhoto = media_thumb_src($m['s_photo'] ?? '') ?: media_src($m['s_photo'] ?? '');
         ?>
           <li class="cd-mini-item <?= empty($m['read_at']) ? 'unread' : '' ?>">
-            <?php if (!empty($m['s_photo'])): ?>
-              <img class="cd-mini-photo" src="<?= e($m['s_photo']) ?>" alt="" loading="lazy"
+            <?php if ($sPhoto !== ''): ?>
+              <img class="cd-mini-photo" src="<?= e($sPhoto) ?>" alt="" loading="lazy"
                    onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
             <?php else: ?>
               <div class="cd-mini-photo placeholder"><?= e(strtoupper(mb_substr($sName, 0, 1))) ?></div>
