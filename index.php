@@ -224,7 +224,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
-            data-lead-form data-lead-thanks="Thanks! We’ll reach out within 1 business day." style="margin-top:18px;">
+            data-lead-thanks="Thanks! We’ll reach out within 1 business day." style="margin-top:18px;">
         <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
         <input class="calc-reachout-field" type="text" name="name" placeholder="Your name" required autocomplete="name" style="width:100%;margin-bottom:10px;">
         <div class="calc-reachout-row">
@@ -854,7 +854,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <h2 class="cta-h2" id="ctaHeading" style="font-size:30px;">Tell Us About Your Practice</h2>
     <p class="cta-sub" id="ctaSub">Pick a stage above and complete the form &mdash; we&rsquo;ll reply within one business day.</p>
 
-    <form id="ctaForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+    <form id="ctaForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! We will be in touch within 1 business day.">
       <input type="hidden" name="intent" id="ctaIntent" value="strategy-call"/>
       <div class="cf-row">
@@ -919,11 +919,12 @@ $homepage_profiles = vtnew_homepage_profiles(8);
 <?php include 'includes/footer.php'; ?>
 
 <!-- Dedicated lead handler for the homepage forms (#ctaForm + #calcReachout).
-     Self-contained and inline so it is NEVER blocked by an error elsewhere in
-     js/main.js — lead capture is too important to depend on the shared bundle.
-     Sets data-lead-bound so the generic handler in main.js skips these forms
-     (no double submit). Posts to the form's action (lead.php) and swaps in a
-     thank-you on success. -->
+     These two forms intentionally do NOT carry data-lead-form, so the generic
+     handler in js/main.js never touches them — this self-contained function is
+     their ONLY handler (no race, no double-submit, and immune to any error
+     elsewhere in the main.js bundle). Binds immediately (the script sits after
+     the forms in the DOM), posts to the form's action (lead.php), and swaps in
+     a thank-you on success. -->
 <script>
 (function () {
   function bind(form) {
@@ -969,7 +970,9 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     bind(document.getElementById('ctaForm'));
     bind(document.getElementById('calcReachout'));
   }
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); }
-  else { init(); }
+  // Bind now (this script is placed after both forms) and again on
+  // DOMContentLoaded as a safety net. bind() is idempotent.
+  init();
+  document.addEventListener('DOMContentLoaded', init);
 })();
 </script>
