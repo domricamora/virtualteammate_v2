@@ -36,6 +36,9 @@ if (PHP_SAPI !== 'cli') {
 
 const PORTAL_DB_PATH = __DIR__ . '/../data/portal.sqlite';
 const PORTAL_SCHEMA  = __DIR__ . '/schema.sql';
+// Chat lives in its OWN SQLite file so high-frequency message writes/polls
+// never contend with the primary DB (which a HubSpot sync may be writing).
+const CHAT_DB_PATH   = __DIR__ . '/../data/chat.sqlite';
 const PORTAL_ROLES   = ['super_admin', 'client', 'csm', 'vt_hired', 'vt_onpool'];
 
 /** Lazy PDO singleton. Aborts loudly if DB missing — installer needs to run. */
@@ -66,6 +69,64 @@ function db(): PDO
     $pdo->exec('PRAGMA journal_mode = WAL');
     $pdo->exec('PRAGMA synchronous = NORMAL');
     $pdo->exec('PRAGMA foreign_keys = ON');
+    return $pdo;
+}
+
+/**
+ * Dedicated PDO for the chat database (data/chat.sqlite). Isolated from the
+ * main portal DB so messaging's frequent writes + polling can't lock it, and
+ * vice-versa. WAL + busy_timeout for safe concurrent read/write. The table is
+ * created on first use, and any legacy rows in the main DB's `messages` table
+ * are migrated once (ids preserved, so re-running is a no-op).
+ */
+function chatdb(): PDO
+{
+    static $pdo = null;
+    if ($pdo !== null) { return $pdo; }
+    $pdo = new PDO('sqlite:' . CHAT_DB_PATH, null, null, [PDO::ATTR_TIMEOUT => 15]);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE,            PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES,   false);
+    $pdo->exec('PRAGMA busy_timeout = 15000');
+    $pdo->exec('PRAGMA journal_mode = WAL');
+    $pdo->exec('PRAGMA synchronous = NORMAL');
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS messages (
+            id                INTEGER PRIMARY KEY AUTOINCREMENT,
+            conversation_key  TEXT    NOT NULL,
+            sender_user_id    INTEGER NOT NULL,
+            receiver_user_id  INTEGER NOT NULL,
+            body              TEXT    NOT NULL,
+            read_at           TEXT,
+            created_at        TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )"
+    );
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_chat_conv ON messages(conversation_key, id)');
+    $pdo->exec('CREATE INDEX IF NOT EXISTS idx_chat_recv ON messages(receiver_user_id, read_at)');
+
+    // One-time migration of legacy messages from the main DB (only while empty).
+    try {
+        if ((int) $pdo->query('SELECT COUNT(*) FROM messages')->fetchColumn() === 0) {
+            $legacy = db()->query(
+                'SELECT id, conversation_key, sender_user_id, receiver_user_id, body, read_at, created_at FROM messages'
+            )->fetchAll();
+            if ($legacy) {
+                $ins = $pdo->prepare(
+                    'INSERT OR IGNORE INTO messages
+                        (id, conversation_key, sender_user_id, receiver_user_id, body, read_at, created_at)
+                     VALUES (:id,:k,:s,:r,:b,:ra,:ca)'
+                );
+                foreach ($legacy as $m) {
+                    $ins->execute([
+                        ':id' => $m['id'], ':k' => $m['conversation_key'],
+                        ':s'  => $m['sender_user_id'], ':r' => $m['receiver_user_id'],
+                        ':b'  => $m['body'], ':ra' => $m['read_at'], ':ca' => $m['created_at'],
+                    ]);
+                }
+            }
+        }
+    } catch (Throwable $_) { /* legacy messages table may not exist — ignore */ }
+
     return $pdo;
 }
 

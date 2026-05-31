@@ -23,12 +23,19 @@ $roleLabel = static function (string $role): string {
     };
 };
 ?>
-<div class="msg-shell">
+<div class="msg-shell"
+     data-send-url="<?= e(portal_url('messages.send')) ?>"
+     data-fetch-url="<?= e(portal_url('messages.fetch')) ?>"
+     data-with="<?= $partner ? (int) $partner['id'] : 0 ?>"
+     data-me="<?= (int) $user['id'] ?>">
   <!-- Sidebar: contacts list + search -->
   <aside class="msg-side">
     <div class="msg-side-h">
       <strong>Conversations</strong>
       <span class="muted small">(<span data-msg-count><?= count($contacts) ?></span>)</span>
+      <button type="button" class="msg-snd-toggle" data-msg-sound title="Mute notifications" aria-label="Toggle notification sound">
+        <i class="fa-solid fa-bell"></i>
+      </button>
     </div>
     <div class="msg-side-search">
       <i class="fa-solid fa-magnifying-glass"></i>
@@ -46,6 +53,7 @@ $roleLabel = static function (string $role): string {
     ?>
       <a class="msg-contact <?= $isActive ? 'is-active' : '' ?>"
          href="<?= e(portal_url('messages', ['with' => (int) $c['id']])) ?>"
+         data-cid="<?= (int) $c['id'] ?>"
          data-msg-blob="<?= e($searchBlob) ?>"
          data-msg-unread="<?= (int) $cu ?>">
         <?php /* Use the static 150x150 thumbnail when the contact has a synced VT
@@ -63,7 +71,7 @@ $roleLabel = static function (string $role): string {
           <div class="msg-contact-name"><?= e($nameOf($c)) ?></div>
           <div class="muted small"><?= e($roleLabel($c['role'])) ?></div>
         </div>
-        <?php if ($cu > 0): ?><span class="msg-unread"><?= (int) $cu ?></span><?php endif; ?>
+        <span class="msg-unread" data-msg-badge<?= $cu > 0 ? '' : ' hidden' ?>><?= (int) $cu ?></span>
       </a>
     <?php endforeach; endif; ?>
     <p class="muted small" data-msg-empty style="display:none;padding:14px;text-align:center;">No matches.</p>
@@ -103,7 +111,7 @@ $roleLabel = static function (string $role): string {
         ?>
             <div class="msg-day"><span><?= e($thisDay) ?></span></div>
         <?php $lastDay = $thisDay; endif; ?>
-          <div class="msg-row <?= $isMe ? 'me' : 'them' ?>">
+          <div class="msg-row <?= $isMe ? 'me' : 'them' ?>" data-mid="<?= (int) $m['id'] ?>">
             <div class="msg-bubble">
               <?= nl2br(e($m['body'])) ?>
               <div class="msg-time muted"><?= e(substr($m['created_at'], 11, 5)) ?></div>
@@ -115,8 +123,7 @@ $roleLabel = static function (string $role): string {
       <form class="msg-compose" method="post" action="<?= e(portal_url('messages.send')) ?>">
         <?= csrf_field() ?>
         <input type="hidden" name="with" value="<?= (int) $partner['id'] ?>">
-        <textarea name="body" rows="2" placeholder="Type a message…" required maxlength="4000"
-                  onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.form.submit();}"></textarea>
+        <textarea name="body" rows="2" placeholder="Type a message…" required maxlength="4000"></textarea>
         <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-paper-plane"></i> Send</button>
       </form>
       <p class="muted small" style="text-align:right;margin:6px 6px 0;">Press Enter to send &middot; Shift+Enter for new line</p>
@@ -128,7 +135,11 @@ $roleLabel = static function (string $role): string {
 .msg-shell{display:grid;grid-template-columns:280px 1fr;gap:14px;min-height:560px;}
 @media (max-width:880px){.msg-shell{grid-template-columns:1fr;}}
 .msg-side{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;max-height:640px;}
-.msg-side-h{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:rgba(255,255,255,.85);}
+.msg-side-h{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);font-size:13px;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:8px;}
+.msg-side-h strong{flex:0 0 auto;}
+.msg-snd-toggle{margin-left:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:var(--gold,#d4a64a);width:30px;height:30px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:13px;transition:background .15s,border-color .15s,color .15s;}
+.msg-snd-toggle:hover{background:rgba(247,185,69,.14);border-color:rgba(247,185,69,.4);}
+.msg-snd-toggle.is-off{color:rgba(255,255,255,.4);}
 .msg-side-search{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.04);background:rgba(255,255,255,.02);}
 .msg-side-search i{color:rgba(255,255,255,.45);font-size:12px;}
 .msg-side-search input{flex:1;background:transparent;border:0;color:#fff;font-family:inherit;font-size:13px;outline:none;padding:2px 0;}
@@ -164,8 +175,145 @@ $roleLabel = static function (string $role): string {
 .msg-compose textarea:focus{outline:none;border-color:var(--gold,#d4a64a);}
 </style>
 <script>
+/* Messaging engine: AJAX send (instant on Enter / click), polling for incoming
+   messages, notification sound (mutable), and live sidebar reorder + unread
+   badges. Backed by a dedicated chat DB so it never locks the main portal DB. */
 (function(){
-  var t = document.getElementById('msgThread'); if (t) t.scrollTop = t.scrollHeight;
+  var shell = document.querySelector('.msg-shell');
+  if (!shell) return;
+  var sendUrl  = shell.getAttribute('data-send-url');
+  var fetchUrl = shell.getAttribute('data-fetch-url');
+  var withId   = parseInt(shell.getAttribute('data-with'), 10) || 0;
+  var thread   = document.getElementById('msgThread');
+  var form     = document.querySelector('.msg-compose');
+  var list     = document.querySelector('.msg-side-list');
+
+  if (thread) { thread.scrollTop = thread.scrollHeight; }
+
+  function maxMid(){
+    var max = 0;
+    document.querySelectorAll('#msgThread .msg-row[data-mid]').forEach(function(r){
+      var n = parseInt(r.getAttribute('data-mid'), 10) || 0; if (n > max) max = n;
+    });
+    return max;
+  }
+  var lastId = maxMid();
+
+  /* ── Sound + mute (persisted) ───────────────────────────────────────── */
+  var soundBtn = document.querySelector('[data-msg-sound]');
+  function soundOn(){ return localStorage.getItem('vtMsgSound') !== 'off'; }
+  function renderSoundBtn(){
+    if (!soundBtn) return;
+    var on = soundOn();
+    soundBtn.innerHTML = '<i class="fa-solid ' + (on ? 'fa-bell' : 'fa-bell-slash') + '"></i>';
+    soundBtn.title = on ? 'Mute notifications' : 'Unmute notifications';
+    soundBtn.classList.toggle('is-off', !on);
+  }
+  if (soundBtn){
+    renderSoundBtn();
+    soundBtn.addEventListener('click', function(){
+      localStorage.setItem('vtMsgSound', soundOn() ? 'off' : 'on');
+      renderSoundBtn();
+    });
+  }
+  var actx = null;
+  function beep(){
+    if (!soundOn()) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      var o = actx.createOscillator(), g = actx.createGain();
+      o.type = 'sine'; o.frequency.value = 680;
+      o.connect(g); g.connect(actx.destination);
+      var t0 = actx.currentTime;
+      g.gain.setValueAtTime(0.0001, t0);
+      g.gain.exponentialRampToValueAtTime(0.16, t0 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.3);
+      o.start(t0); o.stop(t0 + 0.32);
+    } catch (e) {}
+  }
+
+  /* ── Render a bubble ────────────────────────────────────────────────── */
+  function esc(s){ var d = document.createElement('div'); d.textContent = (s == null ? '' : String(s)); return d.innerHTML; }
+  function appendMsg(m){
+    if (!thread) return false;
+    if (thread.querySelector('.msg-row[data-mid="' + m.id + '"]')) return false; // dedupe
+    var hhmm = (m.created_at || '').substr(11, 5);
+    var row = document.createElement('div');
+    row.className = 'msg-row ' + (m.mine ? 'me' : 'them');
+    row.setAttribute('data-mid', m.id);
+    row.innerHTML = '<div class="msg-bubble">' + esc(m.body).replace(/\n/g, '<br>') +
+                    '<div class="msg-time muted">' + esc(hhmm) + '</div></div>';
+    var empty = thread.querySelector('p.muted'); if (empty) empty.remove();
+    thread.appendChild(row);
+    thread.scrollTop = thread.scrollHeight;
+    if (m.id > lastId) lastId = m.id;
+    return true;
+  }
+
+  /* ── AJAX send ──────────────────────────────────────────────────────── */
+  if (form){
+    var ta = form.querySelector('textarea[name=body]');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var body = (ta.value || '').trim();
+      if (body === '') return;
+      var btn = form.querySelector('[type=submit]');
+      if (btn) btn.disabled = true;
+      fetch(sendUrl, { method:'POST', body:new FormData(form), credentials:'same-origin',
+                       headers:{'X-Requested-With':'XMLHttpRequest'} })
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          if (res && res.ok && res.message){ appendMsg(res.message); ta.value=''; ta.focus(); }
+          if (btn) btn.disabled = false;
+        })
+        .catch(function(){ if (btn) btn.disabled = false; });
+    });
+    if (ta){
+      ta.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' && !e.shiftKey){
+          e.preventDefault();
+          if (form.requestSubmit) form.requestSubmit();
+          else form.dispatchEvent(new Event('submit', { cancelable:true }));
+        }
+      });
+    }
+  }
+
+  /* ── Sidebar: badge + bump sender to top on new incoming ────────────── */
+  function updateSidebar(unread){
+    if (!list) return false;
+    var bumped = false;
+    (unread || []).forEach(function(item){
+      var a = list.querySelector('.msg-contact[data-cid="' + item.id + '"]');
+      if (!a) return;
+      var prev  = parseInt(a.getAttribute('data-msg-unread'), 10) || 0;
+      var badge = a.querySelector('[data-msg-badge]');
+      if (item.n > prev) bumped = true;
+      a.setAttribute('data-msg-unread', item.n);
+      if (badge){
+        badge.textContent = item.n;
+        if (item.n > 0) badge.removeAttribute('hidden'); else badge.setAttribute('hidden', '');
+      }
+      if (item.n > 0 && list.firstElementChild !== a){ list.insertBefore(a, list.firstElementChild); }
+    });
+    return bumped;
+  }
+
+  /* ── Poll for incoming ──────────────────────────────────────────────── */
+  function poll(){
+    fetch(fetchUrl + '&with=' + withId + '&after=' + lastId,
+          { credentials:'same-origin', headers:{'X-Requested-With':'XMLHttpRequest'} })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (!res || !res.ok) return;
+        var ring = false;
+        (res.messages || []).forEach(function(m){ if (appendMsg(m) && !m.mine) ring = true; });
+        if (updateSidebar(res.unread)) ring = true;
+        if (ring) beep();
+      })
+      .catch(function(){});
+  }
+  setInterval(poll, 4000);
 })();
 </script>
 

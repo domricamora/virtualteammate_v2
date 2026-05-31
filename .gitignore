@@ -21,6 +21,11 @@ data/portal.sqlite
 data/portal.sqlite-journal
 data/portal.sqlite-wal
 data/portal.sqlite-shm
+# Chat SQLite DB (messages) — per-environment, created on first use
+data/chat.sqlite
+data/chat.sqlite-journal
+data/chat.sqlite-wal
+data/chat.sqlite-shm
 data/SUPERADMIN_CREDENTIALS.txt
 
 # Synced HubSpot media (per-environment, may contain PII like resumes)

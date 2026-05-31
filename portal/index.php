@@ -117,6 +117,7 @@ switch ($action) {
     case 'vts.profile_json':       handle_vts_profile_json();        break;
     case 'messages':               handle_messages_list();           break;
     case 'messages.send':          handle_messages_send();           break;
+    case 'messages.fetch':         handle_messages_fetch();          break;
     case 'productivity':           handle_productivity();            break;
     case 'avatar':                 handle_avatar_serve();            break;
 
@@ -335,16 +336,30 @@ function dashboard_client_data(array $u): array
     $stmt->execute([':cid' => $cid]);
     $todayMeetings = $stmt->fetchAll();
 
-    // Recent messages — last 5 message receipts to this user, with sender name.
-    $stmt = db()->prepare(
-        "SELECT m.*, u.first_name AS s_fn, u.last_name AS s_ln, u.email AS s_email, u.photo_url AS s_photo
-         FROM messages m
-         JOIN users u ON u.id = m.sender_user_id
-         WHERE m.receiver_user_id = :uid
-         ORDER BY m.created_at DESC LIMIT 5"
-    );
-    $stmt->execute([':uid' => $u['id']]);
-    $recentMessages = $stmt->fetchAll();
+    // Recent messages — last 5 receipts to this user. Messages live in the
+    // separate chat DB, so fetch them there then resolve sender names from the
+    // main DB (no cross-database join).
+    $recentMessages = [];
+    try {
+        $cstmt = chatdb()->prepare(
+            "SELECT * FROM messages WHERE receiver_user_id = :uid ORDER BY id DESC LIMIT 5"
+        );
+        $cstmt->execute([':uid' => $u['id']]);
+        $recentMessages = $cstmt->fetchAll();
+        if ($recentMessages) {
+            $ids   = implode(',', array_unique(array_map(static fn($m) => (int) $m['sender_user_id'], $recentMessages)));
+            $names = db()->query(
+                "SELECT id, first_name AS s_fn, last_name AS s_ln, email AS s_email, photo_url AS s_photo
+                 FROM users WHERE id IN ({$ids})"
+            )->fetchAll(PDO::FETCH_UNIQUE);
+            foreach ($recentMessages as &$m) {
+                $n = $names[(int) $m['sender_user_id']] ?? [];
+                $m['s_fn'] = $n['s_fn'] ?? ''; $m['s_ln'] = $n['s_ln'] ?? '';
+                $m['s_email'] = $n['s_email'] ?? ''; $m['s_photo'] = $n['s_photo'] ?? '';
+            }
+            unset($m);
+        }
+    } catch (Throwable $_) {}
 
     // Full hired history (active + ended engagements) for the ROI Actual gauge.
     $stmt = db()->prepare(
@@ -3666,15 +3681,19 @@ function messages_contacts(array $u): array
     // to), plus ANYONE the user already has a conversation with — otherwise a
     // thread the other party started could never be answered (the root cause of
     // "can't send": the partner wasn't in this list so the send was rejected).
+    // Conversation partners come from the separate chat DB.
+    $partnerIds = [];
+    try {
+        $partnerIds = array_map('intval', chatdb()->query(
+            "SELECT DISTINCT CASE WHEN sender_user_id = {$uid} THEN receiver_user_id ELSE sender_user_id END
+               FROM messages WHERE sender_user_id = {$uid} OR receiver_user_id = {$uid}"
+        )->fetchAll(PDO::FETCH_COLUMN));
+    } catch (Throwable $_) {}
+    $cond = "role = 'super_admin'";
+    if ($partnerIds) { $cond .= ' OR id IN (' . implode(',', $partnerIds) . ')'; }
     $extra = $pdo->query(
         "SELECT id, first_name, last_name, email, role, photo_url FROM users
-          WHERE active = 1 AND id != {$uid} AND (
-                role = 'super_admin'
-             OR id IN (
-                  SELECT CASE WHEN sender_user_id = {$uid} THEN receiver_user_id ELSE sender_user_id END
-                    FROM messages WHERE sender_user_id = {$uid} OR receiver_user_id = {$uid}
-                )
-          )
+          WHERE active = 1 AND id != {$uid} AND ({$cond})
           ORDER BY last_name, first_name"
     )->fetchAll();
 
@@ -3692,6 +3711,8 @@ function handle_messages_list(): void
         return;
     }
     $pdo = db();
+    $cdb = chatdb();
+    $me  = (int) $u['id'];
     $contacts = messages_contacts($u);
     $with = (int) ($_GET['with'] ?? 0);
 
@@ -3708,41 +3729,38 @@ function handle_messages_list(): void
                 $partner = $stmt->fetch() ?: null;
             }
             if ($partner) {
-                $key = messages_conversation_key((int) $u['id'], $with);
-                $stmt = $pdo->prepare(
-                    "SELECT * FROM messages WHERE conversation_key = :k ORDER BY created_at ASC LIMIT 500"
+                $key = messages_conversation_key($me, $with);
+                $stmt = $cdb->prepare(
+                    "SELECT * FROM messages WHERE conversation_key = :k ORDER BY id ASC LIMIT 500"
                 );
                 $stmt->execute([':k' => $key]);
                 $messages = $stmt->fetchAll();
                 // Mark partner-sent messages as read.
-                $pdo->prepare("UPDATE messages SET read_at = CURRENT_TIMESTAMP WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL")
+                $cdb->prepare("UPDATE messages SET read_at = CURRENT_TIMESTAMP WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL")
                     ->execute([':k' => $key, ':p' => $with]);
             }
         }
     }
 
-    // Unread badge counts: ONE query, grouped by sender. Previously this was
-    // a per-contact COUNT(*) which made the page slow once contacts grew —
-    // a super admin with 200+ contacts means 200+ round trips. Now we ask
-    // the DB to bucket unread messages-to-me by sender and merge in zeros
-    // for any contact with no unread messages.
+    // Unread badge counts: ONE query, grouped by sender (chat DB).
     $unreadByContact = [];
     foreach ($contacts as $c) { $unreadByContact[(int) $c['id']] = 0; }
-    if (!empty($contacts)) {
-        $stmt = $pdo->prepare(
-            'SELECT sender_user_id, COUNT(*) AS n
-               FROM messages
-              WHERE receiver_user_id = :me AND read_at IS NULL
-              GROUP BY sender_user_id'
-        );
-        $stmt->execute([':me' => (int) $u['id']]);
-        foreach ($stmt as $row) {
-            $sid = (int) $row['sender_user_id'];
-            if (array_key_exists($sid, $unreadByContact)) {
-                $unreadByContact[$sid] = (int) $row['n'];
-            }
-        }
+    foreach ($cdb->query("SELECT sender_user_id, COUNT(*) AS n FROM messages WHERE receiver_user_id = {$me} AND read_at IS NULL GROUP BY sender_user_id") as $row) {
+        $sid = (int) $row['sender_user_id'];
+        if (array_key_exists($sid, $unreadByContact)) { $unreadByContact[$sid] = (int) $row['n']; }
     }
+
+    // Order contacts by most-recent conversation activity (newest first) so a
+    // contact with a fresh incoming message floats to the top of the list.
+    $lastAct = [];
+    foreach ($cdb->query("SELECT conversation_key, MAX(id) AS mid FROM messages GROUP BY conversation_key") as $row) {
+        $lastAct[$row['conversation_key']] = (int) $row['mid'];
+    }
+    usort($contacts, static function ($a, $b) use ($lastAct, $me) {
+        $ka = messages_conversation_key($me, (int) $a['id']);
+        $kb = messages_conversation_key($me, (int) $b['id']);
+        return ($lastAct[$kb] ?? 0) <=> ($lastAct[$ka] ?? 0);
+    });
 
     render('messages', [
         'user'     => $u,
@@ -3756,23 +3774,43 @@ function handle_messages_list(): void
 function handle_messages_send(): void
 {
     $u = require_login();
+    $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+           && strtolower((string) $_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+    $jsonFail = static function (string $msg, int $code) {
+        http_response_code($code);
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => false, 'error' => $msg]);
+        exit;
+    };
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('messages')); }
     csrf_verify();
     $with = (int) ($_POST['with'] ?? 0);
     $body = trim((string) ($_POST['body'] ?? ''));
-    if ($with <= 0 || $body === '') { redirect(portal_url('messages', $with ? ['with' => $with] : [])); }
+    if ($with <= 0 || $body === '') {
+        if ($isAjax) { $jsonFail('Empty message.', 400); }
+        redirect(portal_url('messages', $with ? ['with' => $with] : []));
+    }
 
     // Authorize the recipient is in our contacts.
     $contacts = messages_contacts($u);
     $ok = $u['role'] === 'super_admin';
     foreach ($contacts as $c) { if ((int) $c['id'] === $with) { $ok = true; break; } }
-    if (!$ok) { flash('error', 'You can not message that user.'); redirect(portal_url('messages')); }
+    if (!$ok) {
+        if ($isAjax) { $jsonFail('You can not message that user.', 403); }
+        flash('error', 'You can not message that user.');
+        redirect(portal_url('messages'));
+    }
 
-    $key = messages_conversation_key((int) $u['id'], $with);
-    db()->prepare(
+    $key  = messages_conversation_key((int) $u['id'], $with);
+    $body = mb_substr($body, 0, 4000);
+    $cdb  = chatdb();
+    $cdb->prepare(
         'INSERT INTO messages (conversation_key, sender_user_id, receiver_user_id, body)
          VALUES (:k, :s, :r, :b)'
-    )->execute([':k' => $key, ':s' => $u['id'], ':r' => $with, ':b' => mb_substr($body, 0, 4000)]);
+    )->execute([':k' => $key, ':s' => $u['id'], ':r' => $with, ':b' => $body]);
+    $newId = (int) $cdb->lastInsertId();
+    $row   = $cdb->query("SELECT created_at FROM messages WHERE id = {$newId}")->fetch();
 
     // Surface to the recipient as a notification (+ email when opted-in).
     $senderName = trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? '')) ?: (string) ($u['email'] ?? 'A teammate');
@@ -3784,7 +3822,60 @@ function handle_messages_send(): void
         'index.php?p=messages&with=' . (int) $u['id'],
     );
 
+    if ($isAjax) {
+        header('Content-Type: application/json; charset=UTF-8');
+        echo json_encode(['ok' => true, 'message' => [
+            'id'         => $newId,
+            'mine'       => true,
+            'body'       => $body,
+            'created_at' => $row['created_at'] ?? '',
+        ]]);
+        exit;
+    }
     redirect(portal_url('messages', ['with' => $with]));
+}
+
+/**
+ * AJAX poll: returns new messages in the open conversation (id > after) and a
+ * per-sender unread map (ordered newest-first) so the client can live-append
+ * incoming messages and bump senders with new messages to the top of the list.
+ */
+function handle_messages_fetch(): void
+{
+    $u = require_login();
+    header('Content-Type: application/json; charset=UTF-8');
+    if (!in_array($u['role'], ['super_admin', 'client', 'csm', 'vt_hired'], true)) {
+        echo json_encode(['ok' => false]); return;
+    }
+    $me    = (int) $u['id'];
+    $with  = (int) ($_GET['with'] ?? 0);
+    $after = (int) ($_GET['after'] ?? 0);
+    $cdb   = chatdb();
+
+    // New messages in the OPEN conversation (if authorized), then mark read.
+    $newMsgs = [];
+    if ($with > 0) {
+        $contacts = messages_contacts($u);
+        $ok = $u['role'] === 'super_admin';
+        foreach ($contacts as $c) { if ((int) $c['id'] === $with) { $ok = true; break; } }
+        if ($ok) {
+            $key = messages_conversation_key($me, $with);
+            $st  = $cdb->prepare("SELECT id, sender_user_id, body, created_at FROM messages WHERE conversation_key = :k AND id > :a ORDER BY id ASC LIMIT 300");
+            $st->execute([':k' => $key, ':a' => $after]);
+            foreach ($st->fetchAll() as $m) {
+                $newMsgs[] = ['id' => (int) $m['id'], 'mine' => ((int) $m['sender_user_id'] === $me), 'body' => $m['body'], 'created_at' => $m['created_at']];
+            }
+            $cdb->prepare("UPDATE messages SET read_at = CURRENT_TIMESTAMP WHERE conversation_key = :k AND sender_user_id = :p AND read_at IS NULL")
+                ->execute([':k' => $key, ':p' => $with]);
+        }
+    }
+
+    // Unread-by-sender, newest incoming first (drives sidebar badge + reorder).
+    $unread = [];
+    foreach ($cdb->query("SELECT sender_user_id, COUNT(*) AS n, MAX(id) AS mid FROM messages WHERE receiver_user_id = {$me} AND read_at IS NULL GROUP BY sender_user_id ORDER BY mid DESC") as $row) {
+        $unread[] = ['id' => (int) $row['sender_user_id'], 'n' => (int) $row['n']];
+    }
+    echo json_encode(['ok' => true, 'messages' => $newMsgs, 'unread' => $unread]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
