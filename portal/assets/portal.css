@@ -441,10 +441,16 @@ select option:checked{background-color:#3919BA;color:#fff;}
   color:var(--text-dim);font-weight:800;
   border-bottom:1px solid var(--line);padding:10px 12px;background:rgba(255,255,255,0.02);
 }
-.data-table tbody td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top;}
+.data-table tbody td{padding:12px;border-bottom:1px solid var(--line);vertical-align:middle;}
 .data-table tbody tr:hover{background:rgba(255,255,255,0.03);}
 .data-table.compact td,.data-table.compact th{padding:7px 10px;font-size:12.5px;}
-.row-actions{white-space:nowrap;display:flex;gap:6px;justify-content:flex-end;}
+.row-actions{white-space:nowrap;display:flex;gap:6px;justify-content:flex-end;align-items:center;}
+/* Match the action buttons to the 30px row avatar so the actions column is the
+   same height as the rest of the row. */
+.row-actions .btn-portal-secondary,
+.row-actions .btn-portal-danger,
+.row-actions .btn-sm{min-height:36px;min-width:36px;justify-content:center;}
+.row-actions .inline-form{display:inline-flex;}
 
 /* ───────────── Pills / role badges ───────────── */
 

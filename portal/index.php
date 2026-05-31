@@ -194,7 +194,7 @@ function handle_dashboard(): void
 {
     $u = require_login();
     switch ($u['role']) {
-        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats(), 'traffic' => dashboard_traffic_summary()]); break;
+        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats(), 'traffic' => dashboard_traffic_summary(), 'trend' => dashboard_trend_series(14)]); break;
         case 'client':      render('dashboard-client', ['user' => $u, 'data' => dashboard_client_data($u)]); break;
         case 'csm':         render('dashboard-csm', ['user' => $u, 'data' => dashboard_csm_data($u)]); break;
         case 'vt_hired':
@@ -253,6 +253,37 @@ function dashboard_traffic_summary(): array
          GROUP BY path ORDER BY n DESC LIMIT 6"
     )->fetchAll();
     return ['recent' => $recent, 'top_countries' => $topCountries, 'top_pages' => $topPages];
+}
+
+/** Daily leads + traffic (page-view) counts for the last N days, oldest→newest,
+ *  for the animated dashboard chart. Missing days are zero-filled. */
+function dashboard_trend_series(int $days = 14): array
+{
+    $pdo   = db();
+    $since = "datetime('now','-" . ($days - 1) . " days','start of day')";
+    $byLeads = $byTraffic = [];
+    try {
+        if ((bool) $pdo->query("SELECT name FROM sqlite_master WHERE type='table' AND name='leads'")->fetchColumn()) {
+            foreach ($pdo->query("SELECT date(created_at) d, COUNT(*) n FROM leads WHERE created_at >= $since GROUP BY d") as $r) {
+                $byLeads[$r['d']] = (int) $r['n'];
+            }
+        }
+    } catch (Throwable $_) {}
+    try {
+        if (traffic_table_exists()) {
+            foreach ($pdo->query("SELECT date(created_at) d, COUNT(*) n FROM traffic WHERE created_at >= $since GROUP BY d") as $r) {
+                $byTraffic[$r['d']] = (int) $r['n'];
+            }
+        }
+    } catch (Throwable $_) {}
+    $labels = $leads = $traffic = [];
+    for ($i = $days - 1; $i >= 0; $i--) {
+        $d = gmdate('Y-m-d', time() - $i * 86400);
+        $labels[]  = $d;
+        $leads[]   = $byLeads[$d] ?? 0;
+        $traffic[] = $byTraffic[$d] ?? 0;
+    }
+    return ['labels' => $labels, 'leads' => $leads, 'traffic' => $traffic];
 }
 
 function dashboard_client_data(array $u): array
