@@ -170,6 +170,7 @@ $roleLabel = static function (string $role): string {
 .msg-row.me .msg-bubble{background:linear-gradient(135deg,rgba(247,185,69,.25),rgba(247,185,69,.15));border-bottom-right-radius:2px;}
 .msg-row.them .msg-bubble{border-bottom-left-radius:2px;}
 .msg-time{font-size:10.5px;margin-top:4px;text-align:right;color:rgba(255,255,255,.5);}
+.msg-row.msg-pending{opacity:.55;}
 .msg-compose{display:flex;gap:8px;padding:12px;border-top:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);}
 .msg-compose textarea{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#fff;border-radius:10px;padding:10px 12px;font-family:inherit;font-size:14px;resize:vertical;}
 .msg-compose textarea:focus{outline:none;border-color:var(--gold,#d4a64a);}
@@ -235,9 +236,9 @@ $roleLabel = static function (string $role): string {
   /* ── Render a bubble ────────────────────────────────────────────────── */
   function esc(s){ var d = document.createElement('div'); d.textContent = (s == null ? '' : String(s)); return d.innerHTML; }
   function appendMsg(m){
-    if (!thread) return false;
-    if (thread.querySelector('.msg-row[data-mid="' + m.id + '"]')) return false; // dedupe
-    var hhmm = (m.created_at || '').substr(11, 5);
+    if (!thread) return null;
+    if (thread.querySelector('.msg-row[data-mid="' + m.id + '"]')) return null; // dedupe
+    var hhmm = (m.created_at ? m.created_at.substr(11, 5) : (m.hhmm || ''));
     var row = document.createElement('div');
     row.className = 'msg-row ' + (m.mine ? 'me' : 'them');
     row.setAttribute('data-mid', m.id);
@@ -246,8 +247,8 @@ $roleLabel = static function (string $role): string {
     var empty = thread.querySelector('p.muted'); if (empty) empty.remove();
     thread.appendChild(row);
     thread.scrollTop = thread.scrollHeight;
-    if (m.id > lastId) lastId = m.id;
-    return true;
+    if (typeof m.id === 'number' && m.id > lastId) lastId = m.id;
+    return row;
   }
 
   /* ── AJAX send ──────────────────────────────────────────────────────── */
@@ -257,16 +258,32 @@ $roleLabel = static function (string $role): string {
       e.preventDefault();
       var body = (ta.value || '').trim();
       if (body === '') return;
-      var btn = form.querySelector('[type=submit]');
-      if (btn) btn.disabled = true;
-      fetch(sendUrl, { method:'POST', body:new FormData(form), credentials:'same-origin',
+      var fd = new FormData(form);             // capture before clearing the box
+      // Optimistic: paint the bubble instantly so there's no perceived lag,
+      // then reconcile with the server's real id/timestamp when it replies.
+      var nowHHMM = new Date().toTimeString().substr(0, 5);
+      var row = appendMsg({ id: 'tmp' + Date.now(), mine: true, body: body, hhmm: nowHHMM });
+      if (row) row.classList.add('msg-pending');
+      ta.value = ''; ta.focus();
+      fetch(sendUrl, { method:'POST', body: fd, credentials:'same-origin',
                        headers:{'X-Requested-With':'XMLHttpRequest'} })
         .then(function(r){ return r.json(); })
         .then(function(res){
-          if (res && res.ok && res.message){ appendMsg(res.message); ta.value=''; ta.focus(); }
-          if (btn) btn.disabled = false;
+          if (res && res.ok && res.message){
+            if (row){
+              if (thread.querySelector('.msg-row[data-mid="' + res.message.id + '"]')) {
+                row.remove();                  // the poll already inserted the real one
+              } else {
+                row.setAttribute('data-mid', res.message.id);
+                row.classList.remove('msg-pending');
+              }
+            }
+            if (res.message.id > lastId) lastId = res.message.id;
+          } else {
+            if (row) row.remove(); ta.value = body;   // failed — restore for retry
+          }
         })
-        .catch(function(){ if (btn) btn.disabled = false; });
+        .catch(function(){ if (row) row.remove(); ta.value = body; });
     });
     if (ta){
       ta.addEventListener('keydown', function(e){
