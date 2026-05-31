@@ -348,7 +348,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
           <?php $vIni = $h(strtoupper(mb_substr($v['public_name'], 0, 1)) ?: '?'); ?>
           <div class="vtd-photo">
             <?php if (!empty($v['has_photo'])): ?>
-              <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>&amp;thumb=1" alt="<?= $h($v['public_name'] . ' — ' . $v['role']) ?>" loading="lazy" width="96" height="96"
+              <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>&amp;thumb=1" alt="<?= $h($v['public_name'] . ' — ' . $v['role']) ?>" decoding="async" width="96" height="96"
                    onerror="this.outerHTML='<span class=&quot;vtd-photo-ph&quot;><?= $vIni ?></span>';">
             <?php else: ?>
               <span class="vtd-photo-ph"><?= $vIni ?></span>

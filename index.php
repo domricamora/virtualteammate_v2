@@ -759,7 +759,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
         <div class="prof-card reveal <?= htmlspecialchars($delay) ?>">
-          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" loading="lazy"/></div>
+          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
           <?php if (!empty($p['country'])): ?>
