@@ -75,7 +75,7 @@ $roleLabel = static function (string $role): string {
     <?php else: ?>
       <div class="msg-head">
         <?php if (!empty($partner['photo_url'])): ?>
-          <img class="msg-head-photo" src="<?= e($partner['photo_url']) ?>" alt="" loading="lazy"
+          <img class="msg-head-photo" src="<?= e(media_src($partner['photo_url'])) ?>" alt="" loading="lazy"
                onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
         <?php else: ?>
           <div class="msg-head-photo placeholder"><?= e($initial($partner)) ?></div>

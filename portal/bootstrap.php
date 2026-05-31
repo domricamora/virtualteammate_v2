@@ -90,6 +90,68 @@ function site_url(string $path = ''): string
     return $base . ltrim($path, '/');
 }
 
+/**
+ * Resolve a stored media/photo URL to a src usable from a portal page (which
+ * lives under /portal/). Web-accessible /vtmedia/ paths are root-relative, so
+ * they need the site base prepended; portal endpoints and absolute URLs pass
+ * through unchanged.
+ */
+function media_src(?string $url): string
+{
+    $url = trim((string) $url);
+    if ($url === '') { return ''; }
+    if (preg_match('#^https?://#i', $url)) { return $url; }      // external
+    if (str_starts_with($url, 'vtmedia/')) { return site_url($url); } // public photo file
+    return $url; // index.php?p=media | p=avatar — already relative to /portal/
+}
+
+/**
+ * Small round avatar thumbnail for list tables. Renders the photo (resolved via
+ * media_src) with an initials-circle fallback if the image is missing/empty.
+ */
+function tbl_thumb(?string $photoUrl, string $name): string
+{
+    $src = media_src($photoUrl);
+    $ini = strtoupper(mb_substr(trim($name) !== '' ? trim($name) : '?', 0, 1));
+    if ($src !== '') {
+        return '<img class="tbl-thumb" src="' . e($src) . '" alt="" loading="lazy" '
+             . 'onerror="this.outerHTML=&quot;<span class=\'tbl-thumb tbl-thumb-ph\'>' . e($ini) . '</span>&quot;;">';
+    }
+    return '<span class="tbl-thumb tbl-thumb-ph">' . e($ini) . '</span>';
+}
+
+/* ───────────────────────── Media cleanup ───────────────────────── */
+
+/** Recursively delete a directory's contents + the dir itself. Returns files removed. No-op if missing. */
+function rrmdir(string $dir): int
+{
+    if (!is_dir($dir)) { return 0; }
+    $n = 0;
+    try {
+        $it = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
+        foreach ($it as $f) {
+            if ($f->isDir()) { @rmdir($f->getPathname()); }
+            elseif (@unlink($f->getPathname())) { $n++; }
+        }
+    } catch (Throwable $_) {}
+    @rmdir($dir);
+    return $n;
+}
+
+/**
+ * Delete one VT/user's media from BOTH the public photo tree (vtmedia/) and the
+ * gated resume/video tree (data/media/). Returns the number of files removed.
+ */
+function delete_user_media(int $userId): int
+{
+    if ($userId < 1) { return 0; }
+    return rrmdir(__DIR__ . '/../vtmedia/vt/' . $userId)
+         + rrmdir(__DIR__ . '/../data/media/vt/' . $userId);
+}
+
 function redirect(string $location): void
 {
     header('Location: ' . $location);

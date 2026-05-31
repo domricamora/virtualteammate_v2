@@ -50,13 +50,19 @@ if (!in_array($role, ['vt_hired', 'vt_onpool'], true)) {
     tp_serve_placeholder();
 }
 
-$base = realpath(__DIR__ . '/data/media');
-if ($base === false) { tp_serve_placeholder(); }
-$matches = glob($base . DIRECTORY_SEPARATOR . 'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*');
-if (empty($matches)) { tp_serve_placeholder(); }
-$file = $matches[0];
-$real = realpath($file);
-if ($real === false || !str_starts_with($real, $base)) { http_response_code(403); exit; }
+// Photos now live in the web-accessible /vtmedia/ tree; fall back to the legacy
+// data/media location for any VT not yet re-synced/migrated.
+$file = null;
+foreach (['vtmedia', 'data/media'] as $rel) {
+    $base = realpath(__DIR__ . '/' . $rel);
+    if ($base === false) { continue; }
+    $matches = glob($base . DIRECTORY_SEPARATOR . 'vt' . DIRECTORY_SEPARATOR . $id . DIRECTORY_SEPARATOR . 'photo.*');
+    if (!empty($matches)) {
+        $real = realpath($matches[0]);
+        if ($real !== false && str_starts_with($real, $base)) { $file = $real; break; }
+    }
+}
+if ($file === null) { tp_serve_placeholder(); }
 
 $ext  = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 $mime = [

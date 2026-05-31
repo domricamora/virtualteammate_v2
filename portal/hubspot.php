@@ -26,7 +26,8 @@ declare(strict_types=1);
 
 const HS_API_BASE        = 'https://api.hubapi.com';
 const HS_STATE_KEY       = 'hs_sync_state';
-const HS_MEDIA_ROOT      = __DIR__ . '/../data/media';
+const HS_MEDIA_ROOT      = __DIR__ . '/../data/media';   // web-DENIED (resumes/videos, gated)
+const HS_VTMEDIA_ROOT    = __DIR__ . '/../vtmedia';      // web-ACCESSIBLE (photos, public)
 const HS_SEARCH_PAGE_MAX = 100;   // HubSpot cap.
 const HS_PROCESS_BATCH   = 20;    // Contacts per process step (raised from 5 per user request).
 // Media downloads run concurrently (curl_multi) so a single tick pulls several
@@ -297,11 +298,33 @@ function hs_media_kind_map(): array
     ];
 }
 
-function hs_media_dir(string $entity, int $id): string
+function hs_media_dir(string $entity, int $id, string $kind = ''): string
 {
-    $dir = HS_MEDIA_ROOT . '/' . $entity . '/' . $id;
+    // Photos live in the web-accessible /vtmedia/ tree (served directly, public).
+    // Resumes + videos stay under data/media (web-denied, gated portal endpoint).
+    $root = ($kind === 'photo') ? HS_VTMEDIA_ROOT : HS_MEDIA_ROOT;
+    $dir  = $root . '/' . $entity . '/' . $id;
     if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
     return $dir;
+}
+
+/**
+ * The URL stored in the DB for a downloaded media file.
+ * - photo  → direct, root-relative web path under /vtmedia/ (public).
+ * - resume/video → the auth-gated portal endpoint (data/ is web-denied).
+ */
+function hs_media_served_url(string $entity, int $id, string $kind, string $ext): string
+{
+    if ($kind === 'photo') {
+        return 'vtmedia/' . $entity . '/' . $id . '/photo.' . $ext;
+    }
+    return 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+}
+
+/** True if a stored media URL points at an already-downloaded local file. */
+function hs_media_url_is_local(string $url): bool
+{
+    return $url !== '' && (str_starts_with($url, 'index.php?p=media') || str_starts_with($url, 'vtmedia/'));
 }
 
 /** Returns true for embed-only video hosts we can't download as raw files. */
@@ -406,11 +429,11 @@ function hs_import_media(string $url, string $entity, int $id, string $kind, str
     // Re-sync cache: if the source URL matches the one we previously downloaded
     // AND the local file is still on disk, skip the network round-trip.
     if ($currentSourceUrl !== '' && $currentSourceUrl === $url) {
-        $dir   = hs_media_dir($entity, $id);
+        $dir   = hs_media_dir($entity, $id, $kind);
         $exist = glob($dir . '/' . $kind . '.*');
         if (!empty($exist) && is_file($exist[0])) {
             $skipped = true;
-            return 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+            return hs_media_served_url($entity, $id, $kind, strtolower(pathinfo($exist[0], PATHINFO_EXTENSION)));
         }
     }
 
@@ -447,7 +470,7 @@ function hs_import_media(string $url, string $entity, int $id, string $kind, str
         $ext = $allowed[0];
     }
 
-    $dir  = hs_media_dir($entity, $id);
+    $dir  = hs_media_dir($entity, $id, $kind);
     $file = $dir . '/' . $kind . '.' . $ext;
 
     if (file_put_contents($file, $body) === false) { return ''; }
@@ -456,7 +479,7 @@ function hs_import_media(string $url, string $entity, int $id, string $kind, str
     foreach (glob($dir . '/' . $kind . '.*') as $existing) {
         if ($existing !== $file) { @unlink($existing); }
     }
-    return 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+    return hs_media_served_url($entity, $id, $kind, $ext);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -2011,7 +2034,7 @@ function hs_media_write(string $body, int $code, string $ctype, string $url, str
         return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'received an HTML page, not a video file'];
     }
 
-    $dir  = hs_media_dir($entity, $id);
+    $dir  = hs_media_dir($entity, $id, $kind);
     $file = $dir . '/' . $kind . '.' . $ext;
     if (file_put_contents($file, $body) === false) {
         return ['ok'=>false, 'served_url'=>'', 'ext'=>'', 'size'=>strlen($body), 'http'=>$code, 'error'=>'write failed'];
@@ -2021,7 +2044,7 @@ function hs_media_write(string $body, int $code, string $ctype, string $url, str
         if ($existing !== $file) { @unlink($existing); }
     }
 
-    $served = 'index.php?p=media&e=' . urlencode($entity) . '&id=' . $id . '&k=' . urlencode($kind);
+    $served = hs_media_served_url($entity, $id, $kind, $ext);
     return ['ok'=>true, 'served_url'=>$served, 'ext'=>$ext, 'size'=>strlen($body), 'http'=>$code, 'error'=>null];
 }
 
@@ -2202,7 +2225,7 @@ function hs_talent_step_download_media(array &$state, HubSpotClient $hs, array $
             $existingUrl    = $kind === 'photo' ? (string) ($rec['url'] ?? '')
                             : (string) ($rec[$kind . '_url'] ?? '');
             if ($existingSource !== '' && $existingSource === $normalized
-                && str_starts_with($existingUrl, 'index.php?p=media')) {
+                && hs_media_url_is_local($existingUrl)) {
                 $plan[$i] = ['action'=>'cache'] + $base;
                 continue;
             }
@@ -3448,10 +3471,19 @@ function hs_client_step_upsert_hired_vts(array &$state, HubSpotClient $hs): void
         $vtStatus = trim((string) ($props['hs_vt_status'] ?? ($props['vt_status'] ?? '')));
         $leadStatus = trim((string) ($props['hs_lead_status'] ?? ''));
 
-        // These contacts are linked to a Client company via Teammate label or hired
-        // contract — treat as vt_hired by default. If the contact's vt_status says
-        // otherwise (e.g. Contracted but not First Day Complete) we still default
-        // to vt_hired because the contract-side check already filtered them in.
+        // GUARD: contract/company associations also surface CLIENT-side contacts
+        // (decision-makers, doctors, owners), not just the hired VA. Only import a
+        // contact as a Virtual Teammate if HubSpot actually tags it as one
+        // (hs_lead_status = the configured VT lead value). Otherwise skip — this is
+        // what kept importing client contacts (e.g. drajay@…) as vt_hired.
+        $leadValue = get_setting('hs_vt_lead_status_value', 'Virtual Teammate');
+        if ($leadValue !== '' && strcasecmp($leadStatus, $leadValue) !== 0) {
+            $maps['hired_vt_skipped'] = (int) ($maps['hired_vt_skipped'] ?? 0) + 1;
+            hs_state_log($state, "Skipped hired-contact {$email}: hs_lead_status=\"{$leadStatus}\" is not a Virtual Teammate (client-side contact).");
+            continue;
+        }
+
+        // Confirmed Virtual Teammate associated with a client via hired contract.
         $role = 'vt_hired';
         $existing = hs_find_user_for_contact($contactId, $email);
         if ($existing) {

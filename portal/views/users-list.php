@@ -26,7 +26,7 @@ $totalAll  = count($users);
         <tr data-empty><td colspan="6" class="muted">No users match those filters.</td></tr>
       <?php else: foreach ($users as $u): ?>
         <tr>
-          <td><?= e(user_display_name($u)) ?></td>
+          <td><span class="tbl-name"><?= tbl_thumb($u['photo_url'] ?? '', user_display_name($u)) ?><span><?= e(user_display_name($u)) ?></span></span></td>
           <td><?= e($u['email']) ?></td>
           <td><?= role_badge($u['role']) ?></td>
           <td><?= $u['active'] ? '<span class="pill pill-active">Yes</span>' : '<span class="pill pill-paused">No</span>' ?></td>

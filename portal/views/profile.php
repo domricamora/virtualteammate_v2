@@ -1,7 +1,7 @@
 <?php /** @var array $user */
 $pageTitle = 'My profile';
 $subtitle  = 'Your personal info, photo, cover image and password.';
-$photoSrc  = $user['photo_url'] ?: '';
+$photoSrc  = media_src($user['photo_url'] ?: '');
 $coverSrc  = $user['cover_url'] ?: '';
 ?>
 <!-- Profile / cover preview -->

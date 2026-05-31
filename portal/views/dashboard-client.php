@@ -90,7 +90,7 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
 
 <!-- HERO: cover photo + profile photo overlap -->
 <?php
-  $userPhoto = $user['photo_url'] ?? '';
+  $userPhoto = media_src($user['photo_url'] ?? '');
   $userCover = $user['cover_url'] ?? '';
 ?>
 <div class="card cd-cover-card" style="padding:0;overflow:hidden;">

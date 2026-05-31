@@ -24,8 +24,9 @@ $totalAll = count($vts);
       <?php if (empty($vts)): ?>
         <tr data-empty><td colspan="7" class="muted">No VT profiles yet.</td></tr>
       <?php else: foreach ($vts as $p): ?>
+        <?php $pName = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? '')) ?: (string) ($p['email'] ?? ''); ?>
         <tr>
-          <td><?= e(trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''))) ?></td>
+          <td><span class="tbl-name"><?= tbl_thumb($p['photo_url'] ?? '', $pName) ?><span><?= e($pName) ?></span></span></td>
           <td><?= e($p['email']) ?></td>
           <td><?= e($p['role_title']) ?></td>
           <td><?= e($p['department']) ?></td>

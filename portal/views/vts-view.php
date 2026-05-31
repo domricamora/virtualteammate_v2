@@ -4,8 +4,8 @@ $fullName  = trim(($vt['first_name'] ?? '') . ' ' . ($vt['last_name'] ?? ''));
 $pageTitle = 'VT · ' . ($fullName ?: $vt['email']);
 $subtitle  = 'Profile, media, assignments and recent EOD reports.';
 
-$photoUrl  = $vt['photo_url']  ?? '';
-$coverUrl  = $vt['cover_url']  ?? '';
+$photoUrl  = media_src($vt['photo_url']  ?? '');
+$coverUrl  = media_src($vt['cover_url']  ?? '');
 $resumeUrl = $vt['resume_url'] ?? '';
 $videoUrl  = $vt['video_url']  ?? '';
 

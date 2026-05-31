@@ -34,7 +34,7 @@ if (is_file($dbPath)) {
         $pdo = new PDO('sqlite:' . $dbPath);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $rows = $pdo->query(
-            "SELECT u.id, u.first_name, u.last_name, u.country, u.role,
+            "SELECT u.id, u.first_name, u.last_name, u.country, u.role, u.photo_url,
                     p.department, p.role_title, p.primary_skills, p.experience_years,
                     p.predictive_index, p.quiz_tier, p.engagement_score,
                     p.english_level, p.iq_band, p.technical_band, p.disc_profile,
@@ -114,6 +114,7 @@ foreach ($rows as $r) {
         'skills'     => $skills,
         'status'     => $isHired ? 'Engaged' : 'Available',
         'is_hired'   => $isHired,
+        'has_photo'  => trim((string) ($r['photo_url'] ?? '')) !== '',
     ];
 
     // Full payload (PII / media) — ONLY for authenticated members.
@@ -214,11 +215,21 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
           <span class="vtd-hero-stat"><strong><?= (int) $totalVts ?>+</strong> teammates on the bench</span>
         </div>
       </div>
-      <?php $heroIds = array_slice(array_column($vts, 'id'), 0, 6); if ($heroIds): ?>
+      <?php
+        // Random teammates in the hero collage, reshuffled on every page load.
+        // Prefer VTs that have a real photo so the collage shows faces, not
+        // placeholders; fall back to the full roster if too few have photos.
+        $heroPool = array_values(array_filter($vts, static fn($v) => !empty($v['has_photo'])));
+        if (count($heroPool) < 6) { $heroPool = $vts; }
+        shuffle($heroPool);
+        $heroIds = array_slice(array_column($heroPool, 'id'), 0, 6);
+        if ($heroIds):
+      ?>
       <div class="vtd-hero-visual" aria-hidden="true">
         <div class="vtd-hero-collage">
           <?php foreach ($heroIds as $hi): ?>
-            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>" alt="" loading="lazy" width="150" height="150"></span>
+            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>" alt="" loading="lazy" width="150" height="150"
+                  onerror="this.style.display='none';this.parentNode.classList.add('vtd-hero-pic--empty');"></span>
           <?php endforeach; ?>
         </div>
         <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> <?= (int) $totalVts ?>+ vetted teammates</span>
@@ -319,8 +330,14 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
                  data-hired="<?= $v['is_hired'] ? '1' : '0' ?>"
                  data-scores="<?= $h(implode('||', $v['scores'])) ?>">
           <span class="vtd-status <?= $v['is_hired'] ? 'is-engaged' : 'is-avail' ?>"><?= $h($v['status']) ?></span>
+          <?php $vIni = $h(strtoupper(mb_substr($v['public_name'], 0, 1)) ?: '?'); ?>
           <div class="vtd-photo">
-            <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>" alt="<?= $h($v['public_name'] . ' — ' . $v['role']) ?>" loading="lazy" width="96" height="96">
+            <?php if (!empty($v['has_photo'])): ?>
+              <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>" alt="<?= $h($v['public_name'] . ' — ' . $v['role']) ?>" loading="lazy" width="96" height="96"
+                   onerror="this.outerHTML='<span class=&quot;vtd-photo-ph&quot;><?= $vIni ?></span>';">
+            <?php else: ?>
+              <span class="vtd-photo-ph"><?= $vIni ?></span>
+            <?php endif; ?>
           </div>
           <div class="vtd-name"><?= $h($v['public_name']) ?></div>
           <?php if ($v['dept'] !== ''): ?><div class="vtd-dept"><?= $h($v['dept']) ?></div><?php endif; ?>

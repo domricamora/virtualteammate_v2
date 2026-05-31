@@ -955,3 +955,9 @@ select option:checked{background-color:#3919BA;color:#fff;}
   .cd-vt-grid{grid-template-columns:1fr;}
   .cd-hub-grid,.cd-dl-grid{grid-template-columns:1fr;}
 }
+
+/* List-row avatar thumbnails (VT / users / CSM lists) */
+.tbl-name{display:inline-flex;align-items:center;gap:10px;min-width:0;}
+.tbl-thumb{width:30px;height:30px;border-radius:50%;object-fit:cover;flex:0 0 30px;background:#1a1535;}
+.tbl-thumb-ph{display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;
+  color:#fff;background:linear-gradient(135deg,#4a4178,#322a5a);}

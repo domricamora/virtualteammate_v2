@@ -186,6 +186,39 @@ try {
     $messages[] = 'Skip email-notify backfill: ' . $ex->getMessage();
 }
 
+// Migrate HubSpot photos from web-denied data/media/vt/<id>/photo.* into the
+// web-accessible vtmedia/vt/<id>/ tree and point users.photo_url at the public
+// path. Idempotent: copies (keeps the original as a fallback) and only rewrites
+// photo_url when it's empty or the legacy gated endpoint. Safe to re-run.
+try {
+    $oldRoot = __DIR__ . '/../data/media/vt';
+    $newRoot = __DIR__ . '/../vtmedia/vt';
+    $moved = 0;
+    foreach (glob($oldRoot . '/*', GLOB_ONLYDIR) ?: [] as $vdir) {
+        $id = (int) basename($vdir);
+        if ($id < 1) { continue; }
+        $photos = glob($vdir . '/photo.*');
+        if (!$photos) { continue; }
+        $src = $photos[0];
+        $ext = strtolower(pathinfo($src, PATHINFO_EXTENSION));
+        $destDir = $newRoot . '/' . $id;
+        if (!is_dir($destDir)) { @mkdir($destDir, 0775, true); }
+        $dest = $destDir . '/photo.' . $ext;
+        if (!is_file($dest)) { @copy($src, $dest); }
+        if (is_file($dest)) {
+            $rel = 'vtmedia/vt/' . $id . '/photo.' . $ext;
+            $pdo->prepare(
+                "UPDATE users SET photo_url = :u WHERE id = :id
+                 AND (photo_url = '' OR photo_url LIKE 'index.php?p=media%')"
+            )->execute([':u' => $rel, ':id' => $id]);
+            $moved++;
+        }
+    }
+    if ($moved > 0) { $messages[] = "Migrated {$moved} VT photo(s) to /vtmedia/."; }
+} catch (Throwable $ex) {
+    $messages[] = 'Skip photo→vtmedia migration: ' . $ex->getMessage();
+}
+
 // Indexes for the HubSpot ID columns (idempotent).
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_contact   ON users(hubspot_contact_id)');
 $pdo->exec('CREATE INDEX IF NOT EXISTS idx_users_hubspot_owner    ON users(hubspot_owner_id)');

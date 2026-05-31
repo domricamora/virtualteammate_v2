@@ -705,9 +705,10 @@ function handle_users_delete(): void
         flash('error', 'You cannot delete your own account.');
         redirect(portal_url('users'));
     }
+    $mediaFiles = delete_user_media($id);   // remove photo (vtmedia) + resume/video (data/media)
     db()->prepare('DELETE FROM users WHERE id = :id')->execute([':id' => $id]);
-    audit_log('delete', 'user', $id);
-    flash('success', 'User deleted.');
+    audit_log('delete', 'user', $id, "media_files={$mediaFiles}");
+    flash('success', 'User deleted' . ($mediaFiles ? " (and {$mediaFiles} media file" . ($mediaFiles === 1 ? '' : 's') . ')' : '') . '.');
     redirect(portal_url('users'));
 }
 
@@ -894,9 +895,14 @@ function handle_vts_delete(): void
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('vts')); }
     csrf_verify();
     $id = (int) ($_POST['id'] ?? 0);
+    // Resolve the owning user so we can also remove their media files on disk.
+    $st = db()->prepare('SELECT user_id FROM vt_profiles WHERE id = :id');
+    $st->execute([':id' => $id]);
+    $uid = (int) ($st->fetchColumn() ?: 0);
+    $mediaFiles = delete_user_media($uid);
     db()->prepare('DELETE FROM vt_profiles WHERE id = :id')->execute([':id' => $id]);
-    audit_log('delete', 'vt_profile', $id);
-    flash('success', 'VT profile deleted.');
+    audit_log('delete', 'vt_profile', $id, "user_id={$uid} media_files={$mediaFiles}");
+    flash('success', 'VT profile deleted' . ($mediaFiles ? " (and {$mediaFiles} media file" . ($mediaFiles === 1 ? '' : 's') . ')' : '') . '.');
     redirect(portal_url('vts'));
 }
 
@@ -1732,15 +1738,24 @@ function handle_leads_list(): void
     require_role('super_admin');
     $pdo = db();
     leads_ensure_table($pdo);
+    // Capture the previous "seen" marker BEFORE updating it, so the view can
+    // badge the rows that arrived since the admin last opened this page.
+    $prevSeen = get_setting('leads_last_seen_at', '');
     $rows = $pdo->query('SELECT * FROM leads ORDER BY datetime(created_at) DESC, id DESC LIMIT 1000')->fetchAll();
+    $newCount = 0;
+    foreach ($rows as $r) {
+        if ($prevSeen === '' || (string) $r['created_at'] > $prevSeen) { $newCount++; }
+    }
     // Mark all current leads as seen so the nav badge clears (uses the newest
     // lead's own timestamp so the comparison basis matches stored values).
     $max = $pdo->query('SELECT MAX(created_at) FROM leads')->fetchColumn();
     if ($max) { set_setting('leads_last_seen_at', (string) $max); }
     render('leads-list', [
-        'title'    => 'Leads',
-        'subtitle' => 'Lead-form submissions captured from the marketing website.',
-        'rows'     => $rows,
+        'title'     => 'Leads',
+        'subtitle'  => 'Lead-form submissions captured from the marketing website.',
+        'rows'      => $rows,
+        'last_seen' => $prevSeen,
+        'new_count' => $newCount,
     ]);
 }
 
@@ -2203,9 +2218,9 @@ function handle_hubspot_purge_all(): void
                 AND email NOT LIKE 'demo-%'"
         );
 
-        // Reset the AUTOINCREMENT counter so the next user id continues right
-        // after the highest surviving (seeded demo / super_admin) row.
-        $pdo->exec("UPDATE sqlite_sequence SET seq = (SELECT COALESCE(MAX(id), 0) FROM users) WHERE name = 'users'");
+        // NOTE: deliberately do NOT reset the users AUTOINCREMENT counter. Letting
+        // ids keep climbing avoids reusing ids of purged rows (which could collide
+        // with stale references elsewhere). Removed per request.
 
         $pdo->commit();
     } catch (Throwable $ex) {
@@ -2220,28 +2235,24 @@ function handle_hubspot_purge_all(): void
     foreach ($pdo->query("SELECT id FROM users WHERE email LIKE 'demo-%'") as $r) {
         $demoIds[(int) $r['id']] = true;
     }
+    // Clean out BOTH media trees: the gated data/media/<entity> and the public
+    // vtmedia/<entity> (photos). Spare per-id dirs that belong to demo users.
     $fileCount = 0;
-    foreach (['vt', 'client', 'csm'] as $entity) {
-        $base = __DIR__ . '/../data/media/' . $entity;
-        if (!is_dir($base)) { continue; }
-        foreach (glob($base . '/*', GLOB_ONLYDIR) ?: [] as $idDir) {
-            $idNum = (int) basename($idDir);
-            if (isset($demoIds[$idNum])) { continue; } // spare demo media
-            $iter = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($idDir, RecursiveDirectoryIterator::SKIP_DOTS),
-                RecursiveIteratorIterator::CHILD_FIRST
-            );
-            foreach ($iter as $f) {
-                $f->isDir() ? @rmdir($f->getPathname()) : (@unlink($f->getPathname()) && $fileCount++);
+    foreach (['data/media', 'vtmedia'] as $rel) {
+        foreach (['vt', 'client', 'csm'] as $entity) {
+            $base = __DIR__ . '/../' . $rel . '/' . $entity;
+            if (!is_dir($base)) { continue; }
+            foreach (glob($base . '/*', GLOB_ONLYDIR) ?: [] as $idDir) {
+                if (isset($demoIds[(int) basename($idDir)])) { continue; } // spare demo media
+                $fileCount += rrmdir($idDir);
             }
-            @rmdir($idDir);
         }
     }
 
     hs_control('reset');
 
     audit_log('hs_purge_all', 'hubspot', null, "clients=$cClients users=$cUsers media=$fileCount");
-    flash('success', "Hard-purged: {$cClients} clients, {$cUsers} users (incl. CSMs), {$fileCount} media files. Demo users spared. User counter reset. Sync state reset.");
+    flash('success', "Hard-purged: {$cClients} clients, {$cUsers} users (incl. CSMs), {$fileCount} media files. Demo users spared. Sync state reset.");
     redirect(portal_url('hubspot'));
 }
 
@@ -2291,10 +2302,8 @@ function handle_hubspot_purge(): void
                 AND email NOT LIKE 'demo-%'"
         );
 
-        // Reset the AUTOINCREMENT counter so the next user id continues right
-        // after the highest surviving (seeded demo / super_admin) row instead
-        // of wherever the purged HubSpot rows pushed it.
-        $pdo->exec("UPDATE sqlite_sequence SET seq = (SELECT COALESCE(MAX(id), 0) FROM users) WHERE name = 'users'");
+        // NOTE: deliberately do NOT reset the users AUTOINCREMENT counter (removed
+        // per request) — ids keep climbing so purged ids are never reused.
 
         $pdo->commit();
     } catch (Throwable $ex) {
@@ -2303,16 +2312,11 @@ function handle_hubspot_purge(): void
         redirect(portal_url('hubspot'));
     }
 
-    // Wipe downloaded media (data/media/vt/*).
-    $mediaDir  = __DIR__ . '/../data/media/vt';
+    // Wipe downloaded media from BOTH trees: gated data/media/vt and public vtmedia/vt.
     $fileCount = 0;
-    if (is_dir($mediaDir)) {
-        $iter = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($mediaDir, RecursiveDirectoryIterator::SKIP_DOTS),
-            RecursiveIteratorIterator::CHILD_FIRST
-        );
-        foreach ($iter as $f) {
-            $f->isDir() ? @rmdir($f->getPathname()) : (@unlink($f->getPathname()) && $fileCount++);
+    foreach ([__DIR__ . '/../data/media/vt', __DIR__ . '/../vtmedia/vt'] as $mediaDir) {
+        foreach (glob($mediaDir . '/*', GLOB_ONLYDIR) ?: [] as $idDir) {
+            $fileCount += rrmdir($idDir);
         }
     }
 
@@ -2320,7 +2324,7 @@ function handle_hubspot_purge(): void
 
     $totalUsers = $cUsers + $cClientUsers + $cCsm;
     audit_log('hs_purge', 'hubspot', null, "clients=$cClients users=$totalUsers csm=$cCsm media_files=$fileCount");
-    flash('success', "Purged: {$cClients} HubSpot clients, {$totalUsers} synced users (incl. {$cCsm} owner-only CSMs), {$fileCount} media files. User counter reset. Sync state reset.");
+    flash('success', "Purged: {$cClients} HubSpot clients, {$totalUsers} synced users (incl. {$cCsm} owner-only CSMs), {$fileCount} media files. Sync state reset.");
     redirect(portal_url('hubspot'));
 }
 
@@ -3404,6 +3408,12 @@ function handle_vts_profile_json(): void
     );
     $cm->execute([':id' => $vid]);
     $csms = $cm->fetchAll();
+
+    // Resolve stored media URLs to portal-usable srcs (vtmedia photos need the
+    // site base; gated resume/video endpoints pass through unchanged).
+    foreach (['photo_url', 'cover_url', 'video_url', 'resume_url'] as $mk) {
+        if (isset($vt[$mk])) { $vt[$mk] = media_src((string) $vt[$mk]); }
+    }
 
     header('Content-Type: application/json');
     header('Cache-Control: private, no-store');
