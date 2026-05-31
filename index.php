@@ -141,20 +141,12 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
       <p class="calc-foot">Rates based on live VT placement data. US comparison uses median fully-loaded in-house cost (salary + benefits + payroll burden) for equivalent healthcare admin roles.</p>
 
-      <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
-            data-lead-form data-lead-thanks="Thanks! We’ll reach out within 1 business day." style="margin-top:18px;">
-        <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
-        <input class="calc-reachout-field" type="text" name="name" placeholder="Your name" required autocomplete="name" style="width:100%;margin-bottom:10px;">
-        <div class="calc-reachout-row">
-          <input class="calc-reachout-field" type="email" name="email" placeholder="Email address" required autocomplete="email">
-          <input class="calc-reachout-field" type="tel"   name="phone" placeholder="Phone (optional)" autocomplete="tel">
-          <button class="calc-reachout-btn" type="submit">Get a callback <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="calc-cta" style="margin-top:18px;">
+        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Book a strategy call or drop your details and we&rsquo;ll reach out.</div>
+        <div class="calc-cta-btns">
+          <a href="#cta" data-cta-intent="strategy-call" class="calc-cta-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <input type="hidden" name="source" value="roi-calculator">
-        <input type="hidden" name="form" value="roi-callback">
-        <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-        <div class="calc-reachout-foot" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</div>
-      </form>
+      </div>
     </div>
 
     <div class="calc-results">
@@ -231,12 +223,20 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="calc-rate-foot">Flat rate, all-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
 
-      <div class="calc-cta">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Book a strategy call or drop your details and we&rsquo;ll reach out.</div>
-        <div class="calc-cta-btns">
-          <a href="#cta" data-cta-intent="strategy-call" class="calc-cta-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
+            data-lead-form data-lead-thanks="Thanks! We’ll reach out within 1 business day." style="margin-top:18px;">
+        <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
+        <input class="calc-reachout-field" type="text" name="name" placeholder="Your name" required autocomplete="name" style="width:100%;margin-bottom:10px;">
+        <div class="calc-reachout-row">
+          <input class="calc-reachout-field" type="email" name="email" placeholder="Email address" required autocomplete="email">
+          <input class="calc-reachout-field" type="tel"   name="phone" placeholder="Phone (optional)" autocomplete="tel">
+          <button class="calc-reachout-btn" type="submit">Get a callback <i class="fa-solid fa-arrow-right"></i></button>
         </div>
-      </div>
+        <input type="hidden" name="source" value="roi-calculator">
+        <input type="hidden" name="form" value="roi-callback">
+        <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+        <div class="calc-reachout-foot" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</div>
+      </form>
     </div>
   </div>
 </section>
@@ -715,8 +715,14 @@ function vtnew_homepage_profiles(int $limit = 6): array
 
     $out = [];
     foreach ($rows as $r) {
-        $glob = __DIR__ . '/data/media/vt/' . (int) $r['id'] . '/photo.*';
-        if (!glob($glob)) { continue; }
+        $rid = (int) $r['id'];
+        // Include only VTs with a real photo. Photos now live in the public
+        // vtmedia folder (thumbnail or full-size); the legacy data/media path
+        // is kept as a fallback. Mirrors talent-photo.php's resolution order.
+        $hasPhoto = glob(__DIR__ . '/vtmedia/vt_thumbs/' . $rid . '.*')
+                 || glob(__DIR__ . '/vtmedia/vt/' . $rid . '/photo.*')
+                 || glob(__DIR__ . '/data/media/vt/' . $rid . '/photo.*');
+        if (!$hasPhoto) { continue; }
         // Classify Medical vs Dental for the tag.
         $hay = strtolower(($r['department'] ?? '') . ' ' . ($r['role_title'] ?? ''));
         $r['_tag'] = str_contains($hay, 'dental') ? 'Dental VA' : 'Medical VA';

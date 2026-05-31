@@ -795,6 +795,21 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .roiX__gMetaTitle{font-size:14px;font-weight:700;color:#fff;}
 .roiX__gMetaSub{font-size:12px;color:rgba(255,255,255,.6);margin-top:4px;}
 .roiX__gMetaSub strong{color:var(--gold,#d4a64a);}
+
+/* Client view: present the "Value Creation (Actual)" panel as a centered,
+   focal display. The gauge + meta sit centered as a group on wider screens
+   and stack cleanly on narrow ones; the breakdown table stays left-aligned. */
+.roiX__panel--actual{text-align:center;}
+.roiX__panel--actual .roiX__badge{margin-left:auto;margin-right:auto;}
+.roiX__panel--actual .roiX__pillRow{justify-content:center;}
+.roiX__panel--actual .roiX__gaugeWrap{justify-content:center;}
+.roiX__panel--actual .roiX__gMeta{flex:0 1 auto;min-width:0;text-align:center;}
+.roiX__panel--actual .roiX__details{text-align:left;}
+@media (max-width:520px){
+  .roiX__panel--actual .roiX__gaugeWrap{flex-direction:column;gap:12px;}
+  .roiX__panel--actual .roiX__gMeta{min-width:100%;}
+}
+
 .roiX__field{margin-top:12px;}
 .roiX__label{display:block;font-size:10.5px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
 .roiX__select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:9px 12px;font-size:13px;font-family:inherit;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3e%3cpath fill='%23d4a64a' d='M6 9L1 4h10z'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
