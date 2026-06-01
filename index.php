@@ -173,22 +173,35 @@ $mq_srcs = array_values(array_map(static function ($p) {
         </div>
         <div class="calc-rate-foot">All-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
-
-      <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
-            data-lead-thanks="Thanks! We’ll reach out within 1 business day." style="margin-top:18px;">
-        <div class="calc-reachout-h"><i class="fa-solid fa-headset"></i> Have a VT team member reach out</div>
-        <input class="calc-reachout-field" type="text" name="name" placeholder="Your name" required autocomplete="name" style="width:100%;margin-bottom:10px;">
-        <div class="calc-reachout-row">
-          <input class="calc-reachout-field" type="email" name="email" placeholder="Email address" required autocomplete="email">
-          <input class="calc-reachout-field" type="tel"   name="phone" placeholder="Phone (optional)" autocomplete="tel">
-          <button class="calc-reachout-btn" type="submit">Get a callback <i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-        <input type="hidden" name="source" value="roi-calculator">
-        <input type="hidden" name="form" value="roi-callback">
-        <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-        <div class="calc-reachout-foot" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</div>
-      </form>
     </div>
+  </div>
+</section>
+
+<!-- TALK TO A CSM — standalone callback CTA (moved out of the calculator) -->
+<section class="sec csm-cta" id="talk-to-csm" aria-labelledby="csm-cta-h">
+  <div class="csm-cta-card reveal">
+    <div class="csm-cta-l">
+      <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Your Client Success Manager</div>
+      <h2 class="csm-cta-h" id="csm-cta-h">Have a Client Success Manager reach out</h2>
+      <p class="csm-cta-sub">Your dedicated Client Success Manager is your single US point of contact &mdash; they run your bench end-to-end: sourcing, matching, onboarding and day-to-day support. No call center, no quotes to chase.</p>
+      <ul class="csm-cta-steps">
+        <li><span class="csm-step-n">1</span><div><strong>Share your details</strong><span>Tell us how to reach you &mdash; takes about 30 seconds.</span></div></li>
+        <li><span class="csm-step-n">2</span><div><strong>We reach out within 1 business day</strong><span>A real Client Success Manager learns your workflow and goals.</span></div></li>
+        <li><span class="csm-step-n">3</span><div><strong>Meet your matched shortlist</strong><span>Interview vetted teammates &mdash; backed by the 30-Day Right-Fit Promise.</span></div></li>
+      </ul>
+    </div>
+    <form class="csm-cta-form" id="csmCallback" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+          data-lead-thanks="Thanks! Your Client Success Manager will reach out within 1 business day.">
+      <div class="csm-cta-form-h">Request a callback</div>
+      <input class="csm-field" type="text"  name="name"  placeholder="Your name"        required autocomplete="name">
+      <input class="csm-field" type="email" name="email" placeholder="Work email"        required autocomplete="email">
+      <input class="csm-field" type="tel"   name="phone" placeholder="Phone (optional)"  autocomplete="tel">
+      <input type="hidden" name="source" value="csm-callback">
+      <input type="hidden" name="form" value="csm-callback">
+      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="csm-cta-btn btn-primary" type="submit">Have my CSM reach out <i class="fa-solid fa-arrow-right"></i></button>
+      <p class="csm-cta-note" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</p>
+    </form>
   </div>
 </section>
 
