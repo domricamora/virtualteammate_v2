@@ -219,17 +219,18 @@ try {
     $messages[] = 'Skip photo→vtmedia migration: ' . $ex->getMessage();
 }
 
-// Backfill 150x150 thumbnails (vtmedia/vt_thumbs/<id>.<ext>) for any photo that
-// lacks one, so existing rosters get thumbs without a full re-sync. Idempotent.
+// Backfill 150x150 webp thumbnails (vtmedia/vt_thumbs/<id>.webp) for any photo
+// that lacks one — regenerating for ids whose thumb is still a legacy png/jpg
+// (hs_make_thumb deletes the old non-webp file). Idempotent.
 try {
     require_once __DIR__ . '/hubspot.php';
     $thumbs = 0;
     foreach (glob(__DIR__ . '/../vtmedia/vt/*/photo.*') ?: [] as $photo) {
         $id = (int) basename(dirname($photo));
-        if ($id < 1 || glob(__DIR__ . '/../vtmedia/vt_thumbs/' . $id . '.*')) { continue; }
+        if ($id < 1 || is_file(__DIR__ . '/../vtmedia/vt_thumbs/' . $id . '.webp')) { continue; }
         if (function_exists('hs_make_thumb') && hs_make_thumb($photo, $id) !== '') { $thumbs++; }
     }
-    if ($thumbs > 0) { $messages[] = "Generated {$thumbs} photo thumbnail(s)."; }
+    if ($thumbs > 0) { $messages[] = "Generated {$thumbs} webp thumbnail(s)."; }
 } catch (Throwable $ex) {
     $messages[] = 'Skip thumbnail backfill: ' . $ex->getMessage();
 }

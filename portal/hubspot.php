@@ -327,10 +327,10 @@ function hs_media_url_is_local(string $url): bool
     return $url !== '' && (str_starts_with($url, 'index.php?p=media') || str_starts_with($url, 'vtmedia/'));
 }
 
-/** Root-relative web path of a VT's square thumbnail (vtmedia/vt_thumbs/<id>.<ext>). */
-function hs_thumb_rel(int $id, string $ext): string
+/** Root-relative web path of a VT's square thumbnail (always webp). */
+function hs_thumb_rel(int $id): string
 {
-    return 'vtmedia/vt_thumbs/' . $id . '.' . strtolower($ext);
+    return 'vtmedia/vt_thumbs/' . $id . '.webp';
 }
 
 /**
@@ -366,18 +366,15 @@ function hs_make_thumb(string $srcFile, int $id): string
 
     $dir = HS_VTMEDIA_ROOT . '/vt_thumbs';
     if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
-    $out = $dir . '/' . $id . '.' . $ext;
+    if (!function_exists('imagewebp')) { imagedestroy($src); imagedestroy($dst); return ''; }
+    // Thumbnails are always saved as webp regardless of the source format.
+    $out = $dir . '/' . $id . '.webp';
     // Drop any stale thumb for this id in a different extension.
     foreach (glob($dir . '/' . $id . '.*') ?: [] as $old) { if ($old !== $out) { @unlink($old); } }
-    $ok = match ($ext) {
-        'png'  => imagepng($dst, $out, 6),
-        'gif'  => imagegif($dst, $out),
-        'webp' => function_exists('imagewebp') ? imagewebp($dst, $out, 82) : false,
-        default=> imagejpeg($dst, $out, 82),
-    };
+    $ok = imagewebp($dst, $out, 82);
     imagedestroy($src);
     imagedestroy($dst);
-    return $ok ? hs_thumb_rel($id, $ext) : '';
+    return $ok ? hs_thumb_rel($id) : '';
 }
 
 /** Returns true for embed-only video hosts we can't download as raw files. */

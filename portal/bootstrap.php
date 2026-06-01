@@ -186,7 +186,7 @@ function tbl_thumb(?string $photoUrl, string $name): string
     // back to the stored photo/avatar. Missing thumb → onerror swaps to initials.
     $src = '';
     if (preg_match('#^vtmedia/vt/(\d+)/photo\.([a-z0-9]+)$#i', $u, $m)) {
-        $src = site_url('vtmedia/vt_thumbs/' . $m[1] . '.' . strtolower($m[2]));
+        $src = site_url('vtmedia/vt_thumbs/' . $m[1] . '.webp');
     } elseif ($u !== '') {
         $src = media_src($u);
     }
@@ -207,7 +207,7 @@ function media_thumb_src(?string $photoUrl): string
 {
     $u = trim((string) $photoUrl);
     if (preg_match('#^vtmedia/vt/(\d+)/photo\.([a-z0-9]+)$#i', $u, $m)) {
-        return site_url('vtmedia/vt_thumbs/' . $m[1] . '.' . strtolower($m[2]));
+        return site_url('vtmedia/vt_thumbs/' . $m[1] . '.webp');
     }
     return '';
 }
