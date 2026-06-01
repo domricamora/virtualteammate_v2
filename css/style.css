@@ -171,18 +171,20 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   /* Hero photo blended into the theme: theme-dark overlay heaviest on the left
      (behind the text) and easing off to the right so the photo reads as an
      atmospheric backdrop, not a hard image. */
-  background-color:#1a1535;
+  /* Wide banner sits at FULL opacity along the bottom (image is the top layer —
+     no dimming overlay), over a vivid, saturated violet gradient. */
+  background-color:#150b33;
   background-image:
-    linear-gradient(105deg, rgba(26,21,53,0.97) 0%, rgba(26,21,53,0.90) 30%, rgba(26,21,53,0.62) 64%, rgba(42,31,110,0.42) 100%),
-    url(../images/photos/hero.webp);
-  background-size:cover;
-  background-position:center right;
+    url(../images/photos/hero.webp),
+    linear-gradient(165deg, #3f1cba 0%, #2a1290 46%, #160a37 100%);
+  background-size:100% auto, cover;
+  background-position:center bottom, center;
   background-repeat:no-repeat;
 }
 .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:1;}
-.orb1{width:700px;height:700px;background:rgba(223,169,73,0.22);top:-200px;right:-100px;animation:floatOrb 22s ease-in-out infinite;}
-.orb2{width:500px;height:500px;background:rgba(57,25,186,0.35);bottom:-150px;left:10%;animation:floatOrb2 26s ease-in-out infinite;}
-.orb3{width:300px;height:300px;background:rgba(133,130,195,0.30);top:100px;left:35%;animation:orbPulse 18s ease-in-out infinite;}
+.orb1{width:720px;height:720px;background:rgba(247,185,69,0.36);top:-200px;right:-100px;animation:floatOrb 22s ease-in-out infinite;}
+.orb2{width:520px;height:520px;background:rgba(74,30,225,0.55);bottom:-150px;left:10%;animation:floatOrb2 26s ease-in-out infinite;}
+.orb3{width:320px;height:320px;background:rgba(150,118,255,0.46);top:100px;left:35%;animation:orbPulse 18s ease-in-out infinite;}
 
 .hero-inner{position:relative;z-index:2;max-width:820px;}
 .hero-eyebrow{
@@ -2077,9 +2079,9 @@ select.cf-field option:checked{background:#3919BA;color:#fff;}
   .nav-links > a, .nav-drop-trigger{font-size:14.5px;padding:13px 6px;}
 
   .hero{padding:56px 18px 44px;gap:32px;
-    /* Vertical overlay on mobile keeps text readable top-to-bottom over the photo. */
-    background-image:linear-gradient(180deg, rgba(26,21,53,0.95) 0%, rgba(26,21,53,0.80) 48%, rgba(26,21,53,0.93) 100%), url(../images/photos/hero.webp);
-    background-position:center;}
+    background-image:url(../images/photos/hero.webp), linear-gradient(165deg, #3f1cba 0%, #2a1290 46%, #160a37 100%);
+    background-size:100% auto, cover;
+    background-position:center bottom, center;}
   .hero-h1{font-size:32px;}
   .hero-h1 br{display:none;}
   .hero-sub{font-size:15.5px;}
