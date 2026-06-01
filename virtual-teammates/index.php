@@ -597,13 +597,17 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   var lastFocus = null;
 
   // Embed an intro video inline — hosted file → native <video>; YouTube/Vimeo → iframe.
-  // Extract a Google Drive file id from a share URL (…/file/d/ID/… or ?id=ID).
+  // Extract a Google Drive file id — ONLY from a real drive.google.com URL.
+  // (Must check the host first: our own talent-media.php URLs also have ?id=…,
+  // and a loose /[?&]id=/ match would wrongly treat them as Drive files.)
   function driveId(u){
-    var m = (u || '').match(/drive\.google\.com\/file\/d\/([\w-]+)/) || (u || '').match(/[?&]id=([\w-]+)/);
+    u = u || '';
+    if (!/drive\.google\.com/i.test(u)) return '';
+    var m = u.match(/\/file\/d\/([\w-]+)/) || u.match(/[?&]id=([\w-]+)/);
     return m ? m[1] : '';
   }
 
-  function videoEmbed(url){
+  function videoEmbed(url, poster){
     var u = url || '';
     var yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
     if (yt){ return '<div class="vtd-cv-video"><iframe src="https://www.youtube.com/embed/'+yt[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
@@ -611,7 +615,10 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     if (vm){ return '<div class="vtd-cv-video"><iframe src="https://player.vimeo.com/video/'+vm[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
     var gd = driveId(u);
     if (gd){ return '<div class="vtd-cv-video"><iframe src="https://drive.google.com/file/d/'+gd+'/preview" title="Intro video" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'; }
-    return '<div class="vtd-cv-video"><video controls preload="metadata" playsinline src="'+esc(u)+'"></video></div>';
+    // Hosted/direct file → native player with the VT photo as poster (mirrors the
+    // working portal modal: <video><source> + poster, not a bare src).
+    var p = poster ? ' poster="'+esc(poster)+'"' : '';
+    return '<div class="vtd-cv-video"><video controls preload="metadata" playsinline'+p+'><source src="'+esc(u)+'">Your browser does not support inline video.</video></div>';
   }
 
   // Profile-modal CTA. Logged-in clients request the VT for real (→ request.php,
@@ -698,21 +705,29 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       html += '</main>';
       html += '</div>'; // body
 
-      // ── Media (moved to the bottom): intro video + résumé side-by-side ──
+      // ── Media (bottom): intro video + résumé side-by-side ──
       if (f.videoUrl || f.resumeUrl){
-        var vBlock = f.videoUrl ? videoEmbed(f.videoUrl) : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-video-slash"></i><span>No intro video on file.</span></div>';
-        var rid  = driveId(f.resumeUrl);
-        var rsrc = rid ? 'https://drive.google.com/file/d/'+rid+'/preview'
-                       : esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH';
-        var rBlock = f.resumeUrl
-          ? '<iframe class="vtd-cv-pdf" src="'+rsrc+'" title="Résumé" loading="lazy"></iframe>'
+        var vBlock = f.videoUrl
+          ? videoEmbed(f.videoUrl, f.photo)
+          : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-video-slash"></i><span>No intro video on file.</span></div>';
+        var rid = driveId(f.resumeUrl);
+        var rBlock;
+        if (!f.resumeUrl){
+          rBlock = '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
+        } else if (rid){
+          // Genuine Google Drive résumé → Drive preview iframe.
+          rBlock = '<iframe class="vtd-cv-pdf" src="https://drive.google.com/file/d/'+rid+'/preview" title="Résumé" loading="lazy"></iframe>'
+            + '<div class="vtd-cv-pdf-actions"><a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl)+'" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open in new window</a></div>';
+        } else {
+          // Hosted/direct PDF → <embed> (same element the working portal modal uses).
+          rBlock = '<embed class="vtd-cv-pdf" src="'+esc(f.resumeUrl)+'#toolbar=1&navpanes=0" type="application/pdf">'
             + '<div class="vtd-cv-pdf-actions">'
             + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl)+'" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open in new window</a>'
-            + (rid ? '' : '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl+'&dl=1')+'" download><i class="fa-solid fa-download"></i> Download résumé</a>')
-            + '</div>'
-          : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
+            + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl)+'&dl=1" download><i class="fa-solid fa-download"></i> Download résumé</a>'
+            + '</div>';
+        }
         html += '<div class="vtd-cv-media">';
-        html += '<div class="vtd-cv-media-h"><i class="fa-solid fa-photo-film"></i> Media <span>Résumé + intro video imported from HubSpot, served locally.</span></div>';
+        html += '<div class="vtd-cv-media-h"><i class="fa-solid fa-photo-film"></i> Media <span>Résumé + intro video imported from HubSpot.</span></div>';
         html += '<div class="vtd-cv-media-grid">';
         html += '<div class="vtd-cv-media-card"><div class="vtd-cv-media-lbl"><i class="fa-solid fa-video"></i> Intro video</div>'+vBlock+'</div>';
         html += '<div class="vtd-cv-media-card"><div class="vtd-cv-media-lbl"><i class="fa-solid fa-file-pdf"></i> Résumé</div>'+rBlock+'</div>';
