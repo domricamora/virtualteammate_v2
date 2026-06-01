@@ -151,8 +151,9 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
           <svg viewBox="0 0 200 200" role="img" aria-label="Lifetime value gauge">
             <defs>
               <linearGradient id="roiGrad" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#3919BA"/>
-                <stop offset="100%" stop-color="#F6B845"/>
+                <stop offset="0%" stop-color="#b0791b"/>
+                <stop offset="55%" stop-color="#f6b845"/>
+                <stop offset="100%" stop-color="#ffe9b0"/>
               </linearGradient>
             </defs>
             <circle cx="100" cy="100" r="72" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="16"/>
