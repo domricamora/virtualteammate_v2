@@ -163,13 +163,13 @@
     counters.forEach(countUp);
   }
 
-  /* Re-play the hero stat count-up every 30s for a subtle "living" feel.
+  /* Re-play the hero stat count-up every 10s for a subtle "living" feel.
      Skipped under reduced-motion and while the tab is hidden. */
   if (!reduce){
     setInterval(function(){
       if (document.hidden) return;
       document.querySelectorAll('.hero-stats [data-count]').forEach(function(el){ countUp(el, true); });
-    }, 30000);
+    }, 10000);
   }
 
   /* Reusable: append N logo items to a track as a DocumentFragment
