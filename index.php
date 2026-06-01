@@ -18,10 +18,10 @@ include 'includes/nav.php';
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
     <h1 class="hero-h1 reveal d1">Reclaim <em>15 Hours</em> a Week.<br>Cut Staffing Costs <em>by 78%</em>.</h1>
-    <p class="hero-sub reveal d2">Plug a HIPAA-certified medical or dental virtual assistant into your practice in <strong>14 days</strong> &mdash; from <strong>$1,625/mo full-time</strong>, trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone. <strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
+    <p class="hero-sub reveal d2">Plug a HIPAA-certified medical or dental virtual assistant into your practice in <strong>14 days</strong> &mdash; from <strong>$1,625/mo full-time</strong>, trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#cta" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#cta" class="btn-glass" data-cta-intent="strategy-call">Get My Free Time-Reclaim Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
       <a href="#cta" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="trust-row reveal d4">
@@ -39,18 +39,6 @@ include 'includes/nav.php';
     </div>
   </div>
 
-  <!-- HERO VISUAL: photo collage with floating chips -->
-  <div class="hero-visual reveal d2" aria-hidden="true">
-    <div class="hv-chip t1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
-    <div class="hv-chip t2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
-    <div class="hv-chip t3"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
-    <div class="hv-card hv-main">
-      <img src="images/photos/hero-medical-va.webp" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
-    </div>
-    <div class="hv-card hv-side">
-      <img src="images/photos/hero-dental-va.webp" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
-    </div>
-  </div>
 </header>
 
 <!-- CLIENT MARQUEE (sits directly under the hero for trust + recognition) -->

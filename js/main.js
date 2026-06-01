@@ -138,8 +138,8 @@
 
   /* Count-up */
   function easeOutCubic(t){ return 1 - Math.pow(1-t, 3); }
-  function countUp(el){
-    if (el.dataset.done) return;
+  function countUp(el, force){
+    if (el.dataset.done && !force) return;
     el.dataset.done = '1';
     var target = +el.dataset.count || 0;
     var suffix = el.dataset.suffix || '';
@@ -161,6 +161,15 @@
     counters.forEach(function(el){ cio.observe(el); });
   } else {
     counters.forEach(countUp);
+  }
+
+  /* Re-play the hero stat count-up every 30s for a subtle "living" feel.
+     Skipped under reduced-motion and while the tab is hidden. */
+  if (!reduce){
+    setInterval(function(){
+      if (document.hidden) return;
+      document.querySelectorAll('.hero-stats [data-count]').forEach(function(el){ countUp(el, true); });
+    }, 30000);
   }
 
   /* Reusable: append N logo items to a track as a DocumentFragment
