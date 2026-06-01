@@ -19,6 +19,14 @@ if (PHP_SAPI !== 'cli') {
     ini_set('session.cookie_httponly',  '1');
     ini_set('session.use_only_cookies', '1');
     ini_set('session.cookie_samesite',  'Lax');
+    // Persist sessions in a guaranteed-writable app dir. Some shared hosts have
+    // an unwritable default session.save_path, which silently breaks login: the
+    // CSRF token set when the login page renders never survives to the POST, so
+    // every login fails with a "CSRF token mismatch". Only override when our dir
+    // is actually writable, otherwise leave the host default untouched.
+    $vtSessDir = __DIR__ . '/../data/sessions';
+    if (!is_dir($vtSessDir)) { @mkdir($vtSessDir, 0700, true); }
+    if (is_dir($vtSessDir) && is_writable($vtSessDir)) { @session_save_path($vtSessDir); }
     if (session_status() === PHP_SESSION_NONE) {
         session_name('vtportal');
         session_start();
@@ -588,8 +596,9 @@ function role_badge(string $role): string
     return '<span class="role-badge ' . $cls . '">' . e(role_label($role)) . '</span>';
 }
 
-function user_display_name(array $u): string
+function user_display_name(?array $u): string
 {
+    if (!$u) { return 'Guest'; }
     $name = trim(($u['first_name'] ?? '') . ' ' . ($u['last_name'] ?? ''));
     return $name !== '' ? $name : ($u['email'] ?? 'Unknown');
 }

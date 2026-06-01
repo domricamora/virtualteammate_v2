@@ -152,14 +152,18 @@ if ($me && $role === 'super_admin') {
         <?php endif; ?>
       </div>
       <div class="portal-top-r">
-        <a class="portal-top-bell" href="<?= e(portal_url('notifications')) ?>" title="<?= (int) $unreadNotiCount ?> unread notification<?= $unreadNotiCount === 1 ? '' : 's' ?>">
-          <i class="fa-solid fa-bell"></i>
-          <?php if ($unreadNotiCount > 0): ?>
-            <span class="portal-top-bell-badge"><?= $unreadNotiCount > 99 ? '99+' : (int) $unreadNotiCount ?></span>
-          <?php endif; ?>
-        </a>
-        <span class="portal-me"><?= e(user_display_name($me)) ?> <?= role_badge($role) ?></span>
-        <a class="portal-me-link" href="<?= e(portal_url('profile')) ?>" title="My profile"><i class="fa-solid fa-id-card"></i></a>
+        <?php if ($me): ?>
+          <a class="portal-top-bell" href="<?= e(portal_url('notifications')) ?>" title="<?= (int) $unreadNotiCount ?> unread notification<?= $unreadNotiCount === 1 ? '' : 's' ?>">
+            <i class="fa-solid fa-bell"></i>
+            <?php if ($unreadNotiCount > 0): ?>
+              <span class="portal-top-bell-badge"><?= $unreadNotiCount > 99 ? '99+' : (int) $unreadNotiCount ?></span>
+            <?php endif; ?>
+          </a>
+          <span class="portal-me"><?= e(user_display_name($me)) ?> <?= role_badge($role) ?></span>
+          <a class="portal-me-link" href="<?= e(portal_url('profile')) ?>" title="My profile"><i class="fa-solid fa-id-card"></i></a>
+        <?php else: ?>
+          <a class="portal-me-link" href="<?= e(portal_url('login')) ?>" title="Log in"><i class="fa-solid fa-right-to-bracket"></i></a>
+        <?php endif; ?>
       </div>
     </header>
 
