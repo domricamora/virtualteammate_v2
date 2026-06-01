@@ -38,6 +38,12 @@ if (!$tokenOk) {
         @ini_set('session.cookie_httponly', '1');
         @ini_set('session.use_only_cookies', '1');
         @ini_set('session.cookie_samesite', 'Lax');
+        // Read the SAME session store the portal writes to (bootstrap uses
+        // data/sessions when writable). Without this, a logged-in client's
+        // session is invisible here and every résumé/video 403s.
+        $vtSessDir = __DIR__ . '/data/sessions';
+        if (!is_dir($vtSessDir)) { @mkdir($vtSessDir, 0700, true); }
+        if (is_dir($vtSessDir) && is_writable($vtSessDir)) { @session_save_path($vtSessDir); }
         if (session_status() === PHP_SESSION_NONE) { session_name('vtportal'); @session_start(); }
     }
     $uid = (int) ($_SESSION['uid'] ?? 0);

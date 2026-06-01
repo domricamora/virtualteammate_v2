@@ -597,12 +597,20 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   var lastFocus = null;
 
   // Embed an intro video inline — hosted file → native <video>; YouTube/Vimeo → iframe.
+  // Extract a Google Drive file id from a share URL (…/file/d/ID/… or ?id=ID).
+  function driveId(u){
+    var m = (u || '').match(/drive\.google\.com\/file\/d\/([\w-]+)/) || (u || '').match(/[?&]id=([\w-]+)/);
+    return m ? m[1] : '';
+  }
+
   function videoEmbed(url){
     var u = url || '';
     var yt = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/);
     if (yt){ return '<div class="vtd-cv-video"><iframe src="https://www.youtube.com/embed/'+yt[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
     var vm = u.match(/vimeo\.com\/(\d+)/);
     if (vm){ return '<div class="vtd-cv-video"><iframe src="https://player.vimeo.com/video/'+vm[1]+'" title="Intro video" allow="fullscreen; picture-in-picture" allowfullscreen></iframe></div>'; }
+    var gd = driveId(u);
+    if (gd){ return '<div class="vtd-cv-video"><iframe src="https://drive.google.com/file/d/'+gd+'/preview" title="Intro video" allow="autoplay; fullscreen" allowfullscreen></iframe></div>'; }
     return '<div class="vtd-cv-video"><video controls preload="metadata" playsinline src="'+esc(u)+'"></video></div>';
   }
 
@@ -693,11 +701,14 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       // ── Media (moved to the bottom): intro video + résumé side-by-side ──
       if (f.videoUrl || f.resumeUrl){
         var vBlock = f.videoUrl ? videoEmbed(f.videoUrl) : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-video-slash"></i><span>No intro video on file.</span></div>';
+        var rid  = driveId(f.resumeUrl);
+        var rsrc = rid ? 'https://drive.google.com/file/d/'+rid+'/preview'
+                       : esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH';
         var rBlock = f.resumeUrl
-          ? '<iframe class="vtd-cv-pdf" src="'+esc(f.resumeUrl)+'#toolbar=0&amp;navpanes=0&amp;view=FitH" title="Résumé" loading="lazy"></iframe>'
+          ? '<iframe class="vtd-cv-pdf" src="'+rsrc+'" title="Résumé" loading="lazy"></iframe>'
             + '<div class="vtd-cv-pdf-actions">'
             + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl)+'" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open in new window</a>'
-            + '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl+'&dl=1')+'" download><i class="fa-solid fa-download"></i> Download résumé</a>'
+            + (rid ? '' : '<a class="vtd-cv-pdf-btn" href="'+esc(f.resumeUrl+'&dl=1')+'" download><i class="fa-solid fa-download"></i> Download résumé</a>')
             + '</div>'
           : '<div class="vtd-cv-media-empty"><i class="fa-solid fa-file-circle-xmark"></i><span>No résumé on file.</span></div>';
         html += '<div class="vtd-cv-media">';
