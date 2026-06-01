@@ -851,30 +851,28 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .roiX__panel--actual .roiX__gMeta{flex:0 1 auto;min-width:0;text-align:center;}
 .roiX__panel--actual .roiX__details{text-align:left;}
 
-/* Bigger, glowing Lifetime-value gauge — the client dashboard's focal point. */
+/* Bigger Lifetime-value gauge with a padded, glowing circular backdrop. */
+.roiX__panel--actual .roiX__gaugeWrap{margin:26px 0 16px;}
 .roiX__panel--actual .roiX__gauge{width:264px;height:264px;flex:0 0 264px;}
 .roiX__panel--actual .roiX__gauge svg{position:relative;z-index:1;overflow:visible;}
 .roiX__panel--actual .roiX__gCenter{z-index:2;}
 .roiX__panel--actual .roiX__gVal{font-size:36px;}
 .roiX__panel--actual .roiX__gLbl{font-size:11px;}
-/* Soft pulsing aura behind the ring. */
+/* Padded circular background disk behind the ring — the glow lives on this disk. */
 .roiX__panel--actual .roiX__gauge::before{
-  content:'';position:absolute;inset:-12%;z-index:0;border-radius:50%;pointer-events:none;
-  background:radial-gradient(circle,rgba(223,169,73,.32),rgba(223,169,73,0) 68%);
-  filter:blur(12px);animation:roiAura 3.4s ease-in-out infinite;
+  content:'';position:absolute;inset:-13%;z-index:0;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 50% 42%, rgba(247,185,69,.18) 0%, rgba(42,32,64,.55) 56%, rgba(26,21,46,.74) 100%);
+  border:1px solid rgba(247,185,69,.22);
+  animation:roiGlowBg 3s ease-in-out infinite;
 }
-/* The progress ring itself glows in a slow pulse. */
-.roiX__panel--actual #roiGaugeProg{animation:roiGlowPulse 2.8s ease-in-out infinite;will-change:filter;}
-@keyframes roiGlowPulse{
-  0%,100%{filter:drop-shadow(0 0 4px rgba(223,169,73,.5)) drop-shadow(0 0 11px rgba(223,169,73,.22));}
-  50%{filter:drop-shadow(0 0 12px rgba(245,228,184,.95)) drop-shadow(0 0 26px rgba(223,169,73,.55));}
-}
-@keyframes roiAura{
-  0%,100%{opacity:.5;transform:scale(.95);}
-  50%{opacity:1;transform:scale(1.05);}
+/* Keep a subtle static gold glow on the ring itself. */
+.roiX__panel--actual #roiGaugeProg{filter:drop-shadow(0 0 5px rgba(223,169,73,.55));}
+@keyframes roiGlowBg{
+  0%,100%{box-shadow:0 0 24px rgba(223,169,73,.30), inset 0 0 18px rgba(223,169,73,.10);}
+  50%{box-shadow:0 0 62px rgba(223,169,73,.62), inset 0 0 34px rgba(223,169,73,.22);}
 }
 @media (prefers-reduced-motion:reduce){
-  .roiX__panel--actual #roiGaugeProg,.roiX__panel--actual .roiX__gauge::before{animation:none;}
+  .roiX__panel--actual .roiX__gauge::before{animation:none;}
 }
 
 @media (max-width:520px){
