@@ -13,19 +13,31 @@
 declare(strict_types=1);
 
 /* ── Member detection (read-only; only if a portal cookie is already set) ── */
-$isMember = false;
+$isMember      = false;
+$viewerRole    = '';
+$viewerCid     = 0;     // clients.id when the viewer is a client
+$excludeIds    = [];    // a client's own VTs (current + previous) — hidden from the roster
+$pendingReqIds = [];    // VT ids this client already has a pending request for
+$csrfToken     = '';
 if (!empty($_COOKIE['vtportal'])) {
     @ini_set('session.use_strict_mode', '1');
     @ini_set('session.cookie_httponly', '1');
     @ini_set('session.use_only_cookies', '1');
     @ini_set('session.cookie_samesite', 'Lax');
+    // Read the SAME session store the portal writes to (bootstrap uses
+    // data/sessions when writable) so member detection works and the CSRF token
+    // we mint below is the one request.php will verify. Mirror bootstrap exactly
+    // — including the mkdir — so both entry points make the identical decision.
+    $vtSessDir = __DIR__ . '/../data/sessions';
+    if (!is_dir($vtSessDir)) { @mkdir($vtSessDir, 0700, true); }
+    if (is_dir($vtSessDir) && is_writable($vtSessDir)) { @session_save_path($vtSessDir); }
     if (session_status() === PHP_SESSION_NONE) {
         session_name('vtportal');
         @session_start();
     }
 }
 
-/* ── Load talent from the portal DB (graceful no-op if absent) ── */
+/* ── Open the portal DB (graceful no-op if absent) ── */
 $dbPath = __DIR__ . '/../data/portal.sqlite';
 $rows   = [];
 $pdo    = null;
@@ -33,6 +45,48 @@ if (is_file($dbPath)) {
     try {
         $pdo = new PDO('sqlite:' . $dbPath);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (Throwable $_) { $pdo = null; }
+}
+
+/* Validate the session user; unlock full profiles + (for clients) the request flow. */
+if (!empty($_SESSION['uid']) && $pdo instanceof PDO) {
+    try {
+        $me = $pdo->prepare('SELECT id, role FROM users WHERE id = :u AND active = 1');
+        $me->execute([':u' => (int) $_SESSION['uid']]);
+        $meRow = $me->fetch(PDO::FETCH_ASSOC);
+        if ($meRow) {
+            $isMember   = true;
+            $viewerRole = (string) $meRow['role'];
+            if ($viewerRole === 'client') {
+                $cs = $pdo->prepare('SELECT id FROM clients WHERE user_id = :u LIMIT 1');
+                $cs->execute([':u' => (int) $meRow['id']]);
+                $viewerCid = (int) ($cs->fetchColumn() ?: 0);
+                if ($viewerCid > 0) {
+                    // Hide VTs already on this client's team — current OR previous.
+                    $ex = $pdo->prepare('SELECT DISTINCT vt_user_id FROM client_vts WHERE client_id = :c');
+                    $ex->execute([':c' => $viewerCid]);
+                    $excludeIds = array_map('intval', array_column($ex->fetchAll(PDO::FETCH_ASSOC), 'vt_user_id'));
+                    // Pending requests → show a "Requested" state instead of a button.
+                    try {
+                        $pr = $pdo->prepare("SELECT DISTINCT vt_user_id FROM vt_requests WHERE client_id = :c AND status = 'pending'");
+                        $pr->execute([':c' => $viewerCid]);
+                        $pendingReqIds = array_map('intval', array_column($pr->fetchAll(PDO::FETCH_ASSOC), 'vt_user_id'));
+                    } catch (Throwable $_) { $pendingReqIds = []; }
+                    // Mint a CSRF token into the shared session for the request endpoint.
+                    if (empty($_SESSION['csrf'])) { $_SESSION['csrf'] = bin2hex(random_bytes(32)); }
+                    $csrfToken = (string) $_SESSION['csrf'];
+                }
+            }
+        }
+    } catch (Throwable $_) { $isMember = false; }
+}
+$canRequest = ($viewerRole === 'client' && $viewerCid > 0);
+
+/* ── Load talent from the portal DB. A client never sees their own (current or
+ *    previous) teammates — only the rest of the available bench. ── */
+if ($pdo instanceof PDO) {
+    try {
+        $exclSql = $excludeIds ? (' AND u.id NOT IN (' . implode(',', $excludeIds) . ')') : '';
         $rows = $pdo->query(
             "SELECT u.id, u.first_name, u.last_name, u.country, u.role, u.photo_url,
                     p.department, p.role_title, p.primary_skills, p.experience_years,
@@ -43,21 +97,12 @@ if (is_file($dbPath)) {
              FROM vt_profiles p
              JOIN users u ON u.id = p.user_id
              WHERE u.role IN ('vt_hired','vt_onpool') AND u.active = 1
-               AND u.email NOT LIKE 'demo-%'
+               AND u.email NOT LIKE 'demo-%'{$exclSql}
              ORDER BY p.department, u.first_name"
         )->fetchAll(PDO::FETCH_ASSOC);
     } catch (Throwable $_) {
         $rows = [];
     }
-}
-
-/* Validate the session user is real + active before unlocking full profiles. */
-if (!empty($_SESSION['uid']) && $pdo instanceof PDO) {
-    try {
-        $chk = $pdo->prepare('SELECT 1 FROM users WHERE id = :u AND active = 1');
-        $chk->execute([':u' => (int) $_SESSION['uid']]);
-        $isMember = (bool) $chk->fetchColumn();
-    } catch (Throwable $_) { $isMember = false; }
 }
 
 /* ── Helpers ── */
@@ -461,6 +506,15 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   </section>
 </main>
 
+<!-- Request-state styles (logged-in client requesting a VT from the modal) -->
+<style>
+.vtd-req-state{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:14px;padding:11px 16px;border-radius:12px;}
+.vtd-req-state.is-pending{background:rgba(247,185,69,.16);color:#ffe2a8;border:1px solid rgba(247,185,69,.4);}
+.vtd-req-state.is-done{background:rgba(78,196,126,.16);color:#bcf0d2;border:1px solid rgba(78,196,126,.4);}
+.vtd-req-note{margin:9px 0 0;font-size:12.5px;color:#f4baba;}
+.vtd-req-note:empty{display:none;}
+</style>
+
 <!-- ── PROFILE MODAL ── -->
 <div class="vtd-modal" id="vtdModal" hidden>
   <div class="vtd-modal-backdrop" data-close></div>
@@ -473,6 +527,10 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
 <script>
 (function(){
   var IS_MEMBER = <?= $isMember ? 'true' : 'false' ?>;
+  var CAN_REQUEST = <?= $canRequest ? 'true' : 'false' ?>;        // only logged-in clients
+  var CSRF = <?= json_encode($csrfToken) ?>;
+  var REQ_URL = 'request.php';
+  var PENDING = <?= json_encode(array_fill_keys(array_map('strval', $pendingReqIds), true), JSON_FORCE_OBJECT) ?>;
   var DEPT_SKILLS = <?= json_encode($deptSkills, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
   var FULL = <?= $isMember ? json_encode(array_column($vts, 'full', 'id'), JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) : '{}' ?>;
   var PAGE = 12;
@@ -548,6 +606,48 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     return '<div class="vtd-cv-video"><video controls preload="metadata" playsinline src="'+esc(u)+'"></video></div>';
   }
 
+  // Profile-modal CTA. Logged-in clients request the VT for real (→ request.php,
+  // same workflow as the portal's "Request an Additional VT"); everyone else is
+  // funnelled to the lead form. `full` is the display name, `fn` the first name.
+  function ctaBlock(id, full, fn){
+    var head = '<div class="vtd-cv-cta-t">Ready to add <strong>'+esc(fn)+'</strong> to your team?</div>';
+    if (CAN_REQUEST){
+      if (PENDING[id]){
+        return head + '<div class="vtd-req-state is-pending"><i class="fa-solid fa-clock"></i> Requested — pending your CSM’s review</div>';
+      }
+      return head
+        + '<button type="button" class="btn-primary vtd-req-btn" data-request="'+esc(id)+'" data-reqname="'+esc(full)+'">Request '+esc(fn)+' <i class="fa-solid fa-arrow-right"></i></button>'
+        + '<p class="vtd-req-note" role="status" aria-live="polite"></p>';
+    }
+    return head + '<button type="button" class="btn-primary" data-match="'+esc(id)+'" data-matchname="'+esc(full)+'">Request '+esc(fn)+' <i class="fa-solid fa-arrow-right"></i></button>';
+  }
+
+  // Send a real VT request (client only). Swaps the CTA for a confirmation.
+  function submitRequest(btn){
+    var id   = btn.getAttribute('data-request');
+    var wrap = btn.closest('.vtd-cv-cta');
+    var note = wrap ? wrap.querySelector('.vtd-req-note') : null;
+    var orig = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
+    if (note){ note.textContent = ''; note.classList.remove('is-err'); }
+    var fd = new FormData();
+    fd.append('_csrf', CSRF);
+    fd.append('vt_id', id);
+    fetch(REQ_URL, { method:'POST', body:fd, credentials:'same-origin' })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if (res && res.ok){
+          PENDING[id] = true;
+          if (wrap){ wrap.innerHTML = '<div class="vtd-req-state is-done"><i class="fa-solid fa-circle-check"></i> '+esc(res.message || 'Request sent! Your CSM will follow up.')+'</div>'; }
+        } else {
+          if (note){ note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
+          btn.disabled = false; btn.innerHTML = orig;
+        }
+      })
+      .catch(function(){ if (note){ note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); } btn.disabled = false; btn.innerHTML = orig; });
+  }
+
   function openModal(card){
     var id = card.getAttribute('data-id');
     var name = card.getAttribute('data-name');
@@ -555,7 +655,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     if (IS_MEMBER && FULL[id]){
       var f = FULL[id];
       var ini = esc((f.name || '?').charAt(0).toUpperCase());
-      var fn  = esc((f.name || '').split(' ')[0] || 'this teammate');
+      var fn  = (f.name || '').split(' ')[0] || 'this teammate';   // raw — ctaBlock() escapes
       var nl  = function(s){ return esc(s).replace(/\n/g, '<br>'); };
 
       html += '<div class="vtd-cv">';
@@ -608,9 +708,8 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         html += '</div></div>';
       }
 
-      // ── Funnel CTA ──
-      html += '<div class="vtd-cv-cta"><div class="vtd-cv-cta-t">Ready to add <strong>'+fn+'</strong> to your team?</div>'
-            + '<button type="button" class="btn-primary" data-match="'+esc(id)+'" data-matchname="'+esc(f.name)+'">Request '+fn+' <i class="fa-solid fa-arrow-right"></i></button></div>';
+      // ── Request / funnel CTA ──
+      html += '<div class="vtd-cv-cta">' + ctaBlock(id, f.name, fn) + '</div>';
       html += '</div>'; // vtd-cv
     } else {
       // Teaser → funnel to lead form.
@@ -649,6 +748,8 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   });
   modal.addEventListener('click', function(e){
     if (e.target.closest('[data-close]')) { closeModal(); return; }
+    var reqBtn = e.target.closest('[data-request]');
+    if (reqBtn){ submitRequest(reqBtn); return; }
     var cta = e.target.closest('[data-match]');
     if (cta){
       if (idForm)   idForm.value = cta.getAttribute('data-match');

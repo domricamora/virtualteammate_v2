@@ -114,11 +114,16 @@ switch ($action) {
     case 'notifications.toggle_email': handle_notifications_toggle_email();   break;
     case 'resources':              handle_resources();               break;
     case 'my-vts':                 handle_my_vts();                  break;
+    case 'my-clients':             handle_my_clients();              break;
     case 'vts.profile_json':       handle_vts_profile_json();        break;
     case 'messages':               handle_messages_list();           break;
     case 'messages.send':          handle_messages_send();           break;
     case 'messages.fetch':         handle_messages_fetch();          break;
     case 'messages.clear':         handle_messages_clear();          break;
+    case 'invoices':               handle_invoices();                break;
+    case 'request-vt':             handle_request_vt();              break;
+    case 'request-vt.decide':      handle_request_decide();          break;
+    case 'special-links':          handle_special_links();           break;
     case 'productivity':           handle_productivity();            break;
     case 'avatar':                 handle_avatar_serve();            break;
 
@@ -444,7 +449,29 @@ function dashboard_csm_data(array $u): array
     );
     $meet->execute([':uid' => $u['id']]);
 
-    return ['clients' => $clients, 'meetings' => $meet->fetchAll()];
+    // 14-day activity trend (EOD submissions, VT assignments, meetings),
+    // scoped to this CSM's accounts. Zero-filled for the animated chart.
+    $pdo       = db();
+    $days      = 14;
+    $ids       = array_map(static fn ($c) => (int) $c['id'], $clients);
+    $inList    = $ids ? implode(',', $ids) : '0';
+    $since     = "datetime('now','-" . ($days - 1) . " days','start of day')";
+    $sinceDate = gmdate('Y-m-d', time() - ($days - 1) * 86400);
+    $byTasks = $byMeet = $byEod = [];
+    try { foreach ($pdo->query("SELECT date(created_at) d, COUNT(*) n FROM tasks WHERE client_id IN ({$inList}) AND created_at >= {$since} GROUP BY d") as $r) { $byTasks[$r['d']] = (int) $r['n']; } } catch (Throwable $_) {}
+    try { foreach ($pdo->query("SELECT date(scheduled_at) d, COUNT(*) n FROM meetings WHERE client_id IN ({$inList}) AND scheduled_at >= {$since} GROUP BY d") as $r) { $byMeet[$r['d']] = (int) $r['n']; } } catch (Throwable $_) {}
+    try { foreach ($pdo->query("SELECT report_date d, COUNT(*) n FROM eod_reports WHERE vt_user_id IN (SELECT vt_user_id FROM client_vts WHERE client_id IN ({$inList})) AND report_date >= '{$sinceDate}' GROUP BY report_date") as $r) { $byEod[$r['d']] = (int) $r['n']; } } catch (Throwable $_) {}
+    $labels = $eodS = $taskS = $meetS = [];
+    for ($i = $days - 1; $i >= 0; $i--) {
+        $d = gmdate('Y-m-d', time() - $i * 86400);
+        $labels[] = $d; $eodS[] = $byEod[$d] ?? 0; $taskS[] = $byTasks[$d] ?? 0; $meetS[] = $byMeet[$d] ?? 0;
+    }
+
+    return [
+        'clients'  => $clients,
+        'meetings' => $meet->fetchAll(),
+        'trend'    => ['labels' => $labels, 'eod' => $eodS, 'tasks' => $taskS, 'meetings' => $meetS],
+    ];
 }
 
 function dashboard_vt_data(array $u): array
@@ -3518,6 +3545,79 @@ function handle_my_vts(): void
     render('my-vts', ['user' => $u, 'vts' => $vts]);
 }
 
+/** CSM: unified "My Clients & VTs" — each managed client with its active team. */
+function handle_my_clients(): void
+{
+    $u = require_login();
+    if (($u['role'] ?? '') !== 'csm') {
+        render('error', ['title' => 'Forbidden', 'message' => 'My Clients is a CSM view.']);
+        return;
+    }
+    $pdo = db();
+    $stmt = $pdo->prepare(
+        "SELECT c.id, c.company_name, c.company_email, c.company_domain, c.contract_status,
+                u.id AS user_id, u.first_name, u.last_name, u.email AS contact_email
+         FROM csm_clients cc
+         JOIN clients c ON c.id = cc.client_id
+         LEFT JOIN users u ON u.id = c.user_id
+         WHERE cc.csm_user_id = :uid
+         ORDER BY c.company_name COLLATE NOCASE"
+    );
+    $stmt->execute([':uid' => (int) $u['id']]);
+    $clients = $stmt->fetchAll();
+
+    // Attach each client's active VTs (one query, grouped in PHP).
+    $byClient = [];
+    $vstmt = $pdo->prepare(
+        "SELECT cv.client_id, u.id AS vt_id, u.first_name, u.last_name, u.country, u.photo_url,
+                p.role_title, p.department
+         FROM csm_clients cc
+         JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+         JOIN users u ON u.id = cv.vt_user_id
+         LEFT JOIN vt_profiles p ON p.user_id = u.id
+         WHERE cc.csm_user_id = :uid
+         ORDER BY u.first_name, u.last_name"
+    );
+    $vstmt->execute([':uid' => (int) $u['id']]);
+    foreach ($vstmt->fetchAll() as $vt) {
+        $byClient[(int) $vt['client_id']][] = $vt;
+    }
+    foreach ($clients as &$c) {
+        $c['vts']      = $byClient[(int) $c['id']] ?? [];
+        $c['vt_count'] = count($c['vts']);
+    }
+    unset($c);
+
+    // Client VT requests across this CSM's accounts (pending first, newest first).
+    vt_requests_ensure($pdo);
+    $rstmt = $pdo->prepare(
+        "SELECT r.*, c.company_name,
+                vu.first_name AS vt_first, vu.last_name AS vt_last,
+                vu.country AS vt_user_country,
+                p.role_title, p.department,
+                cu.first_name AS cl_first, cu.last_name AS cl_last, cu.email AS cl_email
+           FROM vt_requests r
+           JOIN csm_clients cc ON cc.client_id = r.client_id AND cc.csm_user_id = :uid
+           JOIN clients c ON c.id = r.client_id
+           JOIN users vu ON vu.id = r.vt_user_id
+           LEFT JOIN vt_profiles p ON p.user_id = r.vt_user_id
+           LEFT JOIN users cu ON cu.id = r.requested_by
+          WHERE r.csm_deleted = 0
+          ORDER BY (r.status = 'pending') DESC, r.id DESC
+          LIMIT 60"
+    );
+    $rstmt->execute([':uid' => (int) $u['id']]);
+    $requests = $rstmt->fetchAll();
+    $pendingCount = 0; foreach ($requests as $rq) { if (($rq['status'] ?? '') === 'pending') { $pendingCount++; } }
+
+    render('my-clients', [
+        'user'          => $u,
+        'clients'       => $clients,
+        'requests'      => $requests,
+        'pending_count' => $pendingCount,
+    ]);
+}
+
 /* ═════════════════════════════════════════════════════════════════════════
  * MESSAGES — minimal 1:1 chat, modeled on the [va_chat_window] shortcode.
  * Polling-based (no websocket). Authorized to messages between paired
@@ -3686,13 +3786,21 @@ function messages_contacts(array $u): array
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
     } elseif ($u['role'] === 'csm') {
+        // Both the client contacts AND the VTs on the CSM's assigned accounts.
+        // (A COALESCE here previously hid the client contact whenever the client
+        // had active VTs, so CSMs couldn't message their client companies.)
         $stmt = $pdo->prepare(
-            "SELECT DISTINCT {$cols}
-             FROM csm_clients cc
-             LEFT JOIN clients c ON c.id = cc.client_id
-             LEFT JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
-             LEFT JOIN users u ON u.id = COALESCE(cv.vt_user_id, c.user_id)
-             WHERE cc.csm_user_id = :uid AND u.id IS NOT NULL"
+            "SELECT {$cols}
+               FROM csm_clients cc
+               JOIN clients c ON c.id = cc.client_id
+               JOIN users u ON u.id = c.user_id
+              WHERE cc.csm_user_id = :uid
+              UNION
+             SELECT {$cols}
+               FROM csm_clients cc
+               JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+               JOIN users u ON u.id = cv.vt_user_id
+              WHERE cc.csm_user_id = :uid"
         );
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
@@ -3929,6 +4037,434 @@ function handle_messages_clear(): void
     $n->execute([':k' => $key]);
     flash('success', 'Conversation deleted (' . $n->rowCount() . ' message' . ($n->rowCount() === 1 ? '' : 's') . ').');
     redirect(portal_url('messages', ['with' => $with]));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * INVOICES — client billing records, pulled live from HubSpot (invoices object
+ * associated to the client's company/contact). Mirrors the staging WP shortcode
+ * [hubspot_invoice_viewer]: resolve contact ids by email, gather invoice ids
+ * from company + contact associations, batch-read properties, group by status.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Normalize a HubSpot date prop (ms-epoch or date string) to a unix timestamp. */
+function invoices_ts($v): int
+{
+    $v = trim((string) $v);
+    if ($v === '') { return 0; }
+    if (is_numeric($v)) { $n = (int) $v; return $n > 9999999999 ? (int) round($n / 1000) : $n; }
+    return (int) strtotime($v);
+}
+
+function handle_invoices(): void
+{
+    $u = require_login();
+    if (($u['role'] ?? '') !== 'client') {
+        render('error', ['title' => 'Not available', 'message' => 'Invoices are available to client accounts.']);
+        return;
+    }
+    require_once __DIR__ . '/hubspot.php';
+
+    $cstmt = db()->prepare('SELECT * FROM clients WHERE user_id = :uid');
+    $cstmt->execute([':uid' => (int) $u['id']]);
+    $client    = $cstmt->fetch() ?: [];
+    $companyId = trim((string) ($client['hubspot_company_id'] ?? ''));
+    $contactId = trim((string) ($u['hubspot_contact_id'] ?? ''));
+    $emails    = array_values(array_unique(array_filter(array_map(
+        static fn ($e) => strtolower(trim((string) $e)),
+        [$u['email'] ?? '', $client['billing_contact_email'] ?? '', $client['company_email'] ?? '']
+    ))));
+
+    $token  = (string) (hs_settings()['hs_token'] ?? '');
+    $rows   = [];
+    $error  = '';
+    $totals = ['billed' => 0.0, 'paid' => 0, 'open' => 0, 'outstanding' => 0.0];
+
+    if ($token === '') {
+        $error = 'Billing isn\'t connected yet — please check back soon.';
+    } elseif ($companyId === '' && $contactId === '' && empty($emails)) {
+        $error = 'We couldn\'t match your account to any billing records yet.';
+    } else {
+        try {
+            $hs    = new HubSpotClient($token);
+            $props = ['hs_invoice_number', 'hs_invoice_link', 'hs_title', 'hs_amount_billed', 'amount', 'hs_invoice_status', 'hs_due_date', 'hs_payment_date', 'name'];
+
+            // 1) Resolve contact ids (stored id + any matching the account emails).
+            $contactIds = [];
+            if ($contactId !== '') { $contactIds[$contactId] = true; }
+            foreach ($emails as $em) {
+                $r = $hs->request('POST', '/crm/v3/objects/contacts/search', [
+                    'filterGroups' => [['filters' => [['propertyName' => 'email', 'operator' => 'EQ', 'value' => $em]]]],
+                    'properties'   => ['email'],
+                    'limit'        => 5,
+                ]);
+                if ($r['ok']) {
+                    foreach (($r['data']['results'] ?? []) as $row) {
+                        $cid = trim((string) ($row['id'] ?? ''));
+                        if ($cid !== '') { $contactIds[$cid] = true; }
+                    }
+                }
+            }
+
+            // 2) Gather invoice ids from company + contact associations.
+            $invoiceIds = [];
+            $assocFrom  = static function (string $objType, string $objId) use ($hs, &$invoiceIds): void {
+                if ($objId === '') { return; }
+                $r = $hs->request('GET', sprintf('/crm/v4/objects/%s/%s/associations/invoices?limit=100', rawurlencode($objType), rawurlencode($objId)));
+                if ($r['ok']) {
+                    foreach (($r['data']['results'] ?? []) as $a) {
+                        $iid = trim((string) ($a['toObjectId'] ?? ''));
+                        if ($iid !== '') { $invoiceIds[$iid] = true; }
+                    }
+                }
+            };
+            $assocFrom('companies', $companyId);
+            foreach (array_keys($contactIds) as $cid) { $assocFrom('contacts', $cid); }
+
+            // 3) Batch-read invoice properties.
+            $invoices = [];
+            foreach (array_chunk(array_keys($invoiceIds), 100) as $chunk) {
+                $r = $hs->request('POST', '/crm/v3/objects/invoices/batch/read', [
+                    'properties' => $props,
+                    'inputs'     => array_map(static fn ($id) => ['id' => (string) $id], $chunk),
+                ]);
+                if ($r['ok']) {
+                    foreach (($r['data']['results'] ?? []) as $row) { $invoices[] = $row; }
+                }
+            }
+
+            // 4) Group + total.
+            $paidSet = ['PAID', 'SETTLED', 'COMPLETED'];
+            $lateSet = ['OVERDUE', 'PAST_DUE'];
+            foreach ($invoices as $inv) {
+                $p         = is_array($inv['properties'] ?? null) ? $inv['properties'] : [];
+                $statusRaw = strtoupper(trim((string) ($p['hs_invoice_status'] ?? 'UNKNOWN')));
+                $amount    = (float) ($p['hs_amount_billed'] ?? ($p['amount'] ?? 0));
+                if (in_array($statusRaw, $paidSet, true)) {
+                    $key = 'paid'; $totals['paid']++;
+                } elseif (in_array($statusRaw, $lateSet, true)) {
+                    $key = 'late'; $totals['open']++; $totals['outstanding'] += $amount;
+                } else {
+                    $key = 'pending'; $totals['open']++; $totals['outstanding'] += $amount;
+                }
+                $totals['billed'] += $amount;
+                $rows[] = [
+                    'number'       => (string) ($p['hs_invoice_number'] ?? ($p['name'] ?? ('INV-' . substr((string) ($inv['id'] ?? ''), -4)))),
+                    'title'        => (string) ($p['hs_title'] ?? 'Billing record'),
+                    'amount'       => $amount,
+                    'status_key'   => $key,
+                    'status_label' => ucwords(strtolower(str_replace('_', ' ', $statusRaw))),
+                    'due_ts'       => invoices_ts($p['hs_due_date'] ?? ''),
+                    'paid_ts'      => invoices_ts($p['hs_payment_date'] ?? ''),
+                    'link'         => (string) ($p['hs_invoice_link'] ?? ''),
+                ];
+            }
+            usort($rows, static fn ($a, $b) => $b['due_ts'] <=> $a['due_ts']);
+            if (empty($rows)) { $error = 'No billing records were found for your account yet.'; }
+        } catch (Throwable $e) {
+            $error = 'We couldn\'t load your billing records right now — please try again later.';
+        }
+    }
+
+    render('invoices', [
+        'user'    => $u,
+        'company' => (string) ($client['company_name'] ?? ''),
+        'rows'    => $rows,
+        'totals'  => $totals,
+        'error'   => $error,
+    ]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * REQUEST AN ADDITIONAL VT — suggested available pool teammates for the client
+ * (mirrors the staging WP [vt_request_pool]): show active on-pool VTs the client
+ * doesn't already have, department-matched to their current team first. POSTing
+ * a request notifies the client's CSM(s) + super admins.
+ * ═════════════════════════════════════════════════════════════════════════ */
+// vt_requests_ensure() now lives in bootstrap.php so the public talent
+// directory's request endpoint can share it (clients request a pool VT, CSMs
+// approve/reject with a note, both sides can dismiss from their own view).
+
+function handle_request_vt(): void
+{
+    $u = require_login();
+    if (($u['role'] ?? '') !== 'client') {
+        render('error', ['title' => 'Not available', 'message' => 'This page is available to client accounts.']);
+        return;
+    }
+    $pdo = db();
+    vt_requests_ensure($pdo);
+    $cstmt = $pdo->prepare('SELECT * FROM clients WHERE user_id = :uid');
+    $cstmt->execute([':uid' => (int) $u['id']]);
+    $client = $cstmt->fetch() ?: null;
+    $cid    = (int) ($client['id'] ?? 0);
+
+    // Handle a request submission.
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
+
+        // Client dismisses a request from THEIR view only (CSM keeps their copy).
+        if (($_POST['action'] ?? '') === 'delete') {
+            $rid = (int) ($_POST['request_id'] ?? 0);
+            if ($rid > 0 && $cid > 0) {
+                $pdo->prepare('UPDATE vt_requests SET client_deleted = 1 WHERE id = :id AND client_id = :c')
+                    ->execute([':id' => $rid, ':c' => $cid]);
+                flash('success', 'Request removed from your list.');
+            }
+            redirect(portal_url('request-vt'));
+        }
+
+        $vtId = (int) ($_POST['vt_id'] ?? 0);
+        $vtRow = null;
+        if ($vtId > 0) {
+            $st = $pdo->prepare("SELECT id, first_name, last_name, email FROM users WHERE id = :id AND role = 'vt_onpool' AND active = 1");
+            $st->execute([':id' => $vtId]);
+            $vtRow = $st->fetch() ?: null;
+        }
+        if (!$vtRow) {
+            flash('error', 'That teammate is no longer available.');
+            redirect(portal_url('request-vt'));
+        }
+        $vtName   = trim(($vtRow['first_name'] ?? '') . ' ' . ($vtRow['last_name'] ?? '')) ?: ($vtRow['email'] ?? 'a teammate');
+        $clientNm = $client['company_name'] ?? user_display_name($u);
+
+        // Already an open request for this VT? Don't duplicate.
+        $dup = $pdo->prepare("SELECT COUNT(*) FROM vt_requests WHERE client_id = :c AND vt_user_id = :v AND status = 'pending'");
+        $dup->execute([':c' => $cid, ':v' => $vtId]);
+        if ((int) $dup->fetchColumn() > 0) {
+            flash('error', 'You already have a pending request for ' . $vtName . '.');
+            redirect(portal_url('request-vt'));
+        }
+
+        $pdo->prepare('INSERT INTO vt_requests (client_id, vt_user_id, requested_by) VALUES (:c, :v, :b)')
+            ->execute([':c' => $cid, ':v' => $vtId, ':b' => (int) $u['id']]);
+
+        // Notify the client's CSM(s) + all active super admins.
+        $recips = [];
+        if ($cid > 0) {
+            foreach ($pdo->query("SELECT DISTINCT csm_user_id FROM csm_clients WHERE client_id = " . $cid) as $r) {
+                $recips[(int) $r['csm_user_id']] = true;
+            }
+        }
+        foreach ($pdo->query("SELECT id FROM users WHERE role = 'super_admin' AND active = 1") as $r) {
+            $recips[(int) $r['id']] = true;
+        }
+        foreach (array_keys($recips) as $rid) {
+            if ($rid > 0) {
+                notify($rid, 'vt_request', 'New VT request from ' . $clientNm,
+                    $clientNm . ' requested an additional Virtual Teammate: ' . $vtName . '. Review it on My Clients & VTs.',
+                    'index.php?p=my-clients');
+            }
+        }
+        flash('success', 'Request sent! Your Client Success Manager will review it and follow up about ' . $vtName . '.');
+        redirect(portal_url('request-vt'));
+    }
+
+    // This client's own requests (newest first) with VT name + decision note.
+    $reqStmt = $pdo->prepare(
+        "SELECT r.*, u.first_name, u.last_name, p.role_title, p.department
+           FROM vt_requests r
+           JOIN users u ON u.id = r.vt_user_id
+           LEFT JOIN vt_profiles p ON p.user_id = r.vt_user_id
+          WHERE r.client_id = :c AND r.client_deleted = 0
+          ORDER BY r.id DESC"
+    );
+    $reqStmt->execute([':c' => $cid]);
+    $myRequests = $reqStmt->fetchAll();
+
+    // Current team (size + departments) to prioritise relevant suggestions.
+    $teamCount = 0; $teamDepts = [];
+    if ($cid > 0) {
+        $teamCount = (int) $pdo->query("SELECT COUNT(*) FROM client_vts WHERE client_id = {$cid} AND contract_status = 'active'")->fetchColumn();
+        foreach ($pdo->query("SELECT DISTINCT LOWER(TRIM(p.department)) d FROM client_vts cv JOIN vt_profiles p ON p.user_id = cv.vt_user_id WHERE cv.client_id = {$cid}") as $r) {
+            if ($r['d'] !== '') { $teamDepts[$r['d']] = true; }
+        }
+    }
+
+    // Available pool VTs the client doesn't already have.
+    $excl = $cid > 0 ? "AND u.id NOT IN (SELECT vt_user_id FROM client_vts WHERE client_id = {$cid})" : '';
+    $pool = $pdo->query(
+        "SELECT u.id, u.first_name, u.last_name, u.country, u.photo_url,
+                p.role_title, p.department, p.summary, p.experience_years,
+                p.predictive_index, p.quiz_tier, p.engagement_score
+         FROM users u JOIN vt_profiles p ON p.user_id = u.id
+         WHERE u.role = 'vt_onpool' AND u.active = 1 {$excl}
+         ORDER BY u.first_name, u.last_name"
+    )->fetchAll();
+
+    // Department-matched suggestions float to the top.
+    usort($pool, static function ($a, $b) use ($teamDepts) {
+        $ma = isset($teamDepts[strtolower(trim((string) $a['department']))]) ? 0 : 1;
+        $mb = isset($teamDepts[strtolower(trim((string) $b['department']))]) ? 0 : 1;
+        return $ma <=> $mb;
+    });
+    $pool = array_slice($pool, 0, 12);
+
+    render('request-vt', [
+        'user'       => $u,
+        'pool'       => $pool,
+        'team_count' => $teamCount,
+        'requests'   => $myRequests,
+    ]);
+}
+
+/** CSM/super-admin: approve or reject a client's VT request, with a note. */
+function handle_request_decide(): void
+{
+    $u = require_login();
+    $role = $u['role'] ?? '';
+    if ($role !== 'csm' && $role !== 'super_admin') {
+        http_response_code(403);
+        render('error', ['title' => 'Forbidden', 'message' => 'Only a CSM or admin can decide requests.']);
+        return;
+    }
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('my-clients')); }
+    csrf_verify();
+    $pdo = db();
+    vt_requests_ensure($pdo);
+
+    $reqId  = (int) ($_POST['request_id'] ?? 0);
+    $action = (string) ($_POST['action'] ?? '');
+    $note   = trim((string) ($_POST['note'] ?? ''));
+    $back   = $role === 'csm' ? portal_url('my-clients') : portal_url('leads');
+    if ($reqId <= 0 || !in_array($action, ['approve', 'reject', 'delete'], true)) { redirect($back); }
+
+    // Load the request + ensure this CSM manages the client (admins bypass).
+    $st = $pdo->prepare(
+        "SELECT r.*, c.company_name, c.id AS cid
+           FROM vt_requests r JOIN clients c ON c.id = r.client_id
+          WHERE r.id = :id"
+    );
+    $st->execute([':id' => $reqId]);
+    $req = $st->fetch();
+    if (!$req) { flash('error', 'Request not found.'); redirect($back); }
+
+    if ($role === 'csm') {
+        $own = $pdo->prepare('SELECT 1 FROM csm_clients WHERE csm_user_id = :u AND client_id = :c LIMIT 1');
+        $own->execute([':u' => (int) $u['id'], ':c' => (int) $req['client_id']]);
+        if (!$own->fetchColumn()) { flash('error', 'That client is not assigned to you.'); redirect($back); }
+    }
+
+    // Dismiss from the CSM/admin view only — the client keeps their own copy.
+    // Allowed at any status (pending requests can also be cleared).
+    if ($action === 'delete') {
+        $pdo->prepare('UPDATE vt_requests SET csm_deleted = 1 WHERE id = :id')->execute([':id' => $reqId]);
+        flash('success', 'Request removed from your list.');
+        redirect($back);
+    }
+
+    if ($req['status'] !== 'pending') { flash('error', 'That request was already decided.'); redirect($back); }
+    $status = $action === 'approve' ? 'approved' : 'rejected';
+
+    $pdo->prepare('UPDATE vt_requests SET status = :s, csm_note = :n, decided_by = :d, decided_at = CURRENT_TIMESTAMP WHERE id = :id')
+        ->execute([':s' => $status, ':n' => mb_substr($note, 0, 1000), ':d' => (int) $u['id'], ':id' => $reqId]);
+
+    // Tell the client who requested it.
+    $vt = $pdo->prepare('SELECT first_name, last_name, email FROM users WHERE id = :id');
+    $vt->execute([':id' => (int) $req['vt_user_id']]);
+    $vtr = $vt->fetch() ?: [];
+    $vtName = trim(($vtr['first_name'] ?? '') . ' ' . ($vtr['last_name'] ?? '')) ?: ($vtr['email'] ?? 'the teammate');
+    $verb   = $status === 'approved' ? 'approved' : 'declined';
+    notify(
+        (int) $req['requested_by'],
+        'vt_request',
+        'Your VT request was ' . $verb,
+        'Your request for ' . $vtName . ' was ' . $verb . '.' . ($note !== '' ? ' Note: ' . $note : ''),
+        'index.php?p=request-vt'
+    );
+    flash('success', 'Request ' . $verb . '. The client has been notified.');
+    redirect($back);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * SPECIAL LINKS — CSM-generated, expiring, no-login links that open a single
+ * VT profile (mirrors the staging WP [special_link_generator]). Tokens are
+ * validated by the public vt-link.php viewer.
+ * ═════════════════════════════════════════════════════════════════════════ */
+function special_links_ensure(PDO $pdo): void
+{
+    static $done = false;
+    if ($done) { return; }
+    $done = true;
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS vt_special_links (
+            token       TEXT    PRIMARY KEY,
+            vt_user_id  INTEGER NOT NULL,
+            created_by  INTEGER NOT NULL,
+            created_at  TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            expires_at  INTEGER NOT NULL,
+            revoked     INTEGER NOT NULL DEFAULT 0
+        )"
+    );
+}
+
+function handle_special_links(): void
+{
+    $u    = require_login();
+    $role = $u['role'] ?? '';
+    if ($role !== 'csm' && $role !== 'super_admin') {
+        render('error', ['title' => 'Forbidden', 'message' => 'Special Links is a CSM tool.']);
+        return;
+    }
+    $pdo = db();
+    special_links_ensure($pdo);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
+        $action = (string) ($_POST['action'] ?? '');
+        if ($action === 'generate') {
+            $vtId  = (int) ($_POST['vt_id'] ?? 0);
+            $hours = (int) ($_POST['hours'] ?? 72);
+            if (!in_array($hours, [24, 72, 168, 720], true)) { $hours = 72; }
+            $chk = $pdo->prepare("SELECT 1 FROM users WHERE id = :id AND role = 'vt_onpool' AND active = 1");
+            $chk->execute([':id' => $vtId]);
+            if (!$chk->fetchColumn()) {
+                flash('error', 'Pick an available teammate to generate a link.');
+                redirect(portal_url('special-links'));
+            }
+            $token = bin2hex(random_bytes(16));
+            $pdo->prepare('INSERT INTO vt_special_links (token, vt_user_id, created_by, expires_at) VALUES (:t,:v,:b,:e)')
+                ->execute([':t' => $token, ':v' => $vtId, ':b' => (int) $u['id'], ':e' => time() + $hours * 3600]);
+            flash('success', 'Special link generated — copy it below. It expires in ' . ($hours >= 168 ? ($hours / 168) . ' week(s)' : ($hours >= 24 ? ($hours / 24) . ' day(s)' : $hours . 'h')) . '.');
+            redirect(portal_url('special-links'));
+        }
+        if ($action === 'revoke') {
+            $token = (string) ($_POST['token'] ?? '');
+            $sql   = 'UPDATE vt_special_links SET revoked = 1 WHERE token = :t';
+            $params = [':t' => $token];
+            if ($role !== 'super_admin') { $sql .= ' AND created_by = :b'; $params[':b'] = (int) $u['id']; }
+            $pdo->prepare($sql)->execute($params);
+            flash('success', 'Link revoked.');
+            redirect(portal_url('special-links'));
+        }
+        redirect(portal_url('special-links'));
+    }
+
+    // Available pool VTs for the picker.
+    $pool = $pdo->query(
+        "SELECT u.id, u.first_name, u.last_name, u.photo_url, p.role_title, p.department
+         FROM users u JOIN vt_profiles p ON p.user_id = u.id
+         WHERE u.role = 'vt_onpool' AND u.active = 1
+         ORDER BY u.first_name, u.last_name"
+    )->fetchAll();
+
+    // This CSM's links (admins see all), newest first.
+    $sql = "SELECT l.*, u.first_name, u.last_name, p.role_title
+            FROM vt_special_links l
+            JOIN users u ON u.id = l.vt_user_id
+            LEFT JOIN vt_profiles p ON p.user_id = l.vt_user_id";
+    $params = [];
+    if ($role !== 'super_admin') { $sql .= ' WHERE l.created_by = :b'; $params[':b'] = (int) $u['id']; }
+    $sql .= ' ORDER BY l.created_at DESC LIMIT 100';
+    $st = $pdo->prepare($sql);
+    $st->execute($params);
+
+    render('special-links', [
+        'user'     => $u,
+        'pool'     => $pool,
+        'links'    => $st->fetchAll(),
+        'base_url' => site_url('vt-link.php'),
+        'now'      => time(),
+    ]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

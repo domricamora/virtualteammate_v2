@@ -14,26 +14,42 @@ $id   = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $kind = preg_replace('#[^a-z]#', '', strtolower((string) ($_GET['k'] ?? '')));
 if ($id < 1 || !in_array($kind, ['resume', 'video'], true)) { http_response_code(400); exit; }
 
-// Require a logged-in portal session (any active user).
-if (!empty($_COOKIE['vtportal'])) {
-    @ini_set('session.use_strict_mode', '1');
-    @ini_set('session.cookie_httponly', '1');
-    @ini_set('session.use_only_cookies', '1');
-    @ini_set('session.cookie_samesite', 'Lax');
-    if (session_status() === PHP_SESSION_NONE) { session_name('vtportal'); @session_start(); }
-}
-$uid = (int) ($_SESSION['uid'] ?? 0);
-if ($uid < 1) { http_response_code(403); exit; }
-
 $dbPath = __DIR__ . '/data/portal.sqlite';
 if (!is_file($dbPath)) { http_response_code(404); exit; }
-try {
-    $pdo = new PDO('sqlite:' . $dbPath);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $chk = $pdo->prepare('SELECT 1 FROM users WHERE id = :u AND active = 1');
-    $chk->execute([':u' => $uid]);
-    if (!$chk->fetchColumn()) { http_response_code(403); exit; }
-} catch (Throwable $_) { http_response_code(500); exit; }
+
+// Access is granted by EITHER a valid CSM "special link" token for this VT, OR
+// a logged-in portal session (any active user). The token path needs no login.
+$token   = isset($_GET['t']) ? trim((string) $_GET['t']) : '';
+$tokenOk = false;
+if ($token !== '' && preg_match('/^[a-f0-9]{16,64}$/i', $token)) {
+    try {
+        $tp = new PDO('sqlite:' . $dbPath);
+        $tp->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $ts = $tp->prepare('SELECT 1 FROM vt_special_links WHERE token = :t AND vt_user_id = :v AND revoked = 0 AND expires_at > :now LIMIT 1');
+        $ts->execute([':t' => $token, ':v' => $id, ':now' => time()]);
+        $tokenOk = (bool) $ts->fetchColumn();
+    } catch (Throwable $_) { $tokenOk = false; }
+}
+
+if (!$tokenOk) {
+    // Require a logged-in portal session (any active user).
+    if (!empty($_COOKIE['vtportal'])) {
+        @ini_set('session.use_strict_mode', '1');
+        @ini_set('session.cookie_httponly', '1');
+        @ini_set('session.use_only_cookies', '1');
+        @ini_set('session.cookie_samesite', 'Lax');
+        if (session_status() === PHP_SESSION_NONE) { session_name('vtportal'); @session_start(); }
+    }
+    $uid = (int) ($_SESSION['uid'] ?? 0);
+    if ($uid < 1) { http_response_code(403); exit; }
+    try {
+        $pdo = new PDO('sqlite:' . $dbPath);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $chk = $pdo->prepare('SELECT 1 FROM users WHERE id = :u AND active = 1');
+        $chk->execute([':u' => $uid]);
+        if (!$chk->fetchColumn()) { http_response_code(403); exit; }
+    } catch (Throwable $_) { http_response_code(500); exit; }
+}
 
 $base = realpath(__DIR__ . '/data/media');
 if ($base === false) { http_response_code(404); exit; }

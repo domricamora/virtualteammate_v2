@@ -35,6 +35,7 @@ TOP_FILES=(
   "favicon.ico"
   "talent-photo.php"
   "talent-media.php"
+  "vt-link.php"
   "track.php"
   "lead.php"
 )

@@ -144,6 +144,42 @@ function e(?string $s): string
     return htmlspecialchars((string) $s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+/**
+ * Idempotently create the vt_requests table (client → "request an additional
+ * VT" workflow) and migrate older copies to add the per-side soft-delete
+ * columns. Lives here (not the router) so both the portal handlers AND the
+ * public talent directory's request endpoint can ensure the schema.
+ */
+function vt_requests_ensure(PDO $pdo): void
+{
+    static $done = false;
+    if ($done) { return; }
+    $done = true;
+    $pdo->exec(
+        "CREATE TABLE IF NOT EXISTS vt_requests (
+            id             INTEGER PRIMARY KEY AUTOINCREMENT,
+            client_id      INTEGER NOT NULL,
+            vt_user_id     INTEGER NOT NULL,
+            requested_by   INTEGER NOT NULL,
+            status         TEXT    NOT NULL DEFAULT 'pending',
+            csm_note       TEXT    NOT NULL DEFAULT '',
+            decided_by     INTEGER NOT NULL DEFAULT 0,
+            client_deleted INTEGER NOT NULL DEFAULT 0,
+            csm_deleted    INTEGER NOT NULL DEFAULT 0,
+            created_at     TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            decided_at     TEXT
+        )"
+    );
+    $pdo->exec("CREATE INDEX IF NOT EXISTS idx_vt_requests_client ON vt_requests(client_id, status)");
+
+    // Migrate older tables: per-side soft-delete columns so a client and a CSM
+    // can each remove a request from their own view independently.
+    $cols = [];
+    foreach ($pdo->query("PRAGMA table_info(vt_requests)") as $r) { $cols[$r['name']] = true; }
+    if (!isset($cols['client_deleted'])) { $pdo->exec("ALTER TABLE vt_requests ADD COLUMN client_deleted INTEGER NOT NULL DEFAULT 0"); }
+    if (!isset($cols['csm_deleted']))    { $pdo->exec("ALTER TABLE vt_requests ADD COLUMN csm_deleted INTEGER NOT NULL DEFAULT 0"); }
+}
+
 /** Build a portal URL: `index.php?p=action&...`. Relative — works at any depth. */
 function portal_url(string $page, array $params = []): string
 {

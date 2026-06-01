@@ -221,12 +221,16 @@ select option:checked{background-color:#3919BA;color:#fff;}
 
 .portal-main{display:flex;flex-direction:column;min-width:0;}
 .portal-top{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:18px 30px;border-bottom:1px solid var(--line);
   background:var(--bg-1);
   backdrop-filter:var(--glass-blur);
   -webkit-backdrop-filter:var(--glass-blur);
 }
+.portal-top-logo{flex:0 0 auto;display:inline-flex;align-items:center;padding:4px 2px;transition:transform .3s ease, opacity .3s ease;}
+.portal-top-logo:hover{transform:translateY(-1px);opacity:.92;}
+.portal-top-logo img{height:32px;width:auto;display:block;filter:brightness(0) invert(1);-webkit-filter:brightness(0) invert(1);}
+.portal-top-l{flex:1;min-width:0;}
 .portal-top-h{font-size:22px;font-weight:800;letter-spacing:-0.01em;}
 .portal-top-sub{font-size:13px;color:var(--text-mute);margin-top:2px;}
 .portal-top-r{display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-mute);}
@@ -257,9 +261,10 @@ select option:checked{background-color:#3919BA;color:#fff;}
 
 /* Hamburger toggle — hidden on desktop, shown on mobile (see media query). */
 .portal-hamburger{display:none;background:rgba(255,255,255,.05);border:1px solid var(--line);
-  color:var(--text);width:40px;height:40px;border-radius:9px;cursor:pointer;font-size:17px;
-  align-items:center;justify-content:center;}
+  color:var(--text);min-width:40px;height:40px;border-radius:9px;cursor:pointer;font-size:17px;
+  align-items:center;justify-content:center;gap:9px;padding:0 12px;}
 .portal-hamburger:hover{border-color:var(--gold);color:var(--gold-lt);}
+.portal-ham-label{display:none;font-size:14px;font-weight:700;}
 
 /* ── Top-nav layout (clients / CSMs / VTs): horizontal bar across the top ── */
 .nav-top .portal-shell{display:flex;flex-direction:column;}
@@ -636,8 +641,10 @@ select option:checked{background-color:#3919BA;color:#fff;}
     border-right:none;border-bottom:1px solid var(--line);padding:12px 16px;background:var(--side);
   }
   .portal-top{position:static;}
-  .portal-brand, .nav-top .portal-brand{border-bottom:none;margin:0;padding:4px 0;}
-  .portal-hamburger{display:inline-flex;position:absolute;top:12px;right:14px;}
+  /* Brand was removed from the bar; the hamburger is now a full-width menu
+     button so the sticky bar keeps its height and reads as a real toolbar. */
+  .portal-hamburger{display:inline-flex;position:static;width:100%;justify-content:flex-start;}
+  .portal-ham-label{display:inline;}
 
   /* Hidden by default; revealed when the shell has .nav-open */
   .portal-nav, .nav-top .portal-nav,
@@ -650,9 +657,18 @@ select option:checked{background-color:#3919BA;color:#fff;}
   .portal-nav-link span:first-of-type,.nav-top .portal-nav-link span:first-of-type{flex:1;}
   .portal-nav-badge,.nav-top .portal-nav-badge{margin-left:auto;}
 
-  .portal-top{padding:14px 18px;}
-  .portal-content{padding:18px 18px 50px;}
-  .portal-flashes{padding:14px 18px 0;}
+  /* Top bar: logo + account chrome on the first line, page title wraps below. */
+  .portal-top{padding:12px 16px;flex-wrap:wrap;gap:10px 12px;}
+  .portal-top-logo{order:1;}
+  .portal-top-logo img{height:26px;}
+  .portal-top-r{order:2;margin-left:auto;gap:10px;}
+  .portal-top-l{order:3;flex:1 1 100%;}
+  .portal-top-h{font-size:19px;}
+  .portal-me{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .portal-content{padding:18px 16px 50px;}
+  .portal-flashes{padding:14px 16px 0;}
+  /* Wide tables scroll horizontally instead of forcing the page wider. */
+  .portal-content .data-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
 }
 
 /* ───────── CLIENT DASHBOARD WIDGETS (cd-*) ───────── */

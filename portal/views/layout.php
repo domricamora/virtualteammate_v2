@@ -20,53 +20,62 @@ $nav = [];
 $nav[] = ['p' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'fa-house'];
 
 if ($role === 'super_admin') {
-    $nav[] = ['p' => 'users',       'label' => 'Users',        'icon' => 'fa-users'];
-    $nav[] = ['p' => 'clients',     'label' => 'Clients',      'icon' => 'fa-building'];
-    $nav[] = ['p' => 'csms',        'label' => 'CSMs',         'icon' => 'fa-user-tie'];
-    $nav[] = ['p' => 'vts',         'label' => 'VT Profiles',  'icon' => 'fa-user-doctor'];
-    $nav[] = ['p' => 'tasks',       'label' => 'Task Management', 'icon' => 'fa-list-check'];
-    $nav[] = ['p' => 'relationships', 'label' => 'Relationships', 'icon' => 'fa-share-nodes'];
-    $nav[] = ['p' => 'meetings',    'label' => 'Meetings',     'icon' => 'fa-calendar-check'];
-    $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',  'icon' => 'fa-file-pen'];
-    $nav[] = ['p' => 'messages',    'label' => 'Messages',     'icon' => 'fa-comments'];
-    $nav[] = ['p' => 'email',       'label' => 'Email',        'icon' => 'fa-paper-plane'];
-    $nav[] = ['p' => 'leads',       'label' => 'Leads',        'icon' => 'fa-bullseye'];
-    $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync', 'icon' => 'fa-cloud-arrow-down'];
-    $nav[] = ['p' => 'traffic',     'label' => 'Traffic',      'icon' => 'fa-chart-line'];
-    $nav[] = ['p' => 'notifications','label' => 'Notifications','icon' => 'fa-bell'];
-    $nav[] = ['p' => 'audit',       'label' => 'Audit Log',    'icon' => 'fa-list-check'];
+    // Lead-gen + people first, then operations, then comms, then system tools.
+    $nav[] = ['p' => 'leads',       'label' => 'Leads',         'icon' => 'fa-bullseye'];
+    $nav[] = ['p' => 'clients',     'label' => 'Clients',       'icon' => 'fa-building'];
+    $nav[] = ['p' => 'csms',        'label' => 'CSMs',          'icon' => 'fa-user-tie'];
+    $nav[] = ['p' => 'vts',         'label' => 'VT Profiles',   'icon' => 'fa-user-doctor'];
+    $nav[] = ['p' => 'users',       'label' => 'Users',         'icon' => 'fa-users'];
+    $nav[] = ['p' => 'tasks',       'label' => 'Task Management','icon' => 'fa-list-check'];
+    $nav[] = ['p' => 'relationships','label' => 'Relationships', 'icon' => 'fa-share-nodes'];
+    $nav[] = ['p' => 'meetings',    'label' => 'Meetings',      'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'eod',         'label' => 'EOD Reports',   'icon' => 'fa-file-pen'];
+    $nav[] = ['p' => 'messages',    'label' => 'Messages',      'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'notifications','label' => 'Notifications', 'icon' => 'fa-bell'];
+    $nav[] = ['p' => 'email',        'label' => 'Email',        'icon' => 'fa-paper-plane'];
+    $nav[] = ['p' => 'hubspot',     'label' => 'HubSpot Sync',  'icon' => 'fa-cloud-arrow-down'];
+    $nav[] = ['p' => 'traffic',     'label' => 'Traffic',       'icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'audit',       'label' => 'Audit Log',     'icon' => 'fa-clock-rotate-left'];
 } elseif ($role === 'client') {
+    // Daily-use first (team, comms, the work), then periodic, then occasional
+    // account actions (grow the team, billing), then help + alerts.
     $nav[] = ['p' => 'my-vts',        'label' => 'My VTs',              'icon' => 'fa-user-doctor'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
     $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
-    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'request-vt',    'label' => 'Request a VT',        'icon' => 'fa-user-plus'];
+    $nav[] = ['p' => 'invoices',      'label' => 'My Invoices',         'icon' => 'fa-file-invoice-dollar'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'csm') {
+    // Book of business first (clients + their VTs in one place), then the work.
+    $nav[] = ['p' => 'my-clients',    'label' => 'My Clients & VTs',    'icon' => 'fa-building-user'];
     $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
     $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
-    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'special-links', 'label' => 'Special Links',       'icon' => 'fa-link'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
-} elseif ($role === 'vt_hired' || $role === 'vt_onpool') {
-    if ($role === 'vt_hired') {
-        $nav[] = ['p' => 'tasks',         'label' => 'My Assignments',      'icon' => 'fa-list-check'];
-        $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
-        $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
-    } else {
-        $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
-    }
-    if ($role === 'vt_hired') {
-        $nav[] = ['p' => 'meetings',  'label' => 'My Meetings',     'icon' => 'fa-calendar-check'];
-    }
-    $nav[] = ['p' => 'resources',     'label' => 'Resources',       'icon' => 'fa-book-open'];
-    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',   'icon' => 'fa-bell'];
+} elseif ($role === 'vt_hired') {
+    $nav[] = ['p' => 'tasks',         'label' => 'My Assignments',      'icon' => 'fa-list-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'meetings',      'label' => 'My Meetings',         'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
+} elseif ($role === 'vt_onpool') {
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 }
 $nav[] = ['p' => 'profile',     'label' => 'My Profile',   'icon' => 'fa-id-card'];
-// Public talent directory (marketing site) — opens in a new tab.
-$nav[] = ['p' => 'virtual-teammates', 'label' => 'Virtual Teammates', 'icon' => 'fa-user-group', 'url' => site_url('virtual-teammates/'), 'external' => true];
+// Public talent directory (marketing site) — opens in a new tab. Hidden for
+// clients and CSMs (internal users don't need the public lead-gen funnel).
+if ($role !== 'client' && $role !== 'csm') {
+    $nav[] = ['p' => 'virtual-teammates', 'label' => 'Virtual Teammates', 'icon' => 'fa-user-group', 'url' => site_url('virtual-teammates/'), 'external' => true];
+}
 
 $pageTitle = $title ?? 'Virtual Teammate Portal';
 
@@ -115,12 +124,8 @@ if ($me && $role === 'super_admin') {
 <div class="portal-shell" id="portalShell">
 
   <aside class="portal-side">
-    <a class="portal-brand" href="<?= e(site_url()) ?>">
-      <span class="portal-brand-mark">VT</span>
-      <span class="portal-brand-text">Virtual Teammate<br><em>Portal</em></span>
-    </a>
     <button class="portal-hamburger" id="portalHamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="portalShell">
-      <i class="fa-solid fa-bars"></i>
+      <i class="fa-solid fa-bars"></i><span class="portal-ham-label">Menu</span>
     </button>
 
     <nav class="portal-nav" aria-label="Portal">
@@ -138,13 +143,18 @@ if ($me && $role === 'super_admin') {
     </nav>
 
     <div class="portal-side-foot">
-      <a href="<?= e(site_url()) ?>" class="portal-side-link"><i class="fa-solid fa-arrow-left"></i> Marketing site</a>
+      <?php if ($role !== 'client'): ?>
+        <a href="<?= e(site_url()) ?>" class="portal-side-link"><i class="fa-solid fa-arrow-left"></i> Marketing site</a>
+      <?php endif; ?>
       <a href="<?= e(portal_url('logout')) ?>" class="portal-side-link"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>
     </div>
   </aside>
 
   <main class="portal-main">
     <header class="portal-top">
+      <a class="portal-top-logo" href="<?= e(site_url()) ?>" title="Virtual Teammate — visit our website">
+        <img src="<?= e(site_url('images/logo.webp')) ?>" alt="Virtual Teammate">
+      </a>
       <div class="portal-top-l">
         <h1 class="portal-top-h"><?= e($pageTitle) ?></h1>
         <?php if (!empty($subtitle)): ?>
