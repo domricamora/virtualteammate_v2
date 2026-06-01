@@ -2667,3 +2667,67 @@ button.is-loading{opacity:.85;cursor:progress;}
 @media (max-width:768px){
   .lead-band-card .cf-row{grid-template-columns:1fr;}
 }
+
+/* ───── VALUE ADDED — static "value multiplier" speedometer dial ───── */
+.vadd-head{max-width:780px;margin:0 auto 44px;text-align:center;}
+.vadd-head .sec-lbl{display:inline-flex;align-items:center;gap:8px;}
+.vadd-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:52px;align-items:center;
+  max-width:1040px;margin:0 auto;padding:42px;border-radius:28px;
+  background:var(--glass-bg);border:1px solid var(--glass-border);
+  backdrop-filter:var(--glass-blur);box-shadow:0 36px 80px -34px rgba(0,0,0,.6);
+}
+.vadd-dial{position:relative;display:flex;flex-direction:column;align-items:center;}
+.vadd-svg{width:100%;max-width:392px;height:auto;display:block;overflow:visible;}
+.vadd-track{fill:none;stroke:rgba(255,255,255,.10);stroke-width:16;stroke-linecap:round;}
+.vadd-fill{fill:none;stroke:url(#vaddGrad);stroke-width:16;stroke-linecap:round;
+  stroke-dasharray:402.12;stroke-dashoffset:185;filter:drop-shadow(0 2px 12px rgba(223,169,73,.40));}
+.vadd-tick{stroke:rgba(255,255,255,.30);stroke-width:2;}
+.vadd-ticklbl{fill:rgba(255,255,255,.55);font-size:12px;font-weight:700;font-family:inherit;}
+.vadd-needle{transform-box:view-box;transform-origin:160px 160px;transform:rotate(7.2deg);}
+.vadd-needle line{stroke:#fff;stroke-width:4;stroke-linecap:round;}
+.vadd-hub{fill:#1a1535;stroke:var(--gold);stroke-width:3;}
+.vadd-hub-dot{fill:var(--gold);}
+.vadd-readout{margin-top:-4px;text-align:center;}
+.vadd-mult{font-size:66px;font-weight:800;line-height:1;letter-spacing:-.02em;
+  background:linear-gradient(120deg,#dfa949,#f5e4b8 55%,#dfa949);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.vadd-mult span{font-size:38px;margin-left:2px;}
+.vadd-mult-lbl{margin-top:8px;font-size:13px;line-height:1.5;color:rgba(255,255,255,.62);}
+.vadd-compare{display:flex;flex-direction:column;gap:22px;}
+.vadd-rows{display:flex;flex-direction:column;gap:16px;}
+.vadd-row-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.vadd-row-name{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:rgba(255,255,255,.85);}
+.vadd-row-amt{font-size:15px;font-weight:800;color:#fff;}
+.vadd-row-amt small{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);margin-left:2px;}
+.vadd-dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:0 0 auto;}
+.vadd-dot.us{background:var(--violet);}
+.vadd-dot.vt{background:var(--gold);}
+.vadd-bar{height:12px;border-radius:30px;background:rgba(255,255,255,.07);overflow:hidden;}
+.vadd-bar-fill{display:block;height:100%;border-radius:30px;}
+.vadd-bar-fill.us{width:100%;background:linear-gradient(90deg,#3919ba,#8582c3);}
+.vadd-bar-fill.vt{width:27%;background:linear-gradient(90deg,#b8882e,#f5e4b8);}
+.vadd-added{padding:18px 20px;border-radius:18px;border:1px solid rgba(247,185,69,.32);
+  background:radial-gradient(120% 140% at 0% 0%, rgba(247,185,69,.13), rgba(247,185,69,.03));}
+.vadd-added-lbl{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--gold-lt);}
+.vadd-added-lbl i{margin-right:6px;}
+.vadd-added-val{font-size:42px;font-weight:800;color:#fff;line-height:1.05;margin:6px 0 4px;letter-spacing:-.02em;}
+.vadd-added-sub{font-size:13px;color:rgba(255,255,255,.72);line-height:1.5;}
+.vadd-added-sub strong{color:var(--gold-lt);}
+.vadd-foot{font-size:12px;color:rgba(255,255,255,.45);line-height:1.55;margin:0;}
+.vadd-foot a{color:var(--gold-lt);text-decoration:none;border-bottom:1px solid rgba(245,228,184,.4);white-space:nowrap;}
+
+/* Entrance — plays once when the panel scrolls into view (.in added by the reveal observer). */
+@keyframes vaddDraw{from{stroke-dashoffset:402.12;}to{stroke-dashoffset:185;}}
+@keyframes vaddSweep{from{transform:rotate(-90deg);}to{transform:rotate(7.2deg);}}
+@keyframes vaddBar{from{width:0;}}
+.vadd-grid.in .vadd-fill{animation:vaddDraw 1.7s cubic-bezier(.2,.8,.2,1) both;}
+.vadd-grid.in .vadd-needle{animation:vaddSweep 1.7s cubic-bezier(.34,1.08,.4,1) both;}
+.vadd-grid.in .vadd-bar-fill{animation:vaddBar 1.2s cubic-bezier(.2,.8,.2,1) .3s both;}
+@media (prefers-reduced-motion:reduce){
+  .vadd-grid.in .vadd-fill,.vadd-grid.in .vadd-needle,.vadd-grid.in .vadd-bar-fill{animation:none;}
+}
+@media (max-width:880px){
+  .vadd-grid{grid-template-columns:1fr;gap:32px;padding:30px;}
+  .vadd-svg{max-width:340px;margin:0 auto;}
+  .vadd-mult{font-size:56px;}
+}

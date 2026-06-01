@@ -229,6 +229,74 @@ $mq_srcs = array_values(array_map(static function ($p) {
   </div>
 </section>
 
+<!-- VALUE ADDED — static "value multiplier" speedometer dial (visual concept) -->
+<section class="sec vadd" id="value-added" aria-labelledby="vadd-h">
+  <div class="vadd-head reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-gauge-high"></i> Value Added</div>
+    <h2 class="sec-h2" id="vadd-h">Every Dollar Does the Work of <em>Nearly Four</em></h2>
+    <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
+  </div>
+
+  <div class="vadd-grid reveal">
+    <!-- Speedometer dial -->
+    <div class="vadd-dial">
+      <svg class="vadd-svg" viewBox="0 0 320 200" role="img" aria-label="Value multiplier: 3.7 times the cost of a local hire">
+        <defs>
+          <linearGradient id="vaddGrad" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%" stop-color="#3919ba"/>
+            <stop offset="55%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#dfa949"/>
+          </linearGradient>
+          <filter id="vaddGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="3.2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <path class="vadd-track" d="M 32 160 A 128 128 0 0 1 288 160"/>
+        <path class="vadd-fill"  d="M 32 160 A 128 128 0 0 1 288 160"/>
+        <?php for ($m = 1; $m <= 6; $m++):
+          $p  = ($m - 1) / 5; $th = deg2rad(180 - $p * 180);
+          $ox = 160 + 128 * cos($th); $oy = 160 - 128 * sin($th);
+          $ix = 160 + 112 * cos($th); $iy = 160 - 112 * sin($th);
+          $lx = 160 +  96 * cos($th); $ly = 160 -  96 * sin($th) + 4;
+        ?>
+          <line class="vadd-tick" x1="<?= round($ox, 1) ?>" y1="<?= round($oy, 1) ?>" x2="<?= round($ix, 1) ?>" y2="<?= round($iy, 1) ?>"/>
+          <text class="vadd-ticklbl" x="<?= round($lx, 1) ?>" y="<?= round($ly, 1) ?>" text-anchor="middle"><?= $m ?>&#215;</text>
+        <?php endfor; ?>
+        <g class="vadd-needle" filter="url(#vaddGlow)"><line x1="160" y1="160" x2="160" y2="54"/></g>
+        <circle class="vadd-hub" cx="160" cy="160" r="10"/>
+        <circle class="vadd-hub-dot" cx="160" cy="160" r="4"/>
+      </svg>
+      <div class="vadd-readout">
+        <div class="vadd-mult">3.7<span>&#215;</span></div>
+        <div class="vadd-mult-lbl">value returned per $1 invested<br>vs. a local in-house hire</div>
+      </div>
+    </div>
+
+    <!-- Comparison + value added -->
+    <div class="vadd-compare">
+      <div class="vadd-rows">
+        <div class="vadd-row">
+          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot us"></span> Local in-house hire</span><span class="vadd-row-amt">$72,000<small>/yr</small></span></div>
+          <div class="vadd-bar"><span class="vadd-bar-fill us"></span></div>
+        </div>
+        <div class="vadd-row">
+          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot vt"></span> Virtual Teammate</span><span class="vadd-row-amt">$19,500<small>/yr</small></span></div>
+          <div class="vadd-bar"><span class="vadd-bar-fill vt"></span></div>
+        </div>
+      </div>
+
+      <div class="vadd-added">
+        <div class="vadd-added-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Value added back &middot; per teammate / year</div>
+        <div class="vadd-added-val">$52,500</div>
+        <div class="vadd-added-sub">About <strong>73% lower cost</strong> than hiring locally &mdash; reinvested into growth, not overhead.</div>
+      </div>
+
+      <p class="vadd-foot">Illustrative: a full-time specialist role at published VT rates vs. the median fully-loaded US in-house cost (salary + benefits + payroll burden). <a href="#calculator">Run your own numbers &uarr;</a></p>
+    </div>
+  </div>
+</section>
+
 <!-- (GLOBAL section moved below — see after the Differentiators block) -->
 
 <!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
