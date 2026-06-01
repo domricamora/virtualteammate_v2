@@ -46,7 +46,9 @@ $resolveWorkday = static function (array $v): string {
 <?php else: ?>
   <div class="codex-selected-va-list">
     <?php foreach ($vts as $v):
-      $vid        = (int) ($v['user_id'] ?? $v['id'] ?? 0);
+      // Client rows come from client_vts (cv.*) where the VT's user id is
+      // vt_user_id; CSM/admin rows come from vt_profiles (vp.*) as user_id.
+      $vid        = (int) ($v['user_id'] ?? $v['vt_user_id'] ?? $v['id'] ?? 0);
       $status     = $v['status'] ?? ($v['role'] ?? '');
       $isHired    = $status === 'hired' || $status === 'vt_hired';
       $role       = trim((string) ($v['role_title'] ?? ''));

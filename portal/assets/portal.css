@@ -858,6 +858,10 @@ select option:checked{background-color:#3919BA;color:#fff;}
 .roiX__panel--actual .roiX__gCenter{z-index:2;}
 .roiX__panel--actual .roiX__gVal{font-size:36px;}
 .roiX__panel--actual .roiX__gLbl{font-size:11px;}
+/* Scale up the meta text beside/under the gauge to match the bigger graphic. */
+.roiX__panel--actual .roiX__gMeta{min-width:0;}
+.roiX__panel--actual .roiX__gMetaTitle{font-size:19px;}
+.roiX__panel--actual .roiX__gMetaSub{font-size:14px;margin-top:7px;line-height:1.5;}
 /* Circular backdrop hugging the ring (~15px past it) — the glow lives on this disk. */
 .roiX__panel--actual .roiX__gauge::before{
   content:'';position:absolute;inset:12px;z-index:0;border-radius:50%;pointer-events:none;
