@@ -2731,3 +2731,28 @@ button.is-loading{opacity:.85;cursor:progress;}
   .vadd-svg{max-width:340px;margin:0 auto;}
   .vadd-mult{font-size:56px;}
 }
+
+/* ───── ROI calculator — simplified UI ───── */
+.calc-adjust-hint{display:inline-flex;align-items:center;gap:8px;margin-bottom:16px;
+  font-size:12.5px;font-weight:700;color:var(--gold-lt);
+  background:rgba(247,185,69,.10);border:1px solid rgba(247,185,69,.28);
+  padding:7px 14px;border-radius:30px;}
+.calc-adjust-hint i{font-size:13px;color:var(--gold);}
+.calc-adjust-hint strong{color:#fff;font-weight:800;}
+/* Expandable "full breakdown" (3-yr value, per-teammate, payback) */
+.calc-more{margin-top:16px;border-top:1px solid var(--glass-border);}
+.calc-more > summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;padding:13px 2px 11px;font-size:13.5px;font-weight:800;color:#fff;}
+.calc-more > summary::-webkit-details-marker{display:none;}
+.calc-more > summary span i{color:var(--gold);margin-right:7px;}
+.calc-more-chev{color:var(--gold);font-size:12px;transition:transform .25s ease;}
+.calc-more[open] .calc-more-chev{transform:rotate(180deg);}
+.calc-more .calc-kpis{margin-top:4px;}
+/* Single published rate */
+.calc-rate-single{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;padding:4px 0 2px;}
+.calc-rate-amt{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;line-height:1;}
+.calc-rate-amt span{font-size:15px;font-weight:700;color:var(--gold-lt);margin-left:2px;}
+.calc-rate-sub{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.62);}
+@media (max-width:980px){
+  .calc-adjust-hint .fa-arrow-left-long{display:none;}
+}

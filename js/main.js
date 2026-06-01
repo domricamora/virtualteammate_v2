@@ -244,18 +244,15 @@
     newsTrack.appendChild(buildMarqueeFragment(press, makePressItem));
   }
 
-  /* ROI Calculator — matches live staging plugin BIWEEK rates */
-  var BIWEEK = {
-    pro:        { vt: { ft: 750,  pt: 400 }, us: { ft: 1800, pt: 960  } },
-    specialist: { vt: { ft: 1000, pt: 600 }, us: { ft: 2475, pt: 1320 } }
-  };
+  /* ROI Calculator — single flat rate (biweekly amounts, x26 = annual).
+     VT full-time = $1,625/mo ($750 x 26 / 12); US = median fully-loaded
+     in-house cost (~$72k/yr full-time). One rate, no Pro/Specialist tier. */
+  var RATE = { vt: { ft: 750, pt: 450 }, us: { ft: 2770, pt: 1540 } };
 
-  var state = { tier: 'pro', sched: 'ft', count: 2 };
+  var state = { sched: 'ft', count: 2 };
 
-  var roleSel    = document.getElementById('calcRole');
   var countEl    = document.getElementById('calcCount');
   var countValEl = document.getElementById('calcCountVal');
-  var tierBtns   = document.querySelectorAll('.calc-seg [data-tier]');
   var schedBtns  = document.querySelectorAll('.calc-seg [data-sched]');
 
   var $annual  = document.getElementById('calcAnnual');
@@ -345,9 +342,8 @@
 
   function recalc(){
     if (!$annual) return; // calculator not present on this page
-    var t = BIWEEK[state.tier] || BIWEEK.pro;
-    var vtBi = (t.vt[state.sched] || 0) * state.count;
-    var usBi = (t.us[state.sched] || 0) * state.count;
+    var vtBi = (RATE.vt[state.sched] || 0) * state.count;
+    var usBi = (RATE.us[state.sched] || 0) * state.count;
     var saveBi = usBi - vtBi;
 
     var vtAnnual = vtBi * 26;
@@ -377,21 +373,6 @@
     if ($ctaAmt) $ctaAmt.textContent = fmt(annualSave) + ' / yr';
   }
 
-  if (roleSel){
-    roleSel.addEventListener('change', function(){
-      var opt = roleSel.options[roleSel.selectedIndex];
-      var t = opt && opt.dataset.tier;
-      if (t){ state.tier = t; setActiveBtn(tierBtns, t, 'data-tier'); }
-      scheduleRecalc();
-    });
-  }
-  tierBtns.forEach(function(b){
-    b.addEventListener('click', function(){
-      state.tier = b.getAttribute('data-tier');
-      setActiveBtn(tierBtns, state.tier, 'data-tier');
-      scheduleRecalc();
-    });
-  });
   schedBtns.forEach(function(b){
     b.addEventListener('click', function(){
       state.sched = b.getAttribute('data-sched');
@@ -412,13 +393,6 @@
     var initFill = ((state.count - countEl.min) / (countEl.max - countEl.min)) * 100;
     countEl.style.background = 'linear-gradient(90deg, var(--gold) 0%, var(--gold) ' + initFill + '%, rgba(255,255,255,0.12) ' + initFill + '%)';
     if (countValEl) countValEl.textContent = state.count;
-  }
-  if (roleSel){
-    var opt0 = roleSel.options[roleSel.selectedIndex];
-    if (opt0 && opt0.dataset.tier){
-      state.tier = opt0.dataset.tier;
-      setActiveBtn(tierBtns, state.tier, 'data-tier');
-    }
   }
   recalc();
 })();

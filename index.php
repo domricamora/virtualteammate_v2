@@ -72,40 +72,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="calc reveal d1" id="roiCalc">
     <div class="calc-controls">
       <h3>Build Your Team</h3>
-      <p class="calc-cap">Pick a role, tier and schedule. Numbers update instantly.</p>
-
-      <div class="calc-field">
-        <label class="calc-label" for="calcRole">Role</label>
-        <select class="calc-select" id="calcRole" aria-label="Role">
-          <optgroup label="Medical">
-            <option value="med_admin"          data-tier="pro">Medical Admin</option>
-            <option value="med_receptionist"   data-tier="pro">Medical Receptionist</option>
-            <option value="med_scheduling"     data-tier="pro">Medical Scheduling Coordinator</option>
-            <option value="med_referral"       data-tier="pro">Healthcare Referral Coordinator</option>
-            <option value="med_insurance"      data-tier="specialist">Insurance Verification &amp; Pre-Cert</option>
-            <option value="med_biller"         data-tier="specialist" selected>Medical Biller</option>
-            <option value="med_scribe"         data-tier="specialist">Medical Scribe</option>
-            <option value="med_telemedicine"   data-tier="specialist">Telemedicine Services Assistant</option>
-          </optgroup>
-          <optgroup label="Dental">
-            <option value="dental_admin"        data-tier="pro">Dental Admin</option>
-            <option value="dental_recall"       data-tier="pro">Dental Patient Recall</option>
-            <option value="dental_referral"     data-tier="pro">Dental Referral Coordinator</option>
-            <option value="dental_biller"       data-tier="specialist">Dental Biller</option>
-            <option value="dental_scribe"       data-tier="specialist">Dental Scribe</option>
-            <option value="dental_billing_spec" data-tier="specialist">Dental Billing Specialist</option>
-            <option value="dental_insurance"    data-tier="specialist">Dental Insurance Coordinator</option>
-          </optgroup>
-        </select>
-      </div>
-
-      <div class="calc-field">
-        <label class="calc-label">Tier</label>
-        <div class="calc-seg" role="tablist" aria-label="Tier">
-          <button type="button" class="on" data-tier="pro">Pro</button>
-          <button type="button" data-tier="specialist">Specialist</button>
-        </div>
-      </div>
+      <p class="calc-cap">Choose a schedule and team size &mdash; your numbers update instantly.</p>
 
       <div class="calc-field">
         <label class="calc-label">Schedule</label>
@@ -138,6 +105,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
 
     <div class="calc-results">
+      <div class="calc-adjust-hint"><i class="fa-solid fa-arrow-left-long"></i> Adjust the <strong>team size</strong> &amp; <strong>schedule</strong> on the left</div>
       <div class="calc-results-top">
         <div class="calc-hero-num">
           <div class="calc-hero-lbl">Estimated Annual Savings</div>
@@ -179,36 +147,31 @@ $mq_srcs = array_values(array_map(static function ($p) {
         </div>
       </div>
 
-      <div class="calc-kpis">
-        <div class="calc-kpi">
-          <div class="calc-kpi-lbl"><i class="fa-solid fa-chart-line"></i> 3-Year Value</div>
-          <div class="calc-kpi-val" id="calc3yr">$0</div>
+      <details class="calc-more">
+        <summary class="calc-more-sum"><span><i class="fa-solid fa-circle-info"></i> See the full breakdown</span><i class="fa-solid fa-chevron-down calc-more-chev"></i></summary>
+        <div class="calc-kpis">
+          <div class="calc-kpi">
+            <div class="calc-kpi-lbl"><i class="fa-solid fa-chart-line"></i> 3-Year Value</div>
+            <div class="calc-kpi-val" id="calc3yr">$0</div>
+          </div>
+          <div class="calc-kpi">
+            <div class="calc-kpi-lbl"><i class="fa-solid fa-user-tie"></i> Per-Teammate / Year</div>
+            <div class="calc-kpi-val" id="calcPerVa">$0</div>
+          </div>
+          <div class="calc-kpi">
+            <div class="calc-kpi-lbl"><i class="fa-solid fa-bolt"></i> Payback Period</div>
+            <div class="calc-kpi-val" id="calcPayback">&lt; 1<span class="unit">mo</span></div>
+          </div>
         </div>
-        <div class="calc-kpi">
-          <div class="calc-kpi-lbl"><i class="fa-solid fa-user-tie"></i> Per-Teammate / Year</div>
-          <div class="calc-kpi-val" id="calcPerVa">$0</div>
-        </div>
-        <div class="calc-kpi">
-          <div class="calc-kpi-lbl"><i class="fa-solid fa-bolt"></i> Payback Period</div>
-          <div class="calc-kpi-val" id="calcPayback">&lt; 1<span class="unit">mo</span></div>
-        </div>
-      </div>
+      </details>
 
-      <div class="calc-rate-band" aria-label="Published VT rates">
-        <div class="calc-rate-h"><i class="fa-solid fa-tag"></i> Published VT Rates &mdash; No Quote Required</div>
-        <div class="calc-rate-row">
-          <div class="calc-rate-tier">
-            <div class="calc-rate-tier-name">Pro Tier</div>
-            <div class="calc-rate-tier-amt">$1,625<span>/mo</span></div>
-            <div class="calc-rate-tier-sub">Full-time &middot; from $867/mo part-time</div>
-          </div>
-          <div class="calc-rate-tier specialist">
-            <div class="calc-rate-tier-name">Specialist Tier</div>
-            <div class="calc-rate-tier-amt">$2,167<span>/mo</span></div>
-            <div class="calc-rate-tier-sub">Full-time &middot; from $1,300/mo part-time</div>
-          </div>
+      <div class="calc-rate-band" aria-label="Published VT rate">
+        <div class="calc-rate-h"><i class="fa-solid fa-tag"></i> Published Rate &mdash; No Quote Required</div>
+        <div class="calc-rate-single">
+          <div class="calc-rate-amt">$1,625<span>/mo</span></div>
+          <div class="calc-rate-sub">Full-time, flat rate &middot; from $975/mo part-time</div>
         </div>
-        <div class="calc-rate-foot">Flat rate, all-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
+        <div class="calc-rate-foot">All-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
 
       <form class="calc-reachout" id="calcReachout" method="post" action="<?= $home_base ?>lead.php"
