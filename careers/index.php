@@ -65,7 +65,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-house-laptop"></i> 100% Remote</div>
     <div class="hv-chip c2"><i class="fa-solid fa-graduation-cap"></i> Career Growth</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every-Day.png" alt="A virtual teammate working remotely from home on a fully remote VT career" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Your-Virtual-Assistant-Every-Day.webp" alt="A virtual teammate working remotely from home on a fully remote VT career" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -139,7 +139,7 @@ include __DIR__ . '/../includes/nav.php';
     <a href="<?= $home_base ?>about/" class="btn-glass">More About Virtual Teammate <i class="fa-solid fa-arrow-right"></i></a>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.png" alt="Virtual Teammate culture — building value together" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.webp" alt="Virtual Teammate culture — building value together" loading="lazy"/>
   </div>
 </section>
 

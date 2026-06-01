@@ -45,10 +45,10 @@ include 'includes/nav.php';
     <div class="hv-chip t2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
     <div class="hv-chip t3"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
     <div class="hv-card hv-main">
-      <img src="images/photos/hero-medical-va.png" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
+      <img src="images/photos/hero-medical-va.webp" alt="Medical virtual assistant in headset working on computer" loading="eager" fetchpriority="high"/>
     </div>
     <div class="hv-card hv-side">
-      <img src="images/photos/hero-dental-va.png" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
+      <img src="images/photos/hero-dental-va.webp" alt="Dental virtual assistant at reception desk working on computer" loading="eager"/>
     </div>
   </div>
 </header>
@@ -264,7 +264,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/Medical-Virtual-Assistant.png" alt="Medical virtual assistant working on a computer" loading="lazy"/>
+        <img src="images/photos/Medical-Virtual-Assistant.webp" alt="Medical virtual assistant working on a computer" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -296,7 +296,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/Dental-Virtual-Assistant.png" alt="Dental virtual assistant at reception desk on a computer" loading="lazy"/>
+        <img src="images/photos/Dental-Virtual-Assistant.webp" alt="Dental virtual assistant at reception desk on a computer" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
@@ -496,7 +496,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="case-q">Our RCM virtual teammate cleared nearly <strong>2.5&times;</strong> the monthly insurance-verification goal and more than doubled the payment-posting target &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
         <div class="case-logo" data-label="LifeQuest">
-          <img src="images/clients/lifequest.png" alt="LifeQuest Physical Medicine and Rehab" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+          <img src="images/clients/lifequest.webp" alt="LifeQuest Physical Medicine and Rehab" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
         </div>
         <div>
           <div class="case-name">LifeQuest</div>
@@ -518,7 +518,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>60% past target</strong> and claims volume <strong>47% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
       <div class="case-auth">
         <div class="case-logo" data-label="Elkhart Clinic">
-          <img src="images/clients/elkhart.png" alt="Elkhart Clinic" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+          <img src="images/clients/elkhart.webp" alt="Elkhart Clinic" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
         </div>
         <div>
           <div class="case-name">Elkhart Clinic</div>
@@ -540,7 +540,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="case-q">Payment posting landed <strong>48% above target</strong> with insurance verifications <strong>30% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
       <div class="case-auth">
         <div class="case-logo" data-label="Prostate Cancer Institute">
-          <img src="images/clients/prostate-cancer-institute-logo-full.png" alt="Prostate Cancer Institute of America" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+          <img src="images/clients/prostate-cancer-institute-logo-full.webp" alt="Prostate Cancer Institute of America" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
         </div>
         <div>
           <div class="case-name">Prostate Cancer Institute</div>
@@ -562,7 +562,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above the monthly target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
       <div class="case-auth">
         <div class="case-logo" data-label="Valley Endodontics &amp; Oral Surgery">
-          <img src="images/clients/valley-endodontics-oral-surgery.png" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo)" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
+          <img src="images/clients/valley-endodontics-oral-surgery.webp" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo)" loading="lazy" onerror="this.closest('.case-logo').classList.add('is-missing');this.remove();">
         </div>
         <div>
           <div class="case-name">North Valley Endo</div>

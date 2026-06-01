@@ -101,7 +101,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-arrows-rotate"></i> No-Cost Replace</div>
     <div class="hv-chip c2"><i class="fa-solid fa-rotate-left"></i> Full Money-Back</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.png" alt="Virtual Teammate 30-Day Right-Fit Promise — risk-free VA hiring" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Virtual Teammate 30-Day Right-Fit Promise — risk-free VA hiring" loading="lazy"/>
     </div>
   </div>
 </header>

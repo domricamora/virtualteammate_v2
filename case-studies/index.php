@@ -83,7 +83,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-chart-line"></i> Real KPI Data</div>
     <div class="hv-chip c2"><i class="fa-solid fa-hospital"></i> 4 Healthcare Clients</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.png" alt="Real KPI results from Virtual Teammate healthcare clients" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.webp" alt="Real KPI results from Virtual Teammate healthcare clients" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -109,7 +109,7 @@ include __DIR__ . '/../includes/nav.php';
     <!-- LifeQuest -->
     <article class="cs-card reveal d1">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/lifequest.png" alt="LifeQuest Physical Medicine and Rehab logo" loading="lazy"/>
+        <img class="cs-logo" src="<?= $home_base ?>images/clients/lifequest.webp" alt="LifeQuest Physical Medicine and Rehab logo" loading="lazy"/>
         <div class="cs-title">
           <h3>LifeQuest Physical Medicine &amp; Rehab</h3>
           <span class="cs-tag">PM&amp;R &middot; Pain Management</span>
@@ -133,7 +133,7 @@ include __DIR__ . '/../includes/nav.php';
     <!-- Elkhart Clinic -->
     <article class="cs-card reveal d2">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/elkhart.png" alt="Elkhart Clinic logo" loading="lazy"/>
+        <img class="cs-logo" src="<?= $home_base ?>images/clients/elkhart.webp" alt="Elkhart Clinic logo" loading="lazy"/>
         <div class="cs-title">
           <h3>Elkhart Clinic</h3>
           <span class="cs-tag">Multi-Specialty Medical Group</span>
@@ -157,7 +157,7 @@ include __DIR__ . '/../includes/nav.php';
     <!-- PCIA -->
     <article class="cs-card reveal d3">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/prostate-cancer-institute-logo-full.png" alt="Prostate Cancer Institute of America logo" loading="lazy"/>
+        <img class="cs-logo" src="<?= $home_base ?>images/clients/prostate-cancer-institute-logo-full.webp" alt="Prostate Cancer Institute of America logo" loading="lazy"/>
         <div class="cs-title">
           <h3>Prostate Cancer Institute of America</h3>
           <span class="cs-tag">Urology &middot; Oncology Specialty</span>
@@ -181,7 +181,7 @@ include __DIR__ . '/../includes/nav.php';
     <!-- North Valley Endo -->
     <article class="cs-card reveal d4">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/valley-endodontics-oral-surgery.png" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo) logo" loading="lazy"/>
+        <img class="cs-logo" src="<?= $home_base ?>images/clients/valley-endodontics-oral-surgery.webp" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo) logo" loading="lazy"/>
         <div class="cs-title">
           <h3>Valley Endodontics &amp; Oral Surgery</h3>
           <span class="cs-tag">Endodontics &middot; Oral Surgery</span>
@@ -259,7 +259,7 @@ include __DIR__ . '/../includes/nav.php';
     <p class="svc-p">No vanity metrics. No "hours worked." Just the numbers your business actually runs on.</p>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.png" alt="Monthly KPI scorecard tracking — Virtual Teammate measurable results" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Monthly KPI scorecard tracking — Virtual Teammate measurable results" loading="lazy"/>
   </div>
 </section>
 

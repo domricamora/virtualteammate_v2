@@ -195,25 +195,25 @@
      staging.virtualteammate.com into press/. Toned-down white silhouette
      by default, full color on hover (CSS-driven). */
   var press = [
-    { name:'Business Insider',   src:'images/press/business-insider.png',   href:'https://markets.businessinsider.com/news/stocks/virtual-teammate-celebrates-a-year-of-game-changing-growth-1034951486' },
-    { name:'Yahoo Finance',      src:'images/press/yahoo-finance.png',      href:'https://finance.yahoo.com/news/virtual-teammate-celebrates-game-changing-150000931.html' },
-    { name:'Star Tribune',       src:'images/press/star-tribune.png',       href:'https://markets.financialcontent.com/startribune/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'Miami Herald',       src:'images/press/miami-herald.png',       href:'https://www.miamiherald.com/press-releases/article311504009.html' },
-    { name:'Courier Post',       src:'images/press/courier-post.png',       href:'https://hannibal.marketminute.com/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'WRAL',               src:'images/press/wral.png',               href:'https://markets.financialcontent.com/wral/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'Kansas City Star',   src:'images/press/kansas-city-star.png',   href:'https://www.kansascity.com/press-releases/article311504009.html' },
-    { name:'Charlotte Observer', src:'images/press/charlotte-observer.png', href:'https://www.charlotteobserver.com/press-releases/article311504009.html' },
-    { name:'Boston Herald',      src:'images/press/boston-herald.png',      href:'https://markets.financialcontent.com/bostonherald/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'Sacramento Bee',     src:'images/press/sacramento-bee.png',     href:'https://www.sacbee.com/press-releases/article311504009.html' },
-    { name:'KDVR',               src:'images/press/kdvr.png',               href:'https://www.kdvr.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'PIX11',              src:'images/press/pix11.png',              href:'https://www.pix11.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' },
-    { name:'News & Observer',    src:'images/press/news-observer.png',      href:'https://www.newsobserver.com/press-releases/article311504009.html' },
-    { name:'WGN-TV',             src:'images/press/wgn-tv.png',             href:'https://wgntv.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
-    { name:'FOX 2 St. Louis',    src:'images/press/fox2-st-louis.png',      href:'https://fox2now.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
-    { name:'WAVY',               src:'images/press/wavy.png',               href:'https://www.wavy.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
-    { name:'KTLA',               src:'images/press/ktla.png',               href:'https://ktla.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
-    { name:'8 News Now',         src:'images/press/8-news-now.png',         href:'https://www.8newsnow.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
-    { name:'FOX 8 Cleveland',    src:'images/press/fox8-cleveland.png',     href:'https://www.fox8.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' }
+    { name:'Business Insider',   src:'images/press/business-insider.webp',   href:'https://markets.businessinsider.com/news/stocks/virtual-teammate-celebrates-a-year-of-game-changing-growth-1034951486' },
+    { name:'Yahoo Finance',      src:'images/press/yahoo-finance.webp',      href:'https://finance.yahoo.com/news/virtual-teammate-celebrates-game-changing-150000931.html' },
+    { name:'Star Tribune',       src:'images/press/star-tribune.webp',       href:'https://markets.financialcontent.com/startribune/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'Miami Herald',       src:'images/press/miami-herald.webp',       href:'https://www.miamiherald.com/press-releases/article311504009.html' },
+    { name:'Courier Post',       src:'images/press/courier-post.webp',       href:'https://hannibal.marketminute.com/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'WRAL',               src:'images/press/wral.webp',               href:'https://markets.financialcontent.com/wral/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'Kansas City Star',   src:'images/press/kansas-city-star.webp',   href:'https://www.kansascity.com/press-releases/article311504009.html' },
+    { name:'Charlotte Observer', src:'images/press/charlotte-observer.webp', href:'https://www.charlotteobserver.com/press-releases/article311504009.html' },
+    { name:'Boston Herald',      src:'images/press/boston-herald.webp',      href:'https://markets.financialcontent.com/bostonherald/article/accwirecq-2025-7-29-virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'Sacramento Bee',     src:'images/press/sacramento-bee.webp',     href:'https://www.sacbee.com/press-releases/article311504009.html' },
+    { name:'KDVR',               src:'images/press/kdvr.webp',               href:'https://www.kdvr.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'PIX11',              src:'images/press/pix11.webp',              href:'https://www.pix11.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' },
+    { name:'News & Observer',    src:'images/press/news-observer.webp',      href:'https://www.newsobserver.com/press-releases/article311504009.html' },
+    { name:'WGN-TV',             src:'images/press/wgn-tv.webp',             href:'https://wgntv.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
+    { name:'FOX 2 St. Louis',    src:'images/press/fox2-st-louis.webp',      href:'https://fox2now.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
+    { name:'WAVY',               src:'images/press/wavy.webp',               href:'https://www.wavy.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
+    { name:'KTLA',               src:'images/press/ktla.webp',               href:'https://ktla.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
+    { name:'8 News Now',         src:'images/press/8-news-now.webp',         href:'https://www.8newsnow.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth/' },
+    { name:'FOX 8 Cleveland',    src:'images/press/fox8-cleveland.webp',     href:'https://www.fox8.com/business/press-releases/accesswire/1052573/virtual-teammate-celebrates-a-year-of-game-changing-growth' }
   ];
   var newsTrack = document.getElementById('newsTrack');
   if (newsTrack){

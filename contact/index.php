@@ -124,7 +124,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-location-dot"></i> Phoenix, AZ HQ</div>
     <div class="hv-chip c2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.png" alt="Virtual Teammate US-based Client Success Manager ready to talk to you" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.webp" alt="Virtual Teammate US-based Client Success Manager ready to talk to you" loading="lazy"/>
     </div>
   </div>
 </header>

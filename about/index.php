@@ -79,7 +79,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-handshake"></i> 600+ Clients</div>
     <div class="hv-chip c2"><i class="fa-solid fa-users"></i> 2,000+ Placed</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.png" alt="Virtual Teammate team supporting healthcare practices and businesses across the US" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.webp" alt="Virtual Teammate team supporting healthcare practices and businesses across the US" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -107,7 +107,7 @@ include __DIR__ . '/../includes/nav.php';
     <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Let&rsquo;s Connect with Chris <i class="fa-solid fa-arrow-right"></i></a>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.png" alt="Chris McShanag, Founder and CEO of Virtual Teammate" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/about-us/Chris-McShanag.webp" alt="Chris McShanag, Founder and CEO of Virtual Teammate" loading="lazy"/>
   </div>
 </section>
 
@@ -120,24 +120,24 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">The Exceptional Leaders <em>Behind Virtual Teammate</em></h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">A focused leadership team driving finance, technology, marketing and people operations &mdash; so every engagement runs on accountability, not on hope.</p>
   </div>
-  <div class="svc-bens-grid">
+  <div class="svc-bens-grid svc-bens-grid--4">
     <div class="svc-ben reveal d1">
-      <span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span>
+      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Finance-Director.webp" alt="Eunice Escano, Finance Director at Virtual Teammate" loading="lazy">
       <h3>Eunice Escano</h3>
       <p><strong>Finance Director.</strong> Oversees financial health, cash flow integrity, and compliance across every client engagement.</p>
     </div>
     <div class="svc-ben reveal d2">
-      <span class="ico-circle lg"><i class="fa-solid fa-network-wired"></i></span>
+      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Judt-Anne-Lim.webp" alt="Judy Anne Lim, IT Director at Virtual Teammate" loading="lazy">
       <h3>Judy Anne Lim</h3>
       <p><strong>IT Director.</strong> Leads the technology platform, security posture, and HIPAA-aligned infrastructure that keeps PHI safe.</p>
     </div>
     <div class="svc-ben reveal d3">
-      <span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span>
+      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Marketing-Head-VT.webp" alt="Kirsten Jillianne Tagle, Marketing Director at Virtual Teammate" loading="lazy">
       <h3>Kirsten Jillianne Tagle</h3>
       <p><strong>Marketing Director.</strong> Drives client acquisition strategy and the talent recruiting pipeline that fuels every placement.</p>
     </div>
     <div class="svc-ben reveal d4">
-      <span class="ico-circle lg"><i class="fa-solid fa-people-group"></i></span>
+      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Recruitment-Director.webp" alt="May Martin, HR &amp; Talent Acquisition Director at Virtual Teammate" loading="lazy">
       <h3>May Martin</h3>
       <p><strong>HR &amp; Talent Acquisition Director.</strong> Focuses on people, culture, and the strategic hiring that puts the right teammate in every role.</p>
     </div>
@@ -160,7 +160,7 @@ include __DIR__ . '/../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.png" alt="Virtual Teammate value creation in practice — measurable KPI outcomes for healthcare clients" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Virtual Teammate value creation in practice — measurable KPI outcomes for healthcare clients" loading="lazy"/>
   </div>
 </section>
 

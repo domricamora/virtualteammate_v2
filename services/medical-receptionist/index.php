@@ -70,7 +70,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-phone"></i> Live Calls</div>
     <div class="hv-chip c2"><i class="fa-solid fa-calendar-check"></i> Real-Time Booking</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.png" alt="Virtual medical receptionist answering patient calls" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.webp" alt="Virtual medical receptionist answering patient calls" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.png" alt="Medical receptionist scheduling appointments on computer" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.webp" alt="Medical receptionist scheduling appointments on computer" loading="lazy"/>
   </div>
 </section>
 

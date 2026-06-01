@@ -72,7 +72,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
     <div class="hv-chip c2"><i class="fa-solid fa-folder-open"></i> EHR Trained</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.png" alt="Medical administrative assistant working at desk in clinic" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Medical administrative assistant working at desk in clinic" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -101,7 +101,7 @@ include __DIR__ . '/../../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.png" alt="Healthcare admin VA reviewing patient charts on laptop" loading="lazy"/>
+    <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.webp" alt="Healthcare admin VA reviewing patient charts on laptop" loading="lazy"/>
   </div>
 </section>
 
