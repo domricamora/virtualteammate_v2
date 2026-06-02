@@ -189,7 +189,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
    to sit alongside the headline; transparent areas reveal the graph + orbs. */
 .hero-photo{position:absolute;inset:0;z-index:2;pointer-events:none;
   background-image:url(../images/photos/hero.webp);
-  background-size:140% auto;background-position:62% 22%;background-repeat:no-repeat;}
+  background-size:47% auto;background-position:right bottom;background-repeat:no-repeat;}
 
 /* Subtle, premium animated rising graph behind the photo. */
 .hero-graph{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
@@ -2092,7 +2092,7 @@ select.cf-field option:checked{background:#3919BA;color:#fff;}
   .hero{padding:56px 18px 44px;gap:32px;
     background-image:linear-gradient(165deg, #241458 0%, #191040 48%, #110926 100%);
     background-size:cover;background-position:center;}
-  .hero-photo{background-size:135% auto;background-position:center 26%;}
+  .hero-photo{background-size:auto 42%;background-position:right bottom;}
   .hero-h1{font-size:32px;}
   .hero-h1 br{display:none;}
   .hero-sub{font-size:15.5px;}
