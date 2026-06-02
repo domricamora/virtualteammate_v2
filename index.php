@@ -15,6 +15,45 @@ include 'includes/nav.php';
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
 
+  <!-- Subtle animated rising graph, behind the hero photo (shows through its transparency) -->
+  <svg class="hero-graph" viewBox="0 0 1200 520" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="hgLine" x1="0" y1="1" x2="1" y2="0">
+        <stop offset="0%" stop-color="#7c3aed"/><stop offset="58%" stop-color="#dfa949"/><stop offset="100%" stop-color="#f5e4b8"/>
+      </linearGradient>
+      <linearGradient id="hgBar" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#dfa949" stop-opacity="0.50"/><stop offset="100%" stop-color="#7c3aed" stop-opacity="0.06"/>
+      </linearGradient>
+      <linearGradient id="hgArea" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#dfa949" stop-opacity="0.16"/><stop offset="100%" stop-color="#dfa949" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <?php
+      $hgBars = [70, 108, 90, 152, 134, 205, 182, 256, 238, 308];
+      $hgN = count($hgBars); $hgSlot = 1200 / $hgN; $hgBw = $hgSlot * 0.52; $hgBase = 470;
+      $hgPts = [[0, $hgBase - $hgBars[0]]];
+      foreach ($hgBars as $i => $h) { $hgPts[] = [round($i * $hgSlot + $hgSlot / 2, 1), $hgBase - $h]; }
+      $hgPts[] = [1200, $hgBase - $hgBars[$hgN - 1]];
+      $hgLineD = 'M' . $hgPts[0][0] . ',' . $hgPts[0][1];
+      foreach (array_slice($hgPts, 1) as $p) { $hgLineD .= ' L' . $p[0] . ',' . $p[1]; }
+      $hgEnd = $hgPts[count($hgPts) - 1];
+    ?>
+    <g class="hg-grid" stroke="rgba(255,255,255,0.08)" stroke-width="1">
+      <?php foreach ([110, 210, 310, 410] as $gy): ?><line x1="0" y1="<?= $gy ?>" x2="1200" y2="<?= $gy ?>"/><?php endforeach; ?>
+      <?php for ($g = 1; $g < $hgN; $g++): $gx = round($g * $hgSlot, 1); ?><line x1="<?= $gx ?>" y1="64" x2="<?= $gx ?>" y2="470"/><?php endfor; ?>
+      <line x1="0" y1="470" x2="1200" y2="470" stroke="rgba(255,255,255,0.16)"/>
+    </g>
+    <g class="hg-bars" fill="url(#hgBar)">
+      <?php foreach ($hgBars as $i => $h): $x = round($i * $hgSlot + ($hgSlot - $hgBw) / 2, 1); ?>
+        <rect class="hg-bar" x="<?= $x ?>" y="<?= $hgBase - $h ?>" width="<?= round($hgBw, 1) ?>" height="<?= $h ?>" rx="4" data-h="<?= $h ?>"/>
+      <?php endforeach; ?>
+    </g>
+    <path class="hg-area" d="<?= $hgLineD ?> L1200,520 L0,520 Z" fill="url(#hgArea)"/>
+    <path class="hg-line" d="<?= $hgLineD ?>" fill="none" stroke="url(#hgLine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle class="hg-dot" cx="<?= $hgEnd[0] ?>" cy="<?= $hgEnd[1] ?>" r="6" fill="#f5e4b8"/>
+  </svg>
+  <div class="hero-photo" aria-hidden="true"></div>
+
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
     <h1 class="hero-h1 reveal d1">Reclaim <em>15 Hours</em> a Week.<br>Cut Staffing Costs <em>by 78%</em>.</h1>

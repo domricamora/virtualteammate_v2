@@ -439,3 +439,67 @@
     });
   });
 })();
+
+/* ── Hero rising graph — JS-driven, loops every few seconds ──────────────
+   Bars grow up (staggered), the line draws across and the tip dot leads it;
+   holds, recedes, then replays. Subtle/premium. Pauses when tab is hidden;
+   shows a static rendered state under prefers-reduced-motion. */
+(function(){
+  var svg = document.querySelector('.hero-graph');
+  if (!svg) return;
+  var line = svg.querySelector('.hg-line');
+  var area = svg.querySelector('.hg-area');
+  var dot  = svg.querySelector('.hg-dot');
+  var bars = Array.prototype.slice.call(svg.querySelectorAll('.hg-bar'));
+  var BASE = 470;
+  var targets = bars.map(function(b){ return parseFloat(b.getAttribute('data-h')) || 0; });
+  var lineLen = 0;
+  if (line && line.getTotalLength){ try { lineLen = line.getTotalLength(); } catch(e){} }
+  if (line && lineLen){ line.style.strokeDasharray = lineLen; }
+
+  function setBar(b, i, p){ var h = targets[i] * p; b.setAttribute('height', h.toFixed(1)); b.setAttribute('y', (BASE - h).toFixed(1)); }
+  function tipAt(p){
+    if (!dot || !line || !lineLen) return;
+    var pt = line.getPointAtLength(lineLen * p);
+    dot.setAttribute('cx', pt.x.toFixed(1)); dot.setAttribute('cy', pt.y.toFixed(1));
+    dot.style.opacity = (p > 0.02 && p < 0.995) ? '1' : '0';
+  }
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce){
+    bars.forEach(function(b,i){ setBar(b,i,1); });
+    if (line && lineLen) line.style.strokeDashoffset = 0;
+    if (area) area.style.opacity = '1';
+    tipAt(1);
+    return;
+  }
+
+  var DRAW = 2200, HOLD = 1700, ERASE = 1500, GAP = 700;   // ~6.1s loop
+  var CYCLE = DRAW + HOLD + ERASE + GAP, N = bars.length || 1;
+  function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+  function easeInOut(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
+  var t0 = null, raf;
+  function frame(now){
+    if (t0 === null) t0 = now;
+    var c = (now - t0) % CYCLE, prog;
+    if (c < DRAW)              prog = easeOut(c / DRAW);
+    else if (c < DRAW + HOLD)  prog = 1;
+    else if (c < DRAW + HOLD + ERASE) prog = 1 - easeInOut((c - DRAW - HOLD) / ERASE);
+    else                       prog = 0;
+    // Bars cascade in during the draw phase, then track the overall progress.
+    bars.forEach(function(b,i){
+      var p = prog;
+      if (c < DRAW){ var d = (i / N) * 0.4; p = easeOut(Math.max(0, Math.min(1, (c / DRAW - d) / (1 - 0.4)))); }
+      setBar(b, i, p);
+    });
+    if (line && lineLen) line.style.strokeDashoffset = (lineLen * (1 - prog)).toFixed(1);
+    if (area) area.style.opacity = prog.toFixed(3);
+    tipAt(prog);
+    raf = requestAnimationFrame(frame);
+  }
+  raf = requestAnimationFrame(frame);
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden){ cancelAnimationFrame(raf); }
+    else { t0 = null; raf = requestAnimationFrame(frame); }
+  });
+})();
