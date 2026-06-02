@@ -19,9 +19,9 @@ if (!isset($lf_source)) {
 }
 $lf_form       = $lf_form       ?? $lf_source;
 $lf_title      = $lf_title      ?? 'Get Matched With Your Virtual Teammate';
-$lf_sub        = $lf_sub        ?? 'Tell us what you need and we\'ll hand-pick vetted, HIPAA-certified candidates by specialty, software and time zone — free, no obligation.';
+$lf_sub        = $lf_sub        ?? 'Tell us what you need and we\'ll hand-pick vetted, HIPAA-certified candidates by specialty, software and time zone — value-first, no obligation.';
 $lf_thanks     = $lf_thanks     ?? 'Thanks! We\'ll reach out within 1 business day with your matched shortlist.';
-$lf_cta        = $lf_cta        ?? 'Get my free shortlist';
+$lf_cta        = $lf_cta        ?? 'Get my value-matched shortlist';
 $lf_company_ph = $lf_company_ph ?? 'Practice / company';
 $lf_msg_ph     = $lf_msg_ph     ?? 'What do you need help with?';
 $lf_roles      = $lf_roles      ?? [];
@@ -30,7 +30,7 @@ $lfe = static fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
 <section class="sec lead-band" id="lead-form" aria-labelledby="lead-band-h">
   <div class="lead-band-card reveal">
     <div class="lead-band-l">
-      <div class="sec-lbl"><i class="fa-solid fa-wand-magic-sparkles"></i> Free Matching</div>
+      <div class="sec-lbl"><i class="fa-solid fa-wand-magic-sparkles"></i> Value Matching</div>
       <h2 class="sec-h2" id="lead-band-h"><?= $lfe($lf_title) ?></h2>
       <p class="lead-band-sub"><?= $lfe($lf_sub) ?></p>
       <ul class="lead-band-points">

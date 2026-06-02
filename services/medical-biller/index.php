@@ -151,7 +151,7 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From Call to Live Biller in <em>Under Two Weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Free RCM Audit Call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM Value Audit Call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of billers matched to your specialty, EHR and payer mix. You interview, you choose.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager &mdash; live in 1&ndash;2 weeks.</p></div>
   </div>

@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Dental Admin VAs &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Administrative <em>Support</em> Virtual Assistants</h1>
-    <p class="svc-lead">Free your front office from paperwork. Our <strong>HIPAA-certified dental admin VAs</strong> handle records, insurance verification, treatment-plan setup, data entry and document management &mdash; trained on Dentrix, Eaglesoft and Open Dental, working in your time zone, at up to <strong>78% less</strong> than a US in-house hire.</p>
+    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified dental admin VAs</strong> handle records, insurance verification, treatment-plan setup, data entry and document management &mdash; trained on Dentrix, Eaglesoft and Open Dental, working in your time zone, at up to <strong>78% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> Dental PMS Trained</div>
@@ -149,7 +149,7 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From Call to Live VA in <em>Under Two Weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Free Strategy Call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the VA will own.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the VA will own.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified dental admin VAs within days. You interview, you choose.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager. Live workflows in 1&ndash;2 weeks.</p></div>
   </div>

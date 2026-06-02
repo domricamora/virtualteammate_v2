@@ -32,7 +32,7 @@ include __DIR__ . '/../../includes/nav.php';
 {
   "@context":"https://schema.org","@type":"FAQPage",
   "mainEntity":[
-    {"@type":"Question","name":"What does a virtual dental scribe do?","acceptedAnswer":{"@type":"Answer","text":"A virtual dental scribe joins each visit by HIPAA-certified audio or video link and documents the encounter in real time inside your dental PMS — clinical notes, perio charting, existing/proposed treatment, and chart closure — so the provider stays hands-free and focused on the patient."}},
+    {"@type":"Question","name":"What does a virtual dental scribe do?","acceptedAnswer":{"@type":"Answer","text":"A virtual dental scribe joins each visit by HIPAA-certified audio or video link and documents the encounter in real time inside your dental PMS — clinical notes, perio charting, existing/proposed treatment, and chart closure — so the provider stays focused on the patient, not the keyboard."}},
     {"@type":"Question","name":"Which dental software do your scribes know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream — every scribe is PMS-trained before placement."}},
     {"@type":"Question","name":"Is a virtual dental scribe HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every scribe is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside controlled, encrypted environments only."}},
     {"@type":"Question","name":"How much does a virtual dental scribe cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-78% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate."}}
@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time Dental Charting &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Scribe <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stay hands-free and focused on the patient. Our <strong>HIPAA-certified virtual dental scribes</strong> document every exam and procedure in real time inside your PMS &mdash; clinical notes, perio charting, treatment documentation &mdash; so charts close chairside, not after hours, at up to <strong>78% less</strong> than an in-house hire.</p>
+    <p class="svc-lead">Stay focused on the patient, not the keyboard. Our <strong>HIPAA-certified virtual dental scribes</strong> document every exam and procedure in real time inside your PMS &mdash; clinical notes, perio charting, treatment documentation &mdash; so charts close chairside, not after hours, at up to <strong>78% less</strong> than an in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> Dental PMS Trained</div>
@@ -147,7 +147,7 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From Call to Live Scribe in <em>Under Two Weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Free Strategy Call</h3><p class="pstep-desc">Walk us through your operatory flow, PMS, note templates and charting pain points.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Walk us through your operatory flow, PMS, note templates and charting pain points.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of PMS-trained dental scribes. You interview, you choose.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Go Live</h3><p class="pstep-desc">PMS access, template handoff, shadow week, and a Client Success Manager. Real-time scribing in 1&ndash;2 weeks.</p></div>
   </div>

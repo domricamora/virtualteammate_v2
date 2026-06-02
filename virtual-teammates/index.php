@@ -204,7 +204,7 @@ $totalVts = count($vts);
 $page_title       = 'Virtual Teammates — Hire Vetted Medical, Dental & Business Virtual Assistants';
 $page_description = 'Browse Virtual Teammate\'s bench of HIPAA-certified, pre-vetted virtual assistants for medical, dental and business teams. Filter by department and skill, then get matched in days.';
 $og_title         = 'Meet Our Virtual Teammates — Vetted VAs Ready to Join Your Team';
-$og_description   = 'Search and filter our roster of HIPAA-certified medical, dental and business virtual assistants. See skills, experience and credentials, then book a free matching call.';
+$og_description   = 'Search and filter our roster of HIPAA-certified medical, dental and business virtual assistants. See skills, experience and credentials, then book a value-matching call.';
 $canonical        = 'https://virtualteammate.com/virtual-teammates/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -271,7 +271,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
           right candidate in days. Every VA is interviewed, background-checked and time-zone aligned to your team.
         </p>
         <div class="vtd-hero-cta">
-          <a href="#vtd-match" class="btn-primary">Get Matched Free <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#vtd-match" class="btn-primary">Get Your Value Match <i class="fa-solid fa-arrow-right"></i></a>
           <span class="vtd-hero-stat"><strong><?= (int) $totalVts ?>+</strong> teammates on the bench</span>
         </div>
       </div>
@@ -302,10 +302,10 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   <section class="sec vtd-match" id="vtd-match" aria-labelledby="vtd-match-h">
     <div class="vtd-match-card reveal">
       <div class="vtd-match-l">
-        <div class="sec-lbl"><i class="fa-solid fa-wand-magic-sparkles"></i> Free Matching</div>
+        <div class="sec-lbl"><i class="fa-solid fa-wand-magic-sparkles"></i> Value Matching</div>
         <h2 class="sec-h2" id="vtd-match-h" style="margin-bottom:10px;">Get matched with your Virtual Teammate</h2>
         <p class="vtd-lede" style="margin:0 0 16px;">
-          Tell us what you need and we'll hand-pick candidates by specialty, software and time zone — free, no obligation.
+          Tell us what you need and we'll hand-pick candidates by specialty, software and time zone — value-first, no obligation.
           You'll also unlock full profiles with intro videos and résumés.
         </p>
         <ul class="vtd-match-points">
@@ -500,8 +500,8 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   <section class="sec vtd-closing" aria-label="Get matched">
     <div class="vtd-closing-card reveal">
       <h2 class="sec-h2" style="margin-bottom:8px;">Ready to meet your Virtual Teammate?</h2>
-      <p class="vtd-lede" style="margin:0 auto 18px;max-width:60ch;">Get a free, no-obligation shortlist matched to your specialty and time zone.</p>
-      <a href="#vtd-match" class="btn-primary">Get matched free <i class="fa-solid fa-arrow-right"></i></a>
+      <p class="vtd-lede" style="margin:0 auto 18px;max-width:60ch;">Get a no-obligation shortlist, value-matched to your specialty and time zone.</p>
+      <a href="#vtd-match" class="btn-primary">Get Your Value Match <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </section>
 </main>

@@ -115,7 +115,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Talk to a <em>Real Person</em> in Our Phoenix HQ &mdash; Backed by a Global Bench</h1>
     <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec &mdash; you&rsquo;ll reach a <strong>US-based Client Success Manager</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
     <div class="svc-hero-ctas">
-      <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Book a Free Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Book a Value Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
       <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day &middot; Mon&ndash;Fri, 8am&ndash;6pm MST</span>
@@ -167,7 +167,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-card reveal d3">
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <span class="ct-lbl">Book a Call</span>
-      <h3>Free Strategy Session</h3>
+      <h3>Value Strategy Session</h3>
       <a class="ct-link" href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener">30-min consult</a>
       <div class="ct-meta">No commitment. Walk out with a scope, a price and a timeline.</div>
       <a class="ct-cta" href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener">Pick a time <i class="fa-solid fa-arrow-right"></i></a>
@@ -298,7 +298,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clock"></i> How quickly will I get a response?</div><div class="faq-a">Most inbound requests get a personal reply within one business day. Phone calls during MST business hours are answered live; voicemails are returned same day.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager &mdash; not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a free 30-minute scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline &mdash; no obligation, no sales pressure.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a 30-minute value scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline &mdash; no obligation, no sales pressure.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Can we talk about HIPAA / BAA right away?</div><div class="faq-a">Yes &mdash; every healthcare engagement is BAA-compatible, and we can share our HIPAA compliance documentation and BAA template during or right after the strategy call.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes &mdash; US-owned, headquartered at 2425 East Camelback Road, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-comments"></i> What should I prepare for the first call?</div><div class="faq-a">Bring the one workflow you most want to hand off, the KPIs you want to move, and any constraints (EHR, time zone, language). We&rsquo;ll do the rest.</div></div>

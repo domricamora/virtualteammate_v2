@@ -70,7 +70,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Built to Help Practices and Businesses <em>Do More — With Less Overhead</em></h1>
     <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-certified virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created — not hours billed.</p>
     <div class="svc-hero-ctas">
-      <a href="<?= $home_base ?>#cta" class="btn-primary">Book a Free Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="<?= $home_base ?>#cta" class="btn-primary">Book a Value Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
@@ -226,7 +226,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Globally &mdash; Philippines, Latin America, Africa, South Asia. We hire on capability and fit, not geography. Every match works your business hours.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How are teammates vetted?</div><div class="faq-a">Multi-stage: application screening, EFSET English assessment, IQ test, DISC personality profile, technical skills check, IT setup verification, and orientation &mdash; before they ever see a client.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-chart-line"></i> Do you actually measure results?</div><div class="faq-a">Yes &mdash; monthly KPI scorecards on the workstreams you choose (claims worked, AR days, calls answered, payment posting, intake completion). <a href="<?= $home_base ?>case-studies/">See real client KPI results &raquo;</a></div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who do I talk to first?</div><div class="faq-a">Book a free strategy session &mdash; you&rsquo;ll talk to a senior VT leader (often Chris himself for new engagements) and walk out with a clear scope, a price, and a timeline.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who do I talk to first?</div><div class="faq-a">Book a value strategy session &mdash; you&rsquo;ll talk to a senior VT leader (often Chris himself for new engagements) and walk out with a clear scope, a price, and a timeline.</div></div>
   </div>
 </section>
 

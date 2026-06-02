@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Medical Admin VAs &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Medical Administrative <em>Support</em> Virtual Assistants</h1>
-    <p class="svc-lead">Free your front office from paperwork. Our <strong>HIPAA-certified medical admin VAs</strong> handle chart prep, patient intake, records, prior authorization and back-office workflows &mdash; trained on your EHR, working in your time zone, at up to <strong>78% less</strong> than a US in-house hire.</p>
+    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified medical admin VAs</strong> handle chart prep, patient intake, records, prior authorization and back-office workflows &mdash; trained on your EHR, working in your time zone, at up to <strong>78% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR Trained</div>

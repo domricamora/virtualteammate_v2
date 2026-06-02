@@ -299,7 +299,7 @@ include __DIR__ . '/../includes/nav.php';
 <!-- FINAL CTA -->
 <section class="svc-cta">
   <h2>Want Results Like These on <em style="color:var(--gold);font-style:normal;">Your</em> Scorecard?</h2>
-  <p>Book a free strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
+  <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
   <div class="svc-cta-btns">
     <a href="<?= $home_base ?>#cta" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>

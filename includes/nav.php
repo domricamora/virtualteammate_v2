@@ -123,6 +123,6 @@ $home_base = $home_base ?? './';
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>
-    <a href="<?= $home_base ?>#cta" class="btn-nav">Book Free Session</a>
+    <a href="<?= $home_base ?>#cta" class="btn-nav">Book Value Session</a>
   </div>
 </nav>

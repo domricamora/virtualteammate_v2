@@ -67,7 +67,7 @@
      CTA form tabs swap heading/submit copy and a hidden intent input. */
   var INTENTS = {
     'strategy-call':    { h: 'Strategy Call &amp; Jumpstart',           s: '30-minute call. We map your needs, define the role, and match you to candidates within 5–7 business days.', btn: 'Book My Strategy Call' },
-    'practice-audit':   { h: 'Free 20-min Practice Audit',              s: 'Diagnostic-only call. Workflow inventory + outsourcing priority list + tier and headcount recommendation.', btn: 'Book My Practice Audit' },
+    'practice-audit':   { h: '20-min Practice Value Audit',            s: 'Diagnostic-only call. Workflow inventory + outsourcing priority list + tier and headcount recommendation.', btn: 'Book My Practice Audit' },
     'buyers-checklist': { h: 'HIPAA VA Buyer’s Checklist',              s: 'PDF emailed within one business day. The 22 questions to ask any healthcare VA agency before you sign.', btn: 'Send Me the Checklist' }
   };
   var ctaTabs     = document.querySelectorAll('.cta-intent');

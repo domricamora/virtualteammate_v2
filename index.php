@@ -21,7 +21,7 @@ include 'includes/nav.php';
     <p class="hero-sub reveal d2">Plug a HIPAA-certified medical or dental virtual assistant into your practice in <strong>14 days</strong> &mdash; from <strong>$1,625/mo full-time</strong>, trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta" class="btn-glass" data-cta-intent="strategy-call">Get My Free Time-Reclaim Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
+      <a href="#cta" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
       <a href="#cta" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="trust-row reveal d4">
@@ -417,7 +417,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-audit">
-        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Free 20-min Practice Staffing Audit covers</div>
+        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the 20-min Practice Value Audit covers</div>
         <ul>
           <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice &mdash; intake, charts, refills, billing, scheduling, recall, prior auth.</li>
           <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
@@ -428,7 +428,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
       <div class="g-foot">
         <a href="#cta" data-cta-intent="strategy-call" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="#cta" data-cta-intent="practice-audit" class="btn-glass">Or: Free 20-min Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta" data-cta-intent="practice-audit" class="btn-glass">Or: 20-min Practice Value Audit <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
     </div>
   </div>
@@ -501,7 +501,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta" class="btn-primary">Start the Process &mdash; It&rsquo;s Free <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta" class="btn-primary">Start the Process &mdash; Start Creating Value <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -858,7 +858,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
       <div class="cta-stage-tag">Ready to diagnose</div>
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
-      <h3>Free 20-min Practice Audit</h3>
+      <h3>20-min Practice Value Audit</h3>
       <p class="cta-stage-lead">Diagnostic-only call. We map your top admin and clinical workflows and tell you what to delegate first.</p>
       <ul class="cta-stage-list">
         <li>Workflow inventory (8&ndash;12 mapped)</li>
