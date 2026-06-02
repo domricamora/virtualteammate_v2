@@ -177,7 +177,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   background-image:
     url(../images/photos/hero.webp),
     linear-gradient(165deg, #241458 0%, #191040 48%, #110926 100%);
-  background-size:80% auto, cover;
+  background-size:120% auto, cover;
   background-position:center bottom, center;
   background-repeat:no-repeat;
 }
@@ -2080,7 +2080,7 @@ select.cf-field option:checked{background:#3919BA;color:#fff;}
 
   .hero{padding:56px 18px 44px;gap:32px;
     background-image:url(../images/photos/hero.webp), linear-gradient(165deg, #241458 0%, #191040 48%, #110926 100%);
-    background-size:80% auto, cover;
+    background-size:120% auto, cover;
     background-position:center bottom, center;}
   .hero-h1{font-size:32px;}
   .hero-h1 br{display:none;}
