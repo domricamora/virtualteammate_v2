@@ -618,34 +618,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
 <div class="divider"></div>
 
-<!-- ROI STATS -->
-<section class="sec">
-  <div style="text-align:center;" class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Proven Results</div>
-    <h2 class="sec-h2">Real Numbers from Real Healthcare Clients</h2>
-    <p class="sec-sub" style="margin:0 auto;">Pulled straight from our latest client KPI audit &mdash; measurable output against the targets we commit to.</p>
-  </div>
-  <div class="roi-grid">
-    <div class="roi-card reveal d1">
-      <span class="ico-circle lg roi-ico"><i class="fa-solid fa-coins"></i></span>
-      <div class="roi-num" data-count="73" data-suffix="%">0%</div>
-      <div class="roi-lbl">Average reduction in staffing costs vs. in-house healthcare hires</div>
-    </div>
-    <div class="roi-card reveal d2">
-      <span class="ico-circle lg roi-ico"><i class="fa-solid fa-arrow-trend-up"></i></span>
-      <div class="roi-num" data-count="52" data-suffix="%">0%</div>
-      <div class="roi-lbl">Average increase in team productivity &mdash; output delivered over monthly KPI targets</div>
-    </div>
-    <div class="roi-card reveal d3">
-      <span class="ico-circle lg roi-ico"><i class="fa-solid fa-chart-pie"></i></span>
-      <div class="roi-num" data-count="67" data-suffix="%">0%</div>
-      <div class="roi-lbl">Growth in profitable revenue &mdash; value created above committed targets</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- DIFFERENTIATORS -->
 <section class="sec diff" id="why-vt">
   <div class="reveal" style="text-align:center;max-width:780px;margin:0 auto;">
@@ -879,11 +851,10 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       <input type="hidden" name="intent" value="buyers-checklist">
       <input type="hidden" name="form" value="homepage-checklist">
       <input type="hidden" name="source" value="HIPAA VA Buyer&rsquo;s Checklist">
-      <div class="cf-row">
+      <div class="cf-row" style="margin-bottom:16px;">
         <input class="cf-field" name="first_name" placeholder="First Name" required>
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
-      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name (optional)" style="margin-bottom:16px;">
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No spam &middot; Just the checklist and the occasional helpful tip</div>
@@ -903,15 +874,6 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       <input type="hidden" name="intent" value="practice-audit">
       <input type="hidden" name="form" value="homepage-practice-audit">
       <input type="hidden" name="source" value="20-min Practice Value Audit">
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required>
       <select class="cf-field" name="role" style="margin-bottom:16px;">
         <option value="">Biggest bottleneck right now (optional)</option>
         <option>Front desk / phones / scheduling</option>
@@ -921,6 +883,14 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Recall &amp; treatment coordination</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="cf-row">
+        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
+      </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
@@ -939,16 +909,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
           data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your strategy call.">
       <input type="hidden" name="intent" value="strategy-call">
       <input type="hidden" name="form" value="homepage-strategy-call">
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required>
-      <select class="cf-field" name="role" style="margin-bottom:14px;">
+      <select class="cf-field" name="role" style="margin-bottom:16px;">
         <option value="">I need... (select role, optional)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
@@ -965,23 +926,14 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Business / Admin VA</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
-      <select class="cf-field" name="source" style="margin-bottom:16px;">
-        <option value="">Where did you hear about us? (optional)</option>
-        <option>Google search</option>
-        <option>Referral from a colleague or friend</option>
-        <option>Existing client / Word of mouth</option>
-        <option>Facebook</option>
-        <option>Instagram</option>
-        <option>LinkedIn</option>
-        <option>YouTube</option>
-        <option>TikTok</option>
-        <option>Podcast</option>
-        <option>Webinar / Event</option>
-        <option>Industry publication or news</option>
-        <option>Email newsletter</option>
-        <option>Online ad</option>
-        <option>Other</option>
-      </select>
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="cf-row">
+        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
+      </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
