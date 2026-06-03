@@ -56,8 +56,8 @@ include 'includes/nav.php';
 
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Reclaim <em>15 Hours</em> a Week.<br>Cut Staffing Costs <em>by 78%</em>.</h1>
-    <p class="hero-sub reveal d2">Plug a HIPAA-certified medical or dental virtual assistant into your practice in <strong>14 days</strong> &mdash; from <strong>$1,625/mo full-time</strong>, trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
+    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br>Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>78% Less</em>.</h1>
+    <p class="hero-sub reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
       <a href="#cta" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
@@ -67,14 +67,15 @@ include 'includes/nav.php';
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
       <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
+      <span class="trust-break" aria-hidden="true"></span>
       <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
       <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
     </div>
     <div class="hero-stats reveal d5">
-      <div class="hstat"><div class="hstat-num" data-count="78" data-suffix="%">0%</div><div class="hstat-lbl">Cost Savings</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="14" data-suffix="d">0d</div><div class="hstat-lbl">Avg. Time to Live</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="12" data-suffix="+">0+</div><div class="hstat-lbl">Countries Sourced</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Client Retention</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="78" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
     </div>
   </div>
 
@@ -109,42 +110,23 @@ $mq_srcs = array_values(array_map(static function ($p) {
   </div>
 
   <div class="calc reveal d1" id="roiCalc">
-    <div class="calc-controls">
-      <h3>Build Your Team</h3>
-      <p class="calc-cap">Choose a schedule and team size &mdash; your numbers update instantly.</p>
-
-      <div class="calc-field">
-        <label class="calc-label">Schedule</label>
-        <div class="calc-seg" role="tablist" aria-label="Schedule">
-          <button type="button" class="on" data-sched="ft">Full-Time</button>
-          <button type="button" data-sched="pt">Part-Time</button>
-        </div>
+    <!-- Slider on top — drag to set team size -->
+    <div class="calc-top">
+      <div class="calc-top-head">
+        <h3>Estimate Your Savings</h3>
+        <p class="calc-cap">Drag the slider to set your team size &mdash; your numbers update instantly.</p>
       </div>
-
-      <div class="calc-field" style="margin-bottom:10px;">
-        <label class="calc-label" for="calcCount">Number of Virtual Teammates</label>
-        <div class="calc-slider-wrap">
-          <div class="calc-slider-row">
-            <div class="calc-slider-val" id="calcCountVal">2</div>
-            <div class="calc-slider-cap">Teammates</div>
-          </div>
-          <input id="calcCount" class="calc-slider" type="range" min="1" max="25" value="2" step="1" aria-label="Number of Virtual Teammates"/>
-          <div class="calc-ticks"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span></div>
+      <div class="calc-slider-wrap">
+        <div class="calc-slider-row">
+          <div class="calc-slider-val" id="calcCountVal">2</div>
+          <div class="calc-slider-cap">Virtual Teammates</div>
         </div>
-      </div>
-
-      <p class="calc-foot">Rates based on live VT placement data. US comparison uses median fully-loaded in-house cost (salary + benefits + payroll burden) for equivalent healthcare admin roles.</p>
-
-      <div class="calc-cta" style="margin-top:18px;">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Book a strategy call or drop your details and we&rsquo;ll reach out.</div>
-        <div class="calc-cta-btns">
-          <a href="#cta" data-cta-intent="strategy-call" class="calc-cta-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
+        <input id="calcCount" class="calc-slider" type="range" min="1" max="25" value="2" step="1" aria-label="Number of Virtual Teammates"/>
+        <div class="calc-ticks"><span>1</span><span>5</span><span>10</span><span>15</span><span>20</span><span>25</span></div>
       </div>
     </div>
 
     <div class="calc-results">
-      <div class="calc-adjust-hint"><i class="fa-solid fa-arrow-left-long"></i> Adjust the <strong>team size</strong> &amp; <strong>schedule</strong> on the left</div>
       <div class="calc-results-top">
         <div class="calc-hero-num">
           <div class="calc-hero-lbl">Estimated Annual Savings</div>
@@ -212,6 +194,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
         </div>
         <div class="calc-rate-foot">All-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
+
+      <div class="calc-cta">
+        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager and we&rsquo;ll map the right team to your practice.</div>
+        <div class="calc-cta-btns">
+          <a href="#talk-to-csm" class="calc-cta-primary">Have a CSM Reach Out <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <p class="calc-foot">Rates based on live VT placement data. US comparison uses median fully-loaded in-house cost (salary + benefits + payroll burden) for equivalent healthcare admin roles.</p>
     </div>
   </div>
 </section>
@@ -232,9 +223,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <form class="csm-cta-form" id="csmCallback" method="post" action="<?= $home_base ?>lead.php" data-lead-form
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within 1 business day.">
       <div class="csm-cta-form-h">Request a callback</div>
-      <input class="csm-field" type="text"  name="name"  placeholder="Your name"        required autocomplete="name">
-      <input class="csm-field" type="email" name="email" placeholder="Work email"        required autocomplete="email">
-      <input class="csm-field" type="tel"   name="phone" placeholder="Phone (optional)"  autocomplete="tel">
+      <input class="csm-field" type="text"  name="name"   placeholder="Your name"               required autocomplete="name">
+      <input class="csm-field" type="text"  name="clinic" placeholder="Clinic / practice name"   required autocomplete="organization">
+      <input class="csm-field" type="email" name="email"  placeholder="Work email"               required autocomplete="email">
+      <input class="csm-field" type="tel"   name="phone"  placeholder="Phone (optional)"         autocomplete="tel">
       <input type="hidden" name="source" value="csm-callback">
       <input type="hidden" name="form" value="csm-callback">
       <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
@@ -292,22 +284,22 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <div class="vadd-compare">
       <div class="vadd-rows">
         <div class="vadd-row">
-          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot us"></span> Local in-house hire</span><span class="vadd-row-amt">$72,000<small>/yr</small></span></div>
+          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot us"></span> Local in-house hire</span><span class="vadd-row-amt">$144,040<small>/yr</small></span></div>
           <div class="vadd-bar"><span class="vadd-bar-fill us"></span></div>
         </div>
         <div class="vadd-row">
-          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot vt"></span> Virtual Teammate</span><span class="vadd-row-amt">$19,500<small>/yr</small></span></div>
+          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot vt"></span> Virtual Teammate</span><span class="vadd-row-amt">$39,000<small>/yr</small></span></div>
           <div class="vadd-bar"><span class="vadd-bar-fill vt"></span></div>
         </div>
       </div>
 
       <div class="vadd-added">
-        <div class="vadd-added-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Value added back &middot; per teammate / year</div>
-        <div class="vadd-added-val">$52,500</div>
+        <div class="vadd-added-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Value added back &middot; per year (your team)</div>
+        <div class="vadd-added-val">$105,040</div>
         <div class="vadd-added-sub">About <strong>73% lower cost</strong> than hiring locally &mdash; reinvested into growth, not overhead.</div>
       </div>
 
-      <p class="vadd-foot">Illustrative: a full-time specialist role at published VT rates vs. the median fully-loaded US in-house cost (salary + benefits + payroll burden). <a href="#calculator">Run your own numbers &uarr;</a></p>
+      <p class="vadd-foot">Live with the calculator above &mdash; published VT rates vs. the median fully-loaded US in-house cost (salary + benefits + payroll burden). <a href="#calculator">Drag the slider to update &uarr;</a></p>
     </div>
   </div>
 </section>
@@ -335,7 +327,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/Medical-Virtual-Assistant.webp" alt="Medical virtual assistant working on a computer" loading="lazy"/>
+        <img src="images/photos/medical-section.webp" alt="Medical practice team supported by a Virtual Teammate" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -343,10 +335,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
           <h3 class="spec-title">Medical Virtual Assistants</h3>
         </div>
-        <p class="spec-desc">HIPAA-certified medical VAs trained in clinical workflows, EHR systems, and patient communication. From billing and scribing to prior auth &mdash; plug into your practice in days, not weeks.</p>
+        <p class="spec-desc">Built for office managers and providers who are stretched thin. HIPAA-certified medical VAs work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so your front desk isn&rsquo;t drowning, your providers stop charting after hours, and your AR keeps moving. More coverage, no extra desks or payroll.</p>
 
         <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> What our medical VAs ship in 90 days</div>
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Value our medical VAs have created</div>
           <ul>
             <li><strong>AR days 52 &rarr; 23</strong> &mdash; Family Practice, Austin TX. $68k stalled claims recovered in 12 weeks.</li>
             <li><strong>+18 hrs/week reclaimed</strong> &mdash; Internal Medicine, Denver CO. Scribe ends after-hours charting.</li>
@@ -367,7 +359,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/Dental-Virtual-Assistant.webp" alt="Dental virtual assistant at reception desk on a computer" loading="lazy"/>
+        <img src="images/photos/dental-section.webp" alt="Dental practice team supported by a Virtual Teammate" loading="lazy"/>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
@@ -375,10 +367,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
           <h3 class="spec-title">Dental Virtual Assistants</h3>
         </div>
-        <p class="spec-desc">Dental-specific VAs fluent in Dentrix, Eaglesoft, Open Dental and Carestream. Patient recall, insurance billing, treatment coordination &mdash; your remote front desk, fully covered.</p>
+        <p class="spec-desc">Made for practice owners and office managers protecting production. Dental VAs fluent in Dentrix, Eaglesoft and Open Dental own recall, insurance verification, billing and treatment-plan follow-up &mdash; keeping chairs full, claims clean and the schedule tight, while your in-office team stays focused on patients.</p>
 
         <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> What our dental VAs ship in 60 days</div>
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Value our dental VAs have created</div>
           <ul>
             <li><strong>No-shows 22% &rarr; 9%</strong> &mdash; Pediatric Dental, Tampa FL. +14 visits/week recovered from confirmations &amp; rebooks.</li>
             <li><strong>30%+ no-show reduction</strong> &mdash; Phoenix AZ dental practice with virtual receptionist on recall.</li>
@@ -429,6 +421,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="g-wrap reveal">
     <div class="g-seal" aria-hidden="true">
       <div class="g-seal-ring">
+        <i class="fa-solid fa-shield-halved g-seal-ico" aria-hidden="true"></i>
         <div class="g-seal-h">VT</div>
         <div class="g-seal-s">30-Day<br>Right-Fit<br>Promise</div>
       </div>

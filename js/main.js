@@ -267,6 +267,12 @@
   var $perVa   = document.getElementById('calcPerVa');
   var $ctaAmt  = document.getElementById('calcCtaAmt');
 
+  // Value Added section — kept in sync with the calculator's live figures.
+  var vAmts  = document.querySelectorAll('.vadd-row-amt');   // [0]=US in-house, [1]=VT
+  var vMult  = document.querySelector('.vadd-mult');
+  var vAdded = document.querySelector('.vadd-added-val');
+  var vBarVt = document.querySelector('.vadd-bar-fill.vt');
+
   function fmt(n){
     var v = Math.round(Number(n) || 0);
     return '$' + v.toLocaleString();
@@ -371,6 +377,14 @@
     if ($vtBar) $vtBar.style.width = vtPct + '%';
 
     if ($ctaAmt) $ctaAmt.textContent = fmt(annualSave) + ' / yr';
+
+    // Mirror the live figures into the Value Added section (same calculation).
+    var mult = vtAnnual > 0 ? (usAnnual / vtAnnual) : 0;
+    if (vMult)  vMult.innerHTML = mult.toFixed(1) + '<span>&times;</span>';
+    if (vAmts[0]) vAmts[0].innerHTML = fmt(usAnnual) + '<small>/yr</small>';
+    if (vAmts[1]) vAmts[1].innerHTML = fmt(vtAnnual) + '<small>/yr</small>';
+    if (vAdded) vAdded.textContent = fmt(annualSave);
+    if (vBarVt) vBarVt.style.width = vtPct + '%';
   }
 
   schedBtns.forEach(function(b){
