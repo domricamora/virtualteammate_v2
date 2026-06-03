@@ -241,7 +241,7 @@ include __DIR__ . '/../includes/nav.php';
       <ul class="global-benefits">
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts &mdash; one vendor, no compromises.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent &mdash; not just availability.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 78% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
       </ul>
     </div>

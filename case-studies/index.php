@@ -277,7 +277,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible teammates working in encrypted environments only.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Coverage</h3><p>Trained backup means your KPI doesn&rsquo;t collapse when your teammate is on PTO or sick.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly Scorecards</h3><p>Plain-English KPI reports &mdash; target, results, value created, achievement &mdash; delivered to your inbox.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator &mdash; results stay in your P&amp;L.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator &mdash; results stay in your P&amp;L.</p></div>
   </div>
 </section>
 

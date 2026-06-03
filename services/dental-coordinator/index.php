@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Treatment Coordinator Virtual Assistants | HIPAA-Certified | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental treatment coordinator virtual assistants. Case presentation follow-up, treatment-plan financing, patient recall & scheduling coordination. Boost case acceptance, save up to 78%.';
+$page_description = 'Hire HIPAA-certified dental treatment coordinator virtual assistants. Case presentation follow-up, treatment-plan financing, patient recall & scheduling coordination. Boost case acceptance, save up to 73%.';
 $og_title         = 'Dental Treatment Coordinator VAs — Higher Case Acceptance';
 $og_description   = 'Virtual treatment coordinators who follow up on unscheduled treatment, present financing, run recall and fill the schedule — inside your dental PMS.';
 $canonical        = 'https://virtualteammate.com/services/dental-coordinator/';
@@ -35,7 +35,7 @@ include __DIR__ . '/../../includes/nav.php';
     {"@type":"Question","name":"What does a dental treatment coordinator VA do?","acceptedAnswer":{"@type":"Answer","text":"A virtual treatment coordinator chases unscheduled and incomplete treatment, presents and follows up on financing, runs hygiene recall, coordinates specialist referrals, and keeps the schedule full — all inside your dental PMS."}},
     {"@type":"Question","name":"Can a VA really improve case acceptance?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most of the lost revenue in a dental practice is unscheduled treatment that was never followed up. A dedicated coordinator works that list daily — practices typically recover tens of thousands in stalled treatment per quarter."}},
     {"@type":"Question","name":"Which dental software do coordinators know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus recall/communication tools like Weave, NexHealth and Solutionreach."}},
-    {"@type":"Question","name":"How much does a dental coordinator VA cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-78% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate."}}
+    {"@type":"Question","name":"How much does a dental coordinator VA cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate."}}
   ]
 }
 </script>
@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-handshake-angle"></i> Treatment &amp; Recall Coordination &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Treatment <em>Coordinator</em> Virtual Assistants</h1>
-    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule &mdash; inside Dentrix, Eaglesoft and Open Dental, at up to <strong>78% less</strong> than an in-house coordinator.</p>
+    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule &mdash; inside Dentrix, Eaglesoft and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-arrow-trend-up"></i> Case-Acceptance Focused</div>
@@ -78,7 +78,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">30%+</div><div class="svc-stat-lbl">More Treatment Scheduled</div></div>
   <div class="svc-stat"><div class="svc-stat-num">&lt;5%</div><div class="svc-stat-lbl">Recall Drop-Off</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">78%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
   <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Launch</div></div>
 </div>
 
@@ -113,7 +113,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-arrow-trend-up"></i></span><h3>Higher Case Acceptance</h3><p>Consistent, same-week follow-up on diagnosed treatment recovers revenue that&rsquo;s otherwise lost.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>A Fuller Schedule</h3><p>Recall, reactivation and short-call management keep the book full and reduce holes.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost &mdash; no benefits or recruiter fees.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost &mdash; no benefits or recruiter fees.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Patient Outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice &mdash; not a slow email drip.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, backup coverage and quarterly performance reviews on every placement.</p></div>
   </div>
@@ -163,7 +163,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrow-trend-up"></i> Will it improve case acceptance?</div><div class="faq-a">Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;78% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale or pause?</div><div class="faq-a">Yes. No locked-in headcount or termination penalties &mdash; scale up in growth, trim in slow seasons.</div></div>
   </div>
 </section>

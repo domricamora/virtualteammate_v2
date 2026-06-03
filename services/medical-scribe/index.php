@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Medical Scribe Virtual Assistants | HIPAA-Certified Virtual Scribes | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified virtual medical scribes. Real-time EHR documentation, SOAP notes, charting & order entry — let providers focus on patients. Save up to 78%.';
+$page_description = 'Hire HIPAA-certified virtual medical scribes. Real-time EHR documentation, SOAP notes, charting & order entry — let providers focus on patients. Save up to 73%.';
 $og_title         = 'Medical Scribe Virtual Assistants — Real-Time EHR Documentation';
 $og_description   = 'HIPAA-certified virtual scribes document visits in real time inside Epic, Cerner & every major EHR — finish notes before the patient leaves.';
 $canonical        = 'https://virtualteammate.com/services/medical-scribe/';
@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time EHR Documentation &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Medical Scribe <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Look at your patients again. Our <strong>HIPAA-certified virtual medical scribes</strong> document every visit in real time inside your EHR &mdash; SOAP notes, HPI, ROS, assessments, orders &mdash; so your charting is done before the patient leaves the room. Save <strong>2&ndash;3 hours of after-clinic documentation</strong> every day, at up to <strong>78% less</strong> than an in-house scribe.</p>
+    <p class="svc-lead">Look at your patients again. Our <strong>HIPAA-certified virtual medical scribes</strong> document every visit in real time inside your EHR &mdash; SOAP notes, HPI, ROS, assessments, orders &mdash; so your charting is done before the patient leaves the room. Save <strong>2&ndash;3 hours of after-clinic documentation</strong> every day, at up to <strong>73% less</strong> than an in-house scribe.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-laptop-medical"></i> All Major EHRs</div>
@@ -78,7 +78,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">2&ndash;3</div><div class="svc-stat-lbl">Hrs Saved / Day</div></div>
   <div class="svc-stat"><div class="svc-stat-num">+3</div><div class="svc-stat-lbl">More Patients / Day</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">78%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
   <div class="svc-stat"><div class="svc-stat-num">0</div><div class="svc-stat-lbl">Pajama-Time Charts</div></div>
 </div>
 
@@ -113,7 +113,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Reclaim 2&ndash;3 Hrs/Day</h3><p>Stop charting after clinic. Notes are done in real time, not in the parking lot at 9 PM.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>See More Patients</h3><p>Most providers add 1&ndash;3 visits per shift once documentation drag is removed &mdash; pure throughput gain.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-face-smile"></i></span><h3>Better Patient Experience</h3><p>Eye contact. Active listening. No keyboard barrier. Patient satisfaction scores climb fast.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Flat-rate pricing replaces $48k&ndash;$65k loaded in-house scribe cost &mdash; with backup coverage included.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces $48k&ndash;$65k loaded in-house scribe cost &mdash; with backup coverage included.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Burnout Risk</h3><p>Backup coverage and quality monitoring built in &mdash; the scribe shows up, every shift, no exceptions.</p></div>
   </div>
@@ -166,7 +166,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> How much time does a virtual scribe save?</div><div class="faq-a">Most providers reclaim 2&ndash;3 hours of charting per day, see 1&ndash;3 additional patients per shift, and eliminate after-hours documentation.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your scribes know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more &mdash; EHR-trained before placement.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a virtual scribe HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;78% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my scribe is sick?</div><div class="faq-a">Trained backup coverage is included &mdash; your Client Success Manager arranges a substitute scribe so you&rsquo;re never charting alone again.</div></div>
   </div>
 </section>

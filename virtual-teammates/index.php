@@ -246,7 +246,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         [
             '@type'      => 'FAQPage',
             'mainEntity' => [
-                ['@type' => 'Question', 'name' => 'How much does a virtual assistant cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Virtual Teammate uses transparent flat-rate pricing — typically 60–78% less than an equivalent in-house hire once you factor in salary, benefits, payroll tax and overhead. Full-time VAs start at $1,625/month.']],
+                ['@type' => 'Question', 'name' => 'How much does a virtual assistant cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Virtual Teammate uses transparent flat-rate pricing — typically 60–73% less than an equivalent in-house hire once you factor in salary, benefits, payroll tax and overhead. Full-time VAs start at $1,625/month.']],
                 ['@type' => 'Question', 'name' => 'Are your virtual assistants HIPAA certified?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every healthcare and dental virtual assistant completes HIPAA compliance training and certification before placement.']],
                 ['@type' => 'Question', 'name' => 'How fast can I hire a virtual assistant?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Most clients receive a curated shortlist within days and complete onboarding within one to two weeks.']],
                 ['@type' => 'Question', 'name' => 'Can I interview candidates before hiring?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We hand-match candidates to your specialty, software and time zone, and you interview the shortlist before deciding.']],
@@ -487,7 +487,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       <h2 class="sec-h2" id="vtd-faq-h">Virtual assistant hiring questions</h2>
     </div>
     <div class="vtd-faq-grid">
-      <div class="vtd-faq"><h3>How much does a virtual assistant cost?</h3><p>Transparent flat-rate pricing — typically 60–78% less than an in-house hire once salary, benefits, payroll tax and overhead are factored in. Full-time VAs start at $1,625/month.</p></div>
+      <div class="vtd-faq"><h3>How much does a virtual assistant cost?</h3><p>Transparent flat-rate pricing — typically 60–73% less than an in-house hire once salary, benefits, payroll tax and overhead are factored in. Full-time VAs start at $1,625/month.</p></div>
       <div class="vtd-faq"><h3>Are your virtual assistants HIPAA certified?</h3><p>Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement.</p></div>
       <div class="vtd-faq"><h3>How fast can I hire?</h3><p>Most clients get a curated shortlist within days and finish onboarding within one to two weeks.</p></div>
       <div class="vtd-faq"><h3>Can I interview candidates first?</h3><p>Always. We hand-match candidates to your specialty, software and time zone, and you interview the shortlist before deciding.</p></div>

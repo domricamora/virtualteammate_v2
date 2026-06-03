@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'HIPAA-Certified Medical & Dental Virtual Assistants | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified medical & dental virtual assistants from a global talent network. Billing, scribing, scheduling, insurance verification. Save up to 78%.';
+$page_description = 'Hire HIPAA-certified medical & dental virtual assistants from a global talent network. Billing, scribing, scheduling, insurance verification. Save up to 73%.';
 $og_title         = 'HIPAA-Certified Medical & Dental Virtual Assistants';
 $og_description   = 'Specialized virtual staffing for medical practices, dental clinics & RCM teams — sourced globally, delivered in your time zone.';
 $canonical        = 'https://virtualteammate.com/';
@@ -56,7 +56,7 @@ include 'includes/nav.php';
 
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br>Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>78% Less</em>.</h1>
+    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br>Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</h1>
     <p class="hero-sub reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
@@ -72,7 +72,7 @@ include 'includes/nav.php';
       <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
     </div>
     <div class="hero-stats reveal d5">
-      <div class="hstat"><div class="hstat-num" data-count="78" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
+      <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
       <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
       <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
       <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
@@ -328,6 +328,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <article class="spec-card reveal d1">
       <div class="spec-photo">
         <img src="images/photos/medical-section.webp" alt="Medical practice team supported by a Virtual Teammate" loading="lazy"/>
+        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Less Paperwork.<br>More Patient Time.</div>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -360,6 +361,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
         <img src="images/photos/dental-section.webp" alt="Dental practice team supported by a Virtual Teammate" loading="lazy"/>
+        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
@@ -478,7 +480,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="roi-grid">
     <div class="roi-card reveal d1">
       <span class="ico-circle lg roi-ico"><i class="fa-solid fa-coins"></i></span>
-      <div class="roi-num" data-count="78" data-suffix="%">0%</div>
+      <div class="roi-num" data-count="73" data-suffix="%">0%</div>
       <div class="roi-lbl">Average reduction in staffing costs vs. in-house healthcare hires</div>
     </div>
     <div class="roi-card reveal d2">
@@ -696,7 +698,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <ul class="global-benefits">
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts &mdash; one vendor, no compromises.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent &mdash; not just availability.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 78% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
       </ul>
     </div>
@@ -854,7 +856,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <h2 class="sec-h2">Frequently Asked Questions</h2>
   </div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;78% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the VA isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Every healthcare and dental VA completes <strong>HIPAA training and certification</strong> before placement and signs a BAA-compatible confidentiality agreement. We operate <strong>SOC 2 Type 2-aligned controls</strong> on the VT infrastructure that touches your data &mdash; encrypted laptops, hardware MFA, mandatory password manager, controlled network egress, least-privilege EHR access. Every access event by a VT VA is captured in an <strong>audit trail</strong> (who, what, when, from where), retained for 12 months and reviewable on request by your Client Success Manager.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>5&ndash;7 business days</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager runs the timeline so it lands when you need it.</div></div>

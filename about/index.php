@@ -194,7 +194,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your Time Zone</h3><p>Every teammate works your business hours, with backup coverage built in.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Real KPI Reporting</h3><p>Monthly client KPI scorecards &mdash; claims worked, payments posted, calls answered, AR collected.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A US-based Client Success Manager owns every engagement &mdash; performance, training, escalation.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Flat-rate, transparent pricing &mdash; no hidden fees, no recruiter spread, no surprises.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate, transparent pricing &mdash; no hidden fees, no recruiter spread, no surprises.</p></div>
   </div>
 </section>
 

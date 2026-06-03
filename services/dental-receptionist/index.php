@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Receptionist Virtual Assistants | HIPAA-Certified Front-Desk VAs | Virtual Teammate';
-$page_description = 'Hire a HIPAA-certified dental receptionist virtual assistant. Inbound calls, scheduling, patient intake, insurance verification & recall — answered live in your time zone. Save up to 78%.';
+$page_description = 'Hire a HIPAA-certified dental receptionist virtual assistant. Inbound calls, scheduling, patient intake, insurance verification & recall — answered live in your time zone. Save up to 73%.';
 $og_title         = 'Dental Receptionist Virtual Assistants — Never Miss a Patient Call';
 $og_description   = 'Virtual dental front-desk VAs answering calls live, booking appointments, verifying insurance and cutting no-shows — inside your dental PMS and phone system.';
 $canonical        = 'https://virtualteammate.com/services/dental-receptionist/';
@@ -35,7 +35,7 @@ include __DIR__ . '/../../includes/nav.php';
     {"@type":"Question","name":"What does a virtual dental receptionist do?","acceptedAnswer":{"@type":"Answer","text":"A virtual dental receptionist answers inbound calls live, books and reschedules appointments, runs patient intake, verifies dental insurance, sends reminders and works recall — all inside your dental PMS and phone system."}},
     {"@type":"Question","name":"Can a virtual receptionist take live calls?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk — patients never know the difference."}},
     {"@type":"Question","name":"Will it reduce my no-show rate?","acceptedAnswer":{"@type":"Answer","text":"Most practices see no-shows fall 20-35% within 90 days from consistent confirmations, reminder calls and same-day rebooking that busy front desks rarely keep up with."}},
-    {"@type":"Question","name":"How much does a virtual dental receptionist cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-78% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate."}}
+    {"@type":"Question","name":"How much does a virtual dental receptionist cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate."}}
   ]
 }
 </script>
@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk VAs &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Receptionist <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-certified virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall &mdash; from inside your dental PMS and phone system, in your US time zone, at up to <strong>78% less</strong> than an in-office front desk.</p>
+    <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-certified virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall &mdash; from inside your dental PMS and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-office front desk.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-phone-volume"></i> Live Phone &amp; Portal</div>
@@ -78,7 +78,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">Live Call Answer Rate</div></div>
   <div class="svc-stat"><div class="svc-stat-num">30%</div><div class="svc-stat-lbl">Avg. No-Show Reduction</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">78%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
   <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Launch</div></div>
 </div>
 
@@ -113,7 +113,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Answer, Not Voicemail</h3><p>Every call gets a real voice that knows your providers, hours and scheduling rules.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer No-Shows</h3><p>Consistent confirmations, reminders and rebooks typically cut no-shows 20&ndash;35%.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Replaces $42k&ndash;$56k loaded front-desk cost with a transparent flat rate &mdash; no benefits or PTO.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $42k&ndash;$56k loaded front-desk cost with a transparent flat rate &mdash; no benefits or PTO.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on Request</h3><p>Spanish and other high-demand languages available at no premium.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Call audits, quality monitoring, backup coverage and quarterly reviews on every placement.</p></div>
   </div>
@@ -163,7 +163,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can they take live calls?</div><div class="faq-a">Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-language"></i> Do you offer bilingual receptionists?</div><div class="faq-a">Yes. Spanish and other high-demand languages are available at no premium.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will it reduce no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmations, reminders and same-day rebooking.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;78% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>
   </div>
 </section>

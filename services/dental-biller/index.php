@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Biller Virtual Assistants | HIPAA-Certified Dental Billing VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental biller virtual assistants. Insurance claims, EOB posting, AR follow-up & PPO/HMO billing in Dentrix, Eaglesoft & Open Dental. Save up to 78%.';
+$page_description = 'Hire HIPAA-certified dental biller virtual assistants. Insurance claims, EOB posting, AR follow-up & PPO/HMO billing in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
 $og_title         = 'Dental Biller Virtual Assistants — Faster Claims, Cleaner AR';
 $og_description   = 'Specialized dental billing VAs handling claims, denials, EOB posting and AR follow-up inside Dentrix, Eaglesoft, Open Dental and Carestream.';
 $canonical        = 'https://virtualteammate.com/services/dental-biller/';
@@ -35,7 +35,7 @@ include __DIR__ . '/../../includes/nav.php';
     {"@type":"Question","name":"What does a dental billing virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A dental billing VA owns the full insurance and patient billing cycle: claim submission with CDT codes, narrative writing, EOB posting, denial appeals, AR follow-up, secondary claims and patient statements — inside Dentrix, Eaglesoft, Open Dental, Carestream or your PMS."}},
     {"@type":"Question","name":"Which dental software do your billers know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream (SoftDent / OrthoTrac), Curve Dental and Denticon — plus DentalXChange and major clearinghouses."}},
     {"@type":"Question","name":"Can a dental biller VA handle PPO and HMO claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our dental billers work PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full spectrum of dental payers — including narrative-required and pre-authorization-required procedures."}},
-    {"@type":"Question","name":"How much does a virtual dental biller cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-78% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for an exact estimate."}}
+    {"@type":"Question","name":"How much does a virtual dental biller cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for an exact estimate."}}
   ]
 }
 </script>
@@ -53,7 +53,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR VAs &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Biller <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing &mdash; inside Dentrix, Eaglesoft, Open Dental and Carestream &mdash; at up to <strong>78% less</strong> than a US in-house dental biller.</p>
+    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing &mdash; inside Dentrix, Eaglesoft, Open Dental and Carestream &mdash; at up to <strong>73% less</strong> than a US in-house dental biller.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> CDT Code Fluent</div>
@@ -78,7 +78,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Clean Claim Rate</div></div>
   <div class="svc-stat"><div class="svc-stat-num">&lt;30</div><div class="svc-stat-lbl">Target AR Days</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">78%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
   <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Launch</div></div>
 </div>
 
@@ -113,7 +113,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster Cash, Lower AR</h3><p>Daily AR work and aggressive appeals typically cut AR days under 30 and recover thousands in stalled claims.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ Clean Claim Rate</h3><p>Trained dental billers catch missing CDT codes, narratives and attachments before the claim leaves.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 78% Cost Savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost &mdash; no benefits, PTO or recruiter fees.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost &mdash; no benefits, PTO or recruiter fees.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Backup coverage included &mdash; if your biller is sick, your Success Manager arranges trained relief instantly.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly Billing Reports</h3><p>Production, collections, AR aging, denials, write-offs &mdash; rolled up weekly so you always know where the practice stands.</p></div>
   </div>
@@ -167,7 +167,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Can you handle PPO, HMO, Medicaid and Delta claims?</div><div class="faq-a">Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum &mdash; including narrative-heavy and pre-auth-required procedures.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a dental biller actually lower my AR?</div><div class="faq-a">Yes. Most practices see AR days drop from 45+ to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial appeals.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every dental biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual dental biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;78% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for a specialty-specific quote.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual dental biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for a specialty-specific quote.</div></div>
   </div>
 </section>
 
