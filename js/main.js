@@ -379,7 +379,8 @@
 /* ── Branded lead forms — in their OWN IIFE so an error in any other feature
    can never stop them attaching. Posts to the form's action (default lead.php)
    and swaps in a thank-you on success. Pair with a hidden honeypot input
-   name="company_site" + hidden name="source"/"form". Optional [data-lead-note]
+   name="vt_hp" (non-semantic so browser autofill never fills it) + hidden
+   name="source"/"form". Optional [data-lead-note]
    shows error text; [data-lead-thanks] overrides the success copy. */
 (function(){
   document.querySelectorAll('form[data-lead-form]').forEach(function(form){

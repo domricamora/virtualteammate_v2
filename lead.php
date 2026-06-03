@@ -114,10 +114,14 @@ function lead_email_html(array $lead): string
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { lead_fail('Method not allowed.', 405); }
 
 // Honeypot — bots fill this hidden field; pretend success so they don't retry.
-if (trim((string) ($_POST['company_site'] ?? '')) !== '') { lead_respond(['ok' => true]); }
+// NOTE: named "vt_hp" (not a company/email/url-like token) so Chrome & password
+// managers can't classify it and never autofill it for real visitors — an
+// autofilled honeypot would silently drop a genuine lead. The legacy
+// "company_site" name is still honored for any cached/older page.
+if (trim((string) ($_POST['vt_hp'] ?? '')) !== '' || trim((string) ($_POST['company_site'] ?? '')) !== '') { lead_respond(['ok' => true]); }
 
 /* ── Collect fields generically ── */
-$control = ['company_site' => 1, '_csrf' => 1];
+$control = ['vt_hp' => 1, 'company_site' => 1, '_csrf' => 1];
 $fields  = [];
 foreach ($_POST as $k => $v) {
     if (isset($control[$k]) || !is_string($v)) { continue; }

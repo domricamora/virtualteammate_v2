@@ -59,7 +59,7 @@ $lfe = static fn($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
       <textarea class="cf-field" name="message" rows="3" placeholder="<?= $lfe($lf_msg_ph) ?>" style="margin-bottom:14px;"></textarea>
       <input type="hidden" name="source" value="<?= $lfe($lf_source) ?>">
       <input type="hidden" name="form" value="<?= $lfe($lf_form) ?>">
-      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit"><?= $lfe($lf_cta) ?> <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No spam. We respond within 1 business day.</div>
     </form>

@@ -220,7 +220,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <li><span class="csm-step-n">3</span><div><strong>Meet your matched shortlist</strong><span>Interview vetted teammates &mdash; backed by the 30-Day Right-Fit Promise.</span></div></li>
       </ul>
     </div>
-    <form class="csm-cta-form" id="csmCallback" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+    <form class="csm-cta-form" id="csmCallback" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within 1 business day.">
       <div class="csm-cta-form-h">Request a callback</div>
       <input class="csm-field" type="text"  name="name"   placeholder="Your name"               required autocomplete="name">
@@ -229,7 +229,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <input class="csm-field" type="tel"   name="phone"  placeholder="Phone (optional)"         autocomplete="tel">
       <input type="hidden" name="source" value="csm-callback">
       <input type="hidden" name="form" value="csm-callback">
-      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="csm-cta-btn btn-primary" type="submit">Have my CSM reach out <i class="fa-solid fa-arrow-right"></i></button>
       <p class="csm-cta-note" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</p>
     </form>
@@ -902,7 +902,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
     <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA Buyer&rsquo;s Checklist</h2>
     <p class="cta-modal-sub">22 questions to ask any healthcare VA agency before you sign. Drop your email &mdash; we&rsquo;ll send the PDF within one business day.</p>
-    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+    <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Check your inbox &mdash; your checklist is on the way.">
       <input type="hidden" name="intent" value="buyers-checklist">
       <input type="hidden" name="form" value="homepage-checklist">
@@ -912,7 +912,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input class="cf-field" name="practice" placeholder="Practice / Clinic Name (optional)" style="margin-bottom:16px;">
-      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No spam &middot; Just the checklist and the occasional helpful tip</div>
     </form>
@@ -926,7 +926,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
     <h2 class="cta-modal-h" id="ccm-pa-h">Book Your 20-min Practice Value Audit</h2>
     <p class="cta-modal-sub">A diagnostic-only call: we map your top admin and clinical workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
-    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+    <form class="cta-modal-form" id="ctaAuditForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your audit.">
       <input type="hidden" name="intent" value="practice-audit">
       <input type="hidden" name="form" value="homepage-practice-audit">
@@ -949,7 +949,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Recall &amp; treatment coordination</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
-      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
     </form>
@@ -963,7 +963,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
     <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
     <p class="cta-modal-sub">A 30-minute call to map your needs, define the role, and get you a tailored shortlist within 5&ndash;7 business days.</p>
-    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+    <form class="cta-modal-form" id="ctaStrategyForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your strategy call.">
       <input type="hidden" name="intent" value="strategy-call">
       <input type="hidden" name="form" value="homepage-strategy-call">
@@ -976,8 +976,8 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
       </div>
       <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required>
-      <select class="cf-field" name="role" style="margin-bottom:14px;" required>
-        <option value="">I need... (select role)</option>
+      <select class="cf-field" name="role" style="margin-bottom:14px;">
+        <option value="">I need... (select role, optional)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
           <option>Medical Receptionist</option>
@@ -993,8 +993,8 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Business / Admin VA</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
-      <select class="cf-field" name="source" style="margin-bottom:16px;" required>
-        <option value="">Where did you hear about us?</option>
+      <select class="cf-field" name="source" style="margin-bottom:16px;">
+        <option value="">Where did you hear about us? (optional)</option>
         <option>Google search</option>
         <option>Referral from a colleague or friend</option>
         <option>Existing client / Word of mouth</option>
@@ -1010,7 +1010,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Online ad</option>
         <option>Other</option>
       </select>
-      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
@@ -1021,60 +1021,74 @@ $homepage_profiles = vtnew_homepage_profiles(8);
 <?php $hide_lead_band = true; /* homepage already has the #cta + ROI forms */ ?>
 <?php include 'includes/footer.php'; ?>
 
-<!-- Dedicated lead handler for the homepage forms (the three entry-point modal
-     forms + #calcReachout). These forms intentionally do NOT carry data-lead-form,
-     so the generic handler in js/main.js never touches them — this self-contained
-     function is their ONLY handler (no race, no double-submit, and immune to any
-     error elsewhere in the main.js bundle). Binds immediately (the script sits
-     after the forms in the DOM), posts to the form's action (lead.php), and swaps
-     in a thank-you on success. -->
+<!-- Dedicated lead handlers for EVERY homepage form. Each form (the CSM callback
+     + the three entry-point modals) is bound by its own unique id to its OWN
+     submit handler — no class-wide loop and no shared data-lead-form handler, so
+     one form's flow can never be reused for, or interfere with, another. None of
+     these forms carry data-lead-form, so the generic handler in js/main.js never
+     touches them. This self-contained block is their ONLY handler (no race, no
+     double-submit, and immune to any error elsewhere in the main.js bundle). It
+     posts to each form's action (lead.php) and swaps in a thank-you on success. -->
 <script>
 (function () {
-  function bind(form) {
+  // Shared low-level transport only — NOT a handler. Posts one form to its
+  // action and swaps in a thank-you. Each form gets its own handler below.
+  function postLead(form) {
+    var url  = form.getAttribute('action') || 'lead.php';
+    var btn  = form.querySelector('[type=submit]');
+    var note = form.querySelector('[data-lead-note]');
+    if (note) { note.textContent = ''; note.classList.remove('is-err'); }
+    function resetBtn() {
+      if (btn) {
+        btn.disabled = false;
+        btn.classList.remove('is-loading');
+        if (btn.dataset.orig !== undefined) { btn.innerHTML = btn.dataset.orig; }
+      }
+    }
+    if (btn) {
+      btn.dataset.orig = btn.innerHTML;
+      btn.disabled = true;
+      btn.classList.add('is-loading');
+      btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
+    }
+    fetch(url, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
+      .then(function (r) { return r.json(); })
+      .then(function (res) {
+        if (res && res.ok) {
+          var msg = form.getAttribute('data-lead-thanks') || 'Thank you! We’ll be in touch within 1 business day.';
+          form.innerHTML = '<div class="lead-thanks"><i class="fa-solid fa-circle-check"></i><p>' + msg + '</p></div>';
+        } else {
+          if (note) { note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
+          resetBtn();
+        }
+      })
+      .catch(function () {
+        if (note) { note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); }
+        resetBtn();
+      });
+  }
+
+  // One dedicated handler per form. `this` is always the form that fired the
+  // event, so each handler owns exactly one form and is never reused.
+  function handleCsmCallback(e)   { e.preventDefault(); postLead(this); }
+  function handleChecklist(e)     { e.preventDefault(); postLead(this); }
+  function handlePracticeAudit(e) { e.preventDefault(); postLead(this); }
+  function handleStrategyCall(e)  { e.preventDefault(); postLead(this); }
+
+  function attach(id, handler) {
+    var form = document.getElementById(id);
     if (!form || form.dataset.leadBound) { return; }
     form.dataset.leadBound = '1';
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var url  = form.getAttribute('action') || 'lead.php';
-      var btn  = form.querySelector('[type=submit]');
-      var note = form.querySelector('[data-lead-note]');
-      if (note) { note.textContent = ''; note.classList.remove('is-err'); }
-      function resetBtn() {
-        if (btn) {
-          btn.disabled = false;
-          btn.classList.remove('is-loading');
-          if (btn.dataset.orig !== undefined) { btn.innerHTML = btn.dataset.orig; }
-        }
-      }
-      if (btn) {
-        btn.dataset.orig = btn.innerHTML;
-        btn.disabled = true;
-        btn.classList.add('is-loading');
-        btn.innerHTML = '<span class="vtd-spinner" aria-hidden="true"></span> Sending…';
-      }
-      fetch(url, { method: 'POST', body: new FormData(form), credentials: 'same-origin' })
-        .then(function (r) { return r.json(); })
-        .then(function (res) {
-          if (res && res.ok) {
-            var msg = form.getAttribute('data-lead-thanks') || 'Thank you! We’ll be in touch within 1 business day.';
-            form.innerHTML = '<div class="lead-thanks"><i class="fa-solid fa-circle-check"></i><p>' + msg + '</p></div>';
-          } else {
-            if (note) { note.textContent = (res && res.error) ? res.error : 'Something went wrong — please try again.'; note.classList.add('is-err'); }
-            resetBtn();
-          }
-        })
-        .catch(function () {
-          if (note) { note.textContent = 'Network error — please try again.'; note.classList.add('is-err'); }
-          resetBtn();
-        });
-    });
+    form.addEventListener('submit', handler);
   }
   function init() {
-    document.querySelectorAll('.cta-modal-form').forEach(bind);
-    bind(document.getElementById('calcReachout'));
+    attach('csmCallback',      handleCsmCallback);
+    attach('ctaChecklistForm', handleChecklist);
+    attach('ctaAuditForm',     handlePracticeAudit);
+    attach('ctaStrategyForm',  handleStrategyCall);
   }
-  // Bind now (this script is placed after both forms) and again on
-  // DOMContentLoaded as a safety net. bind() is idempotent.
+  // Bind now (this script sits after every form in the DOM) and again on
+  // DOMContentLoaded as a safety net. attach() is idempotent per form.
   init();
   document.addEventListener('DOMContentLoaded', init);
 })();
@@ -1092,6 +1106,22 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   if (!Object.keys(modals).length) { return; }
   var docEl = document.documentElement, body = document.body;
   var savedY = 0, locked = false;
+
+  // Snapshot each modal form's pristine markup once, so closing a modal can
+  // fully reset it — clears typed values AND drops any thank-you / error state
+  // the submit handler swapped in. The form's submit listener lives on the
+  // <form> element itself (not its children), so restoring innerHTML keeps it
+  // wired; every reopen starts clean.
+  var pristine = [];
+  document.querySelectorAll('.cta-modal .cta-modal-form').forEach(function (f) {
+    pristine.push({ form: f, html: f.innerHTML });
+  });
+  function resetForms() {
+    pristine.forEach(function (p) {
+      if (p.form.innerHTML !== p.html) { p.form.innerHTML = p.html; }
+      try { p.form.reset(); } catch (e) {}
+    });
+  }
 
   function lock() {
     if (locked) { return; }
@@ -1115,6 +1145,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       if (f) { try { f.focus({ preventScroll: true }); } catch (e) { f.focus(); } }
     } else {
       unlock();
+      resetForms();
     }
   }
   // Capture scroll position before the hash flips so the open is jump-free.

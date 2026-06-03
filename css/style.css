@@ -2480,7 +2480,11 @@ textarea.vtd-field{resize:vertical;min-height:52px;}
 .vtd-form-submit{margin-top:4px;justify-content:center;}
 .vtd-form-note{font-size:12px;color:rgba(255,255,255,.55);margin:2px 0 0;text-align:center;}
 .vtd-form-note.is-err{color:#ffb4b4;}
-.vtd-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0;}
+/* Honeypot field: MUST be display:none — off-screen (left:-9999px) is still
+   "visible" to Chrome autofill, which then fills it with the user's saved
+   company and silently trips the honeypot, dropping real leads. display:none
+   is excluded from autofill yet still posts + still catches naive bots. */
+.vtd-hp{display:none!important;}
 .vtd-thanks{text-align:center;padding:18px 6px;}
 .vtd-thanks i{font-size:40px;color:var(--gold);margin-bottom:10px;}
 .vtd-thanks h3{color:#fff;font-size:20px;margin-bottom:6px;}

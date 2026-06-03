@@ -330,7 +330,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         <input type="hidden" name="source" value="virtual-teammates">
         <input type="hidden" name="form" value="virtual-teammates">
         <!-- honeypot -->
-        <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+        <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
         <button type="submit" class="btn-primary vtd-form-submit">Request my shortlist <i class="fa-solid fa-arrow-right"></i></button>
         <p class="vtd-form-note" id="vtdLeadNote" role="status" aria-live="polite">We reply within 1 business day. No spam, ever.</p>
       </form>
