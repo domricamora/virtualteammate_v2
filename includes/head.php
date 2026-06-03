@@ -10,6 +10,9 @@ if (!headers_sent()) {
     header('Pragma: no-cache');
     header('Expires: 0');
 }
+// Asset-cache version helper (?v= on CSS/JS) — controlled by the super-admin
+// portal's Site Cache toggle/flush. Safe default = filemtime-busting as before.
+require_once __DIR__ . '/cache.php';
 /**
  * Site head partial — meta, schema, font loads, CSS link.
  * Set the following BEFORE including this file to override defaults:
@@ -75,7 +78,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <link rel="preconnect" href="https://images.unsplash.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-<link rel="stylesheet" href="<?= $home_base ?>css/style.css?v=<?= @filemtime(__DIR__ . '/../css/style.css') ?: time() ?>"/>
+<link rel="stylesheet" href="<?= $home_base ?>css/style.css?v=<?= vt_asset_ver(__DIR__ . '/../css/style.css') ?>"/>
 
 <?php if ($is_homepage): ?>
 <script type="application/ld+json">

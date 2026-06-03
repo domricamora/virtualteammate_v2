@@ -1,8 +1,9 @@
-<?php /** @var array $user @var array $stats @var array $traffic @var array $trend */
+<?php /** @var array $user @var array $stats @var array $traffic @var array $trend @var array $cache */
 $pageTitle = 'Super Admin Dashboard';
 $subtitle  = 'Operational overview of the VT portal.';
 $traffic   = $traffic ?? ['recent' => [], 'top_countries' => [], 'top_pages' => []];
 $trend     = $trend ?? ['labels' => [], 'leads' => [], 'traffic' => []];
+$cache     = $cache ?? ['enabled' => true, 'version' => ''];
 ?>
 
 <div class="stat-grid">
@@ -252,5 +253,43 @@ $trend     = $trend ?? ['labels' => [], 'leads' => [], 'traffic' => []];
     <a class="btn-portal-secondary" href="<?= e(portal_url('vts.edit')) ?>"><i class="fa-solid fa-user-tie"></i> New VT profile</a>
     <a class="btn-portal-secondary" href="<?= e(portal_url('assignments')) ?>"><i class="fa-solid fa-diagram-project"></i> Edit assignments</a>
     <a class="btn-portal-secondary" href="<?= e(portal_url('audit')) ?>"><i class="fa-solid fa-list-check"></i> Audit log</a>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-h">
+    <h3><i class="fa-solid fa-bolt" style="color:var(--gold);margin-right:8px;"></i> Site cache</h3>
+    <span class="pill <?= $cache['enabled'] ? 'pill-active' : 'pill-paused' ?>">
+      <?= $cache['enabled'] ? 'Caching ON' : 'Caching OFF' ?>
+    </span>
+  </div>
+  <p class="muted small" style="margin:0 0 16px;">
+    Controls browser caching of the marketing site's CSS &amp; JS.
+    <strong>On</strong> — visitors cache assets until the next deploy or flush (fastest).
+    <strong>Off</strong> — every visit re-fetches assets (useful while iterating on design).
+    <strong>Flush</strong> forces all visitors to pull fresh assets on their next load.
+    <?php if ($cache['version'] !== ''): ?>
+      <br><span class="muted">Last flushed: <code><?= e($cache['version']) ?></code> (UTC).</span>
+    <?php endif; ?>
+  </p>
+  <div class="actions-row">
+    <?php if ($cache['enabled']): ?>
+      <form method="post" action="<?= e(portal_url('cache.toggle')) ?>" style="display:inline;">
+        <?= csrf_field() ?>
+        <input type="hidden" name="enabled" value="0">
+        <button type="submit" class="btn-portal-secondary"><i class="fa-solid fa-toggle-off"></i> Disable caching</button>
+      </form>
+    <?php else: ?>
+      <form method="post" action="<?= e(portal_url('cache.toggle')) ?>" style="display:inline;">
+        <?= csrf_field() ?>
+        <input type="hidden" name="enabled" value="1">
+        <button type="submit" class="btn-portal-secondary"><i class="fa-solid fa-toggle-on"></i> Enable caching</button>
+      </form>
+    <?php endif; ?>
+    <form method="post" action="<?= e(portal_url('cache.flush')) ?>" style="display:inline;"
+          onsubmit="return confirm('Flush the site cache? All visitors will re-fetch CSS &amp; JS on their next page load.');">
+      <?= csrf_field() ?>
+      <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-broom"></i> Flush cache</button>
+    </form>
   </div>
 </div>

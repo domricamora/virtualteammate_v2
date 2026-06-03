@@ -77,7 +77,7 @@ $hide_footer = $hide_footer ?? false;
   <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
 </button>
 
-<script src="<?= $home_base ?>js/main.js?v=<?= @filemtime(__DIR__ . '/../js/main.js') ?: time() ?>" defer></script>
+<script src="<?= $home_base ?>js/main.js?v=<?= (function_exists('vt_asset_ver') ? vt_asset_ver(__DIR__ . '/../js/main.js') : (@filemtime(__DIR__ . '/../js/main.js') ?: time())) ?>" defer></script>
 <!-- Traffic beacon — fires once after load so it never blocks render. -->
 <script>
 (function(){

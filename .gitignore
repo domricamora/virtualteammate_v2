@@ -27,6 +27,8 @@ data/chat.sqlite-journal
 data/chat.sqlite-wal
 data/chat.sqlite-shm
 data/SUPERADMIN_CREDENTIALS.txt
+# Site-cache state mirror — per-environment, written by the portal cache control
+data/cache-state.php
 
 # Synced HubSpot media (per-environment, may contain PII like resumes)
 data/media/
