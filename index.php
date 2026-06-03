@@ -113,11 +113,11 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="case-metric">
         <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+30%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">350</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">455</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
         </div>
-        <div class="case-metric-foot">Payment posting also beat target by <strong>30%</strong> &mdash; 400 goal, <strong>520</strong> delivered</div>
+        <div class="case-metric-foot">Payment posting also beat target by <strong>30%</strong> &mdash; <strong>130%</strong> of goal delivered</div>
       </div>
       <p class="case-q">Our RCM virtual teammate cleared insurance verifications <strong>30% past the monthly goal</strong> and posted payments <strong>30% over target</strong> &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
@@ -133,11 +133,11 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="case-metric">
         <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+40%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">150</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">210</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">140%</span></div>
         </div>
-        <div class="case-metric-foot">Claims processed beat target by <strong>30%</strong> &mdash; 550 goal, <strong>715</strong> delivered</div>
+        <div class="case-metric-foot">Claims processed beat target by <strong>30%</strong> &mdash; <strong>130%</strong> of goal delivered</div>
       </div>
       <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>40% past target</strong> and claims volume <strong>30% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
       <div class="case-auth">
@@ -153,11 +153,11 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="case-metric">
         <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+28%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">520</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">665</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">128%</span></div>
         </div>
-        <div class="case-metric-foot">Insurance verifications also beat target by <strong>28%</strong> &mdash; 360 goal, <strong>460</strong> delivered</div>
+        <div class="case-metric-foot">Insurance verifications also beat target by <strong>28%</strong> &mdash; <strong>128%</strong> of goal delivered</div>
       </div>
       <p class="case-q">Payment posting landed <strong>28% above target</strong> with insurance verifications <strong>28% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
       <div class="case-auth">
@@ -173,9 +173,9 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="case-metric">
         <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+30%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">300</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">390</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
         </div>
         <div class="case-metric-foot">Ramped fast on a high-volume endodontic &amp; oral-surgery caseload</div>
       </div>
@@ -206,6 +206,14 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="spec-photo">
         <img src="images/photos/medical-section.webp" alt="Medical practice team supported by a Virtual Teammate" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Less Paperwork.<br>More Patient Time.</div>
+        <div class="spec-proof">
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
+          <ul>
+            <li><strong>AR days 52 &rarr; 23</strong> &mdash; Family Practice, Austin TX. $68k stalled claims recovered in 12 weeks.</li>
+            <li><strong>+18 hrs/week reclaimed</strong> &mdash; Internal Medicine, Denver CO. Scribe ends after-hours charting.</li>
+            <li><strong>95%+ clean claim rate</strong> &mdash; average across our specialist-tier medical billers.</li>
+          </ul>
+        </div>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
@@ -214,15 +222,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <h3 class="spec-title">Medical Virtual Assistants</h3>
         </div>
         <p class="spec-desc">Built for office managers and providers who are stretched thin. HIPAA-certified medical VAs work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so your front desk isn&rsquo;t drowning, your providers stop charting after hours, and your AR keeps moving. More coverage, no extra desks or payroll.</p>
-
-        <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Value our medical VAs have created</div>
-          <ul>
-            <li><strong>AR days 52 &rarr; 23</strong> &mdash; Family Practice, Austin TX. $68k stalled claims recovered in 12 weeks.</li>
-            <li><strong>+18 hrs/week reclaimed</strong> &mdash; Internal Medicine, Denver CO. Scribe ends after-hours charting.</li>
-            <li><strong>95%+ clean claim rate</strong> &mdash; average across our specialist-tier medical billers.</li>
-          </ul>
-        </div>
 
         <div class="spec-pills">
           <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
@@ -239,6 +238,14 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="spec-photo">
         <img src="images/photos/dental-section.webp" alt="Dental practice team supported by a Virtual Teammate" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
+        <div class="spec-proof">
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental VAs deliver</div>
+          <ul>
+            <li><strong>No-shows 22% &rarr; 9%</strong> &mdash; Pediatric Dental, Tampa FL. +14 visits/week recovered from confirmations &amp; rebooks.</li>
+            <li><strong>30%+ no-show reduction</strong> &mdash; Phoenix AZ dental practice with virtual receptionist on recall.</li>
+            <li><strong>CDT-coded claims with narratives</strong> &mdash; first-pass clean-claim rate above 95%.</li>
+          </ul>
+        </div>
       </div>
       <div class="spec-content">
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
@@ -247,15 +254,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <h3 class="spec-title">Dental Virtual Assistants</h3>
         </div>
         <p class="spec-desc">Made for practice owners and office managers protecting production. Dental VAs fluent in Dentrix, Eaglesoft and Open Dental own recall, insurance verification, billing and treatment-plan follow-up &mdash; keeping chairs full, claims clean and the schedule tight, while your in-office team stays focused on patients.</p>
-
-        <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Value our dental VAs have created</div>
-          <ul>
-            <li><strong>No-shows 22% &rarr; 9%</strong> &mdash; Pediatric Dental, Tampa FL. +14 visits/week recovered from confirmations &amp; rebooks.</li>
-            <li><strong>30%+ no-show reduction</strong> &mdash; Phoenix AZ dental practice with virtual receptionist on recall.</li>
-            <li><strong>CDT-coded claims with narratives</strong> &mdash; first-pass clean-claim rate above 95%.</li>
-          </ul>
-        </div>
 
         <div class="spec-pills">
           <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
