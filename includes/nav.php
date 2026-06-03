@@ -12,7 +12,7 @@ $home_base = $home_base ?? './';
 <div class="topbar" role="complementary">
   <i class="fa-solid fa-hospital" aria-hidden="true"></i> Specialized in Medical &amp; Dental Virtual Assistants &mdash; HIPAA-Certified &amp; Fully Vetted
   &nbsp;&bull;&nbsp;
-  <a href="<?= $home_base ?>#cta-strategy-call" data-cta-intent="strategy-call">Book Your Strategy Call <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $home_base ?>#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->
@@ -84,7 +84,7 @@ $home_base = $home_base ?? './';
             <i class="fa-solid fa-circle-nodes"></i>
             <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental &mdash; front desk to back office, all HIPAA-certified.</span>
           </div>
-          <a href="<?= $home_base ?>#cta-strategy-call" class="nav-mega-foot-btn" data-cta-intent="strategy-call">Talk to our team <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="<?= $home_base ?>#cta-strategy-call" class="nav-mega-foot-btn" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
         </div>
       </div>
     </div>
@@ -123,6 +123,6 @@ $home_base = $home_base ?? './';
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>
-    <a href="<?= $home_base ?>#cta-strategy-call" data-cta-intent="strategy-call" class="btn-nav">Book Value Session</a>
+    <a href="<?= $home_base ?>#cta-strategy-call" data-cta-intent="strategy-call" class="btn-nav">Book My Strategy Call</a>
   </div>
 </nav>

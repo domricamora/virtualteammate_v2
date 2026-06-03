@@ -92,7 +92,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Hire a Virtual Teammate <em>Zero-Risk</em>. Period.</h1>
     <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your VA isn&rsquo;t the right fit inside the first 30 days, we make it right &mdash; at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
-      <a href="<?= $home_base ?>#cta" class="btn-primary">Book a Value Strategy Session <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#claim" class="btn-glass">How to Claim the Promise <i class="fa-solid fa-list-check"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>30-day window starts the day your VA goes live</span>
@@ -271,7 +271,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Ready to Hire <em style="color:var(--gold);font-style:normal;">Without the Risk</em>?</h2>
   <p>Book a 30-minute value strategy session. We&rsquo;ll map your top workflows, recommend a tier and headcount, and back the whole thing with the Right-Fit Promise &mdash; in writing, before you sign.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Real Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
   </div>
 </section>

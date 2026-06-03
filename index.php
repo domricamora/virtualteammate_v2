@@ -59,8 +59,8 @@ include 'includes/nav.php';
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
-      <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="trust-row reveal d4">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -287,7 +287,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta-strategy-call" class="btn-gold">Get HIPAA-Ready VAs <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-gold" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -330,7 +330,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta-strategy-call" class="btn-primary">Start the Process &mdash; Start Creating Value <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -564,7 +564,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
       <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
     </div>
-    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">See a Tailored Shortlist <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
   <?php if (!empty($homepage_profiles)): ?>
@@ -588,7 +588,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <?php else: ?>
     <div class="prof-empty card">
       <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book a strategy call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
     </div>
   <?php endif; ?>
 </section>
@@ -638,7 +638,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
       <div class="g-foot">
         <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Or: 20-min Practice Value Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Audit <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
     </div>
   </div>
@@ -858,7 +858,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
@@ -888,7 +888,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book a strategy call</a> and a Client Success Manager will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> and a Client Success Manager will map it out with you.</p>
 </section>
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
