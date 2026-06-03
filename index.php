@@ -240,7 +240,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec vadd" id="value-added" aria-labelledby="vadd-h">
   <div class="vadd-head reveal">
     <div class="sec-lbl"><i class="fa-solid fa-gauge-high"></i> Value Added</div>
-    <h2 class="sec-h2" id="vadd-h">Every Dollar Does the Work of <em>Nearly Four</em></h2>
+    <h2 class="sec-h2" id="vadd-h">One Hire. <em>Nearly Four Times</em> the Value.</h2>
     <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
   </div>
 
