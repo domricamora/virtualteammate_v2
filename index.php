@@ -344,6 +344,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
   </div>
 
+  <div class="calc-glow">
   <div class="calc reveal d1" id="roiCalc">
     <!-- LEFT — value multiplier speedometer -->
     <div class="calc-vadd">
@@ -483,6 +484,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="calc-foot">Rates based on live VT placement data. US comparison uses median fully-loaded in-house cost (salary + benefits + payroll burden) for equivalent healthcare admin roles.</p>
     </div>
     </div>
+  </div>
   </div>
 </section>
 
