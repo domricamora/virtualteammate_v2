@@ -24,7 +24,7 @@ $total = count($rows);
     <tbody>
       <?php foreach ($rows as $r): ?>
         <tr>
-          <td class="muted small" style="white-space:nowrap;"><?= e(fmt_dt($r['created_at'])) ?></td>
+          <td class="muted small" style="white-space:nowrap;"><?= local_dt($r['created_at']) ?></td>
           <td><strong><?= e($r['name'] ?: '—') ?></strong></td>
           <td><a href="mailto:<?= e($r['email']) ?>" style="color:var(--gold,#d4a64a);"><?= e($r['email']) ?></a></td>
           <td class="muted small"><?= e($r['phone'] ?: '—') ?></td>

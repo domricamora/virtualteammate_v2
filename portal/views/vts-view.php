@@ -80,7 +80,7 @@ $isLocal = static fn(string $u): bool => str_starts_with($u, 'index.php?p=media'
   </div>
   <div class="vt-stat">
     <div class="vt-stat-l">Last login</div>
-    <div class="vt-stat-v"><?= e(fmt_dt($vt['last_login_at']) ?: '—') ?></div>
+    <div class="vt-stat-v"><?= (local_dt($vt['last_login_at']) ?: '—') ?></div>
   </div>
 </div>
 
@@ -177,7 +177,7 @@ $isLocal = static fn(string $u): bool => str_starts_with($u, 'index.php?p=media'
       <dt>Email</dt>             <dd><?= e($vt['email']) ?></dd>
       <dt>Phone</dt>             <dd><?= e($vt['phone'] ?: '—') ?></dd>
       <dt>Country</dt>           <dd><?= e($vt['country'] ?: '—') ?></dd>
-      <dt>Last login</dt>        <dd class="muted"><?= e(fmt_dt($vt['last_login_at']) ?: '—') ?></dd>
+      <dt>Last login</dt>        <dd class="muted"><?= (local_dt($vt['last_login_at']) ?: '—') ?></dd>
       <dt>HubSpot contact id</dt><dd class="muted small"><?= e($vt['hubspot_contact_id'] ?: '—') ?></dd>
       <?php if (!empty($vt['ci_role'])): ?>
         <dt>CI role</dt><dd><?= e($vt['ci_role']) ?></dd>
@@ -215,7 +215,7 @@ $isLocal = static fn(string $u): bool => str_starts_with($u, 'index.php?p=media'
         <?php foreach ($clients as $c): ?>
           <li>
             <span class="people-name"><a href="<?= e(portal_url('clients.view', ['id' => $c['id']])) ?>"><?= e($c['company_name']) ?></a></span>
-            <span class="people-meta">Engagement: <?= e($c['cv_status']) ?> &middot; started <?= e(fmt_dt($c['started_at'], 'Y-m-d')) ?></span>
+            <span class="people-meta">Engagement: <?= e($c['cv_status']) ?> &middot; started <?= local_dt($c['started_at'], 'Y-m-d') ?></span>
             <?php if (!empty($c['cv_workday_link'])): ?>
               <span class="people-meta"><i class="fa-solid fa-up-right-from-square"></i> <a href="<?= e($c['cv_workday_link']) ?>" target="_blank" rel="noopener">Workday tracker</a></span>
             <?php endif; ?>
@@ -255,7 +255,7 @@ $isLocal = static fn(string $u): bool => str_starts_with($u, 'index.php?p=media'
             <td><strong><?= e($r['report_date']) ?></strong></td>
             <td><?= e(mb_strimwidth($r['best_work'], 0, 60, '…')) ?></td>
             <td><?= e(mb_strimwidth($r['help_needed'], 0, 60, '…')) ?></td>
-            <td class="muted small"><?= e(fmt_dt($r['updated_at'])) ?></td>
+            <td class="muted small"><?= local_dt($r['updated_at']) ?></td>
           </tr>
         <?php endforeach; ?>
       </tbody>

@@ -28,9 +28,9 @@ $subtitle  = 'Read-only profile + assigned clients.';
       <dt>Email</dt>           <dd><?= e($csm['email']) ?></dd>
       <dt>Phone</dt>           <dd><?= e($csm['phone'] ?: '—') ?></dd>
       <dt>Country</dt>         <dd><?= e($csm['country'] ?: '—') ?></dd>
-      <dt>Last login</dt>      <dd class="muted"><?= e(fmt_dt($csm['last_login_at']) ?: '—') ?></dd>
+      <dt>Last login</dt>      <dd class="muted"><?= (local_dt($csm['last_login_at']) ?: '—') ?></dd>
       <dt>HubSpot contact id</dt><dd class="muted small"><?= e($csm['hubspot_contact_id'] ?: '—') ?></dd>
-      <dt>Created</dt>         <dd class="muted small"><?= e(fmt_dt($csm['created_at'])) ?></dd>
+      <dt>Created</dt>         <dd class="muted small"><?= local_dt($csm['created_at']) ?></dd>
     </dl>
   </div>
 

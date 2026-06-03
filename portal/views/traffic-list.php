@@ -116,7 +116,7 @@ $totalAll  = count($rows);
           elseif (preg_match('/bot|crawl|spider|slurp|bing|google/i', $ua)) { $dev = 'Bot'; }
         ?>
           <tr>
-            <td class="muted small"><?= e(fmt_dt($r['created_at'], 'Y-m-d H:i')) ?></td>
+            <td class="muted small"><?= local_dt($r['created_at'], 'Y-m-d g:i a') ?></td>
             <td class="small"><?= e($r['ip'] ?: '—') ?></td>
             <td><?= e($loc) ?></td>
             <td class="small"><?= e($r['path'] ?: '/') ?></td>

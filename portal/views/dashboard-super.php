@@ -216,7 +216,7 @@ $trend     = $trend ?? ['labels' => [], 'leads' => [], 'traffic' => []];
             $loc = trim(($r['city'] ?? '') . ($r['city'] && $r['country'] ? ', ' : '') . ($r['country'] ?? '')) ?: '—';
           ?>
             <tr>
-              <td class="muted small"><?= e(fmt_dt($r['created_at'], 'm-d H:i')) ?></td>
+              <td class="muted small"><?= local_dt($r['created_at'], 'm-d g:i a') ?></td>
               <td><?= e($loc) ?></td>
               <td class="muted small"><?= e($r['ip'] ?: '—') ?></td>
               <td class="muted small"><?= e($r['path'] ?: '/') ?></td>

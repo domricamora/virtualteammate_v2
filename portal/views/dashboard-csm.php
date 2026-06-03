@@ -144,7 +144,7 @@ $trend = $data['trend'] ?? ['labels' => [], 'eod' => [], 'tasks' => [], 'meeting
       <tbody>
         <?php foreach ($data['meetings'] as $m): ?>
           <tr>
-            <td><?= e(fmt_dt($m['scheduled_at'], 'Y-m-d H:i')) ?></td>
+            <td><?= e(fmt_dt($m['scheduled_at'], 'Y-m-d g:i a')) ?></td>
             <td><?= e($m['company_name']) ?></td>
             <td><?= e(ucfirst($m['meeting_with_role'])) ?></td>
             <td><?= e($m['topic']) ?></td>

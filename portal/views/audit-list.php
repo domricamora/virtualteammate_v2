@@ -31,7 +31,7 @@ $totalAll  = count($rows);
         <tr data-empty><td colspan="7" class="muted">No audit events yet.</td></tr>
       <?php else: foreach ($rows as $r): ?>
         <tr>
-          <td class="muted small"><?= e(fmt_dt($r['created_at'])) ?></td>
+          <td class="muted small"><?= local_dt($r['created_at']) ?></td>
           <td><?= e($r['actor_email'] ?? '—') ?></td>
           <td><span class="pill pill-default"><?= e($r['action']) ?></span></td>
           <td><?= e($r['entity_type']) ?><?= $r['entity_id'] ? ' #' . (int) $r['entity_id'] : '' ?></td>

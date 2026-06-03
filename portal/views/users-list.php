@@ -30,7 +30,7 @@ $totalAll  = count($users);
           <td><?= e($u['email']) ?></td>
           <td><?= role_badge($u['role']) ?></td>
           <td><?= $u['active'] ? '<span class="pill pill-active">Yes</span>' : '<span class="pill pill-paused">No</span>' ?></td>
-          <td class="muted"><?= e(fmt_dt($u['last_login_at'])) ?></td>
+          <td class="muted"><?= local_dt($u['last_login_at']) ?></td>
           <td class="row-actions">
             <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('users.edit', ['id'=>$u['id']])) ?>"><i class="fa-solid fa-pen"></i></a>
             <form method="post" action="<?= e(portal_url('users.delete')) ?>" class="inline-form" onsubmit="return confirm('Delete this user permanently?');">

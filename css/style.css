@@ -2719,6 +2719,8 @@ button.is-loading{opacity:.85;cursor:progress;}
 .vadd-head{max-width:780px;margin:0 auto 44px;text-align:center;}
 .vadd-head .sec-lbl{display:inline-flex;align-items:center;gap:8px;}
 .vadd-head .sec-sub{max-width:660px;margin-left:auto;margin-right:auto;text-align:center;}
+/* Registered angle prop so the conic-gradient can actually animate its rotation. */
+@property --vadd-spin{ syntax:"<angle>"; inherits:false; initial-value:0deg; }
 .vadd-grid{
   position:relative;
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:52px;align-items:center;
@@ -2727,25 +2729,27 @@ button.is-loading{opacity:.85;cursor:progress;}
   backdrop-filter:var(--glass-blur);
   animation:vaddGlow 5.5s ease-in-out infinite;
 }
-/* Animated gradient-ring sheen around the panel. */
+/* Rotating conic glow that sweeps continuously around the panel border. */
 .vadd-grid::before{
-  content:"";position:absolute;inset:0;border-radius:28px;padding:1px;pointer-events:none;z-index:0;
-  background:linear-gradient(120deg, rgba(223,169,73,0.55), rgba(124,58,237,0.45) 50%, rgba(223,169,73,0.55));
+  content:"";position:absolute;inset:0;border-radius:28px;padding:1.5px;pointer-events:none;z-index:0;
+  background:conic-gradient(from var(--vadd-spin),
+    transparent 0deg, rgba(223,169,73,0.15) 28deg, rgba(245,228,184,1) 90deg,
+    rgba(124,58,237,0.95) 150deg, rgba(223,169,73,0.15) 212deg, transparent 300deg, transparent 360deg);
   -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite:xor;
           mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
           mask-composite:exclude;
-  opacity:.4;animation:vaddBorder 5.5s ease-in-out infinite;
+  animation:vaddSpin 4.5s linear infinite;
 }
 .vadd-grid > *{position:relative;z-index:1;}
+@keyframes vaddSpin{ to{ --vadd-spin:360deg; } }
 @keyframes vaddGlow{
   0%,100%{box-shadow:0 36px 80px -34px rgba(0,0,0,.6), 0 0 26px -10px rgba(223,169,73,0.18), 0 0 64px -14px rgba(124,58,237,0.22);}
   50%    {box-shadow:0 36px 80px -34px rgba(0,0,0,.6), 0 0 48px -4px rgba(223,169,73,0.45), 0 0 120px -8px rgba(124,58,237,0.48);}
 }
-@keyframes vaddBorder{ 0%,100%{opacity:.32;} 50%{opacity:.78;} }
 @media (prefers-reduced-motion:reduce){
   .vadd-grid{animation:none;box-shadow:0 36px 80px -34px rgba(0,0,0,.6), 0 0 42px -10px rgba(223,169,73,0.3);}
-  .vadd-grid::before{animation:none;opacity:.5;}
+  .vadd-grid::before{animation:none;}
 }
 .vadd-dial{position:relative;display:flex;flex-direction:column;align-items:center;}
 .vadd-svg{width:100%;max-width:392px;height:auto;display:block;overflow:visible;}
@@ -2755,7 +2759,8 @@ button.is-loading{opacity:.85;cursor:progress;}
 .vadd-tick{stroke:rgba(255,255,255,.30);stroke-width:2;}
 .vadd-ticklbl{fill:rgba(255,255,255,.55);font-size:12px;font-weight:700;font-family:inherit;}
 .vadd-needle{transform-box:view-box;transform-origin:160px 160px;transform:rotate(7.2deg);}
-.vadd-needle line{stroke:#fff;stroke-width:4;stroke-linecap:round;}
+.vadd-needle .vn-point{fill:#f5e4b8;}
+.vadd-needle .vn-tail{fill:var(--gold);}
 .vadd-hub{fill:#1a1535;stroke:var(--gold);stroke-width:3;}
 .vadd-hub-dot{fill:var(--gold);}
 .vadd-readout{margin-top:-4px;text-align:center;}
@@ -2790,8 +2795,18 @@ button.is-loading{opacity:.85;cursor:progress;}
 @keyframes vaddDraw{from{stroke-dashoffset:402.12;}to{stroke-dashoffset:185;}}
 @keyframes vaddSweep{from{transform:rotate(-90deg);}to{transform:rotate(7.2deg);}}
 @keyframes vaddBar{from{width:0;}}
+/* Live speedometer flutter — needle never sits perfectly still, like a real gauge under load. */
+@keyframes vaddJitter{
+  0%{transform:rotate(7.2deg);}
+  14%{transform:rotate(5.2deg);}
+  30%{transform:rotate(9.4deg);}
+  46%{transform:rotate(6.4deg);}
+  62%{transform:rotate(8.6deg);}
+  78%{transform:rotate(6.8deg);}
+  100%{transform:rotate(7.2deg);}
+}
 .vadd-grid.in .vadd-fill{animation:vaddDraw 1.7s cubic-bezier(.2,.8,.2,1) both;}
-.vadd-grid.in .vadd-needle{animation:vaddSweep 1.7s cubic-bezier(.34,1.08,.4,1) both;}
+.vadd-grid.in .vadd-needle{animation:vaddSweep 1.7s cubic-bezier(.34,1.08,.4,1) both, vaddJitter 3.6s ease-in-out 1.7s infinite;}
 .vadd-grid.in .vadd-bar-fill{animation:vaddBar 1.2s cubic-bezier(.2,.8,.2,1) .3s both;}
 @media (prefers-reduced-motion:reduce){
   .vadd-grid.in .vadd-fill,.vadd-grid.in .vadd-needle,.vadd-grid.in .vadd-bar-fill{animation:none;}

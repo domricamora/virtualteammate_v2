@@ -44,7 +44,7 @@ $totalAll = count($reports);
           <td><?= e($vtName ?: $r['email']) ?></td>
           <td><?= e(mb_strimwidth($r['best_work'], 0, 60, '…')) ?></td>
           <td><?= e(mb_strimwidth($r['help_needed'], 0, 60, '…')) ?></td>
-          <td class="muted small"><?= e(fmt_dt($r['updated_at'])) ?></td>
+          <td class="muted small"><?= local_dt($r['updated_at']) ?></td>
           <td class="row-actions">
             <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('eod.edit', ['id'=>$r['id']])) ?>"><i class="fa-solid fa-eye"></i></a>
             <?php if ($canEdit): ?>

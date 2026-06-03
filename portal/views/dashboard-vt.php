@@ -70,7 +70,7 @@ $client    = $data['client'] ?? null;
           <tr>
             <td><?= e($r['report_date']) ?></td>
             <td><?= e(mb_strimwidth($r['best_work'], 0, 80, '…')) ?></td>
-            <td class="muted"><?= e(fmt_dt($r['updated_at'])) ?></td>
+            <td class="muted"><?= local_dt($r['updated_at']) ?></td>
             <td><a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('eod.edit', ['id'=>$r['id']])) ?>">Edit</a></td>
           </tr>
         <?php endforeach; ?>

@@ -30,7 +30,7 @@ $totalAll = count($csms);
           <td class="muted"><?= e($u['country']) ?></td>
           <td><strong><?= (int) $u['clients_count'] ?></strong></td>
           <td><?= $u['active'] ? '<span class="pill pill-active">Yes</span>' : '<span class="pill pill-paused">No</span>' ?></td>
-          <td class="muted small"><?= e(fmt_dt($u['last_login_at'])) ?></td>
+          <td class="muted small"><?= local_dt($u['last_login_at']) ?></td>
           <td class="row-actions">
             <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('csms.view', ['id'=>$u['id']])) ?>" title="View"><i class="fa-solid fa-eye"></i></a>
             <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('users.edit', ['id'=>$u['id']])) ?>" title="Edit"><i class="fa-solid fa-pen"></i></a>

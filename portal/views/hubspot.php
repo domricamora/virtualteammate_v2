@@ -22,8 +22,8 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
       </div>
       <div class="hs-pipeline-sub muted small">
         Stage: <strong data-el="stage"><?= e($stage) ?></strong>
-        &middot; <span data-el="started">Started: <?= $st['started_at'] ? e(fmt_dt($st['started_at'])) : '—' ?></span>
-        &middot; <span data-el="finished">Finished: <?= $st['finished_at'] ? e(fmt_dt($st['finished_at'])) : '—' ?></span>
+        &middot; <span data-el="started">Started: <?= $st['started_at'] ? local_dt($st['started_at']) : '—' ?></span>
+        &middot; <span data-el="finished">Finished: <?= $st['finished_at'] ? local_dt($st['finished_at']) : '—' ?></span>
       </div>
       <div class="hs-progress" aria-hidden="true"><div class="hs-progress-bar" data-el="progress" style="width:<?= $pct ?>%;"></div></div>
 
@@ -95,7 +95,7 @@ $renderPipelineCard = function (string $key, string $title, string $icon, array 
       ?>
         <div class="card" style="margin-top:18px;background:rgba(126,194,126,.06);border:1px solid rgba(126,194,126,.25);">
           <div class="card-h"><h3 style="margin:0;color:#7ec27e;">📊 Last run report</h3>
-            <span class="muted small">Finished <?= e(fmt_dt($r['finished_at'])) ?> &middot; ran for <?= e($dHuman) ?></span>
+            <span class="muted small">Finished <?= local_dt($r['finished_at']) ?> &middot; ran for <?= e($dHuman) ?></span>
           </div>
           <?php if (!empty($media)): ?>
             <p class="muted small" style="margin:6px 0 4px;">

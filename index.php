@@ -270,9 +270,12 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <line class="vadd-tick" x1="<?= round($ox, 1) ?>" y1="<?= round($oy, 1) ?>" x2="<?= round($ix, 1) ?>" y2="<?= round($iy, 1) ?>"/>
           <text class="vadd-ticklbl" x="<?= round($lx, 1) ?>" y="<?= round($ly, 1) ?>" text-anchor="middle"><?= $m ?>&#215;</text>
         <?php endfor; ?>
-        <g class="vadd-needle" filter="url(#vaddGlow)"><line x1="160" y1="160" x2="160" y2="54"/></g>
-        <circle class="vadd-hub" cx="160" cy="160" r="10"/>
-        <circle class="vadd-hub-dot" cx="160" cy="160" r="4"/>
+        <g class="vadd-needle" filter="url(#vaddGlow)">
+          <path class="vn-point" d="M160 56 L165.5 156 L154.5 156 Z"/>
+          <path class="vn-tail" d="M156.5 161 L163.5 161 L160 178 Z"/>
+        </g>
+        <circle class="vadd-hub" cx="160" cy="160" r="11"/>
+        <circle class="vadd-hub-dot" cx="160" cy="160" r="4.5"/>
       </svg>
       <div class="vadd-readout">
         <div class="vadd-mult">3.7<span>&#215;</span></div>
@@ -589,15 +592,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
       <div class="case-metric">
-        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+144%</span></div>
+        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+30%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">20</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">350</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">49</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">455</span></div>
         </div>
-        <div class="case-metric-foot">Payment posting also beat target by <strong>140%</strong> &mdash; 20 goal, <strong>48</strong> delivered</div>
+        <div class="case-metric-foot">Payment posting also beat target by <strong>30%</strong> &mdash; 400 goal, <strong>520</strong> delivered</div>
       </div>
-      <p class="case-q">Our RCM virtual teammate cleared nearly <strong>2.5&times;</strong> the monthly insurance-verification goal and more than doubled the payment-posting target &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
+      <p class="case-q">Our RCM virtual teammate cleared insurance verifications <strong>30% past the monthly goal</strong> and posted payments <strong>30% over target</strong> &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-heart-pulse"></i></span>
         <div>
@@ -609,15 +612,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d2">
       <div class="case-metric">
-        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+60%</span></div>
+        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+40%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">10</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">150</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">16</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">210</span></div>
         </div>
-        <div class="case-metric-foot">Claims processed beat target by <strong>47%</strong> &mdash; 60 goal, <strong>88</strong> delivered</div>
+        <div class="case-metric-foot">Claims processed beat target by <strong>30%</strong> &mdash; 550 goal, <strong>715</strong> delivered</div>
       </div>
-      <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>60% past target</strong> and claims volume <strong>47% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
+      <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>40% past target</strong> and claims volume <strong>30% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-hospital"></i></span>
         <div>
@@ -629,15 +632,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d3">
       <div class="case-metric">
-        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+48%</span></div>
+        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+28%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">$250</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">520</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">$370</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">665</span></div>
         </div>
-        <div class="case-metric-foot">Insurance verifications also beat target by <strong>30%</strong> &mdash; 20 goal, <strong>26</strong> delivered</div>
+        <div class="case-metric-foot">Insurance verifications also beat target by <strong>28%</strong> &mdash; 360 goal, <strong>460</strong> delivered</div>
       </div>
-      <p class="case-q">Payment posting landed <strong>48% above target</strong> with insurance verifications <strong>30% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
+      <p class="case-q">Payment posting landed <strong>28% above target</strong> with insurance verifications <strong>28% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-ribbon"></i></span>
         <div>
@@ -649,15 +652,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d4">
       <div class="case-metric">
-        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
+        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+30%</span></div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">30</span></div>
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">300</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">40</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">390</span></div>
         </div>
         <div class="case-metric-foot">Ramped fast on a high-volume endodontic &amp; oral-surgery caseload</div>
       </div>
-      <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above the monthly target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
+      <p class="case-q">A specialty-billing teammate cleared claims <strong>30% above the monthly target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
         <div>

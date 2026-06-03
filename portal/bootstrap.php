@@ -639,8 +639,10 @@ function user_display_name(?array $u): string
     return $name !== '' ? $name : ($u['email'] ?? 'Unknown');
 }
 
-/** Format an ISO date/time for display in user's local zone (no JS dep). */
-function fmt_dt(?string $iso, string $fmt = 'Y-m-d H:i'): string
+/** Format an ISO date/time string with a PHP date() format (no zone shift).
+ *  Used for naive wall-clock values (e.g. meeting scheduled_at) that must
+ *  display exactly as entered. For UTC instant columns use local_dt(). */
+function fmt_dt(?string $iso, string $fmt = 'Y-m-d g:i a'): string
 {
     if (!$iso) return '';
     try {
@@ -648,6 +650,30 @@ function fmt_dt(?string $iso, string $fmt = 'Y-m-d H:i'): string
     } catch (Throwable $_) {
         return $iso;
     }
+}
+
+/**
+ * Render a UTC instant (any CURRENT_TIMESTAMP column — created_at, updated_at,
+ * last_login_at, started_at, finished_at, …) as a <time> element that
+ * assets/portal.js rewrites to the viewer's *browser* local time.
+ *
+ * The stored value is never mutated: it is read as UTC and emitted both as a
+ * machine-readable UTC datetime and a server-rendered UTC fallback (shown when
+ * JS is off). $fmt is a PHP date() format; portal.js understands the same
+ * tokens (Y m n d j H G i s g h a A M) for the localized output.
+ *
+ * Returns ready-to-print HTML — do NOT wrap in e().
+ */
+function local_dt(?string $iso, string $fmt = 'Y-m-d g:i a'): string
+{
+    if ($iso === null || $iso === '') { return ''; }
+    try {
+        $dt = new DateTime($iso, new DateTimeZone('UTC'));
+    } catch (Throwable $_) {
+        return e($iso);
+    }
+    return '<time class="js-localtime" datetime="' . $dt->format('Y-m-d\TH:i:s\Z') . '"'
+         . ' data-fmt="' . e($fmt) . '">' . e($dt->format($fmt)) . '</time>';
 }
 
 /* ───────────────────────── app_settings key/value ───────────────────────── */

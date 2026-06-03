@@ -37,7 +37,7 @@ $subtitle  = 'Contract, login user, team & meetings.';
       </dd>
       <dt>HubSpot company id</dt>
       <dd class="muted small"><?= e($client['hubspot_company_id'] ?: '—') ?></dd>
-      <dt>Created</dt>         <dd class="muted small"><?= e(fmt_dt($client['created_at'])) ?></dd>
+      <dt>Created</dt>         <dd class="muted small"><?= local_dt($client['created_at']) ?></dd>
     </dl>
   </div>
 
@@ -48,7 +48,7 @@ $subtitle  = 'Contract, login user, team & meetings.';
         <dt>Name</dt>      <dd><?= e(user_display_name($login)) ?></dd>
         <dt>Email</dt>     <dd><?= e($login['email']) ?></dd>
         <dt>Active</dt>    <dd><?= $login['active'] ? 'Yes' : 'No' ?></dd>
-        <dt>Last login</dt><dd class="muted"><?= e(fmt_dt($login['last_login_at']) ?: '—') ?></dd>
+        <dt>Last login</dt><dd class="muted"><?= (local_dt($login['last_login_at']) ?: '—') ?></dd>
       </dl>
       <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('users.edit', ['id'=>$login['id']])) ?>"><i class="fa-solid fa-pen"></i> Edit user</a>
     <?php else: ?>

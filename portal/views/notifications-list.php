@@ -50,7 +50,7 @@ $kindIcon = static function (string $k): string {
         <div class="cd-noti-body">
           <div class="cd-noti-title"><?= e($n['title']) ?></div>
           <?php if (!empty($n['body'])): ?><div class="muted small"><?= e($n['body']) ?></div><?php endif; ?>
-          <div class="muted small"><?= e(fmt_dt($n['created_at'])) ?></div>
+          <div class="muted small"><?= local_dt($n['created_at']) ?></div>
         </div>
         <div class="cd-noti-actions">
           <?php if (!empty($n['link'])): ?>

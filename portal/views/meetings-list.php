@@ -65,10 +65,10 @@ $totalAll  = count($meetings);
       ?>
         <tr>
           <td>
-            <div><?= e(fmt_dt($m['scheduled_at'], 'Y-m-d H:i')) ?></div>
+            <div><?= e(fmt_dt($m['scheduled_at'], 'Y-m-d g:i a')) ?></div>
             <div class="muted small">
               <?php if (!empty($m['end_at'])): ?>
-                ends <?= e(fmt_dt($m['end_at'], 'H:i')) ?> &middot;
+                ends <?= e(fmt_dt($m['end_at'], 'g:i a')) ?> &middot;
               <?php endif; ?>
               <?= (int) $m['duration_minutes'] ?> min
             </div>

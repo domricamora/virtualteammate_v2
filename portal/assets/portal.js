@@ -206,3 +206,52 @@
 
   document.querySelectorAll('[data-list]').forEach(initPortalList);
 })();
+
+/* ── Local-time conversion ─────────────────────────────────────────────
+   <time class="js-localtime" datetime="…Z" data-fmt="Y-m-d H:i"> elements
+   carry a UTC instant (emitted by local_dt() in bootstrap.php). We rewrite
+   their text to the viewer's browser-local time. The stored DB value is
+   never touched — this is display-only. data-fmt uses PHP date() tokens so
+   the localized output matches the server format, just in local time. */
+(function () {
+  var MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function fmtLocal(d, f) {
+    var h12 = d.getHours() % 12; if (h12 === 0) { h12 = 12; }
+    var map = {
+      Y: d.getFullYear(), y: pad(d.getFullYear() % 100),
+      m: pad(d.getMonth() + 1), n: d.getMonth() + 1, M: MON[d.getMonth()],
+      d: pad(d.getDate()), j: d.getDate(),
+      H: pad(d.getHours()), G: d.getHours(),
+      h: pad(h12), g: h12,
+      i: pad(d.getMinutes()), s: pad(d.getSeconds()),
+      a: d.getHours() < 12 ? 'am' : 'pm', A: d.getHours() < 12 ? 'AM' : 'PM'
+    };
+    // \\X is a literal X; otherwise map known PHP date() tokens, pass others through.
+    return String(f || 'Y-m-d H:i').replace(/\\?(.)/g, function (m, c) {
+      if (m.charAt(0) === '\\') { return c; }
+      return Object.prototype.hasOwnProperty.call(map, c) ? map[c] : c;
+    });
+  }
+  function localizeTimes(root) {
+    var nodes = (root || document).querySelectorAll('time.js-localtime');
+    for (var i = 0; i < nodes.length; i++) {
+      var t = nodes[i];
+      if (t.dataset.localized) { continue; }
+      var iso = t.getAttribute('datetime');
+      if (!iso) { continue; }
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) { continue; }
+      t.textContent = fmtLocal(d, t.getAttribute('data-fmt'));
+      try { t.title = d.toLocaleString(); } catch (e) {}
+      t.dataset.localized = '1';
+    }
+  }
+  // Expose so AJAX-injected markup can be localized too.
+  window.localizeTimes = localizeTimes;
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () { localizeTimes(document); });
+  } else {
+    localizeTimes(document);
+  }
+})();
