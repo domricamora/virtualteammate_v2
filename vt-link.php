@@ -102,8 +102,8 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
 </head>
 <body>
 <div class="vl-top">
-  <a href="https://virtualteammate.com/"><img src="images/logo.webp" alt="Virtual Teammate"></a>
-  <a class="vl-cta" href="https://virtualteammate.com/#cta">Hire a Virtual Teammate</a>
+  <a href="index.php"><img src="images/logo.webp" alt="Virtual Teammate"></a>
+  <a class="vl-cta" href="index.php#cta">Hire a Virtual Teammate</a>
 </div>
 
 <?php if (!$vt): ?>
@@ -111,7 +111,7 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
     <i class="fa-solid fa-link-slash"></i>
     <h1><?= $e($error ?: 'Link unavailable') ?></h1>
     <p>Please ask your Client Success Manager for an up-to-date link.</p>
-    <p style="margin-top:18px;"><a class="vl-cta" href="https://virtualteammate.com/virtual-teammates/">Browse our talent &rarr;</a></p>
+    <p style="margin-top:18px;"><a class="vl-cta" href="virtual-teammates/">Browse our talent &rarr;</a></p>
   </div>
 <?php else:
   $resumeUrl = 'talent-media.php?id=' . (int) $vt['id'] . '&k=resume&t=' . rawurlencode($token);
@@ -168,7 +168,7 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
           </div>
         <?php endif; ?>
         <div class="vl-sec" style="margin-bottom:0;text-align:center;padding-top:8px;">
-          <a class="vl-cta" href="https://virtualteammate.com/#cta">Add <?= $e($vt['first_name'] ?: 'this teammate') ?> to your team &rarr;</a>
+          <a class="vl-cta" href="index.php#cta-strategy-call">Add <?= $e($vt['first_name'] ?: 'this teammate') ?> to your team &rarr;</a>
         </div>
       </div>
     </div>
