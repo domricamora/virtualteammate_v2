@@ -618,65 +618,21 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
 <div class="divider"></div>
 
-<!-- DIFFERENTIATORS -->
-<section class="sec diff" id="why-vt">
-  <div class="reveal" style="text-align:center;max-width:780px;margin:0 auto;">
-    <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Virtual Teammate</div>
-    <h2 class="sec-h2">Three Reasons Practices Pick VT Over Every Other <em>Healthcare VA Agency</em></h2>
-    <p class="sec-sub" style="margin:0 auto;">Every healthcare VA agency will sell you the same four bullets: flat rate, fast hiring, scalable, friendly. Here&rsquo;s where we&rsquo;re genuinely different.</p>
-  </div>
-
-  <div class="diff-grid">
-    <article class="diff-card reveal d1">
-      <div class="diff-num">01</div>
-      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-user-tie"></i></span>
-      <h3 class="diff-title">A Dedicated CSM <em>From Day One</em></h3>
-      <p class="diff-desc">Most agencies hand you a VA and a Slack channel and call it done. Every VT placement comes with a <strong>named Client Success Manager (CSM) from day one</strong> &mdash; they own onboarding, quality monitoring, backup coverage and quarterly performance reviews. It&rsquo;s the operational backbone behind our <strong>95%+ client retention</strong> in a category that runs 60&ndash;70%.</p>
-      <div class="diff-vs">
-        <div class="diff-vs-row"><span class="diff-vs-them">Category Avg</span><span class="diff-vs-val them">60&ndash;70% retention &middot; no CSM</span></div>
-        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">95%+ retention &middot; dedicated CSM</span></div>
-      </div>
-    </article>
-
-    <article class="diff-card reveal d2">
-      <div class="diff-num">02</div>
-      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-stethoscope"></i></span>
-      <h3 class="diff-title">Deep Healthcare Experience &mdash; <em>Medical AND Dental</em></h3>
-      <p class="diff-desc">The major HIPAA-staffing players are either medical-only or treat dental as an afterthought. We run <strong>dedicated specialists in both</strong> &mdash; medical billers fluent in Epic, Cerner and Athenahealth alongside dental coordinators fluent in Dentrix, Eaglesoft, Open Dental and Carestream. One vendor covers your entire front and back office. <strong>200+ medical and dental practices served</strong>.</p>
-      <div class="diff-vs">
-        <div class="diff-vs-row"><span class="diff-vs-them">Others</span><span class="diff-vs-val them">Medical OR dental, not both</span></div>
-        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">Specialist-deep in both &middot; one vendor</span></div>
-      </div>
-    </article>
-
-    <article class="diff-card reveal d3">
-      <div class="diff-num">03</div>
-      <span class="ico-circle lg diff-ico"><i class="fa-solid fa-earth-americas"></i></span>
-      <h3 class="diff-title">A Global Bench, <em>On Your Time Zone</em></h3>
-      <p class="diff-desc">Most of the category recruits from a single country. We source globally so we can match for your specialty, EHR, accent, language and shift &mdash; not just whoever is on the bench this week. Every VA is matched to your US time zone, so collaboration is real-time, not overnight.</p>
-      <div class="diff-vs">
-        <div class="diff-vs-row"><span class="diff-vs-them">Others</span><span class="diff-vs-val them">1 country &middot; one accent &middot; one shift</span></div>
-        <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">Global bench &middot; matched to your clock</span></div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- GLOBAL COVERAGE (client-benefit framing — single map, one anchor per continent) -->
 <section class="global global-compact" id="global" aria-labelledby="global-h">
   <div class="global-grid">
     <div class="global-l reveal">
-      <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Coverage &middot; Local Cadence</div>
-      <h2 class="sec-h2" id="global-h">A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent &mdash; On Your Time Zone</h2>
-      <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager (CSM) runs the bench so you don&rsquo;t have to think about it.</p>
+      <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Reach &middot; Your Staffing Problem, Solved</div>
+      <h2 class="sec-h2" id="global-h">Short-Staffed No More &mdash; A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent, On Your Time Zone</h2>
+      <p class="sec-sub">Short-staffed and tired of the hiring grind? We fill your exact gap fast &mdash; vetted VAs matched to your specialty, software and US hours, fully managed by your dedicated CSM.</p>
 
       <ul class="global-benefits">
-        <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts &mdash; one vendor, no compromises.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent &mdash; not just availability.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager (CSM) from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in about a week.</strong> Stop carrying open seats &mdash; a curated shortlist lands in 5&ndash;7 business days and your VA is live in 1&ndash;2 weeks.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>Covered in your US time zone.</strong> Morning, afternoon, evening or overnight &mdash; your VA works your hours, not a call-center queue.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><span><strong>Never short-handed again.</strong> Sick day, PTO or turnover? Trained backup coverage steps in within hours, at no extra cost &mdash; the work never goes dark.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench lets us recruit for your specialty, EHR, language and accent &mdash; not just whoever&rsquo;s available.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat, all-in rate &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>One US point of contact from day one.</strong> Your named CSM owns onboarding, quality, backups and quarterly reviews &mdash; it&rsquo;s how we hold 95%+ client retention.</span></li>
       </ul>
     </div>
 
@@ -691,18 +647,18 @@ $mq_srcs = array_values(array_map(static function ($p) {
               <stop offset="100%" stop-color="rgba(57,25,186,0.7)"/>
             </linearGradient>
           </defs>
-          <!-- One connection from US HQ to each populated continent -->
-          <path d="M210,160 Q260,265 330,350"/>
-          <path d="M210,160 Q365,55 520,125"/>
-          <path d="M210,160 Q390,350 540,285"/>
-          <path d="M210,160 Q480,60 720,200"/>
+          <!-- One connection from US HQ (Arizona) to each populated continent -->
+          <path d="M160,270 Q210,330 300,380"/>
+          <path d="M160,270 Q300,150 460,205"/>
+          <path d="M160,270 Q360,370 525,345"/>
+          <path d="M160,270 Q470,150 810,320"/>
         </svg>
-        <!-- One anchor pin per continent -->
-        <div class="world-pin" style="top:32%;left:21%;"><div class="pin-lbl">North America &middot; HQ</div></div>
-        <div class="world-pin" style="top:70%;left:33%;"><div class="pin-lbl">South America</div></div>
-        <div class="world-pin" style="top:25%;left:52%;"><div class="pin-lbl">Europe</div></div>
-        <div class="world-pin" style="top:57%;left:54%;"><div class="pin-lbl">Africa</div></div>
-        <div class="world-pin" style="top:40%;left:72%;"><div class="pin-lbl">Asia</div></div>
+        <!-- One anchor pin per continent (calibrated to the map projection) -->
+        <div class="world-pin" style="top:54%;left:16%;"><div class="pin-lbl">North America &middot; HQ</div></div>
+        <div class="world-pin" style="top:76%;left:30%;"><div class="pin-lbl">South America</div></div>
+        <div class="world-pin" style="top:41%;left:46%;"><div class="pin-lbl">Europe</div></div>
+        <div class="world-pin" style="top:69%;left:52%;"><div class="pin-lbl">Africa</div></div>
+        <div class="world-pin" style="top:64%;left:81%;"><div class="pin-lbl">Asia</div></div>
       </div>
     </div>
   </div>
