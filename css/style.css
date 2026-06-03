@@ -2914,3 +2914,32 @@ button.is-loading{opacity:.85;cursor:progress;}
   .csm-cta-card{grid-template-columns:1fr;gap:28px;padding:28px;}
   .csm-cta-h{font-size:27px;}
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ULTRA-WIDE / HIGH-RESOLUTION DISPLAYS  (up to 6016×3384)
+
+   The whole site is art-directed in px and caps at body{max-width:1980px}.
+   Past ~1980 CSS-px the design would otherwise sit as a small centered island
+   in a sea of gutter. These tiers proportionally STRETCH the entire composition
+   (CSS `zoom` scales layout + type + spacing as one unit, preserving every tuned
+   ratio) so it fills the viewport, while CONTENT stays CENTERED via the existing
+   body{margin:0 auto} — and the html gradient (top of this file) seamlessly fills
+   whatever gutter remains once zoom hits its cap. Vector assets (hero graph,
+   world map, "value added" SVG) and the large hero/logo rasters stay crisp at
+   any scale; see note in CLAUDE-adjacent commit re: re-exporting the 816px
+   specialty section photos for full sharpness at the extreme end.
+
+   Within each tier zoom = (next-breakpoint / 1980), so the design fills edge to
+   edge across the tier (no premature gutter), then the next tier steps it up.
+   Magnification is capped at 2.6× so type never becomes oversized; beyond that
+   the gradient gutters take over. Media queries match the real (un-zoomed)
+   viewport, so only genuinely large CSS-px screens trigger these — never hi-DPI
+   phones, which report small CSS-px widths. ───────────────────────────────── */
+@media (min-width:1981px){ body{ zoom:1.11; } }
+@media (min-width:2200px){ body{ zoom:1.29; } }
+@media (min-width:2560px){ body{ zoom:1.49; } }
+@media (min-width:2960px){ body{ zoom:1.74; } }
+@media (min-width:3440px){ body{ zoom:1.94; } }
+@media (min-width:3840px){ body{ zoom:2.18; } }
+@media (min-width:4320px){ body{ zoom:2.42; } }
+@media (min-width:4800px){ body{ zoom:2.60; } }

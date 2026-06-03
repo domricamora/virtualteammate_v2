@@ -91,11 +91,21 @@ Available `head.php` parameters:
 
 ### Responsive layout (fluid up to 1980px)
 
-`body` uses `max-width:1980px; width:100%`. Two breakpoints in [css/style.css](css/style.css):
+`body` uses `max-width:1980px; width:100%`. Two **down** breakpoints in [css/style.css](css/style.css):
 - `@media (max-width:1280px)` — tablet/small-laptop overrides
 - `@media (max-width:768px)`  — mobile overrides
 
 Always write the desktop rule first, then add the breakpoint override.
+
+For **ultra-wide / high-res displays (up to 6016×3384)** the design proportionally
+scales up via a ladder of `@media (min-width:…)` tiers at the very end of
+[css/style.css](css/style.css) that step `body{zoom:…}` from 1.11× up to a 2.6× cap.
+Because the whole site is laid out in px, `zoom` is the single lever that stretches
+layout, type, and spacing together while preserving every tuned ratio; content stays
+centered via `body{margin:0 auto}` and the html gradient fills any gutter past the cap.
+SVGs and the large hero/logo rasters stay crisp; the 816px `images/photos/*-section.webp`
+specialty photos are the one asset that would need a higher-res re-export for full
+sharpness at the extreme end.
 
 ### Design tokens
 
