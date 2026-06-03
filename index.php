@@ -339,14 +339,63 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <!-- ROI CALCULATOR -->
 <section class="calc-wrap" id="calculator" aria-labelledby="calc-h">
   <div class="calc-head reveal">
-    <div class="calc-head-l">
-      <div class="calc-badge"><i class="fa-solid fa-calculator"></i> Live ROI Calculator</div>
-      <h2 class="sec-h2" id="calc-h">See Your Annual Savings <em>&mdash; In Real Time</em></h2>
-      <p class="sec-sub">Built on monthly placement data from 200+ live healthcare clients. Adjust your role and team size below to see what a Virtual Teammate replaces against an equivalent US in-house hire.</p>
-    </div>
+    <div class="calc-badge"><i class="fa-solid fa-calculator"></i> Live ROI Calculator</div>
+    <h2 class="sec-h2" id="calc-h">See Your Annual Savings <em>&mdash; In Real Time</em></h2>
+    <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
   </div>
 
+  <div class="calc-glow">
   <div class="calc reveal d1" id="roiCalc">
+    <!-- LEFT — value multiplier speedometer -->
+    <div class="calc-vadd">
+      <h3 class="calc-vadd-h">One Hire. <em>Nearly Four Times</em> the Value.</h3>
+      <div class="vadd-dial">
+        <svg class="vadd-svg" viewBox="0 0 320 200" role="img" aria-label="Value multiplier: 3.7 times the cost of a local hire">
+          <defs>
+            <linearGradient id="vaddGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3919ba"/>
+              <stop offset="55%" stop-color="#7c3aed"/>
+              <stop offset="100%" stop-color="#dfa949"/>
+            </linearGradient>
+            <filter id="vaddGlow" x="-40%" y="-40%" width="180%" height="180%">
+              <feGaussianBlur stdDeviation="3.2" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <path class="vadd-track" d="M 32 160 A 128 128 0 0 1 288 160"/>
+          <path class="vadd-fill"  d="M 32 160 A 128 128 0 0 1 288 160"/>
+          <?php for ($m = 1; $m <= 6; $m++):
+            $p  = ($m - 1) / 5; $th = deg2rad(180 - $p * 180);
+            $ox = 160 + 128 * cos($th); $oy = 160 - 128 * sin($th);
+            $ix = 160 + 112 * cos($th); $iy = 160 - 112 * sin($th);
+            $lx = 160 +  96 * cos($th); $ly = 160 -  96 * sin($th) + 4;
+          ?>
+            <line class="vadd-tick" x1="<?= round($ox, 1) ?>" y1="<?= round($oy, 1) ?>" x2="<?= round($ix, 1) ?>" y2="<?= round($iy, 1) ?>"/>
+            <text class="vadd-ticklbl" x="<?= round($lx, 1) ?>" y="<?= round($ly, 1) ?>" text-anchor="middle"><?= $m ?>&#215;</text>
+          <?php endfor; ?>
+          <g class="vadd-needle" filter="url(#vaddGlow)">
+            <path class="vn-point" d="M160 56 L165.5 156 L154.5 156 Z"/>
+            <path class="vn-tail" d="M156.5 161 L163.5 161 L160 178 Z"/>
+          </g>
+          <circle class="vadd-hub" cx="160" cy="160" r="11"/>
+          <circle class="vadd-hub-dot" cx="160" cy="160" r="4.5"/>
+        </svg>
+        <div class="vadd-readout">
+          <div class="vadd-mult">3.7<span>&#215;</span></div>
+          <div class="vadd-mult-lbl">value returned per $1 invested<br>vs. a local in-house hire</div>
+        </div>
+      </div>
+
+      <div class="calc-cta">
+        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager and we&rsquo;ll map the right team to your practice.</div>
+        <div class="calc-cta-btns">
+          <a href="#talk-to-csm" class="calc-cta-primary">Have a CSM Reach Out <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — live calculator -->
+    <div class="calc-main">
     <!-- Slider on top — drag to set team size -->
     <div class="calc-top">
       <div class="calc-top-head">
@@ -432,15 +481,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="calc-rate-foot">All-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
 
-      <div class="calc-cta">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager and we&rsquo;ll map the right team to your practice.</div>
-        <div class="calc-cta-btns">
-          <a href="#talk-to-csm" class="calc-cta-primary">Have a CSM Reach Out <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-
       <p class="calc-foot">Rates based on live VT placement data. US comparison uses median fully-loaded in-house cost (salary + benefits + payroll burden) for equivalent healthcare admin roles.</p>
     </div>
+    </div>
+  </div>
   </div>
 </section>
 
@@ -470,77 +514,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <button class="csm-cta-btn btn-primary" type="submit">Have my CSM reach out <i class="fa-solid fa-arrow-right"></i></button>
       <p class="csm-cta-note" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</p>
     </form>
-  </div>
-</section>
-
-<!-- VALUE ADDED — static "value multiplier" speedometer dial (visual concept) -->
-<section class="sec vadd" id="value-added" aria-labelledby="vadd-h">
-  <div class="vadd-head reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-gauge-high"></i> Value Added</div>
-    <h2 class="sec-h2" id="vadd-h">One Hire. <em>Nearly Four Times</em> the Value.</h2>
-    <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
-  </div>
-
-  <div class="vadd-grid reveal">
-    <!-- Speedometer dial -->
-    <div class="vadd-dial">
-      <svg class="vadd-svg" viewBox="0 0 320 200" role="img" aria-label="Value multiplier: 3.7 times the cost of a local hire">
-        <defs>
-          <linearGradient id="vaddGrad" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0%" stop-color="#3919ba"/>
-            <stop offset="55%" stop-color="#7c3aed"/>
-            <stop offset="100%" stop-color="#dfa949"/>
-          </linearGradient>
-          <filter id="vaddGlow" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="3.2" result="b"/>
-            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-          </filter>
-        </defs>
-        <path class="vadd-track" d="M 32 160 A 128 128 0 0 1 288 160"/>
-        <path class="vadd-fill"  d="M 32 160 A 128 128 0 0 1 288 160"/>
-        <?php for ($m = 1; $m <= 6; $m++):
-          $p  = ($m - 1) / 5; $th = deg2rad(180 - $p * 180);
-          $ox = 160 + 128 * cos($th); $oy = 160 - 128 * sin($th);
-          $ix = 160 + 112 * cos($th); $iy = 160 - 112 * sin($th);
-          $lx = 160 +  96 * cos($th); $ly = 160 -  96 * sin($th) + 4;
-        ?>
-          <line class="vadd-tick" x1="<?= round($ox, 1) ?>" y1="<?= round($oy, 1) ?>" x2="<?= round($ix, 1) ?>" y2="<?= round($iy, 1) ?>"/>
-          <text class="vadd-ticklbl" x="<?= round($lx, 1) ?>" y="<?= round($ly, 1) ?>" text-anchor="middle"><?= $m ?>&#215;</text>
-        <?php endfor; ?>
-        <g class="vadd-needle" filter="url(#vaddGlow)">
-          <path class="vn-point" d="M160 56 L165.5 156 L154.5 156 Z"/>
-          <path class="vn-tail" d="M156.5 161 L163.5 161 L160 178 Z"/>
-        </g>
-        <circle class="vadd-hub" cx="160" cy="160" r="11"/>
-        <circle class="vadd-hub-dot" cx="160" cy="160" r="4.5"/>
-      </svg>
-      <div class="vadd-readout">
-        <div class="vadd-mult">3.7<span>&#215;</span></div>
-        <div class="vadd-mult-lbl">value returned per $1 invested<br>vs. a local in-house hire</div>
-      </div>
-    </div>
-
-    <!-- Comparison + value added -->
-    <div class="vadd-compare">
-      <div class="vadd-rows">
-        <div class="vadd-row">
-          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot us"></span> Local in-house hire</span><span class="vadd-row-amt">$144,040<small>/yr</small></span></div>
-          <div class="vadd-bar"><span class="vadd-bar-fill us"></span></div>
-        </div>
-        <div class="vadd-row">
-          <div class="vadd-row-top"><span class="vadd-row-name"><span class="vadd-dot vt"></span> Virtual Teammate</span><span class="vadd-row-amt">$39,000<small>/yr</small></span></div>
-          <div class="vadd-bar"><span class="vadd-bar-fill vt"></span></div>
-        </div>
-      </div>
-
-      <div class="vadd-added">
-        <div class="vadd-added-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Value added back &middot; per year (your team)</div>
-        <div class="vadd-added-val">$105,040</div>
-        <div class="vadd-added-sub">About <strong>73% lower cost</strong> than hiring locally &mdash; reinvested into growth, not overhead.</div>
-      </div>
-
-      <p class="vadd-foot">Live with the calculator above &mdash; published VT rates vs. the median fully-loaded US in-house cost (salary + benefits + payroll burden). <a href="#calculator">Drag the slider to update &uarr;</a></p>
-    </div>
   </div>
 </section>
 
