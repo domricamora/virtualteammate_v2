@@ -63,47 +63,12 @@
   if (navMql.addEventListener) navMql.addEventListener('change', onBreakpointChange);
   else if (navMql.addListener) navMql.addListener(onBreakpointChange); // Safari < 14 fallback
 
-  /* CTA intent switching — secondary CTAs deep-link with data-cta-intent,
-     CTA form tabs swap heading/submit copy and a hidden intent input. */
-  var INTENTS = {
-    'strategy-call':    { h: 'Strategy Call &amp; Jumpstart',           s: '30-minute call. We map your needs, define the role, and match you to candidates within 5–7 business days.', btn: 'Book My Strategy Call' },
-    'practice-audit':   { h: '20-min Practice Value Audit',            s: 'Diagnostic-only call. Workflow inventory + outsourcing priority list + tier and headcount recommendation.', btn: 'Book My Practice Audit' },
-    'buyers-checklist': { h: 'HIPAA VA Buyer’s Checklist',              s: 'PDF emailed within one business day. The 22 questions to ask any healthcare VA agency before you sign.', btn: 'Send Me the Checklist' }
-  };
-  var ctaTabs     = document.querySelectorAll('.cta-intent');
-  var ctaHeading  = document.getElementById('ctaHeading');
-  var ctaSub      = document.getElementById('ctaSub');
-  var ctaIntent   = document.getElementById('ctaIntent');
-  var ctaSubmit   = document.getElementById('ctaSubmit');
-
-  function setCtaIntent(key){
-    var cfg = INTENTS[key];
-    if (!cfg) return;
-    if (ctaIntent)  ctaIntent.value = key;
-    if (ctaHeading) ctaHeading.innerHTML = cfg.h;
-    if (ctaSub)     ctaSub.textContent = cfg.s;
-    if (ctaSubmit){
-      ctaSubmit.innerHTML = cfg.btn + ' <i class="fa-solid fa-arrow-right"></i>';
-    }
-    ctaTabs.forEach(function(t){
-      var on = t.getAttribute('data-intent') === key;
-      t.classList.toggle('on', on);
-      t.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
-  }
-
-  ctaTabs.forEach(function(t){
-    t.addEventListener('click', function(){
-      setCtaIntent(t.getAttribute('data-intent'));
-    });
-  });
-
-  // Wire all secondary-CTA anchors across the page.
-  document.querySelectorAll('a[data-cta-intent]').forEach(function(a){
-    a.addEventListener('click', function(){
-      setCtaIntent(a.getAttribute('data-cta-intent'));
-    });
-  });
+  /* CTA entry points — each funnel stage now opens its own modal form
+     (#cta-strategy-call / #cta-practice-audit / #cta-buyers-checklist). Opening
+     is driven entirely by the anchor href + CSS :target, with the scroll-lock /
+     focus / ESC behavior handled by the inline script on the homepage, so no
+     JS wiring is needed here. The data-cta-intent attribute is retained on the
+     anchors for analytics only. */
 
   /* Scroll to top button */
   var scrollTopBtn = document.getElementById('scrollTop');

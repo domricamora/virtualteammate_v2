@@ -60,8 +60,8 @@ include 'includes/nav.php';
     <p class="hero-sub reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
-      <a href="#cta" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
+      <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Just exploring? Grab the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <div class="trust-row reveal d4">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -415,7 +415,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta" class="btn-gold">Get HIPAA-Ready VAs <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-gold">Get HIPAA-Ready VAs <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -429,7 +429,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
       <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
     </div>
-    <a href="#cta" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">See a Tailored Shortlist <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">See a Tailored Shortlist <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
   <?php if (!empty($homepage_profiles)): ?>
@@ -442,7 +442,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         $delay = 'd' . (($i % 4) + 1);
         $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
-        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta" data-cta-intent="strategy-call" aria-label="Request a teammate like <?= htmlspecialchars($name, ENT_QUOTES) ?>">
+        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-strategy-call" data-cta-intent="strategy-call" aria-label="Request a teammate like <?= htmlspecialchars($name, ENT_QUOTES) ?>">
           <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
@@ -453,7 +453,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <?php else: ?>
     <div class="prof-empty card">
       <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta" data-cta-intent="strategy-call">Book a strategy call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book a strategy call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
     </div>
   <?php endif; ?>
 </section>
@@ -502,8 +502,8 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-foot">
-        <a href="#cta" data-cta-intent="strategy-call" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-        <a href="#cta" data-cta-intent="practice-audit" class="btn-glass">Or: 20-min Practice Value Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Or: 20-min Practice Value Audit <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
     </div>
   </div>
@@ -576,7 +576,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta" class="btn-primary">Start the Process &mdash; Start Creating Value <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-primary">Start the Process &mdash; Start Creating Value <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -858,7 +858,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-form" data-cta-intent="buyers-checklist">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
@@ -871,7 +871,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-form" data-cta-intent="practice-audit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
@@ -884,27 +884,99 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Tailored candidate shortlist</li>
         <li>Onboarding plan + CSM intro</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-form" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
-  <div class="cta-inner reveal" id="cta-form">
-    <h2 class="cta-h2" id="ctaHeading" style="font-size:30px;">Tell Us About Your Practice</h2>
-    <p class="cta-sub" id="ctaSub">Pick a stage above and complete the form &mdash; we&rsquo;ll reply within one business day.</p>
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book a strategy call</a> and a Client Success Manager will map it out with you.</p>
+</section>
 
-    <form id="ctaForm" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Thanks! We will be in touch within 1 business day.">
-      <input type="hidden" name="intent" id="ctaIntent" value="strategy-call"/>
+<!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
+     #cta-<intent> hash (CSS :target, so they work with JS off too); the script
+     near the footer adds scroll-lock, autofocus and ESC-to-close. Each posts to
+     lead.php and creates a lead. -->
+<div class="cta-modal" id="cta-buyers-checklist" role="dialog" aria-modal="true" aria-labelledby="ccm-bc-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
+    <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA Buyer&rsquo;s Checklist</h2>
+    <p class="cta-modal-sub">22 questions to ask any healthcare VA agency before you sign. Drop your email &mdash; we&rsquo;ll send the PDF within one business day.</p>
+    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+          data-lead-thanks="Check your inbox &mdash; your checklist is on the way.">
+      <input type="hidden" name="intent" value="buyers-checklist">
+      <input type="hidden" name="form" value="homepage-checklist">
+      <input type="hidden" name="source" value="HIPAA VA Buyer&rsquo;s Checklist">
       <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required/>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required/>
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
+      </div>
+      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name (optional)" style="margin-bottom:16px;">
+      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>No spam &middot; Just the checklist and the occasional helpful tip</div>
+    </form>
+  </div>
+</div>
+
+<div class="cta-modal" id="cta-practice-audit" role="dialog" aria-modal="true" aria-labelledby="ccm-pa-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
+    <h2 class="cta-modal-h" id="ccm-pa-h">Book Your 20-min Practice Value Audit</h2>
+    <p class="cta-modal-sub">A diagnostic-only call: we map your top admin and clinical workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
+    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+          data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your audit.">
+      <input type="hidden" name="intent" value="practice-audit">
+      <input type="hidden" name="form" value="homepage-practice-audit">
+      <input type="hidden" name="source" value="20-min Practice Value Audit">
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
       </div>
       <div class="cf-row">
-        <input class="cf-field" name="email" placeholder="Email Address" type="email" required/>
-        <input class="cf-field" name="phone" placeholder="Phone Number" type="tel"/>
+        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
       </div>
-      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required/>
-      <select class="cf-field" id="ctaRole" name="role" style="margin-bottom:14px;" required>
+      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required>
+      <select class="cf-field" name="role" style="margin-bottom:16px;">
+        <option value="">Biggest bottleneck right now (optional)</option>
+        <option>Front desk / phones / scheduling</option>
+        <option>Insurance verification &amp; pre-auth</option>
+        <option>Billing / RCM / claims</option>
+        <option>Charting / scribing</option>
+        <option>Recall &amp; treatment coordination</option>
+        <option>Not sure yet &mdash; help me diagnose</option>
+      </select>
+      <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
+    </form>
+  </div>
+</div>
+
+<div class="cta-modal" id="cta-strategy-call" role="dialog" aria-modal="true" aria-labelledby="ccm-sc-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
+    <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
+    <p class="cta-modal-sub">A 30-minute call to map your needs, define the role, and get you a tailored shortlist within 5&ndash;7 business days.</p>
+    <form class="cta-modal-form" method="post" action="<?= $home_base ?>lead.php"
+          data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your strategy call.">
+      <input type="hidden" name="intent" value="strategy-call">
+      <input type="hidden" name="form" value="homepage-strategy-call">
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="cf-row">
+        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
+      </div>
+      <input class="cf-field" name="practice" placeholder="Practice / Clinic Name" style="margin-bottom:14px;" required>
+      <select class="cf-field" name="role" style="margin-bottom:14px;" required>
         <option value="">I need... (select role)</option>
         <optgroup label="Medical">
           <option>Medical Administrative Support</option>
@@ -921,9 +993,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Business / Admin VA</option>
         <option>Not sure yet &mdash; help me diagnose</option>
       </select>
-      <select class="cf-field" id="ctaSource" name="source"
-              style="margin-bottom:14px;" required
-              onchange="document.getElementById('ctaSourceOtherWrap').style.display = this.value === 'Other' ? '' : 'none'; var o = document.getElementById('ctaSourceOther'); if (this.value === 'Other') { o.required = true; o.focus(); } else { o.required = false; o.value=''; }">
+      <select class="cf-field" name="source" style="margin-bottom:16px;" required>
         <option value="">Where did you hear about us?</option>
         <option>Google search</option>
         <option>Referral from a colleague or friend</option>
@@ -940,29 +1010,24 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <option>Online ad</option>
         <option>Other</option>
       </select>
-      <div id="ctaSourceOtherWrap" style="display:none;margin-bottom:20px;">
-        <input class="cf-field" id="ctaSourceOther" name="source_other" type="text"
-               placeholder="Please tell us where" maxlength="120"/>
-      </div>
-      <input type="hidden" name="form" value="homepage-cta">
       <input type="text" name="company_site" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit" id="ctaSubmit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>
-</section>
+</div>
 
 </main>
 <?php $hide_lead_band = true; /* homepage already has the #cta + ROI forms */ ?>
 <?php include 'includes/footer.php'; ?>
 
-<!-- Dedicated lead handler for the homepage forms (#ctaForm + #calcReachout).
-     These two forms intentionally do NOT carry data-lead-form, so the generic
-     handler in js/main.js never touches them — this self-contained function is
-     their ONLY handler (no race, no double-submit, and immune to any error
-     elsewhere in the main.js bundle). Binds immediately (the script sits after
-     the forms in the DOM), posts to the form's action (lead.php), and swaps in
-     a thank-you on success. -->
+<!-- Dedicated lead handler for the homepage forms (the three entry-point modal
+     forms + #calcReachout). These forms intentionally do NOT carry data-lead-form,
+     so the generic handler in js/main.js never touches them — this self-contained
+     function is their ONLY handler (no race, no double-submit, and immune to any
+     error elsewhere in the main.js bundle). Binds immediately (the script sits
+     after the forms in the DOM), posts to the form's action (lead.php), and swaps
+     in a thank-you on success. -->
 <script>
 (function () {
   function bind(form) {
@@ -1005,12 +1070,62 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     });
   }
   function init() {
-    bind(document.getElementById('ctaForm'));
+    document.querySelectorAll('.cta-modal-form').forEach(bind);
     bind(document.getElementById('calcReachout'));
   }
   // Bind now (this script is placed after both forms) and again on
   // DOMContentLoaded as a safety net. bind() is idempotent.
   init();
   document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+
+<!-- Entry-point modal behavior. Open/closed state is driven by the URL hash
+     (#cta-<intent>) so the CSS :target rule shows the right form even with JS
+     off. This layer adds: scroll-lock (page freezes behind the modal), autofocus
+     on the first field, ESC to close, and capturing scroll position BEFORE the
+     hash changes so opening never makes the page jump. -->
+<script>
+(function () {
+  var modals = {};
+  document.querySelectorAll('.cta-modal').forEach(function (m) { modals['#' + m.id] = m; });
+  if (!Object.keys(modals).length) { return; }
+  var docEl = document.documentElement, body = document.body;
+  var savedY = 0, locked = false;
+
+  function lock() {
+    if (locked) { return; }
+    savedY = window.scrollY || window.pageYOffset || 0;
+    body.style.top = (-savedY) + 'px';
+    docEl.classList.add('cta-locked');
+    locked = true;
+  }
+  function unlock() {
+    if (!locked) { return; }
+    docEl.classList.remove('cta-locked');
+    body.style.top = '';
+    window.scrollTo(0, savedY);
+    locked = false;
+  }
+  function sync() {
+    var m = modals[location.hash];
+    if (m) {
+      lock();
+      var f = m.querySelector('input:not([type=hidden]):not(.vtd-hp), select, textarea');
+      if (f) { try { f.focus({ preventScroll: true }); } catch (e) { f.focus(); } }
+    } else {
+      unlock();
+    }
+  }
+  // Capture scroll position before the hash flips so the open is jump-free.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#cta-"]');
+    if (a && modals[a.getAttribute('href')]) { lock(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modals[location.hash]) { location.hash = '#cta'; }
+  });
+  window.addEventListener('hashchange', sync);
+  sync(); // honor a deep-link / cross-page #cta-<intent> on load
 })();
 </script>
