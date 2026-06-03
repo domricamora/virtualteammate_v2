@@ -143,7 +143,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d6">
       <span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span>
       <h3>Dedicated Success Manager</h3>
-      <p>Every placement comes with a Client Success Manager who handles training, performance, backup coverage and quarterly reviews.</p>
+      <p>Every placement comes with a Client Success Manager (CSM) who handles training, performance, backup coverage and quarterly reviews.</p>
     </div>
   </div>
 </section>
@@ -195,7 +195,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="pstep reveal d3">
       <div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div>
       <h3 class="pstep-title">Onboard &amp; Launch</h3>
-      <p class="pstep-desc">Your VA hits the ground running with a Client Success Manager, weekly check-ins and full backup coverage built in.</p>
+      <p class="pstep-desc">Your VA hits the ground running with a Client Success Manager (CSM), weekly check-ins and full backup coverage built in.</p>
     </div>
   </div>
 </section>

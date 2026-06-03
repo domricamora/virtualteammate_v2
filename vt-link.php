@@ -110,7 +110,7 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
   <div class="vl-empty">
     <i class="fa-solid fa-link-slash"></i>
     <h1><?= $e($error ?: 'Link unavailable') ?></h1>
-    <p>Please ask your Client Success Manager for an up-to-date link.</p>
+    <p>Please ask your Client Success Manager (CSM) for an up-to-date link.</p>
     <p style="margin-top:18px;"><a class="vl-cta" href="virtual-teammates/">Browse our talent &rarr;</a></p>
   </div>
 <?php else:

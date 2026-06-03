@@ -115,7 +115,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Patient data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your Time Zone</h3><p>Matched to your US business hours for same-day insurance breakdowns and chart prep.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Scales With You</h3><p>One VA or a full remote back office &mdash; add or adjust as your schedule and case volume change.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Every placement comes with a Client Success Manager handling training, quality and backup coverage.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Every placement comes with a Client Success Manager (CSM) handling training, quality and backup coverage.</p></div>
   </div>
 </section>
 
@@ -151,7 +151,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the VA will own.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified dental admin VAs within days. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager. Live workflows in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

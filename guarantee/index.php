@@ -141,7 +141,7 @@ include __DIR__ . '/../includes/nav.php';
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
           <h3>Backup Coverage Built In</h3>
-          <p>Sick day, PTO, family emergency? Your Client Success Manager arranges a <strong>trained backup VA within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
+          <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup VA within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
         </div>
       </div>
 
@@ -171,7 +171,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="gp-claim-step reveal d1">
       <div class="step-num">1</div>
       <h4>Tell Your CSM</h4>
-      <p>Email, call, or message your Client Success Manager. State the issue. No formal claim form, no &ldquo;30-day review board.&rdquo;</p>
+      <p>Email, call, or message your Client Success Manager (CSM). State the issue. No formal claim form, no &ldquo;30-day review board.&rdquo;</p>
     </div>
     <div class="gp-claim-step reveal d2">
       <div class="step-num">2</div>

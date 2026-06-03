@@ -153,7 +153,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Billing Value Audit Call</h3><p class="pstep-desc">15-minute call to review your PMS, payer mix, claim volume, denial trends and AR aging.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of dental billers matched to your PMS and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager &mdash; live billing in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager (CSM) &mdash; live billing in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

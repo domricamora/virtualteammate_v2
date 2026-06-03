@@ -153,7 +153,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified virtual MAs matched to your specialty and EHR. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR access, SOP handoff, shadow week, and a Client Success Manager. Live workflows in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR access, SOP handoff, shadow week, and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 
@@ -167,7 +167,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your virtual MAs HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your MAs know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more &mdash; plus e-Rx, lab portals and patient-portal platforms.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical assistant cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US clinical MA hire. Use our ROI calculator for an exact estimate.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my virtual MA is sick or on leave?</div><div class="faq-a">Trained backup coverage is included &mdash; your Client Success Manager arranges a substitute so workflows never stall.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my virtual MA is sick or on leave?</div><div class="faq-a">Trained backup coverage is included &mdash; your Client Success Manager (CSM) arranges a substitute so workflows never stall.</div></div>
   </div>
 </section>
 

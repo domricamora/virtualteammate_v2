@@ -326,7 +326,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
       <h3 class="pstep-title">Launch &amp; Onboard Seamlessly</h3>
-      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager and the 30-Day Right-Fit Promise behind every placement.</p>
+      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
     </div>
   </div>
   <div class="proc-cta reveal">
@@ -344,7 +344,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <p class="sec-sub">Measured against an equivalent US in-house hire, a Virtual Teammate returns a multiple of what you put in &mdash; and that gap is value added straight back into your practice.</p>
   </div>
 
-  <div class="calc-glow">
   <div class="calc reveal d1" id="roiCalc">
     <!-- LEFT — value multiplier speedometer -->
     <div class="calc-vadd">
@@ -387,7 +386,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="calc-cta">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager and we&rsquo;ll map the right team to your practice.</div>
+        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager (CSM) and we&rsquo;ll map the right team to your practice.</div>
         <div class="calc-cta-btns">
           <a href="#talk-to-csm" class="calc-cta-primary">Have a CSM Reach Out <i class="fa-solid fa-arrow-right"></i></a>
         </div>
@@ -485,19 +484,18 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
     </div>
   </div>
-  </div>
 </section>
 
 <!-- TALK TO A CSM — standalone callback CTA (moved out of the calculator) -->
 <section class="sec csm-cta" id="talk-to-csm" aria-labelledby="csm-cta-h">
   <div class="csm-cta-card reveal">
     <div class="csm-cta-l">
-      <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Your Client Success Manager</div>
-      <h2 class="csm-cta-h" id="csm-cta-h">Have a Client Success Manager reach out</h2>
-      <p class="csm-cta-sub">Your dedicated Client Success Manager is your single US point of contact &mdash; they run your bench end-to-end: sourcing, matching, onboarding and day-to-day support. No call center, no quotes to chase.</p>
+      <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Your Client Success Manager (CSM)</div>
+      <h2 class="csm-cta-h" id="csm-cta-h">Have a Client Success Manager (CSM) reach out</h2>
+      <p class="csm-cta-sub">Your dedicated Client Success Manager (CSM) is your single US point of contact &mdash; they run your bench end-to-end: sourcing, matching, onboarding and day-to-day support. No call center, no quotes to chase.</p>
       <ul class="csm-cta-steps">
         <li><span class="csm-step-n">1</span><div><strong>Share your details</strong><span>Tell us how to reach you &mdash; takes about 30 seconds.</span></div></li>
-        <li><span class="csm-step-n">2</span><div><strong>We reach out within 1 business day</strong><span>A real Client Success Manager learns your workflow and goals.</span></div></li>
+        <li><span class="csm-step-n">2</span><div><strong>We reach out within 1 business day</strong><span>A real Client Success Manager (CSM) learns your workflow and goals.</span></div></li>
         <li><span class="csm-step-n">3</span><div><strong>Meet your matched shortlist</strong><span>Interview vetted teammates &mdash; backed by the 30-Day Right-Fit Promise.</span></div></li>
       </ul>
     </div>
@@ -505,7 +503,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within 1 business day.">
       <div class="csm-cta-form-h">Request a callback</div>
       <input class="csm-field" type="text"  name="name"   placeholder="Your name"               required autocomplete="name">
-      <input class="csm-field" type="text"  name="clinic" placeholder="Clinic / practice name"   required autocomplete="organization">
       <input class="csm-field" type="email" name="email"  placeholder="Work email"               required autocomplete="email">
       <input class="csm-field" type="tel"   name="phone"  placeholder="Phone (optional)"         autocomplete="tel">
       <input type="hidden" name="source" value="csm-callback">
@@ -595,7 +592,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
           <h3>Backup Coverage Built In</h3>
-          <p>Sick day, PTO, family emergency? Your Client Success Manager arranges a <strong>trained backup VA within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
+          <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup VA within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
         </div>
       </div>
 
@@ -660,7 +657,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="diff-num">01</div>
       <span class="ico-circle lg diff-ico"><i class="fa-solid fa-user-tie"></i></span>
       <h3 class="diff-title">A Dedicated CSM <em>From Day One</em></h3>
-      <p class="diff-desc">Most agencies hand you a VA and a Slack channel and call it done. Every VT placement comes with a <strong>named Client Success Manager from day one</strong> &mdash; they own onboarding, quality monitoring, backup coverage and quarterly performance reviews. It&rsquo;s the operational backbone behind our <strong>95%+ client retention</strong> in a category that runs 60&ndash;70%.</p>
+      <p class="diff-desc">Most agencies hand you a VA and a Slack channel and call it done. Every VT placement comes with a <strong>named Client Success Manager (CSM) from day one</strong> &mdash; they own onboarding, quality monitoring, backup coverage and quarterly performance reviews. It&rsquo;s the operational backbone behind our <strong>95%+ client retention</strong> in a category that runs 60&ndash;70%.</p>
       <div class="diff-vs">
         <div class="diff-vs-row"><span class="diff-vs-them">Category Avg</span><span class="diff-vs-val them">60&ndash;70% retention &middot; no CSM</span></div>
         <div class="diff-vs-row"><span class="diff-vs-us">VT</span><span class="diff-vs-val us">95%+ retention &middot; dedicated CSM</span></div>
@@ -699,13 +696,13 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <div class="global-l reveal">
       <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Coverage &middot; Local Cadence</div>
       <h2 class="sec-h2" id="global-h">A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent &mdash; On Your Time Zone</h2>
-      <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager runs the bench so you don&rsquo;t have to think about it.</p>
+      <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager (CSM) runs the bench so you don&rsquo;t have to think about it.</p>
 
       <ul class="global-benefits">
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts &mdash; one vendor, no compromises.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent &mdash; not just availability.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager (CSM) from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
       </ul>
     </div>
 
@@ -803,11 +800,11 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the VA isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Every healthcare and dental VA completes <strong>HIPAA training and certification</strong> before placement and signs a BAA-compatible confidentiality agreement. We operate <strong>SOC 2 Type 2-aligned controls</strong> on the VT infrastructure that touches your data &mdash; encrypted laptops, hardware MFA, mandatory password manager, controlled network egress, least-privilege EHR access. Every access event by a VT VA is captured in an <strong>audit trail</strong> (who, what, when, from where), retained for 12 months and reviewable on request by your Client Success Manager.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>5&ndash;7 business days</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager runs the timeline so it lands when you need it.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Every healthcare and dental VA completes <strong>HIPAA training and certification</strong> before placement and signs a BAA-compatible confidentiality agreement. We operate <strong>SOC 2 Type 2-aligned controls</strong> on the VT infrastructure that touches your data &mdash; encrypted laptops, hardware MFA, mandatory password manager, controlled network egress, least-privilege EHR access. Every access event by a VT VA is captured in an <strong>audit trail</strong> (who, what, when, from where), retained for 12 months and reviewable on request by your Client Success Manager (CSM).</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>5&ndash;7 business days</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your VAs know?</div><div class="faq-a">Medical VAs are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental VAs are proficient in Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Wherever the best fit lives. Our global recruiting reach lets us match for your specialty, EHR, accent, language, and US time-zone shift &mdash; not just whoever happens to be on the bench. You hire for skill set; we handle the sourcing.</div></div>
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager is on your account &mdash; reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager (CSM) is on your account &mdash; reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-handshake-slash"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. Most healthcare VA agencies require 6&ndash;12 month commitments &mdash; we don&rsquo;t. Pause, scale up, scale down or cancel month-to-month, with no early-termination fees and no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
   </div>
 </section>
@@ -817,7 +814,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-stages-h reveal">
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Three Ways to Start</div>
     <h2 class="cta-h2" style="font-size:36px;">Pick the Entry Point<br>That Fits Where You Are</h2>
-    <p class="cta-sub">Top of funnel, mid-funnel, or ready to scope &mdash; same team, three different first steps. Same color, same SLA, same Client Success Manager waiting on the other side.</p>
+    <p class="cta-sub">Top of funnel, mid-funnel, or ready to scope &mdash; same team, three different first steps. Same color, same SLA, same Client Success Manager (CSM) waiting on the other side.</p>
   </div>
 
   <div class="cta-stages-grid reveal d1">
@@ -861,7 +858,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> and a Client Success Manager will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the

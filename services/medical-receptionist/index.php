@@ -153,7 +153,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your call volume, phone system, EHR and scheduling rules. Define the exact tasks the receptionist will own.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified receptionists matched to your accent, language and stack preferences.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Go Live</h3><p class="pstep-desc">Phone setup, EHR access, call scripts and a Client Success Manager. Live calls within 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Go Live</h3><p class="pstep-desc">Phone setup, EHR access, call scripts and a Client Success Manager (CSM). Live calls within 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

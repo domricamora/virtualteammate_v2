@@ -462,20 +462,6 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .calc-badge i{color:var(--gold);}
 
-/* Wrapper carries a blurred, rotating conic halo behind the panel — the panel
-   itself clips overflow, so the visible outer glow has to live one level up. */
-.calc-glow{position:relative;max-width:1280px;margin:0 auto;}
-.calc-glow::before{
-  content:"";position:absolute;inset:-6px;border-radius:34px;z-index:0;pointer-events:none;
-  background:conic-gradient(from var(--vadd-spin),
-    rgba(57,25,186,0.0) 0deg, rgba(223,169,73,0.85) 70deg, rgba(245,228,184,0.95) 120deg,
-    rgba(124,58,237,0.9) 180deg, rgba(57,25,186,0.85) 250deg, rgba(223,169,73,0.0) 330deg);
-  filter:blur(22px);opacity:.55;
-  animation:vaddSpin 4.5s linear infinite;
-}
-.calc-glow > .calc{position:relative;z-index:1;}
-@media (prefers-reduced-motion:reduce){ .calc-glow::before{animation:none;opacity:.4;} }
-
 .calc{
   position:relative;
   display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1fr);gap:0;

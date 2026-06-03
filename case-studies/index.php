@@ -273,7 +273,7 @@ include __DIR__ . '/../includes/nav.php';
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-First Scoping</h3><p>Every engagement starts with the metric the client most needs to move &mdash; not a generic "VA hours" SOW.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A US-based Client Success Manager owns the scorecard, the cadence, and the escalation path.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A US-based Client Success Manager (CSM) owns the scorecard, the cadence, and the escalation path.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible teammates working in encrypted environments only.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Coverage</h3><p>Trained backup means your KPI doesn&rsquo;t collapse when your teammate is on PTO or sick.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly Scorecards</h3><p>Plain-English KPI reports &mdash; target, results, value created, achievement &mdash; delivered to your inbox.</p></div>

@@ -114,7 +114,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ Clean Claim Rate</h3><p>Trained billers catch coding errors, modifier mistakes and missing data before claims leave the building.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $58k&ndash;$78k loaded biller cost &mdash; no benefits, PTO or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Your Client Success Manager handles backup coverage if your biller is sick or on PTO &mdash; never a billing dark day.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Your Client Success Manager (CSM) handles backup coverage if your biller is sick or on PTO &mdash; never a billing dark day.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly RCM Reporting</h3><p>Charges, claims, denials, AR aging and net collections &mdash; rolled up weekly so you always know where you stand.</p></div>
   </div>
 </section>
@@ -153,7 +153,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM Value Audit Call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of billers matched to your specialty, EHR and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager &mdash; live in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager (CSM) &mdash; live in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 
@@ -167,7 +167,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-code"></i> Are your billing VAs trained in CPT, ICD-10 and HCPCS?</div><div class="faq-a">Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines &mdash; plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient and payer data safe?</div><div class="faq-a">Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house biller ($58k&ndash;$78k all-in). Use the homepage ROI calculator for a specialty-specific quote.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my biller is sick or on PTO?</div><div class="faq-a">Your Client Success Manager arranges trained backup coverage so claims, denials and AR work never go dark.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my biller is sick or on PTO?</div><div class="faq-a">Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.</div></div>
   </div>
 </section>
 

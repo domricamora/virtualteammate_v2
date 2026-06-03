@@ -74,7 +74,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <section class="svc-cta" style="margin-top:60px;">
   <h2>Healthcare or Not, the Engine Is the Same</h2>
-  <p>Curated shortlist in days, dedicated Client Success Manager from day one, transparent flat-rate pricing, 30-day right-fit guarantee. Tell us what you need &mdash; we&rsquo;ll build the bench.</p>
+  <p>Curated shortlist in days, dedicated Client Success Manager (CSM) from day one, transparent flat-rate pricing, 30-day right-fit guarantee. Tell us what you need &mdash; we&rsquo;ll build the bench.</p>
   <div class="svc-cta-btns">
     <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
