@@ -1585,19 +1585,27 @@ function hs_vt_properties_full(): array
 }
 
 /**
- * vtadmin-faithful role mapping. Returns null to mean SKIP entirely (the
- * "vt_onboarded" state — Contracted but not yet First-Day-Complete is
- * excluded from the portal per user requirements).
+ * Role mapping, faithful to the staging "VT HubSpot Sync" plugin
+ * (map_role_from_vt_status): vt_status alone decides eligibility.
+ *
+ *   Contracted / Hired            → vt_hired
+ *   Unmatched / Eligible / Matched → vt_onpool
+ *   anything else (incl. blank, No longer eligible) → SKIP (null)
+ *
+ * NOTE: we intentionally do NOT gate "Contracted" on contract_hired_status
+ * = "first day complete" anymore. That gate excluded legitimately-contracted
+ * VTs (e.g. those whose contract_hired_status reads "No Longer Needed") from
+ * the portal even though the plugin imports them. $contractHiredStatus is kept
+ * in the signature for call-site compatibility but is no longer consulted.
  *
  * @return null|array{role:string, active:int}
  */
 function hs_map_vt_role_and_status(string $vtStatus, string $contractHiredStatus = ''): ?array
 {
     $vt = strtolower(preg_replace('/\s+/', ' ', trim($vtStatus)));
-    $ch = strtolower(preg_replace('/\s+/', ' ', trim($contractHiredStatus)));
 
-    if ($vt === 'contracted') {
-        return $ch === 'first day complete' ? ['role' => 'vt_hired', 'active' => 1] : null;
+    if ($vt === 'contracted' || $vt === 'hired') {
+        return ['role' => 'vt_hired', 'active' => 1];
     }
     if ($vt === 'unmatched / eligible' || $vt === 'matched') {
         return ['role' => 'vt_onpool', 'active' => 1];
@@ -2458,21 +2466,27 @@ function hs_talent_search(string $q, int $limit = 10): array
     if ($token === '') { return ['ok' => false, 'matches' => [], 'error' => 'HubSpot token not configured.']; }
     $hs = new HubSpotClient($token);
 
-    // Email LIKE — HubSpot CONTAINS_TOKEN matches the value as a token in the property.
+    // Mirror the staging plugin's "Talent Lookup Diagnostic" search: always scope
+    // to the VT lead-status, then either EQ the email or run a HubSpot full-text
+    // `query` for names. Full-text `query` matches firstname/lastname/email/etc.
+    // across the contact, so multi-word names like "John Carlo Francia" resolve —
+    // unlike per-field CONTAINS_TOKEN, which fails on multi-token name values.
+    $leadField = (string) ($settings['hs_vt_lead_status_field'] ?? 'hs_lead_status');
+    $leadValue = (string) ($settings['hs_vt_lead_status_value'] ?? 'Virtual Teammate');
+    $filters   = [['propertyName' => $leadField, 'operator' => 'EQ', 'value' => $leadValue]];
+
     $isEmail = (bool) filter_var($q, FILTER_VALIDATE_EMAIL);
-    $filterGroups = $isEmail
-        ? [['filters' => [['propertyName'=>'email','operator'=>'EQ','value'=>strtolower($q)]]]]
-        : [
-            // Either firstname or lastname contains the token.
-            ['filters' => [['propertyName'=>'firstname','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
-            ['filters' => [['propertyName'=>'lastname','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
-            ['filters' => [['propertyName'=>'email','operator'=>'CONTAINS_TOKEN','value'=>$q]]],
-        ];
-    $resp = $hs->request('POST', '/crm/v3/objects/contacts/search', [
-        'filterGroups' => $filterGroups,
+    if ($isEmail) {
+        $filters[] = ['propertyName' => 'email', 'operator' => 'EQ', 'value' => strtolower($q)];
+    }
+
+    $payload = [
+        'filterGroups' => [['filters' => $filters]],
         'properties' => ['email','firstname','lastname','jobtitle','country','hs_lead_status','vt_status','hs_vt_status','contract_hired_status'],
         'limit' => $limit,
-    ]);
+    ];
+    if (!$isEmail) { $payload['query'] = $q; }   // HubSpot full-text name search
+    $resp = $hs->request('POST', '/crm/v3/objects/contacts/search', $payload);
     if (!$resp['ok']) {
         return ['ok' => false, 'matches' => [], 'error' => (string) ($resp['error'] ?: ('HTTP ' . $resp['status']))];
     }
