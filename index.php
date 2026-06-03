@@ -52,12 +52,11 @@ include 'includes/nav.php';
     <path class="hg-line" d="<?= $hgLineD ?>" fill="none" stroke="url(#hgLine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
     <circle class="hg-dot" cx="<?= $hgEnd[0] ?>" cy="<?= $hgEnd[1] ?>" r="6" fill="#f5e4b8"/>
   </svg>
-  <div class="hero-photo" aria-hidden="true"></div>
-
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
     <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br>Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</h1>
-    <p class="hero-sub reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.<br><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
+    <p class="hero-sub hero-sub-cols reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.</p>
+    <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
       <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Get My Time-Reclaim Value Audit <i class="fa-solid fa-magnifying-glass-chart"></i></a>
@@ -67,16 +66,17 @@ include 'includes/nav.php';
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
       <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
-      <span class="trust-break" aria-hidden="true"></span>
       <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
       <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
     </div>
-    <div class="hero-stats reveal d5">
-      <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
-      <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
-    </div>
+  </div>
+
+  <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
+  <div class="hero-stats reveal d5">
+    <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
   </div>
 
 </header>
