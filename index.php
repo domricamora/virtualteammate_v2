@@ -197,8 +197,8 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="specialties">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Staff Who Already Speak <em>Healthcare</em></h2>
-    <p class="sec-sub">Run a medical practice, dental office, or billing team? Your teammate shows up knowing the workflows, the compliance, and how to make patients feel cared for &mdash; fluent from day one, not after months of training.</p>
+    <h2 class="sec-h2">Healthcare Staffing, Focused on <em>Targeted Outcomes</em></h2>
+    <p class="sec-sub">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow, and patient communication &mdash; so your team can stay focused on care and results.</p>
   </div>
 
   <div class="spec-grid">
@@ -221,7 +221,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
           <h3 class="spec-title">Medical Virtual Teammates</h3>
         </div>
-        <p class="spec-desc">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow and patient communication &mdash; so your team can stay focused on care and results.</p>
+        <p class="spec-desc">HIPAA-certified medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so providers stop charting after hours and your AR keeps moving.</p>
 
         <div class="spec-pills">
           <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
