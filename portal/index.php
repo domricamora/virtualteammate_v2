@@ -1953,7 +1953,9 @@ function handle_email_send(): void
     if ($ok) {
         $_SESSION['email_result'] = ['ok' => true, 'msg' => 'Email sent to ' . $to . '.'];
     } else {
-        $_SESSION['email_result'] = ['ok' => false, 'msg' => 'mail() could not hand the message to a mail transport. On localhost (no mail server) this is expected — it should deliver on the production host.'];
+        $_SESSION['email_result'] = ['ok' => false, 'msg' => smtp_config() !== null
+            ? 'SMTP relay rejected the message — check the App Password / SMTP settings in portal/smtp.local.php (see the server error log for the failing step).'
+            : 'Google SMTP isn\'t configured and native mail() could not hand off the message. On localhost this is expected; add portal/smtp.local.php to relay through Google Workspace.'];
         $_SESSION['email_draft']  = ['to' => $to, 'subject' => $subject, 'message' => $message];
     }
     redirect(portal_url('email'));

@@ -2,7 +2,7 @@
 DirectoryIndex index.php index.html
 
 # --- Block hidden / sensitive files ------------------------------------------
-<FilesMatch "^(\.ftp\.local|\.env.*|\.git.*|deploy\.sh)$">
+<FilesMatch "^(\.ftp\.local|\.env.*|\.git.*|deploy\.sh|smtp\.local\.php)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>

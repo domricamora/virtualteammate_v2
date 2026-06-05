@@ -534,32 +534,160 @@ function portal_email_shell(string $heading, string $bodyHtml, string $ctaHtml =
 }
 
 /**
- * Low-level multipart (plain + HTML) sender via native PHP mail(). From
- * support@virtualteammate.com. Returns mail()'s result — true if the message
- * was handed to a transport, false otherwise (e.g. localhost with no MTA).
- * Never throws.
+ * Outbound SMTP configuration for Google Workspace, loaded once from the
+ * gitignored `portal/smtp.local.php` (see smtp.local.php.example). Returns the
+ * config array when host/user/pass are all present, or null to fall back to
+ * native mail(). Never throws.
+ */
+function smtp_config(): ?array
+{
+    static $cfg = false;             // false = not yet loaded, null = none
+    if ($cfg !== false) { return $cfg; }
+
+    $cfg  = null;
+    $file = __DIR__ . '/smtp.local.php';
+    if (is_file($file)) {
+        try {
+            $c = include $file;
+            if (is_array($c) && !empty($c['host']) && !empty($c['user']) && !empty($c['pass'])) {
+                $cfg = $c + [
+                    'port'      => 587,
+                    'from'      => $c['user'],
+                    'from_name' => 'Virtual Teammate',
+                ];
+            }
+        } catch (Throwable $_) { $cfg = null; }
+    }
+    return $cfg;
+}
+
+/**
+ * Minimal SMTP client: STARTTLS + AUTH LOGIN — enough to relay one message
+ * through Google Workspace (smtp.gmail.com:587). Dependency-free (no Composer
+ * / PHPMailer). Returns true only if the server accepted the message (250 at
+ * end-of-DATA). Logs the failing step via error_log(); never throws.
+ */
+function smtp_send(array $cfg, string $from, string $to, string $message): bool
+{
+    $host = (string) ($cfg['host'] ?? 'smtp.gmail.com');
+    $port = (int)    ($cfg['port'] ?? 587);
+    $user = (string) ($cfg['user'] ?? '');
+    $pass = (string) ($cfg['pass'] ?? '');
+
+    $fp = @fsockopen($host, $port, $errno, $errstr, 15);
+    if (!$fp) {
+        error_log("smtp_send: connect failed to {$host}:{$port} — {$errstr} ({$errno})");
+        return false;
+    }
+    stream_set_timeout($fp, 15);
+
+    // Read a (possibly multiline) reply; return its leading 3-digit code, 0 on EOF.
+    $read = static function () use ($fp): int {
+        $code = 0;
+        do {
+            $line = fgets($fp, 515);
+            if ($line === false) { return 0; }
+            $code = (int) substr($line, 0, 3);
+        } while (isset($line[3]) && $line[3] === '-');   // "250-" continues, "250 " ends
+        return $code;
+    };
+    $cmd = static function (string $c) use ($fp): void { fwrite($fp, $c . "\r\n"); };
+
+    $domain   = ($d = strrchr($from, '@')) !== false ? substr($d, 1) : 'localhost';
+    $ok       = true;
+    try {
+        if ($read() !== 220) { throw new RuntimeException('no greeting'); }
+        $cmd('EHLO ' . $domain);
+        if ($read() !== 250) { throw new RuntimeException('EHLO rejected'); }
+
+        // Gmail requires TLS before AUTH on 587.
+        $cmd('STARTTLS');
+        if ($read() !== 220) { throw new RuntimeException('STARTTLS rejected'); }
+        if (!@stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            throw new RuntimeException('TLS handshake failed (check server CA bundle)');
+        }
+        $cmd('EHLO ' . $domain);                          // re-EHLO over the encrypted channel
+        if ($read() !== 250) { throw new RuntimeException('EHLO (TLS) rejected'); }
+
+        $cmd('AUTH LOGIN');
+        if ($read() !== 334) { throw new RuntimeException('AUTH LOGIN unsupported'); }
+        $cmd(base64_encode($user));
+        if ($read() !== 334) { throw new RuntimeException('username stage failed'); }
+        $cmd(base64_encode($pass));
+        if ($read() !== 235) { throw new RuntimeException('authentication failed (check App Password)'); }
+
+        $cmd('MAIL FROM:<' . $from . '>');
+        if ($read() !== 250) { throw new RuntimeException('MAIL FROM rejected'); }
+        $cmd('RCPT TO:<' . $to . '>');
+        $rc = $read();
+        if ($rc !== 250 && $rc !== 251) { throw new RuntimeException('RCPT TO rejected'); }
+
+        $cmd('DATA');
+        if ($read() !== 354) { throw new RuntimeException('DATA rejected'); }
+        fwrite($fp, preg_replace('/^\./m', '..', $message) . "\r\n.\r\n");  // dot-stuff per RFC 5321
+        if ($read() !== 250) { throw new RuntimeException('message not accepted'); }
+
+        $cmd('QUIT');
+    } catch (Throwable $e) {
+        error_log('smtp_send: ' . $e->getMessage());
+        $ok = false;
+    }
+    @fclose($fp);
+    return $ok;
+}
+
+/**
+ * Low-level multipart (plain + HTML) sender. Relays through Google Workspace
+ * SMTP when portal/smtp.local.php is configured; otherwise falls back to native
+ * PHP mail(). From support@virtualteammate.com (overridable in smtp.local.php).
+ * Returns true if the message was accepted by the transport. Never throws.
  */
 function portal_send_mail(string $to, string $subject, string $html, string $text, string $fromName = 'Virtual Teammate'): bool
 {
-    $from     = 'support@virtualteammate.com';
+    $cfg      = smtp_config();
+    $fromAddr = $cfg !== null ? (string) $cfg['from']      : 'support@virtualteammate.com';
+    $fromName = $cfg !== null ? (string) $cfg['from_name'] : $fromName;
     $subject  = preg_replace('/\s+/', ' ', trim($subject));
     $boundary = 'vtp_' . bin2hex(random_bytes(8));
-    $headers  = implode("\r\n", [
-        'From: ' . $fromName . ' <' . $from . '>',
-        'Reply-To: ' . $from,
-        'MIME-Version: 1.0',
-        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
-        'X-Mailer: VT Portal',
-    ]);
-    $payload  = "--{$boundary}\r\n"
+
+    // RFC 2047 encode anything with non-ASCII so subjects/names survive transit.
+    $encWord    = static fn(string $s): string =>
+        preg_match('/[^\x20-\x7e]/', $s) ? '=?UTF-8?B?' . base64_encode($s) . '?=' : $s;
+
+    $bodyPart = "--{$boundary}\r\n"
               . "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
               . $text . "\r\n"
               . "--{$boundary}\r\n"
               . "Content-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n"
               . $html . "\r\n"
-              . "--{$boundary}--";
+              . "--{$boundary}--\r\n";
 
-    try { return @mail($to, $subject, $payload, $headers, '-f' . $from); }
+    // ── Google Workspace SMTP (preferred when configured) ──
+    if ($cfg !== null) {
+        $domain  = ($d = strrchr($fromAddr, '@')) !== false ? substr($d, 1) : 'virtualteammate.com';
+        $message = 'From: ' . $encWord($fromName) . ' <' . $fromAddr . ">\r\n"
+                 . 'To: ' . $to . "\r\n"
+                 . 'Reply-To: ' . $fromAddr . "\r\n"
+                 . 'Subject: ' . $encWord($subject) . "\r\n"
+                 . 'Date: ' . gmdate('D, d M Y H:i:s') . " +0000\r\n"
+                 . 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . $domain . ">\r\n"
+                 . "MIME-Version: 1.0\r\n"
+                 . 'Content-Type: multipart/alternative; boundary="' . $boundary . "\"\r\n"
+                 . "X-Mailer: VT Portal\r\n"
+                 . "\r\n"
+                 . $bodyPart;
+        return smtp_send($cfg, $fromAddr, $to, $message);
+    }
+
+    // ── Fallback: native mail() (no relay on localhost; works if host MTA set) ──
+    $headers = implode("\r\n", [
+        'From: ' . $fromName . ' <' . $fromAddr . '>',
+        'Reply-To: ' . $fromAddr,
+        'MIME-Version: 1.0',
+        'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
+        'X-Mailer: VT Portal',
+    ]);
+    try { return @mail($to, $subject, $bodyPart, $headers, '-f' . $fromAddr); }
     catch (Throwable $_) { return false; }
 }
 

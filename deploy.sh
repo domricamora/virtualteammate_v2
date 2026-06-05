@@ -87,7 +87,8 @@ upload_dir(){
   [ -d "$dir" ] || return 0
   while IFS= read -r -d '' f; do
     queue "$f" "${f#./}"
-  done < <(find "$dir" -type f -print0)
+    # smtp.local.php holds server-only SMTP creds — never ship/overwrite it.
+  done < <(find "$dir" -type f ! -name 'smtp.local.php' -print0)
 }
 
 echo "Deploying to ${FTP_HOST} as ${FTP_USER} (parallel x${MAX_PAR})"

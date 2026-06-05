@@ -3,6 +3,8 @@
 $to      = (string) ($draft['to']      ?? $user['email'] ?? '');
 $subject = (string) ($draft['subject'] ?? '');
 $message = (string) ($draft['message'] ?? '');
+$smtpCfg = smtp_config();
+$fromBox = $smtpCfg !== null ? (string) $smtpCfg['from'] : 'support@virtualteammate.com';
 ?>
 <?php if ($result): ?>
   <div class="portal-flash <?= !empty($result['ok']) ? 'flash-success' : 'flash-error' ?>"><?= e($result['msg']) ?></div>
@@ -11,7 +13,7 @@ $message = (string) ($draft['message'] ?? '');
 <div class="card">
   <div class="card-h">
     <h3 style="margin:0;"><i class="fa-solid fa-paper-plane"></i> Compose email</h3>
-    <span class="muted small">From <strong>support@virtualteammate.com</strong></span>
+    <span class="muted small">From <strong><?= e($fromBox) ?></strong></span>
   </div>
 
   <form method="post" action="<?= e(portal_url('email.send')) ?>" class="form-grid" style="margin-top:6px;">
@@ -40,7 +42,12 @@ $message = (string) ($draft['message'] ?? '');
   <p class="muted small" style="margin:16px 0 0;">
     <i class="fa-solid fa-circle-info"></i>
     Plain text is sent inside the branded Virtual Teammate template. Line breaks are preserved.
-    Email won't deliver from localhost (no mail server) — it works once running on the production host.
+    <?php if ($smtpCfg !== null): ?>
+      Mail is relayed through Google Workspace SMTP (<?= e((string) $smtpCfg['host']) ?>) — it delivers from any host.
+    <?php else: ?>
+      Google SMTP isn't configured (no <code>portal/smtp.local.php</code>), so this falls back to native mail() —
+      which won't deliver from localhost. Add the SMTP credentials file to send from anywhere.
+    <?php endif; ?>
   </p>
 </div>
 

@@ -15,6 +15,8 @@ _*.html
 *.local
 .env
 .env.*
+# Google Workspace SMTP credentials — server-only, never commit (template is *.example)
+portal/smtp.local.php
 
 # Portal SQLite DB — per-environment, never committed or deployed
 data/portal.sqlite

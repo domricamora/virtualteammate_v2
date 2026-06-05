@@ -1,0 +1,32 @@
+<?php
+/**
+ * Google Workspace SMTP credentials for outbound portal email.
+ *
+ * SETUP:
+ *   1. Copy this file to  portal/smtp.local.php  (same folder).
+ *   2. Fill in a Google App Password for support@virtualteammate.com:
+ *        a. The mailbox must have 2-Step Verification ON
+ *           (Google Account → Security → 2-Step Verification).
+ *        b. Create an App Password
+ *           (Security → 2-Step Verification → App passwords).
+ *        c. Paste the 16-character password below — remove the spaces.
+ *   3. Save. The portal sends via SMTP automatically once this file exists;
+ *      with no file present it falls back to native PHP mail().
+ *
+ * SECURITY: smtp.local.php is gitignored, denied direct web access in
+ * .htaccess, and excluded from deploy.sh — it lives only on the server and
+ * is never committed or overwritten by a deploy. Keep this .example file
+ * (placeholders only) in git as the template.
+ *
+ * DELIVERABILITY: add SPF (include:_spf.google.com) and enable DKIM in the
+ * Google Admin console for virtualteammate.com so relayed mail isn't flagged.
+ */
+
+return [
+    'host'      => 'smtp.gmail.com',
+    'port'      => 587,                              // STARTTLS
+    'user'      => 'support@virtualteammate.com',    // the authenticating mailbox
+    'pass'      => 'xxxxxxxxxxxxxxxx',               // 16-char App Password, no spaces
+    'from'      => 'support@virtualteammate.com',    // envelope + From: address
+    'from_name' => 'Virtual Teammate',
+];
