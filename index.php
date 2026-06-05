@@ -200,7 +200,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/medical-section.webp" alt="Interior of a modern medical clinic exam room" loading="lazy"/>
+        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
