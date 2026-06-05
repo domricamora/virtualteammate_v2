@@ -37,44 +37,71 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'traffic',     'label' => 'Traffic',       'icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'audit',       'label' => 'Audit Log',     'icon' => 'fa-clock-rotate-left'];
 } elseif ($role === 'client') {
-    // Daily-use first (team, comms, the work), then periodic, then occasional
-    // account actions (grow the team, billing), then help + alerts.
+    // Your team first, then the work (assignments → meetings → reports), then
+    // comms, then account actions (grow the team, billing), then help + alerts.
     $nav[] = ['p' => 'my-vts',        'label' => 'My VTs',              'icon' => 'fa-user-doctor'];
-    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
-    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'request-vt',    'label' => 'Request a VT',        'icon' => 'fa-user-plus'];
     $nav[] = ['p' => 'invoices',      'label' => 'My Invoices',         'icon' => 'fa-file-invoice-dollar'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'csm') {
-    // Book of business first (clients + their VTs in one place), then the work.
+    // Book of business first (clients + their VTs), then the work
+    // (assignments → meetings → reports), then comms, then tools, then alerts.
     $nav[] = ['p' => 'my-clients',    'label' => 'My Clients & VTs',    'icon' => 'fa-building-user'];
     $nav[] = ['p' => 'tasks',         'label' => 'VT Assignments',      'icon' => 'fa-list-check'];
-    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'meetings',      'label' => 'Meetings',            'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'special-links', 'label' => 'Special Links',       'icon' => 'fa-link'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'vt_hired') {
+    // Logical flow: the daily work first, then comms + people, then pay,
+    // then learning/tools, then referral, then alerts.
     $nav[] = ['p' => 'tasks',         'label' => 'My Assignments',      'icon' => 'fa-list-check'];
-    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'meetings',      'label' => 'My Meetings',         'icon' => 'fa-calendar-check'];
+    $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
+    $nav[] = ['p' => 'my-team',       'label' => 'My CSM & Teammates',  'icon' => 'fa-people-group'];
+    $nav[] = ['p' => 'payslips',      'label' => 'Payslips',            'icon' => 'fa-money-check-dollar'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'vtm-apps',      'label' => 'VTM Apps',            'icon' => 'fa-grip'];
+    $nav[] = ['p' => 'refer',         'label' => 'Refer A Friend',      'icon' => 'fa-gift'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'vt_onpool') {
     $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
+    $nav[] = ['p' => 'vtm-apps',      'label' => 'VTM Apps',            'icon' => 'fa-grip'];
+    $nav[] = ['p' => 'refer',         'label' => 'Refer A Friend',      'icon' => 'fa-gift'];
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 }
 $nav[] = ['p' => 'profile',     'label' => 'My Profile',   'icon' => 'fa-id-card'];
-// Public talent directory (marketing site) — opens in a new tab. Hidden for
-// clients and CSMs (internal users don't need the public lead-gen funnel).
-if ($role !== 'client' && $role !== 'csm') {
+// Public talent directory (marketing site) — opens in a new tab. Only the
+// super admin needs the public lead-gen funnel; VTs/CSMs/clients do not.
+if ($role === 'super_admin') {
     $nav[] = ['p' => 'virtual-teammates', 'label' => 'Virtual Teammates', 'icon' => 'fa-user-group', 'url' => site_url('virtual-teammates/'), 'external' => true];
+}
+
+// On-pool VTs (not yet placed with a client) get a trimmed menu — the native
+// equivalent of the staging [vtonpool_hidetabs] shortcode. Hide payslips,
+// meetings, productivity reports, the CSM/VT relationship tab, and assigned
+// tasks. Matched case-insensitively by label so future tabs are covered too.
+if ($role === 'vt_onpool') {
+    $hiddenLabels = [
+        'payslips', 'payslip', 'my payslips',
+        'meetings', 'my meetings',
+        'productivity reports',
+        'my csm and virtual teammate', 'my csm', 'csm',
+        'my assigned tasks', 'assigned tasks', 'vt assignments', 'my assignments',
+    ];
+    $nav = array_values(array_filter($nav, static function (array $item) use ($hiddenLabels): bool {
+        $label = strtolower(trim((string) ($item['label'] ?? '')));
+        return !in_array($label, $hiddenLabels, true);
+    }));
 }
 
 $pageTitle = $title ?? 'Virtual Teammate Portal';
@@ -143,7 +170,7 @@ if ($me && $role === 'super_admin') {
     </nav>
 
     <div class="portal-side-foot">
-      <?php if ($role !== 'client'): ?>
+      <?php if (in_array($role, ['super_admin', 'csm'], true)): ?>
         <a href="<?= e(site_url()) ?>" class="portal-side-link"><i class="fa-solid fa-arrow-left"></i> Marketing site</a>
       <?php endif; ?>
       <a href="<?= e(portal_url('logout')) ?>" class="portal-side-link"><i class="fa-solid fa-right-from-bracket"></i> Log out</a>

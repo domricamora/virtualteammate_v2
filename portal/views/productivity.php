@@ -54,6 +54,7 @@ $renderVtCard = static function (array $v) use ($resolveWorkday, $nameOrEmail, $
     <?php
 };
 
+$isVtSelf    = (string) ($user['role'] ?? '') === 'vt_hired';
 $multiClient = in_array((string) ($user['role'] ?? ''), ['csm', 'super_admin'], true);
 $trackable = 0; foreach ($vts as $v) { if ($resolveWorkday($v) !== '') { $trackable++; } }
 $reportDates = array_filter(array_map(static fn ($r) => (string) ($r['report_date'] ?? ''), $eod));
@@ -123,29 +124,56 @@ ksort($vtGroups, SORT_NATURAL | SORT_FLAG_CASE);
 
 <!-- EOD -->
 <section class="prod-section" id="prod-eod" data-section="eod" style="display:none;">
+  <?php if ($isVtSelf): ?>
+    <div class="card prod-eod-form-card">
+      <div class="card-h">
+        <h3 style="margin:0;"><i class="fa-solid fa-file-pen"></i> Log an End-of-Day report</h3>
+        <button type="button" class="btn-portal-secondary btn-sm" id="prodEodToggle"><i class="fa-solid fa-plus"></i> New report</button>
+      </div>
+      <form class="prod-eod-form" id="prodEodForm" method="post" action="<?= e(portal_url('eod.edit')) ?>" hidden>
+        <?= csrf_field() ?>
+        <div class="prod-eod-grid">
+          <label class="prod-eod-f"><span>Date</span><input type="date" name="report_date" value="<?= e(date('Y-m-d')) ?>" required></label>
+          <label class="prod-eod-f"><span>KPI name</span><input type="text" name="kpi_name" placeholder="e.g. Calls handled"></label>
+          <label class="prod-eod-f"><span>KPI target</span><input type="text" name="kpi_target" placeholder="e.g. 40"></label>
+          <label class="prod-eod-f"><span>KPI achieved</span><input type="text" name="kpi_achieved" placeholder="e.g. 43"></label>
+        </div>
+        <label class="prod-eod-f prod-eod-f--full"><span>Best work today</span><textarea name="best_work" rows="2" placeholder="What went well / what you shipped"></textarea></label>
+        <label class="prod-eod-f prod-eod-f--full"><span>Help needed</span><textarea name="help_needed" rows="2" placeholder="Anything blocking you"></textarea></label>
+        <label class="prod-eod-f prod-eod-f--full"><span>Focus next</span><textarea name="focus_next" rows="2" placeholder="What you'll tackle next"></textarea></label>
+        <label class="prod-eod-f prod-eod-f--full"><span>Pending / waiting on</span><textarea name="pending_waiting_on" rows="2" placeholder="Items waiting on someone else"></textarea></label>
+        <div class="prod-eod-form-foot">
+          <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-paper-plane"></i> Submit EOD report</button>
+        </div>
+      </form>
+    </div>
+  <?php endif; ?>
+
   <?php if (empty($eod)): ?>
-    <div class="card prod-empty"><i class="fa-solid fa-file-pen"></i><h3>No EOD reports yet</h3><p class="muted">Daily end-of-day reflections from your team will show here.</p></div>
+    <div class="card prod-empty"><i class="fa-solid fa-file-pen"></i><h3>No EOD reports yet</h3><p class="muted"><?= $isVtSelf ? 'Submit your first end-of-day report above.' : 'Daily end-of-day reflections from your team will show here.' ?></p></div>
   <?php else: ?>
+    <?php if ($isVtSelf): ?><h3 class="prod-eod-hist-h"><i class="fa-regular fa-clock"></i> History <span class="muted small">(<?= count($eod) ?>)</span></h3><?php endif; ?>
     <div class="prod-eod-filter" hidden>
       <span><i class="fa-solid fa-filter"></i> Showing EOD reports for <strong class="prod-eod-filter-name"></strong></span>
       <button type="button" class="prod-eod-clear">Show all <i class="fa-solid fa-xmark"></i></button>
     </div>
-    <div class="prod-eod-feed">
+    <div class="prod-eod-feed<?= $isVtSelf ? ' prod-eod-feed--list' : '' ?>">
       <?php foreach ($eod as $i => $r):
         $nm  = trim(($r['first_name'] ?? '') . ' ' . ($r['last_name'] ?? '')) ?: (string) ($r['email'] ?? '—');
         $av  = strtoupper(mb_substr($nm, 0, 1));
         $vid = (int) ($r['vt_user_id'] ?? 0);
       ?>
-        <article class="prod-eod-card" data-vt-id="<?= $vid ?>" style="animation-delay:<?= number_format(min($i, 16) * 0.04, 2) ?>s;">
-          <header class="prod-eod-head">
+        <article class="prod-eod-card<?= $isVtSelf ? ' prod-eod-card--exp' : '' ?>" data-vt-id="<?= $vid ?>" style="animation-delay:<?= number_format(min($i, 16) * 0.04, 2) ?>s;">
+          <header class="prod-eod-head"<?= $isVtSelf ? ' role="button" tabindex="0"' : '' ?>>
             <span class="prod-eod-av"><?= e($av) ?></span>
             <div>
-              <div class="prod-eod-name"><?= e($nm) ?></div>
-              <div class="muted small"><i class="fa-regular fa-calendar"></i> <?= e($r['report_date'] ?? '') ?></div>
+              <div class="prod-eod-name"><?= $isVtSelf ? e($r['report_date'] ?? '') : e($nm) ?></div>
+              <div class="muted small"><?php if ($isVtSelf): ?><i class="fa-regular fa-calendar"></i> <?= e(($r['report_date'] ?? '') !== '' ? date('l, M j, Y', strtotime((string) $r['report_date'])) : '') ?><?php else: ?><i class="fa-regular fa-calendar"></i> <?= e($r['report_date'] ?? '') ?><?php endif; ?></div>
             </div>
             <?php if (!empty($r['kpi_name'])): ?>
               <span class="prod-eod-kpi"><i class="fa-solid fa-bullseye"></i> <?= e($r['kpi_name']) ?>: <?= e($r['kpi_achieved'] ?: '—') ?>/<?= e($r['kpi_target'] ?: '—') ?></span>
             <?php endif; ?>
+            <?php if ($isVtSelf): ?><i class="fa-solid fa-chevron-down prod-eod-chev"></i><?php endif; ?>
           </header>
           <div class="prod-eod-body">
             <?php if (!empty($r['best_work'])): ?><div class="prod-eod-row"><span class="prod-eod-lbl">Best work</span><p><?= e($r['best_work']) ?></p></div><?php endif; ?>
@@ -238,6 +266,30 @@ ksort($vtGroups, SORT_NATURAL | SORT_FLAG_CASE);
 .prod-empty i{font-size:30px;color:var(--gold);margin-bottom:12px;}
 .prod-empty h3{margin:0 0 8px;color:#fff;}
 
+/* VT EOD: submission form */
+.prod-eod-form-card{margin-bottom:16px;}
+.prod-eod-form{margin-top:14px;display:flex;flex-direction:column;gap:12px;}
+.prod-eod-form[hidden]{display:none;}
+.prod-eod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.prod-eod-f{display:flex;flex-direction:column;gap:5px;font-size:12px;font-weight:700;color:var(--gold-lt);}
+.prod-eod-f--full{grid-column:1/-1;}
+.prod-eod-f input,.prod-eod-f textarea{font-family:inherit;font-size:13.5px;color:#fff;background:rgba(255,255,255,.05);border:1px solid var(--line-2);border-radius:10px;padding:9px 12px;font-weight:500;}
+.prod-eod-f input:focus,.prod-eod-f textarea:focus{outline:none;border-color:var(--gold);background:rgba(255,255,255,.08);}
+.prod-eod-f textarea{resize:vertical;}
+.prod-eod-form-foot{display:flex;justify-content:flex-end;}
+.prod-eod-hist-h{margin:6px 0 14px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:var(--gold,#d4a64a);}
+
+/* VT EOD: expandable history list */
+.prod-eod-feed--list{display:flex;flex-direction:column;gap:10px;}
+.prod-eod-card--exp{padding:0;overflow:hidden;}
+.prod-eod-card--exp .prod-eod-head{display:flex;align-items:center;gap:12px;margin:0;padding:14px 16px;cursor:pointer;user-select:none;}
+.prod-eod-card--exp .prod-eod-name{font-size:14px;}
+.prod-eod-card--exp .prod-eod-chev{margin-left:auto;color:var(--gold-lt);transition:transform .2s ease;}
+.prod-eod-card--exp.is-open .prod-eod-chev{transform:rotate(180deg);}
+.prod-eod-card--exp .prod-eod-kpi{margin-left:0;}
+.prod-eod-card--exp .prod-eod-body{display:none;padding:0 16px 16px;}
+.prod-eod-card--exp.is-open .prod-eod-body{display:flex;}
+
 @media (max-width:1100px){ .csm-wd-grid{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:760px){
   .prod-eod-feed{grid-template-columns:1fr;}
@@ -312,6 +364,24 @@ ksort($vtGroups, SORT_NATURAL | SORT_FLAG_CASE);
   });
   var clearBtn = document.querySelector('.prod-eod-clear');
   if (clearBtn) clearBtn.addEventListener('click', clearEod);
+
+  /* VT: toggle the EOD submission form */
+  var eodToggle = document.getElementById('prodEodToggle');
+  var eodForm   = document.getElementById('prodEodForm');
+  if (eodToggle && eodForm) {
+    eodToggle.addEventListener('click', function(){
+      var open = eodForm.hasAttribute('hidden');
+      if (open) { eodForm.removeAttribute('hidden'); eodToggle.innerHTML = '<i class="fa-solid fa-minus"></i> Close'; }
+      else { eodForm.setAttribute('hidden',''); eodToggle.innerHTML = '<i class="fa-solid fa-plus"></i> New report'; }
+    });
+  }
+
+  /* VT: expandable EOD history cards */
+  document.querySelectorAll('.prod-eod-card--exp .prod-eod-head').forEach(function(h){
+    function toggle(){ h.parentNode.classList.toggle('is-open'); }
+    h.addEventListener('click', toggle);
+    h.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
 })();
 </script>
 

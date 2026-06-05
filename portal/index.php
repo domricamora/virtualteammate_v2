@@ -117,6 +117,11 @@ switch ($action) {
     case 'notifications.delete_all':   handle_notifications_delete_all();     break;
     case 'notifications.toggle_email': handle_notifications_toggle_email();   break;
     case 'resources':              handle_resources();               break;
+    case 'knowledge-center':       handle_knowledge_center();        break;
+    case 'payslips':               handle_payslips();                break;
+    case 'my-team':                handle_my_team();                 break;
+    case 'vtm-apps':               handle_vtm_apps();                break;
+    case 'refer':                  handle_refer();                   break;
     case 'my-vts':                 handle_my_vts();                  break;
     case 'my-clients':             handle_my_clients();              break;
     case 'vts.profile_json':       handle_vts_profile_json();        break;
@@ -1590,7 +1595,9 @@ function handle_eod_edit(): void
             }
         }
         flash('success', 'EOD report saved.');
-        redirect(portal_url('eod'));
+        // VTs have no standalone EOD nav — send them back to Productivity
+        // (EOD tab), where the form + history live. Others go to the EOD list.
+        redirect($isVt ? portal_url('productivity') . '#prod-eod' : portal_url('eod'));
     }
 
     $vtUsers = $isVt ? [] : db()->query("SELECT id, first_name, last_name, email FROM users WHERE role IN ('vt_hired','vt_onpool') ORDER BY first_name")->fetchAll();
@@ -3456,7 +3463,7 @@ function handle_notifications_toggle_email(): void
  * [client_resources] shortcode.
  * ═════════════════════════════════════════════════════════════════════════ */
 
-function resources_definitions(): array
+function client_resources_definitions(): array
 {
     return [
         ['title' => 'Outcome-Based Responsibilities (OBR) Worksheet', 'description' => 'Define outcomes and accountability clearly — then reuse it for every role.',                   'url' => 'https://baa78665-b905-489f-a89a-dea3af4d293d.filesusr.com/ugd/739bab_d2efa46efff347d49c2bd8e129a541af.pdf', 'accent' => '#3919BA'],
@@ -3470,15 +3477,672 @@ function resources_definitions(): array
 
 function handle_resources(): void
 {
-    require_login();
-    render('resources', [
-        'resources' => resources_definitions(),
-        'playbook'  => [
-            'title' => 'Virtual Teammate Client Playbook',
-            'desc'  => 'Start here to align expectations, simplify communication, and establish a smooth workflow — so your Virtual Teammate can deliver faster.',
-            'url'   => 'https://virtualteammate.com/client-playbook-3/',
-        ],
+    $u    = require_login();
+    $role = $u['role'];
+
+    // Client downloads + playbook: shown to clients, CSMs, and super admins.
+    // VTs do NOT see the client material — their Resources page is the
+    // Knowledge Center launcher only.
+    $showClient = in_array($role, ['client', 'csm', 'super_admin'], true);
+    // Knowledge Center launcher: shown to VTs, CSMs, and super admins — never
+    // to clients (the KC is internal team training).
+    $showKc     = in_array($role, ['vt_hired', 'vt_onpool', 'csm', 'super_admin'], true);
+
+    $client = null;
+    if ($showClient) {
+        $client = [
+            'resources' => client_resources_definitions(),
+            'playbook'  => [
+                'title' => 'Virtual Teammate Client Playbook',
+                'desc'  => 'Start here to align expectations, simplify communication, and establish a smooth workflow — so your Virtual Teammate can deliver faster.',
+                'url'   => 'https://virtualteammate.com/client-playbook-3/',
+            ],
+        ];
+    }
+
+    $kc = null;
+    if ($showKc) {
+        // Hub presentation metadata per topic — a category tag and a filter
+        // group (used by the "Operations / Admin / Support" chips), mirroring
+        // the staging [vtm_resource_hub_consolidated] hub.
+        $hubMeta = [
+            'knowledge-center' => ['tag' => 'Guides & Articles', 'group' => 'ops admin',     'blurb' => 'Onboarding videos, how-tos, and self-paced lessons for the team.'],
+            'human-resources'  => ['tag' => 'Policies & SOPs',    'group' => 'admin ops',     'blurb' => 'Attendance, Time Off, Health Benefits, and internal policies in one hub.'],
+            'finance'          => ['tag' => 'Billing & Payments',  'group' => 'admin',         'blurb' => 'Billing references, payment info, and finance documentation.'],
+            'it-concerns'      => ['tag' => 'Tech Support',        'group' => 'support',       'blurb' => 'Workstation setup, internet/power requirements, and troubleshooting.'],
+            'marketing'        => ['tag' => 'Brand & Content',     'group' => 'ops admin',     'blurb' => 'Brand, audience, and social-content training for Virtual Teammate.'],
+            'sales'            => ['tag' => 'Client Readiness',     'group' => 'ops support',   'blurb' => 'Communicate professionally, interpret client needs, and handle issues.'],
+        ];
+        $shortcuts = [];
+        foreach (kc_topics() as $t) {
+            $m = $hubMeta[$t['slug']] ?? ['tag' => 'Knowledge', 'group' => 'ops', 'blurb' => $t['intro'] ?? ''];
+            $shortcuts[] = [
+                'url'   => portal_url('knowledge-center', ['topic' => $t['slug']]),
+                'label' => $t['label'],
+                'icon'  => $t['icon'],
+                'desc'  => $m['blurb'],
+                'tag'   => $m['tag'],
+                'group' => $m['group'],
+                'ext'   => false,
+            ];
+        }
+        // Wider community resource (external), as on the staging hub.
+        $shortcuts[] = [
+            'url'   => 'https://virtualteammate.com/group-teammate-community-about/',
+            'label' => 'Group Teammate Community',
+            'icon'  => 'fa-people-group',
+            'desc'  => 'Connect with the wider Virtual Teammate community — events, discussions, and shared resources.',
+            'tag'   => 'Community',
+            'group' => 'ops admin support',
+            'ext'   => true,
+        ];
+        $kc = [
+            'shortcuts' => $shortcuts,
+            'home'      => portal_url('knowledge-center'),
+        ];
+    }
+
+    render('resources', ['client' => $client, 'kc' => $kc]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * KNOWLEDGE CENTER — internal learning hub for VTs and CSMs, recreated from
+ * the staging WordPress Knowledge Center + its topic pages (Help Center, HR,
+ * Finance, IT, Marketing, Sales). Content is data-driven via kc_topics();
+ * the view (views/knowledge-center.php) renders a block model in our theme.
+ * Gated to VTs (hired/on-pool), CSMs, and super admins — never clients.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_knowledge_center(): void
+{
+    require_role('vt_hired', 'vt_onpool', 'csm', 'super_admin');
+    $topics = kc_topics();
+    $slug   = (string) ($_GET['topic'] ?? '');
+    $active = $topics[$slug] ?? reset($topics);
+    render('knowledge-center', [
+        'topics' => $topics,
+        'topic'  => $active,
+        'slug'   => $active['slug'],
     ]);
+}
+
+/**
+ * Full Knowledge Center content, keyed by topic slug. Each topic renders a
+ * pill in the topic nav; its body is a set of tabs, each holding content
+ * blocks. Block types handled by the view: lessons, summary, accordion,
+ * cards (filterable), swatches, qa, captions, platforms, prose, heading,
+ * note, image, ask.
+ */
+function kc_topics(): array
+{
+    return [
+        /* ───────────────────────── Knowledge Center (landing) ───────────── */
+        'knowledge-center' => [
+            'slug'  => 'knowledge-center',
+            'label' => 'Knowledge Center',
+            'icon'  => 'fa-graduation-cap',
+            'h1'    => ['KNOWLEDGE', 'CENTER'],
+            'eyebrow' => 'Reliable answers. Quick solutions. All in one space.',
+            'intro' => 'Onboarding videos and self-paced lessons to get you confident and client-ready from day one.',
+            'tabs'  => [
+                ['label' => 'Training 101', 'blocks' => [
+                    ['type' => 'lessons', 'items' => [
+                        ['title' => 'Meet the Team', 'badge' => 'Video', 'desc' => 'Get to know the amazing people behind Virtual Teammate. Our dedicated team works together to help businesses grow while providing meaningful opportunities for talented professionals worldwide.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                        ['title' => 'Message from our CEO', 'badge' => 'Video', 'desc' => 'A special message from our CEO sharing the vision, mission, and commitment of Virtual Teammate to building strong partnerships and creating a thriving remote work environment.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                        ['title' => 'Independent Contractor Agreement', 'badge' => 'Video', 'desc' => 'Learn more about the guidelines, expectations, and agreements that define your role as a valued Virtual Teammate. This section walks you through the essential terms to help you succeed in your journey with us.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                        ['title' => 'Application Roadmap', 'badge' => 'Video', 'desc' => 'Step-by-step guide on what to expect during your application process — from submitting your requirements, through the review and interview stages, to onboarding where you officially become a Virtual Teammate.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                        ['title' => 'Eisenhower Matrix', 'badge' => 'Self-paced training', 'desc' => 'A self-paced primer on prioritizing your work by urgency and importance so you spend time on what truly moves the needle.', 'media' => ['kind' => 'soon', 'src' => '']],
+                        ['title' => 'Executive Assistant SOP', 'badge' => 'Lesson · PDF', 'desc' => 'A quick guide to the essential SOPs every Executive Assistant needs to follow for efficiency and consistency.', 'media' => ['kind' => 'pdf', 'src' => 'assets/kc/pdf/executive-assistant-sop.pdf']],
+                        ['title' => 'How to ace your client interview', 'badge' => 'Lesson', 'desc' => 'Key tips to impress clients and build lasting professional relationships.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                        ['title' => 'Reasons why VT is unsuccessful in client interviews', 'badge' => 'Lesson', 'desc' => 'The key reasons Virtual Teammates fail to perform well in client interviews — and how to avoid them.', 'media' => ['kind' => 'novideo', 'src' => '']],
+                    ]],
+                ]],
+                ['label' => 'Training 102', 'blocks' => [['type' => 'note', 'text' => 'Training 102 lessons are coming soon.']]],
+                ['label' => 'Training 103', 'blocks' => [['type' => 'note', 'text' => 'Training 103 lessons are coming soon.']]],
+                ['label' => 'Training 104', 'blocks' => [['type' => 'note', 'text' => 'Training 104 lessons are coming soon.']]],
+            ],
+        ],
+
+        /* ───────────────────────── Human Resources ──────────────────────── */
+        'human-resources' => [
+            'slug'  => 'human-resources',
+            'label' => 'Human Resources',
+            'icon'  => 'fa-user-shield',
+            'h1'    => ['HUMAN', 'RESOURCES'],
+            'eyebrow' => 'People & policies',
+            'intro' => 'Your reference hub for Attendance, Time Off, and Health Benefits. Expand any topic to read the details.',
+            'search' => true,
+            'downloads' => [
+                ['label' => 'Attendance SOP', 'url' => 'assets/kc/pdf/attendance-sop.pdf'],
+                ['label' => 'Time Off SOP', 'url' => 'assets/kc/pdf/time-off-sop.pdf'],
+                ['label' => 'Health Benefits SOP', 'url' => 'assets/kc/pdf/health-benefits-sop.pdf'],
+            ],
+            'tabs'  => [
+                ['label' => 'Attendance', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'Working Hours & Coverage', 'bullets' => ['Company-wide hours are 10 PM–8 AM Manila Time / 7 AM–5 PM PST (includes a 1-hour lunch).', 'Two coverage shifts may apply: 10 PM–7 AM and 11 PM–8 AM (MNL).']],
+                        ['title' => 'Tracking & Accountability', 'bullets' => ['Attendance is tracked daily via Work Day Tracker.', 'Excessive use of a manual tracker due to WDT issues may lead to a written warning.']],
+                    ]],
+                    ['type' => 'accordion', 'items' => [
+                        ['title' => 'Reporting absences or lateness', 'sub' => 'Notify early + provide documentation when required', 'bullets' => ['Inform your immediate supervisor/HR at least 2 hours before your workday start if you will be late or absent.', 'Notification can be sent via email or SMS (to your department head or HR).', 'If it\'s a sudden illness/emergency, notify as soon as possible.', 'If sick leave exceeds two days, a medical certificate is required upon return. Missing documentation may trigger non-compliance actions.']],
+                        ['title' => 'Tardiness rules', 'sub' => 'Definitions + escalation steps', 'bullets' => ['Tardiness is arriving more than 30 minutes after your scheduled start time without prior notice.', 'Time offsetting is not allowed for tardiness (even if approved) unless the reason is verified as an emergency.', 'Habitual tardiness: 3 instances in a month → verbal warning.', 'Frequent tardiness: 3 instances/month for 3 consecutive months → may lead to suspension or contract termination at Dept Head and Client discretion.']],
+                        ['title' => 'Undertime rules', 'sub' => 'For special or emergency situations', 'bullets' => ['Undertime approval depends on your Department Head and/or HR, based on the request.', 'Use undertime strictly for special or emergency situations. Excessive patterns may trigger review and a verbal warning.', 'Request approval at least 2 hours in advance when possible, and include the reason + intended departure time.', 'No time offsetting for undertime (even if approved) unless the reason is verified as an emergency.']],
+                        ['title' => 'Leave management & consequences', 'sub' => 'Where to file + what happens for non-compliance', 'bullets' => ['All leaves (sick/casual/annual) must be requested via DEEL and approved by the direct manager.', 'Unapproved or excessive absenteeism may be considered misconduct.', 'Non-compliance may progress: verbal warning → written warning → suspension/termination (Client discretion).', 'HR maintains attendance records; exceptions (emergencies, severe weather, etc.) require approval by HR/Dept Heads.', 'This SOP is reviewed annually and updated as needed.']],
+                    ]],
+                    ['type' => 'note', 'text' => 'Quick reminder: Attendance is expected during business hours unless leave is approved.'],
+                ]],
+                ['label' => 'Time Off', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'Independent Contractor Context', 'bullets' => ['Time Off (TO) is time away from contracted services, coordinated with the client.', 'For VT Placed roles, there is no paid time off; TO decisions are determined by the client.']],
+                        ['title' => 'Approval Timeline', 'bullets' => ['TO requests are reviewed and approved by the Client and/or AM/CSM within 1 business day (based on deadlines, capacity, and operational requirements).']],
+                    ]],
+                    ['type' => 'accordion', 'items' => [
+                        ['title' => 'How to request Time Off', 'sub' => 'Email notification + required details', 'bullets' => ['Send an email notification to your CSM, including any proof of client approval.', 'Include: exact TO dates and any notes/context (if applicable).', 'Approval depends on: client agreement, project deadlines, team capacity, and operational requirements.', 'You\'ll receive confirmation via email or platform message. If denied, alternative suggestions may be provided.']],
+                        ['title' => 'Before TO: handover checklist', 'sub' => 'Keep projects moving while you\'re away', 'bullets' => ['Update project statuses and key deliverables.', 'Notify relevant team members about your absence.', 'Ensure essential files and systems access are available for continuity.']],
+                        ['title' => 'During TO & returning', 'sub' => 'Out-of-office + re-entry', 'bullets' => ['During approved TO, contractors are not expected to provide services.', 'Redirect urgent matters to a designated point of contact.', 'Activate out-of-office messages across your communication tools.', 'Upon return: review missed messages/updates, prioritize follow-ups, and notify your manager/client of your availability.']],
+                        ['title' => 'Exceptions & review cycle', 'sub' => 'Deviations must be pre-approved', 'bullets' => ['Any deviations from this SOP must be pre-approved by the client or relevant manager/department head.', 'This SOP is reviewed annually and revised as needed.', 'Operational note: Client facing — CSM (no work, no pay).']],
+                    ]],
+                    ['type' => 'note', 'text' => 'Tip: Get client approval first, then send the request to your CSM with the confirmed dates.'],
+                ]],
+                ['label' => 'Health Benefits', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'Program Overview', 'bullets' => ['Provider: Maxicare • Plan: PRIMA Consult • Cost: $16.85 / PHP 999 per person.', 'Coverage: outpatient consultations + basic diagnostics.']],
+                        ['title' => 'Eligibility', 'bullets' => ['Available to teammates who have completed 90 days of active engagement with a client (enrollment subject to company approval and submission to Maxicare).']],
+                    ]],
+                    ['type' => 'accordion', 'items' => [
+                        ['title' => 'What\'s covered', 'sub' => 'Unlimited consults + Annual Physical Exam (Basic 5)', 'bullets' => ['Unlimited doctor consultations at Maxicare-accredited PRIMA clinics.', 'Annual Physical Exam (Basic 5) includes: Physical exam, CBC, routine urinalysis, routine fecalysis, and Chest X-ray (PA view).']],
+                        ['title' => 'Eligible specialists (PRIMA clinics)', 'sub' => 'Common specialties you can consult', 'bullets' => ['General Practitioner (GP), Internal Medicine (IM), Family Medicine (FM), Pediatrician, ENT, OB-GYN.', 'Dermatologist, Ophthalmologist, Cardiologist, Endocrinologist, Pulmonologist.', 'Gastroenterologist, Rheumatologist, Nephrologist, Infectious Disease Specialist.', 'General Surgeon, Urologist, Orthopedic Specialist, Rehabilitation Medicine Specialist.']],
+                        ['title' => 'Key features (how it works)', 'sub' => 'Fast access and less paperwork', 'bullets' => ['Pre-existing conditions are accepted and covered.', 'No paperwork required during clinic visits.', 'No preliminary checkups/approvals needed.', 'Cashless and hassle-free consultations at PRIMA clinics.']],
+                        ['title' => 'Enrollment & activation', 'sub' => 'What HR does + when coverage starts', 'bullets' => ['HR collects enrollment details, submits data to Maxicare, and coordinates updates/concerns.', 'Maxicare issues confirmation and activates PRIMA Consult access.', 'Coverage becomes active upon confirmation by Maxicare and remains valid for the coverage period in the enrollment agreement.']],
+                        ['title' => 'Exclusions & limitations', 'sub' => 'Know what\'s not included', 'bullets' => ['Coverage is limited to outpatient consultations and Basic 5 APE only.', 'Hospitalization, emergency care, and advanced diagnostics are not included unless separately covered.', 'Services must be availed only at PRIMA clinics.']],
+                    ]],
+                    ['type' => 'note', 'text' => 'Responsibility: Teammates should use benefits responsibly and follow the program procedures.'],
+                ]],
+                ['label' => 'Helpful Notes', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'When to contact HR/CSM', 'bullets' => ['Attendance issues (WDT, absences, documentation).', 'Time Off coordination and client approvals.', 'Benefits enrollment, activation, or clinic access.']],
+                        ['title' => 'Best practice', 'bullets' => ['Notify early (2+ hours before shift when possible).', 'Keep proof of approvals (especially for TO).', 'Do a clean handover before leaving.']],
+                    ]],
+                ]],
+            ],
+        ],
+
+        /* ───────────────────────── Finance ──────────────────────────────── */
+        'finance' => [
+            'slug'  => 'finance',
+            'label' => 'Finance',
+            'icon'  => 'fa-coins',
+            'h1'    => ['FINANCE'],
+            'eyebrow' => 'Finance Knowledge Base',
+            'intro' => 'For Virtual Teammates — browse by category, then dive into subtopics.',
+            'search' => true,
+            'tabs'  => [
+                ['label' => '', 'blocks' => [
+                    ['type' => 'cards', 'filter' => true, 'items' => [
+                        ['cat' => 'Foundations', 'title' => 'Finance Overview (Virtual Teammate Context)', 'summary' => 'How money flows and what "healthy margin" means inside Virtual Teammate.', 'bullets' => ['How money flows in Virtual Teammate', 'Client → Virtual Teammate → VT payment structure', 'Difference between company revenue and VT pay', 'Markup, margin, and profitability basics', 'Internal finance vs client finance responsibilities']],
+                        ['cat' => 'Billing & AR', 'title' => 'Client Billing & Revenue Handling', 'summary' => 'Invoices, cycles, adjustments, and payment confirmation — done cleanly and consistently.', 'bullets' => ['Client billing models (monthly retainer, hourly, dedicated VT)', 'Invoice creation and components', 'Billing cycles and cut-off dates', 'Add-on charges and adjustments', 'Credits, refunds, and proration', 'Late payment handling and follow-ups', 'Payment confirmation and receipt tracking']],
+                        ['cat' => 'Billing & AR', 'title' => 'Accounts Receivable (AR)', 'summary' => 'Track unpaid invoices and follow up with clear escalation rules.', 'bullets' => ['Tracking unpaid invoices', 'Aging reports (current, 30/60/90 days)', 'Client follow-up procedures', 'Escalation process for overdue accounts', 'Recording partial payments', 'Resolving billing disputes']],
+                        ['cat' => 'AP & Expenses', 'title' => 'Accounts Payable (AP)', 'summary' => 'Pay vendors on time with proper approvals and clean documentation.', 'bullets' => ['Vendor payments', 'Software and subscription expenses', 'Recruitment-related expenses', 'Office/admin expenses', 'Payment scheduling and approvals', 'Expense documentation and receipts']],
+                        ['cat' => 'Payroll', 'title' => 'Payroll & VT Compensation', 'summary' => 'Timesheets → cut-offs → payouts. Keep it accurate, predictable, and documented.', 'bullets' => ['VT payment structure (hourly vs fixed)', 'Timesheet tracking and validation', 'Overtime and overage hours', 'Payroll cut-offs and pay cycles', 'Payslip preparation', 'Payroll discrepancy handling', 'Contractor vs employee awareness (no legal advice)']],
+                        ['cat' => 'Bookkeeping', 'title' => 'Bookkeeping Basics (Company-Level)', 'summary' => 'Clean categorization and matching = reliable reporting and fewer surprises.', 'bullets' => ['Chart of accounts (company-specific)', 'Revenue categorization', 'Payroll cost categorization', 'Operating expenses categorization', 'Bank feed transactions', 'Matching deposits and payments', 'Month-end closing support']],
+                        ['cat' => 'Bookkeeping', 'title' => 'Bookkeeping Support for Clients', 'summary' => 'Support the client\'s finance hygiene without overstepping boundaries.', 'bullets' => ['Recording client income', 'Categorizing expenses', 'Expense reimbursement tracking', 'Vendor and supplier records', 'Basic transaction cleanup', 'Supporting accountant/bookkeeper (not replacing)']],
+                        ['cat' => 'Reporting', 'title' => 'Financial Reporting Awareness', 'summary' => 'Know what the numbers mean so you can support accurately and communicate clearly.', 'bullets' => ['Profit & Loss statement understanding', 'Revenue vs cost vs profit', 'Gross margin per client/VT', 'Monthly financial summaries', 'Budget vs actual tracking', 'Internal finance dashboards (if applicable)']],
+                        ['cat' => 'Metrics', 'title' => 'Financial Metrics', 'summary' => 'Key KPIs that help you spot risk early and understand business impact.', 'bullets' => ['Revenue per client', 'Cost per VT', 'Gross margin per VT', 'Client lifetime value (LTV)', 'Client churn impact on revenue', 'Utilization rate', 'Break-even awareness']],
+                        ['cat' => 'Tools', 'title' => 'Payment Platforms & Tools', 'summary' => 'Where money moves — and what to verify before marking anything "paid."', 'bullets' => ['Stripe (subscriptions, invoices, payouts)', 'PayPal (client payments, VT payouts)', 'Wise (international transfers)', 'Payoneer', 'Bank transfers and confirmations', 'Payment reconciliation basics']],
+                        ['cat' => 'Tools', 'title' => 'Accounting Software Exposure', 'summary' => 'Navigate the basics safely — especially permissions and role limitations.', 'bullets' => ['QuickBooks (basic navigation)', 'Xero (basic navigation)', 'Creating invoices', 'Recording payments', 'Running basic reports', 'User access limitations and roles']],
+                        ['cat' => 'Bookkeeping', 'title' => 'Financial Data Management', 'summary' => 'Organize files so anyone can audit, trace, and understand quickly.', 'bullets' => ['File organization for finance records', 'Invoice and receipt storage', 'Naming conventions', 'Secure sharing of financial documents', 'Version control awareness']],
+                        ['cat' => 'Compliance', 'title' => 'Compliance & Risk Awareness', 'summary' => 'Protect data, avoid overreach, and recognize red flags early.', 'bullets' => ['Confidentiality of financial data', 'Access control and permissions', 'Avoiding tax and legal advice', 'Contractor payment sensitivity', 'Client data separation', 'Fraud awareness and red flags']],
+                        ['cat' => 'SOPs', 'title' => 'Internal Finance SOP Awareness', 'summary' => 'Know the cadence and the "who approves what" so nothing slips through.', 'bullets' => ['Daily finance tasks', 'Weekly finance tasks', 'Monthly finance tasks', 'Approval workflows', 'Escalation paths', 'Documentation standards']],
+                        ['cat' => 'Scenarios', 'title' => 'Client Communication (Finance Context)', 'summary' => 'Say the right thing, with the right tone, and escalate when needed.', 'bullets' => ['Professional finance email etiquette', 'Payment reminders wording', 'Invoice explanations', 'Handling sensitive conversations', 'Escalating client concerns internally']],
+                        ['cat' => 'Scenarios', 'title' => 'Common Finance Scenarios', 'summary' => 'What happens in real life — and the cleanest way to handle it.', 'bullets' => ['Late client payments', 'Client pauses or cancellations', 'VT replacement cost impact', 'Billing errors and corrections', 'Payroll mismatches', 'Currency differences and conversion issues']],
+                        ['cat' => 'Scaling', 'title' => 'Scaling Finance Operations', 'summary' => 'Keep accuracy high as volume grows — without burning out the process.', 'bullets' => ['Handling more clients without errors', 'Automation awareness', 'Template usage', 'Batch processing', 'Reporting consistency']],
+                        ['cat' => 'Guardrails', 'title' => 'What VTs Should NOT Do', 'summary' => 'Clear boundaries to protect clients, Virtual Teammate, and you.', 'bullets' => ['Give tax advice', 'Change billing without approval', 'Process refunds without authorization', 'Share financial access credentials', 'Access unrelated client financial data']],
+                    ]],
+                ]],
+            ],
+        ],
+
+        /* ───────────────────────── IT Concerns ──────────────────────────── */
+        'it-concerns' => [
+            'slug'  => 'it-concerns',
+            'label' => 'IT Concerns',
+            'icon'  => 'fa-laptop-code',
+            'h1'    => ['IT', 'CONCERNS'],
+            'eyebrow' => 'IT Setup Requirements',
+            'intro' => 'The minimum and recommended workstation setup for Virtual Assistants — computer specs, internet speed, backup internet, and backup power — so you can avoid downtime and meet client expectations from Day 1.',
+            'search' => true,
+            'tabs'  => [
+                ['label' => '', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'Computer (Minimum)', 'sub' => 'Windows 10/11 (64-bit) or macOS compatible', 'bullets' => ['CPU: Intel i5 / AMD Ryzen 3 (or newer)', 'RAM: 8 GB (12–16 GB recommended)', 'Storage: 128 GB SSD minimum']],
+                        ['title' => 'Primary Internet', 'sub' => 'Wired DSL/Fiber strongly recommended', 'bullets' => ['Minimum: 25 Mbps download / 15 Mbps upload', 'Run a Speedtest before shift']],
+                        ['title' => 'Backup Internet', 'sub' => 'Required to prevent downtime', 'bullets' => ['LTE backup: 10 Mbps (min)', 'LTE-A: 25 Mbps | 5G: 50 Mbps+']],
+                        ['title' => 'Backup Power', 'sub' => 'UPS or generator required', 'bullets' => ['UPS for short outages (keeps PC/router online)', 'Generator for longer outages']],
+                    ]],
+                    ['type' => 'accordion', 'items' => [
+                        ['title' => '1) Computer & Operating System (OS)', 'tags' => ['Workstation', 'Required'], 'sub' => 'Learning goal: Know what computer/OS is acceptable so you can pass onboarding checks and perform reliably.', 'bullets' => ['Windows: Windows 10/11 (64-bit). Windows 11 is commonly required; use a genuine license.', 'macOS: must be a supported modern version; Apple Silicon is commonly preferred for performance.', 'VA best practice: Use a dedicated work computer (avoid shared/family devices).'], 'note' => 'Trainer note: If your device does not meet minimum requirements, you must resolve this before client deployment to avoid productivity and compliance issues.'],
+                        ['title' => '2) Processor (CPU) & RAM (Memory)', 'tags' => ['Performance', 'Required'], 'sub' => 'Why this matters: Video calls, EMR systems, multiple browser tabs, and VoIP tools will lag or crash on low specs.', 'bullets' => ['Minimum CPU: Intel i5 / AMD Ryzen 3 (or newer)', 'Recommended CPU: Intel i5/i7 / AMD Ryzen 5 (or better)', 'Minimum RAM: 8 GB · Recommended RAM: 12–16 GB', 'Check RAM (Windows): Task Manager → Performance → Memory', 'Check CPU: Settings → System → About (or Task Manager → Performance → CPU)']],
+                        ['title' => '3) Storage (SSD) & Free Disk Space', 'tags' => ['Workstation', 'Required'], 'sub' => 'Minimum storage: 128 GB (SSD strongly preferred). More storage reduces crashes and improves speed.', 'bullets' => ['Recommended: 256 GB SSD if you frequently use large apps/files.', 'Rule of thumb: Keep at least 20% free space for smooth performance.', 'VA habit: Save work files to approved cloud storage (not random desktop folders).']],
+                        ['title' => '4) Primary Internet Speed (Do Not Guess — Test It)', 'tags' => ['Connectivity', 'Required'], 'sub' => 'Minimum primary internet: 25 Mbps download / 15 Mbps upload (wired DSL/Fiber recommended).', 'bullets' => ['Why upload matters: VoIP calls, screen-sharing, and video meetings fail first when upload is weak.', 'Daily: Run a speed test before your shift and take a screenshot if results are low.', 'If your speed is below minimum, switch to backup internet immediately and notify the team.'], 'note' => 'Pro tip: If you have frequent call drops, move closer to the router or use an Ethernet cable.'],
+                        ['title' => '5) Backup Internet (Non-Negotiable)', 'tags' => ['Continuity', 'Required'], 'sub' => 'Goal: If your primary internet fails, you must be able to continue working (especially during client hours).', 'bullets' => ['Minimum backup: 4G LTE at 10 Mbps.', 'Better: 4G LTE Advanced at 25 Mbps.', 'Best: 5G at 50 Mbps+.', 'VA habit: Keep your hotspot/pocket Wi-Fi charged and tested weekly.'], 'note' => 'Trainer standard: Practice switching to your backup once before you go live with clients.'],
+                        ['title' => '6) Backup Power (UPS / Generator)', 'tags' => ['Continuity', 'Required'], 'sub' => 'Why clients care: Power interruptions cause missed calls, dropped sessions, and lost work.', 'bullets' => ['Minimum: UPS or generator (UPS is ideal for short outages; generator for longer outages).', 'What to plug into your UPS: computer + router/modem (so internet stays on during short power cuts).', 'During an outage, switch to backup power and message the appropriate channel/manager if client work is impacted.']],
+                        ['title' => '7) Required Peripherals (Webcam + Noise-Cancelling Headset)', 'tags' => ['Audio/Video', 'Required'], 'sub' => 'Minimum requirements: 1080p webcam (or high-quality HD) and a USB noise-cancelling headset.', 'bullets' => ['Why this matters: Clear audio is a client trust issue (especially in healthcare/admin workflows).', 'VA habit: Test mic/camera weekly and before interviews/assessments.', 'Common mistakes: Using laptop mic in noisy rooms; Bluetooth devices with unstable pairing.']],
+                        ['title' => '8) Home Workspace Standards (IT + Reliability)', 'tags' => ['Readiness', 'Required'], 'sub' => 'Your setup must support clear calls, stable connection, and professional video — without interruptions.', 'bullets' => ['Quiet environment (minimal background noise).', 'Stable desk/workstation (avoid working from bed/sofa).', 'Decent lighting and professional background for video calls.', 'Keep backup devices charged: hotspot/pocket Wi-Fi + power bank.']],
+                        ['title' => '9) Pre-Shift Checklist & What To Do During an IT Issue', 'tags' => ['Best Practice', 'Must Know'], 'sub' => 'Use this routine to prevent "surprise" downtime.', 'bullets' => ['Before shift: Speed test, confirm headset/mic, check battery/UPS status, confirm backup internet is charged.', 'If internet drops: Switch to backup → re-test speed → notify your lead if client work is impacted.', 'If power drops: Move to UPS/generator → ensure router/modem stays on → message the team with ETA.', 'If device is slow: Restart → close heavy apps/tabs → check disk space → confirm RAM usage.', 'Always report: time, location, what failed, screenshots, what you tried, current status.'], 'note' => 'VA professionalism standard: Don\'t disappear during outages. Send a short, clear status update and next ETA.'],
+                    ]],
+                    ['type' => 'ask', 'email' => 'people@virtualteammate.com', 'title' => 'Questions about your IT setup?', 'desc' => 'Submit a setup question. Include your device specs, internet speed test results, and what you need help with.'],
+                ]],
+            ],
+        ],
+
+        /* ───────────────────────── Marketing ────────────────────────────── */
+        'marketing' => [
+            'slug'  => 'marketing',
+            'label' => 'Marketing',
+            'icon'  => 'fa-bullhorn',
+            'h1'    => ['MARKETING'],
+            'eyebrow' => 'Marketing training',
+            'intro' => 'A multi-day primer on brand, audience, and social content for Virtual Teammate.',
+            'tabs'  => [
+                ['label' => 'Day 1', 'blocks' => [
+                    ['type' => 'heading', 'text' => 'Lesson'],
+                    ['type' => 'qa', 'items' => [
+                        ['q' => 'What is marketing?', 'a' => 'Marketing is the process of promoting, selling, and distributing a product or service. It involves understanding the customer, building relationships, and delivering value.'],
+                        ['q' => 'What makes effective brand communication?', 'a' => 'Clear messaging, consistency across platforms, strong visuals, and understanding your audience\'s needs.'],
+                        ['q' => 'What is Virtual Teammate?', 'a' => 'A company that offers remote staffing solutions for businesses, helping them grow by providing virtual support teams.'],
+                        ['q' => 'Who is our target audience?', 'a' => 'U.S.-based business owners (primarily in healthcare and service sectors) looking to outsource tasks and grow efficiently.'],
+                    ]],
+                    ['type' => 'heading', 'text' => 'Brand Colors'],
+                    ['type' => 'swatches', 'groups' => [
+                        ['label' => 'Primary', 'colors' => ['#5d5dbe', '#f7b945', '#323232', '#ebecf2']],
+                        ['label' => 'Secondary (small elements & gradient pairs)', 'colors' => ['#3919ba', '#a2a2f4', '#d6d9fb', '#f9f9f9']],
+                    ]],
+                    ['type' => 'note', 'text' => 'Assignment: Create 3 Facebook posts (Hiring, Healthcare Promo, Business). Submit with complete captions and simple graphics.'],
+                ]],
+                ['label' => 'Day 2', 'blocks' => [
+                    ['type' => 'heading', 'text' => 'Post Conceptualization'],
+                    ['type' => 'prose', 'bullets' => ['What do you want to achieve? (e.g., drive traffic, increase engagement, promote a product)', 'Who are you trying to reach? (Consider their interests, needs, and pain points)', 'What would you like your audience to know?', 'What keywords will help people find your post?', 'What visual elements (images, videos, infographics) will best support your message?', 'Create a headline that grabs attention.']],
+                    ['type' => 'heading', 'text' => 'Audience Types'],
+                    ['type' => 'qa', 'items' => [
+                        ['q' => 'The Skimmers (Quick Scrollers)', 'a' => 'What they like: headlines that pop; bold, clear graphics; short, punchy text (no fluff); quick "what\'s in it for me" content.'],
+                        ['q' => 'The Conversationalists / Relationship Builders', 'a' => 'What they like: authentic posts (behind-the-scenes, team, culture); personal stories, vulnerable shares; real comments, questions, and replies.'],
+                        ['q' => 'The Information-Seekers / Problem-Solvers', 'a' => 'What they like: educational content; stats, data, or how-tos; practical steps to a solution; proof of expertise.'],
+                        ['q' => 'The Decision-Makers / Action Takers', 'a' => 'What they like: clear CTA (book now, free consult); testimonials, trust signals; results + next steps in plain language.'],
+                        ['q' => 'The Aesthetics-First Audience', 'a' => 'What they like: clean, branded, pleasing visuals; harmonious color palettes and polished design; calm, confident vibes; trust built visually first.'],
+                    ]],
+                    ['type' => 'heading', 'text' => 'LinkedIn Caption Sample'],
+                    ['type' => 'captions', 'items' => [
+                        ['label' => '(Before)', 'text' => 'The shift to remote work isn\'t just a trend—it\'s becoming a fundamental business strategy. Studies have shown that 77% of remote workers report higher productivity, and 23% are willing to work longer hours when working remotely (source: Owl Labs). What does this mean for your business? By integrating remote virtual teammates into your operations, you can boost productivity, cut overhead costs, and improve employee satisfaction—all while keeping operations lean and agile. The impact doesn\'t stop there: lower turnover (95% of employers say remote work positively impacts retention) and access to global talent. Ready to explore how virtual staffing can supercharge your business? Download our whitepaper to learn more. [Link to Landing Page]'],
+                        ['label' => '(After)', 'text' => 'The shift to remote work isn\'t just a trend – it\'s becoming a FUNDAMENTAL business strategy! 👈 So what does this mean for your business? Just by integrating remote virtual teammates into your operations… 📈 You can boost overall productivity, from sales to customer outreach. ⚙️ Have lower turnover and improve customer retention. 💡 Access incredible global talent who can specialize in anything you need. Ready to explore how virtual staffing can supercharge your business? Download our whitepaper and start transforming your operations today! 👉 [Link to Landing Page]'],
+                    ]],
+                ]],
+                ['label' => 'Day 3', 'blocks' => [
+                    ['type' => 'heading', 'text' => 'Social Media Basics & Behavior'],
+                    ['type' => 'platforms', 'items' => [
+                        ['name' => 'Facebook', 'note' => 'Post 2× a week · short or long text · express opinion, experience or feelings · 1080×1080'],
+                        ['name' => 'Instagram', 'note' => 'Post 2× a week · short text with top hashtags · aesthetic lifestyle · 1080×1080'],
+                        ['name' => 'LinkedIn', 'note' => 'Post once a week · short or long text · business/professional networking · 1200×1200 | 1080×1350 | 1200×627'],
+                        ['name' => 'YouTube', 'note' => 'Post once or 2× a week · detailed description and CTA · educational, inspiration · 1920×1080'],
+                        ['name' => 'X / Twitter', 'note' => 'Post everyday · short text · blog headline, quick thoughts, ideological'],
+                        ['name' => 'TikTok', 'note' => 'Post everyday · detailed description and CTA · entertainment · 1080×1920'],
+                        ['name' => 'Pinterest', 'note' => 'Hook to your main material · tips, educational, hacks · 1000×1500 | 1080×1080'],
+                    ]],
+                    ['type' => 'heading', 'text' => 'Topic: Coffee — caption examples'],
+                    ['type' => 'captions', 'items' => [
+                        ['label' => 'Instagram', 'text' => 'Dreamy latte from a hidden gem in the city — love the cup design and vibe! #CoffeeShopInspo #LatteArtIdeas'],
+                        ['label' => 'Facebook', 'text' => 'Took a quick break today to recharge at a local café. Sometimes, a good cup of coffee and a change of scenery are all you need to spark new ideas. #WorkLifeBalance #RemoteWork'],
+                        ['label' => 'X / Twitter', 'text' => 'Starting my morning right ✨☕ #LatteLove #CoffeeVibes #MorningMood'],
+                        ['label' => 'LinkedIn', 'text' => 'Discovered this cute little coffee shop downtown today — the caramel latte was perfect and the vibe was so cozy! Highly recommend if you\'re looking for a peaceful spot to unwind. ☕💬'],
+                        ['label' => 'YouTube', 'text' => 'Trying a New Coffee Spot in Cebu – Best Latte Ever? Today I visited Local Cafe for the first time and tried their famous vanilla oat milk latte!'],
+                        ['label' => 'TikTok', 'text' => 'Just grabbed the best latte ever. ☕🔥 @LocalCafe is killing it today. #CoffeeFix #LatteArt'],
+                    ]],
+                    ['type' => 'heading', 'text' => 'Reference: one topic, every platform'],
+                    ['type' => 'platforms', 'items' => [
+                        ['name' => 'Facebook', 'note' => 'I like donuts'],
+                        ['name' => 'Twitter', 'note' => 'I\'m eating a tasty #donut'],
+                        ['name' => 'YouTube', 'note' => 'I\'m watching donut videos'],
+                        ['name' => 'Snapchat', 'note' => 'Short video with my donut'],
+                        ['name' => 'TikTok', 'note' => 'I dance & sing with my donut'],
+                        ['name' => 'Instagram', 'note' => 'Here\'s a photo of my donut'],
+                        ['name' => 'Pinterest', 'note' => 'Boards of my favorite donuts'],
+                        ['name' => 'LinkedIn', 'note' => 'My skills include donut eating'],
+                        ['name' => 'Reddit', 'note' => 'Discuss our love for donuts'],
+                    ]],
+                    ['type' => 'note', 'text' => 'Assignment: Create 1 sample post per platform with graphics or video.'],
+                ]],
+                ['label' => 'Day 4', 'blocks' => [['type' => 'note', 'text' => 'Day 4 content is coming soon.']]],
+                ['label' => 'Day 5', 'blocks' => [['type' => 'note', 'text' => 'Day 5 content is coming soon.']]],
+            ],
+        ],
+
+        /* ───────────────────────── Sales ────────────────────────────────── */
+        'sales' => [
+            'slug'  => 'sales',
+            'label' => 'Sales',
+            'icon'  => 'fa-handshake',
+            'h1'    => ['SALES'],
+            'eyebrow' => 'Onboarding Course: Client Readiness',
+            'intro' => 'A practical, step-by-step reference to help Virtual Assistants communicate professionally, interpret client needs, respond correctly, and handle issues with confidence. Use this as your day-to-day playbook.',
+            'search' => true,
+            'tabs'  => [
+                ['label' => '', 'blocks' => [
+                    ['type' => 'summary', 'items' => [
+                        ['title' => 'Service Standard', 'sub' => 'Helpful, clear, accountable — always', 'bullets' => ['Acknowledge → Action → Next step → ETA', 'Close the loop (confirm completion)']],
+                        ['title' => 'Tone Rule', 'sub' => 'Warm + professional, concise', 'bullets' => ['No guessing on high-impact items', 'No blame, no defensiveness']],
+                        ['title' => 'Escalate Fast', 'sub' => 'Security, finance, blocked access, high risk', 'bullets' => ['Issue → Impact → What you tried', 'Evidence → Recommendation → ETA']],
+                        ['title' => 'Quality Check', 'sub' => 'Names, dates, links, attachments, scope', 'bullets' => ['Verify you\'re in the correct client workspace', 'Catch errors before the client does']],
+                    ]],
+                    ['type' => 'accordion', 'items' => [
+                        ['title' => '1) The Client Service Mindset', 'tags' => ['Foundations', 'High'], 'sub' => 'Goal: Build trust through consistency, accuracy, and calm communication.', 'bullets' => ['Golden rule: Be helpful, clear, and accountable — never defensive.', 'Default behaviors: Confirm receipt, share next step, provide ETA, follow through.', 'What clients remember: Reliability, tone, and resolution — not excuses.']],
+                        ['title' => '2) Tone, Writing Style, and Clarity', 'tags' => ['Communication', 'High'], 'sub' => 'Use a "warm + professional" tone: polite, confident, and concise.', 'bullets' => ['Structure: Acknowledge → Answer/Action → Next step → ETA.', 'Avoid: slang, over-apologizing, blaming, long paragraphs, guessing.', 'Preferred language: "I can help with that." "Here\'s what I\'ll do next." "I\'ll update you by ___."'], 'note' => 'Quick check: If your message sounds emotional, rewrite it once — shorter, calmer, and more specific.'],
+                        ['title' => '3) Response Framework + Quick Templates', 'tags' => ['Playbook', 'High'], 'sub' => '', 'bullets' => ['Acknowledge: "Thanks for sharing — got it."', 'Clarify if needed: "To confirm, do you mean A or B?"', 'Commit: "I\'ll take care of X and update you by ___."', 'Close loop: "Completed. Here\'s what changed + what to check next."'], 'note' => 'Standard: If you cannot provide an ETA yet, give the next milestone ETA (e.g., "I\'ll confirm access by 2:00 PM").'],
+                        ['title' => '4) Interpreting Client Requests Correctly', 'tags' => ['Skill', 'High'], 'sub' => 'Rule: Do not guess when accuracy matters.', 'bullets' => ['Identify intent: What outcome does the client want?', 'Confirm constraints: Deadline, format, approvals, tools, access.', 'Spot ambiguity: Missing dates, unclear scope, multiple interpretations.', 'Best practice: Offer two options: "Do you prefer A (faster) or B (more detailed)?"']],
+                        ['title' => '5) Prioritization, SLAs, and Triage', 'tags' => ['Operations', 'High'], 'sub' => '', 'bullets' => ['Urgent: Revenue-impacting, client-facing outage, compliance, payment/shipping blockers.', 'Important: High value but not time-critical (reporting, cleanup, optimization).', 'When in doubt, ask: "What\'s the deadline and what happens if this waits?"', 'Always communicate ETA and update if the ETA changes.']],
+                        ['title' => '6) Handling Upset Clients and De-escalation', 'tags' => ['Communication', 'High'], 'sub' => 'Objective: Reduce emotion, regain clarity, and move toward resolution.', 'bullets' => ['Start with empathy: "I understand this is frustrating."', 'Stay factual: What happened, what you\'re doing now, what\'s next.', 'Never: argue, blame the client, or match their tone.', 'Offer options: "I can do X now, or Y by end of day. Which do you prefer?"']],
+                        ['title' => '7) Escalation Rules: When to Ask for Help', 'tags' => ['Process', 'High'], 'sub' => '', 'bullets' => ['Escalate immediately if: security/privacy risk, legal/compliance concern, financial changes, angry client requesting a manager, blocked access, unclear instruction with high impact.', 'Escalation format: Issue → Impact → What you tried → Evidence/links → Recommendation.', 'Client-facing message: "I\'m coordinating with the team and will update you by ___."'], 'note' => 'Rule: Escalation is a professionalism tool — use it early when risk is high.'],
+                        ['title' => '8) Confidentiality, Security, and Professional Boundaries', 'tags' => ['Security', 'High'], 'sub' => '', 'bullets' => ['Never share: passwords, private client data, internal details, or screenshots without permission.', 'Use only: approved tools, approved accounts, approved file storage.', 'Access rule: least privilege — only what you need to do the task.', 'If unsure: pause and escalate before proceeding.']],
+                        ['title' => '9) Documentation, Updates, and Handoffs', 'tags' => ['Operations', 'Medium'], 'sub' => '', 'bullets' => ['Daily expectation: clear status updates (what\'s done, what\'s next, blockers, ETA).', 'Handoff standard: context + links + current state + next action + owner.', 'Quality tip: write notes so someone else can continue without asking you questions.']],
+                        ['title' => '10) Quality Control: Avoiding Common Mistakes', 'tags' => ['Quality', 'Medium'], 'sub' => '', 'bullets' => ['Before sending: Check names, dates, links, attachments, and accuracy.', 'Before acting: Confirm you\'re in the right client account/workspace.', 'When unsure: Ask one clear question instead of making assumptions.', 'Own outcomes: If you make an error, flag it early and propose a fix.']],
+                    ]],
+                    ['type' => 'ask', 'email' => 'people@virtualteammate.com', 'title' => 'Need help with a client situation?', 'desc' => 'Send your question. Include the client context, what happened, and the urgency.'],
+                ]],
+            ],
+        ],
+    ];
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * PAYSLIPS — recreates the staging [my_payslip] shortcode. Pulls the published
+ * payroll Google Sheet (CSV), matches rows to the signed-in VT by name or
+ * email, and renders a pay-history ledger. vt_hired only (super_admin may view
+ * for support); on-pool VTs never see it.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Published payroll sheet CSV (same source as the staging shortcode). */
+function payslip_sheet_url(): string
+{
+    return 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTE4PXuJwIQff08Wl16hpKxPIbqUB3QA5yCF8IAyoG5_lf7pYoQWEFpO842E6iskZ3ACZj7BurC8bwa/pub?output=csv&timestamp=' . time();
+}
+
+/** Fetch a URL with cURL (uses the bundled cacert), returns body or null. */
+function payslip_http_get(string $url): ?string
+{
+    if (!function_exists('curl_init')) {
+        $ctx = stream_context_create(['http' => ['timeout' => 20]]);
+        $body = @file_get_contents($url, false, $ctx);
+        return $body === false ? null : $body;
+    }
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_TIMEOUT        => 20,
+        CURLOPT_SSL_VERIFYPEER => true,
+        CURLOPT_CAINFO         => __DIR__ . '/cacert.pem',
+        CURLOPT_USERAGENT      => 'VT-Portal/1.0',
+    ]);
+    $body = curl_exec($ch);
+    $code = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    if ($body === false || $code >= 400) { return null; }
+    return (string) $body;
+}
+
+/** Split published-sheet CSV text into rows (skips blank + `sep=` lines). */
+function payslip_parse_csv(string $csv): array
+{
+    $lines = preg_split("/\r\n|\n|\r/", $csv);
+    $rows  = [];
+    foreach ($lines as $line) {
+        $t = trim((string) $line);
+        if ($t === '' || stripos($t, 'sep=') === 0) { continue; }
+        $rows[] = str_getcsv($line);
+    }
+    return $rows;
+}
+
+/** First non-empty value among the given candidate column names. */
+function payslip_row_value(array $row, array $keys): string
+{
+    foreach ($keys as $k) {
+        $v = trim((string) ($row[$k] ?? ''));
+        if ($v !== '') { return $v; }
+    }
+    return '';
+}
+
+function payslip_ts(string $value): int
+{
+    $value = trim($value);
+    if ($value === '') { return 0; }
+    $ts = strtotime($value);
+    return $ts === false ? 0 : (int) $ts;
+}
+
+function payslip_format_date(string $value, string $fallback = '--'): string
+{
+    $ts = payslip_ts($value);
+    return $ts < 1 ? $fallback : date('M j, Y', $ts);
+}
+
+function payslip_parse_amount(string $value): ?float
+{
+    $value = trim($value);
+    if ($value === '') { return null; }
+    $negative = false;
+    if (preg_match('/^\((.*)\)$/', $value, $m)) { $negative = true; $value = $m[1]; }
+    $value = preg_replace('/[^0-9.\-]/', '', $value);
+    if ($value === '' || !is_numeric($value)) { return null; }
+    $amount = (float) $value;
+    return $negative ? -$amount : $amount;
+}
+
+function payslip_format_amount(?float $amount): string
+{
+    return $amount === null ? '--' : '$' . number_format($amount, 2);
+}
+
+/** Normalized name "signatures" so "Dela Cruz, Maria" matches "Maria Dela Cruz". */
+function payslip_name_signatures(string $value): array
+{
+    $n = strtolower(trim(strip_tags($value)));
+    $n = preg_replace('/[^a-z0-9\s]/', ' ', $n);
+    $n = trim(preg_replace('/\s+/', ' ', $n));
+    if ($n === '') { return []; }
+    $tokens = array_values(array_filter(explode(' ', $n)));
+    sort($tokens, SORT_STRING);
+    return array_values(array_unique(array_filter([$n, implode(' ', $tokens)])));
+}
+
+/** True if a sheet row belongs to the current VT (by name or email). */
+function payslip_row_matches(array $row, array $vtNames, string $email): bool
+{
+    foreach (['VT Name', 'Virtual Teammate', 'Name', 'Employee Name', 'Full Name'] as $h) {
+        $rowSigs = payslip_name_signatures($row[$h] ?? '');
+        if (!$rowSigs) { continue; }
+        foreach ($vtNames as $cand) {
+            if (array_intersect($rowSigs, payslip_name_signatures($cand))) { return true; }
+        }
+    }
+    $rowEmail = strtolower(trim((string) ($row['VT Email'] ?? $row['Email'] ?? '')));
+    return $rowEmail !== '' && $email !== '' && $rowEmail === strtolower($email);
+}
+
+function handle_payslips(): void
+{
+    $u = require_role('vt_hired', 'super_admin');
+
+    $email   = strtolower(trim((string) ($u['email'] ?? '')));
+    $vtNames = array_values(array_unique(array_filter([
+        trim(user_display_name($u)),
+        trim(((string) ($u['first_name'] ?? '')) . ' ' . ((string) ($u['last_name'] ?? ''))),
+    ])));
+    if (!$vtNames) { $vtNames = [$email]; }
+
+    $error    = '';
+    $payslips = [];
+    $header   = [];
+
+    $body = payslip_http_get(payslip_sheet_url());
+    if ($body === null) {
+        $error = 'Unable to load payslip data right now. Please try again later.';
+    } else {
+        $rows = payslip_parse_csv($body);
+        if (!$rows) {
+            $error = 'No payslip data available yet.';
+        } else {
+            $header = array_map('trim', (array) array_shift($rows));
+            foreach ($rows as $row) {
+                $row = array_map('trim', (array) $row);
+                if (!array_filter($row, 'strlen')) { continue; }
+                if (count($row) < count($header)) { $row = array_pad($row, count($header), ''); }
+                $assoc = @array_combine($header, array_slice($row, 0, count($header)));
+                if (!is_array($assoc)) { continue; }
+                if (payslip_row_matches($assoc, $vtNames, $email)) { $payslips[] = $assoc; }
+            }
+        }
+    }
+
+    $dateHeaders   = ['Pay Date', 'Date', 'Payroll Date', 'Issued Date', 'Payout Date'];
+    $periodHeaders = ['Pay Period', 'Payroll Period', 'Period', 'Coverage', 'Month', 'Cutoff'];
+    $amountFields  = ['Net Pay', 'Amount', 'Net Salary', 'Total Pay', 'Salary', 'Gross Pay', 'Payout', 'Net Amount'];
+
+    usort($payslips, static function ($a, $b) use ($dateHeaders) {
+        return payslip_ts(payslip_row_value($b, $dateHeaders)) <=> payslip_ts(payslip_row_value($a, $dateHeaders));
+    });
+
+    render('payslips', [
+        'error'         => $error,
+        'payslips'      => $payslips,
+        'header'        => $header,
+        'visibleCols'   => array_values(array_filter($header, 'strlen')),
+        'dateHeaders'   => $dateHeaders,
+        'periodHeaders' => $periodHeaders,
+        'amountFields'  => $amountFields,
+        'accountName'   => $vtNames[0] ?? $email,
+        'vtNames'       => $vtNames,
+    ]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * MY CSM & TEAMMATES — VT-facing people page: current client(s), the CSM(s)
+ * on the account, and fellow VTs on the same engagement, with chat/email/call
+ * actions. vt_hired only (super_admin may view).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_my_team(): void
+{
+    $u   = require_role('vt_hired', 'super_admin');
+    $pdo = db();
+    $uid = (int) $u['id'];
+
+    $person = 'u.id, u.first_name, u.last_name, u.email, u.phone, u.photo_url, u.role, u.job_title';
+
+    $stmt = $pdo->prepare(
+        "SELECT cv.client_id, c.company_name, c.company_email, c.company_domain,
+                c.contract_status, c.user_id AS client_user_id
+         FROM client_vts cv
+         JOIN clients c ON c.id = cv.client_id
+         WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active'
+         ORDER BY c.company_name"
+    );
+    $stmt->execute([':uid' => $uid]);
+    $clients = $stmt->fetchAll();
+
+    $engagements = [];
+    foreach ($clients as $c) {
+        $cid = (int) $c['client_id'];
+
+        $contact = null;
+        if (!empty($c['client_user_id'])) {
+            $cs = $pdo->prepare("SELECT {$person} FROM users u WHERE u.id = :id");
+            $cs->execute([':id' => (int) $c['client_user_id']]);
+            $contact = $cs->fetch() ?: null;
+        }
+
+        $cs = $pdo->prepare(
+            "SELECT {$person} FROM csm_clients cc JOIN users u ON u.id = cc.csm_user_id
+             WHERE cc.client_id = :cid ORDER BY u.first_name"
+        );
+        $cs->execute([':cid' => $cid]);
+        $csms = $cs->fetchAll();
+
+        $ts = $pdo->prepare(
+            "SELECT {$person} FROM client_vts cv JOIN users u ON u.id = cv.vt_user_id
+             WHERE cv.client_id = :cid AND cv.contract_status = 'active' AND u.id != :uid
+             ORDER BY u.first_name"
+        );
+        $ts->execute([':cid' => $cid, ':uid' => $uid]);
+        $teammates = $ts->fetchAll();
+
+        $engagements[] = [
+            'client'    => $c,
+            'contact'   => $contact,
+            'csms'      => $csms,
+            'teammates' => $teammates,
+        ];
+    }
+
+    render('my-team', ['user' => $u, 'engagements' => $engagements]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * VTM APPS — download links for the tools VTs use day to day.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_vtm_apps(): void
+{
+    require_role('vt_hired', 'vt_onpool', 'super_admin');
+    $apps = [
+        ['name' => 'Workday Tracker', 'icon' => 'fa-clock',           'accent' => '#3919BA', 'url' => 'https://workdaytracker.com/app/user/downloads',                                  'desc' => 'Track your work hours and submit productivity reports. Install the desktop tracker.', 'cta' => 'Download Workday Tracker'],
+        ['name' => 'Wise',            'icon' => 'fa-money-bill-transfer','accent' => '#16a34a', 'url' => 'https://wise.com/invite/irtc/dominiquecuatonr',                                  'desc' => 'Receive your payouts internationally with low fees. Sign up with our invite link.',   'cta' => 'Get started with Wise'],
+        ['name' => 'Slack',           'icon' => 'fa-slack',            'accent' => '#611f69', 'url' => 'https://slack.com/downloads/instructions/windows?ddl=1&build=win64_msix',        'desc' => 'Team chat for staying in sync with your client, CSM, and teammates. Install for Windows.', 'cta' => 'Download Slack for Windows'],
+    ];
+    render('vtm-apps', ['apps' => $apps]);
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * REFER A FRIEND — VTs refer a friend (name + email + optional note); the
+ * referral is delivered to every active super admin as a notification (and an
+ * email, for admins who opted in).
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_refer(): void
+{
+    $u = require_role('vt_hired', 'vt_onpool', 'super_admin');
+
+    $name = $email = $note = '';
+    $errors = [];
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        csrf_verify();
+        $name  = trim((string) ($_POST['friend_name'] ?? ''));
+        $email = trim((string) ($_POST['friend_email'] ?? ''));
+        $note  = trim((string) ($_POST['note'] ?? ''));
+
+        if ($name === '')                                          { $errors[] = "Your friend's name is required."; }
+        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) { $errors[] = 'A valid email address is required.'; }
+
+        if (!$errors) {
+            $referrer = trim(user_display_name($u));
+            $title = 'New VT referral from ' . ($referrer !== '' ? $referrer : (string) $u['email']);
+            $body  = "Friend's name: {$name}\n"
+                   . "Friend's email: {$email}\n"
+                   . ($note !== '' ? "Note: {$note}\n" : '')
+                   . "Referred by: " . ($referrer !== '' ? $referrer : '') . " ({$u['email']})";
+
+            $admins = db()->query("SELECT id FROM users WHERE role = 'super_admin' AND active = 1")->fetchAll(PDO::FETCH_COLUMN);
+            foreach ($admins as $aid) {
+                notify((int) $aid, 'referral', $title, $body);
+            }
+            audit_log('referral_submitted', 'user', (int) $u['id'], 'friend=' . $email);
+
+            flash('success', 'Thanks! Your referral was sent to the Virtual Teammate team.');
+            redirect(portal_url('refer'));
+        }
+    }
+
+    render('refer', ['user' => $u, 'errors' => $errors, 'friend_name' => $name, 'friend_email' => $email, 'note' => $note]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════
@@ -3881,23 +4545,36 @@ function messages_contacts(array $u): array
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
     } elseif ($u['role'] === 'vt_hired') {
+        // A hired VT may message: the related client(s), the CSM(s) on those
+        // accounts, and their teammates (other active VTs on the same client).
         $stmt = $pdo->prepare(
             "SELECT DISTINCT {$cols}
-             FROM client_vts cv
-             JOIN clients c ON c.id = cv.client_id
-             LEFT JOIN csm_clients cc ON cc.client_id = c.id
-             LEFT JOIN users u ON u.id = COALESCE(c.user_id, cc.csm_user_id)
-             WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active' AND u.id IS NOT NULL"
+               FROM client_vts cv
+               JOIN clients c ON c.id = cv.client_id
+               JOIN users u ON u.id = c.user_id
+              WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active'
+             UNION
+             SELECT DISTINCT {$cols}
+               FROM client_vts cv
+               JOIN csm_clients cc ON cc.client_id = cv.client_id
+               JOIN users u ON u.id = cc.csm_user_id
+              WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active'
+             UNION
+             SELECT DISTINCT {$cols}
+               FROM client_vts cv
+               JOIN client_vts cv2 ON cv2.client_id = cv.client_id AND cv2.contract_status = 'active'
+               JOIN users u ON u.id = cv2.vt_user_id
+              WHERE cv.vt_user_id = :uid AND cv.contract_status = 'active' AND u.id != :uid"
         );
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
     }
 
-    // Always reachable: the admin team (so support can be messaged AND replied
-    // to), plus ANYONE the user already has a conversation with — otherwise a
-    // thread the other party started could never be answered (the root cause of
-    // "can't send": the partner wasn't in this list so the send was rejected).
-    // Conversation partners come from the separate chat DB.
+    // Reachable beyond the role list: ANYONE the user already has a conversation
+    // with — otherwise a thread the other party started could never be answered.
+    // For non-VT roles we also always surface the admin team for support. Hired
+    // VTs are intentionally limited to teammates / CSM / client (plus anyone who
+    // already messaged them), so we do NOT force the whole admin team in for them.
     $partnerIds = [];
     try {
         $partnerIds = array_map('intval', chatdb()->query(
@@ -3905,13 +4582,17 @@ function messages_contacts(array $u): array
                FROM messages WHERE sender_user_id = {$uid} OR receiver_user_id = {$uid}"
         )->fetchAll(PDO::FETCH_COLUMN));
     } catch (Throwable $_) {}
-    $cond = "role = 'super_admin'";
-    if ($partnerIds) { $cond .= ' OR id IN (' . implode(',', $partnerIds) . ')'; }
-    $extra = $pdo->query(
-        "SELECT id, first_name, last_name, email, role, photo_url FROM users
-          WHERE active = 1 AND id != {$uid} AND ({$cond})
-          ORDER BY last_name, first_name"
-    )->fetchAll();
+    $conds = [];
+    if ($u['role'] !== 'vt_hired') { $conds[] = "role = 'super_admin'"; }
+    if ($partnerIds) { $conds[] = 'id IN (' . implode(',', $partnerIds) . ')'; }
+    $extra = [];
+    if ($conds) {
+        $extra = $pdo->query(
+            "SELECT id, first_name, last_name, email, role, photo_url FROM users
+              WHERE active = 1 AND id != {$uid} AND (" . implode(' OR ', $conds) . ")
+              ORDER BY last_name, first_name"
+        )->fetchAll();
+    }
 
     // Merge + dedupe by id (role-based contacts first, then admins / existing chats).
     $byId = [];
