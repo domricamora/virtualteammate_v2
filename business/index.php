@@ -43,8 +43,8 @@ include __DIR__ . '/../includes/nav.php';
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
     </div>
     <div class="svc-cta-row">
-      <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#cta-ops-assessment" class="btn-primary" data-cta-intent="ops-assessment">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-buyback" class="btn-glass" data-cta-intent="buyback">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-clock"></i></a>
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
@@ -72,13 +72,210 @@ include __DIR__ . '/../includes/nav.php';
   </div>
 </section>
 
-<section class="svc-cta" style="margin-top:60px;">
-  <h2>Healthcare or Not, the Engine Is the Same</h2>
-  <p>Curated shortlist in days, dedicated Client Success Manager (CSM) from day one, transparent flat-rate pricing, 30-day right-fit guarantee. Tell us what you need &mdash; we&rsquo;ll build the bench.</p>
-  <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+<?php
+  $vtc_depts      = ['Administrative Support', 'Sales', 'Marketing', 'Finance', 'Accounting', 'Customer Service', 'Business Intelligence'];
+  $vtc_label      = 'Meet the Bench';
+  $vtc_heading    = 'Business-Ready <em>Virtual Teammates</em>';
+  $vtc_sub        = 'A sample of real, vetted teammates across admin, sales, marketing, finance and customer-service functions &mdash; matched to your time zone and ready to start in 1&ndash;2 weeks.';
+  $vtc_cta_href   = '#cta-buyback';
+  $vtc_cta_intent = 'buyback';
+  $vtc_cta_label  = 'Request this teammate';
+  $vtc_cta_vt     = true;   // prefill the on-page Buy-Back form
+  include __DIR__ . '/../includes/vt-cards.php';
+?>
+
+<section class="sec cta-stages-section" id="cta" style="padding-top:80px;padding-bottom:110px;">
+  <div class="cta-stages-h reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Two Ways to Start</div>
+    <h2 class="cta-h2" style="font-size:36px;">Healthcare or Not,<br>the Engine Is the Same</h2>
+    <p class="cta-sub">Diagnose where the hours are going, or jump straight to reclaiming them &mdash; same vetted global network, same dedicated Client Success Manager (CSM), same 30-Day Right-Fit Promise.</p>
   </div>
+
+  <div class="cta-stages-grid cta-stages-2 reveal d1">
+    <article class="cta-stage" data-cta-intent="ops-assessment">
+      <div class="cta-stage-tag">Ready to diagnose</div>
+      <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
+      <h3>Operational Assessment</h3>
+      <p class="cta-stage-lead">A diagnostic-only call. We map your busiest back-office workflows and tell you which functions to delegate first.</p>
+      <ul class="cta-stage-list">
+        <li>Workflow inventory across departments</li>
+        <li>Ranked outsourcing-priority list</li>
+        <li>Role + headcount recommendation</li>
+      </ul>
+      <a class="btn-cta-stage" href="#cta-ops-assessment" data-cta-intent="ops-assessment">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></a>
+    </article>
+
+    <article class="cta-stage cta-stage-high" data-cta-intent="buyback">
+      <div class="cta-stage-tag">Ready to delegate</div>
+      <span class="ico-circle lg"><i class="fa-solid fa-hourglass-half"></i></span>
+      <h3>Buy Back Your Company&rsquo;s Time</h3>
+      <p class="cta-stage-lead">Tell us the function eating your team&rsquo;s week. We&rsquo;ll build the bench and have a vetted teammate live in 1&ndash;2 weeks.</p>
+      <ul class="cta-stage-list">
+        <li>Curated shortlist within days</li>
+        <li>Interview before you decide</li>
+        <li>Transparent flat-rate pricing</li>
+      </ul>
+      <a class="btn-cta-stage" href="#cta-buyback" data-cta-intent="buyback">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-arrow-right"></i></a>
+    </article>
+  </div>
+
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-ops-assessment" data-cta-intent="ops-assessment">Schedule an Operational Assessment</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
+
+<!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
+     #cta-<intent> hash (CSS :target, so they work with JS off too); the script
+     below adds scroll-lock, autofocus and ESC-to-close. Each posts to lead.php
+     and creates a lead. -->
+<div class="cta-modal" id="cta-ops-assessment" role="dialog" aria-modal="true" aria-labelledby="bcm-oa-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
+    <h2 class="cta-modal-h" id="bcm-oa-h">Schedule Your Operational Assessment</h2>
+    <p class="cta-modal-sub">A diagnostic-only call: we map your busiest back-office workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
+    <form class="cta-modal-form" id="bizOpsForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+          data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your assessment.">
+      <input type="hidden" name="intent" value="ops-assessment">
+      <input type="hidden" name="form" value="business-ops-assessment">
+      <input type="hidden" name="source" value="Operational Assessment">
+      <select class="cf-field" name="role" style="margin-bottom:16px;">
+        <option value="">Biggest bottleneck right now (optional)</option>
+        <option>Administrative / executive support</option>
+        <option>Sales &amp; SDR / appointment setting</option>
+        <option>Marketing &amp; content</option>
+        <option>Finance &amp; bookkeeping</option>
+        <option>Customer service / support</option>
+        <option>Non-profit operations</option>
+        <option>Not sure yet &mdash; help me diagnose</option>
+      </select>
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="cf-row">
+        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
+      </div>
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
+    </form>
+  </div>
+</div>
+
+<div class="cta-modal" id="cta-buyback" role="dialog" aria-modal="true" aria-labelledby="bcm-bb-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-hourglass-half"></i> Ready to delegate</div>
+    <h2 class="cta-modal-h" id="bcm-bb-h">Buy Back Your Company&rsquo;s Time</h2>
+    <p class="cta-modal-sub">Tell us the function eating your team&rsquo;s week and we&rsquo;ll hand-pick a vetted, flat-rate teammate &mdash; matched to your time zone and live in 1&ndash;2 weeks.</p>
+    <form class="cta-modal-form" id="bizBuybackForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
+          data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day with your matched shortlist.">
+      <input type="hidden" name="intent" value="buyback">
+      <input type="hidden" name="form" value="business-buyback">
+      <input type="hidden" name="source" value="Buy Back Your Company&rsquo;s Time">
+      <input type="hidden" name="vt_id" id="bizBuybackVtId" value="">
+      <input type="hidden" name="vt_interest" id="bizBuybackVtName" value="">
+      <select class="cf-field" name="role" style="margin-bottom:16px;">
+        <option value="">Function to delegate first (optional)</option>
+        <option>Administrative / executive support</option>
+        <option>Sales &amp; SDR / appointment setting</option>
+        <option>Marketing &amp; content</option>
+        <option>Finance &amp; bookkeeping</option>
+        <option>Customer service / support</option>
+        <option>Non-profit operations</option>
+        <option>Multiple roles</option>
+      </select>
+      <div class="cf-row">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="last_name" placeholder="Last Name" required>
+      </div>
+      <div class="cf-row">
+        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
+        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
+      </div>
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
+    </form>
+  </div>
+</div>
 </main>
+
+<!-- Entry-point modal behavior. Open/closed state is driven by the URL hash
+     (#cta-<intent>) so the CSS :target rule shows the right form even with JS
+     off. This layer adds scroll-lock, autofocus, ESC-to-close, and jump-free
+     opening. Mirrors the homepage handler. -->
+<script>
+(function () {
+  var modals = {};
+  document.querySelectorAll('.cta-modal').forEach(function (m) { modals['#' + m.id] = m; });
+  if (!Object.keys(modals).length) { return; }
+  var docEl = document.documentElement, body = document.body;
+  var savedY = 0, locked = false;
+  var pristine = [];
+  document.querySelectorAll('.cta-modal .cta-modal-form').forEach(function (f) {
+    pristine.push({ form: f, html: f.innerHTML });
+  });
+  function resetForms() {
+    pristine.forEach(function (p) {
+      if (p.form.innerHTML !== p.html) { p.form.innerHTML = p.html; }
+      try { p.form.reset(); } catch (e) {}
+    });
+  }
+  function lock() {
+    if (locked) { return; }
+    savedY = window.scrollY || window.pageYOffset || 0;
+    body.style.top = (-savedY) + 'px';
+    docEl.classList.add('cta-locked');
+    locked = true;
+  }
+  function unlock() {
+    if (!locked) { return; }
+    docEl.classList.remove('cta-locked');
+    body.style.top = '';
+    window.scrollTo(0, savedY);
+    locked = false;
+  }
+  function sync() {
+    var m = modals[location.hash];
+    if (m) {
+      lock();
+      var f = m.querySelector('input:not([type=hidden]):not(.vtd-hp), select, textarea');
+      if (f) { try { f.focus({ preventScroll: true }); } catch (e) { f.focus(); } }
+    } else {
+      unlock();
+      resetForms();
+    }
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#cta-"]');
+    if (a && modals[a.getAttribute('href')]) { lock(); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modals[location.hash]) { location.hash = '#cta'; }
+  });
+  window.addEventListener('hashchange', sync);
+  sync();
+})();
+</script>
+
+<!-- Card → modal prefill. Clicking "Request this teammate" stamps the chosen
+     VT into the Buy-Back form's hidden fields before the #cta-buyback modal
+     opens (the modal-behavior handler above does the opening + scroll-lock). -->
+<script>
+(function () {
+  var idF = document.getElementById('bizBuybackVtId');
+  var nmF = document.getElementById('bizBuybackVtName');
+  if (!idF && !nmF) { return; }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href="#cta-buyback"][data-vt-id]');
+    if (!a) { return; }
+    if (idF) { idF.value = a.getAttribute('data-vt-id') || ''; }
+    if (nmF) { nmF.value = a.getAttribute('data-vt-name') || ''; }
+  });
+})();
+</script>
+<?php $hide_lead_band = true; /* page has its own entry-point CTA forms above */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

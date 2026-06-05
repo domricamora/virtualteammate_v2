@@ -58,7 +58,7 @@ include 'includes/nav.php';
     <p class="hero-sub reveal d2">Fully staff your practice in days, cut staffing costs by up to <strong>73%</strong>, and protect cash flow with HIPAA-certified virtual assistants trained to keep your front office and revenue cycle running smoothly.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#calculator" class="btn-primary">Uncover Your ROI. <i class="fa-solid fa-calculator"></i></a>
       <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Buy Back My Time <i class="fa-solid fa-arrow-right"></i></a>
     </div>
