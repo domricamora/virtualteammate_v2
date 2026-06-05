@@ -438,16 +438,21 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 @keyframes marqueeRight{ from{transform:translateX(-50%);} to{transform:translateX(0);} }
 
 /* ───── SECTION DEFAULTS ───── */
-.sec{padding:100px 80px;position:relative;}
+.sec{padding:78px 80px;position:relative;}
 .sec-lbl{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;}
 .sec-lbl i{margin-right:6px;}
 .sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;}
 .sec-h2 em{color:var(--gold);font-style:normal;font-weight:800;}
+/* ROI calculator headline must stay on ONE line at every width: nowrap + a fluid
+   size that scales with the viewport so it shrinks to fit narrow phones rather
+   than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
+   it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
+#calc-h{white-space:nowrap;font-size:clamp(13px,4vw,50px);}
 .sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:620px;font-weight:400;}
 
 /* ───── ROI CALCULATOR ───── */
 .calc-wrap{
-  padding:90px 80px 44px;position:relative;
+  padding:72px 80px 40px;position:relative;
   background:
     radial-gradient(800px 500px at 18% 0%, rgba(57,25,186,0.30), transparent 60%),
     radial-gradient(700px 600px at 88% 50%, rgba(223,169,73,0.22), transparent 60%);
@@ -1609,7 +1614,11 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   z-index:0;
   animation:spinSlow 30s linear infinite reverse;
 }
-.g-seal-ico{position:relative;z-index:1;font-size:48px;line-height:1;margin-bottom:6px;color:var(--violet-dk);filter:drop-shadow(0 2px 4px rgba(0,0,0,.22));}
+/* Shield struck in the same gold as the coin: a deep-gold fill lifted off the
+   face with a light top highlight + dark lower shadow so it reads as embossed metal. */
+.g-seal-ico{position:relative;z-index:1;font-size:48px;line-height:1;margin-bottom:6px;
+  color:#7a5712;
+  filter:drop-shadow(0 1px 0 rgba(255,248,230,0.6)) drop-shadow(0 -1.5px 2px rgba(58,38,6,0.5));}
 .g-seal-h,.g-seal-s{position:relative;z-index:1;text-align:center;}
 .g-seal-h{font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1;margin-bottom:6px;}
 .g-seal-s{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;line-height:1.25;}
@@ -2122,7 +2131,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .orb2{width:380px;height:380px;}
   .orb3{width:240px;height:240px;}
 
-  .sec{padding:80px 32px;}
+  .sec{padding:64px 32px;}
   .sec-h2{font-size:40px;}
   .sec-sub{font-size:16px;}
 
@@ -2279,7 +2288,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .news-track{gap:40px;}
   .news-track-wrap::before,.news-track-wrap::after{width:60px;}
 
-  .sec{padding:60px 18px;}
+  .sec{padding:50px 18px;}
   .sec-h2{font-size:28px;}
   .sec-sub{font-size:14.5px;}
 
@@ -2525,7 +2534,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   /* Service-CTA buttons full-width stack */
   .svc-cta-btns{flex-direction:column;align-items:stretch;gap:12px;}
   /* Sections breathing room consistent with service pages */
-  main > section.sec{padding:60px 18px;}
+  main > section.sec{padding:50px 18px;}
   main > .divider{margin:0 18px;}
 }
 @media (max-width:520px){
@@ -2935,7 +2944,7 @@ button.is-loading{opacity:.85;cursor:progress;}
 
 /* ───── Talk-to-a-CSM standalone callback CTA (below the calculator) ───── */
 .csm-cta-card{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center;
-  max-width:1040px;margin:0 auto;padding:42px;border-radius:28px;
+  max-width:1280px;margin:0 auto;padding:42px;border-radius:28px;
   background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:var(--glass-blur);
   box-shadow:0 36px 80px -34px rgba(0,0,0,.6);}
 .csm-cta-h{font-size:34px;font-weight:800;color:#fff;line-height:1.12;letter-spacing:-.02em;margin:6px 0 12px;}
