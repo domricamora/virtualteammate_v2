@@ -54,8 +54,8 @@ include 'includes/nav.php';
   </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br>Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</h1>
-    <p class="hero-sub hero-sub-cols reveal d2">Front desk drowning, providers charting after hours, claims piling up? We solve your staffing problem &mdash; placing HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, to own billing, scribing, scheduling, recall and prior auth. Your team stops scrambling and your revenue keeps moving &mdash; without the hiring grind.</p>
+    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</span></h1>
+    <p class="hero-sub reveal d2">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone &mdash; to own billing, scribing, scheduling and prior auth. No hiring grind.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
@@ -105,25 +105,25 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; Latest Audit</div>
-    <h2 class="sec-h2" id="cs-h">Targets Set. <em>Targets Beaten.</em></h2>
-    <p class="sec-sub">Straight from our most recent client KPI audit &mdash; what each VT healthcare-billing teammate actually delivered against the monthly target we committed to. Real engagements, real numbers.</p>
+    <h2 class="sec-h2" id="cs-h">The Quota Was the Floor. <em>Not the Ceiling.</em></h2>
+    <p class="sec-sub">From our latest client KPI audit &mdash; the monthly target vs. what each VT billing teammate actually delivered. Real clinics, real numbers.</p>
   </div>
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
       <div class="case-metric">
-        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+30%</span></div>
+        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+48%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">148%</span></div>
         </div>
-        <div class="case-metric-foot">Payment posting also beat target by <strong>30%</strong> &mdash; <strong>130%</strong> of goal delivered</div>
+        <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>130%</strong> of goal</div>
       </div>
-      <p class="case-q">Our RCM virtual teammate cleared insurance verifications <strong>30% past the monthly goal</strong> and posted payments <strong>30% over target</strong> &mdash; turning a backlog-prone month into one of the practice&rsquo;s strongest on record.</p>
+      <p class="case-q">Faster cash collection across a high-acuity cancer-care caseload.</p>
       <div class="case-auth">
-        <span class="ico-circle case-ico"><i class="fa-solid fa-heart-pulse"></i></span>
+        <span class="ico-circle case-ico"><i class="fa-solid fa-ribbon"></i></span>
         <div>
-          <div class="case-name">Physical Medicine &amp; Rehab Practice</div>
+          <div class="case-name">Cancer Care Center</div>
           <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
         </div>
       </div>
@@ -131,15 +131,35 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d2">
       <div class="case-metric">
-        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+40%</span></div>
+        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">140%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">133%</span></div>
         </div>
-        <div class="case-metric-foot">Claims processed beat target by <strong>30%</strong> &mdash; <strong>130%</strong> of goal delivered</div>
+        <div class="case-metric-foot">Cleared a standing claims backlog, clean and on schedule</div>
       </div>
-      <p class="case-q">A dedicated billing teammate pushed pre-certs <strong>40% past target</strong> and claims volume <strong>30% over</strong> &mdash; keeping authorizations ahead of the schedule so procedures never stalled and clean claims went out the same week.</p>
+      <p class="case-q">A stubborn backlog worked down to clean, on-time submissions.</p>
+      <div class="case-auth">
+        <span class="ico-circle case-ico"><i class="fa-solid fa-notes-medical"></i></span>
+        <div>
+          <div class="case-name">Endocrinology Clinic</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case-card reveal d3">
+      <div class="case-metric">
+        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+60%</span></div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">160%</span></div>
+        </div>
+        <div class="case-metric-foot">Claims processed also beat target &mdash; <strong>147%</strong> of goal</div>
+      </div>
+      <p class="case-q">Authorizations stayed ahead of schedule, so procedures never stalled.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-hospital"></i></span>
         <div>
@@ -149,42 +169,22 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
     </article>
 
-    <article class="case-card reveal d3">
-      <div class="case-metric">
-        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+28%</span></div>
-        <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">128%</span></div>
-        </div>
-        <div class="case-metric-foot">Insurance verifications also beat target by <strong>28%</strong> &mdash; <strong>128%</strong> of goal delivered</div>
-      </div>
-      <p class="case-q">Payment posting landed <strong>28% above target</strong> with insurance verifications <strong>28% over</strong> &mdash; tightening the front of the revenue cycle so claims leave clean and cash lands faster.</p>
-      <div class="case-auth">
-        <span class="ico-circle case-ico"><i class="fa-solid fa-ribbon"></i></span>
-        <div>
-          <div class="case-name">Specialty Oncology Practice</div>
-          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
-        </div>
-      </div>
-    </article>
-
     <article class="case-card reveal d4">
       <div class="case-metric">
-        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+30%</span></div>
+        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+144%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">244%</span></div>
         </div>
-        <div class="case-metric-foot">Ramped fast on a high-volume endodontic &amp; oral-surgery caseload</div>
+        <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>240%</strong> of goal</div>
       </div>
-      <p class="case-q">A specialty-billing teammate cleared claims <strong>30% above the monthly target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
+      <p class="case-q">More than doubled goal across the front of the revenue cycle.</p>
       <div class="case-auth">
-        <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+        <span class="ico-circle case-ico"><i class="fa-solid fa-heart-pulse"></i></span>
         <div>
-          <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
-          <div class="case-svc"><i class="fa-solid fa-tooth"></i> Specialty Billing &amp; RCM VA</div>
+          <div class="case-name">Primary Care Group</div>
+          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
         </div>
       </div>
     </article>
@@ -197,14 +197,14 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="specialties">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Virtual Assistants Built for <em>Healthcare</em></h2>
-    <p class="sec-sub">Whether you run a medical practice, dental clinic, or RCM operation &mdash; our VAs understand clinical workflows, compliance, and patient communication from day one.</p>
+    <h2 class="sec-h2">Staff Who Already Speak <em>Healthcare</em></h2>
+    <p class="sec-sub">Run a medical practice, dental office, or billing team? Your teammate shows up knowing the workflows, the compliance, and how to make patients feel cared for &mdash; fluent from day one, not after months of training.</p>
   </div>
 
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/medical-section.webp" alt="Medical practice team supported by a Virtual Teammate" loading="lazy"/>
+        <img src="images/photos/medical-section.webp" alt="Interior of a modern medical clinic exam room" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Less Paperwork.<br>More Patient Time.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
@@ -236,7 +236,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/dental-section.webp" alt="Dental practice team supported by a Virtual Teammate" loading="lazy"/>
+        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental VAs deliver</div>

@@ -215,6 +215,8 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   letter-spacing:-0.02em;
   max-width:none;
 }
+/* Second line scaled down — the hook ("Short-Staffed and Overworked?") stays large. */
+.hero-h1 .hero-h1-sub{font-size:52px;line-height:1.08;display:inline-block;}
 .hero-h1 em{
   color:transparent;
   background:linear-gradient(120deg, #dfa949 0%, #f5e4b8 40%, #dfa949 60%, #f5e4b8 100%);
@@ -225,7 +227,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hero-sub{
   font-size:18px;color:rgba(255,255,255,0.72);
-  line-height:1.65;max-width:none;
+  line-height:1.65;max-width:760px;
   margin-bottom:20px;font-weight:400;
 }
 .hero-sub strong{color:#fff;font-weight:700;}
@@ -862,34 +864,37 @@ select option:checked{background:#3919BA;color:#fff;}
    backdrop, and the caption + "Value created" panel sit over it as a lower-third. */
 .spec-photo{
   position:relative;height:100%;min-height:520px;overflow:hidden;
-  display:flex;flex-direction:column;justify-content:flex-end;
-  padding:30px;gap:16px;
+  /* Caption + proof panel are centred vertically over the photo. */
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:40px 34px;gap:18px;
 }
 .spec-photo img{position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;object-position:center center;transition:transform 1.1s ease;}
 .spec-card:hover .spec-photo img{transform:scale(1.05);}
-/* Darker bottom-weighted overlay so the white caption + panel stay legible. */
+/* Even, centre-weighted overlay (plus a soft radial vignette) so the photo still
+   reads as a photo while the centred white caption + panel stay legible. */
 .spec-photo::after{
   content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    linear-gradient(180deg, rgba(13,7,34,0.04) 0%, rgba(13,7,34,0.40) 38%, rgba(8,4,24,0.94) 100%),
+    radial-gradient(120% 90% at 50% 50%, rgba(13,7,34,0.20) 0%, rgba(13,7,34,0.52) 60%, rgba(8,4,24,0.74) 100%),
     linear-gradient(0deg, rgba(46,20,150,0.16), rgba(46,20,150,0.16));
 }
 .spec-photo-cap{
-  position:relative;z-index:2;padding:0;
-  font-size:29px;font-weight:800;line-height:1.14;color:#fff;letter-spacing:-0.01em;
-  text-shadow:0 2px 20px rgba(0,0,0,0.55);
+  position:relative;z-index:2;padding:0;text-align:center;
+  font-size:30px;font-weight:800;line-height:1.14;color:#fff;letter-spacing:-0.01em;
+  text-shadow:0 2px 22px rgba(0,0,0,0.6);
 }
 .spec-photo-eyebrow{
   display:block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;
   color:var(--gold-lt);margin-bottom:10px;text-shadow:none;
 }
-/* The proof block, moved over the photo: a tight frosted-glass panel. */
+/* The proof block, moved over the photo: a light, airy frosted-glass panel that
+   blends into the image instead of sitting on a hard dark slab. */
 .spec-photo .spec-proof{
-  position:relative;z-index:2;margin:0;
-  background:rgba(8,5,24,0.55);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  border:1px solid rgba(223,169,73,0.30);
-  box-shadow:0 18px 40px -18px rgba(0,0,0,0.7);
+  position:relative;z-index:2;margin:0;width:100%;max-width:420px;
+  background:rgba(10,6,28,0.30);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border:1px solid rgba(223,169,73,0.28);
+  box-shadow:0 18px 44px -20px rgba(0,0,0,0.6);
 }
 .spec-card.alt .spec-photo{grid-column:2;grid-row:1;}
 .spec-card.alt .spec-content{grid-column:1;grid-row:1;}
@@ -2103,6 +2108,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 
   .hero{padding:80px 32px 60px;grid-template-columns:1fr;gap:44px;min-height:auto;align-items:start;}
   .hero-h1{font-size:46px;max-width:none;}
+  .hero-h1 .hero-h1-sub{font-size:40px;}
   .hero-sub{font-size:18px;max-width:none;}
   .hero-sub-cols{column-gap:32px;}
   .hero-stats{max-width:620px;}
@@ -2237,6 +2243,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
      Keep its true aspect ratio and drop it to the bottom, behind the stats card. */
   .hero-graph{inset:auto 0 0 0;width:100%;height:auto;aspect-ratio:1200 / 520;}
   .hero-h1{font-size:32px;}
+  .hero-h1 .hero-h1-sub{font-size:27px;}
   .hero-h1 br{display:none;}
   .hero-sub{font-size:15.5px;}
   .hero-sub-cols{column-count:1;}
@@ -2339,8 +2346,8 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .spec-card.alt .spec-content,
   .spec-card .spec-content{grid-column:1;grid-row:2;padding:30px 24px 32px;}
   .spec-photo::after,
-  .spec-card.alt .spec-photo::after{background:linear-gradient(180deg, rgba(13,7,34,0.06) 0%, rgba(13,7,34,0.42) 34%, rgba(8,4,24,0.94) 100%),linear-gradient(0deg, rgba(46,20,150,0.18), rgba(46,20,150,0.18));}
-  .spec-photo-cap{font-size:21px;padding:0;}
+  .spec-card.alt .spec-photo::after{background:radial-gradient(130% 100% at 50% 50%, rgba(13,7,34,0.30) 0%, rgba(13,7,34,0.58) 62%, rgba(8,4,24,0.80) 100%),linear-gradient(0deg, rgba(46,20,150,0.18), rgba(46,20,150,0.18));}
+  .spec-photo-cap{font-size:22px;padding:0;}
   .spec-title{font-size:24px;}
   .spec-desc{font-size:15px;}
   .spec-link{padding:12px 18px;font-size:13.5px;}
@@ -2467,6 +2474,27 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .svc-cta-btns .btn-glass{width:100%;justify-content:center;}
   .svc-related{padding:0 18px 70px;}
   .svc-related-grid{grid-template-columns:1fr;}
+}
+
+/* ───── SMALL PHONES (≤430px) — keep the hero headline, buttons and stats
+   from overflowing on narrow devices (iPhone SE/mini, small Androids). ───── */
+@media (max-width:430px){
+  .hero{padding:48px 15px 40px;gap:24px;}
+  .hero-eyebrow{margin-bottom:22px;}
+  .hero-h1{font-size:28px;margin-bottom:18px;}
+  .hero-h1 .hero-h1-sub{font-size:24px;}
+  .hero-sub{font-size:15px;}
+  .hero-guarantee{font-size:13.5px;margin-bottom:24px;}
+  .hero-btns{gap:10px;margin-bottom:26px;}
+  .trust-row{gap:10px 14px;margin-bottom:30px;}
+  /* Single-column stats so the numbers stay legible on the narrowest screens. */
+  .hero-stats{grid-template-columns:1fr;}
+  .hstat{border-right:none;padding:18px 14px;}
+  /* :not(:last-child) matches the specificity of the ≤768 nth-last-child rule and
+     comes later in source order, so every divider but the last is restored. */
+  .hstat:not(:last-child){border-bottom:1px solid rgba(255,255,255,0.1);}
+  .hstat:last-child{border-bottom:none;}
+  .hstat-num{font-size:34px;}
 }
 
 /* ───── NEW PAGES: spacing + responsive polish ─────
