@@ -197,7 +197,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="specialties">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Healthcare Staffing, Focused on <em>Targeted Outcomes</em></h2>
+    <h2 class="sec-h2">Healthcare Focused on <em>Targeted Outcomes</em></h2>
     <p class="sec-sub">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow, and patient communication &mdash; so your team can stay focused on care and results.</p>
   </div>
 
