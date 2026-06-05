@@ -49,7 +49,7 @@ include __DIR__ . '/../includes/nav.php';
         {"@type":"Question","name":"How quickly will you replace a VA?","acceptedAnswer":{"@type":"Answer","text":"You receive a curated re-shortlist within 5 business days and we onboard the replacement VA at no charge. Billing is paused until the new VA is live and producing."}},
         {"@type":"Question","name":"Is there a cancellation fee?","acceptedAnswer":{"@type":"Answer","text":"No. In the first 30 days you may cancel at any time for any reason. We refund every billed day in full — no clawbacks, no termination fees, no minimum-term lock-in."}},
         {"@type":"Question","name":"What's included in backup coverage?","acceptedAnswer":{"@type":"Answer","text":"If your VA is on PTO, sick, or unavailable, your Client Success Manager arranges a trained backup VA within hours, at no extra cost, briefed on your workflows and EHR access. Backup ships with every placement — it's not an upsell."}},
-        {"@type":"Question","name":"What if I'm not sure outsourcing is right for us?","acceptedAnswer":{"@type":"Answer","text":"Book the 20-minute Practice Value Audit. If outsourcing isn't right for you, we'll say so on the call — no follow-up sales sequence."}}
+        {"@type":"Question","name":"What if I'm not sure outsourcing is right for us?","acceptedAnswer":{"@type":"Answer","text":"Schedule the Operational Assessment. If outsourcing isn't right for you, we'll say so on the call — no follow-up sales sequence."}}
       ]
     }
   ]
@@ -92,7 +92,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Hire a Virtual Teammate <em>Zero-Risk</em>. Period.</h1>
     <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your VA isn&rsquo;t the right fit inside the first 30 days, we make it right &mdash; at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
-      <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#claim" class="btn-glass">How to Claim the Promise <i class="fa-solid fa-list-check"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>30-day window starts the day your VA goes live</span>
@@ -146,7 +146,7 @@ include __DIR__ . '/../includes/nav.php';
       </div>
 
       <div class="g-audit">
-        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the 20-min Practice Value Audit covers</div>
+        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Operational Assessment covers</div>
         <ul>
           <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice &mdash; intake, charts, refills, billing, scheduling, recall, prior auth.</li>
           <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
@@ -258,7 +258,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-rotate-left"></i> Is the refund really full?</div><div class="faq-a">Yes &mdash; every billed day in the first 30 days, refunded in full inside one billing cycle. No clawbacks, no termination fees, no minimum-term lock-in.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-shield"></i> Do I have to pay extra for backup?</div><div class="faq-a">No. Trained backup coverage is included with every placement. When your VA is on PTO, sick, or unavailable, your CSM arranges a backup within hours at no extra cost.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-circle-info"></i> Is there fine print?</div><div class="faq-a">Two reasonable conditions: the 30-day window starts the day your VA goes live (not the contract date), and replacements/refunds are issued for the original engagement scope &mdash; not for scope changes added mid-month.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-handshake"></i> What if I just want to think about it?</div><div class="faq-a">Book the 20-minute Practice Value Audit. We&rsquo;ll map your top workflows, recommend a tier and headcount, and tell you honestly if outsourcing is or isn&rsquo;t the right move &mdash; no follow-up sales sequence either way.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-handshake"></i> What if I just want to think about it?</div><div class="faq-a">Schedule the Operational Assessment. We&rsquo;ll map your top workflows, recommend a tier and headcount, and tell you honestly if outsourcing is or isn&rsquo;t the right move &mdash; no follow-up sales sequence either way.</div></div>
   </div>
 
   <p class="gp-fineprint reveal">
@@ -271,7 +271,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Ready to Hire <em style="color:var(--gold);font-style:normal;">Without the Risk</em>?</h2>
   <p>Book a 30-minute value strategy session. We&rsquo;ll map your top workflows, recommend a tier and headcount, and back the whole thing with the Right-Fit Promise &mdash; in writing, before you sign.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Real Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
   </div>
 </section>
