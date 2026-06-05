@@ -448,7 +448,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
    than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
    it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
 #calc-h{white-space:nowrap;font-size:clamp(13px,4vw,50px);}
-.sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:620px;font-weight:400;}
+.sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;}
 
 /* ───── ROI CALCULATOR ───── */
 .calc-wrap{
@@ -1472,7 +1472,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 /* ───── HERO SOFT-LINK (tertiary text CTA) ───── */
 .btn-soft-link{
   display:inline-flex;align-items:center;gap:8px;
-  font-size:13.5px;font-weight:700;color:rgba(255,255,255,0.72);
+  font-size:15.5px;font-weight:700;color:rgba(255,255,255,0.72);
   text-decoration:none;letter-spacing:.1px;
   padding:8px 4px;border-bottom:1px dashed rgba(255,255,255,0.28);
   transition:color .2s ease, border-color .2s ease, transform .2s ease;
@@ -1682,13 +1682,14 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 .case-metric-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
 .case-metric-before,
 .case-metric-after{display:flex;flex-direction:column;gap:4px;flex:1;}
+.case-metric-after{align-items:center;text-align:center;}
 .case-metric-before .lbl,
 .case-metric-after .lbl{
   font-size:10.5px;font-weight:700;color:rgba(255,255,255,0.6);
   text-transform:uppercase;letter-spacing:1px;
 }
 .case-metric-before .val{font-size:26px;font-weight:800;color:rgba(255,255,255,0.55);line-height:1;letter-spacing:-0.02em;}
-.case-metric-after .val{font-size:30px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.02em;}
+.case-metric-after .val{font-size:42px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.02em;}
 .case-metric-badge{
   display:inline-block;vertical-align:middle;margin-left:8px;
   font-size:10.5px;font-weight:800;letter-spacing:.4px;
@@ -2447,7 +2448,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .case-grid > *:nth-child(3){grid-column:auto;max-width:none;margin:0;}
   .case-card{padding:22px 20px;}
   .case-metric-before .val{font-size:22px;}
-  .case-metric-after .val{font-size:26px;}
+  .case-metric-after .val{font-size:34px;}
   .case-q{font-size:14px;}
 
   /* Differentiators on mobile */

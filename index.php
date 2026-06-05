@@ -58,7 +58,7 @@ include 'includes/nav.php';
     <p class="hero-sub reveal d2">Fully staff your practice in days, cut staffing costs by up to <strong>73%</strong>, and protect cash flow with HIPAA-certified virtual assistants trained to keep your front office and revenue cycle running smoothly.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#calculator" class="btn-primary">Uncover Your ROI. <i class="fa-solid fa-calculator"></i></a>
+      <a href="#calculator" class="btn-primary">Uncover Your ROI <i class="fa-solid fa-calculator"></i></a>
       <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Buy Back My Time <i class="fa-solid fa-arrow-right"></i></a>
     </div>
@@ -111,11 +111,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
       <div class="case-metric">
-        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+30%</span></div>
+        <div class="case-metric-h">Insurance Verifications </div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
+
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+30%</span></div>
         </div>
         <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>148%</strong> of goal</div>
       </div>
@@ -131,11 +130,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d2">
       <div class="case-metric">
-        <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+60%</span></div>
+        <div class="case-metric-h">Pre-Certifications</div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">160%</span></div>
+      
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+60%</span></div>
         </div>
         <div class="case-metric-foot">Claims volume also beat target &mdash; <strong>147%</strong> of goal</div>
       </div>
@@ -151,11 +149,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d3">
       <div class="case-metric">
-        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+140%</span></div>
+        <div class="case-metric-h">Payment Posting</div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">240%</span></div>
+    
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+140%</span></div>
         </div>
         <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>244%</strong> of goal</div>
       </div>
@@ -171,11 +168,10 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d4">
       <div class="case-metric">
-        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
+        <div class="case-metric-h">Claims Processed </div>
         <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">133%</span></div>
+   
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
         </div>
         <div class="case-metric-foot">Kept a high-volume surgical schedule billed on time</div>
       </div>
@@ -230,7 +226,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <a class="pill" href="services/medical-scribe/">Medical Scribe <i class="fa-solid fa-arrow-right"></i></a>
           <a class="pill" href="services/medical-assistant/">Medical Assistant <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <a href="#calculator" class="spec-link">Calculate Medical VA Savings <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#calculator" class="spec-link">Calculate Medical VA ROI <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </article>
 
@@ -262,7 +258,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <a class="pill" href="services/dental-scribe/">Dental Scribe <i class="fa-solid fa-arrow-right"></i></a>
           <a class="pill" href="services/dental-coordinator/">Dental Coordinator <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <a href="#calculator" class="spec-link">Calculate Dental VA Savings <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#calculator" class="spec-link">Calculate Dental VA ROI <i class="fa-solid fa-arrow-right"></i></a>
       </div>
     </article>
   </div>
@@ -609,7 +605,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-foot">
-        <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
         <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Schedule My Operational Assessment <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
     </div>
@@ -631,7 +626,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>Covered in your US time zone.</strong> Morning, afternoon, evening or overnight &mdash; your VA works your hours, not a call-center queue.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><span><strong>Never short-handed again.</strong> Sick day, PTO or turnover? Trained backup coverage steps in within hours, at no extra cost &mdash; the work never goes dark.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench lets us recruit for your specialty, EHR, language and accent &mdash; not just whoever&rsquo;s available.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat, all-in rate &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Keep up to 73% of your staffing budget</strong> to reinvest in patient care and growth. One flat, all-in rate covers everything &mdash; no benefits, payroll tax, recruiter fees or PTO to manage.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>One US point of contact from day one.</strong> Your named CSM owns onboarding, quality, backups and quarterly reviews &mdash; it&rsquo;s how we hold 95%+ client retention.</span></li>
       </ul>
     </div>
