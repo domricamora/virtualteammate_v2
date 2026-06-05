@@ -253,7 +253,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
           <h3 class="spec-title">Dental Virtual Assistants That Protect Clinic Productivity</h3>
         </div>
-        <p class="spec-desc">Keep chairs full, claims clean and your team focused on patients &mdash; with virtual teammates fluent in dental EMRs.</p>
+        <p class="spec-desc">Keep chairs full, claims clean, and your team focused on patients with virtual teammates fluent in dental EMRs.</p>
 
         <div class="spec-pills">
           <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
