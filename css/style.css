@@ -752,20 +752,20 @@ select option:checked{background:#3919BA;color:#fff;}
 
 /* ───── GUARANTEE — audit detail block ───── */
 .g-audit{
-  margin-top:22px;
+  margin-top:16px;
   background:linear-gradient(135deg, rgba(57,25,186,0.30), rgba(223,169,73,0.10));
   border:1px solid rgba(223,169,73,0.32);
-  border-radius:14px;
-  padding:20px 22px;
+  border-radius:12px;
+  padding:16px 18px;
 }
 .g-audit-h{
-  font-size:12.5px;font-weight:800;color:var(--gold-lt);
+  font-size:11.5px;font-weight:800;color:var(--gold-lt);
   text-transform:uppercase;letter-spacing:1.2px;
-  display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  display:flex;align-items:center;gap:9px;margin-bottom:9px;
 }
 .g-audit-h i{color:var(--gold);}
-.g-audit ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;}
-.g-audit li{font-size:14px;line-height:1.6;color:rgba(255,255,255,0.82);padding-left:18px;position:relative;}
+.g-audit ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:7px;}
+.g-audit li{font-size:13px;line-height:1.5;color:rgba(255,255,255,0.82);padding-left:18px;position:relative;}
 .g-audit li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:800;}
 .g-audit li strong{color:#fff;font-weight:700;}
 
@@ -1578,7 +1578,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 .calc-controls .calc-reachout-btn{grid-column:1 / -1;width:100%;}
 
 /* ───── GUARANTEE SECTION ───── */
-.guarantee{padding:90px 80px;position:relative;overflow:hidden;}
+.guarantee{padding:58px 80px;position:relative;overflow:hidden;}
 .guarantee::before{
   content:"";position:absolute;inset:0;z-index:0;
   background:
@@ -1588,56 +1588,58 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 }
 .g-wrap{
   position:relative;z-index:1;
-  display:grid;grid-template-columns:280px 1fr;gap:60px;align-items:center;
+  display:grid;grid-template-columns:190px 1fr;gap:40px;align-items:center;
+  max-width:1040px;margin:0 auto;
   background:rgba(20,15,55,0.48);
   backdrop-filter:var(--glass-blur);
-  border:1px solid rgba(223,169,73,0.32);
-  border-radius:28px;
-  padding:50px 56px;
-  box-shadow:0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.06);
+  border:1px solid rgba(223,169,73,0.30);
+  border-radius:22px;
+  padding:34px 40px;
+  box-shadow:0 28px 64px -22px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 .g-seal{display:flex;justify-content:center;}
 .g-seal-ring{
   position:relative;
-  width:220px;height:220px;border-radius:50%;
+  width:160px;height:160px;border-radius:50%;
   background:
     radial-gradient(circle at 30% 30%, rgba(245,228,184,0.35), transparent 60%),
     conic-gradient(from 0deg, var(--gold) 0deg, var(--gold-lt) 90deg, var(--gold) 180deg, var(--gold-lt) 270deg, var(--gold) 360deg);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   color:var(--dark);
-  box-shadow:0 30px 60px rgba(223,169,73,0.35), inset 0 0 0 3px rgba(255,255,255,0.35);
+  box-shadow:0 22px 46px -10px rgba(223,169,73,0.40), inset 0 0 0 3px rgba(255,255,255,0.35);
   animation:spinSlow 28s linear infinite;
 }
 .g-seal-ring::before{
-  content:"";position:absolute;inset:14px;border-radius:50%;
+  content:"";position:absolute;inset:11px;border-radius:50%;
   background:linear-gradient(135deg, #f5e4b8 0%, #dfa949 60%, #b8882e 100%);
   z-index:0;
   animation:spinSlow 30s linear infinite reverse;
 }
 /* Shield struck in the same gold as the coin: a deep-gold fill lifted off the
    face with a light top highlight + dark lower shadow so it reads as embossed metal. */
-.g-seal-ico{position:relative;z-index:1;font-size:48px;line-height:1;margin-bottom:6px;
+.g-seal-ico{position:relative;z-index:1;font-size:38px;line-height:1;margin-bottom:5px;
   color:#7a5712;
   filter:drop-shadow(0 1px 0 rgba(255,248,230,0.6)) drop-shadow(0 -1.5px 2px rgba(58,38,6,0.5));}
 .g-seal-h,.g-seal-s{position:relative;z-index:1;text-align:center;}
-.g-seal-h{font-size:30px;font-weight:800;letter-spacing:-0.02em;line-height:1;margin-bottom:6px;}
-.g-seal-s{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;line-height:1.25;}
+.g-seal-h{font-size:24px;font-weight:800;letter-spacing:-0.02em;line-height:1;margin-bottom:5px;}
+.g-seal-s{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.3px;line-height:1.25;}
 
-.g-copy .sec-h2{margin-bottom:14px;}
-.g-copy .sec-sub{margin-bottom:28px;}
-.g-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:0;}
+.g-copy .sec-lbl{margin-bottom:8px;}
+.g-copy .sec-h2{font-size:31px;margin-bottom:16px;}
+.g-copy .sec-sub{margin-bottom:22px;}
+.g-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0;}
 .g-card{
   background:rgba(255,255,255,0.05);
   border:1px solid var(--glass-border);
-  border-radius:14px;
-  padding:22px 20px;
+  border-radius:12px;
+  padding:17px 16px;
   transition:transform .25s ease, border-color .25s ease, background .25s ease;
 }
 .g-card:hover{transform:translateY(-3px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.07);}
-.g-card .ico-circle{margin-bottom:14px;}
-.g-card h3{font-size:16px;font-weight:700;color:#fff;margin-bottom:8px;}
-.g-card p{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.7);}
-.g-foot{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:26px;}
+.g-card .ico-circle{margin-bottom:10px;}
+.g-card h3{font-size:15px;font-weight:700;color:#fff;margin-bottom:6px;}
+.g-card p{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,0.7);}
+.g-foot{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px;}
 
 /* ───── CASE STUDY CARDS ───── */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;}
@@ -2184,11 +2186,11 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .calc-reachout-btn{grid-column:1 / -1;}
 
   /* Guarantee */
-  .guarantee{padding:70px 32px;}
-  .g-wrap{grid-template-columns:1fr;gap:30px;padding:40px 32px;}
-  .g-seal-ring{width:180px;height:180px;}
-  .g-seal-h{font-size:26px;}
-  .g-seal-s{font-size:11.5px;letter-spacing:1.2px;}
+  .guarantee{padding:48px 32px;}
+  .g-wrap{grid-template-columns:1fr;gap:26px;padding:30px 28px;}
+  .g-seal-ring{width:150px;height:150px;}
+  .g-seal-h{font-size:23px;}
+  .g-seal-s{font-size:11px;letter-spacing:1.2px;}
   .g-cards{grid-template-columns:1fr;gap:12px;}
 
   /* Case studies */
@@ -2414,10 +2416,10 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .calc-bar-amt{font-size:13px;}
 
   /* Guarantee */
-  .guarantee{padding:55px 18px;}
-  .g-wrap{padding:30px 22px;border-radius:22px;gap:24px;}
-  .g-seal-ring{width:150px;height:150px;}
-  .g-seal-h{font-size:22px;}
+  .guarantee{padding:42px 18px;}
+  .g-wrap{padding:26px 20px;border-radius:20px;gap:22px;}
+  .g-seal-ring{width:132px;height:132px;}
+  .g-seal-h{font-size:21px;}
   .g-seal-s{font-size:10.5px;letter-spacing:1px;}
   .g-card{padding:18px 16px;}
   .g-card h3{font-size:15px;}

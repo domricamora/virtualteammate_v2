@@ -54,8 +54,8 @@ include 'includes/nav.php';
   </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</span></h1>
-    <p class="hero-sub reveal d2">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone &mdash; to own billing, scribing, scheduling and prior auth. No hiring grind.</p>
+    <h1 class="hero-h1 reveal d1">Build a Stronger, <em>More Profitable</em> Clinic</h1>
+    <p class="hero-sub reveal d2">Fully staff your practice in days, cut staffing costs by up to <strong>73%</strong>, and protect cash flow with HIPAA-certified virtual assistants trained to keep your front office and revenue cycle running smoothly.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
@@ -105,21 +105,21 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; Latest Audit</div>
-    <h2 class="sec-h2" id="cs-h">The Quota Was the Floor. <em>Not the Ceiling.</em></h2>
-    <p class="sec-sub">From our latest client KPI audit &mdash; the monthly target vs. what each VT billing teammate actually delivered. Real clinics, real numbers.</p>
+    <h2 class="sec-h2" id="cs-h">Committed to Outcomes. <em>Proven in Results.</em></h2>
+    <p class="sec-sub">We deliver real client results and measurable value through virtual teammates who consistently perform against the goals that matter most.</p>
   </div>
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
       <div class="case-metric">
-        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+48%</span></div>
+        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+30%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">148%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">130%</span></div>
         </div>
-        <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>130%</strong> of goal</div>
+        <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>148%</strong> of goal</div>
       </div>
-      <p class="case-q">Faster cash collection across a high-acuity cancer-care caseload.</p>
+      <p class="case-q">Our virtual teammate cleared insurance verifications <strong>30% above goal</strong> and payment posting <strong>48% over target</strong> &mdash; turning a challenging AR into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-ribbon"></i></span>
         <div>
@@ -131,35 +131,15 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
     <article class="case-card reveal d2">
       <div class="case-metric">
-        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
-        <div class="case-metric-row">
-          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
-          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">133%</span></div>
-        </div>
-        <div class="case-metric-foot">Cleared a standing claims backlog, clean and on schedule</div>
-      </div>
-      <p class="case-q">A stubborn backlog worked down to clean, on-time submissions.</p>
-      <div class="case-auth">
-        <span class="ico-circle case-ico"><i class="fa-solid fa-notes-medical"></i></span>
-        <div>
-          <div class="case-name">Endocrinology Clinic</div>
-          <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
-        </div>
-      </div>
-    </article>
-
-    <article class="case-card reveal d3">
-      <div class="case-metric">
         <div class="case-metric-h">Pre-Certifications <span class="case-metric-badge">+60%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">160%</span></div>
         </div>
-        <div class="case-metric-foot">Claims processed also beat target &mdash; <strong>147%</strong> of goal</div>
+        <div class="case-metric-foot">Claims volume also beat target &mdash; <strong>147%</strong> of goal</div>
       </div>
-      <p class="case-q">Authorizations stayed ahead of schedule, so procedures never stalled.</p>
+      <p class="case-q">A dedicated billing teammate achieved pre-certs <strong>60% over target</strong> and claims volume <strong>47% above plan</strong> &mdash; keeping authorizations ahead of schedule and clean claims moving.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-hospital"></i></span>
         <div>
@@ -169,22 +149,42 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
     </article>
 
-    <article class="case-card reveal d4">
+    <article class="case-card reveal d3">
       <div class="case-metric">
-        <div class="case-metric-h">Insurance Verifications <span class="case-metric-badge">+144%</span></div>
+        <div class="case-metric-h">Payment Posting <span class="case-metric-badge">+140%</span></div>
         <div class="case-metric-row">
           <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
           <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">244%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">240%</span></div>
         </div>
-        <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>240%</strong> of goal</div>
+        <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>244%</strong> of goal</div>
       </div>
-      <p class="case-q">More than doubled goal across the front of the revenue cycle.</p>
+      <p class="case-q">Payment posting landed <strong>140% over target</strong> and insurance verifications <strong>144% over</strong> &mdash; streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-heart-pulse"></i></span>
         <div>
           <div class="case-name">Primary Care Group</div>
           <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="case-card reveal d4">
+      <div class="case-metric">
+        <div class="case-metric-h">Claims Processed <span class="case-metric-badge">+33%</span></div>
+        <div class="case-metric-row">
+          <div class="case-metric-before"><span class="lbl">Monthly target</span><span class="val">100%</span></div>
+          <div class="case-metric-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">133%</span></div>
+        </div>
+        <div class="case-metric-foot">Kept a high-volume surgical schedule billed on time</div>
+      </div>
+      <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
+      <div class="case-auth">
+        <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+        <div>
+          <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
+          <div class="case-svc"><i class="fa-solid fa-tooth"></i> Specialty Billing &amp; RCM VA</div>
         </div>
       </div>
     </article>
@@ -205,7 +205,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     <article class="spec-card reveal d1">
       <div class="spec-photo">
         <img src="images/photos/medical-section.webp" alt="Interior of a modern medical clinic exam room" loading="lazy"/>
-        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Less Paperwork.<br>More Patient Time.</div>
+        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
           <ul>
@@ -219,9 +219,9 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
-          <h3 class="spec-title">Medical Virtual Assistants</h3>
+          <h3 class="spec-title">Medical Virtual Teammates</h3>
         </div>
-        <p class="spec-desc">Built for office managers and providers who are stretched thin. HIPAA-certified medical VAs work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so your front desk isn&rsquo;t drowning, your providers stop charting after hours, and your AR keeps moving. More coverage, no extra desks or payroll.</p>
+        <p class="spec-desc">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow and patient communication &mdash; so your team can stay focused on care and results.</p>
 
         <div class="spec-pills">
           <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
@@ -251,9 +251,9 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
-          <h3 class="spec-title">Dental Virtual Assistants</h3>
+          <h3 class="spec-title">Dental Virtual Assistants That Protect Clinic Productivity</h3>
         </div>
-        <p class="spec-desc">Made for practice owners and office managers protecting production. Dental VAs fluent in Dentrix, Eaglesoft and Open Dental own recall, insurance verification, billing and treatment-plan follow-up &mdash; keeping chairs full, claims clean and the schedule tight, while your in-office team stays focused on patients.</p>
+        <p class="spec-desc">Keep chairs full, claims clean and your team focused on patients &mdash; with virtual teammates fluent in dental EMRs.</p>
 
         <div class="spec-pills">
           <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
@@ -307,17 +307,17 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <i class="fa-solid fa-calendar-check pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
-      <h3 class="pstep-title">Book a Strategy Consultation</h3>
-      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm a strategy-call slot <strong>within one business day</strong>. The call itself takes 30 minutes and maps your practice, workflows, and the exact clinical or admin support you need.</p>
+      <h3 class="pstep-title">Start With a Clear Plan</h3>
+      <p class="pstep-desc">Book a <strong>30-minute growth assessment</strong>. We&rsquo;ll identify and map your practice, workflows, and the support you need to drive results.</p>
     </div>
     <div class="pstep reveal d2">
       <div class="pstep-head">
         <div class="pstep-num">02</div>
         <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
       </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 5&ndash;7 business days</div>
-      <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
-      <p class="pstep-desc">Curated shortlist of HIPAA-certified VAs delivered in <strong>5&ndash;7 business days</strong> &mdash; matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 48 hours</div>
+      <h3 class="pstep-title">Meet Your Next Virtual Teammate</h3>
+      <p class="pstep-desc">Receive a curated shortlist of certified VAs in <strong>48 hours</strong> &mdash; thoughtfully matched to your specialty, EHR, accent and time-zone preferences &mdash; so you can interview top matches and choose with confidence.</p>
     </div>
     <div class="pstep reveal d3">
       <div class="pstep-head">
@@ -325,8 +325,8 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <i class="fa-solid fa-rocket pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
-      <h3 class="pstep-title">Launch &amp; Onboard Seamlessly</h3>
-      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
+      <h3 class="pstep-title">Seamless Launch. Fast Results.</h3>
+      <p class="pstep-desc">From agreement to EHR access and SOP handoff in <strong>1&ndash;2 weeks</strong>, your VA starts strong with a dedicated Client Success Manager and our 30-Day Right-Fit Promise.</p>
     </div>
   </div>
   <div class="proc-cta reveal">
@@ -627,7 +627,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="sec-sub">Short-staffed and tired of the hiring grind? We fill your exact gap fast &mdash; vetted VAs matched to your specialty, software and US hours, fully managed by your dedicated CSM.</p>
 
       <ul class="global-benefits">
-        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in about a week.</strong> Stop carrying open seats &mdash; a curated shortlist lands in 5&ndash;7 business days and your VA is live in 1&ndash;2 weeks.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in about a week.</strong> Stop carrying open seats &mdash; a curated shortlist lands in 48 hours and your VA is live in 1&ndash;2 weeks.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>Covered in your US time zone.</strong> Morning, afternoon, evening or overnight &mdash; your VA works your hours, not a call-center queue.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><span><strong>Never short-handed again.</strong> Sick day, PTO or turnover? Trained backup coverage steps in within hours, at no extra cost &mdash; the work never goes dark.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench lets us recruit for your specialty, EHR, language and accent &mdash; not just whoever&rsquo;s available.</span></li>
@@ -731,7 +731,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the VA isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Every healthcare and dental VA completes <strong>HIPAA training and certification</strong> before placement and signs a BAA-compatible confidentiality agreement. We operate <strong>SOC 2 Type 2-aligned controls</strong> on the VT infrastructure that touches your data &mdash; encrypted laptops, hardware MFA, mandatory password manager, controlled network egress, least-privilege EHR access. Every access event by a VT VA is captured in an <strong>audit trail</strong> (who, what, when, from where), retained for 12 months and reviewable on request by your Client Success Manager (CSM).</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>5&ndash;7 business days</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>48 hours</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your VAs know?</div><div class="faq-a">Medical VAs are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental VAs are proficient in Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Wherever the best fit lives. Our global recruiting reach lets us match for your specialty, EHR, accent, language, and US time-zone shift &mdash; not just whoever happens to be on the bench. You hire for skill set; we handle the sourcing.</div></div>
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager (CSM) is on your account &mdash; reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
@@ -758,7 +758,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Buy Back My Time <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
@@ -771,20 +771,20 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
       <div class="cta-stage-tag">Ready to talk</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <h3>Strategy Call &amp; Jumpstart</h3>
-      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get matched to candidates within 5&ndash;7 business days.</p>
+      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get matched to candidates within 48 hours.</p>
       <ul class="cta-stage-list">
         <li>Role scope + EHR / specialty match</li>
         <li>Tailored candidate shortlist</li>
         <li>Onboarding plan + CSM intro</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
@@ -860,7 +860,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
     <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
-    <p class="cta-modal-sub">A 30-minute call to map your needs, define the role, and get you a tailored shortlist within 5&ndash;7 business days.</p>
+    <p class="cta-modal-sub">A 30-minute call to map your needs, define the role, and get you a tailored shortlist within 48 hours.</p>
     <form class="cta-modal-form" id="ctaStrategyForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your strategy call.">
       <input type="hidden" name="intent" value="strategy-call">
