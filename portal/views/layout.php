@@ -74,6 +74,7 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'notifications', 'label' => 'Notifications',       'icon' => 'fa-bell'];
 } elseif ($role === 'vt_onpool') {
     $nav[] = ['p' => 'productivity',  'label' => 'Productivity Reports','icon' => 'fa-chart-line'];
+    $nav[] = ['p' => 'messages',      'label' => 'Messages',            'icon' => 'fa-comments'];
     $nav[] = ['p' => 'resources',     'label' => 'Resources',           'icon' => 'fa-book-open'];
     $nav[] = ['p' => 'vtm-apps',      'label' => 'VTM Apps',            'icon' => 'fa-grip'];
     $nav[] = ['p' => 'refer',         'label' => 'Refer A Friend',      'icon' => 'fa-gift'];

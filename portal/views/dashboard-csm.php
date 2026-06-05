@@ -2,7 +2,44 @@
 $pageTitle = 'CSM Dashboard';
 $subtitle  = 'Your client portfolio and recent meetings.';
 $trend = $data['trend'] ?? ['labels' => [], 'eod' => [], 'tasks' => [], 'meetings' => []];
+
+$userPhoto = media_src($user['photo_url'] ?? '');
+$userCover = $user['cover_url'] ?? '';
+$csmName   = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?: (string) $user['email'];
+$clientCount = count($data['clients'] ?? []);
+$vtCount     = (int) ($data['vt_count'] ?? 0);
+$meetCount   = count($data['meetings'] ?? []);
 ?>
+
+<!-- HERO: cover photo + profile photo overlap (user's own) -->
+<div class="card cd-cover-card" style="padding:0;overflow:hidden;">
+  <?php $coverBg = $userCover !== '' ? $userCover : 'assets/default-banner.webp'; ?>
+  <div class="cd-cover" style="background-image:url('<?= e($coverBg) ?>');"></div>
+  <div class="cd-cover-body">
+    <div class="cd-cover-photo-wrap">
+      <?php if ($userPhoto): ?>
+        <img class="cd-cover-photo" src="<?= e($userPhoto) ?>" alt="" loading="lazy" onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
+      <?php else: ?>
+        <div class="cd-cover-photo placeholder"><?= e(strtoupper(mb_substr($user['first_name'] ?: $user['email'], 0, 1))) ?></div>
+      <?php endif; ?>
+    </div>
+    <div class="cd-cover-meta">
+      <div class="cd-hero-eyebrow"><i class="fa-solid fa-user-tie"></i> Client Success Manager</div>
+      <h2 class="cd-hero-h" style="margin:0 0 4px;"><?= e($csmName) ?></h2>
+      <div class="cd-hero-sub muted">
+        <?php if (!empty($user['email'])): ?><i class="fa-solid fa-envelope"></i> <?= e($user['email']) ?> &middot; <?php endif; ?>
+        <i class="fa-solid fa-building"></i> <?= (int) $clientCount ?> client<?= $clientCount === 1 ? '' : 's' ?>
+        &middot; <i class="fa-solid fa-user-doctor"></i> <?= (int) $vtCount ?> VT<?= $vtCount === 1 ? '' : 's' ?>
+        &middot; <i class="fa-solid fa-calendar-check"></i> <?= (int) $meetCount ?> recent meeting<?= $meetCount === 1 ? '' : 's' ?>
+      </div>
+    </div>
+    <div class="cd-cover-actions">
+      <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('my-clients')) ?>"><i class="fa-solid fa-building-user"></i> My Clients</a>
+      <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('meetings.edit')) ?>"><i class="fa-solid fa-calendar-plus"></i> Meeting</a>
+      <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('profile')) ?>"><i class="fa-solid fa-camera"></i> Edit photos</a>
+    </div>
+  </div>
+</div>
 
 <div class="card ct-card">
   <div class="card-h">

@@ -55,7 +55,7 @@ $coverSrc  = $user['cover_url'] ?: '';
         <small class="muted">JPG / PNG / GIF / WebP, up to 8MB. Or paste a URL below.</small>
       </label>
       <label class="span-2">…or a Photo URL
-        <input type="url" name="photo_url" value="<?= e($user['photo_url']) ?>" placeholder="https://…">
+        <input type="url" name="photo_url" value="" placeholder="<?= !empty($user['photo_url']) ? 'A photo is set — paste a new URL to replace it' : 'https://…' ?>">
       </label>
 
       <label class="span-2">Cover photo
@@ -63,7 +63,7 @@ $coverSrc  = $user['cover_url'] ?: '';
         <small class="muted">Wide banner image (1500&times;500 looks best). Up to 8MB.</small>
       </label>
       <label class="span-2">…or a Cover URL
-        <input type="url" name="cover_url" value="<?= e($user['cover_url']) ?>" placeholder="https://…">
+        <input type="url" name="cover_url" value="" placeholder="<?= !empty($user['cover_url']) ? 'A cover is set — paste a new URL to replace it' : 'https://…' ?>">
       </label>
 
       <div class="form-actions span-2">

@@ -476,9 +476,22 @@ function dashboard_csm_data(array $u): array
         $labels[] = $d; $eodS[] = $byEod[$d] ?? 0; $taskS[] = $byTasks[$d] ?? 0; $meetS[] = $byMeet[$d] ?? 0;
     }
 
+    $vtCount = 0;
+    try {
+        $vc = $pdo->prepare(
+            "SELECT COUNT(DISTINCT cv.vt_user_id)
+             FROM csm_clients cc
+             JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
+             WHERE cc.csm_user_id = :uid"
+        );
+        $vc->execute([':uid' => $u['id']]);
+        $vtCount = (int) $vc->fetchColumn();
+    } catch (Throwable $_) {}
+
     return [
         'clients'  => $clients,
         'meetings' => $meet->fetchAll(),
+        'vt_count' => $vtCount,
         'trend'    => ['labels' => $labels, 'eod' => $eodS, 'tasks' => $taskS, 'meetings' => $meetS],
     ];
 }
@@ -558,8 +571,13 @@ function handle_profile(): void
         $last    = trim((string) ($_POST['last_name'] ?? ''));
         $phone   = trim((string) ($_POST['phone'] ?? ''));
         $country = trim((string) ($_POST['country'] ?? ''));
-        $photo   = trim((string) ($_POST['photo_url'] ?? ''));
-        $cover   = trim((string) ($_POST['cover_url'] ?? ''));
+        // The URL fields render blank (we don't echo the stored URL back). So a
+        // blank field means "keep what's already saved"; a pasted URL replaces
+        // it; an uploaded file (handled below) overrides either.
+        $photoIn = trim((string) ($_POST['photo_url'] ?? ''));
+        $coverIn = trim((string) ($_POST['cover_url'] ?? ''));
+        $photo   = $photoIn !== '' ? $photoIn : (string) ($u['photo_url'] ?? '');
+        $cover   = $coverIn !== '' ? $coverIn : (string) ($u['cover_url'] ?? '');
 
         // Handle file uploads for photo + cover (either or both). Files saved
         // to data/avatars/{user_id}/{kind}.{ext}; users.{photo_url,cover_url}
@@ -4540,7 +4558,11 @@ function messages_contacts(array $u): array
                FROM csm_clients cc
                JOIN client_vts cv ON cv.client_id = cc.client_id AND cv.contract_status = 'active'
                JOIN users u ON u.id = cv.vt_user_id
-              WHERE cc.csm_user_id = :uid"
+              WHERE cc.csm_user_id = :uid
+              UNION
+             SELECT {$cols}
+               FROM users u
+              WHERE u.role = 'vt_onpool' AND u.active = 1"
         );
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
@@ -4568,6 +4590,14 @@ function messages_contacts(array $u): array
         );
         $stmt->execute([':uid' => $uid]);
         $rows = $stmt->fetchAll();
+    } elseif ($u['role'] === 'vt_onpool') {
+        // Pool VTs (not yet placed) can reach the team that manages the pool:
+        // all CSMs and super admins.
+        $rows = $pdo->query(
+            "SELECT id, first_name, last_name, email, role, photo_url FROM users
+              WHERE active = 1 AND role IN ('csm', 'super_admin') AND id != {$uid}
+              ORDER BY role, last_name, first_name"
+        )->fetchAll();
     }
 
     // Reachable beyond the role list: ANYONE the user already has a conversation
@@ -4603,7 +4633,7 @@ function messages_contacts(array $u): array
 function handle_messages_list(): void
 {
     $u = require_login();
-    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired'], true)) {
+    if (!in_array($u['role'], ['super_admin','client','csm','vt_hired','vt_onpool'], true)) {
         render('error', ['title' => 'Forbidden', 'message' => 'Messages not available for your role.']);
         return;
     }
@@ -4741,7 +4771,7 @@ function handle_messages_fetch(): void
 {
     $u = require_login();
     header('Content-Type: application/json; charset=UTF-8');
-    if (!in_array($u['role'], ['super_admin', 'client', 'csm', 'vt_hired'], true)) {
+    if (!in_array($u['role'], ['super_admin', 'client', 'csm', 'vt_hired', 'vt_onpool'], true)) {
         echo json_encode(['ok' => false]); return;
     }
     $me    = (int) $u['id'];

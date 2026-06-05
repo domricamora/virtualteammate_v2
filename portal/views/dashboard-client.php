@@ -94,9 +94,8 @@ $weekTotalMin  = 0; foreach ($weekByVt as $w) { $weekTotalMin += (int) $w['minut
   $userCover = $user['cover_url'] ?? '';
 ?>
 <div class="card cd-cover-card" style="padding:0;overflow:hidden;">
-  <div class="cd-cover" <?php if ($userCover): ?>style="background-image:url('<?= e($userCover) ?>');"<?php endif; ?>>
-    <?php if (!$userCover): ?><div class="cd-cover-empty"><i class="fa-solid fa-image"></i> Add a cover photo from <a href="<?= e(portal_url('profile')) ?>">My Profile</a></div><?php endif; ?>
-  </div>
+  <?php $coverBg = $userCover !== '' ? $userCover : 'assets/default-banner.webp'; ?>
+  <div class="cd-cover" style="background-image:url('<?= e($coverBg) ?>');"></div>
   <div class="cd-cover-body">
     <div class="cd-cover-photo-wrap">
       <?php if ($userPhoto): ?>

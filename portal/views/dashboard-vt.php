@@ -2,7 +2,53 @@
 $pageTitle = ($user['role'] === 'vt_hired') ? 'VT (Hired) Dashboard' : 'VT (On-Pool) Dashboard';
 $profile   = $data['profile'] ?? null;
 $client    = $data['client'] ?? null;
+
+$userPhoto = media_src($user['photo_url'] ?? '');
+$userCover = $user['cover_url'] ?? '';
+$vtName    = trim(($user['first_name'] ?? '') . ' ' . ($user['last_name'] ?? '')) ?: (string) $user['email'];
+$roleTitle = trim((string) ($profile['role_title'] ?? '')) ?: trim((string) ($profile['department'] ?? ''));
+$expYears  = (int) ($profile['experience_years'] ?? 0);
+$csmCount  = count($data['csms'] ?? []);
+$wdLink    = '';
+if ($client && !empty($client['workday_link']))        { $wdLink = (string) $client['workday_link']; }
+elseif ($profile && !empty($profile['workday_link']))  { $wdLink = (string) $profile['workday_link']; }
 ?>
+
+<!-- HERO: cover photo + profile photo overlap (user's own) -->
+<div class="card cd-cover-card" style="padding:0;overflow:hidden;">
+  <?php $coverBg = $userCover !== '' ? $userCover : 'assets/default-banner.webp'; ?>
+  <div class="cd-cover" style="background-image:url('<?= e($coverBg) ?>');"></div>
+  <div class="cd-cover-body">
+    <div class="cd-cover-photo-wrap">
+      <?php if ($userPhoto): ?>
+        <img class="cd-cover-photo" src="<?= e($userPhoto) ?>" alt="" loading="lazy" onerror="this.onerror=null;this.src='assets/placeholder-avatar.svg';">
+      <?php else: ?>
+        <div class="cd-cover-photo placeholder"><?= e(strtoupper(mb_substr($user['first_name'] ?: $user['email'], 0, 1))) ?></div>
+      <?php endif; ?>
+    </div>
+    <div class="cd-cover-meta">
+      <div class="cd-hero-eyebrow"><i class="fa-solid fa-user-doctor"></i> <?= e(role_label($user['role'])) ?><?php if ($roleTitle !== ''): ?> &middot; <?= e($roleTitle) ?><?php endif; ?></div>
+      <h2 class="cd-hero-h" style="margin:0 0 4px;"><?= e($vtName) ?></h2>
+      <div class="cd-hero-sub muted">
+        <?php if ($user['role'] === 'vt_hired' && $client): ?>
+          <i class="fa-solid fa-building"></i> <?= e($client['company_name']) ?>
+          &middot; <i class="fa-solid fa-user-tie"></i> <?= (int) $csmCount ?> CSM
+        <?php endif; ?>
+        <?php if ($expYears > 0): ?>
+          <?= ($user['role'] === 'vt_hired' && $client) ? ' &middot; ' : '' ?><i class="fa-solid fa-briefcase"></i> <?= (int) $expYears ?> yr<?= $expYears === 1 ? '' : 's' ?> experience
+        <?php endif; ?>
+        <?php if (!empty($user['email'])): ?> &middot; <i class="fa-solid fa-envelope"></i> <?= e($user['email']) ?><?php endif; ?>
+      </div>
+    </div>
+    <div class="cd-cover-actions">
+      <a class="btn-portal-primary btn-sm" href="<?= e(portal_url('eod.edit')) ?>"><i class="fa-solid fa-file-pen"></i> New EOD</a>
+      <?php if ($wdLink !== ''): ?>
+        <a class="btn-portal-secondary btn-sm" href="<?= e($wdLink) ?>" target="_blank" rel="noopener"><i class="fa-solid fa-clock"></i> Workday Tracker</a>
+      <?php endif; ?>
+      <a class="btn-portal-secondary btn-sm" href="<?= e(portal_url('profile')) ?>"><i class="fa-solid fa-camera"></i> Edit photos</a>
+    </div>
+  </div>
+</div>
 
 <div class="card">
   <h3>My profile</h3>
