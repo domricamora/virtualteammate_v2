@@ -54,20 +54,13 @@ include 'includes/nav.php';
   </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Build a Stronger, <em>More Profitable</em> Clinic</h1>
-    <p class="hero-sub reveal d2">Fully staff your practice in days, cut staffing costs by up to <strong>73%</strong>, and protect cash flow with HIPAA-certified virtual assistants trained to keep your front office and revenue cycle running smoothly.</p>
+    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</span></h1>
+    <p class="hero-sub reveal d2">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone &mdash; to own billing, scribing, scheduling and prior auth. No hiring grind.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#calculator" class="btn-primary">Uncover Your ROI <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#cta-buyers-checklist" class="btn-soft-link" data-cta-intent="buyers-checklist">Buy Back My Time <i class="fa-solid fa-arrow-right"></i></a>
-    </div>
-    <div class="trust-row reveal d4">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
-      <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
-      <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
-      <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
-      <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
+      <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
@@ -77,6 +70,15 @@ include 'includes/nav.php';
     <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
     <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
     <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
+  </div>
+
+  <!-- Trust row — full-width strip spanning the whole hero -->
+  <div class="trust-row reveal d4">
+    <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+    <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
+    <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
+    <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
+    <div class="trust-item"><i class="fa-solid fa-globe"></i> Your Time Zone</div>
   </div>
 
 </header>
@@ -283,7 +285,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta-strategy-call" class="btn-gold" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-gold" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -293,7 +295,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec">
   <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
-    <h2 class="sec-h2">Hire in Days, Not Months</h2>
+    <h2 class="sec-h2">Hire in Days, <em>Not Months</em></h2>
     <p class="sec-sub" style="margin:0 auto;">A lightning-fast 3-step process built for busy doctors, dentists, and practice managers.</p>
   </div>
   <div class="proc-steps">
@@ -303,17 +305,17 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <i class="fa-solid fa-calendar-check pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
-      <h3 class="pstep-title">Start With a Clear Plan</h3>
-      <p class="pstep-desc">Book a <strong>30-minute growth assessment</strong>. We&rsquo;ll identify and map your practice, workflows, and the support you need to drive results.</p>
+      <h3 class="pstep-title">Book a Strategy Consultation</h3>
+      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm a strategy-call slot <strong>within one business day</strong>. The call itself takes 30 minutes and maps your practice, workflows, and the exact clinical or admin support you need.</p>
     </div>
     <div class="pstep reveal d2">
       <div class="pstep-head">
         <div class="pstep-num">02</div>
         <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
       </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 48 hours</div>
-      <h3 class="pstep-title">Meet Your Next Virtual Teammate</h3>
-      <p class="pstep-desc">Receive a curated shortlist of certified VAs in <strong>48 hours</strong> &mdash; thoughtfully matched to your specialty, EHR, accent and time-zone preferences &mdash; so you can interview top matches and choose with confidence.</p>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 5&ndash;7 business days</div>
+      <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
+      <p class="pstep-desc">Curated shortlist of HIPAA-certified VAs delivered in <strong>5&ndash;7 business days</strong> &mdash; matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
     </div>
     <div class="pstep reveal d3">
       <div class="pstep-head">
@@ -321,12 +323,12 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <i class="fa-solid fa-rocket pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
-      <h3 class="pstep-title">Seamless Launch. Fast Results.</h3>
-      <p class="pstep-desc">From agreement to EHR access and SOP handoff in <strong>1&ndash;2 weeks</strong>, your VA starts strong with a dedicated Client Success Manager and our 30-Day Right-Fit Promise.</p>
+      <h3 class="pstep-title">Launch &amp; Onboard Seamlessly</h3>
+      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -342,55 +344,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
   <div class="calc-glow">
   <div class="calc reveal d1" id="roiCalc">
-    <!-- LEFT — value multiplier speedometer -->
-    <div class="calc-vadd">
-      <h3 class="calc-vadd-h">One Hire. <em>Nearly Four Times</em> the Value.</h3>
-      <div class="vadd-dial">
-        <svg class="vadd-svg" viewBox="0 0 320 200" role="img" aria-label="Value multiplier: 3.7 times the cost of a local hire">
-          <defs>
-            <linearGradient id="vaddGrad" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0%" stop-color="#3919ba"/>
-              <stop offset="55%" stop-color="#7c3aed"/>
-              <stop offset="100%" stop-color="#dfa949"/>
-            </linearGradient>
-            <filter id="vaddGlow" x="-40%" y="-40%" width="180%" height="180%">
-              <feGaussianBlur stdDeviation="3.2" result="b"/>
-              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-            </filter>
-          </defs>
-          <path class="vadd-track" d="M 32 160 A 128 128 0 0 1 288 160"/>
-          <path class="vadd-fill"  d="M 32 160 A 128 128 0 0 1 288 160"/>
-          <?php for ($m = 1; $m <= 6; $m++):
-            $p  = ($m - 1) / 5; $th = deg2rad(180 - $p * 180);
-            $ox = 160 + 128 * cos($th); $oy = 160 - 128 * sin($th);
-            $ix = 160 + 112 * cos($th); $iy = 160 - 112 * sin($th);
-            $lx = 160 +  96 * cos($th); $ly = 160 -  96 * sin($th) + 4;
-          ?>
-            <line class="vadd-tick" x1="<?= round($ox, 1) ?>" y1="<?= round($oy, 1) ?>" x2="<?= round($ix, 1) ?>" y2="<?= round($iy, 1) ?>"/>
-            <text class="vadd-ticklbl" x="<?= round($lx, 1) ?>" y="<?= round($ly, 1) ?>" text-anchor="middle"><?= $m ?>&#215;</text>
-          <?php endfor; ?>
-          <g class="vadd-needle" filter="url(#vaddGlow)">
-            <path class="vn-point" d="M160 56 L165.5 156 L154.5 156 Z"/>
-            <path class="vn-tail" d="M156.5 161 L163.5 161 L160 178 Z"/>
-          </g>
-          <circle class="vadd-hub" cx="160" cy="160" r="11"/>
-          <circle class="vadd-hub-dot" cx="160" cy="160" r="4.5"/>
-        </svg>
-        <div class="vadd-readout">
-          <div class="vadd-mult">3.7<span>&#215;</span></div>
-          <div class="vadd-mult-lbl">value returned per $1 invested<br>vs. a local in-house hire</div>
-        </div>
-      </div>
-
-      <div class="calc-cta">
-        <div class="calc-cta-l">Ready to capture <strong id="calcCtaAmt">these savings</strong>?<br>Talk to a Client Success Manager (CSM) and we&rsquo;ll map the right team to your practice.</div>
-        <div class="calc-cta-btns">
-          <a href="#talk-to-csm" class="calc-cta-primary">Have a CSM Reach Out <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT — live calculator -->
+    <!-- Live calculator (single column) -->
     <div class="calc-main">
     <!-- Slider on top — drag to set team size -->
     <div class="calc-top">
@@ -484,34 +438,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
   </div>
 </section>
 
-<!-- TALK TO A CSM — standalone callback CTA (moved out of the calculator) -->
-<section class="sec csm-cta" id="talk-to-csm" aria-labelledby="csm-cta-h">
-  <div class="csm-cta-card reveal">
-    <div class="csm-cta-l">
-      <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Your Client Success Manager (CSM)</div>
-      <h2 class="csm-cta-h" id="csm-cta-h">Have a Client Success Manager (CSM) reach out</h2>
-      <p class="csm-cta-sub">Your dedicated Client Success Manager (CSM) is your single US point of contact &mdash; they run your bench end-to-end: sourcing, matching, onboarding and day-to-day support. No call center, no quotes to chase.</p>
-      <ul class="csm-cta-steps">
-        <li><span class="csm-step-n">1</span><div><strong>Share your details</strong><span>Tell us how to reach you &mdash; takes about 30 seconds.</span></div></li>
-        <li><span class="csm-step-n">2</span><div><strong>We reach out within 1 business day</strong><span>A real Client Success Manager (CSM) learns your workflow and goals.</span></div></li>
-        <li><span class="csm-step-n">3</span><div><strong>Meet your matched shortlist</strong><span>Interview vetted teammates &mdash; backed by the 30-Day Right-Fit Promise.</span></div></li>
-      </ul>
-    </div>
-    <form class="csm-cta-form" id="csmCallback" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Thanks! Your Client Success Manager will reach out within 1 business day.">
-      <div class="csm-cta-form-h">Request a callback</div>
-      <input class="csm-field" type="text"  name="name"   placeholder="Your name"               required autocomplete="name">
-      <input class="csm-field" type="email" name="email"  placeholder="Work email"               required autocomplete="email">
-      <input class="csm-field" type="tel"   name="phone"  placeholder="Phone (optional)"         autocomplete="tel">
-      <input type="hidden" name="source" value="csm-callback">
-      <input type="hidden" name="form" value="csm-callback">
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="csm-cta-btn btn-primary" type="submit">Have my CSM reach out <i class="fa-solid fa-arrow-right"></i></button>
-      <p class="csm-cta-note" data-lead-note>No spam. We respond within 1 business day &middot; covered by the 30-Day Right-Fit Promise.</p>
-    </form>
-  </div>
-</section>
-
 <!-- (GLOBAL section moved below — see after the Differentiators block) -->
 
 <!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
@@ -532,7 +458,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
       <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
     </div>
-    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
   <?php if (!empty($homepage_profiles)): ?>
@@ -556,7 +482,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <?php else: ?>
     <div class="prof-empty card">
       <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Request My Practice Growth Review</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
     </div>
   <?php endif; ?>
 </section>
@@ -566,13 +492,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <!-- GUARANTEE -->
 <section class="sec guarantee" id="guarantee" aria-labelledby="g-h">
   <div class="g-wrap reveal">
-    <div class="g-seal" aria-hidden="true">
-      <div class="g-seal-ring">
-        <i class="fa-solid fa-shield-halved g-seal-ico" aria-hidden="true"></i>
-        <div class="g-seal-h">VT</div>
-        <div class="g-seal-s">30-Day<br>Right-Fit<br>Promise</div>
-      </div>
-    </div>
     <div class="g-copy">
       <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The VT 30-Day Right-Fit Promise</div>
       <h2 class="sec-h2" id="g-h">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
@@ -605,7 +524,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-foot">
-        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Schedule My Operational Assessment <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Audit <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
     </div>
   </div>
@@ -746,44 +665,44 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <article class="cta-stage" data-cta-intent="buyers-checklist">
       <div class="cta-stage-tag">Just exploring</div>
       <span class="ico-circle lg"><i class="fa-solid fa-file-lines"></i></span>
-      <h3>Buy Back My Time</h3>
+      <h3>HIPAA VA Buyer&rsquo;s Checklist</h3>
       <p class="cta-stage-lead">22 questions to ask any healthcare VA agency before you sign. Drop your email &mdash; we&rsquo;ll send the PDF.</p>
       <ul class="cta-stage-list">
         <li>Compliance, BAA, audit-trail questions</li>
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Buy Back My Time <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
       <div class="cta-stage-tag">Ready to diagnose</div>
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
-      <h3>Operational Assessment</h3>
+      <h3>20-min Practice Value Audit</h3>
       <p class="cta-stage-lead">Diagnostic-only call. We map your top admin and clinical workflows and tell you what to delegate first.</p>
       <ul class="cta-stage-list">
         <li>Workflow inventory (8&ndash;12 mapped)</li>
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
       <div class="cta-stage-tag">Ready to talk</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
-      <h3>Practice Growth Review &amp; Jumpstart</h3>
+      <h3>Strategy Call &amp; Jumpstart</h3>
       <p class="cta-stage-lead">30-min call. Map your needs, define the role, get matched to candidates within 48 hours.</p>
       <ul class="cta-stage-list">
         <li>Role scope + EHR / specialty match</li>
         <li>Tailored candidate shortlist</li>
         <li>Onboarding plan + CSM intro</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Request My Practice Growth Review</a> and a Client Success Manager (CSM) will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
@@ -795,7 +714,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-modal-card">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
-    <h2 class="cta-modal-h" id="ccm-bc-h">Buy Back My Time</h2>
+    <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA Buyer&rsquo;s Checklist</h2>
     <p class="cta-modal-sub">Start by spotting what&rsquo;s stealing your team&rsquo;s hours. Drop your email and we&rsquo;ll send the HIPAA VA Buyer&rsquo;s Checklist &mdash; 22 questions to ask any agency before you sign.</p>
     <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Check your inbox &mdash; your checklist is on the way.">
@@ -818,7 +737,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-modal-card">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
-    <h2 class="cta-modal-h" id="ccm-pa-h">Schedule Your Operational Assessment</h2>
+    <h2 class="cta-modal-h" id="ccm-pa-h">Book Your 20-min Practice Value Audit</h2>
     <p class="cta-modal-sub">A diagnostic-only call: we map your top admin and clinical workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
     <form class="cta-modal-form" id="ctaAuditForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your audit.">
@@ -854,7 +773,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-modal-card">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
-    <h2 class="cta-modal-h" id="ccm-sc-h">Request Your Practice Growth Review</h2>
+    <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
     <p class="cta-modal-sub">A 30-minute growth review to map your needs, define the role, and get you a tailored shortlist within 48 hours.</p>
     <form class="cta-modal-form" id="ctaStrategyForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your Practice Growth Review.">
@@ -886,7 +805,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>

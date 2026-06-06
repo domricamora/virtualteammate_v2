@@ -54,7 +54,7 @@ if (isset($svc_vtc[$svc_slug])) {
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
   <p>Get a curated shortlist of HIPAA-certified candidates within days &mdash; matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
   </div>
 </section>

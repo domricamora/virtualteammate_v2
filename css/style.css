@@ -74,10 +74,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .ico-neutral i{color:rgba(255,255,255,0.78);}
 
 /* ───── ANIMATION UTILITIES ───── */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1);}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s cubic-bezier(.2,.7,.2,1),transform .55s cubic-bezier(.2,.7,.2,1);}
 .reveal.in{opacity:1;transform:none;}
-.reveal.d1{transition-delay:.08s;} .reveal.d2{transition-delay:.16s;} .reveal.d3{transition-delay:.24s;}
-.reveal.d4{transition-delay:.32s;} .reveal.d5{transition-delay:.40s;} .reveal.d6{transition-delay:.48s;}
+.reveal.d1{transition-delay:.06s;} .reveal.d2{transition-delay:.12s;} .reveal.d3{transition-delay:.18s;}
+.reveal.d4{transition-delay:.24s;} .reveal.d5{transition-delay:.30s;} .reveal.d6{transition-delay:.36s;}
 
 @keyframes floatOrb {
   0%   { transform:translate(0,0)        scale(1)    rotate(0deg); }
@@ -274,7 +274,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 
 /* All five trust items flow on one row (wrapping only when the column is too
    narrow); the forced 3-on-top/2-below break was removed with the hero redesign. */
-.trust-row{display:flex;align-items:center;gap:18px 22px;flex-wrap:wrap;margin-bottom:0;}
+.trust-row{grid-column:1 / -1;width:100%;display:flex;align-items:center;justify-content:center;gap:18px 30px;flex-wrap:wrap;margin:-24px 0 0;padding-top:16px;border-top:1px solid rgba(255,255,255,0.12);}
 .trust-item{
   display:flex;align-items:center;gap:9px;
   font-size:13.5px;color:rgba(255,255,255,0.78);font-weight:600;
@@ -447,12 +447,12 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
    size that scales with the viewport so it shrinks to fit narrow phones rather
    than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
    it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
-#calc-h{white-space:nowrap;font-size:clamp(13px,4vw,50px);}
+#calc-h{font-size:clamp(28px,4vw,46px);}
 .sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;}
 
 /* ───── ROI CALCULATOR ───── */
 .calc-wrap{
-  padding:72px 80px 40px;position:relative;
+  padding:72px 80px 72px;position:relative;
   background:
     radial-gradient(800px 500px at 18% 0%, rgba(57,25,186,0.30), transparent 60%),
     radial-gradient(700px 600px at 88% 50%, rgba(223,169,73,0.22), transparent 60%);
@@ -477,7 +477,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
    gradient, covering the center — so the rotating glow only shows on the edge.
    The pulsing box-shadow (vaddGlow) blooms outward from the wrapper too. */
 .calc-glow{
-  position:relative;max-width:1280px;margin:0 auto;
+  position:relative;max-width:760px;margin:0 auto;
   padding:3px;border-radius:31px;
   background:conic-gradient(from var(--vadd-spin),
     rgba(223,169,73,0.35) 0deg, rgba(245,228,184,1) 70deg, rgba(124,58,237,0.95) 150deg,
@@ -490,7 +490,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 
 .calc{
   position:relative;
-  display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1fr);gap:0;
+  display:grid;grid-template-columns:1fr;gap:0;
   /* Static gradient background — the content panel never rotates. */
   background:linear-gradient(150deg, #1d1547 0%, #160e34 58%, #120a2c 100%);
   border-radius:28px;overflow:hidden;
@@ -603,7 +603,7 @@ select option:checked{background:#3919BA;color:#fff;}
 .calc-foot{margin-top:6px;font-size:11.5px;color:rgba(255,255,255,0.42);font-weight:500;line-height:1.55;}
 
 .calc-results{
-  padding:34px 40px 40px;position:relative;
+  padding:26px 30px 30px;position:relative;
   background:
     radial-gradient(380px 380px at 80% 10%, rgba(223,169,73,0.16), transparent 60%),
     radial-gradient(420px 420px at 15% 90%, rgba(57,25,186,0.32), transparent 60%);
@@ -1602,7 +1602,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 }
 .g-wrap{
   position:relative;z-index:1;
-  display:grid;grid-template-columns:190px 1fr;gap:40px;align-items:center;
+  display:grid;grid-template-columns:1fr;gap:40px;align-items:center;
   max-width:1040px;margin:0 auto;
   background:rgba(20,15,55,0.48);
   backdrop-filter:var(--glass-blur);

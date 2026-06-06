@@ -210,7 +210,7 @@ include __DIR__ . '/../includes/nav.php';
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-ops-assessment" data-cta-intent="ops-assessment">Schedule an Operational Assessment</a> and a Client Success Manager (CSM) will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-ops-assessment" data-cta-intent="ops-assessment">Schedule My Operational Assessment</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the

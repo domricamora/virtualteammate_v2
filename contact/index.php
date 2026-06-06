@@ -310,7 +310,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Ready to <em style="color:var(--gold);font-style:normal;">Start the Conversation</em>?</h2>
   <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline &mdash; no commitment required.</p>
   <div class="svc-cta-btns">
-    <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
   </div>
 </section>

@@ -301,7 +301,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Want Results Like These on <em style="color:var(--gold);font-style:normal;">Your</em> Scorecard?</h2>
   <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Request My Practice Growth Review <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
   </div>
 </section>
