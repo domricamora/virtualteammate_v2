@@ -106,9 +106,9 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <!-- CASE STUDIES — Client KPI Results · Latest Audit (moved directly under the hero marquee) -->
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Client KPI Results &middot; Latest Audit</div>
-    <h2 class="sec-h2" id="cs-h">Committed to Outcomes. <em>Proven in Results.</em></h2>
-    <p class="sec-sub">We deliver real client results and measurable value through virtual teammates who consistently perform against the goals that matter most.</p>
+    <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
+    <h2 class="sec-h2" id="cs-h">The Results Speak for <em>Themselves.</em></h2>
+    <p class="sec-sub">No projections, no spin &mdash; just real numbers from our latest client audit, where Virtual Teammates consistently beat the targets that matter most to your practice.</p>
   </div>
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
@@ -118,13 +118,13 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+30%</span></div>
         </div>
-        <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>148%</strong> of goal</div>
+        <div class="case-metric-foot">Payment posting also beat target &mdash; <strong>+48%</strong> of goal</div>
       </div>
       <p class="case-q">Our virtual teammate cleared insurance verifications <strong>30% above goal</strong> and payment posting <strong>48% over target</strong> &mdash; turning a challenging AR into one of the practice&rsquo;s strongest on record.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-ribbon"></i></span>
         <div>
-          <div class="case-name">Cancer Care Center</div>
+          <div class="case-name">Cancer Center</div>
           <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VA</div>
         </div>
       </div>
@@ -137,7 +137,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+60%</span></div>
         </div>
-        <div class="case-metric-foot">Claims volume also beat target &mdash; <strong>147%</strong> of goal</div>
+        <div class="case-metric-foot">Claims volume also beat target &mdash; <strong>+47%</strong> of goal</div>
       </div>
       <p class="case-q">A dedicated billing teammate achieved pre-certs <strong>60% over target</strong> and claims volume <strong>47% above plan</strong> &mdash; keeping authorizations ahead of schedule and clean claims moving.</p>
       <div class="case-auth">
@@ -154,11 +154,11 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="case-metric-h">Payment Posting</div>
         <div class="case-metric-row">
     
-          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+140%</span></div>
+          <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+40%</span></div>
         </div>
-        <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>244%</strong> of goal</div>
+        <div class="case-metric-foot">Insurance verifications also beat target &mdash; <strong>+44%</strong> of goal</div>
       </div>
-      <p class="case-q">Payment posting landed <strong>140% over target</strong> and insurance verifications <strong>144% over</strong> &mdash; streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
+      <p class="case-q">Payment posting landed <strong>+40% over target</strong> and insurance verifications <strong>+44% over</strong> &mdash; streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-heart-pulse"></i></span>
         <div>
