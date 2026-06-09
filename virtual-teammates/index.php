@@ -272,7 +272,6 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         </p>
         <div class="vtd-hero-cta">
           <a href="#vtd-match" class="btn-primary">Get Your Value Match <i class="fa-solid fa-arrow-right"></i></a>
-          <span class="vtd-hero-stat"><strong><?= (int) $totalVts ?>+</strong> teammates on the bench</span>
         </div>
       </div>
       <?php
@@ -292,7 +291,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
                   onerror="this.style.display='none';this.parentNode.classList.add('vtd-hero-pic--empty');"></span>
           <?php endforeach; ?>
         </div>
-        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> <?= (int) $totalVts ?>+ vetted teammates</span>
+        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> Vetted teammates</span>
       </div>
       <?php endif; ?>
     </div>
@@ -361,8 +360,6 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       </select>
       <button type="button" id="vtdReset" class="vtd-reset">Reset</button>
     </div>
-
-    <p class="vtd-count" id="vtdCount" aria-live="polite"></p>
 
     <?php if ($totalVts === 0): ?>
       <div class="prof-empty card">
