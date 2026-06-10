@@ -97,7 +97,8 @@ if ($pdo instanceof PDO) {
              FROM vt_profiles p
              JOIN users u ON u.id = p.user_id
              WHERE u.role IN ('vt_hired','vt_onpool') AND u.active = 1
-               AND u.email NOT LIKE 'demo-%'{$exclSql}
+               AND u.email NOT LIKE 'demo-%'
+               AND p.department IN ('Medical','Dental'){$exclSql}
              ORDER BY p.department, u.first_name"
         )->fetchAll(PDO::FETCH_ASSOC);
     } catch (Throwable $_) {
@@ -201,7 +202,7 @@ ksort($deptSkills);
 $totalVts = count($vts);
 
 /* ── SEO header vars ── */
-$page_title       = 'Virtual Teammates — Hire Vetted Medical, Dental & Business Virtual Assistants';
+$page_title       = 'Virtual Teammates — Hire Vetted Medical & Dental Virtual Assistants';
 $page_description = 'Browse Virtual Teammate\'s bench of HIPAA-certified, pre-vetted virtual assistants for medical, dental and business teams. Filter by department and skill, then get matched in days.';
 $og_title         = 'Meet Our Virtual Teammates — Vetted VAs Ready to Join Your Team';
 $og_description   = 'Search and filter our roster of HIPAA-certified medical, dental and business virtual assistants. See skills, experience and credentials, then book a value-matching call.';
@@ -237,7 +238,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             '@type'       => 'CollectionPage',
             '@id'         => 'https://virtualteammate.com/virtual-teammates/#page',
             'url'         => 'https://virtualteammate.com/virtual-teammates/',
-            'name'        => 'Virtual Teammates — Vetted Medical, Dental & Business Virtual Assistants',
+            'name'        => 'Virtual Teammates — Vetted Medical & Dental Virtual Assistants',
             'description' => $page_description,
             'isPartOf'    => ['@id' => 'https://virtualteammate.com/#website'],
             'about'       => ['@id' => 'https://virtualteammate.com/#org'],
@@ -264,7 +265,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     <div class="vtd-hero-inner reveal">
       <div class="vtd-hero-text">
         <div class="sec-lbl"><i class="fa-solid fa-users"></i> Our Virtual Teammates</div>
-        <h1 class="sec-h2" id="vtd-h1" style="max-width:18ch;">Hire a Vetted Medical, Dental &amp; Business Virtual Assistant</h1>
+        <h1 class="sec-h2" id="vtd-h1" style="max-width:18ch;">Hire a Vetted Medical &amp; Dental Virtual Assistant</h1>
         <p class="vtd-lede">
           Meet the Virtual Teammate bench — HIPAA-certified, pre-screened virtual assistants ready to support
           your practice or business. Browse real teammates by department and skill, then get matched to the
@@ -275,25 +276,18 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         </div>
       </div>
       <?php
-        // Random teammates in the hero collage, reshuffled on every page load.
-        // Prefer VTs that have a real photo so the collage shows faces, not
-        // placeholders; fall back to the full roster if too few have photos.
-        $heroPool = array_values(array_filter($vts, static fn($v) => !empty($v['has_photo'])));
-        if (count($heroPool) < 6) { $heroPool = $vts; }
-        shuffle($heroPool);
-        $heroIds = array_slice(array_column($heroPool, 'id'), 0, 6);
-        if ($heroIds):
+        // Fixed, curated collage — medical & dental teammates in white coats
+        // (sourced from Unsplash, converted to WebP). No longer randomized.
+        $heroPics = ['med-1', 'med-2', 'med-3', 'med-4', 'med-5', 'med-6'];
       ?>
       <div class="vtd-hero-visual" aria-hidden="true">
         <div class="vtd-hero-collage">
-          <?php foreach ($heroIds as $hi): ?>
-            <span class="vtd-hero-pic"><img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $hi ?>&amp;thumb=1" alt="" loading="lazy" width="150" height="150"
-                  onerror="this.style.display='none';this.parentNode.classList.add('vtd-hero-pic--empty');"></span>
+          <?php foreach ($heroPics as $pic): ?>
+            <span class="vtd-hero-pic"><img src="<?= $home_base ?>images/talent-hero/<?= $pic ?>.webp" alt="" loading="lazy" width="150" height="150"></span>
           <?php endforeach; ?>
         </div>
         <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> Vetted teammates</span>
       </div>
-      <?php endif; ?>
     </div>
   </section>
 
