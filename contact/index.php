@@ -194,7 +194,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-quick-card reveal d4">
       <div class="ico"><i class="fa-solid fa-lock"></i></div>
       <div class="nm">Existing Clients</div>
-      <div class="sub"><a href="https://virtualteammate.com/login-page/" style="color:var(--gold,#d4a64a);text-decoration:none;font-weight:600;">Portal login &raquo;</a></div>
+      <div class="sub"><a href="/portal/" style="color:var(--gold,#d4a64a);text-decoration:none;font-weight:600;">Portal login &raquo;</a></div>
     </div>
   </div>
 </section>
