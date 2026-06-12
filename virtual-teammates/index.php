@@ -448,7 +448,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         </div>
         <div class="vtd-spec">
           <h3><i class="fa-solid fa-tooth"></i> Dental virtual assistants</h3>
-          <p>Dental front-desk, billing, insurance and treatment-plan coordination so your chairside team can focus on patients. <a href="<?= $home_base ?>services/dental-administrative-support/">Explore dental VAs</a>.</p>
+          <p>Dental front-desk, billing, insurance and treatment-plan coordination so your chairside team can focus on patients. <a href="<?= $home_base ?>services/dental-admin/">Explore dental VAs</a>.</p>
         </div>
         <div class="vtd-spec">
           <h3><i class="fa-solid fa-briefcase"></i> Business &amp; admin virtual assistants</h3>
