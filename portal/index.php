@@ -176,7 +176,11 @@ function handle_login(): void
                 ->execute([':id' => $u['id']]);
             audit_log('login', 'user', (int) $u['id']);
             flash('success', 'Welcome back, ' . e(user_display_name($u)) . '.');
-            redirect($next !== '' && str_starts_with($next, '/') ? $next : portal_url('dashboard'));
+            // Only honor a same-origin path. A leading "//" or "/\" is a
+            // protocol-relative URL the browser sends off-site (open redirect).
+            $safeNext = ($next !== '' && $next[0] === '/' && !preg_match('#^/[\\\\/]#', $next))
+                ? $next : portal_url('dashboard');
+            redirect($safeNext);
         } else {
             $error = 'Invalid email or password.';
             audit_log('login_failed', 'user', null, 'email=' . $email);

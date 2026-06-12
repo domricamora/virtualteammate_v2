@@ -15,6 +15,48 @@ require __DIR__ . '/bootstrap.php';
 
 const SUPER_ADMIN_EMAIL = 'nricamora@virtualteammate.com';
 
+/* ── Access control ──────────────────────────────────────────────────────────
+ * The installer is also the live schema-migration runner, so it must never be
+ * reachable by anonymous web traffic. Two regimes:
+ *   • Already installed (a super_admin exists)  → require a logged-in super_admin.
+ *   • Not yet installed (the dangerous window)  → allow only from localhost/CLI,
+ *     or with the secret key from the gitignored portal/install.key.php. Without
+ *     this gate, the first anonymous visitor to a fresh deploy is shown the
+ *     generated super-admin password (account takeover).
+ */
+$vtInstallLocal = PHP_SAPI === 'cli'
+    || in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true);
+
+$vtSuperExists = false;
+if (file_exists(PORTAL_DB_PATH)) {
+    try {
+        $vtChk = new PDO('sqlite:' . PORTAL_DB_PATH);
+        $vtChk->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $vtSuperExists = (bool) $vtChk->query(
+            "SELECT 1 FROM users WHERE role = 'super_admin' AND active = 1 LIMIT 1"
+        )->fetchColumn();
+        $vtChk = null;
+    } catch (Throwable $_) { $vtSuperExists = false; }
+}
+
+if ($vtSuperExists) {
+    // Post-install: only an authenticated super_admin may re-run migrations.
+    require_role('super_admin');
+} elseif (!$vtInstallLocal) {
+    // Pre-install on a remote host: require the secret install key. Drop a
+    // portal/install.key.php (see install.key.php.example) returning the secret,
+    // then call install.php?key=THE_SECRET to perform first-time setup.
+    $vtExpectedKey = '';
+    $vtKeyFile     = __DIR__ . '/install.key.php';
+    if (is_file($vtKeyFile)) { $vtExpectedKey = trim((string) (include $vtKeyFile)); }
+    $vtSuppliedKey = (string) ($_GET['key'] ?? $_POST['key'] ?? '');
+    if ($vtExpectedKey === '' || !hash_equals($vtExpectedKey, $vtSuppliedKey)) {
+        http_response_code(403);
+        die('Installer locked. First-time setup requires the secret from '
+            . 'portal/install.key.php, passed as <code>?key=…</code>.');
+    }
+}
+
 $messages = [];
 $dbPath   = PORTAL_DB_PATH;
 $dataDir  = dirname($dbPath);

@@ -12,7 +12,12 @@
 declare(strict_types=1);
 
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+// Show errors only on localhost/CLI (dev). On a public host, leaking stack
+// traces, file paths and SQL is an information-disclosure risk — log instead.
+$vtIsLocalHost = PHP_SAPI === 'cli'
+    || in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'], true);
+ini_set('display_errors', $vtIsLocalHost ? '1' : '0');
+ini_set('log_errors', '1');
 
 if (PHP_SAPI !== 'cli') {
     ini_set('session.use_strict_mode',  '1');

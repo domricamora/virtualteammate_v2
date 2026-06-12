@@ -17,6 +17,8 @@ _*.html
 .env.*
 # Google Workspace SMTP credentials — server-only, never commit (template is *.example)
 portal/smtp.local.php
+# Installer secret key — server-only, unlocks first-time setup (template is *.example)
+portal/install.key.php
 
 # Portal SQLite DB — per-environment, never committed or deployed
 data/portal.sqlite
