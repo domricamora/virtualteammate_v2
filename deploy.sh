@@ -54,6 +54,8 @@ TOP_DIRS=(
   "contact"
   "guarantee"
   "virtual-teammates"
+  "terms"
+  "privacy-policy"
   "portal"
 )
 

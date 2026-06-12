@@ -43,8 +43,8 @@ if (isset($svc_vtc[$svc_slug])) {
     $vtc_label      = 'Meet the Bench';
     $vtc_heading    = 'Meet Our <em>' . $sce($sc['role']) . '</em> Virtual Teammates';
     $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates &mdash; interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
-    $vtc_cta_href   = $home_base . '#cta-strategy-call';
-    $vtc_cta_intent = 'strategy-call';
+    $vtc_cta_href   = $home_base . '#cta-request-teammate';
+    $vtc_cta_intent = 'request-teammate';
     $vtc_cta_label  = 'Request a teammate';
     include __DIR__ . '/vt-cards.php';
 }
@@ -54,7 +54,7 @@ if (isset($svc_vtc[$svc_slug])) {
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
   <p>Get a curated shortlist of HIPAA-certified candidates within days &mdash; matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
   </div>
 </section>

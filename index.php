@@ -54,22 +54,22 @@ include 'includes/nav.php';
   </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in a Week</em> &mdash; for <em>73% Less</em>.</span></h1>
+    <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in Weeks, Not Months</em> &mdash; for <em>73% Less</em>.</span></h1>
     <p class="hero-sub reveal d2">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone &mdash; to own billing, scribing, scheduling and prior auth. No hiring grind.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta-strategy-call" class="btn-glass" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-practice-audit" class="btn-glass" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     </div>
+    <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Or get the HIPAA VA Buyer&rsquo;s Checklist &mdash; just your email <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
   <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
   <div class="hero-stats reveal d5">
     <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
-    <div class="hstat"><div class="hstat-num" data-count="52" data-suffix="%">0%</div><div class="hstat-lbl">Productivity Lift</div></div>
-    <div class="hstat"><div class="hstat-num" data-count="67" data-suffix="%">0%</div><div class="hstat-lbl">Revenue Growth</div></div>
     <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
+    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl">Avg Rating &middot; 200 Reviews</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">0-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
   </div>
 
   <!-- Trust row — full-width strip spanning the whole hero -->
@@ -285,7 +285,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta-strategy-call" class="btn-gold" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -305,8 +305,8 @@ $mq_srcs = array_values(array_map(static function ($p) {
         <i class="fa-solid fa-calendar-check pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
-      <h3 class="pstep-title">Book a Strategy Consultation</h3>
-      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm a strategy-call slot <strong>within one business day</strong>. The call itself takes 30 minutes and maps your practice, workflows, and the exact clinical or admin support you need.</p>
+      <h3 class="pstep-title">Book a Practice Staffing Audit</h3>
+      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm your audit slot <strong>within one business day</strong>. The 20-minute diagnostic call maps your practice, workflows, and the exact clinical or admin support to delegate first.</p>
     </div>
     <div class="pstep reveal d2">
       <div class="pstep-head">
@@ -328,7 +328,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta-strategy-call" class="btn-primary" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -458,7 +458,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
       <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
     </div>
-    <a href="#cta-strategy-call" data-cta-intent="strategy-call" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 
   <?php if (!empty($homepage_profiles)): ?>
@@ -471,7 +471,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
         $delay = 'd' . (($i % 4) + 1);
         $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
-        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-strategy-call" data-cta-intent="strategy-call" aria-label="Request a teammate like <?= htmlspecialchars($name, ENT_QUOTES) ?>">
+        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-request-teammate" data-cta-intent="request-teammate" data-teammate="<?= htmlspecialchars($name, ENT_QUOTES) ?>" data-role="<?= htmlspecialchars($role, ENT_QUOTES) ?>" aria-label="Request a teammate like <?= htmlspecialchars($name, ENT_QUOTES) ?>">
           <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
@@ -482,7 +482,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
   <?php else: ?>
     <div class="prof-empty card">
       <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
     </div>
   <?php endif; ?>
 </section>
@@ -514,7 +514,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-audit">
-        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Operational Assessment covers</div>
+        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Practice Staffing Audit covers</div>
         <ul>
           <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice &mdash; intake, charts, refills, billing, scheduling, recall, prior auth.</li>
           <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
@@ -524,8 +524,52 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-foot">
-        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECURITY & COMPLIANCE — every claim translated into plain language: what the
+     safeguard is, and what it actually means for the practice. -->
+<section class="sec comp-section" id="security" aria-labelledby="comp-h">
+  <div style="text-align:center;max-width:680px;margin:0 auto;" class="reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-lock"></i> Security &amp; Compliance</div>
+    <h2 class="sec-h2">Patient Data, <em>Protected by Design</em></h2>
+    <p class="sec-sub" style="margin:0 auto;">Compliance here isn&rsquo;t a checkbox &mdash; here&rsquo;s what each safeguard is, and what it actually means for your practice, in plain English.</p>
+  </div>
+  <div class="comp-grid">
+    <div class="comp-card reveal d1">
+      <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
+      <h3>HIPAA Training &amp; Certification</h3>
+      <p class="comp-what"><strong>What it is:</strong> every healthcare and dental VA completes formal HIPAA training and certification <em>before</em> they touch patient data.</p>
+      <p class="comp-means"><strong>What it means for you:</strong> the person handling your charts knows exactly what counts as protected health information &mdash; and the rules for keeping it private &mdash; held to the same standard as your in-house staff.</p>
+    </div>
+    <div class="comp-card reveal d2">
+      <span class="ico-circle lg"><i class="fa-solid fa-file-signature"></i></span>
+      <h3>BAA-Compatible Agreement</h3>
+      <p class="comp-what"><strong>What it is:</strong> a Business Associate Agreement (BAA) is the contract HIPAA requires whenever an outside party handles patient data for you. Every VT VA signs a BAA-compatible confidentiality agreement.</p>
+      <p class="comp-means"><strong>What it means for you:</strong> our data-handling duties are in writing and legally binding &mdash; not a verbal promise you have to take on trust.</p>
+    </div>
+    <div class="comp-card reveal d3">
+      <span class="ico-circle lg"><i class="fa-solid fa-building-shield"></i></span>
+      <h3>SOC 2 Type 2-Aligned Controls</h3>
+      <p class="comp-what"><strong>What it is:</strong> SOC 2 is the security framework IT and software vendors are measured against. We run aligned controls on the VT infrastructure that touches your data.</p>
+      <p class="comp-means"><strong>What it means for you:</strong> the laptops, logins and networks your VA works from are locked down to a recognized industry standard &mdash; not left to whatever each person happens to have at home.</p>
+    </div>
+    <div class="comp-card reveal d1">
+      <span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span>
+      <h3>Full Audit Trail</h3>
+      <p class="comp-what"><strong>What it is:</strong> every time a VA opens, views or changes something in your systems it&rsquo;s logged &mdash; who, what, when, from where &mdash; and retained for 12 months.</p>
+      <p class="comp-means"><strong>What it means for you:</strong> if you ever need to know exactly who accessed a record and when, there&rsquo;s a reviewable paper trail, available from your CSM on request.</p>
+    </div>
+    <div class="comp-card reveal d2">
+      <span class="ico-circle lg"><i class="fa-solid fa-laptop-medical"></i></span>
+      <h3>Device &amp; Access Security</h3>
+      <p class="comp-what"><strong>What it is:</strong> encrypted laptops, hardware multi-factor authentication, a mandatory password manager, controlled network access and least-privilege EHR permissions.</p>
+      <p class="comp-means"><strong>What it means for you:</strong> your VA can reach only the systems they need, only from a secured device &mdash; so a lost laptop or stolen password can&rsquo;t expose your records.</p>
     </div>
   </div>
 </section>
@@ -541,7 +585,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
       <p class="sec-sub">Short-staffed and tired of the hiring grind? We fill your exact gap fast &mdash; vetted VAs matched to your specialty, software and US hours, fully managed by your dedicated CSM.</p>
 
       <ul class="global-benefits">
-        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in about a week.</strong> Stop carrying open seats &mdash; a curated shortlist lands in 48 hours and your VA is live in 1&ndash;2 weeks.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in weeks, not months.</strong> Stop carrying open seats &mdash; a curated shortlist lands in 5&ndash;7 business days and your VA is live in 1&ndash;2 weeks.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>Covered in your US time zone.</strong> Morning, afternoon, evening or overnight &mdash; your VA works your hours, not a call-center queue.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><span><strong>Never short-handed again.</strong> Sick day, PTO or turnover? Trained backup coverage steps in within hours, at no extra cost &mdash; the work never goes dark.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench lets us recruit for your specialty, EHR, language and accent &mdash; not just whoever&rsquo;s available.</span></li>
@@ -644,8 +688,8 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time VA</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate &mdash; no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire &mdash; use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the VA isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Every healthcare and dental VA completes <strong>HIPAA training and certification</strong> before placement and signs a BAA-compatible confidentiality agreement. We operate <strong>SOC 2 Type 2-aligned controls</strong> on the VT infrastructure that touches your data &mdash; encrypted laptops, hardware MFA, mandatory password manager, controlled network egress, least-privilege EHR access. Every access event by a VT VA is captured in an <strong>audit trail</strong> (who, what, when, from where), retained for 12 months and reviewable on request by your Client Success Manager (CSM).</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist within <strong>48 hours</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every VA, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>SOC 2 Type 2-aligned controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a VA started?</div><div class="faq-a">Curated shortlist in <strong>5&ndash;7 business days</strong>. After you pick your VA, onboarding wraps in <strong>1&ndash;2 weeks</strong> — agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your VAs know?</div><div class="faq-a">Medical VAs are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental VAs are proficient in Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Wherever the best fit lives. Our global recruiting reach lets us match for your specialty, EHR, accent, language, and US time-zone shift &mdash; not just whoever happens to be on the bench. You hire for skill set; we handle the sourcing.</div></div>
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager (CSM) is on your account &mdash; reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
@@ -672,27 +716,27 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
       <div class="cta-stage-tag">Ready to diagnose</div>
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
-      <h3>20-min Practice Value Audit</h3>
+      <h3>20-min Practice Staffing Audit</h3>
       <p class="cta-stage-lead">Diagnostic-only call. We map your top admin and clinical workflows and tell you what to delegate first.</p>
       <ul class="cta-stage-list">
         <li>Workflow inventory (8&ndash;12 mapped)</li>
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
       <div class="cta-stage-tag">Ready to talk</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <h3>Strategy Call &amp; Jumpstart</h3>
-      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get matched to candidates within 48 hours.</p>
+      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get a curated shortlist in 5&ndash;7 business days.</p>
       <ul class="cta-stage-list">
         <li>Role scope + EHR / specialty match</li>
         <li>Tailored candidate shortlist</li>
@@ -702,7 +746,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to talk it through? <a href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call</a> and a Client Success Manager (CSM) will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to start with a diagnostic? <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
@@ -722,7 +766,6 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       <input type="hidden" name="form" value="homepage-checklist">
       <input type="hidden" name="source" value="HIPAA VA Buyer&rsquo;s Checklist">
       <div class="cf-row" style="margin-bottom:16px;">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
@@ -737,13 +780,13 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-modal-card">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
-    <h2 class="cta-modal-h" id="ccm-pa-h">Book Your 20-min Practice Value Audit</h2>
+    <h2 class="cta-modal-h" id="ccm-pa-h">Book My Practice Staffing Audit</h2>
     <p class="cta-modal-sub">A diagnostic-only call: we map your top admin and clinical workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
     <form class="cta-modal-form" id="ctaAuditForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your audit.">
       <input type="hidden" name="intent" value="practice-audit">
       <input type="hidden" name="form" value="homepage-practice-audit">
-      <input type="hidden" name="source" value="Operational Assessment">
+      <input type="hidden" name="source" value="Practice Staffing Audit">
       <select class="cf-field" name="role" style="margin-bottom:16px;">
         <option value="">Biggest bottleneck right now (optional)</option>
         <option>Front desk / phones / scheduling</option>
@@ -762,7 +805,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
     </form>
   </div>
@@ -774,7 +817,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
     <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
-    <p class="cta-modal-sub">A 30-minute growth review to map your needs, define the role, and get you a tailored shortlist within 48 hours.</p>
+    <p class="cta-modal-sub">A 30-minute growth review to map your needs, define the role, and get you a tailored shortlist in 5&ndash;7 business days.</p>
     <form class="cta-modal-form" id="ctaStrategyForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your Practice Growth Review.">
       <input type="hidden" name="intent" value="strategy-call">
@@ -806,6 +849,35 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
       <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
+    </form>
+  </div>
+</div>
+
+<!-- Candidate-request modal — opened by the teammate profile cards. The clicked
+     card's name (data-teammate) is injected into the heading + the hidden
+     vt_interest field by the modal script, so the lead records who they asked
+     for. Works with JS off too (opens via #cta-request-teammate); the name just
+     stays generic. -->
+<div class="cta-modal" id="cta-request-teammate" role="dialog" aria-modal="true" aria-labelledby="ccm-rt-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-id-badge"></i> Request this teammate</div>
+    <h2 class="cta-modal-h" id="ccm-rt-h">Request a Teammate <span data-teammate-name></span></h2>
+    <p class="cta-modal-sub">Drop your name and work email and your Client Success Manager will check this teammate&rsquo;s availability &mdash; or line up the closest match on our bench, matched to your specialty, EHR and time zone.</p>
+    <form class="cta-modal-form" id="ctaRequestForm" method="post" action="<?= $home_base ?>lead.php"
+          data-lead-thanks="Thanks! Your Client Success Manager will be in touch within one business day about this teammate.">
+      <input type="hidden" name="intent" value="request-teammate">
+      <input type="hidden" name="form" value="homepage-request-teammate">
+      <input type="hidden" name="source" value="Request a Teammate">
+      <input type="hidden" name="vt_interest" data-requested-teammate value="">
+      <div class="cf-row" style="margin-bottom:16px;">
+        <input class="cf-field" name="first_name" placeholder="First Name" required>
+        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
+      </div>
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Request This Teammate <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>
@@ -868,6 +940,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   function handleChecklist(e)     { e.preventDefault(); postLead(this); }
   function handlePracticeAudit(e) { e.preventDefault(); postLead(this); }
   function handleStrategyCall(e)  { e.preventDefault(); postLead(this); }
+  function handleRequest(e)       { e.preventDefault(); postLead(this); }
 
   function attach(id, handler) {
     var form = document.getElementById(id);
@@ -880,6 +953,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     attach('ctaChecklistForm', handleChecklist);
     attach('ctaAuditForm',     handlePracticeAudit);
     attach('ctaStrategyForm',  handleStrategyCall);
+    attach('ctaRequestForm',   handleRequest);
   }
   // Bind now (this script sits after every form in the DOM) and again on
   // DOMContentLoaded as a safety net. attach() is idempotent per form.
@@ -943,9 +1017,26 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     }
   }
   // Capture scroll position before the hash flips so the open is jump-free.
+  // For the candidate-request modal, also inject the clicked teammate's name
+  // (from data-teammate) into the heading + the hidden vt_interest field so the
+  // lead records exactly who was requested.
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#cta-"]');
-    if (a && modals[a.getAttribute('href')]) { lock(); }
+    if (!a || !modals[a.getAttribute('href')]) { return; }
+    var team = a.getAttribute('data-teammate');
+    if (team) {
+      var m = modals['#cta-request-teammate'];
+      if (m) {
+        var nameEl = m.querySelector('[data-teammate-name]');
+        if (nameEl) { nameEl.textContent = 'Like ' + team; }
+        var hidden = m.querySelector('[data-requested-teammate]');
+        if (hidden) {
+          var role = a.getAttribute('data-role');
+          hidden.value = team + (role ? ' (' + role + ')' : '');
+        }
+      }
+    }
+    lock();
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modals[location.hash]) { location.hash = '#cta'; }

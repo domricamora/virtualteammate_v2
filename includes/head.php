@@ -34,7 +34,13 @@ $canonical        = $canonical        ?? $site_url . '/';
 $og_title         = $og_title         ?? $page_title;
 $og_description   = $og_description   ?? $page_description;
 $is_homepage      = $is_homepage      ?? false;
-$robots           = $robots           ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+// Non-production hosts (localhost + any staging domain) must never be indexed.
+// A page can still force its own directive by setting $robots before this include.
+$__vt_host        = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+$__vt_nonprod     = str_contains($__vt_host, 'localhost') || str_starts_with($__vt_host, '127.0.0.1') || str_contains($__vt_host, 'staging');
+$robots           = $robots           ?? ($__vt_nonprod
+                        ? 'noindex,nofollow'
+                        : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
 $breadcrumbs      = $breadcrumbs      ?? null;
 // Relative URL prefix back to site root. Homepage uses './'; subpages override
 // (e.g. /services/<slug>/index.php sets '../../') so asset and link refs resolve

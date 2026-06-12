@@ -168,7 +168,7 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
           </div>
         <?php endif; ?>
         <div class="vl-sec" style="margin-bottom:0;text-align:center;padding-top:8px;">
-          <a class="vl-cta" href="index.php#cta-strategy-call">Add <?= $e($vt['first_name'] ?: 'this teammate') ?> to your team &rarr;</a>
+          <a class="vl-cta" href="index.php#cta-request-teammate">Add <?= $e($vt['first_name'] ?: 'this teammate') ?> to your team &rarr;</a>
         </div>
       </div>
     </div>

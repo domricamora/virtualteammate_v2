@@ -59,7 +59,7 @@ $hide_footer = $hide_footer ?? false;
     </nav>
   </div>
   <div class="ft-bottom">
-    <div class="ft-copy">&copy; <?= date('Y') ?> Virtual Teammate &middot; <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a> &middot; <a href="/portal/" class="ft-portal-link"><i class="fa-solid fa-lock" aria-hidden="true"></i> Portal Login</a></div>
+    <div class="ft-copy">&copy; <?= date('Y') ?> Virtual Teammate &middot; <a href="<?= $home_base ?>terms/">Terms</a> &amp; <a href="<?= $home_base ?>privacy-policy/">Privacy Policy</a> &middot; <a href="/portal/" class="ft-portal-link"><i class="fa-solid fa-lock" aria-hidden="true"></i> Portal Login</a></div>
     <div class="ft-seo" aria-hidden="true">
       <span>Medical Virtual Assistant</span>
       <span>Dental Virtual Assistant</span>

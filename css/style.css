@@ -246,7 +246,16 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   border-radius:0 10px 10px 0;
 }
 .hero-guarantee strong{color:#fff;font-weight:800;}
-.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:46px;align-items:center;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+.hero-textlink{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:14.5px;font-weight:700;color:rgba(255,255,255,0.78);
+  text-decoration:none;margin-bottom:46px;
+  border-bottom:1px solid rgba(255,255,255,0.22);padding-bottom:2px;
+  transition:color .2s,border-color .2s;
+}
+.hero-textlink:hover{color:#fff;border-color:var(--gold);}
+.hero-textlink i{font-size:12px;color:var(--gold);}
 .btn-primary{
   background:var(--violet-dk);color:#fff;
   padding:18px 36px;border-radius:10px;
@@ -300,6 +309,8 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .hstat:nth-child(2n){border-right:none;}
 .hstat:nth-child(n+3){border-bottom:none;}
 .hstat-num{font-size:46px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.02em;}
+.hstat-rating{display:inline-flex;align-items:baseline;gap:4px;}
+.hstat-rating i{font-size:30px;}
 .hstat-lbl{font-size:12px;color:rgba(255,255,255,0.6);margin-top:8px;text-transform:uppercase;letter-spacing:0.7px;font-weight:700;}
 
 /* ───── HERO RIGHT VISUAL (photo collage) ───── */
@@ -1655,6 +1666,44 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 .g-card p{font-size:12.5px;line-height:1.5;color:rgba(255,255,255,0.7);}
 .g-foot{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px;}
 
+/* ───── SECURITY & COMPLIANCE CARDS ───── */
+.comp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px;}
+.comp-card{
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:26px 24px;
+  transition:transform .25s ease, border-color .25s ease, background .25s ease;
+}
+.comp-card:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.07);}
+.comp-card .ico-circle{margin-bottom:16px;}
+.comp-card h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-0.01em;}
+.comp-card p{font-size:13.5px;line-height:1.6;color:rgba(255,255,255,0.72);margin:0 0 10px;}
+.comp-card p:last-child{margin-bottom:0;}
+.comp-card .comp-means{color:rgba(255,255,255,0.82);}
+.comp-card strong{color:var(--gold);font-weight:800;}
+
+/* ───── LEGAL PAGES (terms / privacy) ───── */
+.legal{max-width:880px;margin:0 auto;padding:64px 80px 48px;}
+.legal-head{margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--glass-border);}
+.legal-head .sec-lbl{margin-bottom:14px;}
+.legal-head h1{font-size:44px;font-weight:800;color:#fff;letter-spacing:-0.02em;line-height:1.1;margin:0 0 12px;}
+.legal-updated{font-size:13px;color:rgba(255,255,255,0.55);font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.legal-intro{font-size:17.5px;line-height:1.7;color:rgba(255,255,255,0.88);}
+.legal h2{font-size:23px;font-weight:800;color:#fff;margin:38px 0 12px;letter-spacing:-0.01em;}
+.legal h3{font-size:17px;font-weight:700;color:#fff;margin:24px 0 8px;}
+.legal p,.legal li{font-size:15.5px;line-height:1.75;color:rgba(255,255,255,0.78);}
+.legal p{margin:0 0 16px;}
+.legal ul{margin:0 0 18px;padding-left:22px;}
+.legal li{margin-bottom:8px;}
+.legal a{color:var(--gold);text-decoration:underline;}
+.legal strong{color:#fff;font-weight:700;}
+@media(max-width:768px){
+  .legal{padding:40px 22px 32px;}
+  .legal-head h1{font-size:30px;}
+  .legal h2{font-size:19px;}
+}
+
 /* ───── CASE STUDY CARDS ───── */
 .case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:42px;}
 .case-grid-4{grid-template-columns:repeat(4,1fr);gap:18px;}
@@ -2207,6 +2256,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .g-seal-h{font-size:23px;}
   .g-seal-s{font-size:11px;letter-spacing:1.2px;}
   .g-cards{grid-template-columns:1fr;gap:12px;}
+  .comp-grid{grid-template-columns:repeat(2,1fr);gap:16px;margin-top:36px;}
 
   /* Case studies */
   .case-grid{grid-template-columns:repeat(2,1fr);}
@@ -2441,6 +2491,8 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .g-card p{font-size:13px;}
   .g-foot{flex-direction:column;align-items:stretch;}
   .g-foot a{width:100%;justify-content:center;}
+
+  .comp-grid{grid-template-columns:1fr;margin-top:28px;gap:14px;}
 
   /* Case studies on mobile */
   .case-grid{grid-template-columns:1fr;margin-top:32px;gap:18px;}
