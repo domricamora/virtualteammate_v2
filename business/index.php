@@ -149,14 +149,18 @@ include __DIR__ . '/../includes/nav.php';
 </section>
 
 <?php
-  $vtc_depts      = ['Administrative Support', 'Sales', 'Marketing', 'Finance', 'Accounting', 'Customer Service', 'Business Intelligence'];
-  $vtc_label      = 'Meet the Bench';
-  $vtc_heading    = 'Business-Ready <em>Virtual Teammates</em>';
-  $vtc_sub        = 'A sample of real, vetted teammates across admin, sales, marketing, finance and customer-service functions &mdash; matched to your time zone and ready to start in 1&ndash;2 weeks.';
-  $vtc_cta_href   = '#cta-buyback';
-  $vtc_cta_intent = 'buyback';
-  $vtc_cta_label  = 'Request this teammate';
-  $vtc_cta_vt     = true;   // prefill the on-page Buy-Back form
+  // Full business bench — every non-clinical role (excludes Medical & Dental),
+  // with search + department + skill filters and a load-more button.
+  $vtc_exclude_depts = ['Medical', 'Dental'];
+  $vtc_filterable    = true;
+  $vtc_page          = 9;
+  $vtc_label         = 'Meet the Bench';
+  $vtc_heading       = 'Business-Ready <em>Virtual Teammates</em>';
+  $vtc_sub           = 'Browse our real, vetted business teammates across admin, sales, marketing, finance, customer-service and more. Filter by department or skill, then request the one that fits &mdash; matched to your time zone and ready in 1&ndash;2 weeks.';
+  $vtc_cta_href      = '#cta-buyback';
+  $vtc_cta_intent    = 'buyback';
+  $vtc_cta_label     = 'Request this teammate';
+  $vtc_cta_vt        = true;   // prefill the on-page Buy-Back form
   include __DIR__ . '/../includes/vt-cards.php';
 ?>
 
