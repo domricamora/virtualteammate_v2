@@ -113,39 +113,6 @@ include __DIR__ . '/../includes/nav.php';
 
 <div class="divider"></div>
 
-<!-- LEADERSHIP TEAM -->
-<section class="svc-bens">
-  <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl"><i class="fa-solid fa-users-gear"></i> Leadership Team</div>
-    <h2 class="svc-h2">The Exceptional Leaders <em>Behind Virtual Teammate</em></h2>
-    <p class="sec-sub" style="max-width:720px;margin:0 auto;">A focused leadership team driving finance, technology, marketing and people operations &mdash; so every engagement runs on accountability, not on hope.</p>
-  </div>
-  <div class="svc-bens-grid svc-bens-grid--4">
-    <div class="svc-ben reveal d1">
-      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Finance-Director.webp" alt="Eunice Escano, Finance Director at Virtual Teammate" loading="lazy">
-      <h3>Eunice Escano</h3>
-      <p><strong>Finance Director.</strong> Oversees financial health, cash flow integrity, and compliance across every client engagement.</p>
-    </div>
-    <div class="svc-ben reveal d2">
-      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Judt-Anne-Lim.webp" alt="Judy Anne Lim, IT Director at Virtual Teammate" loading="lazy">
-      <h3>Judy Anne Lim</h3>
-      <p><strong>IT Director.</strong> Leads the technology platform, security posture, and HIPAA-aligned infrastructure that keeps PHI safe.</p>
-    </div>
-    <div class="svc-ben reveal d3">
-      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Marketing-Head-VT.webp" alt="Kirsten Jillianne Tagle, Marketing Director at Virtual Teammate" loading="lazy">
-      <h3>Kirsten Jillianne Tagle</h3>
-      <p><strong>Marketing Director.</strong> Drives client acquisition strategy and the talent recruiting pipeline that fuels every placement.</p>
-    </div>
-    <div class="svc-ben reveal d4">
-      <img class="about-team-photo" src="<?= $home_base ?>images/photos/about-us/Recruitment-Director.webp" alt="May Martin, HR &amp; Talent Acquisition Director at Virtual Teammate" loading="lazy">
-      <h3>May Martin</h3>
-      <p><strong>HR &amp; Talent Acquisition Director.</strong> Focuses on people, culture, and the strategic hiring that puts the right teammate in every role.</p>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
 <!-- MISSION -->
 <section class="svc-split">
   <div class="reveal">
