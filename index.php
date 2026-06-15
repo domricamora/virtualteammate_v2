@@ -777,82 +777,49 @@ $homepage_profiles = vtnew_homepage_profiles(8);
 
 <div class="cta-modal" id="cta-practice-audit" role="dialog" aria-modal="true" aria-labelledby="ccm-pa-h">
   <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
+  <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
+    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> 20-Min Practice Staffing Audit</div>
     <h2 class="cta-modal-h" id="ccm-pa-h">Book My Practice Staffing Audit</h2>
-    <p class="cta-modal-sub">A diagnostic-only call: we map your top admin and clinical workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
-    <form class="cta-modal-form" id="ctaAuditForm" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your audit.">
-      <input type="hidden" name="intent" value="practice-audit">
-      <input type="hidden" name="form" value="homepage-practice-audit">
-      <input type="hidden" name="source" value="Practice Staffing Audit">
-      <select class="cf-field" name="role" style="margin-bottom:16px;">
-        <option value="">Biggest bottleneck right now (optional)</option>
-        <option>Front desk / phones / scheduling</option>
-        <option>Insurance verification &amp; pre-auth</option>
-        <option>Billing / RCM / claims</option>
-        <option>Charting / scribing</option>
-        <option>Recall &amp; treatment coordination</option>
-        <option>Not sure yet &mdash; help me diagnose</option>
-      </select>
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
-    </form>
+    <p class="cta-modal-sub">Pick a time that works for you &mdash; a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first. Diagnostic only, no obligation.</p>
+    <div class="cta-book-embed">
+      <!-- Start of Meetings Embed Script -->
+      <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
+      <!-- End of Meetings Embed Script -->
+    </div>
   </div>
 </div>
 
 <div class="cta-modal" id="cta-strategy-call" role="dialog" aria-modal="true" aria-labelledby="ccm-sc-h">
   <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
+  <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Ready to talk</div>
-    <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call</h2>
-    <p class="cta-modal-sub">A 30-minute growth review to map your needs, define the role, and get you a tailored shortlist in 5&ndash;7 business days.</p>
-    <form class="cta-modal-form" id="ctaStrategyForm" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day to lock in your Practice Growth Review.">
-      <input type="hidden" name="intent" value="strategy-call">
-      <input type="hidden" name="form" value="homepage-strategy-call">
-      <select class="cf-field" name="role" style="margin-bottom:16px;">
-        <option value="">I need... (select role, optional)</option>
-        <optgroup label="Medical">
-          <option>Medical Administrative Support</option>
-          <option>Medical Receptionist</option>
-          <option>Medical Biller / RCM Specialist</option>
-          <option>Medical Scribe</option>
-          <option>Medical Assistant</option>
-        </optgroup>
-        <optgroup label="Dental">
-          <option>Dental Biller</option>
-          <option>Dental Front-Desk / Recall</option>
-        </optgroup>
-        <option>Multiple VAs</option>
-        <option>Business / Admin VA</option>
-        <option>Not sure yet &mdash; help me diagnose</option>
-      </select>
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Email Address" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
-    </form>
+    <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Strategy Call &amp; Jumpstart</div>
+    <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call &amp; Jumpstart</h2>
+    <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope your needs, define the role, and map your first 30 days &mdash; so your teammate is productive fast. No commitment, covered by the 30-Day Right-Fit Promise.</p>
+    <div class="cta-book-embed">
+      <!-- Start of Meetings Embed Script -->
+      <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
+      <!-- End of Meetings Embed Script -->
+    </div>
   </div>
 </div>
+
+<!-- HubSpot Meetings embed loader — powers the scheduler inside the booking modals.
+     A resize nudge on open makes the iframe size correctly after the modal shows. -->
+<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+<script>
+window.addEventListener('hashchange', function () {
+  var h = location.hash;
+  if (!h || h.length < 2) { return; }
+  try {
+    var m = document.querySelector(h);
+    if (m && m.querySelector('.meetings-iframe-container')) {
+      setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 80);
+    }
+  } catch (e) {}
+});
+</script>
 
 <!-- Candidate-request modal — opened by the teammate profile cards. The clicked
      card's name (data-teammate) is injected into the heading + the hidden

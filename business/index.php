@@ -223,77 +223,31 @@ include __DIR__ . '/../includes/nav.php';
      and creates a lead. -->
 <div class="cta-modal" id="cta-ops-assessment" role="dialog" aria-modal="true" aria-labelledby="bcm-oa-h">
   <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
+  <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Ready to diagnose</div>
+    <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Operational Assessment</div>
     <h2 class="cta-modal-h" id="bcm-oa-h">Schedule Your Operational Assessment</h2>
-    <p class="cta-modal-sub">A diagnostic-only call: we map your busiest back-office workflows and tell you exactly what to delegate first &mdash; no pitch.</p>
-    <form class="cta-modal-form" id="bizOpsForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
-          data-lead-thanks="Thanks! Your Client Success Manager will reach out within one business day to schedule your assessment.">
-      <input type="hidden" name="intent" value="ops-assessment">
-      <input type="hidden" name="form" value="business-ops-assessment">
-      <input type="hidden" name="source" value="Operational Assessment">
-      <select class="cf-field" name="role" style="margin-bottom:16px;">
-        <option value="">Biggest bottleneck right now (optional)</option>
-        <option>Administrative / executive support</option>
-        <option>Sales &amp; SDR / appointment setting</option>
-        <option>Marketing &amp; content</option>
-        <option>Finance &amp; bookkeeping</option>
-        <option>Customer service / support</option>
-        <option>Non-profit operations</option>
-        <option>Not sure yet &mdash; help me diagnose</option>
-      </select>
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Schedule My Operational Assessment <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>20 minutes &middot; Diagnostic only &middot; No commitment</div>
-    </form>
+    <p class="cta-modal-sub">Pick a time that works for you &mdash; a US-based Client Success Manager will map your busiest back-office workflows and tell you exactly what to delegate first. Diagnostic only, no obligation.</p>
+    <div class="cta-book-embed">
+      <!-- Start of Meetings Embed Script -->
+      <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
+      <!-- End of Meetings Embed Script -->
+    </div>
   </div>
 </div>
 
 <div class="cta-modal" id="cta-buyback" role="dialog" aria-modal="true" aria-labelledby="bcm-bb-h">
   <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
+  <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-hourglass-half"></i> Ready to delegate</div>
+    <div class="cta-modal-tag"><i class="fa-solid fa-hourglass-half"></i> Buy Back Your Time</div>
     <h2 class="cta-modal-h" id="bcm-bb-h">Buy Back Your Company&rsquo;s Time</h2>
-    <p class="cta-modal-sub">Tell us the function eating your team&rsquo;s week and we&rsquo;ll hand-pick a vetted, flat-rate teammate &mdash; matched to your time zone and live in 1&ndash;2 weeks.</p>
-    <form class="cta-modal-form" id="bizBuybackForm" method="post" action="<?= $home_base ?>lead.php" data-lead-form
-          data-lead-thanks="Thanks! We&rsquo;ll be in touch within one business day with your matched shortlist.">
-      <input type="hidden" name="intent" value="buyback">
-      <input type="hidden" name="form" value="business-buyback">
-      <input type="hidden" name="source" value="Buy Back Your Company&rsquo;s Time">
-      <input type="hidden" name="vt_id" id="bizBuybackVtId" value="">
-      <input type="hidden" name="vt_interest" id="bizBuybackVtName" value="">
-      <select class="cf-field" name="role" style="margin-bottom:16px;">
-        <option value="">Function to delegate first (optional)</option>
-        <option>Administrative / executive support</option>
-        <option>Sales &amp; SDR / appointment setting</option>
-        <option>Marketing &amp; content</option>
-        <option>Finance &amp; bookkeeping</option>
-        <option>Customer service / support</option>
-        <option>Non-profit operations</option>
-        <option>Multiple roles</option>
-      </select>
-      <div class="cf-row">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="last_name" placeholder="Last Name" required>
-      </div>
-      <div class="cf-row">
-        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
-        <input class="cf-field" name="phone" type="tel" placeholder="Phone Number">
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
-    </form>
+    <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope the function eating your team&rsquo;s week, match a vetted flat-rate teammate, and map your first steps &mdash; live in 1&ndash;2 weeks, covered by the 30-Day Right-Fit Promise.</p>
+    <div class="cta-book-embed">
+      <!-- Start of Meetings Embed Script -->
+      <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
+      <!-- End of Meetings Embed Script -->
+    </div>
   </div>
 </div>
 </main>
@@ -371,6 +325,21 @@ include __DIR__ . '/../includes/nav.php';
     if (nmF) { nmF.value = a.getAttribute('data-vt-name') || ''; }
   });
 })();
+</script>
+<!-- HubSpot Meetings embed loader — powers the scheduler inside the booking modals.
+     A resize nudge on open makes the iframe size correctly after the modal shows. -->
+<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+<script>
+window.addEventListener('hashchange', function () {
+  var h = location.hash;
+  if (!h || h.length < 2) { return; }
+  try {
+    var m = document.querySelector(h);
+    if (m && m.querySelector('.meetings-iframe-container')) {
+      setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 80);
+    }
+  } catch (e) {}
+});
 </script>
 <?php $hide_lead_band = true; /* page has its own entry-point CTA forms above */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
