@@ -169,7 +169,7 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which tasks to delegate first &mdash; or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
   </section>
 </main>
@@ -427,5 +427,6 @@ function submitToHubSpot(email, phone, leadsource){
 loadQuestion();
 </script>
 
+<?php include __DIR__ . '/../includes/book-modal.php'; /* #cta-book scheduler for the CTA above */ ?>
 <?php $hide_lead_band = true; /* the quiz is the page's lead capture */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

@@ -73,7 +73,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Real Practices. Real Workstreams. <em>Real Numbers.</em></h1>
     <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients &mdash; claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
-      <a href="<?= $home_base ?>#cta" class="btn-primary">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#by-area" class="btn-glass">See Aggregate Results <i class="fa-solid fa-chart-pie"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>KPI scorecards delivered monthly</span>
@@ -300,7 +300,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Want Results Like These on <em style="color:var(--gold);font-style:normal;">Your</em> Scorecard?</h2>
   <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
   <div class="svc-cta-btns">
-    <a href="<?= $home_base ?>#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
   </div>
 </section>

@@ -175,7 +175,7 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which tasks to delegate first &mdash; or buy back your company&rsquo;s time with a vetted teammate. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>business/#cta-buyback" data-cta-intent="buyback" class="btn-glass">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-clock"></i></a>
+      <a href="#cta-book" data-cta-intent="buyback" class="btn-glass">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-clock"></i></a>
     </div>
   </section>
 </main>
@@ -492,5 +492,6 @@ function submitToLeadDB(email, phone, tier, hoursSaved, revenuePotential){
 loadQuestion();
 </script>
 
+<?php include __DIR__ . '/../includes/book-modal.php'; /* #cta-book scheduler for the CTA above */ ?>
 <?php $hide_lead_band = true; /* the quiz is the page's lead capture */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>
