@@ -286,7 +286,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             <span class="vtd-hero-pic"><img src="<?= $home_base ?>images/talent-hero/<?= $pic ?>.webp" alt="" loading="lazy" width="150" height="150"></span>
           <?php endforeach; ?>
         </div>
-        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> Vetted teammates</span>
+        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> HIPAA certified teammates</span>
       </div>
     </div>
   </section>
@@ -422,8 +422,8 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
   <section class="sec vtd-seo" aria-labelledby="vtd-why-h">
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-shield-heart"></i> Why Virtual Teammate</div>
-      <h2 class="sec-h2" id="vtd-why-h">Virtual assistants who are vetted, certified and ready</h2>
-      <p class="vtd-lede">
+      <h2 class="sec-h2" id="vtd-why-h">Virtual assistants who are <em>vetted, certified and ready</em></h2>
+      <p class="vtd-lede" style="max-width:none;">
         Every Virtual Teammate is hand-screened for skills, communication and reliability before they ever reach
         your shortlist. Healthcare and dental VAs are HIPAA-certified; business and administrative VAs are tested
         on the exact tools your team runs. You get a teammate, not a temp — matched to your time zone and ramped
@@ -440,7 +440,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
 
   <section class="sec vtd-seo" aria-labelledby="vtd-spec-h">
     <div class="reveal">
-      <h2 class="sec-h2" id="vtd-spec-h">Virtual assistants for every team</h2>
+      <h2 class="sec-h2" id="vtd-spec-h">Virtual assistants for <em>every team</em></h2>
       <div class="vtd-spec-grid">
         <div class="vtd-spec">
           <h3><i class="fa-solid fa-stethoscope"></i> Medical virtual assistants</h3>
