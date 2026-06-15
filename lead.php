@@ -39,8 +39,12 @@ function lead_fail(string $msg, int $code = 400): void
 function lead_notify_team(PDO $pdo, array $lead): void
 {
     try {
+        // Skip only when there is no relay to send through: on localhost the
+        // native mail() fallback can't deliver, but an authenticated SMTP relay
+        // (portal/smtp.local.php) works from anywhere — so honor it everywhere.
         $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
-        if ($host === '' || str_contains($host, 'localhost') || str_starts_with($host, '127.0.0.1')) { return; }
+        $isLocal = $host === '' || str_contains($host, 'localhost') || str_starts_with($host, '127.0.0.1');
+        if ($isLocal && lead_smtp_config() === null) { return; }
 
         $to = 'nricamora@virtualteammate.com';
         try {
@@ -59,23 +63,132 @@ function lead_notify_team(PDO $pdo, array $lead): void
     } catch (Throwable $_) {}
 }
 
-/** Self-contained multipart text+HTML mail (mirrors the portal mailer). */
+/**
+ * Outbound SMTP config, loaded once from portal/smtp.local.php (same file the
+ * portal mailer uses). Returns the config array when host/user/pass are all
+ * present, else null to fall back to native mail(). Never throws.
+ */
+function lead_smtp_config(): ?array
+{
+    static $cfg = false;                       // false = not loaded, null = none
+    if ($cfg !== false) { return $cfg; }
+    $cfg  = null;
+    $file = __DIR__ . '/portal/smtp.local.php';
+    if (is_file($file)) {
+        try {
+            $c = include $file;
+            if (is_array($c) && !empty($c['host']) && !empty($c['user']) && !empty($c['pass'])) {
+                $cfg = $c + ['port' => 587, 'from' => $c['user'], 'from_name' => 'Virtual Teammate'];
+            }
+        } catch (Throwable $_) { $cfg = null; }
+    }
+    return $cfg;
+}
+
+/**
+ * Minimal STARTTLS + AUTH LOGIN SMTP relay (mirrors portal smtp_send). Returns
+ * true only if the server accepted the message (250 at end-of-DATA). Never throws.
+ */
+function lead_smtp_send(array $cfg, string $from, string $to, string $message): bool
+{
+    $host = (string) ($cfg['host'] ?? '');
+    $port = (int)    ($cfg['port'] ?? 587);
+    $user = (string) ($cfg['user'] ?? '');
+    $pass = (string) ($cfg['pass'] ?? '');
+
+    $fp = @fsockopen($host, $port, $errno, $errstr, 15);
+    if (!$fp) { error_log("lead_smtp_send: connect failed {$host}:{$port} — {$errstr}"); return false; }
+    stream_set_timeout($fp, 15);
+
+    $read = static function () use ($fp): int {
+        $code = 0;
+        do {
+            $line = fgets($fp, 515);
+            if ($line === false) { return 0; }
+            $code = (int) substr($line, 0, 3);
+        } while (isset($line[3]) && $line[3] === '-');
+        return $code;
+    };
+    $cmd = static function (string $c) use ($fp): void { fwrite($fp, $c . "\r\n"); };
+
+    $domain = ($d = strrchr($from, '@')) !== false ? substr($d, 1) : 'localhost';
+    $ok = true;
+    try {
+        if ($read() !== 220) { throw new RuntimeException('no greeting'); }
+        $cmd('EHLO ' . $domain);
+        if ($read() !== 250) { throw new RuntimeException('EHLO rejected'); }
+        $cmd('STARTTLS');
+        if ($read() !== 220) { throw new RuntimeException('STARTTLS rejected'); }
+        if (!@stream_socket_enable_crypto($fp, true, STREAM_CRYPTO_METHOD_TLS_CLIENT)) {
+            throw new RuntimeException('TLS handshake failed');
+        }
+        $cmd('EHLO ' . $domain);
+        if ($read() !== 250) { throw new RuntimeException('EHLO (TLS) rejected'); }
+        $cmd('AUTH LOGIN');
+        if ($read() !== 334) { throw new RuntimeException('AUTH LOGIN unsupported'); }
+        $cmd(base64_encode($user));
+        if ($read() !== 334) { throw new RuntimeException('username stage failed'); }
+        $cmd(base64_encode($pass));
+        if ($read() !== 235) { throw new RuntimeException('authentication failed'); }
+        $cmd('MAIL FROM:<' . $from . '>');
+        if ($read() !== 250) { throw new RuntimeException('MAIL FROM rejected'); }
+        $cmd('RCPT TO:<' . $to . '>');
+        $rc = $read();
+        if ($rc !== 250 && $rc !== 251) { throw new RuntimeException('RCPT TO rejected'); }
+        $cmd('DATA');
+        if ($read() !== 354) { throw new RuntimeException('DATA rejected'); }
+        fwrite($fp, preg_replace('/^\./m', '..', $message) . "\r\n.\r\n");
+        if ($read() !== 250) { throw new RuntimeException('message not accepted'); }
+        $cmd('QUIT');
+    } catch (Throwable $e) {
+        error_log('lead_smtp_send: ' . $e->getMessage());
+        $ok = false;
+    }
+    @fclose($fp);
+    return $ok;
+}
+
+/**
+ * Self-contained multipart text+HTML mail (mirrors the portal mailer). Relays
+ * through the authenticated SMTP server in portal/smtp.local.php when present;
+ * otherwise falls back to native mail() (works only where the host has an MTA).
+ */
 function lead_send_mail(string $to, string $subject, string $html, string $text): bool
 {
-    $from     = 'support@virtualteammate.com';
+    $cfg      = lead_smtp_config();
+    $from     = $cfg !== null ? (string) $cfg['from'] : 'support@virtualteammate.com';
+    $fromName = $cfg !== null ? (string) ($cfg['from_name'] ?? 'Virtual Teammate') : 'Virtual Teammate';
     $subject  = preg_replace('/\s+/', ' ', trim($subject));
     $boundary = 'vtlead_' . bin2hex(random_bytes(8));
-    $headers  = implode("\r\n", [
-        'From: Virtual Teammate Leads <' . $from . '>',
+    $bodyPart = "--{$boundary}\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n{$text}\r\n"
+              . "--{$boundary}\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n{$html}\r\n"
+              . "--{$boundary}--";
+
+    // ── Authenticated SMTP relay (preferred when configured) ──
+    if ($cfg !== null) {
+        $domain  = ($d = strrchr($from, '@')) !== false ? substr($d, 1) : 'virtualteammate.com';
+        $message = 'From: ' . $fromName . ' <' . $from . ">\r\n"
+                 . 'To: ' . $to . "\r\n"
+                 . 'Reply-To: ' . $from . "\r\n"
+                 . 'Subject: ' . $subject . "\r\n"
+                 . 'Date: ' . gmdate('D, d M Y H:i:s') . " +0000\r\n"
+                 . 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . $domain . ">\r\n"
+                 . "MIME-Version: 1.0\r\n"
+                 . 'Content-Type: multipart/alternative; boundary="' . $boundary . "\"\r\n"
+                 . "X-Mailer: VT Lead Capture\r\n\r\n"
+                 . $bodyPart;
+        return lead_smtp_send($cfg, $from, $to, $message);
+    }
+
+    // ── Fallback: native mail() ──
+    $headers = implode("\r\n", [
+        'From: ' . $fromName . ' <' . $from . '>',
         'Reply-To: ' . $from,
         'MIME-Version: 1.0',
         'Content-Type: multipart/alternative; boundary="' . $boundary . '"',
         'X-Mailer: VT Lead Capture',
     ]);
-    $payload = "--{$boundary}\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n{$text}\r\n"
-             . "--{$boundary}\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\n{$html}\r\n"
-             . "--{$boundary}--";
-    try { return @mail($to, $subject, $payload, $headers, '-f' . $from); }
+    try { return @mail($to, $subject, $bodyPart, $headers, '-f' . $from); }
     catch (Throwable $_) { return false; }
 }
 
