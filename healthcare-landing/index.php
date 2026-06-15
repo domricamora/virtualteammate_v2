@@ -133,6 +133,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- WHAT THEY HANDLE -->
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
+      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One Teammate. <em>The Whole Back Office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, EHR-trained, and matched to your time zone &mdash; your Virtual Teammate owns the repeatable work so your clinical team can focus on patients.</p>

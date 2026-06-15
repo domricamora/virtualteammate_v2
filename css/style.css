@@ -992,6 +992,9 @@ a.pill i{font-size:9px;color:var(--gold);}
 .hbadge{display:flex;align-items:center;gap:14px;}
 .hbadge-txt strong{display:block;font-size:14px;font-weight:700;color:var(--gold-lt);}
 .hbadge-txt span{font-size:12px;color:rgba(255,255,255,0.5);}
+/* HIPAA Compliant shield seal — strip + footer trust mark */
+.hipaa-seal{height:104px;width:auto;flex:0 0 auto;display:block;filter:drop-shadow(0 12px 24px rgba(0,0,0,0.4));}
+.hipaa-seal--footer{height:112px;margin-top:18px;}
 .btn-gold{
   background:var(--gold);color:var(--dark);
   padding:14px 28px;border-radius:9px;
@@ -2451,6 +2454,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .spec-desc{font-size:15px;}
   .spec-link{padding:12px 18px;font-size:13.5px;}
   .hipaa{flex-direction:column;align-items:flex-start;padding:22px;}
+  .hipaa-seal{height:88px;}
   .hbadges{gap:18px;}
   .btn-gold{width:100%;justify-content:center;}
 

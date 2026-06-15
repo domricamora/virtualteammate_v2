@@ -267,6 +267,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
   <!-- HIPAA STRIP -->
   <div class="hipaa reveal">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy">
     <div class="hbadges">
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
@@ -536,6 +537,7 @@ $mq_srcs = array_values(array_map(static function ($p) {
      safeguard is, and what it actually means for the practice. -->
 <section class="sec comp-section" id="security" aria-labelledby="comp-h">
   <div style="text-align:center;max-width:680px;margin:0 auto;" class="reveal">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
     <div class="sec-lbl"><i class="fa-solid fa-lock"></i> Security &amp; Compliance</div>
     <h2 class="sec-h2">Patient Data, <em>Protected by Design</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Compliance here isn&rsquo;t a checkbox &mdash; here&rsquo;s what each safeguard is, and what it actually means for your practice, in plain English.</p>
