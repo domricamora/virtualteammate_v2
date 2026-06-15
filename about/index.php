@@ -54,7 +54,7 @@ include __DIR__ . '/../includes/nav.php';
         {"@type":"Question","name":"Is Virtual Teammate US-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and US-based Client Success Managers on every account."}},
         {"@type":"Question","name":"Are your virtual teammates HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible."}},
         {"@type":"Question","name":"Where are your virtual teammates based?","acceptedAnswer":{"@type":"Answer","text":"Globally — Philippines, Latin America, Africa, and South Asia. We hire on capability and fit, not geography. Every match works your business hours."}},
-        {"@type":"Question","name":"How are your virtual teammates vetted?","acceptedAnswer":{"@type":"Answer","text":"Multi-stage: application screening, EFSET English assessment, IQ test, DISC personality profile, technical skills check, IT setup verification and orientation — before they ever see a client."}}
+        {"@type":"Question","name":"How are your virtual teammates vetted?","acceptedAnswer":{"@type":"Answer","text":"Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification and orientation — before they ever see a client."}}
       ]
     }
   ]
@@ -118,12 +118,12 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-bullseye"></i> Our Mission</div>
     <h2 class="svc-h2">Bringing a <em>Value-Creation Culture</em> to Every Engagement</h2>
-    <p class="svc-p">Most outsourced staffing is sold on cost. <strong>We sell on outcome.</strong> Our mission is to bring a value-creation culture to the forefront of staffing &mdash; connecting high-performing virtual teammates with the practices and businesses that need them, and measuring success on revenue saved, hours reclaimed, and patient experience improved.</p>
+    <p class="svc-p">Most outsourced staffing is sold on cost. <strong>We sell on outcome.</strong> Our mission is to bring a value-creation culture to the forefront of staffing &mdash; connecting high-performing virtual teammates with the practices and businesses that need them, and measuring success on revenue cost savings and revenue growth, hours reclaimed, and patient experience improved.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Value, not just labor:</strong> every engagement is scoped against KPIs <em>you</em> choose.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>HIPAA-first by default:</strong> certified, background-checked, BAA-compatible teammates only.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>US time zone, your tools:</strong> matched to your hours, trained on your EHR/PMS.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Leadership accountability:</strong> a US-based CSM owns every account.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Leadership accountability:</strong> a dedicated CSM owns every account.</span></li>
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
@@ -134,8 +134,8 @@ include __DIR__ . '/../includes/nav.php';
 <!-- VALUES -->
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl"><i class="fa-solid fa-star"></i> Our Core Values</div>
-    <h2 class="svc-h2">Seven Principles We Hire On &mdash; <em>and Live By</em></h2>
+    <div class="sec-lbl"><i class="fa-solid fa-star"></i> Our Core Principles</div>
+    <h2 class="svc-h2">Principles We Hire On &mdash; <em>and Live By</em></h2>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sun"></i></span><h3>Positive Energy</h3><p>Fuels growth, productivity, and the kind of optimism that makes teams perform under pressure.</p></div>
@@ -191,7 +191,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-building"></i> Is Virtual Teammate US-owned?</div><div class="faq-a">Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and US-based Client Success Managers (CSMs) on every account.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your teammates HIPAA certified?</div><div class="faq-a">Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Globally &mdash; Philippines, Latin America, Africa, South Asia. We hire on capability and fit, not geography. Every match works your business hours.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How are teammates vetted?</div><div class="faq-a">Multi-stage: application screening, EFSET English assessment, IQ test, DISC personality profile, technical skills check, IT setup verification, and orientation &mdash; before they ever see a client.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How are teammates vetted?</div><div class="faq-a">Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification, and orientation &mdash; before they ever see a client.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-chart-line"></i> Do you actually measure results?</div><div class="faq-a">Yes &mdash; monthly KPI scorecards on the workstreams you choose (claims worked, AR days, calls answered, payment posting, intake completion). <a href="<?= $home_base ?>case-studies/">See real client KPI results &raquo;</a></div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who do I talk to first?</div><div class="faq-a">Book a value strategy session &mdash; you&rsquo;ll talk to a senior VT leader (often Chris himself for new engagements) and walk out with a clear scope, a price, and a timeline.</div></div>
   </div>

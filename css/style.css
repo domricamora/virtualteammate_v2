@@ -2957,6 +2957,15 @@ button.is-loading{opacity:.85;cursor:progress;}
 .lead-band-points i{color:var(--gold);font-size:12px;}
 .lead-band-form{min-width:0;}
 .lead-band-form .cf-submit{width:100%;justify-content:center;}
+/* "Book a Meeting" CTA panel (default band mode) */
+.lead-band-cta{min-width:0;text-align:center;background:rgba(255,255,255,.04);
+  border:1px solid var(--glass-border);border-radius:18px;padding:34px 30px;}
+.lead-band-cta-ico{display:inline-flex;width:58px;height:58px;align-items:center;justify-content:center;
+  border-radius:50%;background:linear-gradient(135deg,var(--gold),#f5d27a);color:#1a1535;font-size:24px;margin-bottom:14px;}
+.lead-band-cta h3{margin:0 0 8px;font-size:23px;color:#fff;letter-spacing:-.01em;}
+.lead-band-cta p{margin:0 0 22px;font-size:14.5px;line-height:1.6;color:rgba(255,255,255,.78);}
+.lead-band-cta .cf-submit{width:100%;justify-content:center;}
+.lead-band-cta .cf-note{margin-top:12px;}
 @media (max-width:1024px){
   .lead-band-card{grid-template-columns:1fr;gap:26px;padding:30px;}
 }

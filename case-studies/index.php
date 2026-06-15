@@ -71,7 +71,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Case Studies &middot; Recent KPI Results</div>
     <h1 class="svc-h1">Real Practices. Real Workstreams. <em>Real Numbers.</em></h1>
-    <p class="svc-p">Every Virtual Teammate engagement is scoped against KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients &mdash; claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
+    <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients &mdash; claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
       <a href="<?= $home_base ?>#cta" class="btn-primary">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#by-area" class="btn-glass">See Aggregate Results <i class="fa-solid fa-chart-pie"></i></a>

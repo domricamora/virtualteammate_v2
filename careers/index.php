@@ -38,7 +38,7 @@ include __DIR__ . '/../includes/nav.php';
       "mainEntity":[
         {"@type":"Question","name":"What roles does Virtual Teammate hire for?","acceptedAnswer":{"@type":"Answer","text":"We hire across healthcare (medical scribes, billers, receptionists, assistants), dental (admin, billing, scribes, coordinators, reception), administrative support, customer service, financial services, marketing, sales, and business intelligence."}},
         {"@type":"Question","name":"Is the work fully remote?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Virtual Teammate role is fully remote. You work from home, on your country's hardware, with a stable internet connection — we verify the setup before placement."}},
-        {"@type":"Question","name":"What is the hiring process?","acceptedAnswer":{"@type":"Answer","text":"Eight steps: apply → application review → initial assessment (EFSET, IQ, DISC) → interview → IT check → orientation → endorsement to talent pool → client selection and onboarding."}},
+        {"@type":"Question","name":"What is the hiring process?","acceptedAnswer":{"@type":"Answer","text":"Eight steps: apply → application review → initial assessment (EFSET, IQ, Cultural Index) → interview → IT check → orientation → endorsement to talent pool → client selection and onboarding."}},
         {"@type":"Question","name":"What are the working hours?","acceptedAnswer":{"@type":"Answer","text":"You are matched to a client's US business hours. Interviews are typically held in the 4 PM–9 PM PHT window for Philippines-based applicants."}},
         {"@type":"Question","name":"Do I need healthcare experience?","acceptedAnswer":{"@type":"Answer","text":"For medical and dental roles, prior healthcare or dental administrative experience is preferred. Other roles (admin, sales, marketing, finance, BI) require general professional experience and strong English."}}
       ]
@@ -155,7 +155,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-file-lines pstep-ico"></i></div><h3 class="pstep-title">Apply for a Position</h3><p class="pstep-desc">Browse our open roles and submit your application with your resume and target role.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Application Review</h3><p class="pstep-desc">Our recruitment team reviews qualifications and confirms fit with the role spec.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-clipboard-check pstep-ico"></i></div><h3 class="pstep-title">Initial Assessment</h3><p class="pstep-desc">Three short assessments: EFSET English language test, IQ test, and DISC personality profile.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-clipboard-check pstep-ico"></i></div><h3 class="pstep-title">Initial Assessment</h3><p class="pstep-desc">Three short assessments: EFSET English language test, IQ test, and Cultural Index.</p></div>
     <div class="pstep reveal d4"><div class="pstep-head"><div class="pstep-num">04</div><i class="fa-solid fa-headset pstep-ico"></i></div><h3 class="pstep-title">Interview Call</h3><p class="pstep-desc">Scheduled in the 4 PM&ndash;9 PM PHT window. Includes a technical skills assessment for your role.</p></div>
     <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-laptop pstep-ico"></i></div><h3 class="pstep-title">IT Check</h3><p class="pstep-desc">We verify your hardware, internet stability, headset, and workspace meet our remote-work standards.</p></div>
     <div class="pstep reveal d6"><div class="pstep-head"><div class="pstep-num">06</div><i class="fa-solid fa-graduation-cap pstep-ico"></i></div><h3 class="pstep-title">Orientation</h3><p class="pstep-desc">Comprehensive onboarding: VT culture, role-specific training, HIPAA (for healthcare roles), tools.</p></div>
@@ -211,6 +211,7 @@ include __DIR__ . '/../includes/nav.php';
 
 </main>
 <?php
+$lf_mode       = 'form';   // job application — keep the inline form, not the booking CTA
 $lf_source     = 'careers';
 $lf_form       = 'careers-application';
 $lf_title      = 'Start Your Application';

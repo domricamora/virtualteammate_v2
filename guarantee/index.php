@@ -208,7 +208,7 @@ include __DIR__ . '/../includes/nav.php';
         <li><i class="fa-solid fa-circle-check"></i><span><strong>Backup coverage included</strong> &mdash; trained sub VA within hours.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>No minimum-term lock-in</strong> &mdash; month-to-month, cancel any time.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>Flat-rate pricing</strong> &mdash; no recruiter spread, no fee creep.</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span><strong>Dedicated US-based CSM</strong> &mdash; owns escalation, ownership ladder is clear.</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span><strong>Dedicated CSM</strong> &mdash; owns escalation, ownership ladder is clear.</span></li>
       </ul>
     </div>
 
@@ -238,7 +238,7 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">The Promise Holds Because <em>The Bench Holds</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-Vetted Global Bench</h3><p>2,000+ teammates already through the EFSET / IQ / DISC / technical / IT pipeline. We don&rsquo;t recruit a replacement &mdash; we deploy one.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-Vetted Global Bench</h3><p>2,000+ teammates already through the EFSET / IQ / Cultural Index / technical / IT pipeline. We don&rsquo;t recruit a replacement &mdash; we deploy one.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated CSM Per Account</h3><p>Your CSM watches the engagement from week one, so we usually catch fit issues before you do.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Built In</h3><p>Every active engagement has a shadow-trained backup VA available within hours &mdash; not an upsell.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe Default</h3><p>Every VA, every backup, every CSM is HIPAA-trained and works in encrypted environments only.</p></div>

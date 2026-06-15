@@ -301,6 +301,7 @@ include __DIR__ . '/../includes/nav.php';
 
 </main>
 <?php
+$lf_mode       = 'form';   // contact message form — keep the inline form, not the booking CTA
 $lf_source     = 'contact';
 $lf_form       = 'contact';
 $lf_title      = 'Send Us a Message';
