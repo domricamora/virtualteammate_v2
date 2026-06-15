@@ -91,7 +91,7 @@ include __DIR__ . '/../includes/nav.php';
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">+60%</div><div class="svc-stat-lbl">Best Single-KPI Result</div></div>
   <div class="svc-stat"><div class="svc-stat-num">+44%</div><div class="svc-stat-lbl">Avg. Payment-Posting Result</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">4</div><div class="svc-stat-lbl">Workstreams Tracked</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">+33%</div><div class="svc-stat-lbl">Claims Processed</div></div>
   <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">KPI Targets Beaten</div></div>
 </div>
 
@@ -186,7 +186,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="cs-tag">Endodontics &middot; Oral Surgery</span>
         </div>
       </div>
-      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged a specialty-billing teammate to own the claims-worked workstream end-to-end. The placed teammate <strong>cleared claims 33% above target</strong> &mdash; keeping a high-volume surgical schedule billed and out the door on time &mdash; while a second, larger-scope posting workstream continues to ramp.</p>
+      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged a specialty-billing teammate to own the claims-worked workstream end-to-end. The placed teammate <strong>cleared claims 33% above target</strong> &mdash; keeping a high-volume surgical schedule billed and out the door on time &mdash; while a second, larger-scope payment-posting workstream is still ramping toward its $40,000 monthly target.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Claims Processed</div>
@@ -195,8 +195,8 @@ include __DIR__ . '/../includes/nav.php';
         </div>
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
-          <div class="val" style="color:var(--text-soft,#c9c8e2);font-size:22px;">Ramp</div>
-          <div class="sub">Second workstream scaling up</div>
+          <div class="val">+82.6%</div>
+          <div class="sub">$6,951 posted vs. $40,000 target &middot; $33,049 vs. plan</div>
         </div>
       </div>
     </article>

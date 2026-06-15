@@ -175,9 +175,9 @@ $mq_srcs = array_values(array_map(static function ($p) {
    
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
         </div>
-        <div class="case-metric-foot">Kept a high-volume surgical schedule billed on time</div>
+        <div class="case-metric-foot">Payment-posting workstream still ramping &mdash; <strong>$6,951</strong> of a $40,000/mo target</div>
       </div>
-      <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed and out the door on time.</p>
+      <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for a busy endodontics &amp; oral-surgery group &mdash; keeping a high-volume surgical schedule billed on time, while a larger payment-posting workstream ramps toward its $40,000/mo target.</p>
       <div class="case-auth">
         <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
         <div>
