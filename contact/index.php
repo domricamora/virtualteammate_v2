@@ -249,25 +249,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal d2">
       <div class="world" aria-label="Virtual Teammate global coverage — one anchor per continent">
         <div class="world-grid"></div>
-        <svg class="map" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <path class="land" d="M40,95 L75,75 L120,55 L170,52 L220,58 L268,72 L305,86 L340,108 L355,128 L348,148 L325,154 L300,150 L282,160 L278,180 L268,200 L255,212 L238,210 L218,200 L200,188 L188,170 L178,155 L160,150 L138,148 L118,138 L96,124 L78,112 L60,108 Z"/>
-          <path class="land" d="M380,35 L418,32 L445,48 L452,75 L438,92 L408,98 L382,90 L370,72 L370,52 Z"/>
-          <path class="land" d="M240,210 L262,215 L278,222 L290,232 L298,242 L286,238 L272,230 L255,222 L243,217 Z"/>
-          <path class="land" d="M295,232 L322,228 L348,232 L372,242 L388,260 L398,282 L398,308 L388,335 L375,362 L358,388 L342,402 L324,405 L308,400 L295,386 L286,365 L280,340 L278,315 L283,290 L290,265 L295,248 Z"/>
-          <path class="land" d="M468,100 L490,95 L512,90 L538,85 L562,82 L588,82 L608,90 L612,105 L600,115 L578,122 L558,125 L540,128 L520,128 L502,132 L488,130 L478,122 L470,112 Z"/>
-          <path class="land" d="M470,102 L484,98 L490,112 L484,122 L472,120 L466,110 Z"/>
-          <path class="land" d="M540,55 L555,52 L568,70 L562,88 L548,90 L538,82 L535,68 Z"/>
-          <path class="land" d="M478,150 L505,142 L535,142 L568,148 L595,158 L615,178 L622,205 L620,232 L612,260 L598,290 L582,318 L565,338 L548,348 L530,346 L516,335 L505,318 L494,295 L484,270 L478,245 L472,220 L468,195 L468,172 Z"/>
-          <path class="land" d="M610,300 L620,295 L628,315 L622,332 L612,328 L608,315 Z"/>
-          <path class="land" d="M608,95 L640,82 L678,72 L720,65 L765,60 L810,58 L850,62 L885,72 L915,85 L928,100 L920,118 L898,128 L870,132 L840,135 L808,140 L778,148 L748,150 L720,150 L692,148 L668,142 L645,135 L625,125 L612,112 L605,102 Z"/>
-          <path class="land" d="M615,160 L640,158 L665,165 L678,182 L675,205 L662,218 L645,215 L630,205 L620,188 L615,175 Z"/>
-          <path class="land" d="M700,155 L725,152 L745,158 L755,172 L755,195 L742,215 L725,228 L708,225 L698,210 L692,192 L692,175 Z"/>
-          <path class="land" d="M770,158 L795,158 L808,170 L815,188 L808,208 L798,222 L785,222 L775,210 L768,195 L765,178 Z"/>
-          <path class="land" d="M770,232 L800,228 L832,228 L862,232 L885,238 L865,250 L838,252 L810,250 L786,245 L770,240 Z"/>
-          <path class="land" d="M848,200 L860,196 L868,210 L866,222 L856,226 L848,218 L846,208 Z"/>
-          <path class="land" d="M892,118 L905,108 L915,118 L915,135 L905,142 L892,138 L888,128 Z"/>
-          <path class="land" d="M815,288 L848,282 L880,282 L912,290 L932,302 L935,320 L920,338 L895,348 L865,352 L832,348 L808,338 L798,322 L800,305 Z"/>
-        </svg>
+        <img class="world-map-img" src="<?= $home_base ?>images/world-map.svg" alt="World map showing Virtual Teammate global talent coverage" loading="lazy">
         <svg class="world-arc" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="arcGrad" x1="0" x2="1" y1="0" y2="0">
@@ -275,16 +257,18 @@ include __DIR__ . '/../includes/nav.php';
               <stop offset="100%" stop-color="rgba(57,25,186,0.7)"/>
             </linearGradient>
           </defs>
-          <path d="M195,155 Q260,260 320,340"/>
-          <path d="M195,155 Q360,40 500,108"/>
-          <path d="M195,155 Q400,360 555,300"/>
-          <path d="M195,155 Q500,40 825,210"/>
+          <!-- One connection from US HQ (Arizona) to each populated continent -->
+          <path d="M160,270 Q210,330 300,380"/>
+          <path d="M160,270 Q300,150 460,205"/>
+          <path d="M160,270 Q360,370 525,345"/>
+          <path d="M160,270 Q470,150 810,320"/>
         </svg>
-        <div class="world-pin" style="top:31.8%;left:19.5%;"><div class="pin-lbl">North America &middot; HQ</div></div>
-        <div class="world-pin" style="top:64%;left:33%;"><div class="pin-lbl">South America</div></div>
-        <div class="world-pin" style="top:21.6%;left:50%;"><div class="pin-lbl">Europe</div></div>
-        <div class="world-pin" style="top:55%;left:57%;"><div class="pin-lbl">Africa</div></div>
-        <div class="world-pin" style="top:42%;left:78%;"><div class="pin-lbl">Asia</div></div>
+        <!-- One anchor pin per continent (calibrated to the map projection) -->
+        <div class="world-pin" style="top:54%;left:16%;"><div class="pin-lbl">North America &middot; HQ</div></div>
+        <div class="world-pin" style="top:76%;left:30%;"><div class="pin-lbl">South America</div></div>
+        <div class="world-pin" style="top:41%;left:46%;"><div class="pin-lbl">Europe</div></div>
+        <div class="world-pin" style="top:69%;left:52%;"><div class="pin-lbl">Africa</div></div>
+        <div class="world-pin" style="top:64%;left:81%;"><div class="pin-lbl">Asia</div></div>
       </div>
     </div>
   </div>
