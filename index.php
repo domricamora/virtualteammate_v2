@@ -68,7 +68,7 @@ include 'includes/nav.php';
   <div class="hero-stats reveal d5">
     <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
     <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
-    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating &middot; 200 Reviews</div></div>
+    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating</div></div>
     <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">0-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
   </div>
 
