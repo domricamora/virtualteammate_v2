@@ -710,7 +710,7 @@ $homepage_profiles = vtnew_homepage_profiles(8);
       <div class="cta-stage-tag">Just exploring</div>
       <span class="ico-circle lg"><i class="fa-solid fa-file-lines"></i></span>
       <h3>HIPAA VA Buyer&rsquo;s Checklist</h3>
-      <p class="cta-stage-lead">22 questions to ask any healthcare VA agency before you sign. Drop your email &mdash; we&rsquo;ll send the PDF.</p>
+      <p class="cta-stage-lead">Key questions to ask any healthcare VA agency before you sign. Drop your email &mdash; we&rsquo;ll send the PDF.</p>
       <ul class="cta-stage-list">
         <li>Compliance, BAA, audit-trail questions</li>
         <li>Pricing-model traps to watch for</li>
@@ -759,13 +759,13 @@ $homepage_profiles = vtnew_homepage_profiles(8);
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
     <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA Buyer&rsquo;s Checklist</h2>
-    <p class="cta-modal-sub">Start by spotting what&rsquo;s stealing your team&rsquo;s hours. Drop your email and we&rsquo;ll send the HIPAA VA Buyer&rsquo;s Checklist &mdash; 22 questions to ask any agency before you sign.</p>
+    <p class="cta-modal-sub">Unlock new levels of productivity and patient care. Enter your email to receive our HIPAA VA Buyer&rsquo;s Checklist and learn how to choose the right virtual staffing partner for long-term success.</p>
     <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Check your inbox &mdash; your checklist is on the way.">
       <input type="hidden" name="intent" value="buyers-checklist">
       <input type="hidden" name="form" value="homepage-checklist">
       <input type="hidden" name="source" value="HIPAA VA Buyer&rsquo;s Checklist">
-      <div class="cf-row" style="margin-bottom:16px;">
+      <div class="cf-row" style="grid-template-columns:1fr;margin-bottom:16px;">
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
