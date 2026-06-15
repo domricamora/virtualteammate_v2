@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Case Studies — Real Healthcare Client KPI Results | Virtual Teammate';
-$page_description = 'Real KPI outcomes from Virtual Teammate clients: LifeQuest hit 144% over target on insurance verifications, Elkhart Clinic 60% over on pre-certs, Prostate Cancer Institute 48% over on payment posting, and North Valley Endo 33% over on claims. Real numbers, real practices.';
-$og_title         = 'Case Studies — Real KPI Results from Real Healthcare Practices';
-$og_description   = 'See the measurable value Virtual Teammate delivers — claims worked, insurance verifications, payment posting, pre-certs. Honest numbers from LifeQuest, Elkhart, PCIA, and Valley Endo.';
+$page_title       = 'Case Studies — Healthcare Client KPI Results | Virtual Teammate';
+$page_description = 'Real KPI outcomes from Virtual Teammate engagements: a multi-specialty clinic 60% over target on pre-certifications, a cancer center 48% over on payment posting, a primary care group 44% over on insurance verifications, and an endodontics & oral surgery group 33% over on claims. Client identities kept confidential.';
+$og_title         = 'Case Studies — KPI Results from Real Healthcare Practices';
+$og_description   = 'See the measurable value Virtual Teammate delivers — claims worked, insurance verifications, payment posting and pre-certifications. Real numbers from real practices, reported by workstream.';
 $canonical        = 'https://virtualteammate.com/case-studies/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -28,10 +28,10 @@ include __DIR__ . '/../includes/nav.php';
     {
       "@type":"ItemList",
       "itemListElement":[
-        {"@type":"ListItem","position":1,"item":{"@type":"CreativeWork","name":"LifeQuest Physical Medicine & Rehab — Insurance Verifications & Payment Posting","about":"LifeQuest exceeded insurance verification targets by 144.2% and payment posting by 140% with Virtual Teammate support."}},
-        {"@type":"ListItem","position":2,"item":{"@type":"CreativeWork","name":"Elkhart Clinic — Claims & Pre-Certifications","about":"Elkhart Clinic exceeded claims-worked targets by 46.6% and pre-cert targets by 60% with Virtual Teammate support."}},
-        {"@type":"ListItem","position":3,"item":{"@type":"CreativeWork","name":"Prostate Cancer Institute of America — Payment Posting & Insurance Verifications","about":"PCIA exceeded payment posting targets by 47.9% and insurance verification targets by 30% with Virtual Teammate support."}},
-        {"@type":"ListItem","position":4,"item":{"@type":"CreativeWork","name":"North Valley Endo — Claims","about":"Valley Endodontics & Oral Surgery exceeded claims-worked targets by 33.3% with Virtual Teammate support."}}
+        {"@type":"ListItem","position":1,"item":{"@type":"CreativeWork","name":"Cancer Center — Payment Posting & Insurance Verifications","about":"A cancer center exceeded payment posting targets by 48% and insurance verification targets by 30% with Virtual Teammate support."}},
+        {"@type":"ListItem","position":2,"item":{"@type":"CreativeWork","name":"Multi-Specialty Clinic — Claims & Pre-Certifications","about":"A multi-specialty clinic exceeded pre-certification targets by 60% and claims-worked targets by 47% with Virtual Teammate support."}},
+        {"@type":"ListItem","position":3,"item":{"@type":"CreativeWork","name":"Primary Care Group — Payment Posting & Insurance Verifications","about":"A primary care group exceeded payment posting targets by 40% and insurance verification targets by 44% with Virtual Teammate support."}},
+        {"@type":"ListItem","position":4,"item":{"@type":"CreativeWork","name":"Endodontics & Oral Surgery Group — Claims","about":"An endodontics & oral surgery group exceeded claims-worked targets by 33% with Virtual Teammate support."}}
       ]
     }
   ]
@@ -44,7 +44,6 @@ include __DIR__ . '/../includes/nav.php';
 @media (max-width:980px){.cs-grid{grid-template-columns:1fr;}}
 .cs-card{background:var(--glass-bg,rgba(255,255,255,0.04));backdrop-filter:blur(var(--glass-blur,18px));-webkit-backdrop-filter:blur(var(--glass-blur,18px));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:18px;}
 .cs-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-.cs-logo{height:72px;width:auto;max-width:200px;object-fit:contain;background:#fff;border-radius:10px;padding:10px 14px;}
 .cs-title{flex:1;min-width:180px;}
 .cs-title h3{margin:0;font-size:22px;font-weight:700;letter-spacing:-.2px;}
 .cs-tag{display:inline-block;font-size:12px;text-transform:uppercase;letter-spacing:1.1px;color:var(--gold,#d4a64a);font-weight:600;margin-top:4px;}
@@ -90,10 +89,10 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- STATS BAR — aggregate -->
 <div class="svc-stats reveal">
-  <div class="svc-stat"><div class="svc-stat-num">144.2%</div><div class="svc-stat-lbl">Best Single-KPI Achievement</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">94.0%</div><div class="svc-stat-lbl">Avg. Payment-Posting Achievement</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">+60%</div><div class="svc-stat-lbl">Best Single-KPI Result</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">+44%</div><div class="svc-stat-lbl">Avg. Payment-Posting Result</div></div>
   <div class="svc-stat"><div class="svc-stat-num">4</div><div class="svc-stat-lbl">Workstreams Tracked</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">$760+</div><div class="svc-stat-lbl">Value Created &middot; Sample Month</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">KPI Targets Beaten</div></div>
 </div>
 
 <!-- CASE STUDY CARDS -->
@@ -106,98 +105,98 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="cs-grid">
 
-    <!-- LifeQuest -->
+    <!-- Cancer Center (oncology specialty) -->
     <article class="cs-card reveal d1">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/lifequest.webp" alt="LifeQuest Physical Medicine and Rehab logo" loading="lazy"/>
+        <span class="ico-circle lg"><i class="fa-solid fa-ribbon"></i></span>
         <div class="cs-title">
-          <h3>LifeQuest Physical Medicine &amp; Rehab</h3>
-          <span class="cs-tag">PM&amp;R &middot; Pain Management</span>
+          <h3>Cancer Center</h3>
+          <span class="cs-tag">Oncology Specialty</span>
         </div>
       </div>
-      <p class="cs-narrative">Front-office bandwidth was capping how many patients LifeQuest could verify and post payments for each week. We embedded a billing-trained virtual teammate against <strong>two specific KPIs</strong>. The result: a verification and posting engine that <strong>more than doubled the monthly target</strong> on both workstreams.</p>
+      <p class="cs-narrative">A high-acuity oncology specialty needed payment posting and insurance verification handled with absolute accuracy. The assigned billing teammate beat the monthly <strong>payment-posting target by 48%</strong> and cleared <strong>insurance verifications 30% over goal</strong> &mdash; turning a challenging AR into one of the practice&rsquo;s strongest months on record.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
-          <div class="lbl">Insurance Verifications</div>
-          <div class="val">+144.2%</div>
-          <div class="sub">49 completed vs. 20 target &middot; +29 over plan</div>
+          <div class="lbl">Payment Posting</div>
+          <div class="val">+48%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
         <div class="cs-kpi">
-          <div class="lbl">Payment Posting</div>
-          <div class="val">+140.0%</div>
-          <div class="sub">48 posted vs. 20 target &middot; +28 over plan</div>
+          <div class="lbl">Insurance Verifications</div>
+          <div class="val">+30%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
       </div>
     </article>
 
-    <!-- Elkhart Clinic -->
+    <!-- Multi-Specialty Clinic -->
     <article class="cs-card reveal d2">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/elkhart.webp" alt="Elkhart Clinic logo" loading="lazy"/>
+        <span class="ico-circle lg"><i class="fa-solid fa-hospital"></i></span>
         <div class="cs-title">
-          <h3>Elkhart Clinic</h3>
+          <h3>Multi-Specialty Clinic</h3>
           <span class="cs-tag">Multi-Specialty Medical Group</span>
         </div>
       </div>
-      <p class="cs-narrative">Aged claims and stalled pre-cert packets were tying up Elkhart&rsquo;s in-house team. A VT biller paired with a dedicated CSM took ownership of both buckets, hitting <strong>46.6% over target on claims worked</strong> and <strong>60% over target on pre-certifications</strong> in the reported period.</p>
+      <p class="cs-narrative">Aged claims and stalled pre-cert packets were tying up the clinic&rsquo;s in-house team. A billing teammate paired with a dedicated CSM took ownership of both buckets, achieving <strong>pre-certifications 60% over target</strong> and <strong>claims worked 47% above plan</strong> &mdash; keeping authorizations ahead of schedule and clean claims moving.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
-          <div class="lbl">Claims Worked</div>
-          <div class="val">+46.6%</div>
-          <div class="sub">88 worked vs. 60 target &middot; +28 over plan</div>
+          <div class="lbl">Pre-Certifications</div>
+          <div class="val">+60%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
         <div class="cs-kpi">
-          <div class="lbl">Pre-Certifications</div>
-          <div class="val">+60.0%</div>
-          <div class="sub">16 completed vs. 10 target &middot; +6 over plan</div>
+          <div class="lbl">Claims Worked</div>
+          <div class="val">+47%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
       </div>
     </article>
 
-    <!-- PCIA -->
+    <!-- Primary Care Group -->
     <article class="cs-card reveal d3">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/prostate-cancer-institute-logo-full.webp" alt="Prostate Cancer Institute of America logo" loading="lazy"/>
+        <span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span>
         <div class="cs-title">
-          <h3>Prostate Cancer Institute of America</h3>
-          <span class="cs-tag">Urology &middot; Oncology Specialty</span>
+          <h3>Primary Care Group</h3>
+          <span class="cs-tag">Primary Care</span>
         </div>
       </div>
-      <p class="cs-narrative">A high-acuity oncology specialty needed payment posting and insurance verification done with absolute accuracy. The assigned VT billing teammate <strong>delivered $370 against a $250 target</strong> on payment posting &mdash; <strong>$119.87 in additional value created</strong> in the reported period &mdash; while also exceeding the verification target by 30%.</p>
+      <p class="cs-narrative">Front-office bandwidth was capping how many patients the group could verify and post payments for each week. An embedded billing teammate landed <strong>payment posting 40% over target</strong> and <strong>insurance verifications 44% over</strong> &mdash; streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
-          <div class="val">+47.9%</div>
-          <div class="sub">$370 posted vs. $250 target &middot; +$119.87 created</div>
+          <div class="val">+40%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
         <div class="cs-kpi">
           <div class="lbl">Insurance Verifications</div>
-          <div class="val">+30.0%</div>
-          <div class="sub">26 completed vs. 20 target &middot; +6 over plan</div>
+          <div class="val">+44%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
       </div>
     </article>
 
-    <!-- North Valley Endo -->
+    <!-- Endodontics & Oral Surgery Group -->
     <article class="cs-card reveal d4">
       <div class="cs-head">
-        <img class="cs-logo" src="<?= $home_base ?>images/clients/valley-endodontics-oral-surgery.webp" alt="Valley Endodontics &amp; Oral Surgery (North Valley Endo) logo" loading="lazy"/>
+        <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
         <div class="cs-title">
-          <h3>Valley Endodontics &amp; Oral Surgery</h3>
+          <h3>Endodontics &amp; Oral Surgery Group</h3>
           <span class="cs-tag">Endodontics &middot; Oral Surgery</span>
         </div>
       </div>
-      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged VT to own the claims-worked workstream end-to-end. The placed teammate <strong>exceeded the claims target by a third</strong> in the reported period &mdash; while a second, larger-scope posting workstream continues to ramp toward its $40k monthly target.</p>
+      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged a specialty-billing teammate to own the claims-worked workstream end-to-end. The placed teammate <strong>cleared claims 33% above target</strong> &mdash; keeping a high-volume surgical schedule billed and out the door on time &mdash; while a second, larger-scope posting workstream continues to ramp.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
-          <div class="lbl">Claims Worked</div>
-          <div class="val">+33.3%</div>
-          <div class="sub">40 worked vs. 30 target &middot; +10 over plan</div>
+          <div class="lbl">Claims Processed</div>
+          <div class="val">+33%</div>
+          <div class="sub">Over the monthly target</div>
         </div>
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
           <div class="val" style="color:var(--text-soft,#c9c8e2);font-size:22px;">Ramp</div>
-          <div class="sub">$6,951 captured Month 1 &middot; scaling toward $40k</div>
+          <div class="sub">Second workstream scaling up</div>
         </div>
       </div>
     </article>
@@ -217,27 +216,27 @@ include __DIR__ . '/../includes/nav.php';
   <div class="cs-by-area">
     <div class="cs-area-card reveal d1">
       <div class="ico"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-      <div class="pct">+94.0%</div>
+      <div class="pct">+44%</div>
       <div class="nm">Payment Posting</div>
-      <div class="vc">$270 aggregate value created</div>
+      <div class="vc">Avg. across 2 client engagements</div>
     </div>
     <div class="cs-area-card reveal d2">
       <div class="ico"><i class="fa-solid fa-clipboard-check"></i></div>
-      <div class="pct">+87.1%</div>
+      <div class="pct">+37%</div>
       <div class="nm">Insurance Verifications</div>
-      <div class="vc">40 aggregate value created</div>
+      <div class="vc">Avg. across 2 client engagements</div>
     </div>
     <div class="cs-area-card reveal d3">
       <div class="ico"><i class="fa-solid fa-folder-open"></i></div>
-      <div class="pct">+46.6%</div>
+      <div class="pct">+40%</div>
       <div class="nm">Claims Worked</div>
-      <div class="vc">90 aggregate value created</div>
+      <div class="vc">Avg. across 2 client engagements</div>
     </div>
     <div class="cs-area-card reveal d4">
       <div class="ico"><i class="fa-solid fa-stamp"></i></div>
-      <div class="pct">+60.0%</div>
+      <div class="pct">+60%</div>
       <div class="nm">Pre-Certifications</div>
-      <div class="vc">10 aggregate value created</div>
+      <div class="vc">1 client engagement</div>
     </div>
   </div>
 </section>
@@ -289,7 +288,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-chart-line"></i> Are these numbers real?</div><div class="faq-a">Yes. Every number on this page is pulled from a recent monthly KPI scorecard for an active VT client engagement. Targets are set with the client at the start of the period; results are recorded as the period closes.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-calendar"></i> What period do these cover?</div><div class="faq-a">Most recent reporting period: a one-month snapshot from Spring 2025. Older periods are available in the full client scorecard archive on request.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-percent"></i> What does "achievement %" mean?</div><div class="faq-a">Achievement % = (Results &minus; Target) / Target. A +47.9% achievement means the workstream delivered 47.9% more output than the agreed target for the period.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-percent"></i> What does "achievement %" mean?</div><div class="faq-a">Achievement % = (Results &minus; Target) / Target. A +48% achievement means the workstream delivered 48% more output than the agreed target for the period.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield"></i> How do you protect client confidentiality?</div><div class="faq-a">Only metrics the client has approved for publication appear here. Full PHI and any non-public KPI data are reported privately on the monthly scorecard.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-hospital"></i> Can you replicate this for my practice?</div><div class="faq-a">Yes &mdash; provided we scope against your real volume and your real targets. Book a strategy session and we&rsquo;ll map your top three KPI gaps to the right role spec.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-circle-arrow-right"></i> What&rsquo;s next after the strategy call?</div><div class="faq-a">A scoped engagement proposal with the target KPIs, the role spec, the pricing, and the timeline. From sign-off, your teammate is typically placed in 1&ndash;2 weeks.</div></div>

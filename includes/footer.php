@@ -19,6 +19,7 @@ $hide_footer = $hide_footer ?? false;
         <img src="<?= $home_base ?>images/logo.webp" alt="Virtual Teammate" width="180" height="60" loading="lazy"/>
       </div>
       <p class="ft-about">The leading HIPAA-certified virtual staffing solution for medical practices and dental clinics. Global talent network, US time zones, built to scale.</p>
+      <span class="hipaa-badge hipaa-badge--footer" title="HIPAA-certified virtual assistants"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> HIPAA Certified</span>
       <address class="ft-contact" style="font-style:normal;">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 2425 East Camelback Road, Phoenix, AZ 85016<br>
         <i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+14808472498">(480) 847-2498</a><br>

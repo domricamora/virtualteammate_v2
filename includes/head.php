@@ -41,6 +41,15 @@ $__vt_nonprod     = str_contains($__vt_host, 'localhost') || str_starts_with($__
 $robots           = $robots           ?? ($__vt_nonprod
                         ? 'noindex,nofollow'
                         : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+// On non-prod hosts the page is noindex, so the canonical must NOT point at the
+// production domain — a noindex page paired with a cross-domain canonical is a
+// contradictory signal that can deindex the canonical target. Rewrite canonical
+// (and the og:url that mirrors it) to be self-referential to the current host.
+if ($__vt_nonprod) {
+    $__vt_scheme = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
+    $__vt_uri    = strtok((string) ($_SERVER['REQUEST_URI'] ?? '/'), '?');
+    $canonical   = $__vt_scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $__vt_uri;
+}
 $breadcrumbs      = $breadcrumbs      ?? null;
 // Relative URL prefix back to site root. Homepage uses './'; subpages override
 // (e.g. /services/<slug>/index.php sets '../../') so asset and link refs resolve

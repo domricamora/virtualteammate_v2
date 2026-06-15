@@ -290,6 +290,22 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .trust-item i{color:var(--gold);font-size:13px;}
 
+/* HIPAA-certified trust mark — reused in header, hero and footer */
+.hipaa-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 13px;border-radius:999px;line-height:1;white-space:nowrap;
+  background:var(--glass-bg,rgba(255,255,255,0.06));
+  border:1px solid var(--gold,#d4a64a);
+  color:var(--gold,#d4a64a);
+  font-size:11.5px;font-weight:800;letter-spacing:.9px;text-transform:uppercase;
+  backdrop-filter:blur(var(--glass-blur,18px));-webkit-backdrop-filter:blur(var(--glass-blur,18px));
+}
+.hipaa-badge i{font-size:14px;}
+.hipaa-badge--nav{padding:6px 11px;font-size:10.5px;letter-spacing:.6px;}
+.hipaa-badge--hero{margin-top:18px;}
+.hipaa-badge--footer{margin-top:18px;}
+@media (max-width:980px){.hipaa-badge--nav{display:none;}}
+
 .hero-stats{
   align-self:center;
   display:grid;grid-template-columns:repeat(2,1fr);

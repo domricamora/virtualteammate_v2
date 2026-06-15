@@ -55,20 +55,21 @@ include 'includes/nav.php';
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> Backed by the 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
     <h1 class="hero-h1 reveal d1">Short-Staffed and Overworked?<br><span class="hero-h1-sub">Fully Staff Your Practice <em>in Weeks, Not Months</em> &mdash; for <em>73% Less</em>.</span></h1>
-    <p class="hero-sub reveal d2">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft, matched to your US time zone &mdash; to own billing, scribing, scheduling and prior auth. No hiring grind.</p>
+    <p class="hero-sub reveal d2">Published flat-rate pricing from <strong>$975/mo</strong>, backed by our <strong>30-Day Right-Fit Promise</strong> &mdash; HIPAA-certified medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Eaglesoft and matched to your US time zone, ready to own billing, scribing, scheduling and prior auth.</p>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
       <a href="#cta-practice-audit" class="btn-glass" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Or get the HIPAA VA Buyer&rsquo;s Checklist &mdash; just your email <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="reveal d3"><span class="hipaa-badge hipaa-badge--hero" title="HIPAA-certified virtual assistants"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> HIPAA Certified</span></div>
   </div>
 
   <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
   <div class="hero-stats reveal d5">
     <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
     <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
-    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl">Avg Rating &middot; 200 Reviews</div></div>
+    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating &middot; 200 Reviews</div></div>
     <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">0-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
   </div>
 
