@@ -48,6 +48,7 @@ TOP_DIRS=(
   "includes"
   "services"
   "business"
+  "healthcare-landing"
   "about"
   "careers"
   "case-studies"
