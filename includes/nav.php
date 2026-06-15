@@ -120,7 +120,7 @@ $home_base = $home_base ?? './';
     <a href="<?= $home_base ?>#calculator">ROI Calculator</a>
   </div>
   <div class="nav-right">
-    <span class="hipaa-badge hipaa-badge--nav" title="HIPAA-certified virtual assistants"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> HIPAA Certified</span>
+    <span class="hipaa-badge hipaa-badge--nav" title="HIPAA-certified virtual assistants"><img class="hipaa-badge-logo" src="<?= $home_base ?>images/hipaa-certified.webp" alt="" aria-hidden="true" width="16" height="16"> HIPAA Certified</span>
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>

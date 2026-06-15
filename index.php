@@ -62,7 +62,6 @@ include 'includes/nav.php';
       <a href="#cta-practice-audit" class="btn-glass" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     </div>
     <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Or get the HIPAA VA Buyer&rsquo;s Checklist &mdash; just your email <i class="fa-solid fa-arrow-right"></i></a>
-    <div class="reveal d3"><span class="hipaa-badge hipaa-badge--hero" title="HIPAA-certified virtual assistants"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> HIPAA Certified</span></div>
   </div>
 
   <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
