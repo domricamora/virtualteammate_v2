@@ -112,8 +112,8 @@ $mq_srcs = array_values(array_map(static function ($p) {
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-    <h2 class="sec-h2" id="cs-h">The Results Speak for <em>Themselves.</em></h2>
-    <p class="sec-sub">No projections, no spin &mdash; just real numbers from our latest client audit, where Virtual Teammates consistently beat the targets that matter most to your practice.</p>
+    <h2 class="sec-h2" id="cs-h">Real Results, Across Your <em>Practice.</em></h2>
+    <p class="sec-sub">Our Virtual Teammates consistently beat the targets that matter most to your practice.</p>
   </div>
   <div class="case-grid case-grid-4">
     <article class="case-card reveal d1">
