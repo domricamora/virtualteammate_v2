@@ -50,6 +50,7 @@ TOP_DIRS=(
   "business"
   "healthcare-landing"
   "business-landing"
+  "dental-landing"
   "about"
   "careers"
   "case-studies"
