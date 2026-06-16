@@ -25,6 +25,10 @@ require_once __DIR__ . '/cache.php';
  *   $body_class          string  optional class string for the <body>
  *   $breadcrumbs         array   [['name' => 'Services', 'url' => '/services/'], ...]
  *                                 emits BreadcrumbList JSON-LD on inner pages
+ *   $faqs                array   [['q' => 'Question?', 'a' => 'Answer.'], ...]
+ *                                 emits FAQPage JSON-LD on inner pages (homepage emits
+ *                                 its own FAQ block, so this is ignored there). Keep the
+ *                                 text identical to the visible FAQ section on the page.
  *   $robots              string  override default "index,follow,..." (e.g. "noindex" for utility pages)
  */
 $site_url         = 'https://virtualteammate.com';
@@ -51,6 +55,7 @@ if ($__vt_nonprod) {
     $canonical   = $__vt_scheme . '://' . ($_SERVER['HTTP_HOST'] ?? 'localhost') . $__vt_uri;
 }
 $breadcrumbs      = $breadcrumbs      ?? null;
+$faqs             = $faqs             ?? null;
 // Relative URL prefix back to site root. Homepage uses './'; subpages override
 // (e.g. /services/<slug>/index.php sets '../../') so asset and link refs resolve
 // correctly under both dev (localhost/vtnew/) and prod (virtualteammate.com/).
@@ -179,6 +184,47 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <?php endforeach; ?>
   ]
 }
+</script>
+<?php endif; ?>
+
+<?php if (!$is_homepage): /* Organization node — the homepage emits its own #org graph */ ?>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context'    => 'https://schema.org',
+  '@type'       => 'Organization',
+  '@id'         => $site_url . '/#org',
+  'name'        => 'Virtual Teammate',
+  'url'         => $site_url . '/',
+  'logo'        => $site_url . '/images/logo.webp',
+  'image'       => $site_url . '/images/logo.webp',
+  'telephone'   => '+1-480-847-2498',
+  'email'       => 'clientsuccess@virtualteammate.com',
+  'description' => 'HIPAA-certified medical and dental virtual assistant staffing — sourced from a global talent network, delivered in your time zone.',
+  'address'     => [
+    '@type'           => 'PostalAddress',
+    'streetAddress'   => '2425 East Camelback Road',
+    'addressLocality' => 'Phoenix',
+    'addressRegion'   => 'AZ',
+    'postalCode'      => '85016',
+    'addressCountry'  => 'US',
+  ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
+</script>
+<?php endif; ?>
+
+<?php if (!$is_homepage && !empty($faqs) && is_array($faqs)): /* FAQPage — homepage emits its own */ ?>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context'   => 'https://schema.org',
+  '@type'      => 'FAQPage',
+  'mainEntity' => array_map(static function ($f) {
+    return [
+      '@type'          => 'Question',
+      'name'           => $f['q'],
+      'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
+    ];
+  }, $faqs),
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>
 <?php endif; ?>
 </head>

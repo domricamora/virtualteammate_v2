@@ -9,6 +9,17 @@ $breadcrumbs      = [
   ['name' => 'Home',       'url' => '/'],
   ['name' => 'Healthcare', 'url' => '/healthcare-landing/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'Are your healthcare teammates HIPAA certified?',
+   'a' => 'Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
+  ['q' => 'Do they know my EHR?',
+   'a' => 'We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Eaglesoft and more — and we confirm the fit during selection.'],
+  ['q' => 'How fast can someone start?',
+   'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks — every placement backed by the 30-Day Right-Fit Promise.'],
+  ['q' => 'How much does it cost?',
+   'a' => 'Transparent flat-rate pricing — typically 60–73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.'],
+];
 include __DIR__ . '/../includes/head.php';
 include __DIR__ . '/../includes/nav.php';
 ?>
