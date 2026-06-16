@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Contact Virtual Teammate — Phoenix HQ + Global VA Network | (480) 847-2498';
-$page_description = 'Reach Virtual Teammate at 2425 East Camelback Road, Phoenix, AZ 85016, or call (480) 847-2498. Email clientsuccess@virtualteammate.com. US-owned HQ with a globally vetted VA bench and a US-based Client Success Manager on every engagement.';
+$page_description = 'Reach Virtual Teammate at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016, or call (480) 847-2498. Email clientsuccess@virtualteammate.com. US-owned HQ with a globally vetted VA bench and a US-based Client Success Manager on every engagement.';
 $og_title         = 'Contact Virtual Teammate — Phoenix HQ + Global VA Network';
 $og_description   = 'US-owned office in Phoenix, AZ. Global bench across 5 continents. Talk to a real US-based Client Success Manager today.';
 $canonical        = 'https://virtualteammate.com/contact/';
@@ -35,7 +35,7 @@ include __DIR__ . '/../includes/nav.php';
       "priceRange":"$$",
       "address":{
         "@type":"PostalAddress",
-        "streetAddress":"2425 East Camelback Road",
+        "streetAddress":"2425 East Camelback Road, Suite 150",
         "addressLocality":"Phoenix",
         "addressRegion":"AZ",
         "postalCode":"85016",
@@ -184,7 +184,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-quick-card reveal d2">
       <div class="ico"><i class="fa-solid fa-location-dot"></i></div>
       <div class="nm">HQ Address</div>
-      <div class="sub">2425 East Camelback Road<br>Phoenix, AZ 85016</div>
+      <div class="sub">2425 East Camelback Road, Suite 150<br>Phoenix, AZ 85016</div>
     </div>
     <div class="ct-quick-card reveal d3">
       <div class="ico"><i class="fa-solid fa-globe"></i></div>
@@ -205,23 +205,23 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="visit" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-map-location-dot"></i> Visit Our Phoenix HQ</div>
-    <h2 class="svc-h2">2425 East Camelback Road, <em>Phoenix, AZ 85016</em></h2>
+    <h2 class="svc-h2">2425 East Camelback Road, Suite 150, <em>Phoenix, AZ 85016</em></h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">A real office, a real US team, and a real address you can put in a procurement form.</p>
   </div>
 
   <div class="ct-map-wrap reveal">
     <iframe
-      src="https://www.google.com/maps?q=2425+East+Camelback+Road,+Phoenix,+AZ+85016&output=embed"
+      src="https://www.google.com/maps?q=2425+East+Camelback+Road,+Suite+150,+Phoenix,+AZ+85016&output=embed"
       width="100%" height="480" style="border:0;"
       allowfullscreen
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-      title="Virtual Teammate Phoenix HQ — 2425 East Camelback Road"></iframe>
+      title="Virtual Teammate Phoenix HQ — 2425 East Camelback Road, Suite 150"></iframe>
     <div class="ct-map-meta">
       <div class="ct-map-addr">
-        <strong>Virtual Teammate HQ</strong> &middot; 2425 East Camelback Road, Phoenix, AZ 85016
+        <strong>Virtual Teammate HQ</strong> &middot; 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016
       </div>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=2425+East+Camelback+Road,+Phoenix,+AZ+85016" target="_blank" rel="noopener">
+      <a href="https://www.google.com/maps/dir/?api=1&destination=2425+East+Camelback+Road,+Suite+150,+Phoenix,+AZ+85016" target="_blank" rel="noopener">
         <i class="fa-solid fa-diamond-turn-right"></i> Get Directions
       </a>
     </div>
@@ -284,7 +284,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager (CSM) &mdash; not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a 30-minute value scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline &mdash; no obligation, no sales pressure.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Can we talk about HIPAA / BAA right away?</div><div class="faq-a">Yes &mdash; every healthcare engagement is BAA-compatible, and we can share our HIPAA compliance documentation and BAA template during or right after the strategy call.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes &mdash; US-owned, headquartered at 2425 East Camelback Road, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes &mdash; US-owned, headquartered at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-comments"></i> What should I prepare for the first call?</div><div class="faq-a">Bring the one workflow you most want to hand off, the KPIs you want to move, and any constraints (EHR, time zone, language). We&rsquo;ll do the rest.</div></div>
   </div>
 </section>
