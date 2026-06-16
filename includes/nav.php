@@ -10,7 +10,7 @@ $home_base = $home_base ?? './';
 ?>
 <!-- TOPBAR -->
 <div class="topbar" role="complementary">
-  <i class="fa-solid fa-hospital" aria-hidden="true"></i> Specialized in Medical &amp; Dental Virtual Assistants &mdash; HIPAA-Certified &amp; Fully Vetted
+  <i class="fa-solid fa-hospital" aria-hidden="true"></i> HIPAA-certified medical &amp; dental virtual assistants: vetted, trained on your systems, live in 1&ndash;2 weeks.
   &nbsp;&bull;&nbsp;
   <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>

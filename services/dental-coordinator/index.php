@@ -13,7 +13,7 @@ $breadcrumbs      = [
 ];
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
-  ['q' => 'What does a treatment coordinator VA do?',
+  ['q' => 'What does a treatment coordinator teammate do?',
    'a' => 'Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination — all inside your dental PMS.'],
   ['q' => 'Will it improve case acceptance?',
    'a' => 'Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.'],
@@ -161,9 +161,9 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Coordinator VA FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Coordinator teammate FAQs</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator VA do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination &mdash; all inside your dental PMS.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator teammate do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination &mdash; all inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrow-trend-up"></i> Will it improve case acceptance?</div><div class="faq-a">Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>

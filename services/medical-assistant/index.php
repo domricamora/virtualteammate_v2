@@ -118,7 +118,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Recover 50% of MA Time</h3><p>Your in-room MAs stay focused on rooming, vitals and patient care &mdash; not pharmacy phone trees.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $48k&ndash;$58k loaded MA cost. Transparent flat rate &mdash; no benefits, PTO or payroll burden.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Encrypted environments only.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Flexible Coverage</h3><p>Single VA per provider, shared across a panel, or a full team for a multi-physician practice. Scale as you grow.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Flexible Coverage</h3><p>Single teammate per provider, shared across a panel, or a full team for a multi-physician practice. Scale as you grow.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, backup coverage, and quarterly performance reviews on every placement.</p></div>
   </div>
 </section>

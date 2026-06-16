@@ -157,9 +157,9 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type":"Question","name":"Are your healthcare VAs HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement."}},
-        { "@type":"Question","name":"How quickly can I get a VA started?","acceptedAnswer":{"@type":"Answer","text":"Most clients receive a curated shortlist within days. Onboarding is typically complete within 1–2 weeks."}},
-        { "@type":"Question","name":"Where are your virtual assistants based?","acceptedAnswer":{"@type":"Answer","text":"Virtual Teammate sources talent from a global network spanning the Philippines, Latin America, Africa, and South Asia — every VA is matched to your US time zone."}},
+        { "@type":"Question","name":"Are your healthcare teammates HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every healthcare and dental teammate completes HIPAA compliance training and certification before placement."}},
+        { "@type":"Question","name":"How quickly can I get a teammate started?","acceptedAnswer":{"@type":"Answer","text":"Most clients receive a curated shortlist within days. Onboarding is typically complete within 1–2 weeks."}},
+        { "@type":"Question","name":"Where are your virtual assistants based?","acceptedAnswer":{"@type":"Answer","text":"Virtual Teammate sources talent from a global network spanning the Philippines, Latin America, Africa, and South Asia — every teammate is matched to your US time zone."}},
         { "@type":"Question","name":"How much does a medical virtual assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing, typically 60–73% less than an equivalent in-house hire when factoring salary, benefits and overhead."}}
       ]
     }

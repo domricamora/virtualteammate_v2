@@ -16,7 +16,7 @@ $faqs = [
   ['q' => 'What does a virtual dental receptionist do?',
    'a' => 'Live phone answering, scheduling and rescheduling, new-patient intake, dental insurance verification, reminders, recall and message triage — inside your phone system and PMS.'],
   ['q' => 'Can they take live calls?',
-   'a' => 'Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.'],
+   'a' => 'Yes. Your teammate logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.'],
   ['q' => 'Do you offer bilingual receptionists?',
    'a' => 'Yes. Spanish and other high-demand languages are available at no premium.'],
   ['q' => 'Will it reduce no-shows?',
@@ -54,7 +54,7 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Dental Receptionist</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk VAs &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Receptionist <em>Virtual</em> Assistants</h1>
     <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-certified virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall &mdash; from inside your dental PMS and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-office front desk.</p>
     <div class="svc-trust">
@@ -161,10 +161,10 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Receptionist VA FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Receptionist teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-headset"></i> What does a virtual dental receptionist do?</div><div class="faq-a">Live phone answering, scheduling and rescheduling, new-patient intake, dental insurance verification, reminders, recall and message triage &mdash; inside your phone system and PMS.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can they take live calls?</div><div class="faq-a">Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can they take live calls?</div><div class="faq-a">Yes. Your teammate logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-language"></i> Do you offer bilingual receptionists?</div><div class="faq-a">Yes. Spanish and other high-demand languages are available at no premium.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will it reduce no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmations, reminders and same-day rebooking.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.</div></div>

@@ -45,10 +45,10 @@ include __DIR__ . '/../includes/nav.php';
     {
       "@type":"FAQPage",
       "mainEntity":[
-        {"@type":"Question","name":"What is the 30-Day Right-Fit Promise?","acceptedAnswer":{"@type":"Answer","text":"A published three-part guarantee. If a placed VA isn't the right fit inside the first 30 days, you can request a no-cost replacement, you can cancel for a full refund of billed days, and backup coverage is included by default — no upsell."}},
-        {"@type":"Question","name":"How quickly will you replace a VA?","acceptedAnswer":{"@type":"Answer","text":"You receive a curated re-shortlist within 5 business days and we onboard the replacement VA at no charge. Billing is paused until the new VA is live and producing."}},
+        {"@type":"Question","name":"What is the 30-Day Right-Fit Promise?","acceptedAnswer":{"@type":"Answer","text":"A published three-part guarantee. If a placed teammate isn't the right fit inside the first 30 days, you can request a no-cost replacement, you can cancel for a full refund of billed days, and backup coverage is included by default — no upsell."}},
+        {"@type":"Question","name":"How quickly will you replace a teammate?","acceptedAnswer":{"@type":"Answer","text":"You receive a curated re-shortlist within 5 business days and we onboard the replacement teammate at no charge. Billing is paused until the new teammate is live and producing."}},
         {"@type":"Question","name":"Is there a cancellation fee?","acceptedAnswer":{"@type":"Answer","text":"No. In the first 30 days you may cancel at any time for any reason. We refund every billed day in full — no clawbacks, no termination fees, no minimum-term lock-in."}},
-        {"@type":"Question","name":"What's included in backup coverage?","acceptedAnswer":{"@type":"Answer","text":"If your VA is on PTO, sick, or unavailable, your Client Success Manager arranges a trained backup VA within hours, at no extra cost, briefed on your workflows and EHR access. Backup ships with every placement — it's not an upsell."}},
+        {"@type":"Question","name":"What's included in backup coverage?","acceptedAnswer":{"@type":"Answer","text":"If your teammate is on PTO, sick, or unavailable, your Client Success Manager arranges a trained backup teammate within hours, at no extra cost, briefed on your workflows and EHR access. Backup ships with every placement — it's not an upsell."}},
         {"@type":"Question","name":"What if I'm not sure outsourcing is right for us?","acceptedAnswer":{"@type":"Answer","text":"Book the Practice Staffing Audit. If outsourcing isn't right for you, we'll say so on the call — no follow-up sales sequence."}}
       ]
     }
@@ -90,13 +90,13 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The 30-Day Right-Fit Promise</div>
     <h1 class="svc-h1">Hire a Virtual Teammate <em>Zero-Risk</em>. Period.</h1>
-    <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your VA isn&rsquo;t the right fit inside the first 30 days, we make it right &mdash; at no charge, no friction, no contract trap.</p>
+    <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your teammate isn&rsquo;t the right fit inside the first 30 days, we make it right &mdash; at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#claim" class="btn-glass">How to Claim the Promise <i class="fa-solid fa-list-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
     </div>
-    <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>30-day window starts the day your VA goes live</span>
+    <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>30-day window starts the day your teammate goes live</span>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
     <div class="hv-chip c1"><i class="fa-solid fa-arrows-rotate"></i> No-Cost Replace</div>
@@ -127,12 +127,12 @@ include __DIR__ . '/../includes/nav.php';
     <div class="g-copy">
       <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The Three Commitments</div>
       <h2 class="sec-h2" id="g-h2">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
-      <p class="sec-sub">A staffing partner, not a contract trap. Here is exactly what you get the day your VA goes live &mdash; and exactly what happens if anything goes sideways.</p>
+      <p class="sec-sub">A staffing partner, not a contract trap. Here is exactly what you get the day your teammate goes live &mdash; and exactly what happens if anything goes sideways.</p>
       <div class="g-cards">
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
           <h3>No-Cost Replacement</h3>
-          <p>Decide a VA isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>5 business days</strong>, onboard the new VA at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
+          <p>Decide a teammate isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>5 business days</strong>, onboard the new teammate at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
@@ -142,7 +142,7 @@ include __DIR__ . '/../includes/nav.php';
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
           <h3>Backup Coverage Built In</h3>
-          <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup VA within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
+          <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup teammate within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement &mdash; it&rsquo;s not an upsell.</p>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ include __DIR__ . '/../includes/nav.php';
         <ul>
           <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice &mdash; intake, charts, refills, billing, scheduling, recall, prior auth.</li>
           <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
-          <li><strong>Tier &amp; headcount recommendation.</strong> Specific call on Pro vs Specialist tier, full-time vs part-time, and how many VAs to start with for your specialty and patient volume.</li>
+          <li><strong>Tier &amp; headcount recommendation.</strong> Specific call on Pro vs Specialist tier, full-time vs part-time, and how many teammates to start with for your specialty and patient volume.</li>
           <li><strong>Honest no-fit answer.</strong> If outsourcing isn&rsquo;t right for your practice, we&rsquo;ll tell you on the call. No follow-up sales sequence.</li>
         </ul>
       </div>
@@ -206,7 +206,7 @@ include __DIR__ . '/../includes/nav.php';
       <ul class="gp-vs-list">
         <li><i class="fa-solid fa-circle-check"></i><span><strong>30-day no-cost replacement</strong> &mdash; billing paused until live.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>30-day money-back window</strong> &mdash; refund every billed day, no clawbacks.</span></li>
-        <li><i class="fa-solid fa-circle-check"></i><span><strong>Backup coverage included</strong> &mdash; trained sub VA within hours.</span></li>
+        <li><i class="fa-solid fa-circle-check"></i><span><strong>Backup coverage included</strong> &mdash; trained sub teammate within hours.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>No minimum-term lock-in</strong> &mdash; month-to-month, cancel any time.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>Flat-rate pricing</strong> &mdash; no recruiter spread, no fee creep.</span></li>
         <li><i class="fa-solid fa-circle-check"></i><span><strong>Dedicated CSM</strong> &mdash; owns escalation, ownership ladder is clear.</span></li>
@@ -241,8 +241,8 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-Vetted Global Bench</h3><p>2,000+ teammates already through the EFSET / IQ / Cultural Index / technical / IT pipeline. We don&rsquo;t recruit a replacement &mdash; we deploy one.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated CSM Per Account</h3><p>Your CSM watches the engagement from week one, so we usually catch fit issues before you do.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Built In</h3><p>Every active engagement has a shadow-trained backup VA available within hours &mdash; not an upsell.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe Default</h3><p>Every VA, every backup, every CSM is HIPAA-trained and works in encrypted environments only.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Built In</h3><p>Every active engagement has a shadow-trained backup teammate available within hours &mdash; not an upsell.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe Default</h3><p>Every teammate, every backup, every CSM is HIPAA-trained and works in encrypted environments only.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Monthly KPI Scorecards</h3><p>Performance is measured against your KPIs &mdash; so &ldquo;not working&rdquo; becomes a number, not a vibe.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-handshake"></i></span><h3>95%+ Retention Rate</h3><p>The promise is a publishing of how the model already runs &mdash; not a one-off concession.</p></div>
   </div>
@@ -254,16 +254,16 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:60px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Right-Fit Promise FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost VA replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 5 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new VA is live and producing.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost teammate replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 5 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new teammate is live and producing.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-rotate-left"></i> Is the refund really full?</div><div class="faq-a">Yes &mdash; every billed day in the first 30 days, refunded in full inside one billing cycle. No clawbacks, no termination fees, no minimum-term lock-in.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-shield"></i> Do I have to pay extra for backup?</div><div class="faq-a">No. Trained backup coverage is included with every placement. When your VA is on PTO, sick, or unavailable, your CSM arranges a backup within hours at no extra cost.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-circle-info"></i> Is there fine print?</div><div class="faq-a">Two reasonable conditions: the 30-day window starts the day your VA goes live (not the contract date), and replacements/refunds are issued for the original engagement scope &mdash; not for scope changes added mid-month.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-shield"></i> Do I have to pay extra for backup?</div><div class="faq-a">No. Trained backup coverage is included with every placement. When your teammate is on PTO, sick, or unavailable, your CSM arranges a backup within hours at no extra cost.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-circle-info"></i> Is there fine print?</div><div class="faq-a">Two reasonable conditions: the 30-day window starts the day your teammate goes live (not the contract date), and replacements/refunds are issued for the original engagement scope &mdash; not for scope changes added mid-month.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-handshake"></i> What if I just want to think about it?</div><div class="faq-a">Book the Practice Staffing Audit. We&rsquo;ll map your top workflows, recommend a tier and headcount, and tell you honestly if outsourcing is or isn&rsquo;t the right move &mdash; no follow-up sales sequence either way.</div></div>
   </div>
 
   <p class="gp-fineprint reveal">
-    <strong>Fine print, in plain English:</strong> The 30-day window begins the day your placed VA goes live on your account. Replacement and refund both apply to the originally scoped engagement; new scope added mid-month is honored under the new month&rsquo;s billing.
+    <strong>Fine print, in plain English:</strong> The 30-day window begins the day your placed teammate goes live on your account. Replacement and refund both apply to the originally scoped engagement; new scope added mid-month is honored under the new month&rsquo;s billing.
   </p>
 </section>
 

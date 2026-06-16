@@ -54,7 +54,7 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Dental Biller</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR VAs &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Biller <em>Virtual</em> Assistants</h1>
     <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing &mdash; inside Dentrix, Eaglesoft, Open Dental and Carestream &mdash; at up to <strong>73% less</strong> than a US in-house dental biller.</p>
     <div class="svc-trust">
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Biller VA FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-tooth"></i> What does a dental billing virtual assistant do?</div><div class="faq-a">Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon &mdash; plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>

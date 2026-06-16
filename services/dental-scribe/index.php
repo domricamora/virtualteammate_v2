@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/nav.php';
       <li><i class="fa-solid fa-check"></i><span><strong>Treatment documentation:</strong> proposed and completed treatment, materials, tooth/surface coding cues.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Clinical-note compliance:</strong> complete, consistent notes that hold up to insurance and audit review.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Same-day chart closure:</strong> notes finalized chairside, not stacked up at end of day.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Hand-off to billing:</strong> clean, coded documentation ready for your biller or billing VA.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Hand-off to billing:</strong> clean, coded documentation ready for your biller or billing teammate.</span></li>
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
@@ -160,7 +160,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Scribe VA FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Scribe teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual dental scribe do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS &mdash; clinical notes, perio charting, existing/proposed treatment, chart closure.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental &mdash; PMS-trained before placement.</div></div>

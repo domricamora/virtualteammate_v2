@@ -15,9 +15,9 @@ $breadcrumbs      = [
 $faqs = [
   ['q' => 'What does a medical billing virtual assistant do?',
    'a' => 'Full revenue cycle: charge entry, claim scrubbing & submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting — inside your existing EHR and clearinghouse.'],
-  ['q' => 'Will a billing VA actually reduce my AR days?',
+  ['q' => 'Will a billing teammate actually reduce my AR days?',
    'a' => 'Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.'],
-  ['q' => 'Are your billing VAs trained in CPT, ICD-10 and HCPCS?',
+  ['q' => 'Are your billing teammates trained in CPT, ICD-10 and HCPCS?',
    'a' => 'Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines — plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).'],
   ['q' => 'Is patient and payer data safe?',
    'a' => 'Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
@@ -90,7 +90,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-file-invoice-dollar"></i> What They Handle</div>
     <h2 class="svc-h2">Full Revenue Cycle <em>Coverage</em></h2>
-    <p class="svc-p">Most independent practices leak <strong>5&ndash;12% of collectable revenue</strong> to denials, unworked AR and missed timely-filing windows. A dedicated medical billing VA does the daily, unglamorous work that closes that gap &mdash; without adding a $58k&ndash;$78k in-house salary.</p>
+    <p class="svc-p">Most independent practices leak <strong>5&ndash;12% of collectable revenue</strong> to denials, unworked AR and missed timely-filing windows. A dedicated medical billing teammate does the daily, unglamorous work that closes that gap &mdash; without adding a $58k&ndash;$78k in-house salary.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Clean claim submission:</strong> daily charge entry, modifier review, NCCI edits, scrub &amp; submit through your clearinghouse.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Denial management:</strong> root-cause coding, payer appeals, corrected claims, write-off triage.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Outsource Medical Billing to a VA?</h2>
+    <h2 class="svc-h2">Why Outsource Medical Billing to a teammate?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained, dedicated billers without the cost &mdash; or the turnover &mdash; of in-house RCM staffing.</p>
   </div>
   <div class="svc-bens-grid">
@@ -164,11 +164,11 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Medical Biller VA FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Medical Biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a medical billing virtual assistant do?</div><div class="faq-a">Full revenue cycle: charge entry, claim scrubbing &amp; submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting &mdash; inside your existing EHR and clearinghouse.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a billing VA actually reduce my AR days?</div><div class="faq-a">Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-code"></i> Are your billing VAs trained in CPT, ICD-10 and HCPCS?</div><div class="faq-a">Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines &mdash; plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a billing teammate actually reduce my AR days?</div><div class="faq-a">Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-code"></i> Are your billing teammates trained in CPT, ICD-10 and HCPCS?</div><div class="faq-a">Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines &mdash; plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient and payer data safe?</div><div class="faq-a">Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house biller ($58k&ndash;$78k all-in). Use the homepage ROI calculator for a specialty-specific quote.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my biller is sick or on PTO?</div><div class="faq-a">Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.</div></div>

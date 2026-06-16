@@ -18,7 +18,7 @@ $hide_footer = $hide_footer ?? false;
       <div class="ft-logo">
         <img src="<?= $home_base ?>images/logo.webp" alt="Virtual Teammate" width="180" height="60" loading="lazy"/>
       </div>
-      <p class="ft-about">The leading HIPAA-certified virtual staffing solution for medical practices and dental clinics. Global talent network, US time zones, built to scale.</p>
+      <p class="ft-about">HIPAA-certified virtual assistants for medical and dental practices: vetted, trained on your systems, matched to your US time zone.</p>
       <img class="hipaa-seal hipaa-seal--footer" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy">
       <address class="ft-contact" style="font-style:normal;">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016<br>
