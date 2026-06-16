@@ -196,7 +196,7 @@ include __DIR__ . '/../includes/nav.php';
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
           <div class="val">+82.6%</div>
-          <div class="sub">$6,951 posted vs. $40,000 target &middot; $33,049 vs. plan</div>
+          <div class="sub">6,951 posted vs. 40,000 target &middot; 33,049 vs. plan</div>
         </div>
       </div>
     </article>
