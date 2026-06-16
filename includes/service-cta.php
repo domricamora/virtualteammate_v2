@@ -22,7 +22,7 @@ $svc_all = [
 
 /* Live teammate preview for this service — drawn from the matching department
    and ranked so the page's specific role bubbles to the top (see vt-cards.php).
-   Card CTA funnels to the homepage Practice Growth Review modal. */
+   Card CTA funnels to the homepage Practice Staffing Audit modal. */
 $svc_vtc = [
   'medical-administrative-support' => ['dept' => 'Medical', 'role' => 'Medical Administrative', 'kw' => ['administrative', 'admin', 'chart', 'intake', 'scheduling', 'eligibility']],
   'medical-receptionist'           => ['dept' => 'Medical', 'role' => 'Medical Receptionist',   'kw' => ['reception', 'front desk', 'front-desk', 'phone', 'scheduling']],
@@ -43,9 +43,9 @@ if (isset($svc_vtc[$svc_slug])) {
     $vtc_label      = 'Meet the Bench';
     $vtc_heading    = 'Meet Our <em>' . $sce($sc['role']) . '</em> Virtual Teammates';
     $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates &mdash; interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
-    $vtc_cta_href   = $home_base . '#cta-request-teammate';
-    $vtc_cta_intent = 'request-teammate';
-    $vtc_cta_label  = 'Request a teammate';
+    $vtc_cta_href   = $home_base . '#cta-practice-audit';
+    $vtc_cta_intent = 'practice-audit';
+    $vtc_cta_label  = 'Book My Staffing Audit';
     include __DIR__ . '/vt-cards.php';
 }
 ?>
@@ -54,8 +54,9 @@ if (isset($svc_vtc[$svc_slug])) {
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
   <p>Get a curated shortlist of HIPAA-certified candidates within days &mdash; matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
-    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="<?= $home_base ?>#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
   </div>
 </section>
 

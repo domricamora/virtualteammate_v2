@@ -27,8 +27,8 @@
  *   $vtc_label         string  eyebrow label (default 'Meet the Bench')
  *   $vtc_heading       string  H2 (HTML allowed, e.g. with <em>)
  *   $vtc_sub           string  sub copy under the H2
- *   $vtc_cta_href      string  card button href (default $home_base.'#cta-request-teammate')
- *   $vtc_cta_intent    string  data-cta-intent on the card button (default 'request-teammate')
+ *   $vtc_cta_href      string  card button href (default $home_base.'#cta-practice-audit')
+ *   $vtc_cta_intent    string  data-cta-intent on the card button (default 'practice-audit')
  *   $vtc_cta_label     string  card button text (default 'Request this teammate')
  *   $vtc_cta_vt        bool    add data-vt-id/data-vt-name for on-page form prefill (default false)
  *   $vtc_browse        bool    show the "Browse all Virtual Teammates" footer (preview only; default true)
@@ -46,9 +46,9 @@ $vtc_page       = $vtc_page       ?? 9;
 $vtc_label      = $vtc_label      ?? 'Meet the Bench';
 $vtc_heading    = $vtc_heading    ?? 'Meet Your <em>Virtual Teammates</em>';
 $vtc_sub        = $vtc_sub        ?? 'A sample of real, vetted teammates — matched to your time zone and ready to start in 1&ndash;2 weeks.';
-$vtc_cta_href   = $vtc_cta_href   ?? ($home_base . '#cta-request-teammate');
-$vtc_cta_intent = $vtc_cta_intent ?? 'request-teammate';
-$vtc_cta_label  = $vtc_cta_label  ?? 'Request this teammate';
+$vtc_cta_href   = $vtc_cta_href   ?? ($home_base . '#cta-practice-audit');
+$vtc_cta_intent = $vtc_cta_intent ?? 'practice-audit';
+$vtc_cta_label  = $vtc_cta_label  ?? 'Book My Staffing Audit';
 $vtc_cta_vt     = $vtc_cta_vt     ?? false;
 $vtc_browse     = $vtc_browse     ?? true;
 

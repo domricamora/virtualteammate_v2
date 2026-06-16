@@ -64,7 +64,7 @@
   else if (navMql.addListener) navMql.addListener(onBreakpointChange); // Safari < 14 fallback
 
   /* CTA entry points — each funnel stage now opens its own modal form
-     (#cta-strategy-call / #cta-practice-audit / #cta-buyers-checklist). Opening
+     (#cta-practice-audit / #cta-buyers-checklist). Opening
      is driven entirely by the anchor href + CSS :target, with the scroll-lock /
      focus / ESC behavior handled by the inline script on the homepage, so no
      JS wiring is needed here. The data-cta-intent attribute is retained on the
@@ -108,12 +108,13 @@
     el.dataset.done = '1';
     var target = +el.dataset.count || 0;
     var suffix = el.dataset.suffix || '';
-    if (reduce){ el.textContent = target + suffix; return; }
+    var decimals = +el.dataset.decimals || 0; // e.g. "1" for the 4.9 rating
+    function fmt(n){ return decimals ? n.toFixed(decimals) : Math.round(n).toLocaleString(); }
+    if (reduce){ el.textContent = fmt(target) + suffix; return; }
     var start = performance.now(), dur = 1400;
     function frame(now){
       var t = Math.min(1, (now - start) / dur);
-      var v = Math.round(target * easeOutCubic(t));
-      el.textContent = v.toLocaleString() + suffix;
+      el.textContent = fmt(target * easeOutCubic(t)) + suffix;
       if (t < 1) requestAnimationFrame(frame);
     }
     requestAnimationFrame(frame);

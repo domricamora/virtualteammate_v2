@@ -63,18 +63,20 @@ include 'includes/nav.php';
     </ul>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost &mdash; or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#calculator" class="btn-primary">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
-      <a href="#cta-practice-audit" class="btn-glass" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
     </div>
+    <div class="cta-note reveal d3"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
     <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+    <p class="avail-note reveal d3"><i class="fa-solid fa-hourglass-half"></i> We onboard a limited number of new practices each month to protect match quality &mdash; current intake has a short waitlist. Book your audit to hold a spot.</p>
   </div>
 
   <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
   <div class="hero-stats reveal d5">
-    <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">0%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
-    <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">0%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
-    <div class="hstat"><div class="hstat-num hstat-rating">4.9<i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating</div></div>
-    <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">0-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">73%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">95%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
+    <div class="hstat"><div class="hstat-num hstat-rating"><span data-count="4.9" data-decimals="1">4.9</span><i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating</div></div>
+    <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">30-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
   </div>
 
   <!-- Trust row — full-width strip spanning the whole hero -->
@@ -105,6 +107,60 @@ $mq_srcs = array_values(array_map(static function ($p) {
   </div>
 </div>
 <script>window.VT_MARQUEE = <?= json_encode($mq_srcs, JSON_UNESCAPED_SLASHES) ?>;</script>
+
+<?php
+/**
+ * Pull up to 6 live VT profiles from the portal SQLite DB for the
+ * "Meet the Team" section. Filtered to medical + dental (matched against
+ * department OR role_title) and only included if a downloaded photo exists
+ * on disk. Falls back silently to an empty array if the DB isn't installed
+ * yet (so the marketing page still renders even on environments without
+ * the portal).
+ */
+function vtnew_homepage_profiles(int $limit = 6): array
+{
+    $dbPath = __DIR__ . '/data/portal.sqlite';
+    if (!file_exists($dbPath)) { return []; }
+    try {
+        $pdo = new PDO('sqlite:' . $dbPath);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $pdo->query(
+            "SELECT u.id, u.first_name, u.last_name, u.country, p.role_title, p.department,
+                    p.ehr_software, p.experience_years, p.status,
+                    p.hipaa_certified, p.primary_skills, p.summary
+             FROM vt_profiles p JOIN users u ON u.id = p.user_id
+             WHERE u.active = 1
+               AND (p.department LIKE '%medical%' OR p.department LIKE '%dental%'
+                    OR p.role_title LIKE '%medical%' OR p.role_title LIKE '%dental%')
+             ORDER BY RANDOM() LIMIT 24"
+        );
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $_) { return []; }
+
+    $out = [];
+    foreach ($rows as $r) {
+        $rid = (int) $r['id'];
+        // Include only VTs with a real photo. Photos now live in the public
+        // vtmedia folder (thumbnail or full-size); the legacy data/media path
+        // is kept as a fallback. Mirrors talent-photo.php's resolution order.
+        $thumbGlob = glob(__DIR__ . '/vtmedia/vt_thumbs/' . $rid . '.*');
+        $hasPhoto = $thumbGlob
+                 || glob(__DIR__ . '/vtmedia/vt/' . $rid . '/photo.*')
+                 || glob(__DIR__ . '/data/media/vt/' . $rid . '/photo.*');
+        if (!$hasPhoto) { continue; }
+        // Prefer the lightweight 150x150 static thumbnail file; fall back to the
+        // (thumb-preferring) PHP endpoint when no static thumb exists yet.
+        $r['_thumb'] = $thumbGlob ? 'vtmedia/vt_thumbs/' . basename($thumbGlob[0]) : '';
+        // Classify Medical vs Dental for the tag.
+        $hay = strtolower(($r['department'] ?? '') . ' ' . ($r['role_title'] ?? ''));
+        $r['_tag'] = str_contains($hay, 'dental') ? 'Dental VA' : 'Medical VA';
+        $r['_tag_cls'] = str_contains($hay, 'dental') ? 'dent' : 'med';
+        $out[] = $r;
+        if (count($out) >= $limit) { break; }
+    }
+    return $out;
+}
+?>
 
 <div class="divider"></div>
 
@@ -191,150 +247,6 @@ $mq_srcs = array_values(array_map(static function ($p) {
         </div>
       </div>
     </article>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SPECIALTIES -->
-<section class="sec" id="specialties">
-  <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Healthcare Focused on <em>Targeted Outcomes</em></h2>
-    <p class="sec-sub">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow, and patient communication &mdash; so your team can stay focused on care and results.</p>
-  </div>
-
-  <div class="spec-grid">
-    <article class="spec-card reveal d1">
-      <div class="spec-photo">
-        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" loading="lazy"/>
-        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
-        <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
-          <ul>
-            <li><strong>AR days 52 &rarr; 23</strong> &mdash; Family Practice, Austin TX. $68k stalled claims recovered in 12 weeks.</li>
-            <li><strong>+18 hrs/week reclaimed</strong> &mdash; Internal Medicine, Denver CO. Scribe ends after-hours charting.</li>
-            <li><strong>95%+ clean claim rate</strong> &mdash; average across our specialist-tier medical billers.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="spec-content">
-        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
-        <div class="spec-title-row">
-          <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
-          <h3 class="spec-title">Medical Virtual Teammates</h3>
-        </div>
-        <p class="spec-desc">HIPAA-certified medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so providers stop charting after hours and your AR keeps moving.</p>
-
-        <div class="spec-pills">
-          <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/medical-receptionist/">Medical Receptionist <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/medical-biller/">Medical Biller <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/medical-scribe/">Medical Scribe <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/medical-assistant/">Medical Assistant <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-        <a href="#calculator" class="spec-link">Calculate Medical VA ROI <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </article>
-
-    <article class="spec-card alt reveal d2">
-      <div class="spec-photo">
-        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" loading="lazy"/>
-        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
-        <div class="spec-proof">
-          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental VAs deliver</div>
-          <ul>
-            <li><strong>No-shows 22% &rarr; 9%</strong> &mdash; Pediatric Dental, Tampa FL. +14 visits/week recovered from confirmations &amp; rebooks.</li>
-            <li><strong>30%+ no-show reduction</strong> &mdash; Phoenix AZ dental practice with virtual receptionist on recall.</li>
-            <li><strong>CDT-coded claims with narratives</strong> &mdash; first-pass clean-claim rate above 95%.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="spec-content">
-        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
-        <div class="spec-title-row">
-          <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
-          <h3 class="spec-title">Dental Virtual Assistants That Protect Clinic Productivity</h3>
-        </div>
-        <p class="spec-desc">Keep chairs full, claims clean, and your team focused on patients with virtual teammates fluent in dental EMRs.</p>
-
-        <div class="spec-pills">
-          <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/dental-receptionist/">Dental Receptionist <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/dental-biller/">Dental Biller <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/dental-scribe/">Dental Scribe <i class="fa-solid fa-arrow-right"></i></a>
-          <a class="pill" href="services/dental-coordinator/">Dental Coordinator <i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-        <a href="#calculator" class="spec-link">Calculate Dental VA ROI <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
-    </article>
-  </div>
-
-  <!-- HIPAA STRIP -->
-  <div class="hipaa reveal">
-    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy">
-    <div class="hbadges">
-      <div class="hbadge">
-        <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
-        <div class="hbadge-txt"><strong>HIPAA Certified</strong><span>Every healthcare VA</span></div>
-      </div>
-      <div class="hbadge">
-        <span class="ico-circle"><i class="fa-solid fa-brain"></i></span>
-        <div class="hbadge-txt"><strong>EHR Trained</strong><span>Epic, Cerner, Dentrix &amp; more</span></div>
-      </div>
-      <div class="hbadge">
-        <span class="ico-circle"><i class="fa-solid fa-circle-check"></i></span>
-        <div class="hbadge-txt"><strong>Multi-Stage Vetting</strong><span>Background + skills verified</span></div>
-      </div>
-      <div class="hbadge">
-        <span class="ico-circle"><i class="fa-solid fa-clock"></i></span>
-        <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
-      </div>
-    </div>
-    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PROCESS -->
-<section class="sec">
-  <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
-    <h2 class="sec-h2">Hire in Days, <em>Not Months</em></h2>
-    <p class="sec-sub" style="margin:0 auto;">A lightning-fast 3-step process built for busy doctors, dentists, and practice managers.</p>
-  </div>
-  <div class="proc-steps">
-    <div class="pstep reveal d1">
-      <div class="pstep-head">
-        <div class="pstep-num">01</div>
-        <i class="fa-solid fa-calendar-check pstep-ico"></i>
-      </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
-      <h3 class="pstep-title">Book a Practice Staffing Audit</h3>
-      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm your audit slot <strong>within one business day</strong>. The 20-minute diagnostic call maps your practice, workflows, and the exact clinical or admin support to delegate first.</p>
-    </div>
-    <div class="pstep reveal d2">
-      <div class="pstep-head">
-        <div class="pstep-num">02</div>
-        <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
-      </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 5&ndash;7 business days</div>
-      <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
-      <p class="pstep-desc">Curated shortlist of HIPAA-certified VAs delivered in <strong>5&ndash;7 business days</strong> &mdash; matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
-    </div>
-    <div class="pstep reveal d3">
-      <div class="pstep-head">
-        <div class="pstep-num">03</div>
-        <i class="fa-solid fa-rocket pstep-ico"></i>
-      </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
-      <h3 class="pstep-title">Launch &amp; Onboard Seamlessly</h3>
-      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
-    </div>
-  </div>
-  <div class="proc-cta reveal">
-    <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
   </div>
 </section>
 
@@ -444,53 +356,108 @@ $mq_srcs = array_values(array_map(static function ($p) {
   </div>
 </section>
 
-<!-- (GLOBAL section moved below — see after the Differentiators block) -->
-
-<!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
-<div class="news" aria-label="Virtual Teammate in the news and press releases">
-  <div class="news-lbl"><i class="fa-solid fa-newspaper"></i> In The News &amp; Press Releases</div>
-  <div class="news-track-wrap">
-    <div class="news-track" id="newsTrack"></div>
-  </div>
-</div>
-
 <div class="divider"></div>
 
-<?php $homepage_profiles = vtnew_homepage_profiles(8); ?>
-<!-- PROFILES (live from the VT portal — medical + dental only) -->
-<section class="sec" id="profiles">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;" class="reveal">
-    <div>
-      <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
-      <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
-    </div>
-    <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+<!-- SPECIALTIES -->
+<section class="sec" id="specialties">
+  <div class="reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
+    <h2 class="sec-h2">Healthcare Focused on <em>Targeted Outcomes</em></h2>
+    <p class="sec-sub">From day one, our virtual teammates are trained to support and improve clinical operations, cash flow, and patient communication &mdash; so your team can stay focused on care and results.</p>
   </div>
 
-  <?php if (!empty($homepage_profiles)): ?>
-    <div class="prof-grid">
-      <?php foreach ($homepage_profiles as $i => $p):
-        $name = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''));
-        $role = $p['role_title'] ?: ($p['department'] ?: 'Healthcare VA');
-        $years = (int) $p['experience_years'];
-        $ehr   = trim((string) $p['ehr_software']);
-        $delay = 'd' . (($i % 4) + 1);
-        $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
-      ?>
-        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-request-teammate" data-cta-intent="request-teammate" data-teammate="<?= htmlspecialchars($name, ENT_QUOTES) ?>" data-role="<?= htmlspecialchars($role, ENT_QUOTES) ?>" aria-label="Request a teammate like <?= htmlspecialchars($name, ENT_QUOTES) ?>">
-          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
-          <div class="prof-name"><?= htmlspecialchars($name) ?></div>
-          <div class="prof-role"><?= htmlspecialchars($role) ?></div>
-          <?php if (!empty($p['department']) && $p['department'] !== $role): ?><div class="prof-dept"><?= htmlspecialchars($p['department']) ?></div><?php endif; ?>
-        </a>
-      <?php endforeach; ?>
+  <div class="spec-grid">
+    <article class="spec-card reveal d1">
+      <div class="spec-photo">
+        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" loading="lazy"/>
+        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
+        <div class="spec-proof">
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers &mdash; medical practices</div>
+          <ul>
+            <li><strong>AR days 52 &rarr; 23</strong> &mdash; Family Practice, Austin TX. $68k stalled claims recovered in 12 weeks.</li>
+            <li><strong>+18 hrs/week reclaimed</strong> &mdash; Internal Medicine, Denver CO. Scribe ends after-hours charting.</li>
+            <li><strong>95%+ clean claim rate</strong> &mdash; average across our specialist-tier medical billers.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-content">
+        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
+        <div class="spec-title-row">
+          <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
+          <h3 class="spec-title">Medical Virtual Teammates</h3>
+        </div>
+        <p class="spec-desc">HIPAA-certified medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls &mdash; so providers stop charting after hours and your AR keeps moving.</p>
+
+        <div class="spec-pills">
+          <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-receptionist/">Medical Receptionist <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-biller/">Medical Biller <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-scribe/">Medical Scribe <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/medical-assistant/">Medical Assistant <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      </div>
+    </article>
+
+    <article class="spec-card alt reveal d2">
+      <div class="spec-photo">
+        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" loading="lazy"/>
+        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
+        <div class="spec-proof">
+          <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental VAs deliver</div>
+          <ul>
+            <li><strong>No-shows 22% &rarr; 9%</strong> &mdash; Pediatric Dental, Tampa FL. +14 visits/week recovered from confirmations &amp; rebooks.</li>
+            <li><strong>30%+ no-show reduction</strong> &mdash; Phoenix AZ dental practice with virtual receptionist on recall.</li>
+            <li><strong>CDT-coded claims with narratives</strong> &mdash; first-pass clean-claim rate above 95%.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="spec-content">
+        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Eaglesoft / Open Dental Trained</div>
+        <div class="spec-title-row">
+          <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
+          <h3 class="spec-title">Dental Virtual Assistants That Protect Clinic Productivity</h3>
+        </div>
+        <p class="spec-desc">Keep chairs full, claims clean, and your team focused on patients with virtual teammates fluent in dental EMRs.</p>
+
+        <div class="spec-pills">
+          <a class="pill" href="services/dental-admin/">Dental Admin Support <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-receptionist/">Dental Receptionist <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-biller/">Dental Biller <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-scribe/">Dental Scribe <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="pill" href="services/dental-coordinator/">Dental Coordinator <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      </div>
+    </article>
+  </div>
+
+  <!-- HIPAA STRIP -->
+  <div class="hipaa reveal">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy">
+    <div class="hbadges">
+      <div class="hbadge">
+        <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
+        <div class="hbadge-txt"><strong>HIPAA Certified</strong><span>Every healthcare VA</span></div>
+      </div>
+      <div class="hbadge">
+        <span class="ico-circle"><i class="fa-solid fa-brain"></i></span>
+        <div class="hbadge-txt"><strong>EHR Trained</strong><span>Epic, Cerner, Dentrix &amp; more</span></div>
+      </div>
+      <div class="hbadge">
+        <span class="ico-circle"><i class="fa-solid fa-circle-check"></i></span>
+        <div class="hbadge-txt"><strong>Multi-Stage Vetting</strong><span>Background + skills verified</span></div>
+      </div>
+      <div class="hbadge">
+        <span class="ico-circle"><i class="fa-solid fa-clock"></i></span>
+        <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
+      </div>
     </div>
-  <?php else: ?>
-    <div class="prof-empty card">
-      <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
-    </div>
-  <?php endif; ?>
+    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+  </div>
 </section>
 
 <div class="divider"></div>
@@ -530,10 +497,126 @@ $mq_srcs = array_values(array_map(static function ($p) {
       </div>
 
       <div class="g-foot">
-        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
       </div>
     </div>
   </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section class="sec">
+  <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
+    <h2 class="sec-h2">Hire in Days, <em>Not Months</em></h2>
+    <p class="sec-sub" style="margin:0 auto;">A lightning-fast 3-step process built for busy doctors, dentists, and practice managers.</p>
+  </div>
+  <div class="proc-steps">
+    <div class="pstep reveal d1">
+      <div class="pstep-head">
+        <div class="pstep-num">01</div>
+        <i class="fa-solid fa-calendar-check pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
+      <h3 class="pstep-title">Book a Practice Staffing Audit</h3>
+      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm your audit slot <strong>within one business day</strong>. The 20-minute diagnostic call maps your practice, workflows, and the exact clinical or admin support to delegate first.</p>
+    </div>
+    <div class="pstep reveal d2">
+      <div class="pstep-head">
+        <div class="pstep-num">02</div>
+        <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 5&ndash;7 business days</div>
+      <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
+      <p class="pstep-desc">Curated shortlist of HIPAA-certified VAs delivered in <strong>5&ndash;7 business days</strong> &mdash; matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
+    </div>
+    <div class="pstep reveal d3">
+      <div class="pstep-head">
+        <div class="pstep-num">03</div>
+        <i class="fa-solid fa-rocket pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
+      <h3 class="pstep-title">Launch &amp; Onboard Seamlessly</h3>
+      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff all wrapped in <strong>1&ndash;2 weeks</strong>. Your VA hits the ground running with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
+    </div>
+  </div>
+  <div class="proc-cta reveal">
+    <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<?php $homepage_profiles = vtnew_homepage_profiles(8); ?>
+<!-- PROFILES (live from the VT portal — medical + dental only) -->
+<section class="sec" id="profiles">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;" class="reveal">
+    <div>
+      <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
+      <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
+    </div>
+    <div style="text-align:right;">
+      <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise — free replacement or your money back.</div>
+    </div>
+  </div>
+  <p class="sec-sub reveal" style="margin-top:6px;">Vetted specialists &mdash; HIPAA-certified and trained on the systems your practice already runs.</p>
+
+  <?php if (!empty($homepage_profiles)): ?>
+    <div class="prof-grid">
+      <?php
+        // Singularize plural role/specialty tags coming from portal data
+        // (e.g. "Dental Assistants" -> "Dental Assistant").
+        $vt_singularize = static fn (string $s): string => preg_replace('/\bAssistants\b/i', 'Assistant', $s);
+        foreach ($homepage_profiles as $i => $p):
+        $name  = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''));
+        $role  = $vt_singularize($p['role_title'] ?: ($p['department'] ?: 'Healthcare VA'));
+        $tagCls = $p['_tag_cls'] ?? 'med';
+        $isDental = ($tagCls === 'dent');
+        $tag   = $vt_singularize((string) ($p['_tag'] ?? ($isDental ? 'Dental VA' : 'Medical VA')));
+        $years = (int) $p['experience_years'];
+        $ehr   = trim((string) $p['ehr_software']);
+        // Fallbacks so no card ships without Systems + Experience + a credential.
+        $systems = $ehr !== '' ? $ehr : 'On request';
+        $expLbl  = $years > 0 ? $years . '+ yrs' : 'Experienced';
+        // 1-line capability: first sentence of summary, else primary skills, else a role-based default.
+        $cap = trim((string) ($p['summary'] ?? ''));
+        if ($cap !== '') {
+            $cap = preg_split('/(?<=[.!?])\s+/', $cap)[0];
+        } elseif (trim((string) ($p['primary_skills'] ?? '')) !== '') {
+            $cap = trim((string) $p['primary_skills']);
+        } else {
+            $cap = 'Ready to support your ' . ($isDental ? 'dental' : 'medical') . ' workflows.';
+        }
+        $cap = function_exists('mb_strimwidth')
+            ? mb_strimwidth($cap, 0, 96, '…')
+            : (strlen($cap) > 96 ? substr($cap, 0, 95) . '…' : $cap);
+        $delay = 'd' . (($i % 4) + 1);
+        $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
+      ?>
+        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-practice-audit" data-cta-intent="practice-audit" aria-label="Book My Staffing Audit">
+          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
+          <div class="prof-name"><?= htmlspecialchars($name) ?></div>
+          <span class="prof-tag <?= $isDental ? 'dent' : 'med' ?>"><?= htmlspecialchars($tag) ?></span>
+          <div class="prof-role"><?= htmlspecialchars($role) ?></div>
+          <div class="prof-meta">
+            <span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= htmlspecialchars($systems) ?></span>
+            <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= htmlspecialchars($expLbl) ?></span>
+            <span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span>
+          </div>
+          <div class="prof-cap"><?= htmlspecialchars($cap) ?></div>
+        </a>
+      <?php endforeach; ?>
+    </div>
+  <?php else: ?>
+    <div class="prof-empty card">
+      <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+    </div>
+  <?php endif; ?>
 </section>
 
 <div class="divider"></div>
@@ -631,59 +714,14 @@ $mq_srcs = array_values(array_map(static function ($p) {
 
 <div class="divider"></div>
 
-<?php
-/**
- * Pull up to 6 live VT profiles from the portal SQLite DB for the
- * "Meet the Team" section. Filtered to medical + dental (matched against
- * department OR role_title) and only included if a downloaded photo exists
- * on disk. Falls back silently to an empty array if the DB isn't installed
- * yet (so the marketing page still renders even on environments without
- * the portal).
- */
-function vtnew_homepage_profiles(int $limit = 6): array
-{
-    $dbPath = __DIR__ . '/data/portal.sqlite';
-    if (!file_exists($dbPath)) { return []; }
-    try {
-        $pdo = new PDO('sqlite:' . $dbPath);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $pdo->query(
-            "SELECT u.id, u.first_name, u.last_name, u.country, p.role_title, p.department,
-                    p.ehr_software, p.experience_years, p.status
-             FROM vt_profiles p JOIN users u ON u.id = p.user_id
-             WHERE u.active = 1
-               AND (p.department LIKE '%medical%' OR p.department LIKE '%dental%'
-                    OR p.role_title LIKE '%medical%' OR p.role_title LIKE '%dental%')
-             ORDER BY RANDOM() LIMIT 24"
-        );
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Throwable $_) { return []; }
+<!-- IN THE NEWS & PRESS RELEASES (logo marquee, toned-down → full color on hover) -->
+<div class="news" aria-label="Virtual Teammate in the news and press releases">
+  <div class="news-lbl"><i class="fa-solid fa-newspaper"></i> Recognized in the Press</div>
+  <div class="news-track-wrap">
+    <div class="news-track" id="newsTrack"></div>
+  </div>
+</div>
 
-    $out = [];
-    foreach ($rows as $r) {
-        $rid = (int) $r['id'];
-        // Include only VTs with a real photo. Photos now live in the public
-        // vtmedia folder (thumbnail or full-size); the legacy data/media path
-        // is kept as a fallback. Mirrors talent-photo.php's resolution order.
-        $thumbGlob = glob(__DIR__ . '/vtmedia/vt_thumbs/' . $rid . '.*');
-        $hasPhoto = $thumbGlob
-                 || glob(__DIR__ . '/vtmedia/vt/' . $rid . '/photo.*')
-                 || glob(__DIR__ . '/data/media/vt/' . $rid . '/photo.*');
-        if (!$hasPhoto) { continue; }
-        // Prefer the lightweight 150x150 static thumbnail file; fall back to the
-        // (thumb-preferring) PHP endpoint when no static thumb exists yet.
-        $r['_thumb'] = $thumbGlob ? 'vtmedia/vt_thumbs/' . basename($thumbGlob[0]) : '';
-        // Classify Medical vs Dental for the tag.
-        $hay = strtolower(($r['department'] ?? '') . ' ' . ($r['role_title'] ?? ''));
-        $r['_tag'] = str_contains($hay, 'dental') ? 'Dental VA' : 'Medical VA';
-        $r['_tag_cls'] = str_contains($hay, 'dental') ? 'dent' : 'med';
-        $out[] = $r;
-        if (count($out) >= $limit) { break; }
-    }
-    return $out;
-}
-$homepage_profiles = vtnew_homepage_profiles(8);
-?>
 <div class="divider"></div>
 
 <!-- FAQ -->
@@ -704,12 +742,59 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- CONSOLIDATED OFFER — "Here's Exactly What You Get" -->
+<section class="sec offer" id="offer" aria-labelledby="offer-h">
+  <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto;">
+    <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> Here&rsquo;s the Deal</div>
+    <h2 class="sec-h2" id="offer-h">Here&rsquo;s Exactly What You Get</h2>
+    <p class="sec-sub" style="margin:0 auto;">HIPAA-certified medical &amp; dental virtual assistants &mdash; trained on Epic, Cerner, Dentrix and Eaglesoft &mdash; fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
+  </div>
+
+  <div class="offer-grid reveal d1">
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-tag"></i></span>
+      <p><strong>Published flat-rate pricing.</strong> From $975/mo part-time. Pro $1,625/mo full-time ($867 part-time). Specialist $2,167/mo full-time ($1,300 part-time). All-in &mdash; no markups, no surprises.</p>
+    </div>
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-bolt"></i></span>
+      <p><strong>Matched in days.</strong> Shortlist of 5&ndash;7 in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
+    </div>
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span>
+      <p><strong>A dedicated CSM</strong> on your account from day one.</p>
+    </div>
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
+      <p><strong>30-Day Right-Fit Promise.</strong> Free replacement, 30-day money-back, and backup coverage &mdash; plus a written billing-outcome commitment for your practice.</p>
+    </div>
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-lock-open"></i></span>
+      <p><strong>No long-term lock-in.</strong> Month-to-month after your first 90 days.</p>
+    </div>
+    <div class="offer-item">
+      <span class="ico-circle"><i class="fa-solid fa-robot"></i></span>
+      <p><strong>AI productivity, human accountability.</strong> A person reviews and signs off on every AI-assisted output before it reaches your practice.</p>
+    </div>
+  </div>
+
+  <div class="offer-cta reveal">
+    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <p class="offer-cta-fine">20 minutes. No obligation. Covered by the 30-Day Right-Fit Promise.</p>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
 <!-- CTA FORM -->
 <section class="sec cta-stages-section" id="cta" style="padding-top:80px;padding-bottom:110px;">
   <div class="cta-stages-h reveal">
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Three Ways to Start</div>
     <h2 class="cta-h2" style="font-size:36px;">Pick the Entry Point<br>That Fits Where You Are</h2>
     <p class="cta-sub">Top of funnel, mid-funnel, or ready to scope &mdash; same team, three different first steps. Same color, same SLA, same Client Success Manager (CSM) waiting on the other side.</p>
+    <p class="avail-note avail-note-center"><i class="fa-solid fa-hourglass-half"></i> Every month short-staffed is another month of denied claims and after-hours charting. Most practices are live within 1&ndash;2 weeks of their audit.</p>
   </div>
 
   <div class="cta-stages-grid reveal d1">
@@ -736,10 +821,11 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
     </article>
 
-    <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
+    <article class="cta-stage cta-stage-high" data-cta-intent="practice-audit">
       <div class="cta-stage-tag">Ready to talk</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <h3>Strategy Call &amp; Jumpstart</h3>
@@ -749,12 +835,14 @@ $homepage_profiles = vtnew_homepage_profiles(8);
         <li>Tailored candidate shortlist</li>
         <li>Onboarding plan + CSM intro</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to start with a diagnostic? <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Practice Staffing Audit</a> and a Client Success Manager (CSM) will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to start with a diagnostic? <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
+
 
 <!-- ENTRY-POINT MODALS — one tailored form per funnel stage. Opened via the
      #cta-<intent> hash (CSS :target, so they work with JS off too); the script
@@ -787,23 +875,8 @@ $homepage_profiles = vtnew_homepage_profiles(8);
   <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> 20-Min Practice Staffing Audit</div>
-    <h2 class="cta-modal-h" id="ccm-pa-h">Book My Practice Staffing Audit</h2>
+    <h2 class="cta-modal-h" id="ccm-pa-h">Book My Staffing Audit</h2>
     <p class="cta-modal-sub">Pick a time that works for you &mdash; a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first. Diagnostic only, no obligation.</p>
-    <div class="cta-book-embed">
-      <!-- Start of Meetings Embed Script -->
-      <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
-      <!-- End of Meetings Embed Script -->
-    </div>
-  </div>
-</div>
-
-<div class="cta-modal" id="cta-strategy-call" role="dialog" aria-modal="true" aria-labelledby="ccm-sc-h">
-  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card cta-modal-card--lg">
-    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Strategy Call &amp; Jumpstart</div>
-    <h2 class="cta-modal-h" id="ccm-sc-h">Book Your Strategy Call &amp; Jumpstart</h2>
-    <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope your needs, define the role, and map your first 30 days &mdash; so your teammate is productive fast. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
       <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
@@ -827,35 +900,6 @@ window.addEventListener('hashchange', function () {
   } catch (e) {}
 });
 </script>
-
-<!-- Candidate-request modal — opened by the teammate profile cards. The clicked
-     card's name (data-teammate) is injected into the heading + the hidden
-     vt_interest field by the modal script, so the lead records who they asked
-     for. Works with JS off too (opens via #cta-request-teammate); the name just
-     stays generic. -->
-<div class="cta-modal" id="cta-request-teammate" role="dialog" aria-modal="true" aria-labelledby="ccm-rt-h">
-  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
-    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-id-badge"></i> Request this teammate</div>
-    <h2 class="cta-modal-h" id="ccm-rt-h">Request a Teammate <span data-teammate-name></span></h2>
-    <p class="cta-modal-sub">Drop your name and work email and your Client Success Manager will check this teammate&rsquo;s availability &mdash; or line up the closest match on our bench, matched to your specialty, EHR and time zone.</p>
-    <form class="cta-modal-form" id="ctaRequestForm" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Thanks! Your Client Success Manager will be in touch within one business day about this teammate.">
-      <input type="hidden" name="intent" value="request-teammate">
-      <input type="hidden" name="form" value="homepage-request-teammate">
-      <input type="hidden" name="source" value="Request a Teammate">
-      <input type="hidden" name="vt_interest" data-requested-teammate value="">
-      <div class="cf-row" style="margin-bottom:16px;">
-        <input class="cf-field" name="first_name" placeholder="First Name" required>
-        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Request This Teammate <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>No commitment &middot; We respond within 1 business day &middot; Covered by the 30-Day Right-Fit Promise</div>
-    </form>
-  </div>
-</div>
 
 </main>
 <?php $hide_lead_band = true; /* homepage already has the #cta + ROI forms */ ?>
@@ -991,25 +1035,9 @@ window.addEventListener('hashchange', function () {
     }
   }
   // Capture scroll position before the hash flips so the open is jump-free.
-  // For the candidate-request modal, also inject the clicked teammate's name
-  // (from data-teammate) into the heading + the hidden vt_interest field so the
-  // lead records exactly who was requested.
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#cta-"]');
     if (!a || !modals[a.getAttribute('href')]) { return; }
-    var team = a.getAttribute('data-teammate');
-    if (team) {
-      var m = modals['#cta-request-teammate'];
-      if (m) {
-        var nameEl = m.querySelector('[data-teammate-name]');
-        if (nameEl) { nameEl.textContent = 'Like ' + team; }
-        var hidden = m.querySelector('[data-requested-teammate]');
-        if (hidden) {
-          var role = a.getAttribute('data-role');
-          hidden.value = team + (role ? ' (' + role + ')' : '');
-        }
-      }
-    }
     lock();
   });
   document.addEventListener('keydown', function (e) {

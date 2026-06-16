@@ -185,7 +185,8 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which front-office tasks to delegate first &mdash; or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-glass">Book My Practice Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-glass">Book My Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
     </div>
   </section>
 </main>
