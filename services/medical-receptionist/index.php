@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Medical Receptionist', 'url' => '/services/medical-receptionist/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a virtual medical receptionist actually do?',
+   'a' => 'Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage — all inside your phone system and EHR.'],
+  ['q' => 'Can a virtual receptionist take live patient calls?',
+   'a' => 'Yes. Your VA logs into your VoIP / cloud phone (RingCentral, Weave, Zoom Phone, Nextiva, 8x8, etc.) and answers calls live, just like an in-house receptionist.'],
+  ['q' => 'Do you offer bilingual receptionists?',
+   'a' => 'Yes. We staff Spanish, Portuguese and Tagalog VAs at no premium. Other languages available on request.'],
+  ['q' => 'Will this actually reduce my no-shows?',
+   'a' => 'Most practices see no-shows drop 20–35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach — work busy in-house front desks rarely have time for.'],
+  ['q' => 'How much does a virtual receptionist cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house hire. Use our ROI calculator for an exact estimate.'],
+  ['q' => 'Is patient data safe?',
+   'a' => 'Every receptionist is HIPAA-certified, background-checked and signs a BAA-compatible confidentiality agreement before placement.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-receptionist/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a virtual medical receptionist do?","acceptedAnswer":{"@type":"Answer","text":"A virtual medical receptionist answers inbound patient calls, books and reschedules appointments, runs intake, verifies insurance benefits, sends reminders and triages patient-portal messages — all in your time zone, inside your EHR and phone system."}},
-    {"@type":"Question","name":"Can a virtual receptionist actually take live phone calls?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our virtual receptionists log into your VoIP / cloud phone system (RingCentral, 8x8, Zoom Phone, Nextiva, Weave, etc.) and take live calls just like an in-house receptionist — patients never know the difference."}},
-    {"@type":"Question","name":"Will a virtual receptionist reduce my no-show rate?","acceptedAnswer":{"@type":"Answer","text":"Most practices see no-shows drop 20-35% within 90 days from consistent appointment confirmations, reminder calls and rescheduling outreach that overworked in-house front desks rarely have time for."}},
-    {"@type":"Question","name":"How much does a virtual medical receptionist cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than the fully-loaded cost of a US in-house front-desk hire. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Medical Assistant', 'url' => '/services/medical-assistant/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a virtual medical assistant actually do?',
+   'a' => 'Triage prep, refill management, prior authorization, results routing, care coordination, patient outreach and EHR follow-up — the non-hands-on workload that consumes 40–60% of an in-house MA’s shift.'],
+  ['q' => 'Can a virtual MA replace my in-house MA?',
+   'a' => 'It complements them. Hands-on work (vitals, injections, rooming) still happens in person. The virtual MA absorbs the documentation, follow-up and coordination workload so your in-house team can stay focused on patients.'],
+  ['q' => 'Are your virtual MAs HIPAA certified?',
+   'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.'],
+  ['q' => 'Which EHRs do your MAs know?',
+   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more — plus e-Rx, lab portals and patient-portal platforms.'],
+  ['q' => 'How much does a virtual medical assistant cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US clinical MA hire. Use our ROI calculator for an exact estimate.'],
+  ['q' => 'What if my virtual MA is sick or on leave?',
+   'a' => 'Trained backup coverage is included — your Client Success Manager (CSM) arranges a substitute so workflows never stall.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-assistant/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a virtual medical assistant do?","acceptedAnswer":{"@type":"Answer","text":"A virtual medical assistant handles the non-hands-on work that consumes clinical staff time: triage prep, EHR follow-up, refill processing, prior authorization, results routing, patient outreach and care coordination — letting your in-room MAs focus on the patient in front of them."}},
-    {"@type":"Question","name":"Can a virtual MA replace my in-house medical assistant?","acceptedAnswer":{"@type":"Answer","text":"It complements them. In-room hands-on work (vitals, injections, rooming) still needs to happen in person. A virtual MA covers the documentation, follow-up and coordination workload — typically 40-60% of a clinical MA's day — so your in-house team can stay focused on patients."}},
-    {"@type":"Question","name":"Are virtual MAs HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every virtual MA is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside encrypted environments only."}},
-    {"@type":"Question","name":"How much does a virtual medical assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US clinical MA. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

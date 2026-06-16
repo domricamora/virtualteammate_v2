@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Dental Biller', 'url' => '/services/dental-biller/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a dental billing virtual assistant do?',
+   'a' => 'Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.'],
+  ['q' => 'Which dental PMS do your billers know?',
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon — plus DentalXChange, ClaimX and Vyne clearinghouses.'],
+  ['q' => 'Can you handle PPO, HMO, Medicaid and Delta claims?',
+   'a' => 'Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum — including narrative-heavy and pre-auth-required procedures.'],
+  ['q' => 'Will a dental biller actually lower my AR?',
+   'a' => 'Yes. Most practices see AR days drop from 45+ to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial appeals.'],
+  ['q' => 'Is patient data safe?',
+   'a' => 'Every dental biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
+  ['q' => 'How much does a virtual dental biller cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for a specialty-specific quote.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/dental-biller/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a dental billing virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A dental billing VA owns the full insurance and patient billing cycle: claim submission with CDT codes, narrative writing, EOB posting, denial appeals, AR follow-up, secondary claims and patient statements — inside Dentrix, Eaglesoft, Open Dental, Carestream or your PMS."}},
-    {"@type":"Question","name":"Which dental software do your billers know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream (SoftDent / OrthoTrac), Curve Dental and Denticon — plus DentalXChange and major clearinghouses."}},
-    {"@type":"Question","name":"Can a dental biller VA handle PPO and HMO claims?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our dental billers work PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full spectrum of dental payers — including narrative-required and pre-authorization-required procedures."}},
-    {"@type":"Question","name":"How much does a virtual dental biller cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

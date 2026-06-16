@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Dental Receptionist', 'url' => '/services/dental-receptionist/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a virtual dental receptionist do?',
+   'a' => 'Live phone answering, scheduling and rescheduling, new-patient intake, dental insurance verification, reminders, recall and message triage — inside your phone system and PMS.'],
+  ['q' => 'Can they take live calls?',
+   'a' => 'Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.'],
+  ['q' => 'Do you offer bilingual receptionists?',
+   'a' => 'Yes. Spanish and other high-demand languages are available at no premium.'],
+  ['q' => 'Will it reduce no-shows?',
+   'a' => 'Most practices see no-shows drop 20–35% in the first 90 days from consistent confirmations, reminders and same-day rebooking.'],
+  ['q' => 'How much does it cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.'],
+  ['q' => 'Is patient data safe?',
+   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/dental-receptionist/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a virtual dental receptionist do?","acceptedAnswer":{"@type":"Answer","text":"A virtual dental receptionist answers inbound calls live, books and reschedules appointments, runs patient intake, verifies dental insurance, sends reminders and works recall — all inside your dental PMS and phone system."}},
-    {"@type":"Question","name":"Can a virtual receptionist take live calls?","acceptedAnswer":{"@type":"Answer","text":"Yes. Your VA logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk — patients never know the difference."}},
-    {"@type":"Question","name":"Will it reduce my no-show rate?","acceptedAnswer":{"@type":"Answer","text":"Most practices see no-shows fall 20-35% within 90 days from consistent confirmations, reminder calls and same-day rebooking that busy front desks rarely keep up with."}},
-    {"@type":"Question","name":"How much does a virtual dental receptionist cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

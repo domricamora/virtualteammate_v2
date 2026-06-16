@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Medical Biller', 'url' => '/services/medical-biller/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a medical billing virtual assistant do?',
+   'a' => 'Full revenue cycle: charge entry, claim scrubbing & submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting — inside your existing EHR and clearinghouse.'],
+  ['q' => 'Will a billing VA actually reduce my AR days?',
+   'a' => 'Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.'],
+  ['q' => 'Are your billing VAs trained in CPT, ICD-10 and HCPCS?',
+   'a' => 'Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines — plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).'],
+  ['q' => 'Is patient and payer data safe?',
+   'a' => 'Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
+  ['q' => 'How much does a virtual medical biller cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house biller (k–k all-in). Use the homepage ROI calculator for a specialty-specific quote.'],
+  ['q' => 'What happens if my biller is sick or on PTO?',
+   'a' => 'Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-biller/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a medical billing virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A medical billing VA owns the revenue cycle: clean claim submission, denial work, AR follow-up, payment posting, patient statements, secondary claims and write-off reconciliation — inside your existing EHR and clearinghouse."}},
-    {"@type":"Question","name":"Will a billing VA actually lower my AR days?","acceptedAnswer":{"@type":"Answer","text":"Yes. Dedicated daily AR work typically cuts AR days from 45+ down to 30 or less and pushes clean claim rates above 95% within the first 90 days."}},
-    {"@type":"Question","name":"Are billing VAs trained in CPT, ICD-10 and HCPCS?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Virtual Teammate billing VA is trained in CPT, ICD-10-CM, HCPCS, payer-specific modifiers, NCCI edits and CMS guidelines — plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare)."}},
-    {"@type":"Question","name":"How much does a virtual medical biller cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house biller. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

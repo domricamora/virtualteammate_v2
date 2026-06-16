@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Medical Administrative Support', 'url' => '/services/medical-administrative-support/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a medical administrative virtual assistant actually do?',
+   'a' => 'A medical admin VA owns the non-clinical workflows that drain a provider’s day: chart prep, patient intake, records requests, prior auth packets, referrals, inbox triage and EHR data hygiene — all inside your existing systems.'],
+  ['q' => 'Are your medical admin VAs HIPAA certified?',
+   'a' => 'Yes. Every admin VA completes HIPAA training and certification before placement, signs a BAA-compatible confidentiality agreement, and works only within your approved systems.'],
+  ['q' => 'Which EHR systems do your admin VAs know?',
+   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more — plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.'],
+  ['q' => 'How much does a medical admin VA cost?',
+   'a' => 'Transparent flat-rate pricing, typically 60–73% less than the fully-loaded cost of an equivalent US in-house hire. Use our ROI calculator on the homepage for an exact, role-specific quote.'],
+  ['q' => 'How fast can a medical admin VA start?',
+   'a' => 'Most clients receive a curated shortlist within days. Onboarding (training, tool access, workflow docs) wraps in 1–2 weeks for a fully-live, productive VA.'],
+  ['q' => 'Can I scale up or pause if my needs change?',
+   'a' => 'Yes. Add more VAs as patient volume grows or reduce hours during slow seasons. No locked-in headcount, no termination penalties.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-administrative-support/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a medical administrative virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A medical administrative VA manages back-office workflows: chart prep, patient intake forms, records requests, document indexing, prior authorization paperwork, referrals, and provider calendars — all inside your existing EHR and tools."}},
-    {"@type":"Question","name":"Are medical admin VAs HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every Virtual Teammate medical admin VA completes HIPAA training and certification before placement and signs a BAA-compatible confidentiality agreement."}},
-    {"@type":"Question","name":"Which EHR systems do your admin VAs know?","acceptedAnswer":{"@type":"Answer","text":"Our admin VAs are trained on Epic, Cerner, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more — plus Microsoft 365, Google Workspace and document platforms like DocuSign and Dropbox."}},
-    {"@type":"Question","name":"How much does a medical administrative VA cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing, typically 60-73% less than the fully-loaded cost of an equivalent in-house US admin hire. Use the ROI calculator on our homepage for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <!-- HERO -->
 <header class="svc-hero">

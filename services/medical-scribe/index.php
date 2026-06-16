@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Medical Scribe', 'url' => '/services/medical-scribe/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a virtual medical scribe actually do?',
+   'a' => 'Joins each visit by HIPAA-certified audio or video link and documents the encounter in real time — HPI, ROS, exam, A/P, orders, AVS — inside your EHR using your templates.'],
+  ['q' => 'How much time does a virtual scribe save?',
+   'a' => 'Most providers reclaim 2–3 hours of charting per day, see 1–3 additional patients per shift, and eliminate after-hours documentation.'],
+  ['q' => 'Which EHRs do your scribes know?',
+   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more — EHR-trained before placement.'],
+  ['q' => 'Is a virtual scribe HIPAA certified?',
+   'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.'],
+  ['q' => 'How much does a virtual scribe cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.'],
+  ['q' => 'What happens if my scribe is sick?',
+   'a' => 'Trained backup coverage is included — your Client Success Manager (CSM) arranges a substitute scribe so you’re never charting alone again.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-scribe/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a virtual medical scribe do?","acceptedAnswer":{"@type":"Answer","text":"A virtual scribe joins each patient visit by HIPAA-certified audio or video link and documents the encounter in real time inside the EHR — HPI, ROS, exam, assessment, plan, orders and after-visit summary — so the provider finishes notes before the patient leaves."}},
-    {"@type":"Question","name":"How much time will a virtual scribe save me?","acceptedAnswer":{"@type":"Answer","text":"Providers using a dedicated virtual scribe typically save 2-3 hours of charting per day, see 1-3 additional patients per shift, and eliminate pajama-time documentation."}},
-    {"@type":"Question","name":"Which EHRs do your scribes know?","acceptedAnswer":{"@type":"Answer","text":"Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion, Allscripts, AdvancedMD and more — every Virtual Teammate scribe is EHR-trained before placement."}},
-    {"@type":"Question","name":"Is a virtual scribe HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every scribe is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside controlled, encrypted environments only."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Dental Admin', 'url' => '/services/dental-admin/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a dental admin VA actually do?',
+   'a' => 'Insurance verification & breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting — inside your dental PMS.'],
+  ['q' => 'Which dental software do they know?',
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.'],
+  ['q' => 'Are they HIPAA certified?',
+   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.'],
+  ['q' => 'How much does it cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house dental admin hire. Use the homepage ROI calculator for an exact estimate.'],
+  ['q' => 'How fast can they start?',
+   'a' => 'Curated shortlist within days; onboarding wraps in 1–2 weeks for a fully-live VA.'],
+  ['q' => 'Can I scale or pause?',
+   'a' => 'Yes. Add VAs as you grow or reduce hours in slow seasons — no locked-in headcount, no termination penalties.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/dental-admin/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a dental administrative virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A dental admin VA runs the back office: chart prep, records requests, insurance verification and breakdowns, treatment-plan setup, data entry, document management and patient-form follow-up — all inside your dental PMS."}},
-    {"@type":"Question","name":"Which dental software do your admin VAs know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon, plus Google Workspace, Microsoft 365 and e-signature tools."}},
-    {"@type":"Question","name":"Are dental admin VAs HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every dental admin VA completes HIPAA training and certification before placement and signs a BAA-compatible confidentiality agreement."}},
-    {"@type":"Question","name":"How much does a dental admin VA cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing, typically 60-73% less than the fully-loaded cost of an equivalent US in-house dental admin hire. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

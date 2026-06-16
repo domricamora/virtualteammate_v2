@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Dental Coordinator', 'url' => '/services/dental-coordinator/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a treatment coordinator VA do?',
+   'a' => 'Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination — all inside your dental PMS.'],
+  ['q' => 'Will it improve case acceptance?',
+   'a' => 'Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.'],
+  ['q' => 'Which dental software do they know?',
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.'],
+  ['q' => 'Is patient data safe?',
+   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement.'],
+  ['q' => 'How much does it cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.'],
+  ['q' => 'Can I scale or pause?',
+   'a' => 'Yes. No locked-in headcount or termination penalties — scale up in growth, trim in slow seasons.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/dental-coordinator/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a dental treatment coordinator VA do?","acceptedAnswer":{"@type":"Answer","text":"A virtual treatment coordinator chases unscheduled and incomplete treatment, presents and follows up on financing, runs hygiene recall, coordinates specialist referrals, and keeps the schedule full — all inside your dental PMS."}},
-    {"@type":"Question","name":"Can a VA really improve case acceptance?","acceptedAnswer":{"@type":"Answer","text":"Yes. Most of the lost revenue in a dental practice is unscheduled treatment that was never followed up. A dedicated coordinator works that list daily — practices typically recover tens of thousands in stalled treatment per quarter."}},
-    {"@type":"Question","name":"Which dental software do coordinators know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus recall/communication tools like Weave, NexHealth and Solutionreach."}},
-    {"@type":"Question","name":"How much does a dental coordinator VA cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>

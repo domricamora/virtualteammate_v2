@@ -11,6 +11,21 @@ $breadcrumbs      = [
   ['name' => 'Services',  'url' => '/services/'],
   ['name' => 'Dental Scribe', 'url' => '/services/dental-scribe/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a virtual dental scribe do?',
+   'a' => 'Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS — clinical notes, perio charting, existing/proposed treatment, chart closure.'],
+  ['q' => 'Which dental software do they know?',
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental — PMS-trained before placement.'],
+  ['q' => 'Is a dental scribe HIPAA certified?',
+   'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. A/V links are encrypted end-to-end.'],
+  ['q' => 'Will it really speed up my day?',
+   'a' => 'Yes — charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.'],
+  ['q' => 'How much does a dental scribe cost?',
+   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate.'],
+  ['q' => 'What if my scribe is out?',
+   'a' => 'Trained backup coverage is included — your Client Success Manager (CSM) arranges a substitute so charts never back up.'],
+];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
@@ -28,18 +43,6 @@ include __DIR__ . '/../../includes/nav.php';
   "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/dental-scribe/"}
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org","@type":"FAQPage",
-  "mainEntity":[
-    {"@type":"Question","name":"What does a virtual dental scribe do?","acceptedAnswer":{"@type":"Answer","text":"A virtual dental scribe joins each visit by HIPAA-certified audio or video link and documents the encounter in real time inside your dental PMS — clinical notes, perio charting, existing/proposed treatment, and chart closure — so the provider stays focused on the patient, not the keyboard."}},
-    {"@type":"Question","name":"Which dental software do your scribes know?","acceptedAnswer":{"@type":"Answer","text":"Dentrix, Dentrix Ascend, Eaglesoft, Open Dental and Carestream — every scribe is PMS-trained before placement."}},
-    {"@type":"Question","name":"Is a virtual dental scribe HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every scribe is HIPAA-certified, background-checked, signs a BAA-compatible confidentiality agreement, and works inside controlled, encrypted environments only."}},
-    {"@type":"Question","name":"How much does a virtual dental scribe cost?","acceptedAnswer":{"@type":"Answer","text":"Flat-rate pricing typically 60-73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate."}}
-  ]
-}
-</script>
-
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>
