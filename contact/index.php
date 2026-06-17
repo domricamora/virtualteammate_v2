@@ -303,7 +303,7 @@ include __DIR__ . '/../includes/nav.php';
 
 </main>
 <?php
-$lf_title = 'Prefer to Talk It Through? <em>Book a Meeting</em>';
+$lf_title = 'Prefer to <em>talk it through?</em>';
 $lf_sub   = 'Questions about scope, pricing or a custom engagement? Grab a time below and a US-based Client Success Manager will walk you through it: no obligation, reply within one business day either way.';
 include __DIR__ . '/../includes/footer.php';
 ?>

@@ -29,7 +29,7 @@ if ($lf_mode === 'form') {
         $lf_source = $path === '' ? 'homepage' : $path;
     }
     $lf_form       = $lf_form       ?? $lf_source;
-    $lf_title      = $lf_title      ?? 'Get Matched With Your Virtual Teammate';
+    $lf_title      = $lf_title      ?? 'Get matched with your Virtual Teammate';
     $lf_sub        = $lf_sub        ?? 'Tell us what you need and we\'ll hand-pick vetted, HIPAA-certified candidates by specialty, software and time zone, value-first, no obligation.';
     $lf_thanks     = $lf_thanks     ?? 'Thanks! We\'ll reach out within 1 business day with your matched shortlist.';
     $lf_cta        = $lf_cta        ?? 'Get my value-matched shortlist';
@@ -78,7 +78,7 @@ if ($lf_mode === 'form') {
     <?php
 } else {
     // ── "Book a Meeting" CTA (default) — opens the shared scheduler modal ──
-    $lf_title = $lf_title ?? 'Ready to Reclaim Your Team&rsquo;s Time?';
+    $lf_title = $lf_title ?? 'Ready to reclaim your team&rsquo;s time?';
     $lf_sub   = $lf_sub   ?? 'Book a quick call with a US-based Client Success Manager. We&rsquo;ll scope the right roles by specialty, software and time zone, give you a transparent quote, and map next steps, value-first, no obligation.';
     ?>
     <section class="sec lead-band" id="lead-form" aria-labelledby="lead-band-h">
@@ -95,9 +95,9 @@ if ($lf_mode === 'form') {
         </div>
         <div class="lead-band-cta">
           <span class="lead-band-cta-ico"><i class="fa-solid fa-calendar-check"></i></span>
-          <h3>Book a 15-Minute Meeting</h3>
-          <p>Talk to a real US-based Client Success Manager, not an offshore queue. Pick a time that works and we&rsquo;ll take it from there.</p>
-          <a class="cf-submit" href="#cta-book" data-cta-intent="book">Book a Meeting <i class="fa-solid fa-arrow-right"></i></a>
+          <h3>Book My Staffing Audit</h3>
+          <p>Talk to a real US-based Client Success Manager, not an offshore queue. Pick a time that works and we&rsquo;ll map your busiest workflows and which roles to delegate first.</p>
+          <a class="cf-submit" href="#cta-book" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cf-note">No obligation &middot; Covered by the 30-Day Right-Fit Promise</div>
         </div>
       </div>

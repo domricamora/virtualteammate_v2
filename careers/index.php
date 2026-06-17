@@ -214,7 +214,7 @@ include __DIR__ . '/../includes/nav.php';
 $lf_mode       = 'form';   // job application — keep the inline form, not the booking CTA
 $lf_source     = 'careers';
 $lf_form       = 'careers-application';
-$lf_title      = 'Start Your Application';
+$lf_title      = 'Start your application';
 $lf_sub        = 'Tell us about yourself and the role you\'re after. Our talent team reviews every application within 1–2 business days.';
 $lf_cta        = 'Submit application';
 $lf_thanks     = 'Thank you for applying! Our talent team will review your application and reach out within 1–2 business days.';
