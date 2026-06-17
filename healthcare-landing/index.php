@@ -246,8 +246,8 @@ include __DIR__ . '/../includes/nav.php';
       </article>
     </div>
     <p class="hcq-proof-spec reveal">
-      <strong>Family Practice, Austin TX:</strong> A/R days 52 &rarr; 23, $68k in stalled claims recovered in 12 weeks. &middot;
-      <strong>Internal Medicine, Denver CO:</strong> +18 hours/week reclaimed. &middot;
+      <strong>Family Practice, Southwest:</strong> A/R days 52 &rarr; 23, $68k in stalled claims recovered in 12 weeks. &middot;
+      <strong>Internal Medicine, MidWest:</strong> +18 hours/week reclaimed. &middot;
       Across placements: <strong>95%+ clean-claim rate</strong> &middot; <strong>4.9</strong> average Google rating.
     </p>
     <p class="hcq-proof-foot reveal">Results from VT client engagements. Outcomes vary by specialty, baseline and scope. Your Practice Staffing Audit maps the realistic numbers for your practice.</p>
