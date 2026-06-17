@@ -1150,6 +1150,9 @@ a.pill i{font-size:9px;color:var(--gold);}
   font-size:12px;font-weight:600;color:rgba(255,255,255,0.6);
   margin-top:10px;line-height:1.4;
 }
+/* In the Three-Ways cards the note sits just above the bottom-pinned button,
+   so it must size to its content (not grab column height via flex-basis:100%). */
+.cta-stage .cta-note{flex:0 0 auto;margin-top:0;}
 .cta-note i{color:var(--gold);font-size:11px;}
 
 /* Availability / urgency note (hero + above the final CTA ladder). */

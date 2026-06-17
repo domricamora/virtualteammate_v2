@@ -168,7 +168,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-    <h2 class="sec-h2" id="cs-h">Real Results, Across Your <em>Practice.</em></h2>
+    <h2 class="sec-h2" id="cs-h">Trained for Your Specialty, Measured on Your <em>Numbers.</em></h2>
     <p class="sec-sub">Real numbers from our latest client audit: our teammates beat the targets that matter most to your practice.</p>
   </div>
   <div class="case-grid case-grid-4">
@@ -236,7 +236,6 @@ function vtnew_homepage_profiles(int $limit = 6): array
    
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
         </div>
-        <div class="case-metric-foot">Payment-posting workstream still ramping</div>
       </div>
       <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for an endodontics &amp; oral-surgery group: a full surgical schedule billed on time.</p>
       <div class="case-auth">
@@ -821,8 +820,8 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Ranked outsourcing-priority list</li>
         <li>Tier + headcount recommendation</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
@@ -835,8 +834,8 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Tailored candidate shortlist</li>
         <li>Onboarding plan + CSM intro</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
