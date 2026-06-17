@@ -1153,6 +1153,9 @@ a.pill i{font-size:9px;color:var(--gold);}
 /* In the Three-Ways cards the note sits just above the bottom-pinned button,
    so it must size to its content (not grab column height via flex-basis:100%). */
 .cta-stage .cta-note{flex:0 0 auto;margin-top:0;}
+/* The hero is a left-aligned layout, so its note left-aligns under the buttons
+   (the centered default is for the centered CTA blocks elsewhere). */
+.hero .cta-note{justify-content:flex-start;text-align:left;}
 .cta-note i{color:var(--gold);font-size:11px;}
 
 /* Availability / urgency note (hero + above the final CTA ladder). */
