@@ -140,7 +140,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Certified Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
     <h1>One teammate. The whole back office. <em>73% less</em> than an in-house hire.</h1>
     <p class="hcq-sub">A dedicated, HIPAA-certified medical VA, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more, owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
-    <p class="hcq-promise">Published flat-rate pricing from <strong>$975/mo part-time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
+    <p class="hcq-promise">Published flat-rate pricing from <strong>$750 biweekly full time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>
