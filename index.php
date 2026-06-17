@@ -771,7 +771,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-lock-open"></i></span>
-      <p><strong>No long-term lock-in.</strong> Bi-weekly from day one, not after 90 days, with no termination-period clause in the CSA. On your teammate&rsquo;s first day we set up autopay and collect two weeks in advance.</p>
+      <p><strong>No long-term lock-in.</strong> Bi-weekly from day one, starting at $750 with highly trained at $1,000 bi-weekly for dedicated Healthcare VTs.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-robot"></i></span>
