@@ -596,7 +596,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         $delay = 'd' . (($i % 4) + 1);
         $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
-        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-practice-audit" data-cta-intent="practice-audit" aria-label="Book My Staffing Audit">
+        <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-request" data-cta-intent="request" data-vt-id="<?= (int) $p['id'] ?>" data-vt-name="<?= htmlspecialchars($name, ENT_QUOTES) ?>" aria-label="Request <?= htmlspecialchars($name !== '' ? $name : 'this teammate', ENT_QUOTES) ?>">
           <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <span class="prof-tag <?= $isDental ? 'dent' : 'med' ?>"><?= htmlspecialchars($tag) ?></span>
@@ -607,6 +607,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
             <span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span>
           </div>
           <div class="prof-cap"><?= htmlspecialchars($cap) ?></div>
+          <span class="prof-cta">Request this teammate <i class="fa-solid fa-arrow-right"></i></span>
         </a>
       <?php endforeach; ?>
     </div>
@@ -899,6 +900,35 @@ function vtnew_homepage_profiles(int $limit = 6): array
   </div>
 </div>
 
+<!-- Candidate-request modal. Opened from a teammate card; the script near the
+     footer copies the clicked profile's name + id into vt_interest / vt_id (and
+     the visible heading) before it shows, so the lead records exactly who the
+     visitor asked for. Posts to lead.php like the checklist form. -->
+<div class="cta-modal" id="cta-request" role="dialog" aria-modal="true" aria-labelledby="ccm-rq-h">
+  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
+  <div class="cta-modal-card">
+    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
+    <div class="cta-modal-tag"><i class="fa-solid fa-user-plus"></i> Request a teammate</div>
+    <h2 class="cta-modal-h" id="ccm-rq-h">Request <span data-vt-name-target>this teammate</span></h2>
+    <p class="cta-modal-sub">Tell us where to reach you and your dedicated Client Success Manager will check <span data-vt-name-target>this teammate</span>&rsquo;s availability, then line up similar HIPAA-certified matches for your specialty, EHR and time zone.</p>
+    <form class="cta-modal-form" id="ctaRequestForm" method="post" action="<?= $home_base ?>lead.php"
+          data-lead-thanks="Request received: your Client Success Manager will be in touch within one business day.">
+      <input type="hidden" name="intent" value="request">
+      <input type="hidden" name="form" value="homepage-request">
+      <input type="hidden" name="source" value="Teammate Request">
+      <input type="hidden" name="vt_id" value="">
+      <input type="hidden" name="vt_interest" value="">
+      <div class="cf-row" style="margin-bottom:16px;">
+        <input class="cf-field" name="first_name" type="text" placeholder="First Name" required>
+        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
+      </div>
+      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
+      <button class="cf-submit" type="submit">Request This Teammate <i class="fa-solid fa-arrow-right"></i></button>
+      <div class="cf-note" data-lead-note>Diagnostic-first &middot; No obligation, covered by the 30-Day Right-Fit Promise</div>
+    </form>
+  </div>
+</div>
+
 <!-- HubSpot Meetings embed loader — powers the scheduler inside the booking modals.
      A resize nudge on open makes the iframe size correctly after the modal shows. -->
 <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
@@ -1048,10 +1078,26 @@ window.addEventListener('hashchange', function () {
       resetForms();
     }
   }
+  // Carry the clicked teammate card's identity into the request modal, so the
+  // lead records exactly who the visitor asked for. Runs before navigation, so
+  // the fields/heading are set by the time the :target modal paints.
+  function fillRequest(a) {
+    var rm = modals['#cta-request'];
+    if (!rm || a.getAttribute('href') !== '#cta-request') { return; }
+    var vname = a.getAttribute('data-vt-name') || '';
+    var idEl = rm.querySelector('input[name="vt_id"]');
+    var nmEl = rm.querySelector('input[name="vt_interest"]');
+    if (idEl) { idEl.value = a.getAttribute('data-vt-id') || ''; }
+    if (nmEl) { nmEl.value = vname; }
+    rm.querySelectorAll('[data-vt-name-target]').forEach(function (t) {
+      t.textContent = vname || 'this teammate';
+    });
+  }
   // Capture scroll position before the hash flips so the open is jump-free.
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#cta-"]');
     if (!a || !modals[a.getAttribute('href')]) { return; }
+    fillRequest(a);
     lock();
   });
   document.addEventListener('keydown', function (e) {

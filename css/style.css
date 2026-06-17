@@ -1142,6 +1142,15 @@ a.pill i{font-size:9px;color:var(--gold);}
 .prof-card .prof-tag{margin:0 0 10px;}
 .prof-card .prof-meta{margin-top:2px;}
 .prof-cap{font-size:11.5px;color:rgba(255,255,255,0.6);line-height:1.45;margin-top:auto;padding-top:8px;min-height:33px;}
+/* Per-card request affordance — the whole card is the link; this is its label. */
+.prof-cta{
+  display:inline-flex;align-items:center;gap:7px;margin-top:14px;
+  font-size:12px;font-weight:800;color:var(--gold-lt);letter-spacing:.01em;
+  transition:gap .2s ease,color .2s ease;
+}
+.prof-cta i{font-size:10px;transition:transform .2s ease;}
+.prof-card:hover .prof-cta{color:#fff;}
+.prof-card:hover .prof-cta i{transform:translateX(3px);}
 
 /* Guarantee microcopy shown beneath hard CTAs site-wide. */
 .cta-note{
