@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Medical Scribe</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time EHR Documentation &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Medical Scribe <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Medical scribe <em>virtual</em> assistants</h1>
     <p class="svc-lead">Look at your patients again. Our <strong>HIPAA-certified virtual medical scribes</strong> document every visit in real time inside your EHR, SOAP notes, HPI, ROS, assessments, orders, so your charting is done before the patient leaves the room. Save <strong>2&ndash;3 hours of after-clinic documentation</strong> every day, at up to <strong>73% less</strong> than an in-house scribe.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-pen-clip"></i> What They Handle</div>
-    <h2 class="svc-h2">Real-Time Documentation, <em>Inside Your EHR</em></h2>
+    <h2 class="svc-h2">Real-time documentation, <em>inside your EHR</em></h2>
     <p class="svc-p">The average US physician spends <strong>1.7 hours on EHR documentation for every 1 hour of patient care</strong>. A dedicated virtual scribe attends each visit via HIPAA-certified audio link and writes the chart as it happens: so you walk out of the room with the note already done.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Real-time SOAP notes:</strong> HPI, ROS, exam, assessment, plan, structured to your templates.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Providers Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Scribe?</h2>
+    <h2 class="svc-h2">Why hire a virtual scribe?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Get back your evenings, your patient face-time, and your sanity, without the cost of an in-house scribe.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> EHR &amp; Documentation Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Every Major EHR</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on every major EHR</h2>
       <p class="svc-p" style="margin-bottom:0;">EHR-fluent before they start: your scribe doesn&rsquo;t need to learn the system on your dime.</p>
     </div>
     <div class="svc-tools-chips">
@@ -152,7 +152,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Scribe in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live scribe in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Walk us through your specialty, visit cadence, EHR, templates and documentation pain points.</p></div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual Medical Scribe FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual medical scribe FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual medical scribe actually do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> How much time does a virtual scribe save?</div><div class="faq-a">Most providers reclaim 2&ndash;3 hours of charting per day, see 1&ndash;3 additional patients per shift, and eliminate after-hours documentation.</div></div>

@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Dental Receptionist</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk teammates &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Dental Receptionist <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Dental receptionist <em>virtual</em> assistants</h1>
     <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-certified virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall: from inside your dental PMS and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-office front desk.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> What They Handle</div>
-    <h2 class="svc-h2">Your Dental Front Desk, <em>Reinforced</em></h2>
+    <h2 class="svc-h2">Your dental front desk, <em>reinforced</em></h2>
     <p class="svc-p">A missed call is a missed new patient. The average dental practice misses a big share of inbound calls during peak chair time: a virtual dental receptionist gives you full live coverage without adding a desk, a salary or benefits.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Live inbound &amp; overflow calls:</strong> answered on your VoIP line with your practice script.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Dental Receptionist?</h2>
+    <h2 class="svc-h2">Why hire a virtual dental receptionist?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained dental front-desk coverage that plugs into your phone system and PMS, without the cost of W-2 staffing.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Phone &amp; PMS Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">Fluent in the VoIP, dental PMS and communication platforms US dental practices run on.</p>
     </div>
     <div class="svc-tools-chips">
@@ -149,7 +149,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Receptionist in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live receptionist in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your call volume, phone system, PMS and scheduling rules. Define the exact tasks the receptionist owns.</p></div>
@@ -161,7 +161,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Receptionist teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental receptionist teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-headset"></i> What does a virtual dental receptionist do?</div><div class="faq-a">Live phone answering, scheduling and rescheduling, new-patient intake, dental insurance verification, reminders, recall and message triage: inside your phone system and PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can they take live calls?</div><div class="faq-a">Yes. Your teammate logs into your VoIP / cloud phone (Weave, RingCentral, Mango Voice, Nextiva, etc.) and answers live, just like an in-office front desk.</div></div>

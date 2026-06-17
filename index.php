@@ -168,7 +168,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-    <h2 class="sec-h2" id="cs-h">Trained for Your Specialty, Measured on Your <em>Numbers.</em></h2>
+    <h2 class="sec-h2" id="cs-h">Trained for your specialty, measured on your <em>numbers.</em></h2>
     <p class="sec-sub">Real numbers from our latest client audit: our teammates beat the targets that matter most to your practice.</p>
   </div>
   <div class="case-grid case-grid-4">
@@ -255,7 +255,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="calc-wrap" id="calculator" aria-labelledby="calc-h">
   <div class="calc-head reveal">
     <div class="calc-badge"><i class="fa-solid fa-calculator"></i> Live ROI Calculator</div>
-    <h2 class="sec-h2" id="calc-h">See Your Annual Savings: <em>In Real Time</em></h2>
+    <h2 class="sec-h2" id="calc-h">See your annual savings: <em>in real time</em></h2>
     <p class="sec-sub">See exactly what you&rsquo;d save against a US in-house hire: salary, benefits and payroll tax included.</p>
   </div>
 
@@ -361,7 +361,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="specialties">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Healthcare Focused on <em>Targeted Outcomes</em></h2>
+    <h2 class="sec-h2">Healthcare focused on <em>targeted outcomes</em></h2>
     <p class="sec-sub">Every teammate is trained for your specialty before day one, so your A/R keeps moving, your schedule stays full, and your clinical team stays on patients.</p>
   </div>
 
@@ -466,7 +466,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="g-wrap reveal">
     <div class="g-copy">
       <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The VT 30-Day Right-Fit Promise</div>
-      <h2 class="sec-h2" id="g-h">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
+      <h2 class="sec-h2" id="g-h">If it&rsquo;s not working in month one, <em>we make it right</em></h2>
       <div class="g-cards">
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
@@ -509,7 +509,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec">
   <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
-    <h2 class="sec-h2">Hire in Days, <em>Not Months</em></h2>
+    <h2 class="sec-h2">Hire in days, <em>not months</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Three steps. Built for busy practices.</p>
   </div>
   <div class="proc-steps">
@@ -555,7 +555,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;" class="reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
-      <h2 class="sec-h2" style="margin-bottom:0;">Your Future Healthcare Teammates</h2>
+      <h2 class="sec-h2" style="margin-bottom:0;">Your future healthcare teammates</h2>
     </div>
     <div style="text-align:right;">
       <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -627,7 +627,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div style="text-align:center;max-width:680px;margin:0 auto;" class="reveal">
     <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
     <div class="sec-lbl"><i class="fa-solid fa-lock"></i> Security &amp; Compliance</div>
-    <h2 class="sec-h2">Patient Data, <em>Protected by Design</em></h2>
+    <h2 class="sec-h2">Patient data, <em>protected by design</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Compliance here isn&rsquo;t a checkbox: here&rsquo;s what each safeguard is, and what it actually means for your practice, in plain English.</p>
   </div>
   <div class="comp-grid">
@@ -671,7 +671,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="global-grid">
     <div class="global-l reveal">
       <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Reach &middot; Your Staffing Problem, Solved</div>
-      <h2 class="sec-h2" id="global-h">A Bigger Bench, a <em>Better Match</em>, On Your Time Zone</h2>
+      <h2 class="sec-h2" id="global-h">A bigger bench, a <em>better match</em>, on your time zone</h2>
       <p class="sec-sub">Done with the hiring grind? We fill your exact gap fast: teammates matched to your specialty, software and US hours, fully managed by your CSM.</p>
 
       <ul class="global-benefits">
@@ -728,7 +728,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="faq">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-    <h2 class="sec-h2">Frequently Asked Questions</h2>
+    <h2 class="sec-h2">Frequently asked questions</h2>
   </div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time teammate</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
@@ -748,7 +748,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec offer" id="offer" aria-labelledby="offer-h">
   <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto;">
     <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> Here&rsquo;s the Deal</div>
-    <h2 class="sec-h2" id="offer-h">Here&rsquo;s Exactly What You Get</h2>
+    <h2 class="sec-h2" id="offer-h">Here&rsquo;s exactly what you get</h2>
     <p class="sec-sub" style="margin:0 auto;">HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Eaglesoft, fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
   </div>
 
@@ -792,7 +792,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec cta-stages-section" id="cta" style="padding-top:80px;padding-bottom:110px;">
   <div class="cta-stages-h reveal">
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Three Ways to Start</div>
-    <h2 class="cta-h2" style="font-size:36px;">Pick the Entry Point<br>That Fits Where You Are</h2>
+    <h2 class="cta-h2" style="font-size:36px;">Pick the entry point<br>that fits where you are</h2>
     <p class="cta-sub">Just exploring, ready to diagnose, or ready to scope: three ways in, same team on the other side.</p>
     <p class="avail-note avail-note-center"><i class="fa-solid fa-hourglass-half"></i> Every month short-staffed is another month of denied claims and after-hours charting. Most practices are live within 1&ndash;2 weeks of their audit.</p>
   </div>

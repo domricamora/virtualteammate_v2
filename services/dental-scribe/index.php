@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Dental Scribe</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time Dental Charting &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Dental Scribe <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Dental scribe <em>virtual</em> assistants</h1>
     <p class="svc-lead">Stay focused on the patient, not the keyboard. Our <strong>HIPAA-certified virtual dental scribes</strong> document every exam and procedure in real time inside your PMS, clinical notes, perio charting, treatment documentation, so charts close chairside, not after hours, at up to <strong>73% less</strong> than an in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-pen-clip"></i> What They Handle</div>
-    <h2 class="svc-h2">Real-Time Documentation, <em>Inside Your PMS</em></h2>
+    <h2 class="svc-h2">Real-time documentation, <em>inside your PMS</em></h2>
     <p class="svc-p">Charting between patients is where dental schedules slip and notes go thin. A dedicated virtual dental scribe attends each visit via HIPAA-certified link and writes the chart as it happens: so the operatory turns over faster and documentation is complete and defensible.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Real-time clinical notes:</strong> exam findings, diagnoses, procedures, structured to your templates.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Providers Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Dental Scribe?</h2>
+    <h2 class="svc-h2">Why hire a virtual dental scribe?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Faster operatory turnover, better notes, and a calmer provider, without the cost of an in-office assistant on charting duty.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Dental PMS Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your PMS</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your PMS</h2>
       <p class="svc-p" style="margin-bottom:0;">PMS-fluent before they start: your scribe doesn&rsquo;t learn the system on your dime.</p>
     </div>
     <div class="svc-tools-chips">
@@ -148,7 +148,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Scribe in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live scribe in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Walk us through your operatory flow, PMS, note templates and charting pain points.</p></div>
@@ -160,7 +160,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Scribe teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental scribe teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual dental scribe do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS: clinical notes, perio charting, existing/proposed treatment, chart closure.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental: PMS-trained before placement.</div></div>

@@ -87,7 +87,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="bzq-hero-grid">
       <div class="bzq-hero-copy">
         <div class="sec-lbl"><i class="fa-solid fa-briefcase"></i> Business Efficiency Quiz</div>
-        <h1>How Much Is <em>Busywork Costing</em> Your Business?</h1>
+        <h1>How much is <em>busywork costing</em> your business?</h1>
         <p>Answer 8 quick questions to get your efficiency tier, an estimate of the hours you could reclaim each week, and the weekly revenue trapped in repetitive admin, email and reporting, plus a downloadable report. Takes about 2 minutes.</p>
       </div>
       <div class="bzq-hero-photo">
@@ -119,7 +119,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="svc-split">
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of Busywork</div>
-      <h2 class="svc-h2">Every Hour on Admin Is an Hour <em>Not Spent Growing</em></h2>
+      <h2 class="svc-h2">Every hour on admin is an hour <em>not spent growing</em></h2>
       <p class="svc-p">Inbox triage, scheduling, data entry, lead tracking, reporting: the repetitive work quietly swallows the time you meant to spend on clients, strategy and revenue. It doesn&rsquo;t feel like much in the moment, but it&rsquo;s the difference between running your business and being run by it.</p>
       <ul class="svc-checks">
         <li><i class="fa-solid fa-check"></i><span><strong>Drowning in email</strong> instead of closing the next deal.</span></li>
@@ -140,7 +140,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
-      <h2 class="svc-h2">One Teammate. <em>The Whole Back Office.</em></h2>
+      <h2 class="svc-h2">One teammate. <em>The whole back office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">Multi-stage vetted, trained on your tools, and matched to your time zone, your Virtual Teammate owns the repeatable work so you can focus on clients and growth.</p>
     </div>
     <div class="svc-bens-grid">
@@ -159,7 +159,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-      <h2 class="svc-h2">Questions Business Owners <em>Ask Us First</em></h2>
+      <h2 class="svc-h2">Questions business owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business teammate handles the repeatable work across admin, sales, marketing, finance and customer service: from inbox and calendar management to lead generation, bookkeeping and reporting. You decide the function; we match a vetted teammate trained on your tools.</div></div>
@@ -171,7 +171,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <!-- CLOSING CTA -->
   <section class="svc-cta">
-    <h2>See Your Score? <em style="color:var(--gold);font-style:normal;">Now Reclaim the Hours.</em></h2>
+    <h2>See your score? <em style="color:var(--gold);font-style:normal;">Now reclaim the hours.</em></h2>
     <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which tasks to delegate first, or buy back your company&rsquo;s time with a vetted teammate. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
@@ -355,7 +355,7 @@ function showResults(){
 
     quiz.innerHTML = `
         <div class="result-box">
-            <h2>Your Result: ${tier}</h2>
+            <h2>Your result: ${tier}</h2>
             <p><strong>Total Score:</strong> ${totalPoints} points</p>
             <p>${message}</p>
             <p><strong>Estimated Time Saved:</strong> ${hoursSaved} hours/week ⏳</p>

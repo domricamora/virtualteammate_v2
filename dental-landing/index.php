@@ -96,7 +96,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="dq-hero-grid">
       <div class="dq-hero-copy">
         <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
-        <h1>How Much Time &amp; Production Is <em>Admin Costing</em> Your Practice?</h1>
+        <h1>How much time &amp; production is <em>admin costing</em> your practice?</h1>
         <p>Answer 6 quick questions to get your efficiency tier, an estimate of the hours your front desk could reclaim each week, and the weekly production hiding in your scheduling, recall and billing workload, plus a downloadable report. Takes about 2 minutes.</p>
       </div>
       <div class="dq-hero-photo">
@@ -128,7 +128,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="svc-split">
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
-      <h2 class="svc-h2">Every Hour on the Phones Is an Hour <em>Off the Schedule</em></h2>
+      <h2 class="svc-h2">Every hour on the phones is an hour <em>off the schedule</em></h2>
       <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk quietly eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
       <ul class="svc-checks">
         <li><i class="fa-solid fa-check"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></li>
@@ -150,7 +150,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal" style="text-align:center;">
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
-      <h2 class="svc-h2">One Teammate. <em>The Whole Front Office.</em></h2>
+      <h2 class="svc-h2">One teammate. <em>The whole front office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, PMS-trained, and matched to your time zone, your Virtual Teammate owns the repeatable work so your front desk and clinical team can focus on patients in the chair.</p>
     </div>
     <div class="svc-bens-grid">
@@ -169,7 +169,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-      <h2 class="svc-h2">Questions Practice Owners <em>Ask Us First</em></h2>
+      <h2 class="svc-h2">Questions practice owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA certified?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
@@ -181,7 +181,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <!-- CLOSING CTA -->
   <section class="svc-cta">
-    <h2>See Your Score? <em style="color:var(--gold);font-style:normal;">Now Reclaim the Hours.</em></h2>
+    <h2>See your score? <em style="color:var(--gold);font-style:normal;">Now reclaim the hours.</em></h2>
     <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which front-office tasks to delegate first, or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
@@ -305,7 +305,7 @@ function showResults(){
 
     quiz.innerHTML = `
         <div class="result-box">
-            <h2>Your Result: ${tier}</h2>
+            <h2>Your result: ${tier}</h2>
             <p><strong>Total Score:</strong> ${totalPoints} points</p>
             <p>${message}</p>
             <p><strong>Estimated Time Saved:</strong> ${hoursSaved} hours/week ⏳</p>

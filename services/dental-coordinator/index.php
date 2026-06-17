@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Dental Coordinator</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-handshake-angle"></i> Treatment &amp; Recall Coordination &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Dental Treatment <em>Coordinator</em> Virtual Assistants</h1>
+    <h1 class="svc-h1">Dental treatment <em>coordinator</em> virtual assistants</h1>
     <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule: inside Dentrix, Eaglesoft and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-handshake-angle"></i> What They Handle</div>
-    <h2 class="svc-h2">Turn Diagnosed Treatment Into <em>Booked Treatment</em></h2>
+    <h2 class="svc-h2">Turn diagnosed treatment into <em>booked treatment</em></h2>
     <p class="svc-p">The biggest leak in most dental practices isn&rsquo;t marketing: it&rsquo;s diagnosed treatment that never gets scheduled and patients who fall out of recall. A dedicated treatment coordinator works those lists every single day.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Unscheduled-treatment follow-up:</strong> work the pending/incomplete treatment report and book it.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Treatment Coordinator?</h2>
+    <h2 class="svc-h2">Why hire a virtual treatment coordinator?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">A dedicated person whose entire job is converting diagnosed treatment and protecting recall, without adding an in-office salary.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> PMS &amp; Communication Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">Fluent in the dental PMS and patient-communication platforms that drive recall and case acceptance.</p>
     </div>
     <div class="svc-tools-chips">
@@ -149,7 +149,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Coordinator in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live coordinator in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Review your unscheduled-treatment report, recall numbers, PMS and financing options.</p></div>
@@ -161,7 +161,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Coordinator teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental coordinator teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator teammate do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination: all inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrow-trend-up"></i> Will it improve case acceptance?</div><div class="faq-a">Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.</div></div>

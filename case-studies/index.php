@@ -70,7 +70,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Case Studies &middot; Recent KPI Results</div>
-    <h1 class="svc-h1">Real Practices. Real Workstreams. <em>Real Numbers.</em></h1>
+    <h1 class="svc-h1">Real practices. Real workstreams. <em>Real numbers.</em></h1>
     <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients: claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
@@ -99,7 +99,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="clients" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-trophy"></i> Client Spotlights</div>
-    <h2 class="svc-h2">Four Practices. <em>Four Different KPIs Owned.</em></h2>
+    <h2 class="svc-h2">Four practices. <em>Four different KPIs owned.</em></h2>
     <p class="sec-sub" style="max-width:740px;margin:0 auto;">Each engagement targets the workstream that mattered most to the client, and each result is reported in plain numbers: target set, output delivered, achievement vs. target.</p>
   </div>
 
@@ -210,7 +210,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="by-area" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-chart-pie"></i> Across All Workstreams</div>
-    <h2 class="svc-h2">Aggregate Achievement <em>by Functional Area</em></h2>
+    <h2 class="svc-h2">Aggregate achievement <em>by functional area</em></h2>
     <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end: reported as average percent over target across all participating clients in the period.</p>
   </div>
   <div class="cs-by-area">
@@ -247,7 +247,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-circle-info"></i> How We Measure</div>
-    <h2 class="svc-h2">What These Numbers <em>Actually Mean</em></h2>
+    <h2 class="svc-h2">What these numbers <em>actually mean</em></h2>
     <p class="svc-p">Every Virtual Teammate engagement starts with a <strong>targeted KPI</strong> set together with the client: the throughput, dollar amount, or completion volume the workstream needs to hit each period. We then report three things every month:</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Targeted KPI</strong>: what we committed to (claims, verifications, postings, pre-certs).</span></li>
@@ -268,7 +268,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why VT Delivers These Numbers</div>
-    <h2 class="svc-h2">The Operating Model Behind <em>Every Result</em></h2>
+    <h2 class="svc-h2">The operating model behind <em>every result</em></h2>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-First Scoping</h3><p>Every engagement starts with the metric the client most needs to move, not a generic "VA hours" SOW.</p></div>
@@ -284,7 +284,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Case Study FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Case Study FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-chart-line"></i> Are these numbers real?</div><div class="faq-a">Yes. Every number on this page is pulled from a recent monthly KPI scorecard for an active VT client engagement. Targets are set with the client at the start of the period; results are recorded as the period closes.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-calendar"></i> What period do these cover?</div><div class="faq-a">Most recent reporting period: a one-month snapshot from Spring 2025. Older periods are available in the full client scorecard archive on request.</div></div>
@@ -297,7 +297,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FINAL CTA -->
 <section class="svc-cta">
-  <h2>Want Results Like These on <em style="color:var(--gold);font-style:normal;">Your</em> Scorecard?</h2>
+  <h2>Want results like these on <em style="color:var(--gold);font-style:normal;">your</em> scorecard?</h2>
   <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>

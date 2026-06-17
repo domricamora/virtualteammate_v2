@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Dental Biller</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR teammates &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Dental Biller <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Dental biller <em>virtual</em> assistants</h1>
     <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing, inside Dentrix, Eaglesoft, Open Dental and Carestream, at up to <strong>73% less</strong> than a US in-house dental biller.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> What They Handle</div>
-    <h2 class="svc-h2">Full Insurance &amp; Patient <em>Billing Cycle</em></h2>
+    <h2 class="svc-h2">Full insurance &amp; patient <em>billing cycle</em></h2>
     <p class="svc-p">Dental insurance is its own world: narratives, attachments, downgrade clauses, alternate benefits, pre-authorizations, missing-tooth clauses. A dedicated virtual dental biller knows that language and works it daily so your AR doesn&rsquo;t age past 30 days.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Insurance claim submission:</strong> CDT-coded claims with narratives, x-rays, perio charts and supporting attachments.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Dental Practices Choose VT</div>
-    <h2 class="svc-h2">Why Outsource Dental Billing?</h2>
+    <h2 class="svc-h2">Why outsource dental billing?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Specialized dental billers who know your PMS, your payers, and the narratives that get claims paid the first time.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Dental PMS &amp; Payer Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">Fluent in the dental PMS, clearinghouse and payer landscape that drives US dental practice revenue.</p>
     </div>
     <div class="svc-tools-chips">
@@ -152,7 +152,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Biller in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live biller in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Billing Value Audit Call</h3><p class="pstep-desc">15-minute call to review your PMS, payer mix, claim volume, denial trends and AR aging.</p></div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Biller teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-tooth"></i> What does a dental billing virtual assistant do?</div><div class="faq-a">Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>

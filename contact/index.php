@@ -112,7 +112,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Contact Virtual Teammate</div>
-    <h1 class="svc-h1">Talk to a <em>Real Person</em> in Our Phoenix HQ, Backed by a Global Bench</h1>
+    <h1 class="svc-h1">Talk to a <em>real person</em> in our Phoenix HQ, backed by a global bench</h1>
     <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>US-based Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -142,7 +142,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="reach" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-comments"></i> Three Ways to Reach Us</div>
-    <h2 class="svc-h2">Pick the Channel <em>That Fits Your Question</em></h2>
+    <h2 class="svc-h2">Pick the channel <em>that fits your question</em></h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">Every channel routes to a US-based teammate. No call trees, no offshore queues, no &ldquo;we&rsquo;ll get back to you.&rdquo;</p>
   </div>
 
@@ -236,7 +236,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="global-grid">
     <div class="global-l reveal">
       <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Coverage &middot; Local Cadence</div>
-      <h2 class="sec-h2" id="global-h">A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent, On Your Time Zone</h2>
+      <h2 class="sec-h2" id="global-h">A <em>global bench</em> of HIPAA-certified medical &amp; dental talent, on your time zone</h2>
       <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager (CSM) runs the bench so you don&rsquo;t have to think about it.</p>
 
       <ul class="global-benefits">
@@ -279,7 +279,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:60px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Pre-Contact FAQs</div><h2 class="svc-h2">Before You Reach Out: Common Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Pre-Contact FAQs</div><h2 class="svc-h2">Before you reach out: common questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clock"></i> How quickly will I get a response?</div><div class="faq-a">Most inbound requests get a personal reply within one business day. Phone calls during MST business hours are answered live; voicemails are returned same day.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager (CSM), not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
@@ -292,7 +292,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FINAL CTA -->
 <section class="svc-cta">
-  <h2>Ready to <em style="color:var(--gold);font-style:normal;">Start the Conversation</em>?</h2>
+  <h2>Ready to <em style="color:var(--gold);font-style:normal;">start the conversation</em>?</h2>
   <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline: no commitment required.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>

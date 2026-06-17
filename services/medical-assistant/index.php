@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Medical Assistant</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-user-nurse"></i> Clinical &amp; Admin Support &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Medical Assistant <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Medical assistant <em>virtual</em> assistants</h1>
     <p class="svc-lead">Give your clinical team their day back. Our <strong>HIPAA-certified virtual medical assistants</strong> handle triage prep, refills, prior auth, results routing and care coordination, the documentation work that drains your in-room MAs, at up to <strong>73% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-user-nurse"></i> What They Handle</div>
-    <h2 class="svc-h2">Off-Load the Work That Doesn&rsquo;t Need <em>Hands</em></h2>
+    <h2 class="svc-h2">Off-load the work that doesn&rsquo;t need <em>hands</em></h2>
     <p class="svc-p">A clinical MA spends roughly <strong>40&ndash;60% of every shift</strong> on documentation, follow-up and coordination, not on patients. A virtual MA absorbs that workload so your in-room MAs can stay rooming patients, taking vitals and supporting the provider.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Triage prep:</strong> chart review, intake confirmation, pre-visit questionnaires, history flagging.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual MA?</h2>
+    <h2 class="svc-h2">Why hire a virtual MA?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Stop paying clinical-MA wages for documentation work that doesn&rsquo;t need to happen in the room.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Clinical Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">EHR-fluent, e-prescribing-aware, and ready for the inbox volume that follows a busy clinic day.</p>
     </div>
     <div class="svc-tools-chips">
@@ -152,7 +152,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live MA in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live MA in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual Medical Assistant FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual medical assistant FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-nurse"></i> What does a virtual medical assistant actually do?</div><div class="faq-a">Triage prep, refill management, prior authorization, results routing, care coordination, patient outreach and EHR follow-up: the non-hands-on workload that consumes 40&ndash;60% of an in-house MA&rsquo;s shift.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-hand-holding-medical"></i> Can a virtual MA replace my in-house MA?</div><div class="faq-a">It complements them. Hands-on work (vitals, injections, rooming) still happens in person. The virtual MA absorbs the documentation, follow-up and coordination workload so your in-house team can stay focused on patients.</div></div>

@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Medical Receptionist</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Virtual Front-Desk teammates &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Medical Receptionist <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Medical receptionist <em>virtual</em> assistants</h1>
     <p class="svc-lead">Stop missing patient calls. Our <strong>virtual medical receptionists</strong> answer live, schedule appointments, verify insurance and run reminder outreach: all from inside your EHR and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-house front desk.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> What They Handle</div>
-    <h2 class="svc-h2">Your Front Desk, <em>Reinforced</em></h2>
+    <h2 class="svc-h2">Your front desk, <em>reinforced</em></h2>
     <p class="svc-p">Voicemails kill patient acquisition. The average independent practice misses <strong>30&ndash;40% of inbound calls</strong> during business hours, and a missed call is usually a lost appointment. A virtual medical receptionist gives you full live coverage without adding a salary, benefits or a desk.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Inbound &amp; overflow call handling:</strong> live answer on your VoIP line with your practice script.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Receptionist?</h2>
+    <h2 class="svc-h2">Why hire a virtual receptionist?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained healthcare receptionists who plug into your phone system and EHR, without the cost of W-2 staffing.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Phone &amp; EHR Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">Our virtual receptionists are fluent in the VoIP, EHR and scheduling platforms US medical practices actually use.</p>
     </div>
     <div class="svc-tools-chips">
@@ -152,7 +152,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Receptionist in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live receptionist in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your call volume, phone system, EHR and scheduling rules. Define the exact tasks the receptionist will own.</p></div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual Medical Receptionist FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual medical receptionist FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-headset"></i> What does a virtual medical receptionist actually do?</div><div class="faq-a">Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage: all inside your phone system and EHR.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can a virtual receptionist take live patient calls?</div><div class="faq-a">Yes. Your teammate logs into your VoIP / cloud phone (RingCentral, Weave, Zoom Phone, Nextiva, 8x8, etc.) and answers calls live, just like an in-house receptionist.</div></div>

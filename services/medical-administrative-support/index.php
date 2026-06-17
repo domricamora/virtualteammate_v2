@@ -57,7 +57,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Medical Administrative Support</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Medical Admin teammates &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Medical Administrative <em>Support</em> Virtual Assistants</h1>
+    <h1 class="svc-h1">Medical administrative <em>support</em> virtual assistants</h1>
     <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified medical admin teammates</strong> handle chart prep, patient intake, records, prior authorization and back-office workflows: trained on your EHR, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -93,7 +93,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> What They Handle</div>
-    <h2 class="svc-h2">A Trained, HIPAA-Certified Back Office <em>, Remote</em></h2>
+    <h2 class="svc-h2">A trained, HIPAA-certified back office <em>, remote</em></h2>
     <p class="svc-p">Most medical practices burn 12&ndash;20 provider hours per week on admin work that doesn&rsquo;t require a clinician: chart prep, document indexing, intake follow-up, records release, prior auth packets. A medical administrative teammate reclaims those hours so your physicians, nurses and front-desk team can focus on patients.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Chart preparation:</strong> pull, update and pre-populate patient charts before each appointment so the provider walks in ready.</span></li>
@@ -115,7 +115,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Admin Instead of In-House?</h2>
+    <h2 class="svc-h2">Why hire a virtual admin instead of in-house?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">A specialized medical admin teammate gives you trained healthcare-specific expertise without the salary, benefits or onboarding overhead of a US W-2 hire.</p>
   </div>
   <div class="svc-bens-grid">
@@ -157,7 +157,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Tools &amp; Software</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Stack</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your stack</h2>
       <p class="svc-p" style="margin-bottom:0;">Our medical admin teammates come pre-trained on the EHR, productivity and communication tools US practices actually use: so onboarding is a workflow handoff, not a software course.</p>
     </div>
     <div class="svc-tools-chips">
@@ -183,7 +183,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live teammate in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live teammate in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1">
@@ -210,7 +210,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-    <h2 class="svc-h2">Medical Admin teammate FAQs</h2>
+    <h2 class="svc-h2">Medical admin teammate FAQs</h2>
   </div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a medical administrative virtual assistant actually do?</div><div class="faq-a">A medical admin teammate owns the non-clinical workflows that drain a provider&rsquo;s day: chart prep, patient intake, records requests, prior auth packets, referrals, inbox triage and EHR data hygiene: all inside your existing systems.</div></div>

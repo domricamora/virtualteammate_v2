@@ -14,7 +14,7 @@ include __DIR__ . '/../includes/nav.php';
 <article class="legal">
   <div class="legal-head">
     <div class="sec-lbl"><i class="fa-solid fa-user-shield"></i> Legal</div>
-    <h1>Privacy Policy</h1>
+    <h1>Privacy policy</h1>
     <div class="legal-updated">Last updated: June 13, 2026</div>
   </div>
 

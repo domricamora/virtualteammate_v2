@@ -286,7 +286,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     <div class="vtd-hero-inner reveal">
       <div class="vtd-hero-text">
         <div class="sec-lbl"><i class="fa-solid fa-users"></i> Our Virtual Teammates</div>
-        <h1 class="sec-h2" id="vtd-h1" style="max-width:18ch;">Hire a Vetted Medical &amp; Dental Virtual Assistant</h1>
+        <h1 class="sec-h2" id="vtd-h1" style="max-width:18ch;">Hire a vetted medical &amp; dental virtual assistant</h1>
         <p class="vtd-lede">
           Meet the Virtual Teammate bench: HIPAA-certified, pre-screened virtual assistants ready to support
           your practice or business. Browse real teammates by department and skill, then get matched to the

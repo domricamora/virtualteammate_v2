@@ -138,7 +138,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- HERO — offer-led, with CTA ladder -->
   <header class="hcq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Certified Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
-    <h1>One Teammate. The Whole Back Office. <em>73% Less</em> Than an In-House Hire.</h1>
+    <h1>One teammate. The whole back office. <em>73% less</em> than an in-house hire.</h1>
     <p class="hcq-sub">A dedicated, HIPAA-certified medical VA, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more, owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
     <p class="hcq-promise">Published flat-rate pricing from <strong>$975/mo part-time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
@@ -260,7 +260,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="pain">
     <div class="hcq-pain reveal">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of Admin</div>
-      <h2 class="svc-h2">Every Hour on Paperwork Is an Hour <em>Away From Patients</em></h2>
+      <h2 class="svc-h2">Every hour on paperwork is an hour <em>away from patients</em></h2>
       <p class="svc-p">Scheduling, insurance verification, charting, callbacks, claims follow-up: the back office quietly eats the time you meant to spend on care and on growing the practice. It doesn&rsquo;t show up on a P&amp;L, but you feel it in late nights, slow follow-ups and stalled revenue.</p>
       <div class="hcq-pain-grid">
         <div class="hcq-pain-item"><i class="fa-solid fa-moon"></i><span><strong>Charting after hours</strong> instead of clocking out with your team.</span></div>
@@ -279,7 +279,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal" style="text-align:center;">
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
-      <h2 class="svc-h2">One Teammate. <em>The Whole Back Office.</em></h2>
+      <h2 class="svc-h2">One teammate. <em>The whole back office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, EHR-trained, and matched to your time zone: your Virtual Teammate owns the repeatable work so your clinical team can focus on patients.</p>
     </div>
     <div class="svc-bens-grid">
@@ -299,7 +299,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="offer" aria-labelledby="offer-h">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
-      <h2 class="svc-h2" id="offer-h">What You Get With a <em>Virtual Teammate</em></h2>
+      <h2 class="svc-h2" id="offer-h">What you get with a <em>Virtual Teammate</em></h2>
       <p class="sec-sub" style="max-width:760px;margin:0 auto;">One HIPAA-certified medical VA, fully managed, takes the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
     <div class="offer-grid reveal d1">
@@ -326,7 +326,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="quiz">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-stethoscope"></i> Practice Efficiency Quiz</div>
-      <h2 class="svc-h2">Not Sure Where to Start? <em>See What Admin Is Costing You</em> in 2 Minutes.</h2>
+      <h2 class="svc-h2">Not sure where to start? <em>See what admin is costing you</em> in 2 minutes.</h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto 8px;">Answer 6 quick questions and you&rsquo;ll see the hours you could reclaim each week, the weekly revenue your admin work is costing you, and a downloadable report. Takes about 2 minutes.</p>
     </div>
     <div class="healthcare-quiz-wrap">
@@ -346,7 +346,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="g-wrap reveal">
       <div class="g-copy">
         <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The Three Commitments</div>
-        <h2 class="sec-h2" id="g-h2">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
+        <h2 class="sec-h2" id="g-h2">If it&rsquo;s not working in month one, <em>we make it right</em></h2>
         <p class="sec-sub">Every placement carries the 30-Day Right-Fit Promise, published in writing, not buried in a sales call.</p>
         <div class="g-cards">
           <div class="g-card">
@@ -376,7 +376,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-      <h2 class="svc-h2">Questions Practice Owners <em>Ask Us First</em></h2>
+      <h2 class="svc-h2">Questions practice owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare teammates HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
@@ -392,7 +392,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <!-- FINAL CTA -->
   <section class="svc-cta">
-    <h2>Ready to Hand Off the <em style="color:var(--gold);font-style:normal;">Back Office?</em></h2>
+    <h2>Ready to hand off the <em style="color:var(--gold);font-style:normal;">back office?</em></h2>
     <p>Book your Practice Staffing Audit and a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>

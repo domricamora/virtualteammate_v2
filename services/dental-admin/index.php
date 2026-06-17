@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Dental Admin</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Dental Admin teammates &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Dental Administrative <em>Support</em> Virtual Assistants</h1>
+    <h1 class="svc-h1">Dental administrative <em>support</em> virtual assistants</h1>
     <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified dental admin teammates</strong> handle records, insurance verification, treatment-plan setup, data entry and document management: trained on Dentrix, Eaglesoft and Open Dental, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> What They Handle</div>
-    <h2 class="svc-h2">A Trained Dental Back Office: <em>Remote</em></h2>
+    <h2 class="svc-h2">A trained dental back office: <em>remote</em></h2>
     <p class="svc-p">Front-desk teams burn hours on insurance breakdowns, chart prep and data entry that don&rsquo;t need to happen chairside. A dental admin teammate absorbs that workload so your in-office team can focus on patients and case acceptance.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Insurance verification &amp; breakdowns:</strong> eligibility, frequencies, downgrades, maximums: entered before the visit.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Hire a Virtual Dental Admin?</h2>
+    <h2 class="svc-h2">Why hire a virtual dental admin?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained dental-specific admin support without the salary, benefits or onboarding overhead of a US W-2 hire.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Dental PMS &amp; Tools</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Stack</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your stack</h2>
       <p class="svc-p" style="margin-bottom:0;">Fluent in the dental practice-management systems and productivity tools US dental offices run on.</p>
     </div>
     <div class="svc-tools-chips">
@@ -150,7 +150,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live teammate in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live teammate in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the teammate will own.</p></div>
@@ -162,7 +162,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Admin teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental admin teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a dental admin teammate actually do?</div><div class="faq-a">Insurance verification &amp; breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting: inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.</div></div>

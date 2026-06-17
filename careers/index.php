@@ -53,7 +53,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-rocket"></i> Careers at Virtual Teammate</div>
-    <h1 class="svc-h1">Create Your Future. <em>Live Your Best Life.</em></h1>
+    <h1 class="svc-h1">Create your future. <em>Live your best life.</em></h1>
     <p class="svc-p">Join <strong>2,000+ virtual teammates</strong> already placed with growing US healthcare practices and businesses. Fully remote work, transparent hiring, competitive pay, and a culture built on positive energy, resilience, and value creation, not micromanagement.</p>
     <div class="svc-hero-ctas">
       <a href="https://virtualteammate-1719208705.teamtailor.com/" target="_blank" rel="noopener" class="btn-primary">Explore Open Positions <i class="fa-solid fa-arrow-right"></i></a>
@@ -82,7 +82,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-briefcase"></i> Roles We Hire For</div>
-    <h2 class="svc-h2">Eight Departments. <em>One Career You&rsquo;ll Actually Want to Stay In.</em></h2>
+    <h2 class="svc-h2">Eight departments. <em>One career you&rsquo;ll actually want to stay in.</em></h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">Whether you&rsquo;re a clinical-side admin or a back-office BI analyst, we have a seat for you.</p>
   </div>
   <div class="svc-bens-grid">
@@ -106,7 +106,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-gift"></i> Discover the Benefits of Joining Virtual Teammate</div>
-    <h2 class="svc-h2">We Believe in <em>Empowering Our Team</em> to Thrive</h2>
+    <h2 class="svc-h2">We believe in <em>empowering our team</em> to thrive</h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">At Virtual Teammate, we believe in empowering our team members to thrive in a supportive and dynamic environment.</p>
   </div>
   <div class="svc-bens-grid">
@@ -125,7 +125,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-bullseye"></i> Mission &amp; Values</div>
-    <h2 class="svc-h2">Building Value <em>Together</em></h2>
+    <h2 class="svc-h2">Building value <em>together</em></h2>
     <p class="svc-p">Our mission is to bring a value-creation culture to the forefront, connecting high-performing virtual teammates with our incredible community of clients. We hire on these seven values, and we live by them.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Positive Energy</strong>: fuels growth and productivity.</span></li>
@@ -149,7 +149,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-proc" id="hiring">
   <div style="text-align:center;max-width:720px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Application &amp; Orientation Process</div>
-    <h2 class="svc-h2">Eight Steps. <em>Transparent. No Ghosting.</em></h2>
+    <h2 class="svc-h2">Eight steps. <em>Transparent. No ghosting.</em></h2>
     <p class="sec-sub">We respect your time. Every applicant gets a response, and every hire walks into Day 1 ready.</p>
   </div>
   <div class="proc-steps">
@@ -170,7 +170,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-quote-left"></i> What Our Teammates Say</div>
-    <h2 class="svc-h2">Real Voices, <em>Real Experiences</em></h2>
+    <h2 class="svc-h2">Real voices, <em>real experiences</em></h2>
   </div>
   <div class="svc-bens-grid" style="margin-top:30px;">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Jessavel</h3><p>&ldquo;The culture of collaboration and cooperation makes it easy to deliver your best work.&rdquo;</p></div>
@@ -186,7 +186,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Applicant FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Applicant FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What roles do you hire for?</div><div class="faq-a">Healthcare (medical scribes, billers, receptionists, assistants), dental (admin, billing, scribes, coordinators, reception), administrative support, customer service, financial services, marketing, sales, and business intelligence.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-house-laptop"></i> Is the work fully remote?</div><div class="faq-a">Yes. Every role is 100% remote. You work from home with a stable internet connection: we verify the setup before placement.</div></div>
@@ -201,7 +201,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FINAL CTA -->
 <section class="svc-cta">
-  <h2>Ready to <em style="color:var(--gold);font-style:normal;">Apply</em>?</h2>
+  <h2>Ready to <em style="color:var(--gold);font-style:normal;">apply</em>?</h2>
   <p>We are always on the lookout for talented individuals who align with our values and mission. Explore our open positions and find your fit at Virtual Teammate.</p>
   <div class="svc-cta-btns">
     <a href="https://virtualteammate-1719208705.teamtailor.com/" target="_blank" rel="noopener" class="btn-primary">Explore Open Positions <i class="fa-solid fa-arrow-right"></i></a>

@@ -89,7 +89,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The 30-Day Right-Fit Promise</div>
-    <h1 class="svc-h1">Hire a Virtual Teammate <em>Zero-Risk</em>. Period.</h1>
+    <h1 class="svc-h1">Hire a Virtual Teammate <em>zero-risk</em>. Period.</h1>
     <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your teammate isn&rsquo;t the right fit inside the first 30 days, we make it right: at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -126,7 +126,7 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="g-copy">
       <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The Three Commitments</div>
-      <h2 class="sec-h2" id="g-h2">If It&rsquo;s Not Working in Month One, <em>We Make It Right</em></h2>
+      <h2 class="sec-h2" id="g-h2">If it&rsquo;s not working in month one, <em>we make it right</em></h2>
       <p class="sec-sub">A staffing partner, not a contract trap. Here is exactly what you get the day your teammate goes live, and exactly what happens if anything goes sideways.</p>
       <div class="g-cards">
         <div class="g-card">
@@ -165,7 +165,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-proc" id="claim">
   <div style="text-align:center;max-width:720px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> How to Claim the Promise</div>
-    <h2 class="svc-h2">Three Simple Steps: <em>No Forms, No Friction</em></h2>
+    <h2 class="svc-h2">Three simple steps: <em>no forms, no friction</em></h2>
     <p class="sec-sub">A real process, with real humans, that respects your time.</p>
   </div>
   <div class="gp-claim-steps">
@@ -193,7 +193,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-scale-balanced"></i> Risk, Side by Side</div>
-    <h2 class="svc-h2">Virtual Teammate vs. <em>Typical VA Staffing</em></h2>
+    <h2 class="svc-h2">Virtual Teammate vs. <em>typical VA staffing</em></h2>
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">The same dollar of staffing spend, sitting on two very different risk profiles. Read it before you sign anything.</p>
   </div>
 
@@ -236,7 +236,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why We Can Offer This</div>
-    <h2 class="svc-h2">The Promise Holds Because <em>The Bench Holds</em></h2>
+    <h2 class="svc-h2">The promise holds because <em>the bench holds</em></h2>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-Vetted Global Bench</h3><p>2,000+ teammates already through the EFSET / IQ / Cultural Index / technical / IT pipeline. We don&rsquo;t recruit a replacement: we deploy one.</p></div>
@@ -252,7 +252,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:60px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Right-Fit Promise FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Right-Fit Promise FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost teammate replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 5 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new teammate is live and producing.</div></div>
@@ -269,7 +269,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FINAL CTA -->
 <section class="svc-cta">
-  <h2>Ready to Hire <em style="color:var(--gold);font-style:normal;">Without the Risk</em>?</h2>
+  <h2>Ready to hire <em style="color:var(--gold);font-style:normal;">without the risk</em>?</h2>
   <p>Book a 30-minute value strategy session. We&rsquo;ll map your top workflows, recommend a tier and headcount, and back the whole thing with the Right-Fit Promise: in writing, before you sign.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>

@@ -47,7 +47,7 @@ include __DIR__ . '/../includes/nav.php';
       <span aria-current="page">Business &amp; Non-Profit VAs</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-briefcase"></i> Business &amp; Non-Profit VAs</div>
-    <h1 class="svc-h1">Beyond Healthcare: <em>Virtual Teammates</em> for Every Function</h1>
+    <h1 class="svc-h1">Beyond healthcare: <em>Virtual Teammates</em> for every function</h1>
     <p class="svc-lead">Healthcare is our focus, but our network covers every back-office role a growing business or non-profit needs. <strong>Same global talent network, same multi-stage vetting, same transparent flat-rate model</strong>, matched to your US time zone and backed by the 30-Day Right-Fit Promise.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-globe"></i> 12+ Countries Sourced</div>
@@ -72,7 +72,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> Roles We Staff</div>
-    <h2 class="svc-h2">Pick a Function: <em>We&rsquo;ll Build the Bench</em></h2>
+    <h2 class="svc-h2">Pick a function: <em>we&rsquo;ll build the bench</em></h2>
     <p class="sec-sub" style="max-width:680px;margin:0 auto;">From a single executive assistant to a full remote operations team, the same vetting standard that produces our HIPAA-certified healthcare placements applies here.</p>
   </div>
   <div class="svc-bens-grid">
@@ -91,7 +91,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens" id="business-roles">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Roles That Drive Growth</div>
-    <h2 class="svc-h2">Business Virtual Assistants Built Around <em>Lead Generation &amp; Client Acquisition</em></h2>
+    <h2 class="svc-h2">Business virtual assistants built around <em>lead generation &amp; client acquisition</em></h2>
     <p class="sec-sub" style="max-width:760px;margin:0 auto;">Most growing companies don&rsquo;t lose deals because the product is weak: they lose them because no one had time to follow up, qualify the inbound, or keep the pipeline moving. A Virtual Teammate takes the repeatable revenue work off your plate so your closers stay closing. Here&rsquo;s how each role compounds into more leads and more clients.</p>
   </div>
 
@@ -167,7 +167,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
-    <h2 class="svc-h2">Business Virtual Assistant <em>Questions</em></h2>
+    <h2 class="svc-h2">Business virtual assistant <em>questions</em></h2>
   </div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business VA handles the repeatable work across sales, marketing, admin, finance and customer service: from lead generation, appointment setting and CRM management to bookkeeping, inbox control and tier-1 support. You decide the function; we match a vetted teammate trained on your tools and time zone.</div></div>
@@ -182,7 +182,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec cta-stages-section" id="cta" style="padding-top:80px;padding-bottom:110px;">
   <div class="cta-stages-h reveal">
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Two Ways to Start</div>
-    <h2 class="cta-h2" style="font-size:36px;">Healthcare or Not,<br>the Engine Is the Same</h2>
+    <h2 class="cta-h2" style="font-size:36px;">Healthcare or not,<br>the engine is the same</h2>
     <p class="cta-sub">Diagnose where the hours are going, or jump straight to reclaiming them: same vetted global network, same dedicated Client Success Manager (CSM), same 30-Day Right-Fit Promise.</p>
   </div>
 

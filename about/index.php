@@ -67,7 +67,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-building"></i> About Virtual Teammate</div>
-    <h1 class="svc-h1">Built to Help Practices and Businesses <em>Do More, With Less Overhead</em></h1>
+    <h1 class="svc-h1">Built to help practices and businesses <em>do more, with less overhead</em></h1>
     <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-certified virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created, not hours billed.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -97,7 +97,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-user-tie"></i> Meet the Founder</div>
-    <h2 class="svc-h2">Chris McShanag: <em>30+ Years of Operational Leadership</em></h2>
+    <h2 class="svc-h2">Chris McShanag: <em>30+ years of operational leadership</em></h2>
     <p class="svc-p">&ldquo;I&rsquo;m passionate about transforming the way healthcare and business operate. With more than 30 years of experience in operations and consulting, I built Virtual Teammate to bring <em>measurable</em> value, not commodity offshore labor, to every practice and every patient touchpoint.&rdquo;</p>
     <p class="svc-p">Under Chris&rsquo;s leadership, Virtual Teammate has scaled from a boutique recruiter into a US-owned staffing partner with a global vetting network spanning the Philippines, Latin America, Africa, and South Asia. Every virtual teammate is <strong>multi-stage vetted, HIPAA-certified before placement</strong>, and matched to your time zone and tech stack.</p>
     <ul class="svc-checks">
@@ -118,7 +118,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-bullseye"></i> Our Mission</div>
-    <h2 class="svc-h2">Bringing a <em>Value-Creation Culture</em> to Every Engagement</h2>
+    <h2 class="svc-h2">Bringing a <em>value-creation culture</em> to every engagement</h2>
     <p class="svc-p">Most outsourced staffing is sold on cost. <strong>We sell on outcome.</strong> Our mission is to bring a value-creation culture to the forefront of staffing: connecting high-performing virtual teammates with the practices and businesses that need them, and measuring success on revenue cost savings and revenue growth, hours reclaimed, and patient experience improved.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Value, not just labor:</strong> every engagement is scoped against KPIs <em>you</em> choose.</span></li>
@@ -136,7 +136,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Our Core Principles</div>
-    <h2 class="svc-h2">Principles We Hire On, <em>and Live By</em></h2>
+    <h2 class="svc-h2">Principles we hire on, <em>and live by</em></h2>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sun"></i></span><h3>Positive Energy</h3><p>Fuels growth, productivity, and the kind of optimism that makes teams perform under pressure.</p></div>
@@ -154,7 +154,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Practices and Businesses Choose VT</div>
-    <h2 class="svc-h2">More Than Staffing: A <em>Partner That Owns Outcomes</em></h2>
+    <h2 class="svc-h2">More than staffing: a <em>partner that owns outcomes</em></h2>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA by Default</h3><p>Every teammate completes HIPAA certification and BAA-compatible setup before placement.</p></div>
@@ -172,7 +172,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:720px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How We Engage</div>
-    <h2 class="svc-h2">Five Steps from First Call to <em>First Win</em></h2>
+    <h2 class="svc-h2">Five steps from first call to <em>first win</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Pinpoint Goals</h3><p class="pstep-desc">A 30-minute strategy session: surface the bottleneck, the KPI gap, and the workflow you&rsquo;d hand off first.</p></div>
@@ -187,7 +187,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> About VT, FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> About VT, FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-building"></i> Is Virtual Teammate US-owned?</div><div class="faq-a">Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and US-based Client Success Managers (CSMs) on every account.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your teammates HIPAA certified?</div><div class="faq-a">Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>

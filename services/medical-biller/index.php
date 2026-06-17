@@ -55,7 +55,7 @@ include __DIR__ . '/../../includes/nav.php';
       <span aria-current="page">Medical Biller</span>
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VAs &middot; HIPAA Certified</div>
-    <h1 class="svc-h1">Medical Biller <em>Virtual</em> Assistants</h1>
+    <h1 class="svc-h1">Medical biller <em>virtual</em> assistants</h1>
     <p class="svc-lead">Get paid faster. Our <strong>HIPAA-certified virtual medical billers</strong> own your full revenue cycle, clean claims, denial work, AR follow-up and payment posting, trained in CPT, ICD-10 and every major clearinghouse, at up to <strong>73% less</strong> than an in-house RCM hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
@@ -89,7 +89,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-split">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-file-invoice-dollar"></i> What They Handle</div>
-    <h2 class="svc-h2">Full Revenue Cycle <em>Coverage</em></h2>
+    <h2 class="svc-h2">Full revenue cycle <em>coverage</em></h2>
     <p class="svc-p">Most independent practices leak <strong>5&ndash;12% of collectable revenue</strong> to denials, unworked AR and missed timely-filing windows. A dedicated medical billing teammate does the daily, unglamorous work that closes that gap, without adding a $58k&ndash;$78k in-house salary.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Clean claim submission:</strong> daily charge entry, modifier review, NCCI edits, scrub &amp; submit through your clearinghouse.</span></li>
@@ -110,7 +110,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why Outsource Medical Billing to a teammate?</h2>
+    <h2 class="svc-h2">Why outsource medical billing to a teammate?</h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained, dedicated billers without the cost, or the turnover, of in-house RCM staffing.</p>
   </div>
   <div class="svc-bens-grid">
@@ -127,7 +127,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-tools-wrap reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Coding &amp; Clearinghouse Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your Tools</h2>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
       <p class="svc-p" style="margin-bottom:0;">Fluent in the EHRs, PM systems and clearinghouses that move money in US healthcare.</p>
     </div>
     <div class="svc-tools-chips">
@@ -152,7 +152,7 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From Call to Live Biller in <em>Under Two Weeks</em></h2>
+    <h2 class="svc-h2">From call to live biller in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM Value Audit Call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
@@ -164,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Medical Biller teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Medical biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a medical billing virtual assistant do?</div><div class="faq-a">Full revenue cycle: charge entry, claim scrubbing &amp; submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting: inside your existing EHR and clearinghouse.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a billing teammate actually reduce my AR days?</div><div class="faq-a">Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.</div></div>
