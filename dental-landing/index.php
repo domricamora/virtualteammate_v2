@@ -243,6 +243,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="divider"></div>
 
+  <?php if (false): /* "The Hidden Cost of a Busy Front Desk" (PAIN) + "What They Take Off Your Plate" (SOLUTION GRID) hidden per request — flip to true to restore */ ?>
   <!-- PAIN -->
   <section class="svc-split">
     <div class="reveal">
@@ -283,6 +284,7 @@ include __DIR__ . '/../includes/nav.php';
   </section>
 
   <div class="divider"></div>
+  <?php endif; ?>
 
   <!-- QUIZ -->
   <section class="sec" id="quiz">
