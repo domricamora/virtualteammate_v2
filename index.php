@@ -68,7 +68,7 @@ include 'includes/nav.php';
     </div>
     <div class="cta-note reveal d3"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
-    <p class="avail-note reveal d3"><i class="fa-solid fa-hourglass-half"></i> We onboard a limited number of new practices each month to protect match quality: current intake has a short waitlist. Book your audit to hold a spot.</p>
+    <p class="avail-note reveal d3"><i class="fa-solid fa-hourglass-half"></i> New-practice onboarding is capped monthly so every match gets a proper search. Booking your audit now reserves your place in the next intake.</p>
   </div>
 
   <!-- Stats card — sits beside the pitch on the right (2×2), stacks below on mobile -->
@@ -755,7 +755,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="offer-grid reveal d1">
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-tag"></i></span>
-      <p><strong>Published flat-rate pricing.</strong> From $975/mo part-time. Pro $1,625/mo full-time ($867 part-time). Specialist $2,167/mo full-time ($1,300 part-time). All-in: no markups, no surprises.</p>
+      <p><strong>Flat-rate pricing, billed bi-weekly.</strong> Starting at $750 bi-weekly, with highly trained, dedicated Healthcare VTs at $1,000 bi-weekly. All-in: no markups, no surprises.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-bolt"></i></span>
@@ -771,7 +771,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-lock-open"></i></span>
-      <p><strong>No long-term lock-in.</strong> Month-to-month after your first 90 days.</p>
+      <p><strong>No long-term lock-in.</strong> Bi-weekly from day one, not after 90 days, with no termination-period clause in the CSA. On your teammate&rsquo;s first day we set up autopay and collect two weeks in advance.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-robot"></i></span>
@@ -794,7 +794,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Three Ways to Start</div>
     <h2 class="cta-h2" style="font-size:36px;">Pick the entry point<br>that fits where you are</h2>
     <p class="cta-sub">Just exploring, ready to diagnose, or ready to scope: three ways in, same team on the other side.</p>
-    <p class="avail-note avail-note-center"><i class="fa-solid fa-hourglass-half"></i> Every month short-staffed is another month of denied claims and after-hours charting. Most practices are live within 1&ndash;2 weeks of their audit.</p>
+    <p class="avail-note avail-note-center"><i class="fa-solid fa-hourglass-half"></i> New-practice onboarding is capped monthly so every match gets a proper search. Booking your audit now reserves your place in the next intake.</p>
   </div>
 
   <div class="cta-stages-grid reveal d1">
