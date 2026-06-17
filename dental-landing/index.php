@@ -29,6 +29,8 @@ $faqs = [
    'a' => 'Five layers: HIPAA training & certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).'],
   ['q' => 'Which practice-management software do your VAs know?',
    'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.'],
+  ['q' => 'Will my dental VA work my practice hours and time zone?',
+   'a' => 'Yes. Every teammate is matched to your US time-zone shift and works your business hours, so scheduling, recall, verifications and patient calls are covered live during your day, not overnight.'],
 ];
 include __DIR__ . '/../includes/head.php';
 include __DIR__ . '/../includes/nav.php';
@@ -376,6 +378,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 5 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-lock"></i> How do you protect patient data?</div><div class="faq-a">Five layers: HIPAA training &amp; certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which practice-management software do your VAs know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> Will my dental VA work my practice hours and time zone?</div><div class="faq-a">Yes. Every teammate is matched to your US time-zone shift and works your business hours, so scheduling, recall, verifications and patient calls are covered live during your day, not overnight.</div></div>
     </div>
   </section>
 
