@@ -255,6 +255,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="divider"></div>
 
+  <?php if (false): /* "The Hidden Cost of Admin" (PAIN) + "What They Take Off Your Plate" (SOLUTION GRID) hidden per request — flip to true to restore */ ?>
   <!-- PAIN -->
   <section class="sec" id="pain">
     <div class="hcq-pain reveal">
@@ -292,6 +293,7 @@ include __DIR__ . '/../includes/nav.php';
   </section>
 
   <div class="divider"></div>
+  <?php endif; ?>
 
   <!-- OFFER BLOCK -->
   <section class="sec" id="offer" aria-labelledby="offer-h">
