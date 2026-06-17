@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Medical Receptionist Virtual Assistants | HIPAA-Certified Front-Desk VAs | Virtual Teammate';
-$page_description = 'Hire a HIPAA-certified medical receptionist virtual assistant. Inbound calls, scheduling, intake, reminders & insurance verification — answered in your time zone. Save up to 73%.';
-$og_title         = 'Medical Receptionist Virtual Assistants — Never Miss a Patient Call';
-$og_description   = 'Trained virtual front-desk VAs answering calls, scheduling appointments, verifying insurance and reducing no-shows — all in your US time zone.';
+$page_description = 'Hire a HIPAA-certified medical receptionist virtual assistant. Inbound calls, scheduling, intake, reminders & insurance verification, answered in your time zone. Save up to 73%.';
+$og_title         = 'Medical Receptionist Virtual Assistants: Never Miss a Patient Call';
+$og_description   = 'Trained virtual front-desk VAs answering calls, scheduling appointments, verifying insurance and reducing no-shows: all in your US time zone.';
 $canonical        = 'https://virtualteammate.com/services/medical-receptionist/';
 $home_base        = '../../';
 $svc_slug         = 'medical-receptionist';
@@ -14,13 +14,13 @@ $breadcrumbs      = [
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
   ['q' => 'What does a virtual medical receptionist actually do?',
-   'a' => 'Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage — all inside your phone system and EHR.'],
+   'a' => 'Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage: all inside your phone system and EHR.'],
   ['q' => 'Can a virtual receptionist take live patient calls?',
    'a' => 'Yes. Your teammate logs into your VoIP / cloud phone (RingCentral, Weave, Zoom Phone, Nextiva, 8x8, etc.) and answers calls live, just like an in-house receptionist.'],
   ['q' => 'Do you offer bilingual receptionists?',
    'a' => 'Yes. We staff Spanish, Portuguese and Tagalog teammates at no premium. Other languages available on request.'],
   ['q' => 'Will this actually reduce my no-shows?',
-   'a' => 'Most practices see no-shows drop 20–35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach — work busy in-house front desks rarely have time for.'],
+   'a' => 'Most practices see no-shows drop 20–35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach: work busy in-house front desks rarely have time for.'],
   ['q' => 'How much does a virtual receptionist cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house hire. Use our ROI calculator for an exact estimate.'],
   ['q' => 'Is patient data safe?',
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Virtual Front-Desk teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Medical Receptionist <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stop missing patient calls. Our <strong>virtual medical receptionists</strong> answer live, schedule appointments, verify insurance and run reminder outreach &mdash; all from inside your EHR and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-house front desk.</p>
+    <p class="svc-lead">Stop missing patient calls. Our <strong>virtual medical receptionists</strong> answer live, schedule appointments, verify insurance and run reminder outreach: all from inside your EHR and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-house front desk.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-phone-volume"></i> Live Phone &amp; Portal</div>
@@ -67,7 +67,7 @@ include __DIR__ . '/../../includes/nav.php';
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
       <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
@@ -90,7 +90,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> What They Handle</div>
     <h2 class="svc-h2">Your Front Desk, <em>Reinforced</em></h2>
-    <p class="svc-p">Voicemails kill patient acquisition. The average independent practice misses <strong>30&ndash;40% of inbound calls</strong> during business hours &mdash; and a missed call is usually a lost appointment. A virtual medical receptionist gives you full live coverage without adding a salary, benefits or a desk.</p>
+    <p class="svc-p">Voicemails kill patient acquisition. The average independent practice misses <strong>30&ndash;40% of inbound calls</strong> during business hours, and a missed call is usually a lost appointment. A virtual medical receptionist gives you full live coverage without adding a salary, benefits or a desk.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Inbound &amp; overflow call handling:</strong> live answer on your VoIP line with your practice script.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Appointment scheduling, rescheduling &amp; cancellations:</strong> directly inside your EHR / PMS calendar.</span></li>
@@ -111,13 +111,13 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
     <h2 class="svc-h2">Why Hire a Virtual Receptionist?</h2>
-    <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained healthcare receptionists who plug into your phone system and EHR &mdash; without the cost of W-2 staffing.</p>
+    <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained healthcare receptionists who plug into your phone system and EHR, without the cost of W-2 staffing.</p>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Answer, Not Voicemail</h3><p>Every call gets a real human voice that knows your practice, your providers, and your scheduling rules.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer No-Shows</h3><p>Consistent confirmation calls, reminder texts and rebook outreach typically cut no-shows by 20&ndash;35%.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified teammates with signed confidentiality agreements and controlled work environments.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $48k&ndash;$62k fully-loaded in-house cost with a transparent flat rate &mdash; no benefits, payroll tax or PTO.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $48k&ndash;$62k fully-loaded in-house cost with a transparent flat rate: no benefits, payroll tax or PTO.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on Request</h3><p>Need Spanish, Portuguese or Tagalog coverage? We staff bilingual teammates at no premium for high-demand languages.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, call audits, backup coverage and quarterly performance reviews built into every placement.</p></div>
   </div>
@@ -166,10 +166,10 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual Medical Receptionist FAQs</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-headset"></i> What does a virtual medical receptionist actually do?</div><div class="faq-a">Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage &mdash; all inside your phone system and EHR.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-headset"></i> What does a virtual medical receptionist actually do?</div><div class="faq-a">Live phone answering, appointment scheduling and rescheduling, patient intake, insurance verification, reminder calls, recall outreach and non-clinical portal triage: all inside your phone system and EHR.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-phone"></i> Can a virtual receptionist take live patient calls?</div><div class="faq-a">Yes. Your teammate logs into your VoIP / cloud phone (RingCentral, Weave, Zoom Phone, Nextiva, 8x8, etc.) and answers calls live, just like an in-house receptionist.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-language"></i> Do you offer bilingual receptionists?</div><div class="faq-a">Yes. We staff Spanish, Portuguese and Tagalog teammates at no premium. Other languages available on request.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will this actually reduce my no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach &mdash; work busy in-house front desks rarely have time for.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will this actually reduce my no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach: work busy in-house front desks rarely have time for.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual receptionist cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house hire. Use our ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every receptionist is HIPAA-certified, background-checked and signs a BAA-compatible confidentiality agreement before placement.</div></div>
   </div>

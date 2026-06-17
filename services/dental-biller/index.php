@@ -1,7 +1,7 @@
 <?php
 $page_title       = 'Dental Biller Virtual Assistants | HIPAA-Certified Dental Billing VAs | Virtual Teammate';
 $page_description = 'Hire HIPAA-certified dental biller virtual assistants. Insurance claims, EOB posting, AR follow-up & PPO/HMO billing in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
-$og_title         = 'Dental Biller Virtual Assistants — Faster Claims, Cleaner AR';
+$og_title         = 'Dental Biller Virtual Assistants: Faster Claims, Cleaner AR';
 $og_description   = 'Specialized dental billing VAs handling claims, denials, EOB posting and AR follow-up inside Dentrix, Eaglesoft, Open Dental and Carestream.';
 $canonical        = 'https://virtualteammate.com/services/dental-biller/';
 $home_base        = '../../';
@@ -16,9 +16,9 @@ $faqs = [
   ['q' => 'What does a dental billing virtual assistant do?',
    'a' => 'Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.'],
   ['q' => 'Which dental PMS do your billers know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon — plus DentalXChange, ClaimX and Vyne clearinghouses.'],
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.'],
   ['q' => 'Can you handle PPO, HMO, Medicaid and Delta claims?',
-   'a' => 'Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum — including narrative-heavy and pre-auth-required procedures.'],
+   'a' => 'Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum: including narrative-heavy and pre-auth-required procedures.'],
   ['q' => 'Will a dental biller actually lower my AR?',
    'a' => 'Yes. Most practices see AR days drop from 45+ to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial appeals.'],
   ['q' => 'Is patient data safe?',
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Biller <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing &mdash; inside Dentrix, Eaglesoft, Open Dental and Carestream &mdash; at up to <strong>73% less</strong> than a US in-house dental biller.</p>
+    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing, inside Dentrix, Eaglesoft, Open Dental and Carestream, at up to <strong>73% less</strong> than a US in-house dental biller.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> CDT Code Fluent</div>
@@ -67,7 +67,7 @@ include __DIR__ . '/../../includes/nav.php';
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
       <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
@@ -90,7 +90,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> What They Handle</div>
     <h2 class="svc-h2">Full Insurance &amp; Patient <em>Billing Cycle</em></h2>
-    <p class="svc-p">Dental insurance is its own world &mdash; narratives, attachments, downgrade clauses, alternate benefits, pre-authorizations, missing-tooth clauses. A dedicated virtual dental biller knows that language and works it daily so your AR doesn&rsquo;t age past 30 days.</p>
+    <p class="svc-p">Dental insurance is its own world: narratives, attachments, downgrade clauses, alternate benefits, pre-authorizations, missing-tooth clauses. A dedicated virtual dental biller knows that language and works it daily so your AR doesn&rsquo;t age past 30 days.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Insurance claim submission:</strong> CDT-coded claims with narratives, x-rays, perio charts and supporting attachments.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>EOB posting &amp; reconciliation:</strong> daily payment posting, copay reconciliation, adjustment entry.</span></li>
@@ -117,9 +117,9 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster Cash, Lower AR</h3><p>Daily AR work and aggressive appeals typically cut AR days under 30 and recover thousands in stalled claims.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ Clean Claim Rate</h3><p>Trained dental billers catch missing CDT codes, narratives and attachments before the claim leaves.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost &mdash; no benefits, PTO or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Backup coverage included &mdash; if your biller is sick, your Success Manager arranges trained relief instantly.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly Billing Reports</h3><p>Production, collections, AR aging, denials, write-offs &mdash; rolled up weekly so you always know where the practice stands.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Backup coverage included: if your biller is sick, your Success Manager arranges trained relief instantly.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly Billing Reports</h3><p>Production, collections, AR aging, denials, write-offs: rolled up weekly so you always know where the practice stands.</p></div>
   </div>
 </section>
 
@@ -157,7 +157,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Billing Value Audit Call</h3><p class="pstep-desc">15-minute call to review your PMS, payer mix, claim volume, denial trends and AR aging.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of dental billers matched to your PMS and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager (CSM) &mdash; live billing in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager (CSM): live billing in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 
@@ -167,8 +167,8 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-tooth"></i> What does a dental billing virtual assistant do?</div><div class="faq-a">Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon &mdash; plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Can you handle PPO, HMO, Medicaid and Delta claims?</div><div class="faq-a">Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum &mdash; including narrative-heavy and pre-auth-required procedures.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Can you handle PPO, HMO, Medicaid and Delta claims?</div><div class="faq-a">Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum: including narrative-heavy and pre-auth-required procedures.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a dental biller actually lower my AR?</div><div class="faq-a">Yes. Most practices see AR days drop from 45+ to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial appeals.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every dental biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual dental biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house dental biller. Use the homepage ROI calculator for a specialty-specific quote.</div></div>

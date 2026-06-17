@@ -18,7 +18,7 @@ define('VT_BOOK_MODAL_RENDERED', true);
     <a class="cta-modal-x" href="#" aria-label="Close">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Book a Meeting</div>
     <h2 class="cta-modal-h" id="cbm-h">Book Time With a US-Based Client Success Manager</h2>
-    <p class="cta-modal-sub">Pick a time that works for you &mdash; we&rsquo;ll scope the right roles, give you a transparent quote, and map next steps. No obligation, covered by the 30-Day Right-Fit Promise.</p>
+    <p class="cta-modal-sub">Pick a time that works for you, we&rsquo;ll scope the right roles, give you a transparent quote, and map next steps. No obligation, covered by the 30-Day Right-Fit Promise.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
       <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>

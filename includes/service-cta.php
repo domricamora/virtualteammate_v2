@@ -42,7 +42,7 @@ if (isset($svc_vtc[$svc_slug])) {
     $vtc_keywords   = $sc['kw'];
     $vtc_label      = 'Meet the Bench';
     $vtc_heading    = 'Meet Our <em>' . $sce($sc['role']) . '</em> Virtual Teammates';
-    $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates &mdash; interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
+    $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates, interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
     $vtc_cta_href   = $home_base . '#cta-practice-audit';
     $vtc_cta_intent = 'practice-audit';
     $vtc_cta_label  = 'Book My Staffing Audit';
@@ -52,11 +52,11 @@ if (isset($svc_vtc[$svc_slug])) {
 <!-- FINAL CTA -->
 <section class="svc-cta">
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
-  <p>Get a curated shortlist of HIPAA-certified candidates within days &mdash; matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
+  <p>Get a curated shortlist of HIPAA-certified candidates within days, matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
 

@@ -45,7 +45,7 @@ $vtc_filterable = $vtc_filterable ?? false;
 $vtc_page       = $vtc_page       ?? 9;
 $vtc_label      = $vtc_label      ?? 'Meet the Bench';
 $vtc_heading    = $vtc_heading    ?? 'Meet Your <em>Virtual Teammates</em>';
-$vtc_sub        = $vtc_sub        ?? 'A sample of real, vetted teammates — matched to your time zone and ready to start in 1&ndash;2 weeks.';
+$vtc_sub        = $vtc_sub        ?? 'A sample of real, vetted teammates, matched to your time zone and ready to start in 1&ndash;2 weeks.';
 $vtc_cta_href   = $vtc_cta_href   ?? ($home_base . '#cta-practice-audit');
 $vtc_cta_intent = $vtc_cta_intent ?? 'practice-audit';
 $vtc_cta_label  = $vtc_cta_label  ?? 'Book My Staffing Audit';
@@ -201,7 +201,7 @@ if ($vtc_filterable) {
              data-search="<?= $vtc_h($blob) ?>">
       <div class="vtd-photo">
         <?php if ($hasPhoto): ?>
-          <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>&amp;thumb=1" alt="<?= $vtc_h($name . ' — ' . $role) ?>" decoding="async" loading="lazy" width="92" height="92"
+          <img src="<?= $home_base ?>talent-photo.php?id=<?= (int) $v['id'] ?>&amp;thumb=1" alt="<?= $vtc_h($name . ', ' . $role) ?>" decoding="async" loading="lazy" width="92" height="92"
                onerror="this.outerHTML='<span class=&quot;vtd-photo-ph&quot;><?= $ini ?></span>';">
         <?php else: ?>
           <span class="vtd-photo-ph"><?= $ini ?></span>
@@ -216,7 +216,7 @@ if ($vtc_filterable) {
         <?php if ($hipaa): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span><?php endif; ?>
       </div>
       <div class="prof-cap"><?= $vtc_h($cap) ?></div>
-      <a class="vtd-view" href="<?= $vtc_h($vtc_cta_href) ?>" data-cta-intent="<?= $vtc_h($vtc_cta_intent) ?>"<?php if ($vtc_cta_vt): ?> data-vt-id="<?= (int) $v['id'] ?>" data-vt-name="<?= $vtc_h($name . ' — ' . $role) ?>"<?php endif; ?>>
+      <a class="vtd-view" href="<?= $vtc_h($vtc_cta_href) ?>" data-cta-intent="<?= $vtc_h($vtc_cta_intent) ?>"<?php if ($vtc_cta_vt): ?> data-vt-id="<?= (int) $v['id'] ?>" data-vt-name="<?= $vtc_h($name . ', ' . $role) ?>"<?php endif; ?>>
         <i class="fa-solid fa-user-plus"></i> <?= $vtc_h($vtc_cta_label) ?>
       </a>
     </article>

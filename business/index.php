@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Business & Non-Profit Virtual Assistants | Virtual Teammate';
 $page_description = 'Virtual Teammate also staffs admin, sales, marketing, finance and customer-service VAs for businesses and non-profits. Same global network, same vetting, same flat-rate model.';
-$og_title         = 'Business & Non-Profit Virtual Assistants — Virtual Teammate';
-$og_description   = 'Admin, sales, marketing, finance & CX virtual assistants for businesses & non-profits — sourced globally, delivered in your time zone.';
+$og_title         = 'Business & Non-Profit Virtual Assistants: Virtual Teammate';
+$og_description   = 'Admin, sales, marketing, finance & CX virtual assistants for businesses & non-profits: sourced globally, delivered in your time zone.';
 $canonical        = 'https://virtualteammate.com/business/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -18,7 +18,7 @@ include __DIR__ . '/../includes/nav.php';
   "@context":"https://schema.org","@type":"Service",
   "serviceType":"Business Virtual Assistant Staffing",
   "name":"Business & Non-Profit Virtual Assistants",
-  "description":"Administrative, sales, marketing, finance and customer-service virtual assistants for businesses and non-profit organizations — sourced from a global vetted network, matched to US time zones, billed at a transparent flat rate.",
+  "description":"Administrative, sales, marketing, finance and customer-service virtual assistants for businesses and non-profit organizations: sourced from a global vetted network, matched to US time zones, billed at a transparent flat rate.",
   "provider":{"@type":"Organization","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"]
 }
@@ -27,12 +27,12 @@ include __DIR__ . '/../includes/nav.php';
 {
   "@context":"https://schema.org","@type":"FAQPage",
   "mainEntity":[
-    {"@type":"Question","name":"What does a business virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A business VA handles the repeatable work across sales, marketing, admin, finance and customer service — from lead generation, appointment setting and CRM management to bookkeeping, inbox control and tier-1 support. You decide the function; we match a vetted teammate trained on your tools and time zone."}},
-    {"@type":"Question","name":"Can a virtual assistant generate leads for my business?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our lead-generation and SDR virtual assistants build and enrich target lists, run outbound email and LinkedIn prospecting, qualify inbound enquiries and book meetings directly onto your reps' calendars — keeping top-of-funnel volume consistent without a full-time sales hire."}},
+    {"@type":"Question","name":"What does a business virtual assistant do?","acceptedAnswer":{"@type":"Answer","text":"A business VA handles the repeatable work across sales, marketing, admin, finance and customer service: from lead generation, appointment setting and CRM management to bookkeeping, inbox control and tier-1 support. You decide the function; we match a vetted teammate trained on your tools and time zone."}},
+    {"@type":"Question","name":"Can a virtual assistant generate leads for my business?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our lead-generation and SDR virtual assistants build and enrich target lists, run outbound email and LinkedIn prospecting, qualify inbound enquiries and book meetings directly onto your reps' calendars: keeping top-of-funnel volume consistent without a full-time sales hire."}},
     {"@type":"Question","name":"How do virtual assistants help with client acquisition?","acceptedAnswer":{"@type":"Answer","text":"They remove the bottlenecks that lose deals: instant speed-to-lead response, disciplined follow-up sequences, clean CRM data, and steady marketing output. Combined, they keep every lead moving through the pipeline so more conversations turn into clients."}},
-    {"@type":"Question","name":"Which CRMs and sales tools do your VAs work in?","acceptedAnswer":{"@type":"Answer","text":"Our teammates work daily in HubSpot, Salesforce, Pipedrive, Zoho and the rest of the common stack — plus outreach tools, email platforms, scheduling apps and the project tools your team already runs. We match for tool fluency during selection."}},
-    {"@type":"Question","name":"How much does a business virtual assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing — typically 60-73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in."}},
-    {"@type":"Question","name":"How fast can I onboard a sales or marketing VA?","acceptedAnswer":{"@type":"Answer","text":"Most clients receive a curated shortlist within days and have their teammate live in 1-2 weeks — every placement backed by the 30-Day Right-Fit Promise."}}
+    {"@type":"Question","name":"Which CRMs and sales tools do your VAs work in?","acceptedAnswer":{"@type":"Answer","text":"Our teammates work daily in HubSpot, Salesforce, Pipedrive, Zoho and the rest of the common stack: plus outreach tools, email platforms, scheduling apps and the project tools your team already runs. We match for tool fluency during selection."}},
+    {"@type":"Question","name":"How much does a business virtual assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing: typically 60-73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in."}},
+    {"@type":"Question","name":"How fast can I onboard a sales or marketing VA?","acceptedAnswer":{"@type":"Answer","text":"Most clients receive a curated shortlist within days and have their teammate live in 1-2 weeks: every placement backed by the 30-Day Right-Fit Promise."}}
   ]
 }
 </script>
@@ -48,7 +48,7 @@ include __DIR__ . '/../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-briefcase"></i> Business &amp; Non-Profit VAs</div>
     <h1 class="svc-h1">Beyond Healthcare: <em>Virtual Teammates</em> for Every Function</h1>
-    <p class="svc-lead">Healthcare is our focus, but our network covers every back-office role a growing business or non-profit needs. <strong>Same global talent network, same multi-stage vetting, same transparent flat-rate model</strong> &mdash; matched to your US time zone and backed by the 30-Day Right-Fit Promise.</p>
+    <p class="svc-lead">Healthcare is our focus, but our network covers every back-office role a growing business or non-profit needs. <strong>Same global talent network, same multi-stage vetting, same transparent flat-rate model</strong>, matched to your US time zone and backed by the 30-Day Right-Fit Promise.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-globe"></i> 12+ Countries Sourced</div>
       <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
@@ -72,7 +72,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> Roles We Staff</div>
-    <h2 class="svc-h2">Pick a Function &mdash; <em>We&rsquo;ll Build the Bench</em></h2>
+    <h2 class="svc-h2">Pick a Function: <em>We&rsquo;ll Build the Bench</em></h2>
     <p class="sec-sub" style="max-width:680px;margin:0 auto;">From a single executive assistant to a full remote operations team, the same vetting standard that produces our HIPAA-certified healthcare placements applies here.</p>
   </div>
   <div class="svc-bens-grid">
@@ -80,7 +80,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Sales &amp; SDR</h3><p>Inbound qualification, outbound prospecting, list research, CRM hygiene, appointment setting, follow-up sequences.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing</h3><p>Social-media management, content production, email automation, SEO assistants, paid-ad coordination, analytics reporting.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; Bookkeeping</h3><p>QuickBooks/Xero bookkeeping, AR &amp; AP, expense management, invoicing, budget reporting, payroll prep.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Tier-1 support, ticket triage, live chat, refund &amp; returns, escalation handling &mdash; in your time zone, in your tone.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Tier-1 support, ticket triage, live chat, refund &amp; returns, escalation handling, in your time zone, in your tone.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-hand-holding-heart"></i></span><h3>Non-Profit Operations</h3><p>Donor outreach, grant research, volunteer coordination, event logistics, social campaigns, board-meeting prep.</p></div>
   </div>
 </section>
@@ -92,57 +92,57 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-arrow-trend-up"></i> Roles That Drive Growth</div>
     <h2 class="svc-h2">Business Virtual Assistants Built Around <em>Lead Generation &amp; Client Acquisition</em></h2>
-    <p class="sec-sub" style="max-width:760px;margin:0 auto;">Most growing companies don&rsquo;t lose deals because the product is weak &mdash; they lose them because no one had time to follow up, qualify the inbound, or keep the pipeline moving. A Virtual Teammate takes the repeatable revenue work off your plate so your closers stay closing. Here&rsquo;s how each role compounds into more leads and more clients.</p>
+    <p class="sec-sub" style="max-width:760px;margin:0 auto;">Most growing companies don&rsquo;t lose deals because the product is weak: they lose them because no one had time to follow up, qualify the inbound, or keep the pipeline moving. A Virtual Teammate takes the repeatable revenue work off your plate so your closers stay closing. Here&rsquo;s how each role compounds into more leads and more clients.</p>
   </div>
 
   <div class="biz-deep">
     <article class="reveal d1">
       <h3><i class="fa-solid fa-bullseye"></i> Sales Development &amp; Lead Generation VAs</h3>
       <p>A dedicated <strong>lead generation virtual assistant</strong> builds and cleans your target lists, runs outbound prospecting across email and LinkedIn, qualifies inbound enquiries, and books meetings straight onto your reps&rsquo; calendars. Instead of senior salespeople burning hours on research and cold outreach, they walk into sales-qualified conversations that are ready to close.</p>
-      <p>For most teams, a single SDR virtual assistant is the fastest, lowest-risk way to keep top-of-funnel volume consistent &mdash; without a recruiter fee or a $70k base salary.</p>
+      <p>For most teams, a single SDR virtual assistant is the fastest, lowest-risk way to keep top-of-funnel volume consistent, without a recruiter fee or a $70k base salary.</p>
       <ul><li>Outbound prospecting</li><li>List building &amp; enrichment</li><li>Appointment setting</li><li>Lead qualification</li><li>Follow-up sequences</li></ul>
     </article>
 
     <article class="reveal d2">
       <h3><i class="fa-solid fa-bullhorn"></i> Marketing &amp; Demand-Generation VAs</h3>
       <p>A <strong>marketing virtual assistant</strong> keeps the demand engine running: publishing social content, building and scheduling email nurture campaigns, updating landing pages, coordinating paid ads, and packaging the SEO and analytics work that turns traffic into tracked leads. They make sure every campaign actually ships on time instead of sitting half-finished.</p>
-      <p>The result is a steady flow of inbound interest feeding the same pipeline your sales VAs are working &mdash; a compounding client-acquisition loop rather than one-off bursts.</p>
+      <p>The result is a steady flow of inbound interest feeding the same pipeline your sales VAs are working: a compounding client-acquisition loop rather than one-off bursts.</p>
       <ul><li>Social media management</li><li>Email marketing &amp; nurture</li><li>SEO &amp; content support</li><li>Paid-ad coordination</li><li>Landing pages &amp; analytics</li></ul>
     </article>
 
     <article class="reveal d3">
       <h3><i class="fa-solid fa-bolt"></i> Inbound &amp; Speed-to-Lead VAs</h3>
-      <p>Studies consistently show the first business to respond wins the majority of deals &mdash; yet most inbound leads wait hours for a reply. A time-zone-aligned Virtual Teammate answers live chat, web forms and inbound calls within minutes, qualifies the prospect, and books the meeting before your competitor even sees the lead. <strong>Speed-to-lead</strong> becomes a system, not a scramble.</p>
+      <p>Studies consistently show the first business to respond wins the majority of deals, yet most inbound leads wait hours for a reply. A time-zone-aligned Virtual Teammate answers live chat, web forms and inbound calls within minutes, qualifies the prospect, and books the meeting before your competitor even sees the lead. <strong>Speed-to-lead</strong> becomes a system, not a scramble.</p>
       <ul><li>Live chat &amp; web-form response</li><li>Inbound qualification</li><li>Instant meeting booking</li><li>Lead routing</li></ul>
     </article>
 
     <article class="reveal d4">
       <h3><i class="fa-solid fa-diagram-project"></i> CRM &amp; Pipeline-Management VAs</h3>
-      <p>Pipelines leak when records are stale and follow-ups slip. A <strong>CRM virtual assistant</strong> keeps HubSpot, Salesforce or your pipeline of choice clean and current &mdash; logging activity, advancing stages, triggering follow-up tasks, and surfacing the deals going cold. Your reps trust the data, forecasting gets accurate, and no warm lead falls through the cracks.</p>
+      <p>Pipelines leak when records are stale and follow-ups slip. A <strong>CRM virtual assistant</strong> keeps HubSpot, Salesforce or your pipeline of choice clean and current: logging activity, advancing stages, triggering follow-up tasks, and surfacing the deals going cold. Your reps trust the data, forecasting gets accurate, and no warm lead falls through the cracks.</p>
       <ul><li>CRM data hygiene</li><li>Pipeline &amp; stage updates</li><li>Deal &amp; activity logging</li><li>Reporting &amp; dashboards</li></ul>
     </article>
 
     <article class="reveal d5">
       <h3><i class="fa-solid fa-clipboard"></i> Executive &amp; Administrative VAs</h3>
-      <p>Every hour a founder or sales leader spends on inbox triage and calendar Tetris is an hour not spent winning clients. An <strong>executive virtual assistant</strong> owns scheduling, inbox management, travel, document prep and project coordination &mdash; handing your highest-value people back the time to sell, partner and close.</p>
+      <p>Every hour a founder or sales leader spends on inbox triage and calendar Tetris is an hour not spent winning clients. An <strong>executive virtual assistant</strong> owns scheduling, inbox management, travel, document prep and project coordination: handing your highest-value people back the time to sell, partner and close.</p>
       <ul><li>Inbox &amp; calendar management</li><li>Meeting &amp; travel coordination</li><li>Document control</li><li>Project &amp; task tracking</li></ul>
     </article>
 
     <article class="reveal d6">
       <h3><i class="fa-solid fa-sack-dollar"></i> Finance &amp; Bookkeeping VAs</h3>
-      <p>Acquisition stalls when cash is tied up in unpaid invoices. A finance VA runs QuickBooks/Xero bookkeeping, invoicing, and disciplined AR follow-up so revenue lands faster and predictably &mdash; freeing working capital to reinvest in the marketing and sales that bring the next client in.</p>
+      <p>Acquisition stalls when cash is tied up in unpaid invoices. A finance VA runs QuickBooks/Xero bookkeeping, invoicing, and disciplined AR follow-up so revenue lands faster and predictably: freeing working capital to reinvest in the marketing and sales that bring the next client in.</p>
       <ul><li>Bookkeeping (QuickBooks / Xero)</li><li>Invoicing &amp; AR follow-up</li><li>AP &amp; expense management</li><li>Budget &amp; cash reporting</li></ul>
     </article>
 
     <article class="reveal d1">
       <h3><i class="fa-solid fa-headset"></i> Customer-Success &amp; Retention VAs</h3>
-      <p>The cheapest client to acquire is the one you keep. A customer-service Virtual Teammate handles tier-1 support, ticket triage, onboarding follow-up and renewal reminders in your tone and time zone &mdash; lifting satisfaction, reviews and referrals that feed straight back into new client acquisition.</p>
+      <p>The cheapest client to acquire is the one you keep. A customer-service Virtual Teammate handles tier-1 support, ticket triage, onboarding follow-up and renewal reminders in your tone and time zone: lifting satisfaction, reviews and referrals that feed straight back into new client acquisition.</p>
       <ul><li>Tier-1 support &amp; live chat</li><li>Onboarding follow-up</li><li>Renewal &amp; retention outreach</li><li>Review &amp; referral requests</li></ul>
     </article>
 
     <article class="reveal d2">
       <h3><i class="fa-solid fa-hand-holding-heart"></i> Non-Profit Development VAs</h3>
-      <p>For mission-driven teams, &ldquo;client acquisition&rdquo; means donors, members and grants. A non-profit Virtual Teammate runs donor prospecting and outreach, grant research and submissions, fundraising-campaign support and volunteer coordination &mdash; the same pipeline discipline, pointed at growing your supporter base.</p>
+      <p>For mission-driven teams, &ldquo;client acquisition&rdquo; means donors, members and grants. A non-profit Virtual Teammate runs donor prospecting and outreach, grant research and submissions, fundraising-campaign support and volunteer coordination: the same pipeline discipline, pointed at growing your supporter base.</p>
       <ul><li>Donor prospecting &amp; outreach</li><li>Grant research &amp; submissions</li><li>Fundraising campaign support</li><li>Volunteer &amp; event coordination</li></ul>
     </article>
   </div>
@@ -156,7 +156,7 @@ include __DIR__ . '/../includes/nav.php';
   $vtc_page          = 9;
   $vtc_label         = 'Meet the Bench';
   $vtc_heading       = 'Business-Ready <em>Virtual Teammates</em>';
-  $vtc_sub           = 'Browse our real, vetted business teammates across admin, sales, marketing, finance, customer-service and more. Filter by department or skill, then request the one that fits &mdash; matched to your time zone and ready in 1&ndash;2 weeks.';
+  $vtc_sub           = 'Browse our real, vetted business teammates across admin, sales, marketing, finance, customer-service and more. Filter by department or skill, then request the one that fits, matched to your time zone and ready in 1&ndash;2 weeks.';
   $vtc_cta_href      = '#cta-buyback';
   $vtc_cta_intent    = 'buyback';
   $vtc_cta_label     = 'Request this teammate';
@@ -170,12 +170,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">Business Virtual Assistant <em>Questions</em></h2>
   </div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business VA handles the repeatable work across sales, marketing, admin, finance and customer service &mdash; from lead generation, appointment setting and CRM management to bookkeeping, inbox control and tier-1 support. You decide the function; we match a vetted teammate trained on your tools and time zone.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-bullseye"></i> Can a virtual assistant generate leads for my business?</div><div class="faq-a">Yes. Our lead-generation and SDR virtual assistants build and enrich target lists, run outbound email and LinkedIn prospecting, qualify inbound enquiries and book meetings directly onto your reps&rsquo; calendars &mdash; keeping top-of-funnel volume consistent without a full-time sales hire.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business VA handles the repeatable work across sales, marketing, admin, finance and customer service: from lead generation, appointment setting and CRM management to bookkeeping, inbox control and tier-1 support. You decide the function; we match a vetted teammate trained on your tools and time zone.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-bullseye"></i> Can a virtual assistant generate leads for my business?</div><div class="faq-a">Yes. Our lead-generation and SDR virtual assistants build and enrich target lists, run outbound email and LinkedIn prospecting, qualify inbound enquiries and book meetings directly onto your reps&rsquo; calendars: keeping top-of-funnel volume consistent without a full-time sales hire.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How do virtual assistants help with client acquisition?</div><div class="faq-a">They remove the bottlenecks that lose deals: instant speed-to-lead response, disciplined follow-up sequences, clean CRM data, and steady marketing output. Combined, they keep every lead moving through the pipeline so more conversations turn into clients.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-screwdriver-wrench"></i> Which CRMs and sales tools do your VAs work in?</div><div class="faq-a">Our teammates work daily in HubSpot, Salesforce, Pipedrive, Zoho and the rest of the common stack &mdash; plus outreach tools, email platforms, scheduling apps and the project tools your team already runs. We match for tool fluency during selection.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a business virtual assistant cost?</div><div class="faq-a">Transparent flat-rate pricing &mdash; typically 60&ndash;73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can I onboard a sales or marketing VA?</div><div class="faq-a">Most clients receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks &mdash; every placement backed by the 30-Day Right-Fit Promise.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-screwdriver-wrench"></i> Which CRMs and sales tools do your VAs work in?</div><div class="faq-a">Our teammates work daily in HubSpot, Salesforce, Pipedrive, Zoho and the rest of the common stack: plus outreach tools, email platforms, scheduling apps and the project tools your team already runs. We match for tool fluency during selection.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a business virtual assistant cost?</div><div class="faq-a">Transparent flat-rate pricing: typically 60&ndash;73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can I onboard a sales or marketing VA?</div><div class="faq-a">Most clients receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks: every placement backed by the 30-Day Right-Fit Promise.</div></div>
   </div>
 </section>
 
@@ -183,7 +183,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="cta-stages-h reveal">
     <div class="sec-lbl"><i class="fa-solid fa-paper-plane"></i> Two Ways to Start</div>
     <h2 class="cta-h2" style="font-size:36px;">Healthcare or Not,<br>the Engine Is the Same</h2>
-    <p class="cta-sub">Diagnose where the hours are going, or jump straight to reclaiming them &mdash; same vetted global network, same dedicated Client Success Manager (CSM), same 30-Day Right-Fit Promise.</p>
+    <p class="cta-sub">Diagnose where the hours are going, or jump straight to reclaiming them: same vetted global network, same dedicated Client Success Manager (CSM), same 30-Day Right-Fit Promise.</p>
   </div>
 
   <div class="cta-stages-grid cta-stages-2 reveal d1">
@@ -227,7 +227,7 @@ include __DIR__ . '/../includes/nav.php';
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> Operational Assessment</div>
     <h2 class="cta-modal-h" id="bcm-oa-h">Schedule Your Operational Assessment</h2>
-    <p class="cta-modal-sub">Pick a time that works for you &mdash; a US-based Client Success Manager will map your busiest back-office workflows and tell you exactly what to delegate first. Diagnostic only, no obligation.</p>
+    <p class="cta-modal-sub">Pick a time that works for you, a US-based Client Success Manager will map your busiest back-office workflows and tell you exactly what to delegate first. Diagnostic only, no obligation.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
       <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>
@@ -242,7 +242,7 @@ include __DIR__ . '/../includes/nav.php';
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-hourglass-half"></i> Buy Back Your Time</div>
     <h2 class="cta-modal-h" id="bcm-bb-h">Buy Back Your Company&rsquo;s Time</h2>
-    <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope the function eating your team&rsquo;s week, match a vetted flat-rate teammate, and map your first steps &mdash; live in 1&ndash;2 weeks, covered by the 30-Day Right-Fit Promise.</p>
+    <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope the function eating your team&rsquo;s week, match a vetted flat-rate teammate, and map your first steps: live in 1&ndash;2 weeks, covered by the 30-Day Right-Fit Promise.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
       <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>

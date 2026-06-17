@@ -33,7 +33,7 @@ if (!$u || ($u['role'] ?? '') !== 'client') {
 // CSRF — token shares the vtportal session set on the directory page.
 $supplied = $_POST['_csrf'] ?? '';
 if (!is_string($supplied) || !hash_equals(csrf_token(), $supplied)) {
-    $out(['ok' => false, 'error' => 'Your session expired — reload the page and try again.'], 400);
+    $out(['ok' => false, 'error' => 'Your session expired, reload the page and try again.'], 400);
 }
 
 $vtId = (int) ($_POST['vt_id'] ?? 0);

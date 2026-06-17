@@ -1,7 +1,7 @@
 <?php
-$page_title       = 'Careers at Virtual Teammate — Remote VA Jobs (Healthcare, Admin, Sales, Finance) | Apply Now';
+$page_title       = 'Careers at Virtual Teammate: Remote VA Jobs (Healthcare, Admin, Sales, Finance) | Apply Now';
 $page_description = 'Remote virtual assistant careers at Virtual Teammate. Roles across healthcare, dental, admin, customer service, sales, marketing, finance and business intelligence. 8-step hiring process, flexible work, competitive pay. Apply today.';
-$og_title         = 'Careers at Virtual Teammate — Create Your Future. Live Your Best Life.';
+$og_title         = 'Careers at Virtual Teammate: Create Your Future. Live Your Best Life.';
 $og_description   = 'Join 2,000+ virtual teammates already placed. Remote roles, supportive culture, competitive pay, and a transparent 8-step hiring process.';
 $canonical        = 'https://virtualteammate.com/careers/';
 $home_base        = '../';
@@ -54,7 +54,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-rocket"></i> Careers at Virtual Teammate</div>
     <h1 class="svc-h1">Create Your Future. <em>Live Your Best Life.</em></h1>
-    <p class="svc-p">Join <strong>2,000+ virtual teammates</strong> already placed with growing US healthcare practices and businesses. Fully remote work, transparent hiring, competitive pay, and a culture built on positive energy, resilience, and value creation &mdash; not micromanagement.</p>
+    <p class="svc-p">Join <strong>2,000+ virtual teammates</strong> already placed with growing US healthcare practices and businesses. Fully remote work, transparent hiring, competitive pay, and a culture built on positive energy, resilience, and value creation, not micromanagement.</p>
     <div class="svc-hero-ctas">
       <a href="https://virtualteammate-1719208705.teamtailor.com/" target="_blank" rel="noopener" class="btn-primary">Explore Open Positions <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#hiring" class="btn-glass">See the Hiring Process <i class="fa-solid fa-list-check"></i></a>
@@ -86,10 +86,10 @@ include __DIR__ . '/../includes/nav.php';
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">Whether you&rsquo;re a clinical-side admin or a back-office BI analyst, we have a seat for you.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>Healthcare VA</h3><p>Medical scribes, billers, receptionists, administrative support, medical assistants &mdash; HIPAA-trained.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span><h3>Dental VA</h3><p>Dental admin, billers, scribes, treatment coordinators, receptionists &mdash; Dentrix / Eaglesoft / Open Dental.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>Healthcare VA</h3><p>Medical scribes, billers, receptionists, administrative support, medical assistants: HIPAA-trained.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span><h3>Dental VA</h3><p>Dental admin, billers, scribes, treatment coordinators, receptionists: Dentrix / Eaglesoft / Open Dental.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span><h3>Administrative Support</h3><p>Calendar, inbox, data entry, document mgmt, executive assistance for SMBs and non-profits.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Inbound &amp; outbound support, ticket triage, live chat, CSAT &mdash; for service-heavy operators.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Inbound &amp; outbound support, ticket triage, live chat, CSAT, for service-heavy operators.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Financial Services</h3><p>Bookkeeping, AR/AP, payroll support, financial reporting and compliance documentation.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing</h3><p>Content, social, email ops, SEO, paid media support, marketing automation.</p></div>
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-handshake"></i></span><h3>Sales</h3><p>Lead gen, CRM hygiene, outbound prospecting, appointment setting, account research.</p></div>
@@ -112,10 +112,10 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-house-laptop"></i></span><h3>Flexible Work Environment</h3><p>100% remote roles. Work from home, on your own setup, matched to a US client time zone you can sustain.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-graduation-cap"></i></span><h3>Professional Growth</h3><p>HIPAA &amp; EHR training, role-specific upskilling, mentorship from senior teammates, and clear paths to lead roles.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-people-group"></i></span><h3>Supportive Community</h3><p>Real onboarding, real coaching, real backup &mdash; never alone in a chat with a client at 2 AM.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Competitive Compensation</h3><p>Transparent, market-aligned pay tied to role band and experience &mdash; reviewed regularly, paid on time.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-people-group"></i></span><h3>Supportive Community</h3><p>Real onboarding, real coaching, real backup: never alone in a chat with a client at 2 AM.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Competitive Compensation</h3><p>Transparent, market-aligned pay tied to role band and experience: reviewed regularly, paid on time.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Stable Engagements</h3><p>Clients commit; we commit. We aim for long-running matches, not hire-and-rotate.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span><h3>Healthy Culture</h3><p>Positive-energy values, ethical decision-making, and zero tolerance for ghosting &mdash; ours or yours.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span><h3>Healthy Culture</h3><p>Positive-energy values, ethical decision-making, and zero tolerance for ghosting: ours or yours.</p></div>
   </div>
 </section>
 
@@ -126,15 +126,15 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-bullseye"></i> Mission &amp; Values</div>
     <h2 class="svc-h2">Building Value <em>Together</em></h2>
-    <p class="svc-p">Our mission is to bring a value-creation culture to the forefront, connecting high-performing virtual teammates with our incredible community of clients. We hire on these seven values &mdash; and we live by them.</p>
+    <p class="svc-p">Our mission is to bring a value-creation culture to the forefront, connecting high-performing virtual teammates with our incredible community of clients. We hire on these seven values, and we live by them.</p>
     <ul class="svc-checks">
-      <li><i class="fa-solid fa-check"></i><span><strong>Positive Energy</strong> &mdash; fuels growth and productivity.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Edge &amp; Resiliency</strong> &mdash; relentless spirit of possibility.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Executing to Win</strong> &mdash; transparency, integrity, real value.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Alignment of Passion</strong> &mdash; matching talent to client need.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Value-Creation Leadership</strong> &mdash; team and client equally prioritized.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Trust</strong> &mdash; keeping commitments with kindness and accountability.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Ethical Decision-Making</strong> &mdash; principles guide every decision.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Positive Energy</strong>: fuels growth and productivity.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Edge &amp; Resiliency</strong>: relentless spirit of possibility.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Executing to Win</strong>: transparency, integrity, real value.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Alignment of Passion</strong>: matching talent to client need.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Value-Creation Leadership</strong>: team and client equally prioritized.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Trust</strong>: keeping commitments with kindness and accountability.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Ethical Decision-Making</strong>: principles guide every decision.</span></li>
     </ul>
     <a href="<?= $home_base ?>about/" class="btn-glass">More About Virtual Teammate <i class="fa-solid fa-arrow-right"></i></a>
   </div>
@@ -150,7 +150,7 @@ include __DIR__ . '/../includes/nav.php';
   <div style="text-align:center;max-width:720px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Application &amp; Orientation Process</div>
     <h2 class="svc-h2">Eight Steps. <em>Transparent. No Ghosting.</em></h2>
-    <p class="sec-sub">We respect your time. Every applicant gets a response &mdash; and every hire walks into Day 1 ready.</p>
+    <p class="sec-sub">We respect your time. Every applicant gets a response, and every hire walks into Day 1 ready.</p>
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-file-lines pstep-ico"></i></div><h3 class="pstep-title">Apply for a Position</h3><p class="pstep-desc">Browse our open roles and submit your application with your resume and target role.</p></div>
@@ -175,10 +175,10 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-bens-grid" style="margin-top:30px;">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Jessavel</h3><p>&ldquo;The culture of collaboration and cooperation makes it easy to deliver your best work.&rdquo;</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Junaline</h3><p>&ldquo;The interviewer&rsquo;s professionalism and friendly manner created a comfortable, respectful environment.&rdquo;</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>John Carlo</h3><p>&ldquo;I appreciate how the team assisted me from application to client matching &mdash; nothing was opaque.&rdquo;</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>April</h3><p>&ldquo;The admin team is very supportive &mdash; and to me, that matters most when you work remote.&rdquo;</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>John Carlo</h3><p>&ldquo;I appreciate how the team assisted me from application to client matching: nothing was opaque.&rdquo;</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>April</h3><p>&ldquo;The admin team is very supportive, and to me, that matters most when you work remote.&rdquo;</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Vince</h3><p>&ldquo;It&rsquo;s great that a company doesn&rsquo;t ghost applicants. Kudos for a streamlined recruitment process.&rdquo;</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Charlie</h3><p>&ldquo;Jessa is doing great. Right where I would expect &mdash; well-matched, well-supported, ready on Day 1.&rdquo;</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-quote-left"></i></span><h3>Charlie</h3><p>&ldquo;Jessa is doing great. Right where I would expect: well-matched, well-supported, ready on Day 1.&rdquo;</p></div>
   </div>
 </section>
 
@@ -189,10 +189,10 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Applicant FAQs</div><h2 class="svc-h2">Frequently Asked Questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What roles do you hire for?</div><div class="faq-a">Healthcare (medical scribes, billers, receptionists, assistants), dental (admin, billing, scribes, coordinators, reception), administrative support, customer service, financial services, marketing, sales, and business intelligence.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-house-laptop"></i> Is the work fully remote?</div><div class="faq-a">Yes. Every role is 100% remote. You work from home with a stable internet connection &mdash; we verify the setup before placement.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-house-laptop"></i> Is the work fully remote?</div><div class="faq-a">Yes. Every role is 100% remote. You work from home with a stable internet connection: we verify the setup before placement.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> What hours will I work?</div><div class="faq-a">You&rsquo;re matched to a client&rsquo;s US business hours (typically aligned to a US time zone). Interviews are held in the 4 PM&ndash;9 PM PHT window for Philippines-based applicants.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-doctor"></i> Do I need healthcare experience?</div><div class="faq-a">For medical and dental roles, prior healthcare/dental administrative experience is preferred. Other roles (admin, sales, marketing, finance, BI) require general professional experience and strong English.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Will I be HIPAA trained?</div><div class="faq-a">Yes &mdash; all healthcare and dental teammates complete full HIPAA training during orientation, before client placement.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Will I be HIPAA trained?</div><div class="faq-a">Yes, all healthcare and dental teammates complete full HIPAA training during orientation, before client placement.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-comments"></i> How long does the hiring process take?</div><div class="faq-a">Most candidates complete the process within 1&ndash;2 weeks from application to talent-pool endorsement, then client interviews begin shortly after.</div></div>
   </div>
 </section>

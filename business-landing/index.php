@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Business Efficiency Quiz — How Many Hours Could You Reclaim? | Virtual Teammate';
+$page_title       = 'Business Efficiency Quiz: How Many Hours Could You Reclaim? | Virtual Teammate';
 $page_description = 'Take the 2-minute Virtual Teammate efficiency quiz for business owners. See how many hours and how much weekly revenue you could reclaim by delegating repetitive admin, email, scheduling and reporting to a vetted virtual teammate.';
 $og_title         = 'How Much Is Busywork Costing Your Business?';
-$og_description   = 'A 2-minute quiz for business owners — get your efficiency tier, estimated hours saved, and recoverable weekly revenue, plus a downloadable report.';
+$og_description   = 'A 2-minute quiz for business owners: get your efficiency tier, estimated hours saved, and recoverable weekly revenue, plus a downloadable report.';
 $canonical        = 'https://virtualteammate.com/business-landing/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -88,7 +88,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="bzq-hero-copy">
         <div class="sec-lbl"><i class="fa-solid fa-briefcase"></i> Business Efficiency Quiz</div>
         <h1>How Much Is <em>Busywork Costing</em> Your Business?</h1>
-        <p>Answer 8 quick questions to get your efficiency tier, an estimate of the hours you could reclaim each week, and the weekly revenue trapped in repetitive admin, email and reporting &mdash; plus a downloadable report. Takes about 2 minutes.</p>
+        <p>Answer 8 quick questions to get your efficiency tier, an estimate of the hours you could reclaim each week, and the weekly revenue trapped in repetitive admin, email and reporting, plus a downloadable report. Takes about 2 minutes.</p>
       </div>
       <div class="bzq-hero-photo">
         <img src="<?= $home_base ?>images/business-quiz.webp" alt="Smiling business virtual assistant in a suit wearing a headset, ready to take repetitive work off your plate" width="1200" height="1536" loading="eager">
@@ -120,7 +120,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of Busywork</div>
       <h2 class="svc-h2">Every Hour on Admin Is an Hour <em>Not Spent Growing</em></h2>
-      <p class="svc-p">Inbox triage, scheduling, data entry, lead tracking, reporting &mdash; the repetitive work quietly swallows the time you meant to spend on clients, strategy and revenue. It doesn&rsquo;t feel like much in the moment, but it&rsquo;s the difference between running your business and being run by it.</p>
+      <p class="svc-p">Inbox triage, scheduling, data entry, lead tracking, reporting: the repetitive work quietly swallows the time you meant to spend on clients, strategy and revenue. It doesn&rsquo;t feel like much in the moment, but it&rsquo;s the difference between running your business and being run by it.</p>
       <ul class="svc-checks">
         <li><i class="fa-solid fa-check"></i><span><strong>Drowning in email</strong> instead of closing the next deal.</span></li>
         <li><i class="fa-solid fa-check"></i><span><strong>Growth initiatives postponed</strong> because admin always comes first.</span></li>
@@ -141,12 +141,12 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One Teammate. <em>The Whole Back Office.</em></h2>
-      <p class="sec-sub" style="max-width:700px;margin:0 auto;">Multi-stage vetted, trained on your tools, and matched to your time zone &mdash; your Virtual Teammate owns the repeatable work so you can focus on clients and growth.</p>
+      <p class="sec-sub" style="max-width:700px;margin:0 auto;">Multi-stage vetted, trained on your tools, and matched to your time zone, your Virtual Teammate owns the repeatable work so you can focus on clients and growth.</p>
     </div>
     <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Executive &amp; Admin</h3><p>Inbox and calendar management, scheduling, travel, document control and project coordination &mdash; your day, handled.</p></div>
+      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Executive &amp; Admin</h3><p>Inbox and calendar management, scheduling, travel, document control and project coordination: your day, handled.</p></div>
       <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Sales &amp; Lead Gen</h3><p>Prospect lists, outbound outreach, lead qualification and appointment setting that keep your pipeline full.</p></div>
-      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing &amp; Social</h3><p>Social posting, content production, email campaigns and ad coordination &mdash; shipped on schedule, not half-finished.</p></div>
+      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing &amp; Social</h3><p>Social posting, content production, email campaigns and ad coordination: shipped on schedule, not half-finished.</p></div>
       <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; Bookkeeping</h3><p>QuickBooks/Xero bookkeeping, invoicing, AR follow-up and expense management so cash lands faster.</p></div>
       <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Support</h3><p>Tier-1 support, live chat, ticket triage and onboarding follow-up in your tone and time zone.</p></div>
       <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-diagram-project"></i></span><h3>CRM &amp; Reporting</h3><p>CRM hygiene, pipeline updates, dashboards and KPI reporting so your data is clean and your forecasts are real.</p></div>
@@ -162,17 +162,17 @@ include __DIR__ . '/../includes/nav.php';
       <h2 class="svc-h2">Questions Business Owners <em>Ask Us First</em></h2>
     </div>
     <div class="faq-grid">
-      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business teammate handles the repeatable work across admin, sales, marketing, finance and customer service &mdash; from inbox and calendar management to lead generation, bookkeeping and reporting. You decide the function; we match a vetted teammate trained on your tools.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-screwdriver-wrench"></i> Which tools do they work in?</div><div class="faq-a">Our teammates work daily in HubSpot, Salesforce, Pipedrive, QuickBooks, Xero, Google Workspace, Microsoft 365 and the rest of the common stack &mdash; plus the project and outreach tools your team already runs. We match for tool fluency during selection.</div></div>
-      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most clients receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks &mdash; every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Transparent flat-rate pricing &mdash; typically 60&ndash;73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
+      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-briefcase"></i> What does a business virtual assistant do?</div><div class="faq-a">A business teammate handles the repeatable work across admin, sales, marketing, finance and customer service: from inbox and calendar management to lead generation, bookkeeping and reporting. You decide the function; we match a vetted teammate trained on your tools.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-screwdriver-wrench"></i> Which tools do they work in?</div><div class="faq-a">Our teammates work daily in HubSpot, Salesforce, Pipedrive, QuickBooks, Xero, Google Workspace, Microsoft 365 and the rest of the common stack, plus the project and outreach tools your team already runs. We match for tool fluency during selection.</div></div>
+      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most clients receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Transparent flat-rate pricing: typically 60&ndash;73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
     </div>
   </section>
 
   <!-- CLOSING CTA -->
   <section class="svc-cta">
     <h2>See Your Score? <em style="color:var(--gold);font-style:normal;">Now Reclaim the Hours.</em></h2>
-    <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which tasks to delegate first &mdash; or buy back your company&rsquo;s time with a vetted teammate. No commitment, covered by the 30-Day Right-Fit Promise.</p>
+    <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which tasks to delegate first, or buy back your company&rsquo;s time with a vetted teammate. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#cta-book" data-cta-intent="buyback" class="btn-glass">Buy Back Your Company&rsquo;s Time <i class="fa-solid fa-clock"></i></a>
@@ -341,16 +341,16 @@ function showResults(){
 
     if(totalPoints <= 20){
         tier = "Minimal Need";
-        message = "You’re managing your business efficiently—maybe a VT could help with overflow tasks.";
+        message = "You’re managing your business efficiently, maybe a VT could help with overflow tasks.";
     } else if(totalPoints <= 40){
         tier = "Moderate Need";
         message = "You could save 5–10 hours/week with a Virtual Teammate!";
     } else if(totalPoints <= 60){
         tier = "High Need";
-        message = "You could save 10–20+ hours/week—enough to focus on growth or clients!";
+        message = "You could save 10–20+ hours/week: enough to focus on growth or clients!";
     } else {
         tier = "Urgent Need";
-        message = "A Virtual Teammate could transform your business—20+ hours/week saved and less stress!";
+        message = "A Virtual Teammate could transform your business: 20+ hours/week saved and less stress!";
     }
 
     quiz.innerHTML = `

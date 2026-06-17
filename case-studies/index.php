@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Case Studies — Healthcare Client KPI Results | Virtual Teammate';
+$page_title       = 'Case Studies: Healthcare Client KPI Results | Virtual Teammate';
 $page_description = 'Real KPI outcomes from Virtual Teammate engagements: a multi-specialty clinic 60% over target on pre-certifications, a cancer center 48% over on payment posting, a primary care group 44% over on insurance verifications, and an endodontics & oral surgery group 33% over on claims. Client identities kept confidential.';
-$og_title         = 'Case Studies — KPI Results from Real Healthcare Practices';
-$og_description   = 'See the measurable value Virtual Teammate delivers — claims worked, insurance verifications, payment posting and pre-certifications. Real numbers from real practices, reported by workstream.';
+$og_title         = 'Case Studies: KPI Results from Real Healthcare Practices';
+$og_description   = 'See the measurable value Virtual Teammate delivers: claims worked, insurance verifications, payment posting and pre-certifications. Real numbers from real practices, reported by workstream.';
 $canonical        = 'https://virtualteammate.com/case-studies/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -71,7 +71,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Case Studies &middot; Recent KPI Results</div>
     <h1 class="svc-h1">Real Practices. Real Workstreams. <em>Real Numbers.</em></h1>
-    <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients &mdash; claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
+    <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients: claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#by-area" class="btn-glass">See Aggregate Results <i class="fa-solid fa-chart-pie"></i></a>
@@ -100,7 +100,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-trophy"></i> Client Spotlights</div>
     <h2 class="svc-h2">Four Practices. <em>Four Different KPIs Owned.</em></h2>
-    <p class="sec-sub" style="max-width:740px;margin:0 auto;">Each engagement targets the workstream that mattered most to the client &mdash; and each result is reported in plain numbers: target set, output delivered, achievement vs. target.</p>
+    <p class="sec-sub" style="max-width:740px;margin:0 auto;">Each engagement targets the workstream that mattered most to the client, and each result is reported in plain numbers: target set, output delivered, achievement vs. target.</p>
   </div>
 
   <div class="cs-grid">
@@ -114,7 +114,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="cs-tag">Oncology Specialty</span>
         </div>
       </div>
-      <p class="cs-narrative">A high-acuity oncology specialty needed payment posting and insurance verification handled with absolute accuracy. The assigned billing teammate beat the monthly <strong>payment-posting target by 48%</strong> and cleared <strong>insurance verifications 30% over goal</strong> &mdash; turning a challenging AR into one of the practice&rsquo;s strongest months on record.</p>
+      <p class="cs-narrative">A high-acuity oncology specialty needed payment posting and insurance verification handled with absolute accuracy. The assigned billing teammate beat the monthly <strong>payment-posting target by 48%</strong> and cleared <strong>insurance verifications 30% over goal</strong>: turning a challenging AR into one of the practice&rsquo;s strongest months on record.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
@@ -138,7 +138,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="cs-tag">Multi-Specialty Medical Group</span>
         </div>
       </div>
-      <p class="cs-narrative">Aged claims and stalled pre-cert packets were tying up the clinic&rsquo;s in-house team. A billing teammate paired with a dedicated CSM took ownership of both buckets, achieving <strong>pre-certifications 60% over target</strong> and <strong>claims worked 47% above plan</strong> &mdash; keeping authorizations ahead of schedule and clean claims moving.</p>
+      <p class="cs-narrative">Aged claims and stalled pre-cert packets were tying up the clinic&rsquo;s in-house team. A billing teammate paired with a dedicated CSM took ownership of both buckets, achieving <strong>pre-certifications 60% over target</strong> and <strong>claims worked 47% above plan</strong>: keeping authorizations ahead of schedule and clean claims moving.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Pre-Certifications</div>
@@ -162,7 +162,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="cs-tag">Primary Care</span>
         </div>
       </div>
-      <p class="cs-narrative">Front-office bandwidth was capping how many patients the group could verify and post payments for each week. An embedded billing teammate landed <strong>payment posting 40% over target</strong> and <strong>insurance verifications 44% over</strong> &mdash; streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
+      <p class="cs-narrative">Front-office bandwidth was capping how many patients the group could verify and post payments for each week. An embedded billing teammate landed <strong>payment posting 40% over target</strong> and <strong>insurance verifications 44% over</strong>: streamlining the revenue cycle so claims go out clean and cash comes in faster.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Payment Posting</div>
@@ -186,7 +186,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="cs-tag">Endodontics &middot; Oral Surgery</span>
         </div>
       </div>
-      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged a specialty-billing teammate to own the claims-worked workstream end-to-end. The placed teammate <strong>cleared claims 33% above target</strong> &mdash; keeping a high-volume surgical schedule billed and out the door on time &mdash; while a second, larger-scope payment-posting workstream is still ramping toward its $40,000 monthly target.</p>
+      <p class="cs-narrative">A dental-surgical specialty with high claims volume engaged a specialty-billing teammate to own the claims-worked workstream end-to-end. The placed teammate <strong>cleared claims 33% above target</strong>, keeping a high-volume surgical schedule billed and out the door on time, while a second, larger-scope payment-posting workstream is still ramping toward its $40,000 monthly target.</p>
       <div class="cs-kpis">
         <div class="cs-kpi">
           <div class="lbl">Claims Processed</div>
@@ -211,7 +211,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-chart-pie"></i> Across All Workstreams</div>
     <h2 class="svc-h2">Aggregate Achievement <em>by Functional Area</em></h2>
-    <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end &mdash; reported as average percent over target across all participating clients in the period.</p>
+    <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end: reported as average percent over target across all participating clients in the period.</p>
   </div>
   <div class="cs-by-area">
     <div class="cs-area-card reveal d1">
@@ -248,12 +248,12 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-circle-info"></i> How We Measure</div>
     <h2 class="svc-h2">What These Numbers <em>Actually Mean</em></h2>
-    <p class="svc-p">Every Virtual Teammate engagement starts with a <strong>targeted KPI</strong> set together with the client &mdash; the throughput, dollar amount, or completion volume the workstream needs to hit each period. We then report three things every month:</p>
+    <p class="svc-p">Every Virtual Teammate engagement starts with a <strong>targeted KPI</strong> set together with the client: the throughput, dollar amount, or completion volume the workstream needs to hit each period. We then report three things every month:</p>
     <ul class="svc-checks">
-      <li><i class="fa-solid fa-check"></i><span><strong>Targeted KPI</strong> &mdash; what we committed to (claims, verifications, postings, pre-certs).</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Results</strong> &mdash; what the placed teammate actually delivered against that target.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Value Created</strong> &mdash; the delta between target and result (positive or negative), reported in dollars or count.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Achievement %</strong> &mdash; results vs. target, so you can compare workstreams apples-to-apples.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Targeted KPI</strong>: what we committed to (claims, verifications, postings, pre-certs).</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Results</strong>: what the placed teammate actually delivered against that target.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Value Created</strong>: the delta between target and result (positive or negative), reported in dollars or count.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Achievement %</strong>: results vs. target, so you can compare workstreams apples-to-apples.</span></li>
     </ul>
     <p class="svc-p">No vanity metrics. No "hours worked." Just the numbers your business actually runs on.</p>
   </div>
@@ -271,12 +271,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">The Operating Model Behind <em>Every Result</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-First Scoping</h3><p>Every engagement starts with the metric the client most needs to move &mdash; not a generic "VA hours" SOW.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-First Scoping</h3><p>Every engagement starts with the metric the client most needs to move, not a generic "VA hours" SOW.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A US-based Client Success Manager (CSM) owns the scorecard, the cadence, and the escalation path.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible teammates working in encrypted environments only.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Coverage</h3><p>Trained backup means your KPI doesn&rsquo;t collapse when your teammate is on PTO or sick.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly Scorecards</h3><p>Plain-English KPI reports &mdash; target, results, value created, achievement &mdash; delivered to your inbox.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator &mdash; results stay in your P&amp;L.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly Scorecards</h3><p>Plain-English KPI reports, target, results, value created, achievement, delivered to your inbox.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator: results stay in your P&amp;L.</p></div>
   </div>
 </section>
 
@@ -290,7 +290,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-calendar"></i> What period do these cover?</div><div class="faq-a">Most recent reporting period: a one-month snapshot from Spring 2025. Older periods are available in the full client scorecard archive on request.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-percent"></i> What does "achievement %" mean?</div><div class="faq-a">Achievement % = (Results &minus; Target) / Target. A +48% achievement means the workstream delivered 48% more output than the agreed target for the period.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield"></i> How do you protect client confidentiality?</div><div class="faq-a">Only metrics the client has approved for publication appear here. Full PHI and any non-public KPI data are reported privately on the monthly scorecard.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-hospital"></i> Can you replicate this for my practice?</div><div class="faq-a">Yes &mdash; provided we scope against your real volume and your real targets. Book a strategy session and we&rsquo;ll map your top three KPI gaps to the right role spec.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-hospital"></i> Can you replicate this for my practice?</div><div class="faq-a">Yes, provided we scope against your real volume and your real targets. Book a strategy session and we&rsquo;ll map your top three KPI gaps to the right role spec.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-circle-arrow-right"></i> What&rsquo;s next after the strategy call?</div><div class="faq-a">A scoped engagement proposal with the target KPIs, the role spec, the pricing, and the timeline. From sign-off, your teammate is typically placed in 1&ndash;2 weeks.</div></div>
   </div>
 </section>
@@ -302,7 +302,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
 

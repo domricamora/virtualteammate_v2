@@ -82,10 +82,10 @@ $home_base = $home_base ?? './';
         <div class="nav-mega-foot">
           <div class="nav-mega-foot-txt">
             <i class="fa-solid fa-circle-nodes"></i>
-            <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental &mdash; front desk to back office, all HIPAA-certified.</span>
+            <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental, front desk to back office, all HIPAA-certified.</span>
           </div>
           <a href="<?= $home_base ?>#cta-practice-audit" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
-          <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+          <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Dental Treatment Coordinator Virtual Assistants | HIPAA-Certified | Virtual Teammate';
 $page_description = 'Hire HIPAA-certified dental treatment coordinator virtual assistants. Case presentation follow-up, treatment-plan financing, patient recall & scheduling coordination. Boost case acceptance, save up to 73%.';
-$og_title         = 'Dental Treatment Coordinator VAs — Higher Case Acceptance';
-$og_description   = 'Virtual treatment coordinators who follow up on unscheduled treatment, present financing, run recall and fill the schedule — inside your dental PMS.';
+$og_title         = 'Dental Treatment Coordinator VAs: Higher Case Acceptance';
+$og_description   = 'Virtual treatment coordinators who follow up on unscheduled treatment, present financing, run recall and fill the schedule: inside your dental PMS.';
 $canonical        = 'https://virtualteammate.com/services/dental-coordinator/';
 $home_base        = '../../';
 $svc_slug         = 'dental-coordinator';
@@ -14,7 +14,7 @@ $breadcrumbs      = [
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
   ['q' => 'What does a treatment coordinator teammate do?',
-   'a' => 'Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination — all inside your dental PMS.'],
+   'a' => 'Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination: all inside your dental PMS.'],
   ['q' => 'Will it improve case acceptance?',
    'a' => 'Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.'],
   ['q' => 'Which dental software do they know?',
@@ -24,7 +24,7 @@ $faqs = [
   ['q' => 'How much does it cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.'],
   ['q' => 'Can I scale or pause?',
-   'a' => 'Yes. No locked-in headcount or termination penalties — scale up in growth, trim in slow seasons.'],
+   'a' => 'Yes. No locked-in headcount or termination penalties: scale up in growth, trim in slow seasons.'],
 ];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-handshake-angle"></i> Treatment &amp; Recall Coordination &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Treatment <em>Coordinator</em> Virtual Assistants</h1>
-    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule &mdash; inside Dentrix, Eaglesoft and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
+    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule: inside Dentrix, Eaglesoft and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-arrow-trend-up"></i> Case-Acceptance Focused</div>
@@ -67,7 +67,7 @@ include __DIR__ . '/../../includes/nav.php';
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
       <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
@@ -90,7 +90,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-handshake-angle"></i> What They Handle</div>
     <h2 class="svc-h2">Turn Diagnosed Treatment Into <em>Booked Treatment</em></h2>
-    <p class="svc-p">The biggest leak in most dental practices isn&rsquo;t marketing &mdash; it&rsquo;s diagnosed treatment that never gets scheduled and patients who fall out of recall. A dedicated treatment coordinator works those lists every single day.</p>
+    <p class="svc-p">The biggest leak in most dental practices isn&rsquo;t marketing: it&rsquo;s diagnosed treatment that never gets scheduled and patients who fall out of recall. A dedicated treatment coordinator works those lists every single day.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Unscheduled-treatment follow-up:</strong> work the pending/incomplete treatment report and book it.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Financing &amp; case presentation support:</strong> present estimates, set up CareCredit/Sunbit, answer cost questions.</span></li>
@@ -111,14 +111,14 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
     <h2 class="svc-h2">Why Hire a Virtual Treatment Coordinator?</h2>
-    <p class="sec-sub" style="max-width:700px;margin:0 auto;">A dedicated person whose entire job is converting diagnosed treatment and protecting recall &mdash; without adding an in-office salary.</p>
+    <p class="sec-sub" style="max-width:700px;margin:0 auto;">A dedicated person whose entire job is converting diagnosed treatment and protecting recall, without adding an in-office salary.</p>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-arrow-trend-up"></i></span><h3>Higher Case Acceptance</h3><p>Consistent, same-week follow-up on diagnosed treatment recovers revenue that&rsquo;s otherwise lost.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>A Fuller Schedule</h3><p>Recall, reactivation and short-call management keep the book full and reduce holes.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost &mdash; no benefits or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Patient Outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice &mdash; not a slow email drip.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost: no benefits or recruiter fees.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Patient Outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice, not a slow email drip.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, backup coverage and quarterly performance reviews on every placement.</p></div>
   </div>
 </section>
@@ -154,7 +154,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Review your unscheduled-treatment report, recall numbers, PMS and financing options.</p></div>
     <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of coordinators with case-acceptance and recall experience. You choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, scripts, financing setup and a Client Success Manager (CSM) &mdash; live outreach in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, scripts, financing setup and a Client Success Manager (CSM): live outreach in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 
@@ -163,12 +163,12 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Coordinator teammate FAQs</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator teammate do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination &mdash; all inside your dental PMS.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator teammate do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination: all inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrow-trend-up"></i> Will it improve case acceptance?</div><div class="faq-a">Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale or pause?</div><div class="faq-a">Yes. No locked-in headcount or termination penalties &mdash; scale up in growth, trim in slow seasons.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale or pause?</div><div class="faq-a">Yes. No locked-in headcount or termination penalties: scale up in growth, trim in slow seasons.</div></div>
   </div>
 </section>
 

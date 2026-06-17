@@ -1,7 +1,7 @@
 <?php
 $page_title       = 'Dental Scribe Virtual Assistants | HIPAA-Certified Virtual Dental Scribes | Virtual Teammate';
 $page_description = 'Hire HIPAA-certified virtual dental scribes. Real-time clinical notes, perio charting, treatment documentation & chart closure in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
-$og_title         = 'Dental Scribe Virtual Assistants — Real-Time Clinical Charting';
+$og_title         = 'Dental Scribe Virtual Assistants: Real-Time Clinical Charting';
 $og_description   = 'Virtual dental scribes document exams and procedures in real time inside your dental PMS, so providers finish charts chairside and stay focused on the patient.';
 $canonical        = 'https://virtualteammate.com/services/dental-scribe/';
 $home_base        = '../../';
@@ -14,17 +14,17 @@ $breadcrumbs      = [
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
   ['q' => 'What does a virtual dental scribe do?',
-   'a' => 'Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS — clinical notes, perio charting, existing/proposed treatment, chart closure.'],
+   'a' => 'Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS: clinical notes, perio charting, existing/proposed treatment, chart closure.'],
   ['q' => 'Which dental software do they know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental — PMS-trained before placement.'],
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental: PMS-trained before placement.'],
   ['q' => 'Is a dental scribe HIPAA certified?',
    'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. A/V links are encrypted end-to-end.'],
   ['q' => 'Will it really speed up my day?',
-   'a' => 'Yes — charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.'],
+   'a' => 'Yes: charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.'],
   ['q' => 'How much does a dental scribe cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate.'],
   ['q' => 'What if my scribe is out?',
-   'a' => 'Trained backup coverage is included — your Client Success Manager (CSM) arranges a substitute so charts never back up.'],
+   'a' => 'Trained backup coverage is included: your Client Success Manager (CSM) arranges a substitute so charts never back up.'],
 ];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Scribe Virtual Assistant",
   "name":"Dental Scribe Virtual Assistants",
-  "description":"HIPAA-certified virtual dental scribes documenting exams and procedures in real time inside the dental PMS — clinical notes, perio charting, treatment documentation, and same-day chart closure.",
+  "description":"HIPAA-certified virtual dental scribes documenting exams and procedures in real time inside the dental PMS: clinical notes, perio charting, treatment documentation, and same-day chart closure.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time Dental Charting &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental Scribe <em>Virtual</em> Assistants</h1>
-    <p class="svc-lead">Stay focused on the patient, not the keyboard. Our <strong>HIPAA-certified virtual dental scribes</strong> document every exam and procedure in real time inside your PMS &mdash; clinical notes, perio charting, treatment documentation &mdash; so charts close chairside, not after hours, at up to <strong>73% less</strong> than an in-house hire.</p>
+    <p class="svc-lead">Stay focused on the patient, not the keyboard. Our <strong>HIPAA-certified virtual dental scribes</strong> document every exam and procedure in real time inside your PMS, clinical notes, perio charting, treatment documentation, so charts close chairside, not after hours, at up to <strong>73% less</strong> than an in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> Dental PMS Trained</div>
@@ -67,7 +67,7 @@ include __DIR__ . '/../../includes/nav.php';
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
       <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
@@ -90,9 +90,9 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-pen-clip"></i> What They Handle</div>
     <h2 class="svc-h2">Real-Time Documentation, <em>Inside Your PMS</em></h2>
-    <p class="svc-p">Charting between patients is where dental schedules slip and notes go thin. A dedicated virtual dental scribe attends each visit via HIPAA-certified link and writes the chart as it happens &mdash; so the operatory turns over faster and documentation is complete and defensible.</p>
+    <p class="svc-p">Charting between patients is where dental schedules slip and notes go thin. A dedicated virtual dental scribe attends each visit via HIPAA-certified link and writes the chart as it happens: so the operatory turns over faster and documentation is complete and defensible.</p>
     <ul class="svc-checks">
-      <li><i class="fa-solid fa-check"></i><span><strong>Real-time clinical notes:</strong> exam findings, diagnoses, procedures &mdash; structured to your templates.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Real-time clinical notes:</strong> exam findings, diagnoses, procedures, structured to your templates.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Perio &amp; existing-condition charting:</strong> pocket depths, recession, existing restorations entered live.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Treatment documentation:</strong> proposed and completed treatment, materials, tooth/surface coding cues.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Clinical-note compliance:</strong> complete, consistent notes that hold up to insurance and audit review.</span></li>
@@ -111,13 +111,13 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Providers Choose VT</div>
     <h2 class="svc-h2">Why Hire a Virtual Dental Scribe?</h2>
-    <p class="sec-sub" style="max-width:700px;margin:0 auto;">Faster operatory turnover, better notes, and a calmer provider &mdash; without the cost of an in-office assistant on charting duty.</p>
+    <p class="sec-sub" style="max-width:700px;margin:0 auto;">Faster operatory turnover, better notes, and a calmer provider, without the cost of an in-office assistant on charting duty.</p>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Faster Operatory Turnover</h3><p>Charting happens live, so the provider moves to the next patient instead of catching up on notes.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-file-shield"></i></span><h3>Audit-Ready Notes</h3><p>Complete, consistent clinical documentation that supports claims and stands up to review.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-face-smile"></i></span><h3>Better Patient Experience</h3><p>The provider stays present with the patient instead of buried in the keyboard.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing with backup coverage included &mdash; no benefits, PTO or recruiter fees.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing with backup coverage included: no benefits, PTO or recruiter fees.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Charting Backlog</h3><p>Backup coverage means notes never pile up when your scribe is out.</p></div>
   </div>
@@ -128,7 +128,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Dental PMS Stack</div>
       <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on Your PMS</h2>
-      <p class="svc-p" style="margin-bottom:0;">PMS-fluent before they start &mdash; your scribe doesn&rsquo;t learn the system on your dime.</p>
+      <p class="svc-p" style="margin-bottom:0;">PMS-fluent before they start: your scribe doesn&rsquo;t learn the system on your dime.</p>
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix</span>
@@ -162,12 +162,12 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental Scribe teammate FAQs</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual dental scribe do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS &mdash; clinical notes, perio charting, existing/proposed treatment, chart closure.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental &mdash; PMS-trained before placement.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual dental scribe do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS: clinical notes, perio charting, existing/proposed treatment, chart closure.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental: PMS-trained before placement.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a dental scribe HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. A/V links are encrypted end-to-end.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will it really speed up my day?</div><div class="faq-a">Yes &mdash; charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will it really speed up my day?</div><div class="faq-a">Yes: charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my scribe is out?</div><div class="faq-a">Trained backup coverage is included &mdash; your Client Success Manager (CSM) arranges a substitute so charts never back up.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my scribe is out?</div><div class="faq-a">Trained backup coverage is included: your Client Success Manager (CSM) arranges a substitute so charts never back up.</div></div>
   </div>
 </section>
 

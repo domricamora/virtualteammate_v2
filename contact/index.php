@@ -1,7 +1,7 @@
 <?php
-$page_title       = 'Contact Virtual Teammate — Phoenix HQ + Global VA Network | (480) 847-2498';
+$page_title       = 'Contact Virtual Teammate: Phoenix HQ + Global VA Network | (480) 847-2498';
 $page_description = 'Reach Virtual Teammate at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016, or call (480) 847-2498. Email clientsuccess@virtualteammate.com. US-owned HQ with a globally vetted VA bench and a US-based Client Success Manager on every engagement.';
-$og_title         = 'Contact Virtual Teammate — Phoenix HQ + Global VA Network';
+$og_title         = 'Contact Virtual Teammate: Phoenix HQ + Global VA Network';
 $og_description   = 'US-owned office in Phoenix, AZ. Global bench across 5 continents. Talk to a real US-based Client Success Manager today.';
 $canonical        = 'https://virtualteammate.com/contact/';
 $home_base        = '../';
@@ -112,12 +112,12 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Contact Virtual Teammate</div>
-    <h1 class="svc-h1">Talk to a <em>Real Person</em> in Our Phoenix HQ &mdash; Backed by a Global Bench</h1>
-    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec &mdash; you&rsquo;ll reach a <strong>US-based Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
+    <h1 class="svc-h1">Talk to a <em>Real Person</em> in Our Phoenix HQ, Backed by a Global Bench</h1>
+    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>US-based Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day &middot; Mon&ndash;Fri, 8am&ndash;6pm MST</span>
   </div>
@@ -236,13 +236,13 @@ include __DIR__ . '/../includes/nav.php';
   <div class="global-grid">
     <div class="global-l reveal">
       <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Coverage &middot; Local Cadence</div>
-      <h2 class="sec-h2" id="global-h">A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent &mdash; On Your Time Zone</h2>
+      <h2 class="sec-h2" id="global-h">A <em>Global Bench</em> of HIPAA-Certified Medical &amp; Dental Talent, On Your Time Zone</h2>
       <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager (CSM) runs the bench so you don&rsquo;t have to think about it.</p>
 
       <ul class="global-benefits">
-        <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts &mdash; one vendor, no compromises.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent &mdash; not just availability.</span></li>
-        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in &mdash; no benefits, payroll tax, recruiter fees or PTO.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>24/7 coverage in your US time zone.</strong> Morning, afternoon, evening or overnight shifts, one vendor, no compromises.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench means we recruit for your specialty, EHR, language and accent, not just availability.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-sack-dollar"></i></span><span><strong>Up to 73% lower staffing cost</strong> than a US in-house hire. Flat rate, all-in: no benefits, payroll tax, recruiter fees or PTO.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><span><strong>A named Client Success Manager (CSM) from day one.</strong> Owns onboarding, quality, backup coverage and quarterly reviews. It&rsquo;s how we hold 95%+ retention.</span></li>
       </ul>
     </div>
@@ -279,13 +279,13 @@ include __DIR__ . '/../includes/nav.php';
 
 <!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:60px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Pre-Contact FAQs</div><h2 class="svc-h2">Before You Reach Out &mdash; Common Questions</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Pre-Contact FAQs</div><h2 class="svc-h2">Before You Reach Out: Common Questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clock"></i> How quickly will I get a response?</div><div class="faq-a">Most inbound requests get a personal reply within one business day. Phone calls during MST business hours are answered live; voicemails are returned same day.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager (CSM) &mdash; not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a 30-minute value scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline &mdash; no obligation, no sales pressure.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Can we talk about HIPAA / BAA right away?</div><div class="faq-a">Yes &mdash; every healthcare engagement is BAA-compatible, and we can share our HIPAA compliance documentation and BAA template during or right after the strategy call.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes &mdash; US-owned, headquartered at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager (CSM), not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a 30-minute value scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline: no obligation, no sales pressure.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Can we talk about HIPAA / BAA right away?</div><div class="faq-a">Yes, every healthcare engagement is BAA-compatible, and we can share our HIPAA compliance documentation and BAA template during or right after the strategy call.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes, US-owned, headquartered at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-comments"></i> What should I prepare for the first call?</div><div class="faq-a">Bring the one workflow you most want to hand off, the KPIs you want to move, and any constraints (EHR, time zone, language). We&rsquo;ll do the rest.</div></div>
   </div>
 </section>
@@ -293,17 +293,17 @@ include __DIR__ . '/../includes/nav.php';
 <!-- FINAL CTA -->
 <section class="svc-cta">
   <h2>Ready to <em style="color:var(--gold);font-style:normal;">Start the Conversation</em>?</h2>
-  <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline &mdash; no commitment required.</p>
+  <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline: no commitment required.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
 
 </main>
 <?php
 $lf_title = 'Prefer to Talk It Through? <em>Book a Meeting</em>';
-$lf_sub   = 'Questions about scope, pricing or a custom engagement? Grab a time below and a US-based Client Success Manager will walk you through it &mdash; no obligation, reply within one business day either way.';
+$lf_sub   = 'Questions about scope, pricing or a custom engagement? Grab a time below and a US-based Client Success Manager will walk you through it: no obligation, reply within one business day either way.';
 include __DIR__ . '/../includes/footer.php';
 ?>

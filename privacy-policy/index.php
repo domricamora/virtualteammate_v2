@@ -24,9 +24,9 @@ include __DIR__ . '/../includes/nav.php';
 
   <h2>1. Information we collect</h2>
   <h3>Information you give us</h3>
-  <p>When you complete a form &mdash; for example, requesting the Buyer&rsquo;s Checklist, booking a Practice Staffing Audit, requesting a teammate, or contacting us &mdash; we collect the details you choose to provide, such as your name, work email, phone number, practice or company, role, and anything you write in a message field.</p>
+  <p>When you complete a form, for example, requesting the Buyer&rsquo;s Checklist, booking a Practice Staffing Audit, requesting a teammate, or contacting us, we collect the details you choose to provide, such as your name, work email, phone number, practice or company, role, and anything you write in a message field.</p>
   <h3>Information we collect automatically</h3>
-  <p>Like most websites, we automatically collect limited technical data when you browse &mdash; such as your IP address, browser type, device, pages viewed, and referring page &mdash; through server logs and cookies or similar technologies. This helps us keep the Site secure and understand how it&rsquo;s used.</p>
+  <p>Like most websites, we automatically collect limited technical data when you browse, such as your IP address, browser type, device, pages viewed, and referring page, through server logs and cookies or similar technologies. This helps us keep the Site secure and understand how it&rsquo;s used.</p>
 
   <h2>2. How we use your information</h2>
   <ul>
@@ -39,9 +39,9 @@ include __DIR__ . '/../includes/nav.php';
   <h2>3. How we share information</h2>
   <p>We do not sell your personal information. We share it only:</p>
   <ul>
-    <li><strong>With service providers</strong> who help us run our business &mdash; for example, our CRM and email-delivery providers &mdash; under agreements that limit their use of your information to providing services to us;</li>
-    <li><strong>For legal reasons</strong> &mdash; when required by law, to respond to lawful requests, or to protect our rights, users, or the public;</li>
-    <li><strong>In a business transfer</strong> &mdash; if VT is involved in a merger, acquisition, or sale of assets, information may transfer as part of that transaction.</li>
+    <li><strong>With service providers</strong> who help us run our business, for example, our CRM and email-delivery providers, under agreements that limit their use of your information to providing services to us;</li>
+    <li><strong>For legal reasons</strong>: when required by law, to respond to lawful requests, or to protect our rights, users, or the public;</li>
+    <li><strong>In a business transfer</strong>: if VT is involved in a merger, acquisition, or sale of assets, information may transfer as part of that transaction.</li>
   </ul>
 
   <h2>4. Cookies and analytics</h2>
@@ -54,7 +54,7 @@ include __DIR__ . '/../includes/nav.php';
   <p>We maintain administrative, technical, and physical safeguards designed to protect the information you share through the Site. No method of transmission or storage is completely secure, however, so we cannot guarantee absolute security.</p>
 
   <h2>7. Your choices and rights</h2>
-  <p>You can ask us to access, correct, or delete the personal information you&rsquo;ve provided, and you can unsubscribe from marketing emails using the link in any message or by emailing us. Depending on where you live (for example, under the California Consumer Privacy Act or the EU/UK GDPR), you may have additional rights &mdash; including the right to know what we hold, to request deletion, and to opt out of certain processing. To exercise any right, contact us using the details below; we will respond as required by applicable law.</p>
+  <p>You can ask us to access, correct, or delete the personal information you&rsquo;ve provided, and you can unsubscribe from marketing emails using the link in any message or by emailing us. Depending on where you live (for example, under the California Consumer Privacy Act or the EU/UK GDPR), you may have additional rights: including the right to know what we hold, to request deletion, and to opt out of certain processing. To exercise any right, contact us using the details below; we will respond as required by applicable law.</p>
 
   <h2>8. Children&rsquo;s privacy</h2>
   <p>The Site is intended for businesses and is not directed to children under 16. We do not knowingly collect personal information from children. If you believe a child has provided us information, please contact us and we will delete it.</p>

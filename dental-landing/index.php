@@ -2,7 +2,7 @@
 $page_title       = 'Dental Practice Efficiency Quiz | Virtual Teammate';
 $page_description = 'Take the 2-minute Virtual Teammate efficiency quiz for dental practice owners. See how many hours and how much weekly production you could reclaim by delegating front-desk, scheduling and billing to a HIPAA-certified dental virtual teammate.';
 $og_title         = 'How Much Time & Production Is Admin Costing Your Dental Practice?';
-$og_description   = 'A 2-minute quiz for dental practice owners — get your efficiency tier, estimated hours saved, and recoverable weekly production, plus a downloadable report.';
+$og_description   = 'A 2-minute quiz for dental practice owners: get your efficiency tier, estimated hours saved, and recoverable weekly production, plus a downloadable report.';
 $canonical        = 'https://virtualteammate.com/dental-landing/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -14,11 +14,11 @@ $faqs = [
   ['q' => 'Are your dental teammates HIPAA certified?',
    'a' => 'Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
   ['q' => 'Do they know my practice-management software?',
-   'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more — and we confirm the fit during selection.'],
+   'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
-   'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks — every placement backed by the 30-Day Right-Fit Promise.'],
+   'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does it cost?',
-   'a' => 'Transparent flat-rate pricing — typically 60–73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.'],
+   'a' => 'Transparent flat-rate pricing: typically 60–73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.'],
 ];
 include __DIR__ . '/../includes/head.php';
 include __DIR__ . '/../includes/nav.php';
@@ -97,7 +97,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="dq-hero-copy">
         <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
         <h1>How Much Time &amp; Production Is <em>Admin Costing</em> Your Practice?</h1>
-        <p>Answer 6 quick questions to get your efficiency tier, an estimate of the hours your front desk could reclaim each week, and the weekly production hiding in your scheduling, recall and billing workload &mdash; plus a downloadable report. Takes about 2 minutes.</p>
+        <p>Answer 6 quick questions to get your efficiency tier, an estimate of the hours your front desk could reclaim each week, and the weekly production hiding in your scheduling, recall and billing workload, plus a downloadable report. Takes about 2 minutes.</p>
       </div>
       <div class="dq-hero-photo">
         <img src="<?= $home_base ?>images/dental-quiz.webp" alt="Smiling HIPAA-certified dental virtual assistant wearing a headset, managing scheduling and patient calls for a dental practice" width="920" height="930" loading="eager">
@@ -129,12 +129,12 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
       <h2 class="svc-h2">Every Hour on the Phones Is an Hour <em>Off the Schedule</em></h2>
-      <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting &mdash; the front desk quietly eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
+      <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk quietly eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
       <ul class="svc-checks">
         <li><i class="fa-solid fa-check"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></li>
-        <li><i class="fa-solid fa-check"></i><span><strong>Lapsed hygiene recall</strong> that lets patients &mdash; and recurring production &mdash; slip away.</span></li>
+        <li><i class="fa-solid fa-check"></i><span><strong>Lapsed hygiene recall</strong> that lets patients, and recurring production, slip away.</span></li>
         <li><i class="fa-solid fa-check"></i><span><strong>Unscheduled treatment</strong> sitting in the software after the patient said yes.</span></li>
-        <li><i class="fa-solid fa-check"></i><span><strong>A front desk underwater</strong> on calls, verifications and claims &mdash; every single day.</span></li>
+        <li><i class="fa-solid fa-check"></i><span><strong>A front desk underwater</strong> on calls, verifications and claims, every single day.</span></li>
       </ul>
       <p class="svc-p">The quiz above puts a number on it. A HIPAA-certified Virtual Teammate takes it off your plate.</p>
     </div>
@@ -151,15 +151,15 @@ include __DIR__ . '/../includes/nav.php';
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One Teammate. <em>The Whole Front Office.</em></h2>
-      <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, PMS-trained, and matched to your time zone &mdash; your Virtual Teammate owns the repeatable work so your front desk and clinical team can focus on patients in the chair.</p>
+      <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, PMS-trained, and matched to your time zone, your Virtual Teammate owns the repeatable work so your front desk and clinical team can focus on patients in the chair.</p>
     </div>
     <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; Recall</h3><p>Booking, confirmations, reschedules, hygiene recare and reactivation calls &mdash; the schedule stays full and holes get filled.</p></div>
-      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Insurance &amp; Verification</h3><p>Eligibility checks, breakdown of benefits and pre-authorizations completed before the visit &mdash; not at the chair.</p></div>
+      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; Recall</h3><p>Booking, confirmations, reschedules, hygiene recare and reactivation calls: the schedule stays full and holes get filled.</p></div>
+      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Insurance &amp; Verification</h3><p>Eligibility checks, breakdown of benefits and pre-authorizations completed before the visit, not at the chair.</p></div>
       <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; Claims</h3><p>Claims submission, attachments, EOB and payment posting, and AR follow-up worked daily so production lands faster.</p></div>
       <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Treatment Plan Follow-Up</h3><p>Unscheduled treatment chased down and financial arrangements set up so case acceptance turns into seated appointments.</p></div>
       <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient Calls &amp; Reminders</h3><p>Inbound and outbound calls, appointment reminders and recall outreach handled in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS Management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Eaglesoft, Open Dental and more &mdash; never backlogged.</p></div>
+      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS Management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Eaglesoft, Open Dental and more, never backlogged.</p></div>
     </div>
   </section>
 
@@ -173,20 +173,20 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA certified?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more &mdash; and we confirm the fit during selection.</div></div>
-      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks &mdash; every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Transparent flat-rate pricing &mdash; typically 60&ndash;73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
+      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Transparent flat-rate pricing: typically 60&ndash;73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
     </div>
   </section>
 
   <!-- CLOSING CTA -->
   <section class="svc-cta">
     <h2>See Your Score? <em style="color:var(--gold);font-style:normal;">Now Reclaim the Hours.</em></h2>
-    <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which front-office tasks to delegate first &mdash; or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
+    <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which front-office tasks to delegate first, or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="svc-cta-btns">
       <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-glass">Book My Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </section>
 </main>
