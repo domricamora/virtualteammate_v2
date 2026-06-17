@@ -115,7 +115,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Talk to a <em>real person</em> in our Phoenix HQ, backed by a global bench</h1>
     <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>US-based Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
     <div class="svc-hero-ctas">
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
@@ -295,7 +295,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Ready to <em style="color:var(--gold);font-style:normal;">start the conversation</em>?</h2>
   <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline: no commitment required.</p>
   <div class="svc-cta-btns">
-    <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>

@@ -63,7 +63,7 @@ include 'includes/nav.php';
     </ul>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost, or refund every billed day.</p>
     <div class="hero-btns reveal d3">
-      <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
     </div>
     <div class="cta-note reveal d3"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
@@ -394,7 +394,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
           <a class="pill" href="services/medical-scribe/">Medical Scribe <i class="fa-solid fa-arrow-right"></i></a>
           <a class="pill" href="services/medical-assistant/">Medical Assistant <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
         <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
       </div>
     </article>
@@ -427,7 +427,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
           <a class="pill" href="services/dental-scribe/">Dental Scribe <i class="fa-solid fa-arrow-right"></i></a>
           <a class="pill" href="services/dental-coordinator/">Dental Coordinator <i class="fa-solid fa-arrow-right"></i></a>
         </div>
-        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="#cta-practice-audit" class="spec-link" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
         <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
       </div>
     </article>
@@ -454,7 +454,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
@@ -496,7 +496,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       </div>
 
       <div class="g-foot">
-        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book My Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
+        <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-glass">Book my practice staffing audit <i class="fa-solid fa-clipboard-check"></i></a>
         <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
       </div>
     </div>
@@ -542,7 +542,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
   </div>
   <div class="proc-cta reveal">
-    <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
@@ -558,7 +558,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       <h2 class="sec-h2" style="margin-bottom:0;">Your future healthcare teammates</h2>
     </div>
     <div style="text-align:right;">
-      <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
@@ -614,7 +614,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <?php else: ?>
     <div class="prof-empty card">
       <i class="fa-solid fa-user-doctor" style="color:var(--gold);font-size:24px;margin-bottom:10px;"></i>
-      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
+      <p>Our medical &amp; dental bench is reviewed and matched manually for every engagement. <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit</a> to see candidates tailored to your specialty, EHR and time-zone preferences.</p>
     </div>
   <?php endif; ?>
 </section>
@@ -780,7 +780,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   </div>
 
   <div class="offer-cta reveal">
-    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <p class="offer-cta-fine">20 minutes. No obligation. Covered by the 30-Day Right-Fit Promise.</p>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
@@ -822,7 +822,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Tier + headcount recommendation</li>
       </ul>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
@@ -840,7 +840,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </article>
   </div>
 
-  <p class="cta-stages-foot reveal">Prefer to start with a diagnostic? <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit</a> and a Client Success Manager (CSM) will map it out with you.</p>
+  <p class="cta-stages-foot reveal">Prefer to start with a diagnostic? <a href="#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit</a> and a Client Success Manager (CSM) will map it out with you.</p>
 </section>
 
 
@@ -875,7 +875,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> 20-Min Practice Staffing Audit</div>
-    <h2 class="cta-modal-h" id="ccm-pa-h">Book My Staffing Audit</h2>
+    <h2 class="cta-modal-h" id="ccm-pa-h">Book my practice staffing audit</h2>
     <p class="cta-modal-sub">Pick a time that works for you: a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first. Diagnostic only, no obligation.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->

@@ -48,7 +48,7 @@ $vtc_heading    = $vtc_heading    ?? 'Meet Your <em>Virtual Teammates</em>';
 $vtc_sub        = $vtc_sub        ?? 'A sample of real, vetted teammates, matched to your time zone and ready to start in 1&ndash;2 weeks.';
 $vtc_cta_href   = $vtc_cta_href   ?? ($home_base . '#cta-practice-audit');
 $vtc_cta_intent = $vtc_cta_intent ?? 'practice-audit';
-$vtc_cta_label  = $vtc_cta_label  ?? 'Book My Staffing Audit';
+$vtc_cta_label  = $vtc_cta_label  ?? 'Book my practice staffing audit';
 $vtc_cta_vt     = $vtc_cta_vt     ?? false;
 $vtc_browse     = $vtc_browse     ?? true;
 

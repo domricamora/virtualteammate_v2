@@ -45,7 +45,7 @@ if (isset($svc_vtc[$svc_slug])) {
     $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates, interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
     $vtc_cta_href   = $home_base . '#cta-practice-audit';
     $vtc_cta_intent = 'practice-audit';
-    $vtc_cta_label  = 'Book My Staffing Audit';
+    $vtc_cta_label  = 'Book my practice staffing audit';
     include __DIR__ . '/vt-cards.php';
 }
 ?>
@@ -54,7 +54,7 @@ if (isset($svc_vtc[$svc_slug])) {
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
   <p>Get a curated shortlist of HIPAA-certified candidates within days, matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
-    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>

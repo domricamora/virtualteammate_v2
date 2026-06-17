@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Dental Practice Efficiency Quiz | Virtual Teammate';
-$page_description = 'Take the 2-minute Virtual Teammate efficiency quiz for dental practice owners. See how many hours and how much weekly production you could reclaim by delegating front-desk, scheduling and billing to a HIPAA-certified dental virtual teammate.';
-$og_title         = 'How Much Time & Production Is Admin Costing Your Dental Practice?';
-$og_description   = 'A 2-minute quiz for dental practice owners: get your efficiency tier, estimated hours saved, and recoverable weekly production, plus a downloadable report.';
+$page_title       = 'Dental Virtual Assistants | Live in 1–2 Weeks, 73% Less | Virtual Teammate';
+$page_description = 'A dedicated, HIPAA-certified dental Virtual Teammate runs your scheduling, recall, verifications and claims inside Dentrix, Eaglesoft or Open Dental. Published flat-rate pricing from $975/mo part-time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
+$og_title         = 'Fully staff your front office in weeks, not months, for up to 73% less.';
+$og_description   = 'HIPAA-certified dental VAs trained on Dentrix, Eaglesoft, Open Dental and more: they keep chairs full, recall worked, treatment plans followed up and claims clean. Shortlist in days, live in 1–2 weeks.';
 $canonical        = 'https://virtualteammate.com/dental-landing/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -17,28 +17,61 @@ $faqs = [
    'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
-  ['q' => 'How much does it cost?',
-   'a' => 'Transparent flat-rate pricing: typically 60–73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.'],
+  ['q' => 'How much does a dental VA cost?',
+   'a' => 'Published flat-rate pricing, no quote required. Entry from $975/mo part-time; Pro $1,625/mo full-time ($867/mo part-time); Specialist (dental billing & coding) $2,167/mo full-time ($1,300/mo part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.'],
+  ['q' => 'Am I locked into a contract?',
+   'a' => 'No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.'],
+  ['q' => 'Where are your dental VAs based?',
+   'a' => 'Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.'],
+  ['q' => "What if my VA isn't the right fit?",
+   'a' => 'Two cases: (1) wrong fit → no-cost replacement, re-shortlisted within 5 business days, billing paused until they\'re live; (2) outsourcing isn\'t working → cancel inside 30 days and we refund every billed day, no clawback.'],
+  ['q' => 'How do you protect patient data?',
+   'a' => 'Five layers: HIPAA training & certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).'],
+  ['q' => 'Which practice-management software do your VAs know?',
+   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.'],
 ];
 include __DIR__ . '/../includes/head.php';
 include __DIR__ . '/../includes/nav.php';
 ?>
 
 <style>
-/* ── Dental quiz landing — scoped styles (dark/gold theme) ── */
-.dq-hero{padding:56px 20px 22px;max-width:1100px;margin:0 auto;}
-.dq-hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;}
+/* ── Dental landing — scoped styles (dark/gold theme) ── */
+.dq-hero{padding:64px 20px 26px;max-width:880px;margin:0 auto;text-align:center;}
 .dq-hero .sec-lbl{display:inline-flex;}
-.dq-hero h1{font-size:40px;line-height:1.12;letter-spacing:-.5px;margin:14px 0 14px;color:#fff;}
+.dq-hero h1{font-size:44px;line-height:1.1;letter-spacing:-.5px;margin:16px 0 16px;color:#fff;}
 .dq-hero h1 em{color:var(--gold);font-style:normal;}
-.dq-hero p{font-size:17px;line-height:1.65;color:var(--text-soft,#c9c8e2);margin:0;}
-.dq-hero-photo img{
-  width:100%;max-width:400px;height:auto;display:block;margin:0 auto;
-  border-radius:20px;border:1px solid var(--glass-border,rgba(255,255,255,.28));
-  box-shadow:0 26px 50px rgba(0,0,0,.45);
-}
+.dq-hero .dq-sub{font-size:17px;line-height:1.65;color:var(--text-soft,#c9c8e2);margin:0 auto 14px;max-width:760px;}
+.dq-hero .dq-promise{font-size:15px;line-height:1.6;color:rgba(255,255,255,.82);margin:0 auto 26px;max-width:740px;}
+.dq-hero .dq-promise strong{color:#fff;}
+.dq-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center;}
+.dq-hero-tert{display:inline-block;margin:16px auto 0;color:var(--gold);font-weight:700;font-size:14.5px;text-decoration:none;}
+.dq-hero-tert:hover{text-decoration:underline;}
+.dq-cta-note{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:14px;font-weight:600;}
+.dq-cta-note i{color:var(--gold);}
 
-.dental-quiz-wrap{max-width:760px;margin:0 auto 90px;padding:0 20px;}
+/* Proof bar trust strip */
+.dq-proofbar{max-width:760px;margin:0 auto 4px;}
+.dq-proofbar .trust-row{border-top:none;margin:0;padding-top:0;}
+.dq-proofbar + .svc-stats{margin-top:40px;}
+
+/* Offer pricing callout */
+.dq-price{max-width:960px;margin:22px auto 0;padding:20px 24px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(57,25,186,.4),rgba(223,169,73,.16));
+  border:1px solid rgba(223,169,73,.32);color:rgba(255,255,255,.86);font-size:14.5px;line-height:1.6;text-align:center;}
+.dq-price strong{color:#fff;}
+.dq-close{max-width:760px;margin:18px auto 0;text-align:center;color:var(--text-soft,#c9c8e2);font-size:15px;line-height:1.6;}
+.dq-offer-cta{text-align:center;margin-top:26px;}
+
+/* Proof block extras */
+.dq-proof-spec{max-width:900px;margin:28px auto 0;text-align:center;color:rgba(255,255,255,.78);font-size:14.5px;line-height:1.7;}
+.dq-proof-spec strong{color:#fff;}
+.dq-proof-foot{max-width:820px;margin:14px auto 0;text-align:center;color:rgba(255,255,255,.5);font-size:12.5px;line-height:1.55;}
+
+/* Guarantee outcome note */
+.dq-g-outcome{max-width:900px;margin:22px auto 0;color:rgba(255,255,255,.78);font-size:14px;line-height:1.65;text-align:center;}
+.dq-g-outcome strong{color:#fff;}
+
+.dental-quiz-wrap{max-width:760px;margin:0 auto 0;padding:0 20px;}
 .quiz-container{
   background:var(--glass-bg,rgba(255,255,255,.1));
   border:1px solid var(--glass-border,rgba(255,255,255,.28));
@@ -48,7 +81,7 @@ include __DIR__ . '/../includes/nav.php';
 }
 .progress-bar{height:8px;background:rgba(255,255,255,.12);border-radius:99px;overflow:hidden;margin-bottom:28px;}
 .progress{height:100%;width:0;background:linear-gradient(90deg,var(--gold,#dfa949),#f5d27a);border-radius:99px;transition:width .35s ease;}
-#quiz h2{font-size:23px;line-height:1.3;color:#fff;margin:0 0 22px;font-weight:800;}
+#quiz-body h2{font-size:23px;line-height:1.3;color:#fff;margin:0 0 22px;font-weight:800;}
 .option{
   background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
   border-radius:13px;padding:15px 18px;margin-bottom:12px;color:rgba(255,255,255,.9);
@@ -81,62 +114,146 @@ include __DIR__ . '/../includes/nav.php';
 .result-box .cta:hover{filter:brightness(1.05);background:linear-gradient(135deg,var(--gold,#dfa949),#f5d27a);}
 
 @media (max-width:768px){
-  .dq-hero{padding:36px 18px 16px;}
-  .dq-hero-grid{grid-template-columns:1fr;gap:18px;text-align:center;}
+  .dq-hero{padding:40px 18px 18px;}
   .dq-hero .sec-lbl{justify-content:center;}
-  .dq-hero h1{font-size:30px;}
-  .dq-hero-photo{order:-1;}
-  .dq-hero-photo img{max-width:300px;}
+  .dq-hero h1{font-size:31px;}
+  .dq-hero-btns{flex-direction:column;align-items:stretch;}
   .quiz-container{padding:24px 20px;}
 }
 </style>
 
 <main>
+  <!-- HERO — offer-led, with CTA ladder -->
   <header class="dq-hero reveal">
-    <div class="dq-hero-grid">
-      <div class="dq-hero-copy">
-        <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
-        <h1>How much time &amp; production is <em>admin costing</em> your practice?</h1>
-        <p>Answer 6 quick questions to get your efficiency tier, an estimate of the hours your front desk could reclaim each week, and the weekly production hiding in your scheduling, recall and billing workload, plus a downloadable report. Takes about 2 minutes.</p>
-      </div>
-      <div class="dq-hero-photo">
-        <img src="<?= $home_base ?>images/dental-quiz.webp" alt="Smiling HIPAA-certified dental virtual assistant wearing a headset, managing scheduling and patient calls for a dental practice" width="920" height="930" loading="eager">
-      </div>
+    <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> HIPAA-certified dental VAs &middot; backed by the 30-Day Right-Fit Promise</div>
+    <h1>Fully staff your front office in weeks, not months, for <em>up to 73% less</em>.</h1>
+    <p class="dq-sub">A dedicated, HIPAA-certified dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $975/mo part-time, all-in.</p>
+    <p class="dq-promise">Not the right fit in month one? <strong>We replace them at no cost, or refund every billed day.</strong> No clawback, no lock-in.</p>
+    <div class="dq-hero-btns">
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist, just your email <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
+    <div><a href="#quiz" class="dq-hero-tert">Not sure where your time is going? Take the 2-min efficiency quiz &rarr;</a></div>
+    <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
   </header>
 
-  <div class="dental-quiz-wrap">
-    <div class="quiz-container">
-      <div class="progress-bar">
-        <div class="progress" id="progress"></div>
-      </div>
-      <div id="quiz"></div>
+  <!-- PROOF BAR -->
+  <div class="dq-proofbar reveal">
+    <div class="trust-row">
+      <div class="trust-item"><i class="fa-solid fa-location-dot"></i> Trusted by practices across the U.S.</div>
+      <div class="trust-item"><i class="fa-brands fa-google"></i> 4.9 Google rating</div>
+      <div class="trust-item"><i class="fa-solid fa-file-circle-check"></i> 95%+ clean-claim rate</div>
     </div>
   </div>
-
-  <!-- TRUST STATS -->
   <div class="svc-stats reveal">
     <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Lower Staffing Cost</div></div>
-    <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">HIPAA-Certified</div></div>
+    <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Clean-Claim Rate</div></div>
+    <div class="svc-stat"><div class="svc-stat-num">4.9</div><div class="svc-stat-lbl">Avg Google Rating</div></div>
     <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Live</div></div>
-    <div class="svc-stat"><div class="svc-stat-num">30</div><div class="svc-stat-lbl">Day Right-Fit Promise</div></div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- WHY IT MATTERS -->
+  <!-- PROOF BLOCK -->
+  <section class="sec" id="proof" aria-labelledby="proof-h">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
+      <h2 class="svc-h2" id="proof-h">The numbers from our <em>latest clients</em></h2>
+      <p class="sec-sub" style="max-width:720px;margin:0 auto;">No projections, no spin: real KPIs from recent dental placements.</p>
+    </div>
+    <div class="case-grid case-grid-4">
+      <article class="case-card reveal d1">
+        <div class="case-metric">
+          <div class="case-metric-h">No-Show Rate</div>
+          <div class="case-metric-row">
+            <div class="case-metric-after"><span class="lbl">Now</span><span class="val">9%</span></div>
+          </div>
+          <div class="case-metric-foot">Down from <strong>22%</strong></div>
+        </div>
+        <p class="case-q">No-shows cut 22% &rarr; 9%: pediatric dental practice, Tampa, FL.</p>
+        <div class="case-auth">
+          <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+          <div>
+            <div class="case-name">Pediatric Dental Practice</div>
+            <div class="case-svc"><i class="fa-solid fa-location-dot"></i> Tampa, FL</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case-card reveal d2">
+        <div class="case-metric">
+          <div class="case-metric-h">Visits Recovered</div>
+          <div class="case-metric-row">
+            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+14/wk</span></div>
+          </div>
+        </div>
+        <p class="case-q">+14 visits/week recovered from confirmations &amp; rebooks.</p>
+        <div class="case-auth">
+          <span class="ico-circle case-ico"><i class="fa-solid fa-calendar-check"></i></span>
+          <div>
+            <div class="case-name">Confirmations &amp; Rebooks</div>
+            <div class="case-svc"><i class="fa-solid fa-headset"></i> Scheduling &amp; Recall VA</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case-card reveal d3">
+        <div class="case-metric">
+          <div class="case-metric-h">Claims Cleared</div>
+          <div class="case-metric-row">
+            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
+          </div>
+          <div class="case-metric-foot">Above target</div>
+        </div>
+        <p class="case-q">Claims cleared 33% above target: endodontics &amp; oral-surgery group.</p>
+        <div class="case-auth">
+          <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+          <div>
+            <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
+            <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Specialty Billing &amp; RCM VA</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case-card reveal d4">
+        <div class="case-metric">
+          <div class="case-metric-h">First-Pass Clean Claims</div>
+          <div class="case-metric-row">
+            <div class="case-metric-after"><span class="lbl">Rate</span><span class="val">95%+</span></div>
+          </div>
+        </div>
+        <p class="case-q">95%+ first-pass clean-claim rate: CDT-coded claims with narratives.</p>
+        <div class="case-auth">
+          <span class="ico-circle case-ico"><i class="fa-solid fa-file-circle-check"></i></span>
+          <div>
+            <div class="case-name">Dental Billing &amp; Coding</div>
+            <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Dental Billing VA</div>
+          </div>
+        </div>
+      </article>
+    </div>
+    <p class="dq-proof-spec reveal">
+      <strong>30%+ no-show reduction:</strong> practice in Phoenix, AZ. &middot;
+      <strong>4.9</strong> average Google rating across Virtual Teammate clients.
+    </p>
+    <p class="dq-proof-foot reveal">Results reflect recent client placements and will vary by practice, PMS and starting baseline.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PAIN -->
   <section class="svc-split">
     <div class="reveal">
       <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
       <h2 class="svc-h2">Every hour on the phones is an hour <em>off the schedule</em></h2>
-      <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk quietly eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
+      <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
       <ul class="svc-checks">
         <li><i class="fa-solid fa-check"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></li>
         <li><i class="fa-solid fa-check"></i><span><strong>Lapsed hygiene recall</strong> that lets patients, and recurring production, slip away.</span></li>
         <li><i class="fa-solid fa-check"></i><span><strong>Unscheduled treatment</strong> sitting in the software after the patient said yes.</span></li>
         <li><i class="fa-solid fa-check"></i><span><strong>A front desk underwater</strong> on calls, verifications and claims, every single day.</span></li>
       </ul>
-      <p class="svc-p">The quiz above puts a number on it. A HIPAA-certified Virtual Teammate takes it off your plate.</p>
+      <p class="svc-p">The quiz below puts a number on it. A HIPAA-certified Virtual Teammate takes it off your plate.</p>
     </div>
     <div class="svc-side-img reveal d2">
       <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.webp" alt="Dental practice reclaiming front-desk hours and production with a Virtual Teammate" loading="lazy"/>
@@ -145,7 +262,7 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="divider"></div>
 
-  <!-- WHAT THEY HANDLE -->
+  <!-- SOLUTION GRID — WHAT THEY HANDLE -->
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
@@ -165,6 +282,84 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="divider"></div>
 
+  <!-- QUIZ -->
+  <section class="sec" id="quiz">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
+      <h2 class="svc-h2">Not sure where the hours are going? <em>Find out in 2 minutes.</em></h2>
+      <p class="sec-sub" style="max-width:720px;margin:0 auto 8px;">Take the 2-minute efficiency quiz, see the weekly hours and production admin is costing you. Enter your email to get the full report.</p>
+    </div>
+    <div class="dental-quiz-wrap">
+      <div class="quiz-container">
+        <div class="progress-bar">
+          <div class="progress" id="progress"></div>
+        </div>
+        <div id="quiz-body"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- OFFER BLOCK -->
+  <section class="sec" id="offer" aria-labelledby="offer-h">
+    <div class="reveal" style="text-align:center;">
+      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
+      <h2 class="svc-h2" id="offer-h">Everything included, <em>one flat rate</em></h2>
+      <p class="sec-sub" style="max-width:760px;margin:0 auto;">Your dental Virtual Teammate, fully managed:</p>
+    </div>
+    <div class="offer-grid reveal d1">
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, HIPAA-certified VA</strong> matched to your specialty, PMS and US time zone.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-calendar-check"></i></span><p><strong>Scheduling, recall &amp; reactivation:</strong> chairs filled, hygiene recare worked.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><p><strong>Insurance verification &amp; benefit breakdowns</strong> done before the visit.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-file-invoice-dollar"></i></span><p><strong>CDT-coded claims with narratives</strong>, EOB posting and AR follow-up.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-clipboard-check"></i></span><p><strong>Treatment-plan follow-up:</strong> unscheduled treatment chased, financial arrangements set.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><p><strong>A dedicated Client Success Manager</strong> running performance and backup coverage.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-shield"></i></span><p><strong>Built-in backup</strong> the day your VA is out, arranged within hours, no charge.</p></div>
+    </div>
+    <div class="dq-price reveal">
+      <strong>Entry from $975/mo part-time.</strong> Pro: $1,625/mo full-time ($867/mo part-time). Specialist (dental billing &amp; coding): $2,167/mo full-time ($1,300/mo part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
+    </div>
+    <p class="dq-close reveal">Live in 1&ndash;2 weeks. Month-to-month after the first 90 days. Backed by the 30-Day Right-Fit Promise.</p>
+    <div class="dq-offer-cta reveal">
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- GUARANTEE -->
+  <section class="sec guarantee" id="promise" aria-labelledby="g-h2">
+    <div class="g-wrap reveal">
+      <div class="g-copy">
+        <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The Three Commitments</div>
+        <h2 class="sec-h2" id="g-h2">If it&rsquo;s not working in month one, <em>we make it right</em></h2>
+        <p class="sec-sub">The 30-Day Right-Fit Promise, published in writing, not buried in a sales call.</p>
+        <div class="g-cards">
+          <div class="g-card">
+            <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
+            <h3>No-cost replacement</h3>
+            <p>Not the right fit? We re-shortlist within <strong>5 business days</strong> and pause your billing until the replacement is live. You don&rsquo;t pay to fix a mismatch.</p>
+          </div>
+          <div class="g-card">
+            <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
+            <h3>30-day money-back window</h3>
+            <p>If outsourcing isn&rsquo;t working, cancel inside the first 30 days and we refund <strong>every billed day</strong>, no clawback, no lock-in.</p>
+          </div>
+          <div class="g-card">
+            <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
+            <h3>Backup coverage built in</h3>
+            <p>The day your VA is out, your CSM arranges a <strong>trained backup within hours</strong>, no extra charge. Your front desk never goes dark.</p>
+          </div>
+        </div>
+        <p class="dq-g-outcome">Dental billing placements can include a <strong>per-practice outcome commitment</strong>. Ask your CSM.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
   <!-- FAQ -->
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
@@ -175,18 +370,23 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA certified?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Transparent flat-rate pricing: typically 60&ndash;73% less than an equivalent in-house front-desk hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $975/mo part-time; Pro $1,625/mo full-time ($867/mo part-time); Specialist (dental billing &amp; coding) $2,167/mo full-time ($1,300/mo part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
+      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Am I locked into a contract?</div><div class="faq-a">No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your dental VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.</div></div>
+      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 5 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-lock"></i> How do you protect patient data?</div><div class="faq-a">Five layers: HIPAA training &amp; certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).</div></div>
+      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which practice-management software do your VAs know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.</div></div>
     </div>
   </section>
 
-  <!-- CLOSING CTA -->
+  <!-- FINAL CTA -->
   <section class="svc-cta">
     <h2>See your score? <em style="color:var(--gold);font-style:normal;">Now reclaim the hours.</em></h2>
-    <p>Book a free 15-minute consultation and we&rsquo;ll map exactly which front-office tasks to delegate first, or start your practice staffing audit. No commitment, covered by the 30-Day Right-Fit Promise.</p>
+    <p>Book your practice staffing audit and a Client Success Manager will map exactly which front-office tasks to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
-      <a href="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin" target="_blank" rel="noopener" class="btn-primary">Book a Free 15-Min Consultation <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-glass">Book My Staffing Audit <i class="fa-solid fa-clipboard-check"></i></a>
-      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist, just your email <i class="fa-solid fa-clipboard-check"></i></a>
+      <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> 30-Day Right-Fit Promise: no-cost replacement or every billed day refunded. No lock-in.</div>
     </div>
   </section>
 </main>
@@ -254,7 +454,7 @@ let currentQuestion = 0;
 let totalPoints = 0;
 
 function loadQuestion() {
-    const quiz = document.getElementById("quiz");
+    const quiz = document.getElementById("quiz-body");
     const progress = document.getElementById("progress");
 
     progress.style.width = ((currentQuestion / quizData.length) * 100) + "%";
@@ -281,48 +481,40 @@ function loadQuestion() {
 }
 
 function showResults(){
-    const quiz = document.getElementById("quiz");
+    const quiz = document.getElementById("quiz-body");
     document.getElementById("progress").style.width = "100%";
 
-    let tier = "";
-    let message = "";
     let hoursSaved = Math.floor((totalPoints / 80) * 20);
     let revenuePotential = hoursSaved * 200;
 
+    let message = "";
     if(totalPoints <= 20){
-        tier = "Minimal Need";
         message = "Your systems are solid, but small delegation improvements could keep the schedule fuller and free up your front desk.";
     } else if(totalPoints <= 40){
-        tier = "Moderate Need";
         message = "You have optimization opportunities. Delegating front-office admin could reclaim serious time and protect production.";
     } else if(totalPoints <= 60){
-        tier = "High Need";
         message = "Your front desk is overloaded. A Virtual Teammate could dramatically improve scheduling, recall and collections.";
     } else {
-        tier = "Urgent Need";
         message = "Your practice is likely leaving production on the table due to front-office overload.";
     }
 
     quiz.innerHTML = `
         <div class="result-box">
-            <h2>Your result: ${tier}</h2>
-            <p><strong>Total Score:</strong> ${totalPoints} points</p>
+            <h2>You could reclaim about ${hoursSaved} hours a week.</h2>
+            <p><strong>Estimated time saved:</strong> ${hoursSaved} hours/week</p>
+            <p><strong>Weekly production your admin work is costing you:</strong> ~$${revenuePotential.toLocaleString()}/week</p>
             <p>${message}</p>
-            <p><strong>Estimated Time Saved:</strong> ${hoursSaved} hours/week ⏳</p>
-            <p><strong>Potential Production Recovered:</strong> $${revenuePotential}/week 💰</p>
-            <div class="badge">🦷 Certified Delegator</div>
             <br>
-            <button class="cta" onclick="window.open('https://meetings.hubspot.com/chris4273/sales-discovery-round-robin','_blank')">
-                Book a Free 15-min Consultation →
+            <button class="cta" onclick="location.hash='#cta-book'">
+                Book my practice staffing audit →
             </button>
+            <p style="font-size:12.5px;color:rgba(255,255,255,.55);margin-top:10px;">No commitment. Covered by the 30-Day Right-Fit Promise.</p>
+            <br>
+            <input type="email" id="userEmail" placeholder="Enter email for your detailed report">
+            <br>
+            <input type="phone" id="userPhone" placeholder="Enter phone for your detailed report">
             <br><br>
-            <input type="email" id="userEmail" placeholder="Enter email for detailed report">
-            <br>
-
-             <input type="phone" id="userPhone" placeholder="Enter phone for detailed report">
-             <br>
-            <br>
-            <button onclick="generatePDF('${tier}', ${hoursSaved}, ${revenuePotential})">
+            <button onclick="generatePDF(${hoursSaved}, ${revenuePotential})">
                 Download My Detailed Report (PDF)
             </button>
             <br><br>
@@ -330,7 +522,7 @@ function showResults(){
         </div>
     `;
 }
-function generatePDF(tier, hoursSaved, revenuePotential){
+function generatePDF(hoursSaved, revenuePotential){
     const email = document.getElementById("userEmail").value;
      const phone = document.getElementById("userPhone").value;
     const leadsource = "Virtual Teammate Quiz - Dental Owner";
@@ -343,7 +535,7 @@ function generatePDF(tier, hoursSaved, revenuePotential){
    submitToHubSpot(email, phone, leadsource);
 
     // 🔹 Submit to the Virtual Teammate lead database (portal Leads page)
-   submitToLeadDB(email, phone, tier, hoursSaved, revenuePotential);
+   submitToLeadDB(email, phone, hoursSaved, revenuePotential);
 
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -353,12 +545,10 @@ function generatePDF(tier, hoursSaved, revenuePotential){
 
     doc.setFontSize(12);
     doc.text(`Generated for: ${email}`, 20, 30);
-    doc.text(`Assessment Tier: ${tier}`, 20, 40);
-    doc.text(`Total Score: ${totalPoints}`, 20, 50);
-    doc.text(`Estimated Time Saved: ${hoursSaved} hours/week`, 20, 60);
-    doc.text(`Potential Production Recovered: $${revenuePotential}/week`, 20, 70);
+    doc.text(`Estimated Time Saved: ${hoursSaved} hours/week`, 20, 40);
+    doc.text(`Potential Production Recovered: $${revenuePotential}/week`, 20, 50);
 
-    doc.line(20, 75, 190, 75);
+    doc.line(20, 58, 190, 58);
 
     doc.setFontSize(14);
     doc.text("Detailed Analysis", 20, 85);
@@ -377,7 +567,7 @@ Key Optimization Areas:
 • Patient communication systems
 
 Recommended Next Step:
-Book a 15-minute consultation to design your delegation strategy.
+Book your practice staffing audit to design your delegation strategy.
     `;
 
     doc.text(analysisText, 20, 95, { maxWidth: 170 });
@@ -395,14 +585,14 @@ function restartQuiz(){
 }
 // Fire-and-forget POST to the site lead endpoint (saves to the portal Leads DB).
 const LEAD_URL = "<?= $home_base ?>lead.php";
-function submitToLeadDB(email, phone, tier, hoursSaved, revenuePotential){
+function submitToLeadDB(email, phone, hoursSaved, revenuePotential){
     const fd = new URLSearchParams();
     fd.append("email", email || "");
     fd.append("phone", phone || "");
     fd.append("source", "Dental Practice Efficiency Quiz");
     fd.append("form", "dental-quiz");
     fd.append("message",
-        "Quiz result: " + tier + " (" + totalPoints + " pts). " +
+        "Quiz score: " + totalPoints + " pts. " +
         "Est. " + hoursSaved + " hrs/week reclaimable, ~$" + revenuePotential + "/week in recoverable production.");
     fetch(LEAD_URL, { method: "POST", body: fd, credentials: "same-origin" })
         .then(function(r){ if(!r.ok){ console.error("Lead DB submission error"); } })

@@ -95,9 +95,9 @@ if ($lf_mode === 'form') {
         </div>
         <div class="lead-band-cta">
           <span class="lead-band-cta-ico"><i class="fa-solid fa-calendar-check"></i></span>
-          <h3>Book My Staffing Audit</h3>
+          <h3>Book my practice staffing audit</h3>
           <p>Talk to a real US-based Client Success Manager, not an offshore queue. Pick a time that works and we&rsquo;ll map your busiest workflows and which roles to delegate first.</p>
-          <a class="cf-submit" href="#cta-book" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="cf-submit" href="#cta-book" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cf-note">No obligation &middot; Covered by the 30-Day Right-Fit Promise</div>
         </div>
       </div>

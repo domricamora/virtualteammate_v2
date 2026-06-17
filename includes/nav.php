@@ -12,7 +12,7 @@ $home_base = $home_base ?? './';
 <div class="topbar" role="complementary">
   <i class="fa-solid fa-hospital" aria-hidden="true"></i> HIPAA-certified medical &amp; dental virtual assistants: vetted, trained on your systems, live in 1&ndash;2 weeks.
   &nbsp;&bull;&nbsp;
-  <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->
@@ -84,7 +84,7 @@ $home_base = $home_base ?? './';
             <i class="fa-solid fa-circle-nodes"></i>
             <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental, front desk to back office, all HIPAA-certified.</span>
           </div>
-          <a href="<?= $home_base ?>#cta-practice-audit" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="<?= $home_base ?>#cta-practice-audit" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
         </div>
       </div>
@@ -125,6 +125,6 @@ $home_base = $home_base ?? './';
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>
-    <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit" class="btn-nav">Book My Staffing Audit</a>
+    <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit" class="btn-nav">Book my practice staffing audit</a>
   </div>
 </nav>

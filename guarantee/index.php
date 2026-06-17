@@ -92,7 +92,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Hire a Virtual Teammate <em>zero-risk</em>. Period.</h1>
     <p class="svc-p">Three commitments. Published in writing. <strong>No fine print. No sales-call gotchas. No "but you signed" emails.</strong> If your teammate isn&rsquo;t the right fit inside the first 30 days, we make it right: at no charge, no friction, no contract trap.</p>
     <div class="svc-hero-ctas">
-      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#claim" class="btn-glass">How to Claim the Promise <i class="fa-solid fa-list-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
@@ -272,7 +272,7 @@ include __DIR__ . '/../includes/nav.php';
   <h2>Ready to hire <em style="color:var(--gold);font-style:normal;">without the risk</em>?</h2>
   <p>Book a 30-minute value strategy session. We&rsquo;ll map your top workflows, recommend a tier and headcount, and back the whole thing with the Right-Fit Promise: in writing, before you sign.</p>
   <div class="svc-cta-btns">
-    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Real Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>

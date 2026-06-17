@@ -70,7 +70,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Built to help practices and businesses <em>do more, with less overhead</em></h1>
     <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-certified virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created, not hours billed.</p>
     <div class="svc-hero-ctas">
-      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>

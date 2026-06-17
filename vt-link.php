@@ -168,7 +168,7 @@ body{font-family:'Manrope',Arial,sans-serif;background:linear-gradient(165deg,#2
           </div>
         <?php endif; ?>
         <div class="vl-sec" style="margin-bottom:0;text-align:center;padding-top:8px;">
-          <a class="vl-cta" href="index.php#cta-practice-audit">Book My Staffing Audit &rarr;</a>
+          <a class="vl-cta" href="index.php#cta-practice-audit">Book my practice staffing audit &rarr;</a>
           <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise &mdash; free replacement or your money back.</div>
         </div>
       </div>
