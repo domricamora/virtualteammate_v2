@@ -142,7 +142,7 @@ include __DIR__ . '/../includes/nav.php';
     <p class="hcq-sub">A dedicated, HIPAA-certified medical VA &mdash; trained on Epic, Cerner, eClinicalWorks, Athenahealth and more &mdash; owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
     <p class="hcq-promise">Published flat-rate pricing from <strong>$975/mo part-time</strong>, all-in &mdash; no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="hcq-hero-tert">Or take the 2-minute Practice Efficiency Quiz &rarr;</a></div>
@@ -313,7 +313,7 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <p class="hcq-close reveal">Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks. Month-to-month after the first 90 days, no long-term contract.</p>
     <div class="hcq-offer-cta reveal">
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="hcq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
   </section>
@@ -393,7 +393,7 @@ include __DIR__ . '/../includes/nav.php';
     <h2>Ready to Hand Off the <em style="color:var(--gold);font-style:normal;">Back Office?</em></h2>
     <p>Book your Practice Staffing Audit and a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first &mdash; or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Practice Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book My Staffing Audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
@@ -515,7 +515,7 @@ function showResults(){
             <p>${message}</p>
             <br>
             <button class="cta" onclick="location.hash='#cta-book'">
-                Book My Practice Staffing Audit →
+                Book My Staffing Audit →
             </button>
             <p style="font-size:12.5px;color:rgba(255,255,255,.55);margin-top:10px;">No commitment. Covered by the 30-Day Right-Fit Promise.</p>
             <br>
@@ -576,7 +576,7 @@ Key Optimization Areas:
 • Patient communication systems
 
 Recommended Next Step:
-Book a 15-minute consultation to design your delegation strategy.
+Book your Staffing Audit to map your delegation strategy.
     `;
 
     doc.text(analysisText, 20, 95, { maxWidth: 170 });
