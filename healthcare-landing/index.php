@@ -170,7 +170,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="proof" aria-labelledby="proof-h">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-      <h2 class="svc-h2" id="proof-h">Real Numbers From Our <em>Latest Client Audit</em></h2>
+      <h2 class="svc-h2" id="proof-h">Real numbers from our <em>latest clients</em></h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto;">No projections, no spin: results our virtual teammates delivered against the targets that matter most to a practice.</p>
     </div>
     <div class="case-grid case-grid-4">
