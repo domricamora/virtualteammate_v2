@@ -1155,7 +1155,7 @@ a.pill i{font-size:9px;color:var(--gold);}
 .cta-stage .cta-note{flex:0 0 auto;margin-top:0;}
 /* The hero is a left-aligned layout, so its note left-aligns under the buttons
    (the centered default is for the centered CTA blocks elsewhere). */
-.hero .cta-note{justify-content:flex-start;text-align:left;}
+.hero .cta-note{justify-content:flex-start;text-align:left;margin-bottom:22px;}
 .cta-note i{color:var(--gold);font-size:11px;}
 
 /* Availability / urgency note (hero + above the final CTA ladder). */
