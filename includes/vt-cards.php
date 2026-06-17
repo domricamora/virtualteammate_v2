@@ -60,7 +60,8 @@ if (is_file($vtc_dbp)) {
         $vtc_pdo = new PDO('sqlite:' . $vtc_dbp);
         $vtc_pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT u.id, u.first_name, u.last_name, u.country, u.photo_url,
-                       p.department, p.role_title, p.primary_skills, p.experience_years
+                       p.department, p.role_title, p.primary_skills, p.experience_years,
+                       p.ehr_software, p.hipaa_certified, p.summary
                 FROM vt_profiles p
                 JOIN users u ON u.id = p.user_id
                 WHERE u.role IN ('vt_hired','vt_onpool') AND u.active = 1
@@ -165,11 +166,34 @@ if ($vtc_filterable) {
         $role    = trim((string) $v['role_title']) ?: ($dept ?: 'Virtual Assistant');
         $country = trim((string) $v['country']);
         $allSk   = $vtc_split((string) ($v['primary_skills'] ?? ''));
-        $skills  = array_slice($allSk, 0, 4);
         $hasPhoto= trim((string) ($v['photo_url'] ?? '')) !== '';
         $ini     = $vtc_h(mb_strtoupper(mb_substr($name, 0, 1)) ?: '?');
         $delay   = 'd' . (($i % 3) + 1);
         $blob    = strtolower(trim(implode(' ', array_filter([$name, $role, $dept, $country, implode(' ', $allSk)]))));
+
+        /* ── Talent-card content (mirrors the homepage "Meet the Team" cards) ── */
+        $hay      = mb_strtolower($dept . ' ' . $role);
+        $isDental = str_contains($hay, 'dental');
+        $isClin   = $isDental || str_contains($hay, 'medical');
+        // Specialty tag: department name, classified gold (medical/other) vs violet (dental).
+        $tag      = $dept !== '' ? $dept : ($isDental ? 'Dental VA' : ($isClin ? 'Medical VA' : 'Virtual Assistant'));
+        // Meta pills: Systems (EHR) · Experience · HIPAA — same trio as the talent cards.
+        $ehr      = trim((string) ($v['ehr_software'] ?? ''));
+        $years    = (int) ($v['experience_years'] ?? 0);
+        $expLbl   = $years > 0 ? $years . '+ yrs' : 'Experienced';
+        $hipaa    = !empty($v['hipaa_certified']) || $isClin;
+        // One-line capability: first sentence of summary, else primary skills, else a default.
+        $cap = trim((string) ($v['summary'] ?? ''));
+        if ($cap !== '') {
+            $cap = preg_split('/(?<=[.!?])\s+/', $cap)[0];
+        } elseif ($allSk) {
+            $cap = implode(', ', array_slice($allSk, 0, 4));
+        } else {
+            $cap = 'Ready to support your team from day one.';
+        }
+        $cap = function_exists('mb_strimwidth')
+            ? mb_strimwidth($cap, 0, 96, '…')
+            : (strlen($cap) > 96 ? substr($cap, 0, 95) . '…' : $cap);
     ?>
     <article class="vtd-card reveal <?= $delay ?>"
              data-dept="<?= $vtc_h($dept) ?>"
@@ -184,15 +208,14 @@ if ($vtc_filterable) {
         <?php endif; ?>
       </div>
       <div class="vtd-name"><?= $vtc_h($name) ?></div>
-      <?php if ($dept !== ''): ?><div class="vtd-dept"><?= $vtc_h($dept) ?></div><?php endif; ?>
+      <span class="prof-tag <?= $isDental ? 'dent' : 'med' ?>"><?= $vtc_h($tag) ?></span>
       <div class="vtd-role"><?= $vtc_h($role) ?></div>
-      <?php if ($country !== ''): ?><div class="vtd-loc"><i class="fa-solid fa-location-dot"></i> <?= $vtc_h($country) ?></div><?php endif; ?>
-      <?php if ($skills): ?>
-        <div class="vtd-skills-h">Skills</div>
-        <div class="vtd-skills">
-          <?php foreach ($skills as $sk): ?><span class="vtd-skill"><?= $vtc_h($sk) ?></span><?php endforeach; ?>
-        </div>
-      <?php endif; ?>
+      <div class="prof-meta">
+        <?php if ($ehr !== ''): ?><span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= $vtc_h($ehr) ?></span><?php endif; ?>
+        <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= $vtc_h($expLbl) ?></span>
+        <?php if ($hipaa): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span><?php endif; ?>
+      </div>
+      <div class="prof-cap"><?= $vtc_h($cap) ?></div>
       <a class="vtd-view" href="<?= $vtc_h($vtc_cta_href) ?>" data-cta-intent="<?= $vtc_h($vtc_cta_intent) ?>"<?php if ($vtc_cta_vt): ?> data-vt-id="<?= (int) $v['id'] ?>" data-vt-name="<?= $vtc_h($name . ' — ' . $role) ?>"<?php endif; ?>>
         <i class="fa-solid fa-user-plus"></i> <?= $vtc_h($vtc_cta_label) ?>
       </a>

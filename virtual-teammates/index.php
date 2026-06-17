@@ -90,7 +90,7 @@ if ($pdo instanceof PDO) {
         $rows = $pdo->query(
             "SELECT u.id, u.first_name, u.last_name, u.country, u.role, u.photo_url,
                     p.department, p.role_title, p.primary_skills, p.experience_years,
-                    p.predictive_index, p.quiz_tier, p.engagement_score,
+                    p.ehr_software, p.predictive_index, p.quiz_tier, p.engagement_score,
                     p.english_level, p.iq_band, p.technical_band, p.disc_profile,
                     p.personality_profile, p.ci_role, p.hipaa_certified,
                     p.summary, p.experience_text, p.video_url, p.resume_url
@@ -154,6 +154,22 @@ foreach ($rows as $r) {
         trim((string) ($r['engagement_score'] ?? '')),
     ], static fn($v) => $v !== ''));
 
+    // Talent-card content (mirrors the homepage "Meet the Team" cards).
+    $hay      = mb_strtolower($dept . ' ' . $role);
+    $isDental = str_contains($hay, 'dental');
+    $isClin   = $isDental || str_contains($hay, 'medical');
+    $cap = trim((string) ($r['summary'] ?? ''));
+    if ($cap !== '') {
+        $cap = preg_split('/(?<=[.!?])\s+/', $cap)[0];
+    } elseif ($skills) {
+        $cap = implode(', ', array_slice($skills, 0, 4));
+    } else {
+        $cap = 'Ready to support your team from day one.';
+    }
+    $cap = function_exists('mb_strimwidth')
+        ? mb_strimwidth($cap, 0, 96, '…')
+        : (strlen($cap) > 96 ? substr($cap, 0, 95) . '…' : $cap);
+
     $card = [
         'id'         => (int) $r['id'],
         'public_name'=> trim($first . ' ' . $lastIni) ?: 'Virtual Teammate',
@@ -161,6 +177,11 @@ foreach ($rows as $r) {
         'role'       => $role ?: ($dept ?: 'Virtual Assistant'),
         'country'    => trim((string) $r['country']),
         'years'      => (int) ($r['experience_years'] ?? 0),
+        'ehr'        => trim((string) ($r['ehr_software'] ?? '')),
+        'hipaa'      => !empty($r['hipaa_certified']) || $isClin,
+        'is_dental'  => $isDental,
+        'tag'        => $dept !== '' ? $dept : ($isDental ? 'Dental VA' : ($isClin ? 'Medical VA' : 'Virtual Assistant')),
+        'cap'        => $cap,
         'scores'     => $scores,
         'skills'     => $skills,
         'status'     => $isHired ? 'Engaged' : 'Available',
@@ -391,20 +412,14 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             <?php endif; ?>
           </div>
           <div class="vtd-name"><?= $h($v['public_name']) ?></div>
-          <?php if ($v['dept'] !== ''): ?><div class="vtd-dept"><?= $h($v['dept']) ?></div><?php endif; ?>
+          <span class="prof-tag <?= $v['is_dental'] ? 'dent' : 'med' ?>"><?= $h($v['tag']) ?></span>
           <div class="vtd-role"><?= $h($v['role']) ?></div>
-          <?php if ($v['country'] !== ''): ?><div class="vtd-loc"><i class="fa-solid fa-location-dot"></i> <?= $h($v['country']) ?></div><?php endif; ?>
-          <?php if ($v['scores']): ?>
-            <div class="vtd-scores">
-              <?php foreach ($v['scores'] as $sc): ?><span class="vtd-score"><?= $h($sc) ?></span><?php endforeach; ?>
-            </div>
-          <?php endif; ?>
-          <?php if ($v['skills']): ?>
-            <div class="vtd-skills-h">Skills</div>
-            <div class="vtd-skills">
-              <?php foreach (array_slice($v['skills'], 0, 5) as $sk): ?><span class="vtd-skill"><?= $h($sk) ?></span><?php endforeach; ?>
-            </div>
-          <?php endif; ?>
+          <div class="prof-meta">
+            <?php if ($v['ehr'] !== ''): ?><span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= $h($v['ehr']) ?></span><?php endif; ?>
+            <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= $v['years'] > 0 ? $h($v['years'] . '+ yrs') : 'Experienced' ?></span>
+            <?php if ($v['hipaa']): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span><?php endif; ?>
+          </div>
+          <div class="prof-cap"><?= $h($v['cap']) ?></div>
           <button type="button" class="vtd-view" data-view="<?= (int) $v['id'] ?>">
             <i class="fa-solid fa-arrow-up-right-from-square"></i> View profile
           </button>

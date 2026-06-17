@@ -2811,6 +2811,11 @@ textarea.vtd-field{resize:vertical;min-height:52px;}
   display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,border-color .2s;text-decoration:none;}
 .vtd-view:hover{background:rgba(223,169,73,.16);border-color:var(--gold);}
 .vtd-view i{font-size:11px;}
+/* Talent-card content reused inside the VT cards (mirrors homepage "Meet the Team"). */
+.vtd-card .prof-tag{margin:10px 0 0;}
+.vtd-card .vtd-role{margin-top:8px;min-height:34px;}
+.vtd-card .prof-meta{margin:12px 0 0;}
+.vtd-card .prof-cap{padding-top:12px;}
 .vtd-more-wrap{text-align:center;margin-top:30px;}
 
 /* SEO content blocks */
