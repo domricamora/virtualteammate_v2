@@ -63,6 +63,8 @@ include __DIR__ . '/../includes/nav.php';
 .dq-price strong{color:#fff;}
 .dq-close{max-width:760px;margin:18px auto 0;text-align:center;color:var(--text-soft,#c9c8e2);font-size:15px;line-height:1.6;}
 .dq-offer-cta{text-align:center;margin-top:26px;}
+/* Center the orphan (7th) card on the offer grid's last row */
+#offer .offer-grid > .offer-item:last-child{grid-column:1 / -1;max-width:calc(50% - 9px);margin-left:auto;margin-right:auto;}
 
 /* Proof block extras */
 .dq-proof-spec{max-width:900px;margin:28px auto 0;text-align:center;color:rgba(255,255,255,.78);font-size:14.5px;line-height:1.7;}
@@ -72,6 +74,20 @@ include __DIR__ . '/../includes/nav.php';
 /* Guarantee outcome note */
 .dq-g-outcome{max-width:900px;margin:22px auto 0;color:rgba(255,255,255,.78);font-size:14px;line-height:1.65;text-align:center;}
 .dq-g-outcome strong{color:#fff;}
+
+/* Pain section — centered header + balanced 2x2 grid (no image) */
+.dq-pain{max-width:980px;margin:0 auto;text-align:center;}
+.dq-pain .svc-p{max-width:760px;margin:0 auto 8px;}
+.dq-pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:880px;margin:32px auto 0;text-align:left;}
+.dq-pain-item{display:flex;gap:15px;align-items:flex-start;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;padding:18px 20px;color:rgba(255,255,255,.86);font-size:15px;line-height:1.5;}
+.dq-pain-item strong{color:#fff;}
+.dq-pain-item i{flex:0 0 38px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:rgba(223,169,73,.14);border:1px solid rgba(223,169,73,.4);color:var(--gold);font-size:15px;}
+.dq-pain-close{max-width:740px;margin:28px auto 0;text-align:center;font-size:16px;line-height:1.6;color:rgba(255,255,255,.82);}
+.dq-pain-close strong{color:#fff;}
+@media (max-width:768px){.dq-pain-grid{grid-template-columns:1fr;}}
 
 .dental-quiz-wrap{max-width:760px;margin:0 auto 0;padding:0 20px;}
 .quiz-container{
@@ -121,6 +137,7 @@ include __DIR__ . '/../includes/nav.php';
   .dq-hero h1{font-size:31px;}
   .dq-hero-btns{flex-direction:column;align-items:stretch;}
   .quiz-container{padding:24px 20px;}
+  #offer .offer-grid > .offer-item:last-child{max-width:none;}
 }
 </style>
 
@@ -244,21 +261,18 @@ include __DIR__ . '/../includes/nav.php';
   <div class="divider"></div>
 
   <!-- PAIN -->
-  <section class="svc-split">
-    <div class="reveal">
-      <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
+  <section class="sec" id="pain">
+    <div class="dq-pain reveal">
+      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
       <h2 class="svc-h2">Every hour on the phones is an hour <em>off the schedule</em></h2>
       <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
-      <ul class="svc-checks">
-        <li><i class="fa-solid fa-check"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></li>
-        <li><i class="fa-solid fa-check"></i><span><strong>Lapsed hygiene recall</strong> that lets patients, and recurring production, slip away.</span></li>
-        <li><i class="fa-solid fa-check"></i><span><strong>Unscheduled treatment</strong> sitting in the software after the patient said yes.</span></li>
-        <li><i class="fa-solid fa-check"></i><span><strong>A front desk underwater</strong> on calls, verifications and claims, every single day.</span></li>
-      </ul>
-      <p class="svc-p">The quiz below puts a number on it. A HIPAA-certified Virtual Teammate takes it off your plate.</p>
-    </div>
-    <div class="svc-side-img reveal d2">
-      <img src="<?= $home_base ?>images/photos/dental/How-Dental-Virtual-Assistants-Improve-Workflow-Efficiency.webp" alt="Dental practice reclaiming front-desk hours and production with a Virtual Teammate" loading="lazy"/>
+      <div class="dq-pain-grid">
+        <div class="dq-pain-item"><i class="fa-solid fa-calendar-xmark"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></div>
+        <div class="dq-pain-item"><i class="fa-solid fa-bell-slash"></i><span><strong>Lapsed hygiene recall</strong> that lets patients, and recurring production, slip away.</span></div>
+        <div class="dq-pain-item"><i class="fa-solid fa-clipboard-list"></i><span><strong>Unscheduled treatment</strong> sitting in the software after the patient said yes.</span></div>
+        <div class="dq-pain-item"><i class="fa-solid fa-inbox"></i><span><strong>A front desk underwater</strong> on calls, verifications and claims, every single day.</span></div>
+      </div>
+      <p class="dq-pain-close">The quiz below puts a number on it. A HIPAA-certified Virtual Teammate takes it off your plate.</p>
     </div>
   </section>
 
@@ -322,7 +336,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="dq-price reveal">
       <strong>From $750 bi-weekly full time ($400 part-time).</strong> Highly Specialized tier (dental billing &amp; coding): $1,000 bi-weekly full-time ($600 part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
     </div>
-    <p class="dq-close reveal">Live in 1&ndash;2 weeks. Month-to-month after the first 90 days. Backed by the 30-Day Right-Fit Promise.</p>
+    <p class="dq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. No long-term contract.</p>
     <div class="dq-offer-cta reveal">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
