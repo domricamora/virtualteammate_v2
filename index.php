@@ -279,12 +279,17 @@ function vtnew_homepage_profiles(int $limit = 6): array
       </div>
     </div>
 
+    <!-- Values below are pre-rendered for the default state (2 full-time teammates)
+         so crawlers/snippets see real numbers, not $0. js/main.js animates from
+         these on load and recalculates live. Keep in sync with RATE in main.js
+         (vt.ft $750 / us.ft $2,770 biweekly × 26): 2× FT → $144,040 vs $39,000,
+         $105,040 saved / yr ($8,753/mo), 73%, 3-yr $315,120, per-teammate $52,520. -->
     <div class="calc-results">
       <div class="calc-results-top">
         <div class="calc-hero-num">
           <div class="calc-hero-lbl">Estimated Annual Savings</div>
-          <div class="calc-hero-val" id="calcAnnual">$0</div>
-          <div class="calc-hero-sub"><span id="calcMonthly">$0</span> per month saved</div>
+          <div class="calc-hero-val" id="calcAnnual">$105,040</div>
+          <div class="calc-hero-sub"><span id="calcMonthly">$8,753</span> per month saved</div>
         </div>
         <div class="calc-gauge" aria-hidden="true">
           <svg viewBox="0 0 200 200">
@@ -295,10 +300,10 @@ function vtnew_homepage_profiles(int $limit = 6): array
               </linearGradient>
             </defs>
             <circle class="gauge-bg" cx="100" cy="100" r="84"/>
-            <circle class="gauge-fg" id="calcGaugeFg" cx="100" cy="100" r="84" stroke-dasharray="0 528"/>
+            <circle class="gauge-fg" id="calcGaugeFg" cx="100" cy="100" r="84" stroke-dasharray="385 143"/>
           </svg>
           <div class="calc-gauge-center">
-            <div class="calc-gauge-pct" id="calcPct">0%</div>
+            <div class="calc-gauge-pct" id="calcPct">73%</div>
             <div class="calc-gauge-lbl">You Save</div>
           </div>
         </div>
@@ -308,16 +313,16 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="calc-bar-row">
           <div class="calc-bar-head">
             <span class="calc-bar-name us"><span class="swatch"></span>US In-House Cost</span>
-            <span class="calc-bar-amt us" id="calcUsAmt">$0 / yr</span>
+            <span class="calc-bar-amt us" id="calcUsAmt">$144,040 / yr</span>
           </div>
-          <div class="calc-bar-track"><div class="calc-bar-fill us" id="calcUsBar" style="width:0%;"></div></div>
+          <div class="calc-bar-track"><div class="calc-bar-fill us" id="calcUsBar" style="width:100%;"></div></div>
         </div>
         <div class="calc-bar-row">
           <div class="calc-bar-head">
             <span class="calc-bar-name vt"><span class="swatch"></span>Virtual Teammate Cost</span>
-            <span class="calc-bar-amt vt" id="calcVtAmt">$0 / yr</span>
+            <span class="calc-bar-amt vt" id="calcVtAmt">$39,000 / yr</span>
           </div>
-          <div class="calc-bar-track"><div class="calc-bar-fill vt" id="calcVtBar" style="width:0%;"></div></div>
+          <div class="calc-bar-track"><div class="calc-bar-fill vt" id="calcVtBar" style="width:27%;"></div></div>
         </div>
       </div>
 
@@ -326,11 +331,11 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="calc-kpis">
           <div class="calc-kpi">
             <div class="calc-kpi-lbl"><i class="fa-solid fa-chart-line"></i> 3-Year Value</div>
-            <div class="calc-kpi-val" id="calc3yr">$0</div>
+            <div class="calc-kpi-val" id="calc3yr">$315,120</div>
           </div>
           <div class="calc-kpi">
             <div class="calc-kpi-lbl"><i class="fa-solid fa-user-tie"></i> Per-Teammate / Year</div>
-            <div class="calc-kpi-val" id="calcPerVa">$0</div>
+            <div class="calc-kpi-val" id="calcPerVa">$52,520</div>
           </div>
           <div class="calc-kpi">
             <div class="calc-kpi-lbl"><i class="fa-solid fa-bolt"></i> Payback Period</div>

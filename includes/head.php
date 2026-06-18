@@ -132,7 +132,33 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       },
       "areaServed": ["US","CA","GB","AU"],
       "medicalSpecialty": ["PrimaryCare","Dentistry","Surgical","Geriatric","Cardiovascular"],
-      "aggregateRating": { "@type":"AggregateRating", "ratingValue":"4.9", "reviewCount":"200" }
+      "aggregateRating": { "@type":"AggregateRating", "ratingValue":"4.9", "reviewCount":"200" },
+      "review": [
+        {
+          "@type":"Review",
+          "author":{"@type":"Organization","name":"Cancer Center"},
+          "reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5","worstRating":"1"},
+          "reviewBody":"Our virtual teammate cleared insurance verifications 30% above goal and payment posting 48% over target, turning a challenging AR into one of the practice's strongest on record."
+        },
+        {
+          "@type":"Review",
+          "author":{"@type":"Organization","name":"Multi-Specialty Clinic"},
+          "reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5","worstRating":"1"},
+          "reviewBody":"A dedicated billing teammate achieved pre-certs 60% over target and claims volume 47% above plan, keeping authorizations ahead of schedule and clean claims moving."
+        },
+        {
+          "@type":"Review",
+          "author":{"@type":"Organization","name":"Primary Care Group"},
+          "reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5","worstRating":"1"},
+          "reviewBody":"Payment posting landed 40% over target and insurance verifications 44% over, streamlining the revenue cycle so claims go out clean and cash comes in faster."
+        },
+        {
+          "@type":"Review",
+          "author":{"@type":"Organization","name":"Endodontics & Oral Surgery Group"},
+          "reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5","worstRating":"1"},
+          "reviewBody":"A specialty-billing teammate cleared claims 33% above target for an endodontics and oral-surgery group, a full surgical schedule billed on time."
+        }
+      ]
     },
     {
       "@type": "Service",
