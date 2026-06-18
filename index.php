@@ -759,7 +759,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-bolt"></i></span>
-      <p><strong>Matched in days.</strong> Shortlist of 5&ndash;7 in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
+      <p><strong>Matched in days.</strong> Shortlist of 3 in 48 hours. Live in 1&ndash;2 weeks.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span>

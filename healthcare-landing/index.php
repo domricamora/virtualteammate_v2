@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'HIPAA-Certified Medical Virtual Assistants | Live in 1–2 Weeks, 73% Less | Virtual Teammate';
-$page_description = 'A dedicated, HIPAA-certified medical virtual assistant who owns scheduling, billing, prior auth, scribing and patient follow-up inside your EHR. Published flat-rate pricing from $975/mo, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
+$page_description = 'A dedicated, HIPAA-certified medical virtual assistant who owns scheduling, billing, prior auth, scribing and patient follow-up inside your EHR. Published flat-rate pricing from $750 bi-weekly full time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
 $og_title         = 'One Teammate. The Whole Back Office. 73% Less Than an In-House Hire.';
 $og_description   = 'HIPAA-certified medical VAs trained on Epic, Cerner, eClinicalWorks and more: they own your billing, scheduling, prior auth, scribing and follow-up. Shortlist in 5–7 days, live in 1–2 weeks.';
 $canonical        = 'https://virtualteammate.com/healthcare-landing/';
@@ -18,7 +18,7 @@ $faqs = [
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks: every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does it cost?',
-   'a' => 'Published flat-rate pricing, no quote required. Entry from $975/mo part-time. Pro tier: $1,625/mo full-time ($867/mo part-time). Specialist tier (billing, scribing, coding): $2,167/mo full-time ($1,300/mo part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. Up to 73% less than an equivalent US in-house hire.'],
+   'a' => 'Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. Up to 73% less than an equivalent US in-house hire.'],
   ['q' => 'Will I be locked into a long-term contract?',
    'a' => 'No. Month-to-month after the first 90 days, no early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.'],
   ['q' => "What happens if my VA isn't the right fit?",
@@ -139,7 +139,7 @@ include __DIR__ . '/../includes/nav.php';
   <header class="hcq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Certified Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
     <h1>One teammate. The whole back office. <em>73% less</em> than an in-house hire.</h1>
-    <p class="hcq-sub">A dedicated, HIPAA-certified medical VA, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more, owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks.</p>
+    <p class="hcq-sub">A dedicated, HIPAA-certified medical VA, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more, owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 2 business days. Live in 1&ndash;2 weeks.</p>
     <p class="hcq-promise">Published flat-rate pricing from <strong>$750 biweekly full time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -311,9 +311,9 @@ include __DIR__ . '/../includes/nav.php';
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-clipboard-check"></i></span><p><strong>Every AI-assisted output reviewed</strong> and signed off by a human before it hits a chart.</p></div>
     </div>
     <div class="hcq-price reveal">
-      <strong>Published flat-rate pricing, from $975/mo part-time.</strong> Pro tier: $1,625/mo full-time ($867/mo part-time). Specialist tier (billing, scribing, coding): $2,167/mo full-time ($1,300/mo part-time). All-in: no payroll tax, no benefits, no recruiter fees, no PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.
+      <strong>Published flat-rate pricing, from $750 bi-weekly full-time ($400 part-time).</strong> Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in: no payroll tax, no benefits, no recruiter fees, no PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.
     </div>
-    <p class="hcq-close reveal">Curated shortlist in 5&ndash;7 business days. Live in 1&ndash;2 weeks. Month-to-month after the first 90 days, no long-term contract.</p>
+    <p class="hcq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. Month-to-month after the first 90 days, no long-term contract.</p>
     <div class="hcq-offer-cta reveal">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="hcq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
@@ -382,7 +382,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare teammates HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Eaglesoft and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks: every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $975/mo part-time. Pro tier: $1,625/mo full-time ($867/mo part-time). Specialist tier (billing, scribing, coding): $2,167/mo full-time ($1,300/mo part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. Month-to-month after the first 90 days, no early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit, we replace them at no cost, re-shortlisting within 5 business days, billing paused until the replacement is live; (2) outsourcing isn&rsquo;t working, cancel within the first 30 days and we refund every billed day, no clawbacks.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your specialty, EHR, accent, language and US time-zone shift, and every teammate works your business hours.</div></div>
