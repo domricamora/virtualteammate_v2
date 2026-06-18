@@ -168,7 +168,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="testimonials" aria-labelledby="cs-h">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-    <h2 class="sec-h2" id="cs-h">Trained for your specialty, measured on your <em>numbers.</em></h2>
+    <h2 class="sec-h2" id="cs-h">Targets set. <em>Targets beaten.</em></h2>
     <p class="sec-sub">Real numbers from our latest client audit: our teammates beat the targets that matter most to your practice.</p>
   </div>
   <div class="case-grid case-grid-4">
@@ -361,7 +361,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec" id="specialties">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Our Specializations</div>
-    <h2 class="sec-h2">Healthcare focused on <em>targeted outcomes</em></h2>
+    <h2 class="sec-h2">Trained for your specialty, measured on your <em>numbers</em></h2>
     <p class="sec-sub">Every teammate is trained for your specialty before day one, so your A/R keeps moving, your schedule stays full, and your clinical team stays on patients.</p>
   </div>
 
