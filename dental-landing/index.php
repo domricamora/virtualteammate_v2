@@ -24,7 +24,7 @@ $faqs = [
   ['q' => 'Where are your dental VAs based?',
    'a' => 'Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.'],
   ['q' => "What if my VA isn't the right fit?",
-   'a' => 'Two cases: (1) wrong fit → no-cost replacement, re-shortlisted within 5 business days, billing paused until they\'re live; (2) outsourcing isn\'t working → cancel inside 30 days and we refund every billed day, no clawback.'],
+   'a' => 'Two cases: (1) wrong fit → no-cost replacement, re-shortlisted within 2 business days, billing paused until they\'re live; (2) outsourcing isn\'t working → cancel inside 30 days and we refund every billed day, no clawback.'],
   ['q' => 'How do you protect patient data?',
    'a' => 'Five layers: HIPAA training & certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).'],
   ['q' => 'Which practice-management software do your VAs know?',
@@ -344,7 +344,7 @@ include __DIR__ . '/../includes/nav.php';
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
             <h3>No-cost replacement</h3>
-            <p>Not the right fit? We re-shortlist within <strong>5 business days</strong> and pause your billing until the replacement is live. You don&rsquo;t pay to fix a mismatch.</p>
+            <p>Not the right fit? We re-shortlist within <strong>2 business days</strong> and pause your billing until the replacement is live. You don&rsquo;t pay to fix a mismatch.</p>
           </div>
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
@@ -377,7 +377,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. From $750 bi-weekly full time ($400 part-time); Highly Specialized tier (dental billing &amp; coding) $1,000 bi-weekly full-time ($600 part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Am I locked into a contract?</div><div class="faq-a">No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your dental VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.</div></div>
-      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 5 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>
+      <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 2 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-lock"></i> How do you protect patient data?</div><div class="faq-a">Five layers: HIPAA training &amp; certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which practice-management software do your VAs know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> Will my dental VA work my practice hours and time zone?</div><div class="faq-a">Yes. Every teammate is matched to your US time-zone shift and works your business hours, so scheduling, recall, verifications and patient calls are covered live during your day, not overnight.</div></div>

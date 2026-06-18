@@ -46,7 +46,7 @@ include __DIR__ . '/../includes/nav.php';
       "@type":"FAQPage",
       "mainEntity":[
         {"@type":"Question","name":"What is the 30-Day Right-Fit Promise?","acceptedAnswer":{"@type":"Answer","text":"A published three-part guarantee. If a placed teammate isn't the right fit inside the first 30 days, you can request a no-cost replacement, you can cancel for a full refund of billed days, and backup coverage is included by default — no upsell."}},
-        {"@type":"Question","name":"How quickly will you replace a teammate?","acceptedAnswer":{"@type":"Answer","text":"You receive a curated re-shortlist within 5 business days and we onboard the replacement teammate at no charge. Billing is paused until the new teammate is live and producing."}},
+        {"@type":"Question","name":"How quickly will you replace a teammate?","acceptedAnswer":{"@type":"Answer","text":"You receive a curated re-shortlist within 2 business days and we onboard the replacement teammate at no charge. Billing is paused until the new teammate is live and producing."}},
         {"@type":"Question","name":"Is there a cancellation fee?","acceptedAnswer":{"@type":"Answer","text":"No. In the first 30 days you may cancel at any time for any reason. We refund every billed day in full — no clawbacks, no termination fees, no minimum-term lock-in."}},
         {"@type":"Question","name":"What's included in backup coverage?","acceptedAnswer":{"@type":"Answer","text":"If your teammate is on PTO, sick, or unavailable, your Client Success Manager arranges a trained backup teammate within hours, at no extra cost, briefed on your workflows and EHR access. Backup ships with every placement — it's not an upsell."}},
         {"@type":"Question","name":"What if I'm not sure outsourcing is right for us?","acceptedAnswer":{"@type":"Answer","text":"Book the Practice Staffing Audit. If outsourcing isn't right for you, we'll say so on the call — no follow-up sales sequence."}}
@@ -132,7 +132,7 @@ include __DIR__ . '/../includes/nav.php';
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
           <h3>No-Cost Replacement</h3>
-          <p>Decide a teammate isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>5 business days</strong>, onboard the new teammate at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
+          <p>Decide a teammate isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>2 business days</strong>, onboard the new teammate at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
@@ -182,7 +182,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="gp-claim-step reveal d3">
       <div class="step-num">3</div>
       <h4>We Execute</h4>
-      <p>Replacement shortlist in 5 business days <em>or</em> full refund of every billed day processed inside one billing cycle.</p>
+      <p>Replacement shortlist in 2 business days <em>or</em> full refund of every billed day processed inside one billing cycle.</p>
     </div>
   </div>
 </section>
@@ -255,7 +255,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Right-Fit Promise FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What does the Right-Fit Promise actually cover?</div><div class="faq-a">Three things, in writing: a no-cost teammate replacement inside 30 days, a full money-back window inside 30 days, and backup coverage with every placement at no extra charge.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 5 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new teammate is live and producing.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> How fast is a replacement?</div><div class="faq-a">Curated re-shortlist within 2 business days, onboarded at no charge. Billing pauses for the changeover and resumes only when the new teammate is live and producing.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-rotate-left"></i> Is the refund really full?</div><div class="faq-a">Yes: every billed day in the first 30 days, refunded in full inside one billing cycle. No clawbacks, no termination fees, no minimum-term lock-in.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-user-shield"></i> Do I have to pay extra for backup?</div><div class="faq-a">No. Trained backup coverage is included with every placement. When your teammate is on PTO, sick, or unavailable, your CSM arranges a backup within hours at no extra cost.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-circle-info"></i> Is there fine print?</div><div class="faq-a">Two reasonable conditions: the 30-day window starts the day your teammate goes live (not the contract date), and replacements/refunds are issued for the original engagement scope, not for scope changes added mid-month.</div></div>
