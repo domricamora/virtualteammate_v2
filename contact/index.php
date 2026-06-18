@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Contact Virtual Teammate: Phoenix HQ + Global VA Network | (480) 847-2498';
-$page_description = 'Reach Virtual Teammate at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016, or call (480) 847-2498. Email clientsuccess@virtualteammate.com. US-owned HQ with a globally vetted VA bench and a US-based Client Success Manager on every engagement.';
+$page_description = 'Reach Virtual Teammate at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016, or call (480) 847-2498. Email clientsuccess@virtualteammate.com. US-owned HQ with a globally vetted VA bench and a Dedicated Client Success Manager on every engagement.';
 $og_title         = 'Contact Virtual Teammate: Phoenix HQ + Global VA Network';
-$og_description   = 'US-owned office in Phoenix, AZ. Global bench across 5 continents. Talk to a real US-based Client Success Manager today.';
+$og_description   = 'US-owned office in Phoenix, AZ. Global bench across 5 continents. Talk to a real Dedicated Client Success Manager today.';
 $canonical        = 'https://virtualteammate.com/contact/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -113,7 +113,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Contact Virtual Teammate</div>
     <h1 class="svc-h1">Talk to a <em>real person</em> in our Phoenix HQ, backed by a global bench</h1>
-    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>US-based Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
+    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>Dedicated Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
@@ -125,7 +125,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-location-dot"></i> Phoenix, AZ HQ</div>
     <div class="hv-chip c2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.webp" alt="Virtual Teammate US-based Client Success Manager ready to talk to you" loading="lazy"/>
+      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.webp" alt="Virtual Teammate Dedicated Client Success Manager ready to talk to you" loading="lazy"/>
     </div>
   </div>
 </header>
@@ -282,7 +282,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> Pre-Contact FAQs</div><h2 class="svc-h2">Before you reach out: common questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clock"></i> How quickly will I get a response?</div><div class="faq-a">Most inbound requests get a personal reply within one business day. Phone calls during MST business hours are answered live; voicemails are returned same day.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A US-based Client Success Manager (CSM), not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Who will I talk to?</div><div class="faq-a">A Dedicated Client Success Manager (CSM), not an offshore queue and not a chatbot. For new healthcare engagements, our founder Chris McShanag often joins the strategy call personally.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Do I have to commit to anything?</div><div class="faq-a">No. The strategy session is a 30-minute value scoping call. You walk out with a clear engagement scope, a transparent price, and a timeline: no obligation, no sales pressure.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Can we talk about HIPAA / BAA right away?</div><div class="faq-a">Yes, every healthcare engagement is BAA-compatible, and we can share our HIPAA compliance documentation and BAA template during or right after the strategy call.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-location-dot"></i> Are you really a US company?</div><div class="faq-a">Yes, US-owned, headquartered at 2425 East Camelback Road, Suite 150, Phoenix, AZ 85016. We recruit globally so you get the best fit, not the cheapest fit.</div></div>
@@ -304,6 +304,6 @@ include __DIR__ . '/../includes/nav.php';
 </main>
 <?php
 $lf_title = 'Prefer to <em>talk it through?</em>';
-$lf_sub   = 'Questions about scope, pricing or a custom engagement? Grab a time below and a US-based Client Success Manager will walk you through it: no obligation, reply within one business day either way.';
+$lf_sub   = 'Questions about scope, pricing or a custom engagement? Grab a time below and a Dedicated Client Success Manager will walk you through it: no obligation, reply within one business day either way.';
 include __DIR__ . '/../includes/footer.php';
 ?>

@@ -51,7 +51,7 @@ include __DIR__ . '/../includes/nav.php';
     {
       "@type":"FAQPage",
       "mainEntity":[
-        {"@type":"Question","name":"Is Virtual Teammate US-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and US-based Client Success Managers on every account."}},
+        {"@type":"Question","name":"Is Virtual Teammate US-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and Dedicated Client Success Managers on every account."}},
         {"@type":"Question","name":"Are your virtual teammates HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible."}},
         {"@type":"Question","name":"Where are your virtual teammates based?","acceptedAnswer":{"@type":"Answer","text":"Globally — Philippines, Latin America, Africa, and South Asia. We hire on capability and fit, not geography. Every match works your business hours."}},
         {"@type":"Question","name":"How are your virtual teammates vetted?","acceptedAnswer":{"@type":"Answer","text":"Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification and orientation — before they ever see a client."}}
@@ -115,7 +115,7 @@ include __DIR__ . '/../includes/nav.php';
 <div class="divider"></div>
 
 <!-- MISSION -->
-<section class="svc-split">
+<section class="svc-split reverse">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-bullseye"></i> Our Mission</div>
     <h2 class="svc-h2">Bringing a <em>value-creation culture</em> to every engagement</h2>
@@ -161,7 +161,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-globe"></i></span><h3>Global Talent Pool</h3><p>Recruited across the Philippines, Latin America, Africa, and South Asia, vetted at every stage.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your Time Zone</h3><p>Every teammate works your business hours, with backup coverage built in.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Real KPI Reporting</h3><p>Monthly client KPI scorecards: claims worked, payments posted, calls answered, AR collected.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A US-based Client Success Manager (CSM) owns every engagement: performance, training, escalation.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A Dedicated Client Success Manager (CSM) owns every engagement: performance, training, escalation.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate, transparent pricing: no hidden fees, no recruiter spread, no surprises.</p></div>
   </div>
 </section>
@@ -189,7 +189,7 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> About VT, FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-building"></i> Is Virtual Teammate US-owned?</div><div class="faq-a">Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and US-based Client Success Managers (CSMs) on every account.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-building"></i> Is Virtual Teammate US-owned?</div><div class="faq-a">Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and Dedicated Client Success Managers (CSMs) on every account.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your teammates HIPAA certified?</div><div class="faq-a">Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Globally: Philippines, Latin America, Africa, South Asia. We hire on capability and fit, not geography. Every match works your business hours.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How are teammates vetted?</div><div class="faq-a">Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification, and orientation: before they ever see a client.</div></div>

@@ -393,7 +393,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- FINAL CTA -->
   <section class="svc-cta">
     <h2>Ready to hand off the <em style="color:var(--gold);font-style:normal;">back office?</em></h2>
-    <p>Book your Practice Staffing Audit and a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first, or grab the buyer&rsquo;s checklist first.</p>
+    <p>Book your Practice Staffing Audit and a Dedicated Client Success Manager will map your busiest workflows and show you which roles to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>

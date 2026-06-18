@@ -18,7 +18,7 @@ define('VT_BOOK_MODAL_RENDERED', true);
     <a class="cta-modal-x" href="#" aria-label="Close">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-clipboard-check"></i> 20-Min Practice Staffing Audit</div>
     <h2 class="cta-modal-h" id="cbm-h">Book my practice staffing audit</h2>
-    <p class="cta-modal-sub">Pick a time that works for you: a US-based Client Success Manager will map your busiest workflows and show you which roles to delegate first. Diagnostic only, no obligation.</p>
+    <p class="cta-modal-sub">Pick a time that works for you: a Dedicated Client Success Manager will map your busiest workflows and show you which roles to delegate first. Diagnostic only, no obligation.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
       <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/chris4273/sales-discovery-round-robin?embed=true"></div>

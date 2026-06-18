@@ -79,7 +79,7 @@ if ($lf_mode === 'form') {
 } else {
     // ── "Book a Meeting" CTA (default) — opens the shared scheduler modal ──
     $lf_title = $lf_title ?? 'Ready to reclaim your team&rsquo;s time?';
-    $lf_sub   = $lf_sub   ?? 'Book a quick call with a US-based Client Success Manager. We&rsquo;ll scope the right roles by specialty, software and time zone, give you a transparent quote, and map next steps, value-first, no obligation.';
+    $lf_sub   = $lf_sub   ?? 'Book a quick call with a Dedicated Client Success Manager. We&rsquo;ll scope the right roles by specialty, software and time zone, give you a transparent quote, and map next steps, value-first, no obligation.';
     ?>
     <section class="sec lead-band" id="lead-form" aria-labelledby="lead-band-h">
       <div class="lead-band-card reveal">
@@ -96,7 +96,7 @@ if ($lf_mode === 'form') {
         <div class="lead-band-cta">
           <span class="lead-band-cta-ico"><i class="fa-solid fa-calendar-check"></i></span>
           <h3>Book my practice staffing audit</h3>
-          <p>Talk to a real US-based Client Success Manager, not an offshore queue. Pick a time that works and we&rsquo;ll map your busiest workflows and which roles to delegate first.</p>
+          <p>Talk to a real Dedicated Client Success Manager, not an offshore queue. Pick a time that works and we&rsquo;ll map your busiest workflows and which roles to delegate first.</p>
           <a class="cf-submit" href="#cta-book" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cf-note">No obligation &middot; Covered by the 30-Day Right-Fit Promise</div>
         </div>

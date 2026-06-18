@@ -110,7 +110,7 @@ include __DIR__ . '/../includes/nav.php';
 <!-- STATS -->
 <div class="svc-stats reveal">
   <div class="svc-stat"><div class="svc-stat-num">30</div><div class="svc-stat-lbl">Day Right-Fit Window</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">5</div><div class="svc-stat-lbl">Biz Days to Replacement</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">2</div><div class="svc-stat-lbl">Biz Days to Replacement</div></div>
   <div class="svc-stat"><div class="svc-stat-num">$0</div><div class="svc-stat-lbl">Replacement / Termination Fees</div></div>
   <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Client Retention Rate</div></div>
 </div>
