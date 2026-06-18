@@ -61,7 +61,7 @@ if ($lf_mode === 'form') {
             <input class="cf-field" name="company" placeholder="<?= $lfe($lf_company_ph) ?>" autocomplete="organization">
           </div>
           <?php if (!empty($lf_roles)): ?>
-            <select class="cf-field" name="role" required style="margin-bottom:14px;">
+            <select class="cf-field" name="role" required aria-label="Role or department" style="margin-bottom:14px;">
               <option value="">Select a role / department…</option>
               <?php foreach ($lf_roles as $r): ?><option><?= $lfe($r) ?></option><?php endforeach; ?>
             </select>
