@@ -90,12 +90,14 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <link rel="icon" type="image/png" sizes="192x192" href="<?= $home_base ?>images/favicon-192x192.png"/>
 <link rel="apple-touch-icon" sizes="180x180" href="<?= $home_base ?>images/apple-touch-icon.png"/>
 <meta name="msapplication-TileImage" content="<?= $site_url ?>/images/favicon-192x192.png"/>
-<link rel="preload" as="image" href="<?= $home_base ?>images/logo.webp" fetchpriority="high"/>
+<link rel="preload" as="image" href="<?= $home_base ?>images/vt-logo.webp" fetchpriority="high"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preconnect" href="https://images.unsplash.com"/>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+<!-- Font Awesome loaded async so it doesn't block first paint; icons swap in on load. -->
+<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'"/>
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/></noscript>
 <link rel="stylesheet" href="<?= $home_base ?>css/style.css?v=<?= vt_asset_ver(__DIR__ . '/../css/style.css') ?>"/>
 
 <?php if ($is_homepage): ?>

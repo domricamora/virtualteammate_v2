@@ -373,7 +373,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="spec-grid">
     <article class="spec-card reveal d1">
       <div class="spec-photo">
-        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" loading="lazy"/>
+        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" width="1400" height="934" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers: medical practices</div>
@@ -406,7 +406,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 
     <article class="spec-card alt reveal d2">
       <div class="spec-photo">
-        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" loading="lazy"/>
+        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" width="1400" height="934" loading="lazy"/>
         <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental teammates deliver</div>
@@ -602,7 +602,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         $photoSrc = !empty($p['_thumb']) ? $p['_thumb'] : ('talent-photo.php?id=' . (int) $p['id'] . '&thumb=1');
       ?>
         <a class="prof-card reveal <?= htmlspecialchars($delay) ?>" href="#cta-request" data-cta-intent="request" data-vt-id="<?= (int) $p['id'] ?>" data-vt-name="<?= htmlspecialchars($name, ENT_QUOTES) ?>" aria-label="Request <?= htmlspecialchars($name !== '' ? $name : 'this teammate', ENT_QUOTES) ?>">
-          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" decoding="async"/></div>
+          <div class="prof-photo"><img src="<?= htmlspecialchars($photoSrc, ENT_QUOTES) ?>" alt="<?= htmlspecialchars($name, ENT_QUOTES) ?>" width="96" height="96" decoding="async" loading="lazy"/></div>
           <div class="prof-name"><?= htmlspecialchars($name) ?></div>
           <span class="prof-tag <?= $isDental ? 'dent' : 'med' ?>"><?= htmlspecialchars($tag) ?></span>
           <div class="prof-role"><?= htmlspecialchars($role) ?></div>
@@ -692,7 +692,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <div class="reveal d2">
       <div class="world" aria-label="Virtual Teammate global coverage, one anchor per continent">
         <div class="world-grid"></div>
-        <img class="world-map-img" src="images/world-map.svg" alt="World map showing Virtual Teammate global talent coverage" loading="lazy">
+        <img class="world-map-img" src="images/world-map.svg" alt="World map showing Virtual Teammate global talent coverage" width="1010" height="666" loading="lazy">
         <svg class="world-arc" viewBox="0 0 1000 500" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="arcGrad" x1="0" x2="1" y1="0" y2="0">

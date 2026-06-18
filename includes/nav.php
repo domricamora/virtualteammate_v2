@@ -18,7 +18,7 @@ $home_base = $home_base ?? './';
 <!-- NAV -->
 <nav class="nav" aria-label="Primary">
   <a href="<?= $home_base ?>" class="logo" aria-label="Virtual Teammate home">
-    <img src="https://staging.virtualteammate.com/wp-content/uploads/2025/10/BLACK-AND-VIOLET-LOGO-1.png" alt="Virtual Teammate" width="180" height="53"/>
+    <img src="<?= $home_base ?>images/vt-logo.webp" alt="Virtual Teammate" width="231" height="106" fetchpriority="high"/>
   </a>
   <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-controls="primaryNav" aria-expanded="false" type="button">
     <span class="nav-toggle-bar"></span>
