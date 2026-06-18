@@ -22,7 +22,7 @@ $svc_all = [
 
 /* Live teammate preview for this service — drawn from the matching department
    and ranked so the page's specific role bubbles to the top (see vt-cards.php).
-   Card CTA funnels to the homepage Practice Staffing Audit modal. */
+   Each card's CTA opens the on-page "Request this teammate" modal (request-modal.php). */
 $svc_vtc = [
   'medical-administrative-support' => ['dept' => 'Medical', 'role' => 'Medical Administrative', 'kw' => ['administrative', 'admin', 'chart', 'intake', 'scheduling', 'eligibility']],
   'medical-receptionist'           => ['dept' => 'Medical', 'role' => 'Medical Receptionist',   'kw' => ['reception', 'front desk', 'front-desk', 'phone', 'scheduling']],
@@ -43,10 +43,13 @@ if (isset($svc_vtc[$svc_slug])) {
     $vtc_label      = 'Meet the Bench';
     $vtc_heading    = 'Meet Our <em>' . $sce($sc['role']) . '</em> Virtual Teammates';
     $vtc_sub        = 'A sample of real, vetted ' . $sce($sc['dept']) . ' teammates, interview-ready, matched to your time zone, and live in 1&ndash;2 weeks. ' . $sce($sc['role']) . ' specialists are shown first.';
-    $vtc_cta_href   = $home_base . '#cta-practice-audit';
-    $vtc_cta_intent = 'practice-audit';
-    $vtc_cta_label  = 'Book my practice staffing audit';
+    $vtc_cta_href   = '#cta-request';
+    $vtc_cta_intent = 'request';
+    $vtc_cta_label  = 'Request this teammate';
+    $vtc_cta_vt     = true;   // stamp the chosen teammate into the request modal
     include __DIR__ . '/vt-cards.php';
+    // Same "Request this teammate" modal flow as the homepage cards.
+    include __DIR__ . '/request-modal.php';
 }
 ?>
 <!-- FINAL CTA -->

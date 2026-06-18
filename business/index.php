@@ -157,10 +157,10 @@ include __DIR__ . '/../includes/nav.php';
   $vtc_label         = 'Meet the Bench';
   $vtc_heading       = 'Business-Ready <em>Virtual Teammates</em>';
   $vtc_sub           = 'Browse our real, vetted business teammates across admin, sales, marketing, finance, customer-service and more. Filter by department or skill, then request the one that fits, matched to your time zone and ready in 1&ndash;2 weeks.';
-  $vtc_cta_href      = '#cta-buyback';
-  $vtc_cta_intent    = 'buyback';
+  $vtc_cta_href      = '#cta-request';
+  $vtc_cta_intent    = 'request';
   $vtc_cta_label     = 'Request this teammate';
-  $vtc_cta_vt        = true;   // prefill the on-page Buy-Back form
+  $vtc_cta_vt        = true;   // stamp the chosen teammate into the request modal
   include __DIR__ . '/../includes/vt-cards.php';
 ?>
 
@@ -250,6 +250,13 @@ include __DIR__ . '/../includes/nav.php';
     </div>
   </div>
 </div>
+
+<?php
+  // "Request this teammate" modal — same flow as the homepage cards. This page
+  // wires its own .cta-modal behavior (below), so skip the bundled one.
+  $rm_skip_behavior = true;   // $home_base ('../') already set at top of page
+  include __DIR__ . '/../includes/request-modal.php';
+?>
 </main>
 
 <!-- Entry-point modal behavior. Open/closed state is driven by the URL hash
@@ -310,22 +317,6 @@ include __DIR__ . '/../includes/nav.php';
 })();
 </script>
 
-<!-- Card → modal prefill. Clicking "Request this teammate" stamps the chosen
-     VT into the Buy-Back form's hidden fields before the #cta-buyback modal
-     opens (the modal-behavior handler above does the opening + scroll-lock). -->
-<script>
-(function () {
-  var idF = document.getElementById('bizBuybackVtId');
-  var nmF = document.getElementById('bizBuybackVtName');
-  if (!idF && !nmF) { return; }
-  document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href="#cta-buyback"][data-vt-id]');
-    if (!a) { return; }
-    if (idF) { idF.value = a.getAttribute('data-vt-id') || ''; }
-    if (nmF) { nmF.value = a.getAttribute('data-vt-name') || ''; }
-  });
-})();
-</script>
 <!-- HubSpot Meetings embed loader — powers the scheduler inside the booking modals.
      A resize nudge on open makes the iframe size correctly after the modal shows. -->
 <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
