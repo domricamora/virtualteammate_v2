@@ -321,7 +321,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="offer" aria-labelledby="offer-h">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
-      <h2 class="svc-h2" id="offer-h">One teammate. The whole front office: <em>one flat rate</em></h2>
+      <h2 class="svc-h2" id="offer-h">Everything included, <em>one flat rate</em></h2>
       <p class="sec-sub" style="max-width:760px;margin:0 auto;">Your dental Virtual Teammate, fully managed:</p>
     </div>
     <div class="offer-grid reveal d1">
