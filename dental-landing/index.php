@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Virtual Assistants | Live in 1–2 Weeks, 73% Less | Virtual Teammate';
-$page_description = 'A dedicated, HIPAA-certified dental Virtual Teammate runs your scheduling, recall, verifications and claims inside Dentrix, Eaglesoft or Open Dental. Published flat-rate pricing from $975/mo part-time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
+$page_description = 'A dedicated, HIPAA-certified dental Virtual Teammate runs your scheduling, recall, verifications and claims inside Dentrix, Eaglesoft or Open Dental. Published flat-rate pricing from $750 bi-weekly full time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
 $og_title         = 'Fully staff your front office in weeks, not months, for up to 73% less.';
 $og_description   = 'HIPAA-certified dental VAs trained on Dentrix, Eaglesoft, Open Dental and more: they keep chairs full, recall worked, treatment plans followed up and claims clean. Shortlist in days, live in 1–2 weeks.';
 $canonical        = 'https://virtualteammate.com/dental-landing/';
@@ -18,7 +18,7 @@ $faqs = [
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does a dental VA cost?',
-   'a' => 'Published flat-rate pricing, no quote required. Entry from $975/mo part-time; Pro $1,625/mo full-time ($867/mo part-time); Specialist (dental billing & coding) $2,167/mo full-time ($1,300/mo part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.'],
+   'a' => 'Published flat-rate pricing, no quote required. From $750 bi-weekly full time ($400 part-time); Highly Specialized tier (dental billing & coding) $1,000 bi-weekly full-time ($600 part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.'],
   ['q' => 'Am I locked into a contract?',
    'a' => 'No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.'],
   ['q' => 'Where are your dental VAs based?',
@@ -129,7 +129,7 @@ include __DIR__ . '/../includes/nav.php';
   <header class="dq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> HIPAA-certified dental VAs &middot; backed by the 30-Day Right-Fit Promise</div>
     <h1>Fully staff your front office in weeks, not months, for <em>up to 73% less</em>.</h1>
-    <p class="dq-sub">A dedicated, HIPAA-certified dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $975/mo part-time, all-in.</p>
+    <p class="dq-sub">A dedicated, HIPAA-certified dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $750 bi-weekly full time, all-in.</p>
     <p class="dq-promise">Not the right fit in month one? <strong>We replace them at no cost, or refund every billed day.</strong> No clawback, no lock-in.</p>
     <div class="dq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -322,7 +322,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-shield"></i></span><p><strong>Built-in backup</strong> the day your VA is out, arranged within hours, no charge.</p></div>
     </div>
     <div class="dq-price reveal">
-      <strong>Entry from $975/mo part-time.</strong> Pro: $1,625/mo full-time ($867/mo part-time). Specialist (dental billing &amp; coding): $2,167/mo full-time ($1,300/mo part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
+      <strong>From $750 bi-weekly full time ($400 part-time).</strong> Highly Specialized tier (dental billing &amp; coding): $1,000 bi-weekly full-time ($600 part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
     </div>
     <p class="dq-close reveal">Live in 1&ndash;2 weeks. Month-to-month after the first 90 days. Backed by the 30-Day Right-Fit Promise.</p>
     <div class="dq-offer-cta reveal">
@@ -374,7 +374,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA certified?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $975/mo part-time; Pro $1,625/mo full-time ($867/mo part-time); Specialist (dental billing &amp; coding) $2,167/mo full-time ($1,300/mo part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. From $750 bi-weekly full time ($400 part-time); Highly Specialized tier (dental billing &amp; coding) $1,000 bi-weekly full-time ($600 part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Am I locked into a contract?</div><div class="faq-a">No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your dental VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 5 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>

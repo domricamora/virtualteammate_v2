@@ -59,7 +59,7 @@ include 'includes/nav.php';
       <li>HIPAA-certified medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Eaglesoft.</li>
       <li>We own billing, scribing, scheduling and prior auth.</li>
       <li>Matched to your US time zone.</li>
-      <li>Flat-rate pricing from <strong>$975/mo</strong>, backed by our <strong>30-Day Right-Fit Promise</strong>.</li>
+      <li>Flat-rate pricing from <strong>$750 bi-weekly</strong>, backed by our <strong>30-Day Right-Fit Promise</strong>.</li>
     </ul>
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost, or refund every billed day.</p>
     <div class="hero-btns reveal d3">
@@ -342,8 +342,8 @@ function vtnew_homepage_profiles(int $limit = 6): array
       <div class="calc-rate-band" aria-label="Published VT rate">
         <div class="calc-rate-h"><i class="fa-solid fa-tag"></i> Published Rate, No Quote Required</div>
         <div class="calc-rate-single">
-          <div class="calc-rate-amt">$1,625<span>/mo</span></div>
-          <div class="calc-rate-sub">Full-time, flat rate &middot; from $975/mo part-time</div>
+          <div class="calc-rate-amt">$750<span>/bi-weekly</span></div>
+          <div class="calc-rate-sub">Full-time, flat rate &middot; from $400 bi-weekly part-time</div>
         </div>
         <div class="calc-rate-foot">All-in. No payroll tax, benefits, recruiter fees or PTO billed on top.</div>
       </div>
@@ -731,7 +731,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <h2 class="sec-h2">Frequently asked questions</h2>
   </div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Pro tier starts at $1,625/mo for a full-time teammate</strong> ($867/mo part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$2,167/mo full-time</strong> ($1,300/mo part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Full-time teammates start at $750 bi-weekly</strong> ($400 part-time). <strong>Highly Specialized tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$1,000 bi-weekly full-time</strong> ($600 part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 5 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every teammate, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>industry-aligned security controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>5&ndash;7 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
@@ -759,7 +759,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-bolt"></i></span>
-      <p><strong>Matched in days.</strong> Shortlist of 3 in 48 hours. Live in 1&ndash;2 weeks.</p>
+      <p><strong>Matched in days.</strong> Shortlist of 3 in 2 business days. Live in 1&ndash;2 weeks.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span>

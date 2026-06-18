@@ -213,7 +213,7 @@
   /* ROI Calculator — single flat rate (biweekly amounts, x26 = annual).
      VT full-time = $1,625/mo ($750 x 26 / 12); US = median fully-loaded
      in-house cost (~$72k/yr full-time). One rate, no Pro/Specialist tier. */
-  var RATE = { vt: { ft: 750, pt: 450 }, us: { ft: 2770, pt: 1540 } };
+  var RATE = { vt: { ft: 750, pt: 400 }, us: { ft: 2770, pt: 1540 } };
 
   var state = { sched: 'ft', count: 2 };
 

@@ -313,7 +313,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hcq-price reveal">
       <strong>Published flat-rate pricing, from $750 bi-weekly full-time ($400 part-time).</strong> Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in: no payroll tax, no benefits, no recruiter fees, no PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.
     </div>
-    <p class="hcq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. Month-to-month after the first 90 days, no long-term contract.</p>
+    <p class="hcq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. No long-term contract.</p>
     <div class="hcq-offer-cta reveal">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="hcq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
