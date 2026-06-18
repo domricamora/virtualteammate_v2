@@ -352,12 +352,12 @@ include __DIR__ . '/../includes/nav.php';
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
             <h3>No-Cost Replacement</h3>
-            <p>Not the right fit? We re-shortlist within <strong>5 business days</strong> and <strong>pause billing</strong> until your replacement is live.</p>
+            <p>Not the right fit? We re-shortlist within <strong>2 business days</strong> and <strong>pause billing</strong> until your replacement is live.</p>
           </div>
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
             <h3>30-Day Money-Back</h3>
-            <p>Decide outsourcing isn&rsquo;t working in the first 30 days? We refund <strong>every billed day</strong>. No clawbacks, no lock-in.</p>
+            <p>Decide it isn&rsquo;t working in the first 30 days? We refund <strong>every billed day</strong>. No clawbacks, no lock-in.</p>
           </div>
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
