@@ -9,6 +9,17 @@ $breadcrumbs      = [
   ['name' => 'Home',     'url' => '/'],
   ['name' => 'Business', 'url' => '/business-landing/'],
 ];
+// FAQPage schema — text mirrors the visible FAQ section below.
+$faqs = [
+  ['q' => 'What does a business virtual assistant do?',
+   'a' => 'A business teammate handles the repeatable work across admin, sales, marketing, finance and customer service: from inbox and calendar management to lead generation, bookkeeping and reporting. You decide the function; we match a vetted teammate trained on your tools.'],
+  ['q' => 'Which tools do they work in?',
+   'a' => 'Our teammates work daily in HubSpot, Salesforce, Pipedrive, QuickBooks, Xero, Google Workspace, Microsoft 365 and the rest of the common stack, plus the project and outreach tools your team already runs. We match for tool fluency during selection.'],
+  ['q' => 'How fast can someone start?',
+   'a' => 'Most clients receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
+  ['q' => 'How much does it cost?',
+   'a' => 'Transparent flat-rate pricing: typically 60–73% less than an equivalent in-house hire once salary, benefits, payroll tax and overhead are included. No recruiter fees, no long-term lock-in.'],
+];
 include __DIR__ . '/../includes/head.php';
 include __DIR__ . '/../includes/nav.php';
 ?>

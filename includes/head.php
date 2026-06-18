@@ -38,17 +38,15 @@ $canonical        = $canonical        ?? $site_url . '/';
 $og_title         = $og_title         ?? $page_title;
 $og_description   = $og_description   ?? $page_description;
 $is_homepage      = $is_homepage      ?? false;
-// Non-production hosts (localhost + any staging domain) must never be indexed.
-// A page can still force its own directive by setting $robots before this include.
+// Indexing is allowed on every host (including localhost + staging). A page can
+// still force its own directive by setting $robots before this include (e.g.
+// 'noindex,nofollow' for utility pages).
 $__vt_host        = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
 $__vt_nonprod     = str_contains($__vt_host, 'localhost') || str_starts_with($__vt_host, '127.0.0.1') || str_contains($__vt_host, 'staging');
-$robots           = $robots           ?? ($__vt_nonprod
-                        ? 'noindex,nofollow'
-                        : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
-// On non-prod hosts the page is noindex, so the canonical must NOT point at the
-// production domain — a noindex page paired with a cross-domain canonical is a
-// contradictory signal that can deindex the canonical target. Rewrite canonical
-// (and the og:url that mirrors it) to be self-referential to the current host.
+$robots           = $robots           ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+// Non-prod hosts get a self-referential canonical (and matching og:url) so that
+// staging/localhost pages are validly self-canonical and can be indexed in their
+// own right, instead of pointing cross-domain at production and being skipped.
 if ($__vt_nonprod) {
     $__vt_scheme = (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') ? 'https' : 'http';
     $__vt_uri    = strtok((string) ($_SERVER['REQUEST_URI'] ?? '/'), '?');
