@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Administrative Support Virtual Assistants | HIPAA-Certified Dental Admin VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental administrative virtual assistants. Charting prep, records, insurance verification, treatment-plan setup & data entry in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
+$page_description = 'Hire HIPAA-certified dental administrative virtual assistants. Charting prep, records, insurance verification, treatment-plan setup & data entry in Dentrix & Open Dental. Save up to 73%.';
 $og_title         = 'Dental Admin Virtual Assistants: Your Remote Back Office';
 $og_description   = 'Dental admin VAs handling records, insurance verification, treatment-plan prep, data entry and document management inside your dental PMS.';
 $canonical        = 'https://virtualteammate.com/services/dental-admin/';
@@ -16,7 +16,7 @@ $faqs = [
   ['q' => 'What does a dental admin teammate actually do?',
    'a' => 'Insurance verification & breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting: inside your dental PMS.'],
   ['q' => 'Which dental software do they know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.'],
+   'a' => 'Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.'],
   ['q' => 'Are they HIPAA certified?',
    'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.'],
   ['q' => 'How much does it cost?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Administrative Support Virtual Assistant",
   "name":"Dental Administrative Support Virtual Assistants",
-  "description":"HIPAA-certified dental administrative VAs handling records, insurance verification, treatment-plan setup, data entry, document management and back-office workflows inside Dentrix, Eaglesoft, Open Dental and Carestream.",
+  "description":"HIPAA-certified dental administrative VAs handling records, insurance verification, treatment-plan setup, data entry, document management and back-office workflows inside Dentrix, Open Dental and Carestream.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Dental Admin teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental administrative <em>support</em> virtual assistants</h1>
-    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified dental admin teammates</strong> handle records, insurance verification, treatment-plan setup, data entry and document management: trained on Dentrix, Eaglesoft and Open Dental, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
+    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified dental admin teammates</strong> handle records, insurance verification, treatment-plan setup, data entry and document management: trained on Dentrix and Open Dental, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> Dental PMS Trained</div>
@@ -72,7 +72,7 @@ include __DIR__ . '/../../includes/nav.php';
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
     <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-tooth"></i> Dentrix &amp; Eaglesoft</div>
+    <div class="hv-chip c2"><i class="fa-solid fa-tooth"></i> Dentrix &amp; Open Dental</div>
     <div class="hv-card">
       <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.webp" alt="Dental administrative virtual assistant working on a computer" loading="lazy"/>
     </div>
@@ -133,7 +133,6 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix Ascend</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Eaglesoft</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Open Dental</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Carestream</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Curve Dental</span>
@@ -165,7 +164,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental admin teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a dental admin teammate actually do?</div><div class="faq-a">Insurance verification &amp; breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting: inside your dental PMS.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are they HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house dental admin hire. Use the homepage ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can they start?</div><div class="faq-a">Curated shortlist within days; onboarding wraps in 1&ndash;2 weeks for a fully-live teammate.</div></div>

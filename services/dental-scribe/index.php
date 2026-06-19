@@ -1,6 +1,6 @@
 <?php
 $page_title       = 'Dental Scribe Virtual Assistants | HIPAA-Certified Virtual Dental Scribes | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified virtual dental scribes. Real-time clinical notes, perio charting, treatment documentation & chart closure in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
+$page_description = 'Hire HIPAA-certified virtual dental scribes. Real-time clinical notes, perio charting, treatment documentation & chart closure in Dentrix & Open Dental. Save up to 73%.';
 $og_title         = 'Dental Scribe Virtual Assistants: Real-Time Clinical Charting';
 $og_description   = 'Virtual dental scribes document exams and procedures in real time inside your dental PMS, so providers finish charts chairside and stay focused on the patient.';
 $canonical        = 'https://virtualteammate.com/services/dental-scribe/';
@@ -16,7 +16,7 @@ $faqs = [
   ['q' => 'What does a virtual dental scribe do?',
    'a' => 'Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS: clinical notes, perio charting, existing/proposed treatment, chart closure.'],
   ['q' => 'Which dental software do they know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental: PMS-trained before placement.'],
+   'a' => 'Dentrix, Dentrix Ascend, Open Dental, Carestream and Curve Dental: PMS-trained before placement.'],
   ['q' => 'Is a dental scribe HIPAA certified?',
    'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. A/V links are encrypted end-to-end.'],
   ['q' => 'Will it really speed up my day?',
@@ -133,7 +133,6 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix Ascend</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Eaglesoft</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Open Dental</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Carestream</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Curve Dental</span>
@@ -163,7 +162,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental scribe teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual dental scribe do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio/video link and documents in real time inside your PMS: clinical notes, perio charting, existing/proposed treatment, chart closure.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream and Curve Dental: PMS-trained before placement.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Carestream and Curve Dental: PMS-trained before placement.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a dental scribe HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. A/V links are encrypted end-to-end.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will it really speed up my day?</div><div class="faq-a">Yes: charting happens live instead of between patients, so operatories turn over faster and notes are done chairside.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house hire. Use the homepage ROI calculator for an exact estimate.</div></div>

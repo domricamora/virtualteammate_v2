@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Dental Biller Virtual Assistants | HIPAA-Certified Dental Billing VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental biller virtual assistants. Insurance claims, EOB posting, AR follow-up & PPO/HMO billing in Dentrix, Eaglesoft & Open Dental. Save up to 73%.';
+$page_description = 'Hire HIPAA-certified dental biller virtual assistants. Insurance claims, EOB posting, AR follow-up & PPO/HMO billing in Dentrix & Open Dental. Save up to 73%.';
 $og_title         = 'Dental Biller Virtual Assistants: Faster Claims, Cleaner AR';
-$og_description   = 'Specialized dental billing VAs handling claims, denials, EOB posting and AR follow-up inside Dentrix, Eaglesoft, Open Dental and Carestream.';
+$og_description   = 'Specialized dental billing VAs handling claims, denials, EOB posting and AR follow-up inside Dentrix, Open Dental and Carestream.';
 $canonical        = 'https://virtualteammate.com/services/dental-biller/';
 $home_base        = '../../';
 $svc_slug         = 'dental-biller';
@@ -16,7 +16,7 @@ $faqs = [
   ['q' => 'What does a dental billing virtual assistant do?',
    'a' => 'Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.'],
   ['q' => 'Which dental PMS do your billers know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.'],
+   'a' => 'Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.'],
   ['q' => 'Can you handle PPO, HMO, Medicaid and Delta claims?',
    'a' => 'Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum: including narrative-heavy and pre-auth-required procedures.'],
   ['q' => 'Will a dental biller actually lower my AR?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Billing Virtual Assistant",
   "name":"Dental Biller Virtual Assistants",
-  "description":"HIPAA-certified virtual dental billers handling insurance claim submission, EOB posting, AR follow-up, secondary claims, narratives and patient billing inside Dentrix, Eaglesoft, Open Dental and Carestream.",
+  "description":"HIPAA-certified virtual dental billers handling insurance claim submission, EOB posting, AR follow-up, secondary claims, narratives and patient billing inside Dentrix, Open Dental and Carestream.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -56,7 +56,7 @@ include __DIR__ . '/../../includes/nav.php';
     </nav>
     <div class="svc-eyebrow"><i class="fa-solid fa-tooth"></i> Dental Billing &amp; AR teammates &middot; HIPAA Certified</div>
     <h1 class="svc-h1">Dental biller <em>virtual</em> assistants</h1>
-    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing, inside Dentrix, Eaglesoft, Open Dental and Carestream, at up to <strong>73% less</strong> than a US in-house dental biller.</p>
+    <p class="svc-lead">Stop chasing insurance. Our <strong>HIPAA-certified virtual dental billers</strong> own claim submission, EOB posting, narratives, AR follow-up and patient billing, inside Dentrix, Open Dental and Carestream, at up to <strong>73% less</strong> than a US in-house dental biller.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> CDT Code Fluent</div>
@@ -133,7 +133,6 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix Ascend</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Eaglesoft</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Open Dental</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Carestream</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Curve Dental</span>
@@ -167,7 +166,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Dental biller teammate FAQs</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-tooth"></i> What does a dental billing virtual assistant do?</div><div class="faq-a">Full insurance and patient billing cycle: CDT-coded claim submission with narratives and attachments, EOB posting, denial appeals, AR follow-up, pre-authorizations, secondary claims and patient statements.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental PMS do your billers know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon: plus DentalXChange, ClaimX and Vyne clearinghouses.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-handshake"></i> Can you handle PPO, HMO, Medicaid and Delta claims?</div><div class="faq-a">Yes. PPO, HMO, Medicaid, Delta, MetLife, Aetna, Cigna, United Concordia, Guardian and the full US dental payer spectrum: including narrative-heavy and pre-auth-required procedures.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a dental biller actually lower my AR?</div><div class="faq-a">Yes. Most practices see AR days drop from 45+ to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial appeals.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every dental biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>

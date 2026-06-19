@@ -1,8 +1,8 @@
 <?php
 $page_title       = 'Dental Virtual Assistants | Live in 1–2 Weeks, 73% Less | Virtual Teammate';
-$page_description = 'A dedicated, HIPAA-certified dental Virtual Teammate runs your scheduling, recall, verifications and claims inside Dentrix, Eaglesoft or Open Dental. Published flat-rate pricing from $750 bi-weekly full time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
+$page_description = 'A dedicated, HIPAA-certified dental Virtual Teammate runs your scheduling, recall, verifications and claims inside Dentrix or Open Dental. Published flat-rate pricing from $750 bi-weekly full time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
 $og_title         = 'Fully staff your front office in weeks, not months, for up to 73% less.';
-$og_description   = 'HIPAA-certified dental VAs trained on Dentrix, Eaglesoft, Open Dental and more: they keep chairs full, recall worked, treatment plans followed up and claims clean. Shortlist in days, live in 1–2 weeks.';
+$og_description   = 'HIPAA-certified dental VAs trained on Dentrix, Open Dental and more: they keep chairs full, recall worked, treatment plans followed up and claims clean. Shortlist in days, live in 1–2 weeks.';
 $canonical        = 'https://virtualteammate.com/dental-landing/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -14,7 +14,7 @@ $faqs = [
   ['q' => 'Are your dental teammates HIPAA certified?',
    'a' => 'Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
   ['q' => 'Do they know my practice-management software?',
-   'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.'],
+   'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does a dental VA cost?',
@@ -28,7 +28,7 @@ $faqs = [
   ['q' => 'How do you protect patient data?',
    'a' => 'Five layers: HIPAA training & certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).'],
   ['q' => 'Which practice-management software do your VAs know?',
-   'a' => 'Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.'],
+   'a' => 'Dentrix, Dentrix Ascend, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.'],
   ['q' => 'Will my dental VA work my practice hours and time zone?',
    'a' => 'Yes. Every teammate is matched to your US time-zone shift and works your business hours, so scheduling, recall, verifications and patient calls are covered live during your day, not overnight.'],
 ];
@@ -146,7 +146,7 @@ include __DIR__ . '/../includes/nav.php';
   <header class="dq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> HIPAA-certified dental VAs &middot; backed by the 30-Day Right-Fit Promise</div>
     <h1>Fully staff your front office in weeks, not months, for <em>up to 73% less</em>.</h1>
-    <p class="dq-sub">A dedicated, HIPAA-certified dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $750 bi-weekly full time, all-in.</p>
+    <p class="dq-sub">A dedicated, HIPAA-certified dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $750 bi-weekly full time, all-in.</p>
     <p class="dq-promise">Not the right fit in month one? <strong>We replace them at no cost, or refund every billed day.</strong> No clawback, no lock-in.</p>
     <div class="dq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -292,7 +292,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; Claims</h3><p>Claims submission, attachments, EOB and payment posting, and AR follow-up worked daily so production lands faster.</p></div>
       <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Treatment Plan Follow-Up</h3><p>Unscheduled treatment chased down and financial arrangements set up so case acceptance turns into seated appointments.</p></div>
       <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient Calls &amp; Reminders</h3><p>Inbound and outbound calls, appointment reminders and recall outreach handled in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS Management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Eaglesoft, Open Dental and more, never backlogged.</p></div>
+      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS Management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Open Dental and more, never backlogged.</p></div>
     </div>
   </section>
 
@@ -384,14 +384,14 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA certified?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Eaglesoft, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. From $750 bi-weekly full time ($400 part-time); Specialist tier (dental billing &amp; coding) $1,000 bi-weekly full-time ($600 part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Am I locked into a contract?</div><div class="faq-a">No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your dental VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your PMS, specialty, accent and US time-zone shift. You hire for skill set; we handle the sourcing.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit &rarr; no-cost replacement, re-shortlisted within 2 business days, billing paused until they&rsquo;re live; (2) outsourcing isn&rsquo;t working &rarr; cancel inside 30 days and we refund every billed day, no clawback.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-lock"></i> How do you protect patient data?</div><div class="faq-a">Five layers: HIPAA training &amp; certification before any PHI; a BAA-compatible confidentiality agreement; industry-aligned security controls; a 12-month audit trail of every access event; and locked-down devices (encrypted laptops, hardware MFA, password manager, least-privilege PMS access).</div></div>
-      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which practice-management software do your VAs know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Eaglesoft, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.</div></div>
+      <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which practice-management software do your VAs know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Curve, Denticon and Carestream, plus clearinghouses including DentalXChange. We match on tool fluency before placement.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> Will my dental VA work my practice hours and time zone?</div><div class="faq-a">Yes. Every teammate is matched to your US time-zone shift and works your business hours, so scheduling, recall, verifications and patient calls are covered live during your day, not overnight.</div></div>
     </div>
   </section>

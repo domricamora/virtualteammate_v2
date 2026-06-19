@@ -87,7 +87,7 @@ include __DIR__ . '/../includes/nav.php';
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>Healthcare VA</h3><p>Medical scribes, billers, receptionists, administrative support, medical assistants: HIPAA-trained.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span><h3>Dental VA</h3><p>Dental admin, billers, scribes, treatment coordinators, receptionists: Dentrix / Eaglesoft / Open Dental.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span><h3>Dental VA</h3><p>Dental admin, billers, scribes, treatment coordinators, receptionists: Dentrix / Open Dental.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span><h3>Administrative Support</h3><p>Calendar, inbox, data entry, document mgmt, executive assistance for SMBs and non-profits.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Inbound &amp; outbound support, ticket triage, live chat, CSAT, for service-heavy operators.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Financial Services</h3><p>Bookkeeping, AR/AP, payroll support, financial reporting and compliance documentation.</p></div>

@@ -14,7 +14,7 @@ $faqs = [
   ['q' => 'Are your healthcare teammates HIPAA certified?',
    'a' => 'Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
   ['q' => 'Do they know my EHR?',
-   'a' => 'We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Eaglesoft and more, and we confirm the fit during selection.'],
+   'a' => 'We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks: every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does it cost?',
@@ -380,7 +380,7 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare teammates HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Eaglesoft and more, and we confirm the fit during selection.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks: every placement backed by the 30-Day Right-Fit Promise.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Specialist tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. No early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>

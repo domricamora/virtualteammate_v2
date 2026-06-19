@@ -136,7 +136,6 @@ include __DIR__ . '/../../includes/nav.php';
       <span class="svc-tool-chip"><i class="fa-solid fa-phone"></i> Mango Voice</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-phone"></i> Nextiva</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Dentrix</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Eaglesoft</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Open Dental</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-tooth"></i> Carestream</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-comment-dots"></i> NexHealth / Solutionreach</span>
