@@ -250,7 +250,7 @@ include __DIR__ . '/../includes/nav.php';
           <span class="ico-circle case-ico"><i class="fa-solid fa-house-medical"></i></span>
           <div>
             <div class="case-name">Home Healthcare Client</div>
-            <div class="case-svc"><i class="fa-solid fa-location-dot"></i> East Coast</div>
+            <div class="case-svc"><i class="fa-solid fa-headset"></i> Medical receptionist &amp; scheduler</div>
           </div>
         </div>
       </article>
