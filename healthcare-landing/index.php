@@ -138,15 +138,14 @@ include __DIR__ . '/../includes/nav.php';
   <!-- HERO — offer-led, with CTA ladder -->
   <header class="hcq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Compliant Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
-    <h1>One teammate. The whole back office. <em>73% less</em> than an in-house hire.</h1>
-    <p class="hcq-sub">A dedicated, HIPAA-compliant medical VA, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more, owns your billing, scheduling, prior auth, scribing and patient follow-up inside your EHR. Curated shortlist in 2 business days. Live in 1&ndash;2 weeks.</p>
-    <p class="hcq-promise">Published flat-rate pricing from <strong>$750 biweekly full time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
+    <h1>Our teammates. Your whole back office. <em>73% less</em> than in-house hires.</h1>
+    <p class="hcq-sub">HIPAA-compliant medical VAs, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more.<br>Give us your billing, scheduling, prior auth, scribing and patient follow-up. We work inside your EHR.<br>Meet your shortlisted teammates in 2 business days.<br>Go live in 1&ndash;2 weeks.</p>
+    <p class="hcq-promise">From <strong>$750 biweekly</strong>, full time, all-in<br>Not the right fit in month one? We replace at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="hcq-hero-tert">Or take the 2-minute Practice Efficiency Quiz &rarr;</a></div>
-    <div class="hcq-cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
   </header>
 
   <!-- PROOF BAR -->
@@ -300,7 +299,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
       <h2 class="svc-h2" id="offer-h">What you get with a <em>Virtual Teammate</em></h2>
-      <p class="sec-sub" style="max-width:760px;margin:0 auto;">One HIPAA-compliant medical VA, fully managed, takes the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
+      <p class="sec-sub" style="max-width:760px;margin:0 auto;">HIPAA-compliant medical VAs take the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
     <div class="offer-grid reveal d1">
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, US-time-zone medical VA</strong> trained on your EHR: Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion or Kareo.</p></div>
