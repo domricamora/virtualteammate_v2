@@ -43,7 +43,7 @@ if (!preg_match('/^[a-f0-9]{16,64}$/i', $token)) {
 }
 
 $e   = static fn ($s) => htmlspecialchars((string) $s, ENT_QUOTES, 'UTF-8');
-$nm  = $vt ? (trim(($vt['first_name'] ?? '') . ' ' . ($vt['last_name'] ?? '')) ?: 'Virtual Teammate') : '';
+$nm  = $vt ? (trim(trim((string) ($vt['first_name'] ?? '')) . ' ' . (($ln = trim((string) ($vt['last_name'] ?? ''))) !== '' ? mb_strtoupper(mb_substr($ln, 0, 1)) . '.' : '')) ?: 'Virtual Teammate') : '';
 $role = $vt ? (trim((string) ($vt['role_title'] ?? '')) ?: trim((string) ($vt['department'] ?? '')) ?: 'Virtual Teammate') : '';
 $scores = $vt ? array_values(array_filter([
     trim((string) ($vt['predictive_index'] ?? '')),

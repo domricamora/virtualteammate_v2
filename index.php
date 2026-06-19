@@ -532,9 +532,9 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="pstep-num">02</div>
         <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
       </div>
-      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 5&ndash;7 business days</div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 1&ndash;2 business days</div>
       <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
-      <p class="pstep-desc">Curated shortlist of HIPAA-certified teammates delivered in <strong>5&ndash;7 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
+      <p class="pstep-desc">Curated shortlist of HIPAA-certified teammates delivered in <strong>1&ndash;2 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
     </div>
     <div class="pstep reveal d3">
       <div class="pstep-head">
@@ -576,7 +576,9 @@ function vtnew_homepage_profiles(int $limit = 6): array
         // (e.g. "Dental Assistants" -> "Dental Assistant").
         $vt_singularize = static fn (string $s): string => preg_replace('/\bAssistants\b/i', 'Assistant', $s);
         foreach ($homepage_profiles as $i => $p):
-        $name  = trim(($p['first_name'] ?? '') . ' ' . ($p['last_name'] ?? ''));
+        $first   = trim((string) ($p['first_name'] ?? ''));
+        $lastIni = ($ln = trim((string) ($p['last_name'] ?? ''))) !== '' ? mb_strtoupper(mb_substr($ln, 0, 1)) . '.' : '';
+        $name  = trim($first . ' ' . $lastIni);
         $role  = $vt_singularize($p['role_title'] ?: ($p['department'] ?: 'Healthcare VA'));
         $tagCls = $p['_tag_cls'] ?? 'med';
         $isDental = ($tagCls === 'dent');
