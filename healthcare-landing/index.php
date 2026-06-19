@@ -39,6 +39,10 @@ include __DIR__ . '/../includes/nav.php';
 .hcq-hero h1{font-size:44px;line-height:1.1;letter-spacing:-.5px;margin:16px 0 16px;color:#fff;}
 .hcq-hero h1 em{color:var(--gold);font-style:normal;}
 .hcq-hero .hcq-sub{font-size:17px;line-height:1.65;color:var(--text-soft,#c9c8e2);margin:0 auto 14px;max-width:760px;}
+/* Hero offer points as a 2x2 check-bullet grid */
+.hcq-hero .hcq-sub-grid{list-style:none;margin:0 auto 18px;padding:0;max-width:720px;display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;text-align:left;}
+.hcq-hero .hcq-sub-grid li{position:relative;padding-left:27px;font-size:15px;line-height:1.55;color:var(--text-soft,#c9c8e2);}
+.hcq-hero .hcq-sub-grid li::before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:0;top:2px;font-size:13px;color:var(--gold);}
 .hcq-hero .hcq-promise{font-size:15px;line-height:1.6;color:rgba(255,255,255,.82);margin:0 auto 26px;max-width:740px;}
 .hcq-hero .hcq-promise strong{color:#fff;}
 .hcq-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center;}
@@ -129,6 +133,7 @@ include __DIR__ . '/../includes/nav.php';
   .hcq-hero{padding:40px 18px 18px;}
   .hcq-hero .sec-lbl{justify-content:center;}
   .hcq-hero h1{font-size:31px;}
+  .hcq-hero .hcq-sub-grid{grid-template-columns:1fr;gap:9px;max-width:420px;}
   .hcq-hero-btns{flex-direction:column;align-items:stretch;}
   .quiz-container{padding:24px 20px;}
 }
@@ -139,7 +144,12 @@ include __DIR__ . '/../includes/nav.php';
   <header class="hcq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Compliant Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
     <h1>Our teammates. Your whole back office. <em>73% less</em> than in-house hires.</h1>
-    <p class="hcq-sub">HIPAA-compliant medical VAs, trained on Epic, eClinicalWorks, Athenahealth and more.<br>Give us your billing, scheduling, prior auth, scribing and patient follow-up. We work inside your EHR.<br>Meet your shortlisted teammates in 2 business days.<br>Go live in 1&ndash;2 weeks.</p>
+    <ul class="hcq-sub-grid">
+      <li>HIPAA-compliant medical VAs, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more</li>
+      <li>Give us your billing, scheduling, prior auth, scribing and patient follow-up. We work inside your EHR.</li>
+      <li>Meet your shortlisted teammates in 2 business days.</li>
+      <li>Go live in 1&ndash;2 weeks.</li>
+    </ul>
     <p class="hcq-promise">From <strong>$750 biweekly</strong>, full time, all-in<br>Not the right fit in month one? We replace at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
