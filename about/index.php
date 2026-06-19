@@ -211,18 +211,45 @@ include __DIR__ . '/../includes/nav.php';
 
 <div class="divider"></div>
 
-<!-- PROCESS / FUNNEL -->
-<section class="svc-proc">
-  <div style="text-align:center;max-width:720px;margin:0 auto;" class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-route"></i> How We Engage</div>
-    <h2 class="svc-h2">Five steps from first call to <em>first win</em></h2>
+<!-- PROCESS -->
+<section class="sec">
+  <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
+    <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
+    <h2 class="sec-h2">Hire in weeks, <em>not months</em></h2>
+    <p class="sec-sub" style="margin:0 auto;">Three steps. Built for busy practices.</p>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Pinpoint goals</h3><p class="pstep-desc">A 30-minute strategy session: surface the bottleneck, the KPI gap, and the workflow you&rsquo;d hand off first.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-lightbulb pstep-ico"></i></div><h3 class="pstep-title">Discover the fit</h3><p class="pstep-desc">We map your needs to the right role spec: medical, dental, admin, sales, or back-office.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Match your teammate</h3><p class="pstep-desc">Curated shortlist within days. You interview, you choose: no commitment until the right candidate.</p></div>
-    <div class="pstep reveal d4"><div class="pstep-head"><div class="pstep-num">04</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Integrate</h3><p class="pstep-desc">A tailored 1&ndash;2 week integration plan: tools, EHR access, workflows, communication cadence.</p></div>
-    <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-chart-line pstep-ico"></i></div><h3 class="pstep-title">Track &amp; scale</h3><p class="pstep-desc">Monthly KPI scorecard, and when results land, scale the engagement with confidence.</p></div>
+    <div class="pstep reveal d1">
+      <div class="pstep-head">
+        <div class="pstep-num">01</div>
+        <i class="fa-solid fa-calendar-check pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
+      <h3 class="pstep-title">Book a practice staffing audit</h3>
+      <p class="pstep-desc">Submit the form and we&rsquo;ll confirm your audit slot <strong>within one business day</strong>. The 20-minute diagnostic call maps your practice, workflows, and the exact clinical or admin support to delegate first.</p>
+    </div>
+    <div class="pstep reveal d2">
+      <div class="pstep-head">
+        <div class="pstep-num">02</div>
+        <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 1&ndash;2 business days</div>
+      <h3 class="pstep-title">Meet &amp; interview candidates</h3>
+      <p class="pstep-desc">Curated shortlist of HIPAA-compliant teammates delivered in <strong>1&ndash;2 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
+    </div>
+    <div class="pstep reveal d3">
+      <div class="pstep-head">
+        <div class="pstep-num">03</div>
+        <i class="fa-solid fa-rocket pstep-ico"></i>
+      </div>
+      <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
+      <h3 class="pstep-title">Launch &amp; go live</h3>
+      <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff, all wrapped in <strong>1&ndash;2 weeks</strong>. Your teammate starts producing in week one, with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
+    </div>
+  </div>
+  <div class="proc-cta reveal">
+    <a href="<?= $audit_modal ?>" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>
 
