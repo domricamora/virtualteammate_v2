@@ -10,9 +10,11 @@ $home_base = $home_base ?? './';
 // Audit scheduler modal target: the homepage ships #cta-practice-audit inline;
 // every other page gets #cta-book from the footer modal hub (includes/cta-modals.php).
 $audit_modal = !empty($is_homepage) ? '#cta-practice-audit' : '#cta-book';
-// Topbar "Get started" scrolls to the bottom CTA block: the homepage's #cta
-// stages section, or the footer booking band (#lead-form) on inner pages.
-$cta_anchor = !empty($is_homepage) ? '#cta' : '#lead-form';
+// Topbar "Get started": pages that have the "Ways to Start" stages section
+// (#cta — homepage + business) scroll to it; every other page opens the Jumpstart
+// call modal in place. Pages with the section set $has_cta_section = true.
+$has_cta_section = !empty($has_cta_section) || !empty($is_homepage);
+$topbar_cta = $has_cta_section ? '#cta' : '#cta-strategy-call';
 ?>
 <!-- TOPBAR + NAV scroll together as one sticky header -->
 <header class="site-header">
@@ -20,7 +22,7 @@ $cta_anchor = !empty($is_homepage) ? '#cta' : '#lead-form';
 <div class="topbar" role="complementary">
   <i class="fa-solid fa-rocket" aria-hidden="true"></i> Ready to start? Book your jumpstart call
   &nbsp;&bull;&nbsp;
-  <a href="<?= $cta_anchor ?>">Get started in 24 hours <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $topbar_cta ?>"<?= $has_cta_section ? '' : ' data-cta-intent="strategy-call"' ?>>Get started in 24 hours <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->

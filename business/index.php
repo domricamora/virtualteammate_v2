@@ -5,6 +5,7 @@ $og_title         = 'Business & Non-Profit Virtual Assistants: Virtual Teammate'
 $og_description   = 'Admin, sales, marketing, finance & CX virtual assistants for businesses & non-profits: sourced globally, delivered in your time zone.';
 $canonical        = 'https://virtualteammate.com/business/';
 $home_base        = '../';
+$has_cta_section  = true;   // this page has its own "Ways to Start" #cta section
 $breadcrumbs      = [
   ['name' => 'Home',                       'url' => '/'],
   ['name' => 'Business & Non-Profit VAs',  'url' => '/business/'],
