@@ -504,9 +504,13 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .lead-band-l .sec-lbl, .lead-band-l .sec-h2,
 .vtd-hero-text .sec-lbl, .vtd-hero-text .sec-h2,
 .vtd-match-l .sec-lbl, .vtd-match-l .sec-h2{text-align:left;}
-/* VT profiles header: right-align the eyebrow + title, gold the title. */
-#profiles .sec-lbl, #profiles .sec-h2{text-align:right;}
-#profiles .sec-h2{color:var(--gold);}
+/* Lead-capture band sits in a two-column card: keep its copy left-aligned and let
+   the title wrap (it can be long at the 50px section size). */
+.lead-band-l .sec-sub{text-align:left;}
+.lead-band-l .sec-h2{white-space:normal;}
+/* VT profiles header lives in a left text column beside a CTA: left-align the
+   eyebrow, title and subheader; title uses the standard white + gold-em styling. */
+#profiles .sec-lbl, #profiles .sec-h2, #profiles .sec-sub{text-align:left;}
 /* Compliance section keeps its h2 centered. */
 .comp-section .sec-h2{text-align:center;}
 

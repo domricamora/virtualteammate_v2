@@ -568,7 +568,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;" class="reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
-      <h2 class="sec-h2" style="margin-bottom:0;">Your future healthcare teammates</h2>
+      <h2 class="sec-h2" style="margin-bottom:0;">Your future <em>healthcare teammates</em></h2>
     </div>
     <div style="text-align:right;">
       <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
