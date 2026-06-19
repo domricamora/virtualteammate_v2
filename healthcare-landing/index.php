@@ -2,7 +2,7 @@
 $page_title       = 'HIPAA-Compliant Medical Virtual Assistants | Live in 1–2 Weeks, 73% Less | Virtual Teammate';
 $page_description = 'A dedicated, HIPAA-compliant medical virtual assistant who owns scheduling, billing, prior auth, scribing and patient follow-up inside your EHR. Published flat-rate pricing from $750 bi-weekly full time, live in 1–2 weeks, backed by the 30-Day Right-Fit Promise.';
 $og_title         = 'One Teammate. The Whole Back Office. 73% Less Than an In-House Hire.';
-$og_description   = 'HIPAA-compliant medical VAs trained on Epic, Cerner, eClinicalWorks and more: they own your billing, scheduling, prior auth, scribing and follow-up. Shortlist in 5–7 days, live in 1–2 weeks.';
+$og_description   = 'HIPAA-compliant medical VAs trained on Epic, Athena, eClinicalWorks and more: they own your billing, scheduling, prior auth, scribing and follow-up. Shortlist in 5–7 days, live in 1–2 weeks.';
 $canonical        = 'https://virtualteammate.com/healthcare-landing/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -14,7 +14,7 @@ $faqs = [
   ['q' => 'Are your healthcare teammates HIPAA compliant?',
    'a' => 'Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
   ['q' => 'Do they know my EHR?',
-   'a' => 'We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.'],
+   'a' => 'We match on tool fluency. Our teammates work daily in Epic, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks: every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does it cost?',
@@ -139,7 +139,7 @@ include __DIR__ . '/../includes/nav.php';
   <header class="hcq-hero reveal">
     <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> HIPAA-Compliant Medical Virtual Assistants &middot; 30-Day Right-Fit Promise</div>
     <h1>Our teammates. Your whole back office. <em>73% less</em> than in-house hires.</h1>
-    <p class="hcq-sub">HIPAA-compliant medical VAs, trained on Epic, Cerner, eClinicalWorks, Athenahealth and more.<br>Give us your billing, scheduling, prior auth, scribing and patient follow-up. We work inside your EHR.<br>Meet your shortlisted teammates in 2 business days.<br>Go live in 1&ndash;2 weeks.</p>
+    <p class="hcq-sub">HIPAA-compliant medical VAs, trained on Epic, eClinicalWorks, Athenahealth and more.<br>Give us your billing, scheduling, prior auth, scribing and patient follow-up. We work inside your EHR.<br>Meet your shortlisted teammates in 2 business days.<br>Go live in 1&ndash;2 weeks.</p>
     <p class="hcq-promise">From <strong>$750 biweekly</strong>, full time, all-in<br>Not the right fit in month one? We replace at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -302,7 +302,7 @@ include __DIR__ . '/../includes/nav.php';
       <p class="sec-sub" style="max-width:760px;margin:0 auto;">HIPAA-compliant medical VAs take the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
     <div class="offer-grid reveal d1">
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, US-time-zone medical VA</strong> trained on your EHR: Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion or Kareo.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, US-time-zone medical VA</strong> trained on your EHR: Epic, eClinicalWorks, Athenahealth, NextGen, Practice Fusion or Kareo.</p></div>
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-layer-group"></i></span><p><strong>Full back-office coverage:</strong> scheduling &amp; intake, billing &amp; RCM, insurance &amp; prior auth, scribing &amp; documentation, patient calls &amp; follow-up, inbox &amp; records.</p></div>
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><p><strong>A dedicated Client Success Manager</strong> on your account from day one.</p></div>
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-shield"></i></span><p><strong>Backup coverage built in</strong>: a trained backup arranged within hours, at no charge, if your VA is ever out.</p></div>
@@ -379,7 +379,7 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare teammates HIPAA compliant?</div><div class="faq-a">Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, athenahealth, eClinicalWorks, Dentrix, Open Dental and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks: every placement backed by the 30-Day Right-Fit Promise.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Specialist tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. No early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>

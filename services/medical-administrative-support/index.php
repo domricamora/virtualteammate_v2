@@ -18,7 +18,7 @@ $faqs = [
   ['q' => 'Are your medical admin teammates HIPAA compliant?',
    'a' => 'Yes. Every admin teammate completes HIPAA training and certification before placement, signs a BAA-compatible confidentiality agreement, and works only within your approved systems.'],
   ['q' => 'Which EHR systems do your admin teammates know?',
-   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more: plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.'],
+   'a' => 'Epic, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more: plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.'],
   ['q' => 'How much does a medical admin teammate cost?',
    'a' => 'Transparent flat-rate pricing, typically 60–73% less than the fully-loaded cost of an equivalent US in-house hire. Use our ROI calculator on the homepage for an exact, role-specific quote.'],
   ['q' => 'How fast can a medical admin teammate start?',
@@ -162,7 +162,6 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Epic</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Cerner</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> eClinicalWorks</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Athenahealth</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Practice Fusion</span>
@@ -215,7 +214,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a medical administrative virtual assistant actually do?</div><div class="faq-a">A medical admin teammate owns the non-clinical workflows that drain a provider&rsquo;s day: chart prep, patient intake, records requests, prior auth packets, referrals, inbox triage and EHR data hygiene: all inside your existing systems.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your medical admin teammates HIPAA compliant?</div><div class="faq-a">Yes. Every admin teammate completes HIPAA training and certification before placement, signs a BAA-compatible confidentiality agreement, and works only within your approved systems.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-brain"></i> Which EHR systems do your admin teammates know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more: plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-brain"></i> Which EHR systems do your admin teammates know?</div><div class="faq-a">Epic, eClinicalWorks, Athenahealth, Practice Fusion, NextGen, Kareo and more: plus Microsoft 365, Google Workspace, DocuSign, Dropbox and most patient-portal platforms.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical admin teammate cost?</div><div class="faq-a">Transparent flat-rate pricing, typically 60&ndash;73% less than the fully-loaded cost of an equivalent US in-house hire. Use our ROI calculator on the homepage for an exact, role-specific quote.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can a medical admin teammate start?</div><div class="faq-a">Most clients receive a curated shortlist within days. Onboarding (training, tool access, workflow docs) wraps in 1&ndash;2 weeks for a fully-live, productive teammate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale up or pause if my needs change?</div><div class="faq-a">Yes. Add more teammates as patient volume grows or reduce hours during slow seasons. No locked-in headcount, no termination penalties.</div></div>

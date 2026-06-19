@@ -486,16 +486,23 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 
 /* ───── SECTION DEFAULTS ───── */
 .sec{padding:78px 80px;position:relative;}
-.sec-lbl{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;}
+.sec-lbl{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;text-align:center;}
 .sec-lbl i{margin-right:6px;}
-.sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;}
+.sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;white-space:nowrap;text-align:center;}
 .sec-h2 em{color:var(--gold);font-style:normal;font-weight:800;}
 /* ROI calculator headline must stay on ONE line at every width: nowrap + a fluid
    size that scales with the viewport so it shrinks to fit narrow phones rather
    than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
    it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
 #calc-h{font-size:clamp(28px,4vw,46px);}
-.sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;}
+.sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;text-align:center;}
+/* Section headers center by default. Split / two-column layouts (guarantee strip,
+   global map, lead bands, talent hero & match card) keep their copy left-aligned. */
+.g-copy .sec-lbl, .g-copy .sec-h2, .g-copy .sec-sub,
+.global-l .sec-lbl, .global-l .sec-h2, .global-l .sec-sub,
+.lead-band-l .sec-lbl, .lead-band-l .sec-h2,
+.vtd-hero-text .sec-lbl, .vtd-hero-text .sec-h2,
+.vtd-match-l .sec-lbl, .vtd-match-l .sec-h2{text-align:left;}
 
 /* ───── ROI CALCULATOR ───── */
 .calc-wrap{
@@ -1860,15 +1867,14 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   border:1px solid rgba(223,169,73,0.32);
   border-radius:14px;
   padding:18px 18px 14px;
-  height:172px;display:flex;flex-direction:column;
+  /* Uniform height across all four cards, with room for a two-line foot note. */
+  min-height:188px;display:flex;flex-direction:column;
 }
 /* Foot sits flush to the bottom so all metric boxes line up at a fixed height. */
 .case-metric .case-metric-foot{margin-top:auto;}
 .case-metric-h{
   font-size:11px;font-weight:800;color:var(--gold-lt);
   text-transform:uppercase;letter-spacing:1.3px;margin-bottom:12px;
-  /* Reserve two lines so the value row starts at the same height on every card. */
-  line-height:1.3;min-height:2.6em;
 }
 .case-metric-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
 .case-metric-before,

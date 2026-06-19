@@ -41,7 +41,7 @@ $st = $profile['status'] ?? 'onpool';
     </label>
 
     <label class="span-2">EHR / Software experience
-      <input type="text" name="ehr_software" value="<?= e($profile['ehr_software'] ?? '') ?>" placeholder="Epic, Cerner, Dentrix, Open Dental…">
+      <input type="text" name="ehr_software" value="<?= e($profile['ehr_software'] ?? '') ?>" placeholder="Epic, Athena, Dentrix, Open Dental…">
     </label>
 
     <label>English level

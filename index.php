@@ -56,7 +56,7 @@ include 'includes/nav.php';
     <div class="hero-eyebrow reveal"><span class="dot"></span> 30-Day Right-Fit Promise &middot; HIPAA-Compliant</div>
     <h1 class="hero-h1 reveal d1">Short-staffed and overworked?<br><span class="hero-h1-sub">Fully staff your practice <em>in weeks</em>, not months, for <em>73% less</em>.</span></h1>
     <ul class="hero-sub hero-sub-list hero-sub-cols reveal d2">
-      <li>HIPAA-compliant medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Open Dental.</li>
+      <li>HIPAA-compliant medical &amp; dental virtual assistants trained on Epic, Athena, Dentrix and Open Dental.</li>
       <li>We own billing, scribing, scheduling and prior auth.</li>
       <li>Matched to your US time zone.</li>
       <li>Flat-rate pricing from <strong>$750 bi-weekly</strong>, backed by our <strong>30-Day Right-Fit Promise</strong>.</li>
@@ -387,7 +387,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         </div>
       </div>
       <div class="spec-content">
-        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Compliant &middot; Epic / Cerner / Athena Trained</div>
+        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Compliant &middot; Epic / Athena Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
           <h3 class="spec-title">Medical virtual teammates</h3>
@@ -450,7 +450,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       </div>
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-brain"></i></span>
-        <div class="hbadge-txt"><strong>EHR Trained</strong><span>Epic, Cerner, Dentrix &amp; more</span></div>
+        <div class="hbadge-txt"><strong>EHR Trained</strong><span>Epic, Athena, Dentrix &amp; more</span></div>
       </div>
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-circle-check"></i></span>
@@ -749,7 +749,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 2 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every teammate, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>industry-aligned security controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>1&ndash;2 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your teammates know?</div><div class="faq-a">Medical teammates are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental teammates are proficient in Dentrix, Dentrix Ascend, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your teammates know?</div><div class="faq-a">Medical teammates are trained on Epic, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental teammates are proficient in Dentrix, Dentrix Ascend, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Wherever the best fit lives. Our global recruiting reach lets us match for your specialty, EHR, accent, language, and US time-zone shift, not just whoever happens to be on the bench. You hire for skill set; we handle the sourcing.</div></div>
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager (CSM) is on your account: reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-handshake-slash"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. Most healthcare VA agencies require 6&ndash;12 month commitments: we don&rsquo;t. Pause, scale up, scale down or cancel month-to-month, with no early-termination fees and no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
@@ -763,7 +763,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto;">
     <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> Here&rsquo;s the Deal</div>
     <h2 class="sec-h2" id="offer-h">Here&rsquo;s exactly what you get</h2>
-    <p class="sec-sub" style="margin:0 auto;">HIPAA-compliant medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Open Dental, fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
+    <p class="sec-sub" style="margin:0 auto;">HIPAA-compliant medical &amp; dental virtual assistants, trained on Epic, Athena, Dentrix and Open Dental, fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
   </div>
 
   <div class="offer-grid reveal d1">

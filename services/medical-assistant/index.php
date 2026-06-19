@@ -20,7 +20,7 @@ $faqs = [
   ['q' => 'Are your virtual MAs HIPAA compliant?',
    'a' => 'Yes. HIPAA-compliant, background-checked, BAA-compatible. Encrypted environments only.'],
   ['q' => 'Which EHRs do your MAs know?',
-   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more: plus e-Rx, lab portals and patient-portal platforms.'],
+   'a' => 'Epic, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more: plus e-Rx, lab portals and patient-portal platforms.'],
   ['q' => 'How much does a virtual medical assistant cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US clinical MA hire. Use our ROI calculator for an exact estimate.'],
   ['q' => 'What if my virtual MA is sick or on leave?',
@@ -132,7 +132,6 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Epic</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Cerner</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> eClinicalWorks</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Athenahealth</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> NextGen</span>
@@ -169,7 +168,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-nurse"></i> What does a virtual medical assistant actually do?</div><div class="faq-a">Triage prep, refill management, prior authorization, results routing, care coordination, patient outreach and EHR follow-up: the non-hands-on workload that consumes 40&ndash;60% of an in-house MA&rsquo;s shift.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-hand-holding-medical"></i> Can a virtual MA replace my in-house MA?</div><div class="faq-a">It complements them. Hands-on work (vitals, injections, rooming) still happens in person. The virtual MA absorbs the documentation, follow-up and coordination workload so your in-house team can stay focused on patients.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your virtual MAs HIPAA compliant?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked, BAA-compatible. Encrypted environments only.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your MAs know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more: plus e-Rx, lab portals and patient-portal platforms.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your MAs know?</div><div class="faq-a">Epic, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and more: plus e-Rx, lab portals and patient-portal platforms.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical assistant cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US clinical MA hire. Use our ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my virtual MA is sick or on leave?</div><div class="faq-a">Trained backup coverage is included: your Client Success Manager (CSM) arranges a substitute so workflows never stall.</div></div>
   </div>

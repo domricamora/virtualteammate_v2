@@ -132,7 +132,6 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Epic</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Cerner</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Athenahealth</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> eClinicalWorks</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Kareo</span>

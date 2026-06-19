@@ -2,7 +2,7 @@
 $page_title       = 'Medical Scribe Virtual Assistants | HIPAA-Compliant Virtual Scribes | Virtual Teammate';
 $page_description = 'Hire HIPAA-compliant virtual medical scribes. Real-time EHR documentation, SOAP notes, charting & order entry: let providers focus on patients. Save up to 73%.';
 $og_title         = 'Medical Scribe Virtual Assistants: Real-Time EHR Documentation';
-$og_description   = 'HIPAA-compliant virtual scribes document visits in real time inside Epic, Cerner & every major EHR: finish notes before the patient leaves.';
+$og_description   = 'HIPAA-compliant virtual scribes document visits in real time inside Epic, Athena & every major EHR: finish notes before the patient leaves.';
 $canonical        = 'https://virtualteammate.com/services/medical-scribe/';
 $home_base        = '../../';
 $svc_slug         = 'medical-scribe';
@@ -18,7 +18,7 @@ $faqs = [
   ['q' => 'How much time does a virtual scribe save?',
    'a' => 'Most providers reclaim 2–3 hours of charting per day, see 1–3 additional patients per shift, and eliminate after-hours documentation.'],
   ['q' => 'Which EHRs do your scribes know?',
-   'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.'],
+   'a' => 'Epic, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.'],
   ['q' => 'Is a virtual scribe HIPAA compliant?',
    'a' => 'Yes. HIPAA-compliant, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.'],
   ['q' => 'How much does a virtual scribe cost?',
@@ -132,7 +132,6 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Epic</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Cerner</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> eClinicalWorks</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Athenahealth</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> NextGen</span>
@@ -168,7 +167,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual medical scribe actually do?</div><div class="faq-a">Joins each visit by HIPAA-compliant audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> How much time does a virtual scribe save?</div><div class="faq-a">Most providers reclaim 2&ndash;3 hours of charting per day, see 1&ndash;3 additional patients per shift, and eliminate after-hours documentation.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your scribes know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your scribes know?</div><div class="faq-a">Epic, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a virtual scribe HIPAA compliant?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my scribe is sick?</div><div class="faq-a">Trained backup coverage is included: your Client Success Manager (CSM) arranges a substitute scribe so you&rsquo;re never charting alone again.</div></div>
