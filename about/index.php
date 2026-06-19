@@ -196,7 +196,7 @@ include __DIR__ . '/../includes/nav.php';
 <!-- WHY VT -->
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Practices and Businesses Choose VT</div>
+    <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Practices Choose VT</div>
     <h2 class="svc-h2">More than staffing: a <em>partner that owns outcomes</em></h2>
   </div>
   <div class="svc-bens-grid">
