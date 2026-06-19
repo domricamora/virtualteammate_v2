@@ -153,7 +153,7 @@ include __DIR__ . '/../includes/nav.php';
     <p class="hcq-promise">From <strong>$750 biweekly</strong>, full time, all-in<br>Not the right fit in month one? We replace at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="hcq-hero-tert">Or take the 2-minute Practice Efficiency Quiz &rarr;</a></div>
   </header>
@@ -406,7 +406,7 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book your Practice Staffing Audit and a Dedicated Client Success Manager will map your busiest workflows and show you which roles to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
   </section>

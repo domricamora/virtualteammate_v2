@@ -504,6 +504,11 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .lead-band-l .sec-lbl, .lead-band-l .sec-h2,
 .vtd-hero-text .sec-lbl, .vtd-hero-text .sec-h2,
 .vtd-match-l .sec-lbl, .vtd-match-l .sec-h2{text-align:left;}
+/* VT profiles header: right-align the eyebrow + title, gold the title. */
+#profiles .sec-lbl, #profiles .sec-h2{text-align:right;}
+#profiles .sec-h2{color:var(--gold);}
+/* Compliance section keeps its h2 centered. */
+.comp-section .sec-h2{text-align:center;}
 
 /* ───── ROI CALCULATOR ───── */
 .calc-wrap{

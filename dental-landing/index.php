@@ -150,7 +150,7 @@ include __DIR__ . '/../includes/nav.php';
     <p class="dq-promise">Not the right fit in month one? <strong>We replace them at no cost, or refund every billed day.</strong> No clawback, no lock-in.</p>
     <div class="dq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="dq-hero-tert">Not sure where your time is going? Take the 2-min efficiency quiz &rarr;</a></div>
     <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
@@ -402,7 +402,7 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book your practice staffing audit and a Client Success Manager will map exactly which front-office tasks to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> 30-Day Right-Fit Promise: no-cost replacement or every billed day refunded. No lock-in.</div>
     </div>
   </section>

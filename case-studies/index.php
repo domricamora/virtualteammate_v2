@@ -62,6 +62,29 @@ include __DIR__ . '/../includes/nav.php';
 .cs-area-card .pct{font-size:32px;font-weight:800;color:#fff;letter-spacing:-.5px;}
 .cs-area-card .nm{font-size:14px;color:var(--text-soft,#c9c8e2);margin-top:6px;}
 .cs-area-card .vc{font-size:12px;color:var(--text-mute,#a8a7c3);margin-top:8px;}
+
+/* Graphic KPI-scorecard panels (replace stock photos, match the homepage's
+   graphic-element style — glass + gold on the dark theme). Fills the hv-card /
+   svc-side-img frame, which carries the aspect-ratio + rounded clip. */
+.cs-graphic{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;
+  padding:30px 28px;
+  background:linear-gradient(150deg,rgba(57,25,186,.55),rgba(20,15,55,.92) 55%,rgba(223,169,73,.18));}
+.cs-graphic-h{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:2px;}
+.cs-graphic-h .t{display:flex;align-items:center;gap:9px;font-weight:800;color:#fff;font-size:15px;line-height:1.2;}
+.cs-graphic-h .t i{color:var(--gold,#dfa949);}
+.cs-graphic-h .tag{flex:0 0 auto;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;
+  color:var(--gold-lt,#f5e4b8);background:rgba(223,169,73,.16);border:1px solid rgba(223,169,73,.4);
+  padding:4px 10px;border-radius:20px;}
+.cs-graphic-kpi{display:flex;flex-direction:column;gap:7px;}
+.cs-graphic-row{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+  font-size:13.5px;color:rgba(255,255,255,.85);}
+.cs-graphic-row .v{font-size:20px;font-weight:800;color:var(--gold,#dfa949);letter-spacing:-.02em;}
+.cs-graphic-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden;}
+.cs-graphic-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold,#dfa949),#f5d27a);}
+.cs-graphic-foot{margin-top:6px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid rgba(255,255,255,.12);padding-top:14px;}
+.cs-graphic-foot span{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);font-weight:700;}
+.cs-graphic-foot strong{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;}
 </style>
 
 <main>
@@ -82,7 +105,22 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-chart-line"></i> Real KPI Data</div>
     <div class="hv-chip c2"><i class="fa-solid fa-hospital"></i> 4 Healthcare Clients</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.webp" alt="Real KPI results from Virtual Teammate healthcare clients" loading="lazy"/>
+      <div class="cs-graphic" role="img" aria-label="Sample monthly KPI scorecard: insurance verifications +30%, pre-certifications +60%, payment posting +40%, average achievement +44%">
+        <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-chart-column"></i> Monthly KPI Scorecard</span><span class="tag">Spring 2025</span></div>
+        <div class="cs-graphic-kpi">
+          <div class="cs-graphic-row"><span>Insurance Verifications</span><span class="v">+30%</span></div>
+          <div class="cs-graphic-bar"><i style="width:82%"></i></div>
+        </div>
+        <div class="cs-graphic-kpi">
+          <div class="cs-graphic-row"><span>Pre-Certifications</span><span class="v">+60%</span></div>
+          <div class="cs-graphic-bar"><i style="width:97%"></i></div>
+        </div>
+        <div class="cs-graphic-kpi">
+          <div class="cs-graphic-row"><span>Payment Posting</span><span class="v">+40%</span></div>
+          <div class="cs-graphic-bar"><i style="width:88%"></i></div>
+        </div>
+        <div class="cs-graphic-foot"><span>Avg. Achievement</span><strong>+44%</strong></div>
+      </div>
     </div>
   </div>
 </header>
@@ -258,7 +296,18 @@ include __DIR__ . '/../includes/nav.php';
     <p class="svc-p">No vanity metrics. No "hours worked." Just the numbers your business actually runs on.</p>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Monthly KPI scorecard tracking — Virtual Teammate measurable results" loading="lazy"/>
+    <div class="cs-graphic" role="img" aria-label="Sample KPI report: targeted KPI 2,400, results delivered 3,456, value created +44%">
+      <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-clipboard-check"></i> KPI Report &middot; Sample</span><span class="tag">Monthly</span></div>
+      <div class="cs-graphic-kpi">
+        <div class="cs-graphic-row"><span>Targeted KPI</span><span class="v">2,400</span></div>
+        <div class="cs-graphic-bar"><i style="width:69%"></i></div>
+      </div>
+      <div class="cs-graphic-kpi">
+        <div class="cs-graphic-row"><span>Results Delivered</span><span class="v">3,456</span></div>
+        <div class="cs-graphic-bar"><i style="width:100%"></i></div>
+      </div>
+      <div class="cs-graphic-foot"><span>Value Created</span><strong>+44%</strong></div>
+    </div>
   </div>
 </section>
 
@@ -301,7 +350,7 @@ include __DIR__ . '/../includes/nav.php';
   <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>

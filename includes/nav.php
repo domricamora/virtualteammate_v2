@@ -7,6 +7,12 @@
  * Service pages live at $home_base . 'services/<slug>/' and are linked the same way.
  */
 $home_base = $home_base ?? './';
+// Audit scheduler modal target: the homepage ships #cta-practice-audit inline;
+// every other page gets #cta-book from the footer modal hub (includes/cta-modals.php).
+$audit_modal = !empty($is_homepage) ? '#cta-practice-audit' : '#cta-book';
+// Topbar "Get started" scrolls to the bottom CTA block: the homepage's #cta
+// stages section, or the footer booking band (#lead-form) on inner pages.
+$cta_anchor = !empty($is_homepage) ? '#cta' : '#lead-form';
 ?>
 <!-- TOPBAR + NAV scroll together as one sticky header -->
 <header class="site-header">
@@ -14,7 +20,7 @@ $home_base = $home_base ?? './';
 <div class="topbar" role="complementary">
   <i class="fa-solid fa-rocket" aria-hidden="true"></i> Ready to start? Book your jumpstart call
   &nbsp;&bull;&nbsp;
-  <a href="<?= $home_base ?>#cta">Get started in 24 hours <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $cta_anchor ?>">Get started in 24 hours <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->
@@ -37,61 +43,61 @@ $home_base = $home_base ?? './';
       <div class="nav-mega" role="menu" aria-label="Healthcare services">
         <div class="nav-mega-col">
           <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-user-doctor"></i></span> Medical</div>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-administrative-support/" role="menuitem">
+          <span class="nav-mega-link">
             <i class="fa-solid fa-clipboard-list"></i>
             <span><strong>Medical Administrative Support</strong><em>Charts, intake, records &amp; admin workflows</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-receptionist/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-headset"></i>
             <span><strong>Medical Receptionist</strong><em>Front-desk calls, scheduling &amp; intake</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-biller/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             <span><strong>Medical Biller</strong><em>Claims, AR follow-up &amp; RCM</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-scribe/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-pen-clip"></i>
             <span><strong>Medical Scribe</strong><em>Real-time EHR documentation</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/medical-assistant/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-user-nurse"></i>
             <span><strong>Medical Assistant</strong><em>Clinical &amp; administrative support</em></span>
-          </a>
+          </span>
         </div>
         <div class="nav-mega-col">
           <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-tooth"></i></span> Dental</div>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-admin/" role="menuitem">
+          <span class="nav-mega-link">
             <i class="fa-solid fa-clipboard-list"></i>
             <span><strong>Dental Administrative Support</strong><em>Records, verification &amp; treatment-plan prep</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-receptionist/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-headset"></i>
             <span><strong>Dental Receptionist</strong><em>Live front-desk calls, scheduling &amp; recall</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-biller/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-file-invoice-dollar"></i>
             <span><strong>Dental Biller</strong><em>Insurance billing &amp; EOB posting</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-scribe/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-pen-clip"></i>
             <span><strong>Dental Scribe</strong><em>Real-time clinical &amp; perio charting</em></span>
-          </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>services/dental-coordinator/" role="menuitem">
+          </span>
+          <span class="nav-mega-link">
             <i class="fa-solid fa-handshake-angle"></i>
             <span><strong>Dental Coordinator</strong><em>Case acceptance, recall &amp; scheduling</em></span>
-          </a>
+          </span>
         </div>
         <div class="nav-mega-foot">
           <div class="nav-mega-foot-txt">
             <i class="fa-solid fa-circle-nodes"></i>
             <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental, front desk to back office, all HIPAA-compliant.</span>
           </div>
-          <a href="<?= $home_base ?>#cta-practice-audit" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="<?= $audit_modal ?>" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
         </div>
       </div>
     </div>
-    <a href="<?= $home_base ?>virtual-teammates/">Virtual Teammates</a>
+    <a href="<?= $home_base ?>#profiles">Virtual Teammates</a>
     <a href="<?= $home_base ?>case-studies/">Case Studies</a>
     <div class="nav-drop">
       <a href="<?= $home_base ?>about/" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
@@ -127,7 +133,7 @@ $home_base = $home_base ?? './';
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>
-    <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit" class="btn-nav">Book my practice staffing audit</a>
+    <a href="<?= $audit_modal ?>" data-cta-intent="practice-audit" class="btn-nav">Book my practice staffing audit</a>
   </div>
 </nav>
 </header>
