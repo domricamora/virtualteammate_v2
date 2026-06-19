@@ -440,7 +440,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 
   <!-- HIPAA STRIP -->
   <div class="hipaa reveal">
-    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
     <div class="hbadges">
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
@@ -470,7 +470,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec guarantee" id="guarantee" aria-labelledby="g-h">
   <div class="g-wrap reveal">
     <div class="g-copy">
-      <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The VT 30-Day Right-Fit Promise</div>
+      <div class="sec-lbl"><i class="fa-solid fa-shield-halved"></i> The 30-Day Right-Fit Promise</div>
       <h2 class="sec-h2" id="g-h">If it&rsquo;s not working in month one, <em>we make it right</em></h2>
       <div class="g-cards">
         <div class="g-card">
@@ -514,7 +514,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <section class="sec">
   <div style="text-align:center;max-width:600px;margin:0 auto;" class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-route"></i> Our Process</div>
-    <h2 class="sec-h2">Hire in days, <em>not months</em></h2>
+    <h2 class="sec-h2">Hire in weeks, <em>not months</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Three steps. Built for busy practices.</p>
   </div>
   <div class="proc-steps">
@@ -632,7 +632,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
      safeguard is, and what it actually means for the practice. -->
 <section class="sec comp-section" id="security" aria-labelledby="comp-h">
   <div style="text-align:center;max-width:680px;margin:0 auto;" class="reveal">
-    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant.webp" alt="HIPAA Compliant" width="640" height="691" loading="lazy" style="margin:0 auto 20px;">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy" style="margin:0 auto 20px;">
     <div class="sec-lbl"><i class="fa-solid fa-lock"></i> Security &amp; Compliance</div>
     <h2 class="sec-h2">Patient data, <em>protected by design</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Compliance here isn&rsquo;t a checkbox: here&rsquo;s what each safeguard is, and what it actually means for your practice, in plain English.</p>
@@ -739,7 +739,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   </div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Full-time teammates start at $750 bi-weekly</strong> ($400 part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$1,000 bi-weekly full-time</strong> ($600 part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 2 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 2 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every teammate, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>industry-aligned security controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>1&ndash;2 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your teammates know?</div><div class="faq-a">Medical teammates are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental teammates are proficient in Dentrix, Dentrix Ascend, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
@@ -833,9 +833,9 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </article>
 
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
-      <div class="cta-stage-tag">Ready to talk</div>
+      <div class="cta-stage-tag">Ready to start</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
-      <h3>Strategy call &amp; jumpstart</h3>
+      <h3>Jumpstart call</h3>
       <p class="cta-stage-lead">30-min call. Map your needs, define the role, get a curated shortlist in 1&ndash;2 business days.</p>
       <ul class="cta-stage-list">
         <li>Role scope + EHR / specialty match</li>
@@ -843,7 +843,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Onboarding plan + CSM intro</li>
       </ul>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book my strategy call <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Get started in 24 hours <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
