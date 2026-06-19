@@ -87,7 +87,7 @@ include __DIR__ . '/../includes/nav.php';
    its column. The image is 433x577, so capping at 400px keeps it crisp. */
 .ab-vis{align-self:center;}
 .ab-vis--photo{display:flex;justify-content:center;}
-.ab-vis--photo img{width:100%;max-width:400px;height:auto;border-radius:20px;
+.ab-vis--photo img{width:100%;max-width:560px;height:auto;border-radius:20px;
   border:1px solid var(--glass-border);box-shadow:0 24px 60px rgba(0,0,0,.4);display:block;}
 /* Preserve the zig-zag: panel/photo goes first in the reversed mission row. */
 .svc-split.reverse .ab-vis{order:-1;}
@@ -100,7 +100,7 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-building"></i> About Virtual Teammate</div>
-    <h1 class="svc-h1">Built to help practices and businesses <em>do more, with less overhead</em></h1>
+    <h1 class="svc-h1">Built to enable practices to <em>achieve more, with less overhead costs</em></h1>
     <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-compliant virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created, not hours billed.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -145,7 +145,7 @@ include __DIR__ . '/../includes/nav.php';
     <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Let&rsquo;s Connect with Chris <i class="fa-solid fa-arrow-right"></i></a>
   </div>
   <div class="ab-vis ab-vis--photo reveal d2">
-    <img src="<?= $home_base ?>images/christopher_mcshanag.webp" alt="Christopher McShanag, Founder and CEO of Virtual Teammate" width="433" height="577" loading="lazy"/>
+    <img src="<?= $home_base ?>images/chris.webp" alt="Chris McShanag, Founder and CEO of Virtual Teammate" width="900" height="675" loading="lazy"/>
   </div>
 </section>
 
