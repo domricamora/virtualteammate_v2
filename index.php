@@ -236,6 +236,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
    
           <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
         </div>
+        <div class="case-metric-foot"><strong>97%</strong> daily payment posting driving stronger financial performance.</div>
       </div>
       <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for an endodontics &amp; oral-surgery group: a full surgical schedule billed on time.</p>
       <div class="case-auth">
