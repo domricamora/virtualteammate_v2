@@ -58,7 +58,7 @@ if (isset($svc_vtc[$svc_slug])) {
   <p>Get a curated shortlist of HIPAA-certified candidates within days, matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
     <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
   </div>
 </section>

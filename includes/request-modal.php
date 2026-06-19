@@ -48,7 +48,7 @@ $rm_skip_behavior = $rm_skip_behavior ?? false;
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Request This Teammate <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Request this teammate <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>Diagnostic-first &middot; No obligation, covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>

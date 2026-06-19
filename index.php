@@ -54,7 +54,7 @@ include 'includes/nav.php';
   </svg>
   <div class="hero-inner">
     <div class="hero-eyebrow reveal"><span class="dot"></span> 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
-    <h1 class="hero-h1 reveal d1">Short-staffed and overworked?<br><span class="hero-h1-sub">Fully staff your practice <em>in weeks</em>, for <em>73% less</em>.</span></h1>
+    <h1 class="hero-h1 reveal d1">Short-staffed and overworked?<br><span class="hero-h1-sub">Fully staff your practice <em>in weeks</em>, not months, for <em>73% less</em>.</span></h1>
     <ul class="hero-sub hero-sub-list hero-sub-cols reveal d2">
       <li>HIPAA-certified medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Eaglesoft.</li>
       <li>We own billing, scribing, scheduling and prior auth.</li>
@@ -64,10 +64,10 @@ include 'includes/nav.php';
     <p class="hero-guarantee reveal d2"><strong>Not the right fit in month one?</strong> We replace them at no cost, or refund every billed day.</p>
     <div class="hero-btns reveal d3">
       <a href="#cta-practice-audit" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#calculator" class="btn-glass">Calculate My Savings <i class="fa-solid fa-calculator"></i></a>
+      <a href="#calculator" class="btn-glass">Calculate my savings <i class="fa-solid fa-calculator"></i></a>
     </div>
     <div class="cta-note reveal d3"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-    <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="#cta-buyers-checklist" class="hero-textlink reveal d3" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
     <p class="avail-note reveal d3"><i class="fa-solid fa-hourglass-half"></i> New-practice onboarding is capped monthly so every match gets a proper search. Booking your audit now reserves your place in the next intake.</p>
   </div>
 
@@ -738,7 +738,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <h2 class="sec-h2">Frequently asked questions</h2>
   </div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Full-time teammates start at $750 bi-weekly</strong> ($400 part-time). <strong>Highly Specialized tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$1,000 bi-weekly full-time</strong> ($600 part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Full-time teammates start at $750 bi-weekly</strong> ($400 part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$1,000 bi-weekly full-time</strong> ($600 part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 2 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every teammate, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>industry-aligned security controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>5&ndash;7 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
@@ -815,7 +815,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Pricing-model traps to watch for</li>
         <li>Performance &amp; quality SLAs to demand</li>
       </ul>
-      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-buyers-checklist" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
     </article>
 
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
@@ -843,7 +843,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li>Onboarding plan + CSM intro</li>
       </ul>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book My Strategy Call <i class="fa-solid fa-arrow-right"></i></a>
+      <a class="btn-cta-stage" href="#cta-strategy-call" data-cta-intent="strategy-call">Book my strategy call <i class="fa-solid fa-arrow-right"></i></a>
     </article>
   </div>
 
@@ -860,7 +860,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="cta-modal-card">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
-    <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA Buyer&rsquo;s Checklist</h2>
+    <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA buyer&rsquo;s checklist</h2>
     <p class="cta-modal-sub">Unlock new levels of productivity and patient care. Enter your email to receive our HIPAA VA Buyer&rsquo;s Checklist and learn how to choose the right virtual staffing partner for long-term success.</p>
     <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Check your inbox: your checklist is on the way.">
@@ -871,7 +871,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Send Me the Checklist <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Send me the checklist <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>No spam &middot; Just the checklist and the occasional helpful tip</div>
     </form>
   </div>
@@ -897,7 +897,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="cta-modal-card cta-modal-card--lg">
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-calendar-check"></i> Strategy Call &amp; Jumpstart</div>
-    <h2 class="cta-modal-h" id="ccm-sc-h">Book My Strategy Call</h2>
+    <h2 class="cta-modal-h" id="ccm-sc-h">Book my strategy call</h2>
     <p class="cta-modal-sub">Pick a time below and we&rsquo;ll scope your needs, define the role, and map your first 30 days: so your teammate is productive fast. No commitment, covered by the 30-Day Right-Fit Promise.</p>
     <div class="cta-book-embed">
       <!-- Start of Meetings Embed Script -->
@@ -930,7 +930,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
       </div>
       <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Request This Teammate <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="cf-submit" type="submit">Request this teammate <i class="fa-solid fa-arrow-right"></i></button>
       <div class="cf-note" data-lead-note>Diagnostic-first &middot; No obligation, covered by the 30-Day Right-Fit Promise</div>
     </form>
   </div>

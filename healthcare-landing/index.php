@@ -18,7 +18,7 @@ $faqs = [
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks: every placement backed by the 30-Day Right-Fit Promise.'],
   ['q' => 'How much does it cost?',
-   'a' => 'Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. Up to 73% less than an equivalent US in-house hire.'],
+   'a' => 'Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Specialist tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. Up to 73% less than an equivalent US in-house hire.'],
   ['q' => 'Will I be locked into a long-term contract?',
    'a' => 'No. No early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.'],
   ['q' => "What happens if my VA isn't the right fit?",
@@ -143,7 +143,7 @@ include __DIR__ . '/../includes/nav.php';
     <p class="hcq-promise">Published flat-rate pricing from <strong>$750 biweekly full time</strong>, all-in: no payroll tax, benefits, recruiter fees or PTO. Every placement carries the <strong>30-Day Right-Fit Promise</strong>: not the right fit in month one, and we replace them at no cost or refund every billed day.</p>
     <div class="hcq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="hcq-hero-tert">Or take the 2-minute Practice Efficiency Quiz &rarr;</a></div>
     <div class="hcq-cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
@@ -311,7 +311,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-clipboard-check"></i></span><p><strong>Every AI-assisted output reviewed</strong> and signed off by a human before it hits a chart.</p></div>
     </div>
     <div class="hcq-price reveal">
-      <strong>Published flat-rate pricing, from $750 bi-weekly full-time ($400 part-time).</strong> Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in: no payroll tax, no benefits, no recruiter fees, no PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.
+      <strong>Published flat-rate pricing, from $750 bi-weekly full-time ($400 part-time).</strong> Specialist tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in: no payroll tax, no benefits, no recruiter fees, no PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.
     </div>
     <p class="hcq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. No long-term contract.</p>
     <div class="hcq-offer-cta reveal">
@@ -382,7 +382,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your healthcare teammates HIPAA certified?</div><div class="faq-a">Yes. Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my EHR?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Epic, Cerner, athenahealth, eClinicalWorks, Dentrix, Eaglesoft and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks: every placement backed by the 30-Day Right-Fit Promise.</div></div>
-      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Highly Specialized tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
+      <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. Entry from $750 bi-weekly full-time ($400 part-time). Specialist tier (billing, scribing, coding): $1,000 bi-weekly full-time ($600 part-time). All-in, no payroll tax, benefits, recruiter fees or PTO. <strong>Up to 73% less</strong> than an equivalent US in-house hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Will I be locked into a long-term contract?</div><div class="faq-a">No. No early-termination fees, no recapture clauses. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>
       <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrows-rotate"></i> What happens if my VA isn&rsquo;t the right fit?</div><div class="faq-a">Two cases: (1) wrong fit, we replace them at no cost, re-shortlisting within 2 business days, billing paused until the replacement is live; (2) outsourcing isn&rsquo;t working, cancel within the first 30 days and we refund every billed day, no clawbacks.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your VAs based?</div><div class="faq-a">Wherever the best fit lives. We match for your specialty, EHR, accent, language and US time-zone shift, and every teammate works your business hours.</div></div>
@@ -396,7 +396,7 @@ include __DIR__ . '/../includes/nav.php';
     <p>Book your Practice Staffing Audit and a Dedicated Client Success Manager will map your busiest workflows and show you which roles to delegate first, or grab the buyer&rsquo;s checklist first.</p>
     <div class="svc-cta-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA Buyer&rsquo;s Checklist <i class="fa-solid fa-clipboard-check"></i></a>
+      <a href="<?= $home_base ?>#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
   </section>
