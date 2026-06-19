@@ -69,6 +69,10 @@ include __DIR__ . '/../includes/nav.php';
    svc-side-img frame, which carries the aspect-ratio + rounded clip. The frames
    must be positioned so the absolute graphic anchors to them, not the page. */
 .svc-hero-vis .hv-card,.svc-split .svc-side-img{position:relative;}
+/* Scale down the KPI-scorecard box heights — the graphic content is short, so
+   the default tall photo aspect ratios leave too much empty space. */
+.svc-hero-vis .hv-card{aspect-ratio:4/3.4;max-height:420px;}
+.svc-split .svc-side-img{aspect-ratio:5/3;}
 .cs-graphic{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;
   padding:30px 28px;
   background:linear-gradient(150deg,rgba(57,25,186,.55),rgba(20,15,55,.92) 55%,rgba(223,169,73,.18));}
@@ -95,18 +99,16 @@ include __DIR__ . '/../includes/nav.php';
 <!-- HERO -->
 <header class="svc-hero">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Case Studies &middot; Recent KPI Results</div>
+    <div class="sec-lbl"><i class="fa-solid fa-chart-line"></i> Client Case Studies KPI Results</div>
     <h1 class="svc-h1">Real practices. Real workstreams. <em>Real numbers.</em></h1>
     <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients: claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
-      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Get Results Like These <i class="fa-solid fa-arrow-right"></i></a>
-      <a href="#by-area" class="btn-glass">See Aggregate Results <i class="fa-solid fa-chart-pie"></i></a>
+      <a href="#cta" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#clients" class="btn-glass">See real client results <i class="fa-solid fa-chart-pie"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>KPI scorecards delivered monthly</span>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-chart-line"></i> Real KPI Data</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-hospital"></i> 4 Healthcare Clients</div>
     <div class="hv-card">
       <div class="cs-graphic" role="img" aria-label="Sample monthly KPI scorecard: insurance verifications +30%, pre-certifications +60%, payment posting +40%, average achievement +44%">
         <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-chart-column"></i> Monthly KPI Scorecard</span><span class="tag">Spring 2025</span></div>
@@ -127,13 +129,40 @@ include __DIR__ . '/../includes/nav.php';
   </div>
 </header>
 
-<!-- STATS BAR — aggregate -->
-<div class="svc-stats reveal">
-  <div class="svc-stat"><div class="svc-stat-num">+60%</div><div class="svc-stat-lbl">Best Single-KPI Result</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">+44%</div><div class="svc-stat-lbl">Avg. Payment-Posting Result</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">+33%</div><div class="svc-stat-lbl">Claims Processed</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">KPI Targets Beaten</div></div>
-</div>
+<!-- BY AREA / AGGREGATE -->
+<section class="sec" id="by-area" style="padding-top:60px;">
+  <div class="reveal" style="text-align:center;">
+    <div class="sec-lbl"><i class="fa-solid fa-chart-pie"></i> Across All Workstreams</div>
+    <h2 class="svc-h2">Aggregate achievement <em>by functional area</em></h2>
+    <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end: reported as average percent over target across all participating clients in the period.</p>
+  </div>
+  <div class="cs-by-area">
+    <div class="cs-area-card reveal d1">
+      <div class="ico"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+      <div class="pct">+44%</div>
+      <div class="nm">Payment Posting</div>
+      <div class="vc">Avg. across 2 client engagements</div>
+    </div>
+    <div class="cs-area-card reveal d2">
+      <div class="ico"><i class="fa-solid fa-clipboard-check"></i></div>
+      <div class="pct">+37%</div>
+      <div class="nm">Insurance Verifications</div>
+      <div class="vc">Avg. across 2 client engagements</div>
+    </div>
+    <div class="cs-area-card reveal d3">
+      <div class="ico"><i class="fa-solid fa-folder-open"></i></div>
+      <div class="pct">+40%</div>
+      <div class="nm">Claims Worked</div>
+      <div class="vc">Avg. across 2 client engagements</div>
+    </div>
+    <div class="cs-area-card reveal d4">
+      <div class="ico"><i class="fa-solid fa-stamp"></i></div>
+      <div class="pct">+60%</div>
+      <div class="nm">Pre-Certifications</div>
+      <div class="vc">1 client engagement</div>
+    </div>
+  </div>
+</section>
 
 <!-- CASE STUDY CARDS -->
 <section class="sec" id="clients" style="padding-top:60px;">
@@ -241,43 +270,6 @@ include __DIR__ . '/../includes/nav.php';
       </div>
     </article>
 
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- BY AREA / AGGREGATE -->
-<section class="sec" id="by-area" style="padding-top:60px;">
-  <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl"><i class="fa-solid fa-chart-pie"></i> Across All Workstreams</div>
-    <h2 class="svc-h2">Aggregate achievement <em>by functional area</em></h2>
-    <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end: reported as average percent over target across all participating clients in the period.</p>
-  </div>
-  <div class="cs-by-area">
-    <div class="cs-area-card reveal d1">
-      <div class="ico"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-      <div class="pct">+44%</div>
-      <div class="nm">Payment Posting</div>
-      <div class="vc">Avg. across 2 client engagements</div>
-    </div>
-    <div class="cs-area-card reveal d2">
-      <div class="ico"><i class="fa-solid fa-clipboard-check"></i></div>
-      <div class="pct">+37%</div>
-      <div class="nm">Insurance Verifications</div>
-      <div class="vc">Avg. across 2 client engagements</div>
-    </div>
-    <div class="cs-area-card reveal d3">
-      <div class="ico"><i class="fa-solid fa-folder-open"></i></div>
-      <div class="pct">+40%</div>
-      <div class="nm">Claims Worked</div>
-      <div class="vc">Avg. across 2 client engagements</div>
-    </div>
-    <div class="cs-area-card reveal d4">
-      <div class="ico"><i class="fa-solid fa-stamp"></i></div>
-      <div class="pct">+60%</div>
-      <div class="nm">Pre-Certifications</div>
-      <div class="vc">1 client engagement</div>
-    </div>
   </div>
 </section>
 

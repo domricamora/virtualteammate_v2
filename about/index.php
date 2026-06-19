@@ -197,10 +197,10 @@ include __DIR__ . '/../includes/nav.php';
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-medal"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">More than staffing: a <em>partner that owns outcomes</em></h2>
+    <h2 class="svc-h2">More than staffing: <em>a partner that owns outcomes</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA by default</h3><p>Every teammate completes HIPAA certification and BAA-compatible setup before placement.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA compliant</h3><p>Every teammate is HIPAA compliant and BAA-compatible setup before placement.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-globe"></i></span><h3>Global talent pool</h3><p>Recruited across the Philippines, Latin America, Africa, and South Asia, vetted at every stage.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your time zone</h3><p>Every teammate works your business hours, with backup coverage built in.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Real KPI reporting</h3><p>Monthly client KPI scorecards: claims worked, payments posted, calls answered, AR collected.</p></div>
