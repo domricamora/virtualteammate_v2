@@ -468,6 +468,15 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
       </div>
     </div>
+    <div class="g-audit">
+      <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Practice Staffing Audit covers</div>
+      <ul>
+        <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice: intake, charts, refills, billing, scheduling, recall, prior auth.</li>
+        <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
+        <li><strong>Tier &amp; headcount recommendation.</strong> Specific call on Pro vs Specialist tier, full-time vs part-time, and how many teammates to start with for your specialty and patient volume.</li>
+        <li><strong>Honest no-fit answer.</strong> If outsourcing isn&rsquo;t right for your practice, we&rsquo;ll tell you on the call. No follow-up sales sequence.</li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -495,16 +504,6 @@ function vtnew_homepage_profiles(int $limit = 6): array
           <h3>Backup coverage built in</h3>
           <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup teammate within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement: it&rsquo;s not an upsell.</p>
         </div>
-      </div>
-
-      <div class="g-audit">
-        <div class="g-audit-h"><i class="fa-solid fa-clipboard-check"></i> What the Practice Staffing Audit covers</div>
-        <ul>
-          <li><strong>Workflow inventory.</strong> We map the 8&ndash;12 admin and clinical workflows that drain the most provider time in your practice: intake, charts, refills, billing, scheduling, recall, prior auth.</li>
-          <li><strong>Outsourcing priority list.</strong> You leave the call with a ranked list of what to delegate <em>first</em> for fastest ROI, and what to keep in-house.</li>
-          <li><strong>Tier &amp; headcount recommendation.</strong> Specific call on Pro vs Specialist tier, full-time vs part-time, and how many teammates to start with for your specialty and patient volume.</li>
-          <li><strong>Honest no-fit answer.</strong> If outsourcing isn&rsquo;t right for your practice, we&rsquo;ll tell you on the call. No follow-up sales sequence.</li>
-        </ul>
       </div>
 
       <div class="g-foot">
