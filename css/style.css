@@ -210,13 +210,17 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hero-eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 0 rgba(223,169,73,0.6);animation:pulseGlow 2.4s ease-out infinite;}
 .hero-h1{
-  font-size:62px;line-height:1.18;
+  /* Fluid size so the headline scales smoothly with the viewport instead of
+     staying fixed and reflowing at breakpoints when the window is resized.
+     clamp range matches the old stepped sizes (28px floor … 62px cap). */
+  font-size:clamp(28px, 4.8vw, 62px);line-height:1.18;
   color:#fff;margin-bottom:26px;font-weight:800;
   letter-spacing:-0.02em;
   max-width:none;
+  text-wrap:balance;
 }
 /* Second line scaled down — the hook ("Short-Staffed and Overworked?") stays large. */
-.hero-h1 .hero-h1-sub{font-size:38px;line-height:1.2;display:inline-block;margin-top:10px;}
+.hero-h1 .hero-h1-sub{font-size:clamp(21px, 3vw, 38px);line-height:1.2;display:inline-block;margin-top:10px;}
 .hero-h1 em{
   color:transparent;
   background:linear-gradient(120deg, #dfa949 0%, #f5e4b8 40%, #dfa949 60%, #f5e4b8 100%);
@@ -226,9 +230,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   animation:shimmer 6s linear infinite;
 }
 .hero-sub{
-  font-size:18px;color:rgba(255,255,255,0.72);
+  font-size:clamp(15px, 1.45vw, 18px);color:rgba(255,255,255,0.72);
   line-height:1.65;max-width:760px;
   margin-bottom:20px;font-weight:400;
+  text-wrap:balance;
 }
 .hero-sub strong{color:#fff;font-weight:700;}
 /* Long pitch paragraph split into two columns to declutter the hero. */
@@ -2342,9 +2347,8 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .nav-mega-foot{display:none;}
 
   .hero{padding:80px 32px 60px;grid-template-columns:1fr;gap:44px;min-height:auto;align-items:start;}
-  .hero-h1{font-size:54px;max-width:none;}
-  .hero-h1 .hero-h1-sub{font-size:38px;}
-  .hero-sub{font-size:18px;max-width:none;}
+  .hero-h1{max-width:none;}
+  .hero-sub{max-width:none;}
   .hero-sub-cols{column-gap:32px;}
   .hero-stats{max-width:620px;}
   .hero-visual{height:480px;max-width:600px;margin:0 auto;}
@@ -2479,10 +2483,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   /* Stretching the graph over the whole tall stacked hero distorts the bars.
      Keep its true aspect ratio and drop it to the bottom, behind the stats card. */
   .hero-graph{inset:auto 0 0 0;width:100%;height:auto;aspect-ratio:1200 / 520;}
-  .hero-h1{font-size:32px;}
-  .hero-h1 .hero-h1-sub{font-size:23px;}
   .hero-h1 br{display:none;}
-  .hero-sub{font-size:15.5px;}
   .hero-sub-cols{column-count:1;}
   .hero-guarantee{font-size:14.5px;margin-bottom:26px;padding:12px 15px;}
   .hero-eyebrow{font-size:10.5px;padding:6px 14px;letter-spacing:.6px;}
@@ -2724,9 +2725,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 @media (max-width:430px){
   .hero{padding:48px 15px 40px;gap:24px;}
   .hero-eyebrow{margin-bottom:22px;}
-  .hero-h1{font-size:28px;margin-bottom:18px;}
-  .hero-h1 .hero-h1-sub{font-size:21px;}
-  .hero-sub{font-size:15px;}
+  .hero-h1{margin-bottom:18px;}
   .hero-guarantee{font-size:13.5px;margin-bottom:24px;}
   .hero-btns{gap:10px;margin-bottom:26px;}
   .trust-row{gap:10px 14px;margin-bottom:30px;}
