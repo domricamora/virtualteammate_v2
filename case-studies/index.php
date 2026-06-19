@@ -65,7 +65,9 @@ include __DIR__ . '/../includes/nav.php';
 
 /* Graphic KPI-scorecard panels (replace stock photos, match the homepage's
    graphic-element style — glass + gold on the dark theme). Fills the hv-card /
-   svc-side-img frame, which carries the aspect-ratio + rounded clip. */
+   svc-side-img frame, which carries the aspect-ratio + rounded clip. The frames
+   must be positioned so the absolute graphic anchors to them, not the page. */
+.svc-hero-vis .hv-card,.svc-split .svc-side-img{position:relative;}
 .cs-graphic{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:14px;
   padding:30px 28px;
   background:linear-gradient(150deg,rgba(57,25,186,.55),rgba(20,15,55,.92) 55%,rgba(223,169,73,.18));}
