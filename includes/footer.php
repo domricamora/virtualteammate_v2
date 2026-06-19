@@ -9,7 +9,9 @@ $hide_footer = $hide_footer ?? false;
 ?>
 <?php /* Sitewide lead-capture band — emails + saves to the leads DB. Pages with
          their own prominent form set $hide_lead_band = true to skip it. */ ?>
-<?php if (empty($hide_lead_band)) { include __DIR__ . '/lead-form.php'; } ?>
+<?php /* Skip the "Value Matching" band on pages that already carry the
+         "Ways to Start" #cta block ($has_cta_section), to avoid a duplicate CTA. */ ?>
+<?php if (empty($hide_lead_band) && empty($has_cta_section)) { include __DIR__ . '/lead-form.php'; } ?>
 <?php /* Entry-point modals so every page's CTAs open in place. The homepage ships
          its own inline copies, so it is skipped here. */ ?>
 <?php if (empty($is_homepage)) { include __DIR__ . '/cta-modals.php'; } ?>

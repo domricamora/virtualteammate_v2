@@ -122,7 +122,6 @@ include __DIR__ . '/../includes/nav.php';
           <div class="cs-graphic-row"><span>Payment Posting</span><span class="v">+40%</span></div>
           <div class="cs-graphic-bar"><i style="width:88%"></i></div>
         </div>
-        <div class="cs-graphic-foot"><span>Avg. Achievement</span><strong>+44%</strong></div>
       </div>
     </div>
   </div>
