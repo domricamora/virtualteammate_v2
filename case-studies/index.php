@@ -92,6 +92,17 @@ include __DIR__ . '/../includes/nav.php';
   border-top:1px solid rgba(255,255,255,.12);padding-top:14px;}
 .cs-graphic-foot span{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.6);font-weight:700;}
 .cs-graphic-foot strong{font-size:30px;font-weight:800;color:#fff;letter-spacing:-.02em;}
+
+/* How We Measure — boxless, centered layout. */
+.cs-measure{text-align:center;}
+.cs-measure-head{max-width:760px;margin:0 auto;}
+.cs-measure-head .sec-lbl{display:inline-flex;justify-content:center;}
+.cs-measure-checks{max-width:880px;margin:36px auto 0;text-align:left;
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 26px;}
+.cs-measure-checks li{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;padding:18px 20px;}
+.cs-measure-foot{max-width:680px;margin:30px auto 0;}
+@media (max-width:680px){.cs-measure-checks{grid-template-columns:1fr;}}
 </style>
 
 <main>
@@ -276,33 +287,19 @@ include __DIR__ . '/../includes/nav.php';
 <div class="divider"></div>
 
 <!-- HOW WE MEASURE -->
-<section class="svc-split">
-  <div class="reveal">
+<section class="sec cs-measure" style="padding-top:60px;">
+  <div class="reveal cs-measure-head">
     <div class="sec-lbl"><i class="fa-solid fa-circle-info"></i> How We Measure</div>
     <h2 class="svc-h2">What these numbers <em>actually mean</em></h2>
     <p class="svc-p">Every Virtual Teammate engagement starts with a <strong>targeted KPI</strong> set together with the client: the throughput, dollar amount, or completion volume the workstream needs to hit each period. We then report three things every month:</p>
-    <ul class="svc-checks">
-      <li><i class="fa-solid fa-check"></i><span><strong>Targeted KPI</strong>: what we committed to (claims, verifications, postings, pre-certs).</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Results</strong>: what the placed teammate actually delivered against that target.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Value Created</strong>: the delta between target and result (positive or negative), reported in dollars or count.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Achievement %</strong>: results vs. target, so you can compare workstreams apples-to-apples.</span></li>
-    </ul>
-    <p class="svc-p">No vanity metrics. No "hours worked." Just the numbers your business actually runs on.</p>
   </div>
-  <div class="svc-side-img reveal d2">
-    <div class="cs-graphic" role="img" aria-label="Sample KPI report: targeted KPI 2,400, results delivered 3,456, value created +44%">
-      <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-clipboard-check"></i> KPI Report &middot; Sample</span><span class="tag">Monthly</span></div>
-      <div class="cs-graphic-kpi">
-        <div class="cs-graphic-row"><span>Targeted KPI</span><span class="v">2,400</span></div>
-        <div class="cs-graphic-bar"><i style="width:69%"></i></div>
-      </div>
-      <div class="cs-graphic-kpi">
-        <div class="cs-graphic-row"><span>Results Delivered</span><span class="v">3,456</span></div>
-        <div class="cs-graphic-bar"><i style="width:100%"></i></div>
-      </div>
-      <div class="cs-graphic-foot"><span>Value Created</span><strong>+44%</strong></div>
-    </div>
-  </div>
+  <ul class="svc-checks cs-measure-checks reveal d1">
+    <li><i class="fa-solid fa-check"></i><span><strong>Targeted KPI</strong>: what we committed to (claims, verifications, postings, pre-certs).</span></li>
+    <li><i class="fa-solid fa-check"></i><span><strong>Results</strong>: what the placed teammate actually delivered against that target.</span></li>
+    <li><i class="fa-solid fa-check"></i><span><strong>Value Created</strong>: the delta between target and result (positive or negative), reported in dollars or count.</span></li>
+    <li><i class="fa-solid fa-check"></i><span><strong>Achievement %</strong>: results vs. target, so you can compare workstreams apples-to-apples.</span></li>
+  </ul>
+  <p class="svc-p cs-measure-foot reveal d2">No vanity metrics. No "hours worked." Just the numbers your business actually runs on.</p>
 </section>
 
 <div class="divider"></div>
