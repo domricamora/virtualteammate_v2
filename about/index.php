@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'About Virtual Teammate — Founder, Leadership & Mission | HIPAA-Certified VA Agency';
-$page_description = 'Meet Virtual Teammate — US-owned, HIPAA-certified virtual assistant agency. Founder Chris McShanag brings 30+ years of operational leadership. 2,000+ VAs placed across 600+ healthcare practices and businesses.';
+$page_title       = 'About Virtual Teammate — Founder, Leadership & Mission | HIPAA-Compliant VA Agency';
+$page_description = 'Meet Virtual Teammate — US-owned, HIPAA-compliant virtual assistant agency. Founder Chris McShanag brings 30+ years of operational leadership. 2,000+ VAs placed across 600+ healthcare practices and businesses.';
 $og_title         = 'About Virtual Teammate — The People Behind 2,000+ VA Placements';
-$og_description   = 'US-owned, HIPAA-certified VA agency. Founder Chris McShanag, leadership team, mission, values and the 5-step engagement process behind every match.';
+$og_description   = 'US-owned, HIPAA-compliant VA agency. Founder Chris McShanag, leadership team, mission, values and the 5-step engagement process behind every match.';
 $canonical        = 'https://virtualteammate.com/about/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -22,7 +22,7 @@ include __DIR__ . '/../includes/nav.php';
       "@id":"https://virtualteammate.com/about/#aboutpage",
       "url":"https://virtualteammate.com/about/",
       "name":"About Virtual Teammate",
-      "description":"US-owned, HIPAA-certified virtual assistant agency. Founder, leadership team, mission and engagement process.",
+      "description":"US-owned, HIPAA-compliant virtual assistant agency. Founder, leadership team, mission and engagement process.",
       "isPartOf":{"@id":"https://virtualteammate.com/#website"},
       "about":{"@id":"https://virtualteammate.com/#org"}
     },
@@ -52,7 +52,7 @@ include __DIR__ . '/../includes/nav.php';
       "@type":"FAQPage",
       "mainEntity":[
         {"@type":"Question","name":"Is Virtual Teammate US-owned?","acceptedAnswer":{"@type":"Answer","text":"Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and Dedicated Client Success Managers on every account."}},
-        {"@type":"Question","name":"Are your virtual teammates HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible."}},
+        {"@type":"Question","name":"Are your virtual teammates HIPAA compliant?","acceptedAnswer":{"@type":"Answer","text":"Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible."}},
         {"@type":"Question","name":"Where are your virtual teammates based?","acceptedAnswer":{"@type":"Answer","text":"Globally — Philippines, Latin America, Africa, and South Asia. We hire on capability and fit, not geography. Every match works your business hours."}},
         {"@type":"Question","name":"How are your virtual teammates vetted?","acceptedAnswer":{"@type":"Answer","text":"Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification and orientation — before they ever see a client."}}
       ]
@@ -68,7 +68,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-building"></i> About Virtual Teammate</div>
     <h1 class="svc-h1">Built to help practices and businesses <em>do more, with less overhead</em></h1>
-    <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-certified virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created, not hours billed.</p>
+    <p class="svc-p">Virtual Teammate is a <strong>US-owned, HIPAA-compliant virtual assistant agency</strong> placing skilled, EHR-trained professionals inside medical, dental, and growing-business teams across the United States. <strong>2,000+ teammates placed.</strong> <strong>600+ practices and businesses served.</strong> Every match measured on value created, not hours billed.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="<?= $home_base ?>case-studies/" class="btn-glass">See Client KPI Results <i class="fa-solid fa-chart-line"></i></a>
@@ -99,7 +99,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="sec-lbl"><i class="fa-solid fa-user-tie"></i> Meet the Founder</div>
     <h2 class="svc-h2">Chris McShanag: <em>30+ years of operational leadership</em></h2>
     <p class="svc-p">&ldquo;I&rsquo;m passionate about transforming the way healthcare and business operate. With more than 30 years of experience in operations and consulting, I built Virtual Teammate to bring <em>measurable</em> value, not commodity offshore labor, to every practice and every patient touchpoint.&rdquo;</p>
-    <p class="svc-p">Under Chris&rsquo;s leadership, Virtual Teammate has scaled from a boutique recruiter into a US-owned staffing partner with a global vetting network spanning the Philippines, Latin America, Africa, and South Asia. Every virtual teammate is <strong>multi-stage vetted, HIPAA-certified before placement</strong>, and matched to your time zone and tech stack.</p>
+    <p class="svc-p">Under Chris&rsquo;s leadership, Virtual Teammate has scaled from a boutique recruiter into a US-owned staffing partner with a global vetting network spanning the Philippines, Latin America, Africa, and South Asia. Every virtual teammate is <strong>multi-stage vetted, HIPAA-compliant before placement</strong>, and matched to your time zone and tech stack.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span>30+ years operations &amp; consulting leadership</span></li>
       <li><i class="fa-solid fa-check"></i><span>Founded VT to bring value-creation culture to outsourced staffing</span></li>
@@ -190,7 +190,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> About VT, FAQs</div><h2 class="svc-h2">Frequently asked questions</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-building"></i> Is Virtual Teammate US-owned?</div><div class="faq-a">Yes. Virtual Teammate is US-owned and headquartered in Arizona, with a global talent vetting network and Dedicated Client Success Managers (CSMs) on every account.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your teammates HIPAA certified?</div><div class="faq-a">Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your teammates HIPAA compliant?</div><div class="faq-a">Every healthcare and dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Globally: Philippines, Latin America, Africa, South Asia. We hire on capability and fit, not geography. Every match works your business hours.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-handshake"></i> How are teammates vetted?</div><div class="faq-a">Multi-stage: application screening, EFSET English assessment, IQ test, Cultural Index, technical skills check, IT setup verification, and orientation: before they ever see a client.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-chart-line"></i> Do you actually measure results?</div><div class="faq-a">Yes: monthly KPI scorecards on the workstreams you choose (claims worked, AR days, calls answered, payment posting, intake completion). <a href="<?= $home_base ?>case-studies/">See real client KPI results &raquo;</a></div></div>

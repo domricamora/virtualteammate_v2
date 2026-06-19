@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Dental Administrative Support Virtual Assistants | HIPAA-Certified Dental Admin VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental administrative virtual assistants. Charting prep, records, insurance verification, treatment-plan setup & data entry in Dentrix & Open Dental. Save up to 73%.';
+$page_title       = 'Dental Administrative Support Virtual Assistants | HIPAA-Compliant Dental Admin VAs | Virtual Teammate';
+$page_description = 'Hire HIPAA-compliant dental administrative virtual assistants. Charting prep, records, insurance verification, treatment-plan setup & data entry in Dentrix & Open Dental. Save up to 73%.';
 $og_title         = 'Dental Admin Virtual Assistants: Your Remote Back Office';
 $og_description   = 'Dental admin VAs handling records, insurance verification, treatment-plan prep, data entry and document management inside your dental PMS.';
 $canonical        = 'https://virtualteammate.com/services/dental-admin/';
@@ -17,8 +17,8 @@ $faqs = [
    'a' => 'Insurance verification & breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting: inside your dental PMS.'],
   ['q' => 'Which dental software do they know?',
    'a' => 'Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.'],
-  ['q' => 'Are they HIPAA certified?',
-   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.'],
+  ['q' => 'Are they HIPAA compliant?',
+   'a' => 'Yes. HIPAA-compliant, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.'],
   ['q' => 'How much does it cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house dental admin hire. Use the homepage ROI calculator for an exact estimate.'],
   ['q' => 'How fast can they start?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Administrative Support Virtual Assistant",
   "name":"Dental Administrative Support Virtual Assistants",
-  "description":"HIPAA-certified dental administrative VAs handling records, insurance verification, treatment-plan setup, data entry, document management and back-office workflows inside Dentrix, Open Dental and Carestream.",
+  "description":"HIPAA-compliant dental administrative VAs handling records, insurance verification, treatment-plan setup, data entry, document management and back-office workflows inside Dentrix, Open Dental and Carestream.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Dental Admin</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Dental Admin teammates &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-clipboard-list"></i> Dental Admin teammates &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Dental administrative <em>support</em> virtual assistants</h1>
-    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-certified dental admin teammates</strong> handle records, insurance verification, treatment-plan setup, data entry and document management: trained on Dentrix and Open Dental, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
+    <p class="svc-lead">Unburden your front office from paperwork. Our <strong>HIPAA-compliant dental admin teammates</strong> handle records, insurance verification, treatment-plan setup, data entry and document management: trained on Dentrix and Open Dental, working in your time zone, at up to <strong>73% less</strong> than a US in-house hire.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-tooth"></i> Dental PMS Trained</div>
       <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -71,7 +71,7 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Certified</div>
+    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> HIPAA Compliant</div>
     <div class="hv-chip c2"><i class="fa-solid fa-tooth"></i> Dentrix &amp; Open Dental</div>
     <div class="hv-card">
       <img src="<?= $home_base ?>images/photos/dental/Administrative-Support-Without-the-Overhead.webp" alt="Dental administrative virtual assistant working on a computer" loading="lazy"/>
@@ -116,7 +116,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces salary + benefits + payroll burden: most practices save $38k&ndash;$52k per teammate per year.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bolt"></i></span><h3>Live in 1&ndash;2 weeks</h3><p>Curated shortlist in days, fully onboarded in under two weeks: no recruiter fees, no ramp lag.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-compliant, background-checked, BAA-compatible. Patient data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your time zone</h3><p>Matched to your US business hours for same-day insurance breakdowns and chart prep.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Scales with you</h3><p>One teammate or a full remote back office: add or adjust as your schedule and case volume change.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Every placement comes with a Client Success Manager (CSM) handling training, quality and backup coverage.</p></div>
@@ -153,7 +153,7 @@ include __DIR__ . '/../../includes/nav.php';
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value strategy call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the teammate will own.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified dental admin teammates within days. You interview, you choose.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-compliant dental admin teammates within days. You interview, you choose.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
@@ -165,7 +165,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-clipboard-list"></i> What does a dental admin teammate actually do?</div><div class="faq-a">Insurance verification &amp; breakdowns, chart and treatment-plan prep, records management, data entry, document/form handling and reporting: inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Carestream, Curve Dental and Denticon, plus Microsoft 365, Google Workspace and e-signature tools.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are they HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are they HIPAA compliant?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked and BAA-compatible before placement, working in controlled, encrypted environments.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house dental admin hire. Use the homepage ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How fast can they start?</div><div class="faq-a">Curated shortlist within days; onboarding wraps in 1&ndash;2 weeks for a fully-live teammate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale or pause?</div><div class="faq-a">Yes. Add teammates as you grow or reduce hours in slow seasons: no locked-in headcount, no termination penalties.</div></div>

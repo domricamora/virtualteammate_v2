@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Medical Receptionist Virtual Assistants | HIPAA-Certified Front-Desk VAs | Virtual Teammate';
-$page_description = 'Hire a HIPAA-certified medical receptionist virtual assistant. Inbound calls, scheduling, intake, reminders & insurance verification, answered in your time zone. Save up to 73%.';
+$page_title       = 'Medical Receptionist Virtual Assistants | HIPAA-Compliant Front-Desk VAs | Virtual Teammate';
+$page_description = 'Hire a HIPAA-compliant medical receptionist virtual assistant. Inbound calls, scheduling, intake, reminders & insurance verification, answered in your time zone. Save up to 73%.';
 $og_title         = 'Medical Receptionist Virtual Assistants: Never Miss a Patient Call';
 $og_description   = 'Trained virtual front-desk VAs answering calls, scheduling appointments, verifying insurance and reducing no-shows: all in your US time zone.';
 $canonical        = 'https://virtualteammate.com/services/medical-receptionist/';
@@ -24,7 +24,7 @@ $faqs = [
   ['q' => 'How much does a virtual receptionist cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house hire. Use our ROI calculator for an exact estimate.'],
   ['q' => 'Is patient data safe?',
-   'a' => 'Every receptionist is HIPAA-certified, background-checked and signs a BAA-compatible confidentiality agreement before placement.'],
+   'a' => 'Every receptionist is HIPAA-compliant, background-checked and signs a BAA-compatible confidentiality agreement before placement.'],
 ];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Medical Receptionist Virtual Assistant",
   "name":"Medical Receptionist Virtual Assistants",
-  "description":"HIPAA-certified virtual medical receptionists handling inbound calls, appointment scheduling, patient intake, insurance verification, reminder calls and front-desk communication for medical practices.",
+  "description":"HIPAA-compliant virtual medical receptionists handling inbound calls, appointment scheduling, patient intake, insurance verification, reminder calls and front-desk communication for medical practices.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Healthcare Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Medical Receptionist</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Virtual Front-Desk teammates &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Virtual Front-Desk teammates &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Medical receptionist <em>virtual</em> assistants</h1>
     <p class="svc-lead">Stop missing patient calls. Our <strong>virtual medical receptionists</strong> answer live, schedule appointments, verify insurance and run reminder outreach: all from inside your EHR and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-house front desk.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-phone-volume"></i> Live Phone &amp; Portal</div>
       <div class="trust-item"><i class="fa-solid fa-language"></i> Bilingual Available</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -116,7 +116,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live answer, not voicemail</h3><p>Every call gets a real human voice that knows your practice, your providers, and your scheduling rules.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer no-shows</h3><p>Consistent confirmation calls, reminder texts and rebook outreach typically cut no-shows by 20&ndash;35%.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified teammates with signed confidentiality agreements and controlled work environments.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-compliant teammates with signed confidentiality agreements and controlled work environments.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Replaces $48k&ndash;$62k fully-loaded in-house cost with a transparent flat rate: no benefits, payroll tax or PTO.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on request</h3><p>Need Spanish, Portuguese or Tagalog coverage? We staff bilingual teammates at no premium for high-demand languages.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Quality monitoring, call audits, backup coverage and quarterly performance reviews built into every placement.</p></div>
@@ -156,7 +156,7 @@ include __DIR__ . '/../../includes/nav.php';
   </div>
   <div class="proc-steps">
     <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy call</h3><p class="pstep-desc">Map your call volume, phone system, EHR and scheduling rules. Define the exact tasks the receptionist will own.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified receptionists matched to your accent, language and stack preferences.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-compliant receptionists matched to your accent, language and stack preferences.</p></div>
     <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; go live</h3><p class="pstep-desc">Phone setup, EHR access, call scripts and a Client Success Manager (CSM). Live calls within 1&ndash;2 weeks.</p></div>
   </div>
 </section>
@@ -171,7 +171,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-language"></i> Do you offer bilingual receptionists?</div><div class="faq-a">Yes. We staff Spanish, Portuguese and Tagalog teammates at no premium. Other languages available on request.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will this actually reduce my no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmation calls, reminders and rescheduling outreach: work busy in-house front desks rarely have time for.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual receptionist cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house hire. Use our ROI calculator for an exact estimate.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every receptionist is HIPAA-certified, background-checked and signs a BAA-compatible confidentiality agreement before placement.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Every receptionist is HIPAA-compliant, background-checked and signs a BAA-compatible confidentiality agreement before placement.</div></div>
   </div>
 </section>
 

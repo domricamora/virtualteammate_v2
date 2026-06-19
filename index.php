@@ -1,7 +1,7 @@
 <?php
-$page_title       = 'HIPAA-Certified Medical & Dental Virtual Assistants | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified medical & dental virtual assistants from a global talent network. Billing, scribing, scheduling, insurance verification. Save up to 73%.';
-$og_title         = 'HIPAA-Certified Medical & Dental Virtual Assistants';
+$page_title       = 'HIPAA-Compliant Medical & Dental Virtual Assistants | Virtual Teammate';
+$page_description = 'Hire HIPAA-compliant medical & dental virtual assistants from a global talent network. Billing, scribing, scheduling, insurance verification. Save up to 73%.';
+$og_title         = 'HIPAA-Compliant Medical & Dental Virtual Assistants';
 $og_description   = 'Specialized virtual staffing for medical practices, dental clinics & RCM teams: sourced globally, delivered in your time zone.';
 $canonical        = 'https://virtualteammate.com/';
 $is_homepage      = true;
@@ -53,10 +53,10 @@ include 'includes/nav.php';
     <circle class="hg-dot" cx="<?= $hgEnd[0] ?>" cy="<?= $hgEnd[1] ?>" r="6" fill="#f5e4b8"/>
   </svg>
   <div class="hero-inner">
-    <div class="hero-eyebrow reveal"><span class="dot"></span> 30-Day Right-Fit Promise &middot; HIPAA-Certified</div>
+    <div class="hero-eyebrow reveal"><span class="dot"></span> 30-Day Right-Fit Promise &middot; HIPAA-Compliant</div>
     <h1 class="hero-h1 reveal d1">Short-staffed and overworked?<br><span class="hero-h1-sub">Fully staff your practice <em>in weeks</em>, not months, for <em>73% less</em>.</span></h1>
     <ul class="hero-sub hero-sub-list hero-sub-cols reveal d2">
-      <li>HIPAA-certified medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Open Dental.</li>
+      <li>HIPAA-compliant medical &amp; dental virtual assistants trained on Epic, Cerner, Dentrix and Open Dental.</li>
       <li>We own billing, scribing, scheduling and prior auth.</li>
       <li>Matched to your US time zone.</li>
       <li>Flat-rate pricing from <strong>$750 bi-weekly</strong>, backed by our <strong>30-Day Right-Fit Promise</strong>.</li>
@@ -81,7 +81,7 @@ include 'includes/nav.php';
 
   <!-- Trust row — full-width strip spanning the whole hero -->
   <div class="trust-row reveal d4">
-    <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+    <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
     <div class="trust-item"><i class="fa-solid fa-brain"></i> EHR &amp; Dental Software Trained</div>
     <div class="trust-item"><i class="fa-solid fa-user-shield"></i> Background Checked</div>
     <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
@@ -385,12 +385,12 @@ function vtnew_homepage_profiles(int $limit = 6): array
         </div>
       </div>
       <div class="spec-content">
-        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
+        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Compliant &middot; Epic / Cerner / Athena Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
           <h3 class="spec-title">Medical virtual teammates</h3>
         </div>
-        <p class="spec-desc">HIPAA-certified medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls: so providers stop charting after hours and your AR keeps moving.</p>
+        <p class="spec-desc">HIPAA-compliant medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls: so providers stop charting after hours and your AR keeps moving.</p>
 
         <div class="spec-pills">
           <a class="pill" href="services/medical-administrative-support/">Medical Admin Support <i class="fa-solid fa-arrow-right"></i></a>
@@ -418,7 +418,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         </div>
       </div>
       <div class="spec-content">
-        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Open Dental Trained</div>
+        <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Compliant &middot; Dentrix / Open Dental Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
           <h3 class="spec-title">Dental virtual teammates</h3>
@@ -444,7 +444,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <div class="hbadges">
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
-        <div class="hbadge-txt"><strong>HIPAA Certified</strong><span>Every healthcare VA</span></div>
+        <div class="hbadge-txt"><strong>HIPAA Compliant</strong><span>Every healthcare VA</span></div>
       </div>
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-brain"></i></span>
@@ -534,7 +534,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 1&ndash;2 business days</div>
       <h3 class="pstep-title">Meet &amp; interview candidates</h3>
-      <p class="pstep-desc">Curated shortlist of HIPAA-certified teammates delivered in <strong>1&ndash;2 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
+      <p class="pstep-desc">Curated shortlist of HIPAA-compliant teammates delivered in <strong>1&ndash;2 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
     </div>
     <div class="pstep reveal d3">
       <div class="pstep-head">
@@ -567,7 +567,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
-  <p class="sec-sub reveal" style="margin-top:6px;">Vetted specialists, HIPAA-certified and trained on the systems your practice already runs.</p>
+  <p class="sec-sub reveal" style="margin-top:6px;">Vetted specialists, HIPAA-compliant and trained on the systems your practice already runs.</p>
 
   <?php if (!empty($homepage_profiles)): ?>
     <div class="prof-grid">
@@ -611,7 +611,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
           <div class="prof-meta">
             <span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= htmlspecialchars($systems) ?></span>
             <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= htmlspecialchars($expLbl) ?></span>
-            <span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span>
+            <span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Compliant</span>
           </div>
           <div class="prof-cap"><?= htmlspecialchars($cap) ?></div>
           <span class="prof-cta">Request this teammate <i class="fa-solid fa-arrow-right"></i></span>
@@ -756,7 +756,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="reveal" style="text-align:center;max-width:760px;margin:0 auto;">
     <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> Here&rsquo;s the Deal</div>
     <h2 class="sec-h2" id="offer-h">Here&rsquo;s exactly what you get</h2>
-    <p class="sec-sub" style="margin:0 auto;">HIPAA-certified medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Open Dental, fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
+    <p class="sec-sub" style="margin:0 auto;">HIPAA-compliant medical &amp; dental virtual assistants, trained on Epic, Cerner, Dentrix and Open Dental, fully staffed in weeks, not months, for up to 73% less than local hiring.</p>
   </div>
 
   <div class="offer-grid reveal d1">
@@ -917,7 +917,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-user-plus"></i> Request a teammate</div>
     <h2 class="cta-modal-h" id="ccm-rq-h">Request <span data-vt-name-target>this teammate</span></h2>
-    <p class="cta-modal-sub">Tell us where to reach you and your dedicated Client Success Manager will check <span data-vt-name-target>this teammate</span>&rsquo;s availability, then line up similar HIPAA-certified matches for your specialty, EHR and time zone.</p>
+    <p class="cta-modal-sub">Tell us where to reach you and your dedicated Client Success Manager will check <span data-vt-name-target>this teammate</span>&rsquo;s availability, then line up similar HIPAA-compliant matches for your specialty, EHR and time zone.</p>
     <form class="cta-modal-form" id="ctaRequestForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Request received: your Client Success Manager will be in touch within one business day.">
       <input type="hidden" name="intent" value="request">

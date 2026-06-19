@@ -33,7 +33,7 @@ require_once __DIR__ . '/cache.php';
  */
 $site_url         = 'https://virtualteammate.com';
 $page_title       = $page_title       ?? 'Virtual Teammate';
-$page_description = $page_description ?? 'HIPAA-certified medical & dental virtual assistants.';
+$page_description = $page_description ?? 'HIPAA-compliant medical & dental virtual assistants.';
 $canonical        = $canonical        ?? $site_url . '/';
 $og_title         = $og_title         ?? $page_title;
 $og_description   = $og_description   ?? $page_description;
@@ -123,7 +123,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       "telephone": "+1-480-847-2498",
       "email": "clientsuccess@virtualteammate.com",
       "priceRange": "$$",
-      "description": "HIPAA-certified medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.",
+      "description": "HIPAA-compliant medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "2425 East Camelback Road, Suite 400",
@@ -183,7 +183,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
     {
       "@type": "FAQPage",
       "mainEntity": [
-        { "@type":"Question","name":"Are your healthcare teammates HIPAA certified?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every healthcare and dental teammate completes HIPAA compliance training and certification before placement."}},
+        { "@type":"Question","name":"Are your healthcare teammates HIPAA compliant?","acceptedAnswer":{"@type":"Answer","text":"Yes. Every healthcare and dental teammate completes HIPAA compliance training and certification before placement."}},
         { "@type":"Question","name":"How quickly can I get a teammate started?","acceptedAnswer":{"@type":"Answer","text":"Most clients receive a curated shortlist within days. Onboarding is typically complete within 1–2 weeks."}},
         { "@type":"Question","name":"Where are your virtual assistants based?","acceptedAnswer":{"@type":"Answer","text":"Virtual Teammate sources talent from a global network spanning the Philippines, Latin America, Africa, and South Asia: every teammate is matched to your US time zone."}},
         { "@type":"Question","name":"How much does a medical virtual assistant cost?","acceptedAnswer":{"@type":"Answer","text":"Transparent flat-rate pricing, typically 60–73% less than an equivalent in-house hire when factoring salary, benefits and overhead."}}
@@ -225,7 +225,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
   'image'       => $site_url . '/images/logo.webp',
   'telephone'   => '+1-480-847-2498',
   'email'       => 'clientsuccess@virtualteammate.com',
-  'description' => 'HIPAA-certified medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.',
+  'description' => 'HIPAA-compliant medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.',
   'address'     => [
     '@type'           => 'PostalAddress',
     'streetAddress'   => '2425 East Camelback Road, Suite 400',

@@ -55,7 +55,7 @@ if (isset($svc_vtc[$svc_slug])) {
 <!-- FINAL CTA -->
 <section class="svc-cta">
   <h2>Ready to Meet Your Future <em style="color:var(--gold);font-style:normal;">Virtual Teammate</em>?</h2>
-  <p>Get a curated shortlist of HIPAA-certified candidates within days, matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
+  <p>Get a curated shortlist of HIPAA-compliant candidates within days, matched to your time zone, software stack, and workflow. No commitment, no recruiter fees.</p>
   <div class="svc-cta-btns">
     <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
     <a href="<?= $home_base ?>#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>

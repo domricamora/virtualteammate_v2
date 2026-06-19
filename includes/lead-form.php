@@ -30,7 +30,7 @@ if ($lf_mode === 'form') {
     }
     $lf_form       = $lf_form       ?? $lf_source;
     $lf_title      = $lf_title      ?? 'Get matched with your Virtual Teammate';
-    $lf_sub        = $lf_sub        ?? 'Tell us what you need and we\'ll hand-pick vetted, HIPAA-certified candidates by specialty, software and time zone, value-first, no obligation.';
+    $lf_sub        = $lf_sub        ?? 'Tell us what you need and we\'ll hand-pick vetted, HIPAA-compliant candidates by specialty, software and time zone, value-first, no obligation.';
     $lf_thanks     = $lf_thanks     ?? 'Thanks! We\'ll reach out within 1 business day with your matched shortlist.';
     $lf_cta        = $lf_cta        ?? 'Get my value-matched shortlist';
     $lf_company_ph = $lf_company_ph ?? 'Practice / company';

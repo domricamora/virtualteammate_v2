@@ -73,7 +73,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> Roles We Staff</div>
     <h2 class="svc-h2">Pick a function: <em>we&rsquo;ll build the bench</em></h2>
-    <p class="sec-sub" style="max-width:680px;margin:0 auto;">From a single executive assistant to a full remote operations team, the same vetting standard that produces our HIPAA-certified healthcare placements applies here.</p>
+    <p class="sec-sub" style="max-width:680px;margin:0 auto;">From a single executive assistant to a full remote operations team, the same vetting standard that produces our HIPAA-compliant healthcare placements applies here.</p>
   </div>
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Administrative</h3><p>Executive assistants, calendar &amp; inbox managers, project coordinators, data entry, document control.</p></div>

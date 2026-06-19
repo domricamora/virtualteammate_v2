@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Medical Scribe Virtual Assistants | HIPAA-Certified Virtual Scribes | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified virtual medical scribes. Real-time EHR documentation, SOAP notes, charting & order entry: let providers focus on patients. Save up to 73%.';
+$page_title       = 'Medical Scribe Virtual Assistants | HIPAA-Compliant Virtual Scribes | Virtual Teammate';
+$page_description = 'Hire HIPAA-compliant virtual medical scribes. Real-time EHR documentation, SOAP notes, charting & order entry: let providers focus on patients. Save up to 73%.';
 $og_title         = 'Medical Scribe Virtual Assistants: Real-Time EHR Documentation';
-$og_description   = 'HIPAA-certified virtual scribes document visits in real time inside Epic, Cerner & every major EHR: finish notes before the patient leaves.';
+$og_description   = 'HIPAA-compliant virtual scribes document visits in real time inside Epic, Cerner & every major EHR: finish notes before the patient leaves.';
 $canonical        = 'https://virtualteammate.com/services/medical-scribe/';
 $home_base        = '../../';
 $svc_slug         = 'medical-scribe';
@@ -14,13 +14,13 @@ $breadcrumbs      = [
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
   ['q' => 'What does a virtual medical scribe actually do?',
-   'a' => 'Joins each visit by HIPAA-certified audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.'],
+   'a' => 'Joins each visit by HIPAA-compliant audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.'],
   ['q' => 'How much time does a virtual scribe save?',
    'a' => 'Most providers reclaim 2–3 hours of charting per day, see 1–3 additional patients per shift, and eliminate after-hours documentation.'],
   ['q' => 'Which EHRs do your scribes know?',
    'a' => 'Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.'],
-  ['q' => 'Is a virtual scribe HIPAA certified?',
-   'a' => 'Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.'],
+  ['q' => 'Is a virtual scribe HIPAA compliant?',
+   'a' => 'Yes. HIPAA-compliant, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.'],
   ['q' => 'How much does a virtual scribe cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.'],
   ['q' => 'What happens if my scribe is sick?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Medical Scribe Virtual Assistant",
   "name":"Medical Scribe Virtual Assistants",
-  "description":"HIPAA-certified virtual medical scribes who document patient encounters in real time inside the provider's EHR: SOAP notes, HPI, ROS, assessments, orders and after-visit summaries.",
+  "description":"HIPAA-compliant virtual medical scribes who document patient encounters in real time inside the provider's EHR: SOAP notes, HPI, ROS, assessments, orders and after-visit summaries.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Healthcare Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Medical Scribe</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time EHR Documentation &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-pen-clip"></i> Real-Time EHR Documentation &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Medical scribe <em>virtual</em> assistants</h1>
-    <p class="svc-lead">Look at your patients again. Our <strong>HIPAA-certified virtual medical scribes</strong> document every visit in real time inside your EHR, SOAP notes, HPI, ROS, assessments, orders, so your charting is done before the patient leaves the room. Save <strong>2&ndash;3 hours of after-clinic documentation</strong> every day, at up to <strong>73% less</strong> than an in-house scribe.</p>
+    <p class="svc-lead">Look at your patients again. Our <strong>HIPAA-compliant virtual medical scribes</strong> document every visit in real time inside your EHR, SOAP notes, HPI, ROS, assessments, orders, so your charting is done before the patient leaves the room. Save <strong>2&ndash;3 hours of after-clinic documentation</strong> every day, at up to <strong>73% less</strong> than an in-house scribe.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-laptop-medical"></i> All Major EHRs</div>
       <div class="trust-item"><i class="fa-solid fa-microphone-lines"></i> Real-Time Live Visits</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -90,7 +90,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-pen-clip"></i> What They Handle</div>
     <h2 class="svc-h2">Real-time documentation, <em>inside your EHR</em></h2>
-    <p class="svc-p">The average US physician spends <strong>1.7 hours on EHR documentation for every 1 hour of patient care</strong>. A dedicated virtual scribe attends each visit via HIPAA-certified audio link and writes the chart as it happens: so you walk out of the room with the note already done.</p>
+    <p class="svc-p">The average US physician spends <strong>1.7 hours on EHR documentation for every 1 hour of patient care</strong>. A dedicated virtual scribe attends each visit via HIPAA-compliant audio link and writes the chart as it happens: so you walk out of the room with the note already done.</p>
     <ul class="svc-checks">
       <li><i class="fa-solid fa-check"></i><span><strong>Real-time SOAP notes:</strong> HPI, ROS, exam, assessment, plan, structured to your templates.</span></li>
       <li><i class="fa-solid fa-check"></i><span><strong>Order entry &amp; prep:</strong> labs, imaging, referrals, prescription drafts, queued for provider signature.</span></li>
@@ -118,7 +118,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>See more patients</h3><p>Most providers add 1&ndash;3 visits per shift once documentation drag is removed: pure throughput gain.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-face-smile"></i></span><h3>Better patient experience</h3><p>Eye contact. Active listening. No keyboard barrier. Patient satisfaction scores climb fast.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces $48k&ndash;$65k loaded in-house scribe cost, with backup coverage included.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-compliant, background-checked, BAA-compatible. Encrypted environments only.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero burnout risk</h3><p>Backup coverage and quality monitoring built in: the scribe shows up, every shift, no exceptions.</p></div>
   </div>
 </section>
@@ -166,10 +166,10 @@ include __DIR__ . '/../../includes/nav.php';
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Virtual medical scribe FAQs</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual medical scribe actually do?</div><div class="faq-a">Joins each visit by HIPAA-certified audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-pen-clip"></i> What does a virtual medical scribe actually do?</div><div class="faq-a">Joins each visit by HIPAA-compliant audio or video link and documents the encounter in real time, HPI, ROS, exam, A/P, orders, AVS, inside your EHR using your templates.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-clock"></i> How much time does a virtual scribe save?</div><div class="faq-a">Most providers reclaim 2&ndash;3 hours of charting per day, see 1&ndash;3 additional patients per shift, and eliminate after-hours documentation.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which EHRs do your scribes know?</div><div class="faq-a">Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Allscripts, Practice Fusion, AdvancedMD, DrChrono and more: EHR-trained before placement.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a virtual scribe HIPAA certified?</div><div class="faq-a">Yes. HIPAA-certified, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is a virtual scribe HIPAA compliant?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked, BAA-compatible, working in encrypted environments only. Audio/video links are encrypted end-to-end.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual scribe cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house scribe. Use our ROI calculator for a specialty-specific quote.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my scribe is sick?</div><div class="faq-a">Trained backup coverage is included: your Client Success Manager (CSM) arranges a substitute scribe so you&rsquo;re never charting alone again.</div></div>
   </div>

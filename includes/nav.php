@@ -10,7 +10,7 @@ $home_base = $home_base ?? './';
 ?>
 <!-- TOPBAR -->
 <div class="topbar" role="complementary">
-  <i class="fa-solid fa-hospital" aria-hidden="true"></i> HIPAA-certified medical &amp; dental virtual assistants: vetted, trained on your systems, live in 1&ndash;2 weeks.
+  <i class="fa-solid fa-hospital" aria-hidden="true"></i> HIPAA-compliant medical &amp; dental virtual assistants: vetted, trained on your systems, live in 1&ndash;2 weeks.
   &nbsp;&bull;&nbsp;
   <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
@@ -82,7 +82,7 @@ $home_base = $home_base ?? './';
         <div class="nav-mega-foot">
           <div class="nav-mega-foot-txt">
             <i class="fa-solid fa-circle-nodes"></i>
-            <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental, front desk to back office, all HIPAA-certified.</span>
+            <span><strong>Not sure which role you need?</strong> We staff medical <em>and</em> dental, front desk to back office, all HIPAA-compliant.</span>
           </div>
           <a href="<?= $home_base ?>#cta-practice-audit" class="nav-mega-foot-btn" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
@@ -121,7 +121,7 @@ $home_base = $home_base ?? './';
     <a href="<?= $home_base ?>#calculator">ROI Calculator</a>
   </div>
   <div class="nav-right">
-    <span class="hipaa-badge hipaa-badge--nav" title="HIPAA-certified virtual assistants"><img class="hipaa-badge-logo" src="<?= $home_base ?>images/hipaa-certified.webp" alt="" aria-hidden="true" width="16" height="16"> HIPAA Certified</span>
+    <span class="hipaa-badge hipaa-badge--nav" title="HIPAA-compliant virtual assistants"><img class="hipaa-badge-logo" src="<?= $home_base ?>images/hipaa-certified.webp" alt="" aria-hidden="true" width="16" height="16"> HIPAA Compliant</span>
     <a href="tel:+14808472498" class="nav-phone" aria-label="Call (480) 847-2498">
       <i class="fa-solid fa-phone" aria-hidden="true"></i>(480) 847-2498
     </a>

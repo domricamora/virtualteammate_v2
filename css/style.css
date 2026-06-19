@@ -304,7 +304,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .trust-item i{color:var(--gold);font-size:13px;}
 
-/* HIPAA-certified trust mark — reused in header and footer */
+/* HIPAA-compliant trust mark — reused in header and footer */
 .hipaa-badge{
   display:inline-flex;align-items:center;gap:8px;
   padding:7px 13px;border-radius:999px;line-height:1;white-space:nowrap;

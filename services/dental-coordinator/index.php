@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Dental Treatment Coordinator Virtual Assistants | HIPAA-Certified | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified dental treatment coordinator virtual assistants. Case presentation follow-up, treatment-plan financing, patient recall & scheduling coordination. Boost case acceptance, save up to 73%.';
+$page_title       = 'Dental Treatment Coordinator Virtual Assistants | HIPAA-Compliant | Virtual Teammate';
+$page_description = 'Hire HIPAA-compliant dental treatment coordinator virtual assistants. Case presentation follow-up, treatment-plan financing, patient recall & scheduling coordination. Boost case acceptance, save up to 73%.';
 $og_title         = 'Dental Treatment Coordinator VAs: Higher Case Acceptance';
 $og_description   = 'Virtual treatment coordinators who follow up on unscheduled treatment, present financing, run recall and fill the schedule: inside your dental PMS.';
 $canonical        = 'https://virtualteammate.com/services/dental-coordinator/';
@@ -20,7 +20,7 @@ $faqs = [
   ['q' => 'Which dental software do they know?',
    'a' => 'Dentrix, Dentrix Ascend, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.'],
   ['q' => 'Is patient data safe?',
-   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement.'],
+   'a' => 'Yes. HIPAA-compliant, background-checked and BAA-compatible before placement.'],
   ['q' => 'How much does it cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.'],
   ['q' => 'Can I scale or pause?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Treatment Coordinator Virtual Assistant",
   "name":"Dental Treatment Coordinator Virtual Assistants",
-  "description":"HIPAA-certified virtual dental treatment coordinators driving case acceptance: unscheduled-treatment follow-up, financing presentation, patient recall, referral coordination and schedule optimization inside the dental PMS.",
+  "description":"HIPAA-compliant virtual dental treatment coordinators driving case acceptance: unscheduled-treatment follow-up, financing presentation, patient recall, referral coordination and schedule optimization inside the dental PMS.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Dental Coordinator</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-handshake-angle"></i> Treatment &amp; Recall Coordination &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-handshake-angle"></i> Treatment &amp; Recall Coordination &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Dental treatment <em>coordinator</em> virtual assistants</h1>
-    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-certified virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule: inside Dentrix and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
+    <p class="svc-lead">Stop leaving treatment on the table. Our <strong>HIPAA-compliant virtual treatment coordinators</strong> follow up on unscheduled treatment, present financing, run hygiene recall and fill your schedule: inside Dentrix and Open Dental, at up to <strong>73% less</strong> than an in-house coordinator.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-arrow-trend-up"></i> Case-Acceptance Focused</div>
       <div class="trust-item"><i class="fa-solid fa-phone-volume"></i> Live Patient Outreach</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -116,7 +116,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-arrow-trend-up"></i></span><h3>Higher case acceptance</h3><p>Consistent, same-week follow-up on diagnosed treatment recovers revenue that&rsquo;s otherwise lost.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>A fuller schedule</h3><p>Recall, reactivation and short-call management keep the book full and reduce holes.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-compliant, BAA-compatible. Patient data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost: no benefits or recruiter fees.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live patient outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice, not a slow email drip.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Quality monitoring, backup coverage and quarterly performance reviews on every placement.</p></div>
@@ -165,7 +165,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-handshake-angle"></i> What does a treatment coordinator teammate do?</div><div class="faq-a">Unscheduled-treatment follow-up, financing presentation, hygiene recall and reactivation, schedule optimization and referral coordination: all inside your dental PMS.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-arrow-trend-up"></i> Will it improve case acceptance?</div><div class="faq-a">Yes. Diagnosed-but-unscheduled treatment is the biggest revenue leak in most practices; a coordinator works that list daily and recovers it.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Which dental software do they know?</div><div class="faq-a">Dentrix, Dentrix Ascend, Open Dental, Carestream and Denticon, plus Weave, NexHealth and Solutionreach.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked and BAA-compatible before placement.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house coordinator. Use the homepage ROI calculator for an exact estimate.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-arrows-up-down-left-right"></i> Can I scale or pause?</div><div class="faq-a">Yes. No locked-in headcount or termination penalties: scale up in growth, trim in slow seasons.</div></div>
   </div>

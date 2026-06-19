@@ -224,9 +224,9 @@ $totalVts = count($vts);
 
 /* ── SEO header vars ── */
 $page_title       = 'Virtual Teammates: Hire Vetted Medical & Dental Virtual Assistants';
-$page_description = 'Browse Virtual Teammate\'s bench of HIPAA-certified, pre-vetted virtual assistants for medical, dental and business teams. Filter by department and skill, then get matched in days.';
+$page_description = 'Browse Virtual Teammate\'s bench of HIPAA-compliant, pre-vetted virtual assistants for medical, dental and business teams. Filter by department and skill, then get matched in days.';
 $og_title         = 'Meet Our Virtual Teammates: Vetted VAs Ready to Join Your Team';
-$og_description   = 'Search and filter our roster of HIPAA-certified medical, dental and business virtual assistants. See skills, experience and credentials, then book a value-matching call.';
+$og_description   = 'Search and filter our roster of HIPAA-compliant medical, dental and business virtual assistants. See skills, experience and credentials, then book a value-matching call.';
 $canonical        = 'https://virtualteammate.com/virtual-teammates/';
 $home_base        = '../';
 $breadcrumbs      = [
@@ -269,7 +269,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             '@type'      => 'FAQPage',
             'mainEntity' => [
                 ['@type' => 'Question', 'name' => 'How much does a virtual assistant cost?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Virtual Teammate uses transparent flat-rate pricing: typically 60–73% less than an equivalent in-house hire once you factor in salary, benefits, payroll tax and overhead. Full-time VAs start at $750 bi-weekly.']],
-                ['@type' => 'Question', 'name' => 'Are your virtual assistants HIPAA certified?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every healthcare and dental virtual assistant completes HIPAA compliance training and certification before placement.']],
+                ['@type' => 'Question', 'name' => 'Are your virtual assistants HIPAA compliant?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Yes. Every healthcare and dental virtual assistant completes HIPAA compliance training and certification before placement.']],
                 ['@type' => 'Question', 'name' => 'How fast can I hire a virtual assistant?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Most clients receive a curated shortlist within days and complete onboarding within one to two weeks.']],
                 ['@type' => 'Question', 'name' => 'Can I interview candidates before hiring?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'Absolutely. We hand-match candidates to your specialty, software and time zone, and you interview the shortlist before deciding.']],
                 ['@type' => 'Question', 'name' => 'Where are Virtual Teammate VAs based?', 'acceptedAnswer' => ['@type' => 'Answer', 'text' => 'We source talent from a global network spanning the Philippines, Latin America, Africa and South Asia, and match every VA to your US time zone.']],
@@ -288,7 +288,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
         <div class="sec-lbl"><i class="fa-solid fa-users"></i> Our Virtual Teammates</div>
         <h1 class="sec-h2" id="vtd-h1" style="max-width:18ch;">Hire a vetted medical &amp; dental virtual assistant</h1>
         <p class="vtd-lede">
-          Meet the Virtual Teammate bench: HIPAA-certified, pre-screened virtual assistants ready to support
+          Meet the Virtual Teammate bench: HIPAA-compliant, pre-screened virtual assistants ready to support
           your practice or business. Browse real teammates by department and skill, then get matched to the
           right candidate in days. Every VA is interviewed, background-checked and time-zone aligned to your team.
         </p>
@@ -307,7 +307,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
             <span class="vtd-hero-pic"><img src="<?= $home_base ?>images/talent-hero/<?= $pic ?>.webp" alt="" loading="lazy" width="150" height="150"></span>
           <?php endforeach; ?>
         </div>
-        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> HIPAA certified teammates</span>
+        <span class="vtd-hero-badge"><i class="fa-solid fa-circle-check"></i> HIPAA compliant teammates</span>
       </div>
     </div>
   </section>
@@ -417,7 +417,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
           <div class="prof-meta">
             <?php if ($v['ehr'] !== ''): ?><span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= $h($v['ehr']) ?></span><?php endif; ?>
             <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= $v['years'] > 0 ? $h($v['years'] . '+ yrs') : 'Experienced' ?></span>
-            <?php if ($v['hipaa']): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span><?php endif; ?>
+            <?php if ($v['hipaa']): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Compliant</span><?php endif; ?>
           </div>
           <div class="prof-cap"><?= $h($v['cap']) ?></div>
           <button type="button" class="vtd-view" data-view="<?= (int) $v['id'] ?>">
@@ -440,12 +440,12 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       <h2 class="sec-h2" id="vtd-why-h">Virtual assistants who are <em>vetted, certified and ready</em></h2>
       <p class="vtd-lede" style="max-width:none;">
         Every Virtual Teammate is hand-screened for skills, communication and reliability before they ever reach
-        your shortlist. Healthcare and dental VAs are HIPAA-certified; business and administrative VAs are tested
+        your shortlist. Healthcare and dental VAs are HIPAA-compliant; business and administrative VAs are tested
         on the exact tools your team runs. You get a teammate, not a temp, matched to your time zone and ramped
         with a dedicated success manager.
       </p>
       <div class="vtd-why-grid">
-        <div class="vtd-why-card"><i class="fa-solid fa-user-shield"></i><h3>HIPAA-certified</h3><p>Healthcare &amp; dental VAs complete HIPAA compliance training before placement.</p></div>
+        <div class="vtd-why-card"><i class="fa-solid fa-user-shield"></i><h3>HIPAA-compliant</h3><p>Healthcare &amp; dental VAs complete HIPAA compliance training before placement.</p></div>
         <div class="vtd-why-card"><i class="fa-solid fa-clipboard-check"></i><h3>Rigorously vetted</h3><p>Skills tests, background checks and live interviews: only the top few percent make the bench.</p></div>
         <div class="vtd-why-card"><i class="fa-solid fa-clock"></i><h3>Your time zone</h3><p>Global talent matched to overlap your working hours, so work happens in real time.</p></div>
         <div class="vtd-why-card"><i class="fa-solid fa-handshake-angle"></i><h3>30-day right-fit</h3><p>Not the right match? We re-match at no extra cost in the first 30 days. <a href="<?= $home_base ?>guarantee/">See the promise</a>.</p></div>
@@ -459,7 +459,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
       <div class="vtd-spec-grid">
         <div class="vtd-spec">
           <h3><i class="fa-solid fa-stethoscope"></i> Medical virtual assistants</h3>
-          <p>Medical billing, scribing, patient scheduling, insurance verification and prior authorization: HIPAA-certified support that keeps your practice running. <a href="<?= $home_base ?>services/medical-administrative-support/">Explore medical VAs</a>.</p>
+          <p>Medical billing, scribing, patient scheduling, insurance verification and prior authorization: HIPAA-compliant support that keeps your practice running. <a href="<?= $home_base ?>services/medical-administrative-support/">Explore medical VAs</a>.</p>
         </div>
         <div class="vtd-spec">
           <h3><i class="fa-solid fa-tooth"></i> Dental virtual assistants</h3>
@@ -494,7 +494,7 @@ foreach (array_slice($vts, 0, 25) as $i => $v) {
     </div>
     <div class="vtd-faq-grid">
       <div class="vtd-faq"><h3>How much does a virtual assistant cost?</h3><p>Transparent flat-rate pricing: typically 60–73% less than an in-house hire once salary, benefits, payroll tax and overhead are factored in. Full-time VAs start at $750 bi-weekly.</p></div>
-      <div class="vtd-faq"><h3>Are your virtual assistants HIPAA certified?</h3><p>Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement.</p></div>
+      <div class="vtd-faq"><h3>Are your virtual assistants HIPAA compliant?</h3><p>Yes. Every healthcare and dental VA completes HIPAA compliance training and certification before placement.</p></div>
       <div class="vtd-faq"><h3>How fast can I hire?</h3><p>Most clients get a curated shortlist within days and finish onboarding within one to two weeks.</p></div>
       <div class="vtd-faq"><h3>Can I interview candidates first?</h3><p>Always. We hand-match candidates to your specialty, software and time zone, and you interview the shortlist before deciding.</p></div>
       <div class="vtd-faq"><h3>Where are your VAs based?</h3><p>We source globally, the Philippines, Latin America, Africa and South Asia, and match every VA to your US time zone.</p></div>

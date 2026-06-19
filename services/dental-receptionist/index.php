@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Dental Receptionist Virtual Assistants | HIPAA-Certified Front-Desk VAs | Virtual Teammate';
-$page_description = 'Hire a HIPAA-certified dental receptionist virtual assistant. Inbound calls, scheduling, patient intake, insurance verification & recall, answered live in your time zone. Save up to 73%.';
+$page_title       = 'Dental Receptionist Virtual Assistants | HIPAA-Compliant Front-Desk VAs | Virtual Teammate';
+$page_description = 'Hire a HIPAA-compliant dental receptionist virtual assistant. Inbound calls, scheduling, patient intake, insurance verification & recall, answered live in your time zone. Save up to 73%.';
 $og_title         = 'Dental Receptionist Virtual Assistants: Never Miss a Patient Call';
 $og_description   = 'Virtual dental front-desk VAs answering calls live, booking appointments, verifying insurance and cutting no-shows: inside your dental PMS and phone system.';
 $canonical        = 'https://virtualteammate.com/services/dental-receptionist/';
@@ -24,7 +24,7 @@ $faqs = [
   ['q' => 'How much does it cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.'],
   ['q' => 'Is patient data safe?',
-   'a' => 'Yes. HIPAA-certified, background-checked and BAA-compatible before placement.'],
+   'a' => 'Yes. HIPAA-compliant, background-checked and BAA-compatible before placement.'],
 ];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Dental Receptionist Virtual Assistant",
   "name":"Dental Receptionist Virtual Assistants",
-  "description":"HIPAA-certified virtual dental receptionists handling inbound calls, appointment scheduling, patient intake, insurance verification, reminders and recall inside the dental PMS and phone system.",
+  "description":"HIPAA-compliant virtual dental receptionists handling inbound calls, appointment scheduling, patient intake, insurance verification, reminders and recall inside the dental PMS and phone system.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Dental Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Dental Receptionist</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk teammates &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-headset"></i> Dental Front-Desk teammates &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Dental receptionist <em>virtual</em> assistants</h1>
-    <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-certified virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall: from inside your dental PMS and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-office front desk.</p>
+    <p class="svc-lead">Stop sending patients to voicemail. Our <strong>HIPAA-compliant virtual dental receptionists</strong> answer live, book appointments, verify insurance and run recall: from inside your dental PMS and phone system, in your US time zone, at up to <strong>73% less</strong> than an in-office front desk.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-phone-volume"></i> Live Phone &amp; Portal</div>
       <div class="trust-item"><i class="fa-solid fa-language"></i> Bilingual Available</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -116,7 +116,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live answer, not voicemail</h3><p>Every call gets a real voice that knows your providers, hours and scheduling rules.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer no-shows</h3><p>Consistent confirmations, reminders and rebooks typically cut no-shows 20&ndash;35%.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-compliant, BAA-compatible. Patient data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Replaces $42k&ndash;$56k loaded front-desk cost with a transparent flat rate: no benefits or PTO.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on request</h3><p>Spanish and other high-demand languages available at no premium.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Call audits, quality monitoring, backup coverage and quarterly reviews on every placement.</p></div>
@@ -167,7 +167,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-language"></i> Do you offer bilingual receptionists?</div><div class="faq-a">Yes. Spanish and other high-demand languages are available at no premium.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-calendar-xmark"></i> Will it reduce no-shows?</div><div class="faq-a">Most practices see no-shows drop 20&ndash;35% in the first 90 days from consistent confirmations, reminders and same-day rebooking.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does it cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-office front-desk hire. Use the homepage ROI calculator for an exact estimate.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-certified, background-checked and BAA-compatible before placement.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient data safe?</div><div class="faq-a">Yes. HIPAA-compliant, background-checked and BAA-compatible before placement.</div></div>
   </div>
 </section>
 

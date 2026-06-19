@@ -236,7 +236,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="global-grid">
     <div class="global-l reveal">
       <div class="sec-lbl"><i class="fa-solid fa-earth-americas"></i> Global Coverage &middot; Local Cadence</div>
-      <h2 class="sec-h2" id="global-h">A <em>global bench</em> of HIPAA-certified medical &amp; dental talent, on your time zone</h2>
+      <h2 class="sec-h2" id="global-h">A <em>global bench</em> of HIPAA-compliant medical &amp; dental talent, on your time zone</h2>
       <p class="sec-sub">A global recruiting reach plus a single US point of contact. Your dedicated Client Success Manager (CSM) runs the bench so you don&rsquo;t have to think about it.</p>
 
       <ul class="global-benefits">

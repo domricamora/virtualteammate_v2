@@ -1,6 +1,6 @@
 <?php
-$page_title       = 'Medical Biller Virtual Assistants | HIPAA-Certified Medical Billing VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-certified medical biller virtual assistants. Claims, AR follow-up, denials, payment posting & full RCM: clean claim rates above 95%. Save up to 73%.';
+$page_title       = 'Medical Biller Virtual Assistants | HIPAA-Compliant Medical Billing VAs | Virtual Teammate';
+$page_description = 'Hire HIPAA-compliant medical biller virtual assistants. Claims, AR follow-up, denials, payment posting & full RCM: clean claim rates above 95%. Save up to 73%.';
 $og_title         = 'Medical Biller Virtual Assistants: Clean Claims, Faster Cash';
 $og_description   = 'Specialized virtual medical billers handling claims, denials, AR and full RCM. Trained in CPT, ICD-10, HCPCS & every major clearinghouse.';
 $canonical        = 'https://virtualteammate.com/services/medical-biller/';
@@ -20,7 +20,7 @@ $faqs = [
   ['q' => 'Are your billing teammates trained in CPT, ICD-10 and HCPCS?',
    'a' => 'Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines: plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).'],
   ['q' => 'Is patient and payer data safe?',
-   'a' => 'Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
+   'a' => 'Yes. Every biller is HIPAA-compliant, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
   ['q' => 'How much does a virtual medical biller cost?',
    'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house biller (k–k all-in). Use the homepage ROI calculator for a specialty-specific quote.'],
   ['q' => 'What happens if my biller is sick or on PTO?',
@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/nav.php';
   "@type":"Service",
   "serviceType":"Medical Billing Virtual Assistant",
   "name":"Medical Biller Virtual Assistants",
-  "description":"HIPAA-certified virtual medical billers handling claim submission, denial management, AR follow-up, payment posting, patient billing and full revenue cycle management for medical practices.",
+  "description":"HIPAA-compliant virtual medical billers handling claim submission, denial management, AR follow-up, payment posting, patient billing and full revenue cycle management for medical practices.",
   "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
   "areaServed":["US","CA","GB","AU"],
   "audience":{"@type":"MedicalAudience","audienceType":"Healthcare Provider"},
@@ -54,11 +54,11 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Medical Biller</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VAs &middot; HIPAA Certified</div>
+    <div class="svc-eyebrow"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VAs &middot; HIPAA Compliant</div>
     <h1 class="svc-h1">Medical biller <em>virtual</em> assistants</h1>
-    <p class="svc-lead">Get paid faster. Our <strong>HIPAA-certified virtual medical billers</strong> own your full revenue cycle, clean claims, denial work, AR follow-up and payment posting, trained in CPT, ICD-10 and every major clearinghouse, at up to <strong>73% less</strong> than an in-house RCM hire.</p>
+    <p class="svc-lead">Get paid faster. Our <strong>HIPAA-compliant virtual medical billers</strong> own your full revenue cycle, clean claims, denial work, AR follow-up and payment posting, trained in CPT, ICD-10 and every major clearinghouse, at up to <strong>73% less</strong> than an in-house RCM hire.</p>
     <div class="svc-trust">
-      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Certified</div>
+      <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
       <div class="trust-item"><i class="fa-solid fa-chart-line"></i> 95%+ Clean Claim Rate</div>
       <div class="trust-item"><i class="fa-solid fa-stopwatch"></i> 30-Day AR Targets</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
@@ -116,7 +116,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster cash, lower AR</h3><p>Daily AR work and aggressive denial follow-up typically cut AR days to under 30 and recover thousands in stalled claims.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ clean claim rate</h3><p>Trained billers catch coding errors, modifier mistakes and missing data before claims leave the building.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-compliant, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
     <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Transparent flat-rate pricing replaces $58k&ndash;$78k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero turnover risk</h3><p>Your Client Success Manager (CSM) handles backup coverage if your biller is sick or on PTO: never a billing dark day.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly RCM reporting</h3><p>Charges, claims, denials, AR aging and net collections: rolled up weekly so you always know where you stand.</p></div>
@@ -169,7 +169,7 @@ include __DIR__ . '/../../includes/nav.php';
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a medical billing virtual assistant do?</div><div class="faq-a">Full revenue cycle: charge entry, claim scrubbing &amp; submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting: inside your existing EHR and clearinghouse.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a billing teammate actually reduce my AR days?</div><div class="faq-a">Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-code"></i> Are your billing teammates trained in CPT, ICD-10 and HCPCS?</div><div class="faq-a">Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines: plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient and payer data safe?</div><div class="faq-a">Yes. Every biller is HIPAA-certified, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient and payer data safe?</div><div class="faq-a">Yes. Every biller is HIPAA-compliant, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house biller ($58k&ndash;$78k all-in). Use the homepage ROI calculator for a specialty-specific quote.</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my biller is sick or on PTO?</div><div class="faq-a">Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.</div></div>
   </div>

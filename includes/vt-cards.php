@@ -213,7 +213,7 @@ if ($vtc_filterable) {
       <div class="prof-meta">
         <?php if ($ehr !== ''): ?><span class="prof-meta-pill"><i class="fa-solid fa-laptop-medical"></i> <?= $vtc_h($ehr) ?></span><?php endif; ?>
         <span class="prof-meta-pill"><i class="fa-solid fa-clock"></i> <?= $vtc_h($expLbl) ?></span>
-        <?php if ($hipaa): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Certified</span><?php endif; ?>
+        <?php if ($hipaa): ?><span class="prof-meta-pill"><i class="fa-solid fa-shield-halved"></i> HIPAA-Compliant</span><?php endif; ?>
       </div>
       <div class="prof-cap"><?= $vtc_h($cap) ?></div>
       <a class="vtd-view" href="<?= $vtc_h($vtc_cta_href) ?>" data-cta-intent="<?= $vtc_h($vtc_cta_intent) ?>"<?php if ($vtc_cta_vt): ?> data-vt-id="<?= (int) $v['id'] ?>" data-vt-name="<?= $vtc_h($name . ', ' . $role) ?>"<?php endif; ?>>
