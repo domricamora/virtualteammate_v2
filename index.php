@@ -461,6 +461,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
+    <div class="hipaa-row">
     <div class="hipaa-main">
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
       <div class="hipaa-cta">
@@ -476,6 +477,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <li><strong>Tier &amp; headcount recommendation.</strong> Specific call on Pro vs Specialist tier, full-time vs part-time, and how many teammates to start with for your specialty and patient volume.</li>
         <li><strong>Honest no-fit answer.</strong> If outsourcing isn&rsquo;t right for your practice, we&rsquo;ll tell you on the call. No follow-up sales sequence.</li>
       </ul>
+    </div>
     </div>
   </div>
 </section>

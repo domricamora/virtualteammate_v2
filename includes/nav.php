@@ -8,11 +8,13 @@
  */
 $home_base = $home_base ?? './';
 ?>
+<!-- TOPBAR + NAV scroll together as one sticky header -->
+<header class="site-header">
 <!-- TOPBAR -->
 <div class="topbar" role="complementary">
-  <i class="fa-solid fa-hospital" aria-hidden="true"></i> HIPAA-compliant medical &amp; dental virtual assistants: vetted, trained on your systems, live in 1&ndash;2 weeks.
+  <i class="fa-solid fa-rocket" aria-hidden="true"></i> Ready to start? Book your jumpstart call
   &nbsp;&bull;&nbsp;
-  <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
+  <a href="<?= $home_base ?>#cta">Get started in 24 hours <i class="fa-solid fa-arrow-right" style="font-size:11px;" aria-hidden="true"></i></a>
 </div>
 
 <!-- NAV -->
@@ -128,3 +130,4 @@ $home_base = $home_base ?? './';
     <a href="<?= $home_base ?>#cta-practice-audit" data-cta-intent="practice-audit" class="btn-nav">Book my practice staffing audit</a>
   </div>
 </nav>
+</header>

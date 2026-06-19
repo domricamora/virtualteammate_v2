@@ -121,6 +121,8 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .topbar i{margin-right:8px;}
 .topbar a{color:var(--gold-lt);text-decoration:none;border-bottom:1px solid rgba(245,228,184,0.4);margin-left:6px;}
+/* Topbar + nav are wrapped in one sticky header so they scroll/stick together. */
+.site-header{position:sticky;top:0;z-index:100;}
 
 /* ───── NAV ───── */
 .nav{
@@ -129,7 +131,6 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   background:rgba(255,255,255,0.07);
   backdrop-filter:var(--glass-blur);
   border-bottom:1px solid var(--glass-border);
-  position:sticky;top:0;z-index:100;
 }
 .logo{
   display:inline-flex;align-items:center;
@@ -1050,6 +1051,11 @@ a.pill i{font-size:9px;color:var(--gold);}
 .hipaa-cta .cta-note{margin:0;width:auto;flex-basis:auto;}
 /* Audit checklist relocated into the strip: the flex gap handles spacing. */
 .hipaa .g-audit{margin-top:0;}
+/* Seal+CTA and the audit checklist sit side by side below the badge row, sharing
+   one hairline divider carried by the row wrapper. */
+.hipaa-row{display:flex;align-items:stretch;gap:28px;border-top:1px solid var(--glass-border);padding-top:24px;}
+.hipaa-row .hipaa-main{flex:1;border-top:none;padding-top:0;}
+.hipaa-row .g-audit{flex:1.2;}
 .hbadge-txt strong{display:block;font-size:14px;font-weight:700;color:var(--gold-lt);}
 .hbadge-txt span{font-size:12px;color:rgba(255,255,255,0.5);}
 /* HIPAA Compliant shield seal — strip + footer trust mark */
@@ -2282,7 +2288,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 @media (max-width:1280px){
   .topbar{font-size:13px;padding:10px 18px;}
 
-  .nav{padding:0 32px;height:76px;position:sticky;}
+  .nav{padding:0 32px;height:76px;}
   .logo img{height:46px;}
 
   /* Hamburger takes over at tablet & mobile.
@@ -2604,6 +2610,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .spec-desc{font-size:15.5px;}
   .spec-link{padding:13px 20px;font-size:14px;}
   .hipaa{align-items:stretch;padding:22px;}
+  .hipaa-row{flex-direction:column;gap:20px;}
   .hipaa-main{flex-direction:column;gap:18px;padding-top:20px;}
   .hipaa-seal{height:88px;}
   .hbadges{gap:14px 18px;}
