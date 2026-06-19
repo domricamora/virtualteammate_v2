@@ -109,7 +109,7 @@ include __DIR__ . '/../includes/nav.php';
     <a href="https://meetings.hubspot.com/clientsuccess/free-strategy-session" target="_blank" rel="noopener" class="btn-primary">Let&rsquo;s Connect with Chris <i class="fa-solid fa-arrow-right"></i></a>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/about-us/Chris-McShanag.webp" alt="Chris McShanag, Founder and CEO of Virtual Teammate" loading="lazy"/>
+    <img src="<?= $home_base ?>images/christopher_mcshanag.webp" alt="Christopher McShanag, Founder and CEO of Virtual Teammate" width="433" height="577" loading="lazy"/>
   </div>
 </section>
 
