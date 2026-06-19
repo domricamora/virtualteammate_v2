@@ -150,7 +150,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-card reveal d1">
       <span class="ico-circle lg"><i class="fa-solid fa-phone"></i></span>
       <span class="ct-lbl">Phone</span>
-      <h3>Call Us Directly</h3>
+      <h3>Call us directly</h3>
       <a class="ct-link" href="tel:+14808472498">(480) 847-2498</a>
       <div class="ct-meta">Live answer during business hours.<br>Voicemail returned same business day.</div>
       <a class="ct-cta" href="tel:+14808472498">Tap to call <i class="fa-solid fa-arrow-right"></i></a>
@@ -159,7 +159,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-card reveal d2">
       <span class="ico-circle lg"><i class="fa-solid fa-envelope"></i></span>
       <span class="ct-lbl">Email</span>
-      <h3>Email Client Success</h3>
+      <h3>Email client success</h3>
       <a class="ct-link" href="mailto:clientsuccess@virtualteammate.com">clientsuccess@<wbr/>virtualteammate.com</a>
       <div class="ct-meta">Reply within 1 business day.<br>Use this for scope, pricing or RFPs.</div>
       <a class="ct-cta" href="mailto:clientsuccess@virtualteammate.com">Send us a note <i class="fa-solid fa-arrow-right"></i></a>
@@ -168,7 +168,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-card reveal d3">
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <span class="ct-lbl">Book a Call</span>
-      <h3>Value Strategy Session</h3>
+      <h3>Value strategy session</h3>
       <a class="ct-link" href="#cta-book" data-cta-intent="book">30-min consult</a>
       <div class="ct-meta">No commitment. Walk out with a scope, a price and a timeline.</div>
       <a class="ct-cta" href="#cta-book" data-cta-intent="book">Pick a time <i class="fa-solid fa-arrow-right"></i></a>

@@ -110,7 +110,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="cs-head">
         <span class="ico-circle lg"><i class="fa-solid fa-ribbon"></i></span>
         <div class="cs-title">
-          <h3>Cancer Center</h3>
+          <h3>Cancer center</h3>
           <span class="cs-tag">Oncology Specialty</span>
         </div>
       </div>
@@ -134,7 +134,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="cs-head">
         <span class="ico-circle lg"><i class="fa-solid fa-hospital"></i></span>
         <div class="cs-title">
-          <h3>Multi-Specialty Clinic</h3>
+          <h3>Multi-specialty clinic</h3>
           <span class="cs-tag">Multi-Specialty Medical Group</span>
         </div>
       </div>
@@ -158,7 +158,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="cs-head">
         <span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span>
         <div class="cs-title">
-          <h3>Primary Care Group</h3>
+          <h3>Primary care group</h3>
           <span class="cs-tag">Primary Care</span>
         </div>
       </div>
@@ -182,7 +182,7 @@ include __DIR__ . '/../includes/nav.php';
       <div class="cs-head">
         <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
         <div class="cs-title">
-          <h3>Endodontics &amp; Oral Surgery Group</h3>
+          <h3>Endodontics &amp; oral surgery group</h3>
           <span class="cs-tag">Endodontics &middot; Oral Surgery</span>
         </div>
       </div>
@@ -271,12 +271,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">The operating model behind <em>every result</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-First Scoping</h3><p>Every engagement starts with the metric the client most needs to move, not a generic "VA hours" SOW.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>KPI-first scoping</h3><p>Every engagement starts with the metric the client most needs to move, not a generic "VA hours" SOW.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A Dedicated Client Success Manager (CSM) owns the scorecard, the cadence, and the escalation path.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible teammates working in encrypted environments only.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Coverage</h3><p>Trained backup means your KPI doesn&rsquo;t collapse when your teammate is on PTO or sick.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly Scorecards</h3><p>Plain-English KPI reports, target, results, value created, achievement, delivered to your inbox.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator: results stay in your P&amp;L.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-certified, background-checked, BAA-compatible teammates working in encrypted environments only.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup coverage</h3><p>Trained backup means your KPI doesn&rsquo;t collapse when your teammate is on PTO or sick.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-column"></i></span><h3>Monthly scorecards</h3><p>Plain-English KPI reports, target, results, value created, achievement, delivered to your inbox.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces the loaded cost of an in-house biller or coordinator: results stay in your P&amp;L.</p></div>
   </div>
 </section>
 

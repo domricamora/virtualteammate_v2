@@ -1247,6 +1247,10 @@ a.pill i{font-size:9px;color:var(--gold);}
 }
 .cta-stage h3{font-size:20px;font-weight:800;color:#fff;letter-spacing:-0.01em;line-height:1.25;}
 .cta-stage-lead{font-size:14.5px;color:rgba(255,255,255,0.78);line-height:1.55;}
+/* Desktop: give the lead a consistent height so the check-lists start at the
+   same vertical position across side-by-side cards. Below 1024px the cards
+   stack one per row, so the floor is dropped to avoid dead space. */
+@media (min-width:1025px){.cta-stage-lead{min-height:67px;}}
 .cta-stage-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;flex:1;}
 .cta-stage-list li{font-size:13.5px;line-height:1.55;color:rgba(255,255,255,0.72);padding-left:18px;position:relative;}
 .cta-stage-list li::before{content:"\2713";position:absolute;left:0;color:var(--gold);font-weight:800;}

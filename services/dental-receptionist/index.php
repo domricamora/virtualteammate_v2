@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained dental front-desk coverage that plugs into your phone system and PMS, without the cost of W-2 staffing.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Answer, Not Voicemail</h3><p>Every call gets a real voice that knows your providers, hours and scheduling rules.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer No-Shows</h3><p>Consistent confirmations, reminders and rebooks typically cut no-shows 20&ndash;35%.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $42k&ndash;$56k loaded front-desk cost with a transparent flat rate: no benefits or PTO.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on Request</h3><p>Spanish and other high-demand languages available at no premium.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Call audits, quality monitoring, backup coverage and quarterly reviews on every placement.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live answer, not voicemail</h3><p>Every call gets a real voice that knows your providers, hours and scheduling rules.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-day"></i></span><h3>Fewer no-shows</h3><p>Consistent confirmations, reminders and rebooks typically cut no-shows 20&ndash;35%.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Replaces $42k&ndash;$56k loaded front-desk cost with a transparent flat rate: no benefits or PTO.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-language"></i></span><h3>Bilingual on request</h3><p>Spanish and other high-demand languages available at no premium.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Call audits, quality monitoring, backup coverage and quarterly reviews on every placement.</p></div>
   </div>
 </section>
 
@@ -151,9 +151,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live receptionist in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your call volume, phone system, PMS and scheduling rules. Define the exact tasks the receptionist owns.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist matched to your accent, language and PMS preferences. You choose the fit.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Go Live</h3><p class="pstep-desc">Phone setup, PMS access, call scripts and a Client Success Manager (CSM). Live calls within 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value strategy call</h3><p class="pstep-desc">Map your call volume, phone system, PMS and scheduling rules. Define the exact tasks the receptionist owns.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist matched to your accent, language and PMS preferences. You choose the fit.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; go live</h3><p class="pstep-desc">Phone setup, PMS access, call scripts and a Client Success Manager (CSM). Live calls within 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

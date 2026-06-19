@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">A dedicated person whose entire job is converting diagnosed treatment and protecting recall, without adding an in-office salary.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-arrow-trend-up"></i></span><h3>Higher Case Acceptance</h3><p>Consistent, same-week follow-up on diagnosed treatment recovers revenue that&rsquo;s otherwise lost.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>A Fuller Schedule</h3><p>Recall, reactivation and short-call management keep the book full and reduce holes.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost: no benefits or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live Patient Outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice, not a slow email drip.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, backup coverage and quarterly performance reviews on every placement.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-arrow-trend-up"></i></span><h3>Higher case acceptance</h3><p>Consistent, same-week follow-up on diagnosed treatment recovers revenue that&rsquo;s otherwise lost.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>A fuller schedule</h3><p>Recall, reactivation and short-call management keep the book full and reduce holes.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces a $48k&ndash;$62k loaded coordinator cost: no benefits or recruiter fees.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-phone-volume"></i></span><h3>Live patient outreach</h3><p>Real calls and messages in your time zone, in your practice&rsquo;s voice, not a slow email drip.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Quality monitoring, backup coverage and quarterly performance reviews on every placement.</p></div>
   </div>
 </section>
 
@@ -151,9 +151,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live coordinator in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Review your unscheduled-treatment report, recall numbers, PMS and financing options.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of coordinators with case-acceptance and recall experience. You choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, scripts, financing setup and a Client Success Manager (CSM): live outreach in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value strategy call</h3><p class="pstep-desc">Review your unscheduled-treatment report, recall numbers, PMS and financing options.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of coordinators with case-acceptance and recall experience. You choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">PMS access, scripts, financing setup and a Client Success Manager (CSM): live outreach in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

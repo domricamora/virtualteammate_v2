@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Specialized dental billers who know your PMS, your payers, and the narratives that get claims paid the first time.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster Cash, Lower AR</h3><p>Daily AR work and aggressive appeals typically cut AR days under 30 and recover thousands in stalled claims.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ Clean Claim Rate</h3><p>Trained dental billers catch missing CDT codes, narratives and attachments before the claim leaves.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Backup coverage included: if your biller is sick, your Success Manager arranges trained relief instantly.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly Billing Reports</h3><p>Production, collections, AR aging, denials, write-offs: rolled up weekly so you always know where the practice stands.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster cash, lower AR</h3><p>Daily AR work and aggressive appeals typically cut AR days under 30 and recover thousands in stalled claims.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ clean claim rate</h3><p>Trained dental billers catch missing CDT codes, narratives and attachments before the claim leaves.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Transparent flat-rate pricing replaces $52k&ndash;$68k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero turnover risk</h3><p>Backup coverage included: if your biller is sick, your Success Manager arranges trained relief instantly.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly billing reports</h3><p>Production, collections, AR aging, denials, write-offs: rolled up weekly so you always know where the practice stands.</p></div>
   </div>
 </section>
 
@@ -154,9 +154,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live biller in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Billing Value Audit Call</h3><p class="pstep-desc">15-minute call to review your PMS, payer mix, claim volume, denial trends and AR aging.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of dental billers matched to your PMS and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager (CSM): live billing in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Billing value audit call</h3><p class="pstep-desc">15-minute call to review your PMS, payer mix, claim volume, denial trends and AR aging.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of dental billers matched to your PMS and payer mix. You interview, you choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">PMS access, clearinghouse handoff, SOP load and a Client Success Manager (CSM): live billing in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained, dedicated billers without the cost, or the turnover, of in-house RCM staffing.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster Cash, Lower AR</h3><p>Daily AR work and aggressive denial follow-up typically cut AR days to under 30 and recover thousands in stalled claims.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ Clean Claim Rate</h3><p>Trained billers catch coding errors, modifier mistakes and missing data before claims leave the building.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Transparent flat-rate pricing replaces $58k&ndash;$78k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Turnover Risk</h3><p>Your Client Success Manager (CSM) handles backup coverage if your biller is sick or on PTO: never a billing dark day.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly RCM Reporting</h3><p>Charges, claims, denials, AR aging and net collections: rolled up weekly so you always know where you stand.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster cash, lower AR</h3><p>Daily AR work and aggressive denial follow-up typically cut AR days to under 30 and recover thousands in stalled claims.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ clean claim rate</h3><p>Trained billers catch coding errors, modifier mistakes and missing data before claims leave the building.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Transparent flat-rate pricing replaces $58k&ndash;$78k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero turnover risk</h3><p>Your Client Success Manager (CSM) handles backup coverage if your biller is sick or on PTO: never a billing dark day.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly RCM reporting</h3><p>Charges, claims, denials, AR aging and net collections: rolled up weekly so you always know where you stand.</p></div>
   </div>
 </section>
 
@@ -155,9 +155,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live biller in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM Value Audit Call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of billers matched to your specialty, EHR and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager (CSM): live in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM value audit call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of billers matched to your specialty, EHR and payer mix. You interview, you choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager (CSM): live in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

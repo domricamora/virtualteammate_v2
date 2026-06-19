@@ -131,17 +131,17 @@ include __DIR__ . '/../includes/nav.php';
       <div class="g-cards">
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
-          <h3>No-Cost Replacement</h3>
+          <h3>No-cost replacement</h3>
           <p>Decide a teammate isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>2 business days</strong>, onboard the new teammate at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
-          <h3>30-Day Money-Back Window</h3>
+          <h3>30-day money-back window</h3>
           <p>Not sure outsourcing fits your practice? Cancel any time in the first 30 days: we refund every billed day in full. <strong>No clawbacks, no termination fees, no minimum-term lock-in.</strong> A staffing partner, not a contract trap.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
-          <h3>Backup Coverage Built In</h3>
+          <h3>Backup coverage built in</h3>
           <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup teammate within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement: it&rsquo;s not an upsell.</p>
         </div>
       </div>
@@ -239,12 +239,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">The promise holds because <em>the bench holds</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-Vetted Global Bench</h3><p>2,000+ teammates already through the EFSET / IQ / Cultural Index / technical / IT pipeline. We don&rsquo;t recruit a replacement: we deploy one.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated CSM Per Account</h3><p>Your CSM watches the engagement from week one, so we usually catch fit issues before you do.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup Built In</h3><p>Every active engagement has a shadow-trained backup teammate available within hours, not an upsell.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe Default</h3><p>Every teammate, every backup, every CSM is HIPAA-trained and works in encrypted environments only.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Monthly KPI Scorecards</h3><p>Performance is measured against your KPIs: so &ldquo;not working&rdquo; becomes a number, not a vibe.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-handshake"></i></span><h3>95%+ Retention Rate</h3><p>The promise is a publishing of how the model already runs, not a one-off concession.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-users-viewfinder"></i></span><h3>Pre-vetted global bench</h3><p>2,000+ teammates already through the EFSET / IQ / Cultural Index / technical / IT pipeline. We don&rsquo;t recruit a replacement: we deploy one.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated CSM per account</h3><p>Your CSM watches the engagement from week one, so we usually catch fit issues before you do.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Backup built in</h3><p>Every active engagement has a shadow-trained backup teammate available within hours, not an upsell.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe default</h3><p>Every teammate, every backup, every CSM is HIPAA-trained and works in encrypted environments only.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Monthly KPI scorecards</h3><p>Performance is measured against your KPIs: so &ldquo;not working&rdquo; becomes a number, not a vibe.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-handshake"></i></span><h3>95%+ retention rate</h3><p>The promise is a publishing of how the model already runs, not a one-off concession.</p></div>
   </div>
 </section>
 

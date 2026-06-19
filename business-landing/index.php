@@ -155,12 +155,12 @@ include __DIR__ . '/../includes/nav.php';
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">Multi-stage vetted, trained on your tools, and matched to your time zone, your Virtual Teammate owns the repeatable work so you can focus on clients and growth.</p>
     </div>
     <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Executive &amp; Admin</h3><p>Inbox and calendar management, scheduling, travel, document control and project coordination: your day, handled.</p></div>
-      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Sales &amp; Lead Gen</h3><p>Prospect lists, outbound outreach, lead qualification and appointment setting that keep your pipeline full.</p></div>
-      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing &amp; Social</h3><p>Social posting, content production, email campaigns and ad coordination: shipped on schedule, not half-finished.</p></div>
-      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; Bookkeeping</h3><p>QuickBooks/Xero bookkeeping, invoicing, AR follow-up and expense management so cash lands faster.</p></div>
-      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Support</h3><p>Tier-1 support, live chat, ticket triage and onboarding follow-up in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-diagram-project"></i></span><h3>CRM &amp; Reporting</h3><p>CRM hygiene, pipeline updates, dashboards and KPI reporting so your data is clean and your forecasts are real.</p></div>
+      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Executive &amp; admin</h3><p>Inbox and calendar management, scheduling, travel, document control and project coordination: your day, handled.</p></div>
+      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Sales &amp; lead gen</h3><p>Prospect lists, outbound outreach, lead qualification and appointment setting that keep your pipeline full.</p></div>
+      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing &amp; social</h3><p>Social posting, content production, email campaigns and ad coordination: shipped on schedule, not half-finished.</p></div>
+      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; bookkeeping</h3><p>QuickBooks/Xero bookkeeping, invoicing, AR follow-up and expense management so cash lands faster.</p></div>
+      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer support</h3><p>Tier-1 support, live chat, ticket triage and onboarding follow-up in your tone and time zone.</p></div>
+      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-diagram-project"></i></span><h3>CRM &amp; reporting</h3><p>CRM hygiene, pipeline updates, dashboards and KPI reporting so your data is clean and your forecasts are real.</p></div>
     </div>
   </section>
 

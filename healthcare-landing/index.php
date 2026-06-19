@@ -283,12 +283,12 @@ include __DIR__ . '/../includes/nav.php';
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, EHR-trained, and matched to your time zone: your Virtual Teammate owns the repeatable work so your clinical team can focus on patients.</p>
     </div>
     <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; Intake</h3><p>Booking, confirmations, reschedules, recalls and new-patient intake: calendars stay full and gaps get filled.</p></div>
+      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; intake</h3><p>Booking, confirmations, reschedules, recalls and new-patient intake: calendars stay full and gaps get filled.</p></div>
       <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; RCM</h3><p>Claims, payment posting, AR follow-up and denials worked daily so revenue lands faster and cleaner.</p></div>
-      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Insurance &amp; Prior Auth</h3><p>Eligibility checks, benefit verification and prior authorizations completed before the visit, not after.</p></div>
-      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-pen-clip"></i></span><h3>Scribing &amp; Documentation</h3><p>Real-time charting inside your EHR so notes are done at the visit, not at midnight.</p></div>
-      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient Calls &amp; Follow-Up</h3><p>Inbound and outbound calls, reminders and follow-ups handled in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; Records</h3><p>Portal messages, faxes, referrals and records management kept current and never backlogged.</p></div>
+      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Insurance &amp; prior auth</h3><p>Eligibility checks, benefit verification and prior authorizations completed before the visit, not after.</p></div>
+      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-pen-clip"></i></span><h3>Scribing &amp; documentation</h3><p>Real-time charting inside your EHR so notes are done at the visit, not at midnight.</p></div>
+      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient calls &amp; follow-up</h3><p>Inbound and outbound calls, reminders and follow-ups handled in your tone and time zone.</p></div>
+      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; records</h3><p>Portal messages, faxes, referrals and records management kept current and never backlogged.</p></div>
     </div>
   </section>
 
@@ -351,17 +351,17 @@ include __DIR__ . '/../includes/nav.php';
         <div class="g-cards">
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
-            <h3>No-Cost Replacement</h3>
+            <h3>No-cost replacement</h3>
             <p>Not the right fit? We re-shortlist within <strong>2 business days</strong> and <strong>pause billing</strong> until your replacement is live.</p>
           </div>
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
-            <h3>30-Day Money-Back</h3>
+            <h3>30-day money-back</h3>
             <p>Decide it isn&rsquo;t working in the first 30 days? We refund <strong>every billed day</strong>. No clawbacks, no lock-in.</p>
           </div>
           <div class="g-card">
             <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
-            <h3>Backup Coverage Built In</h3>
+            <h3>Backup coverage built in</h3>
             <p>If your VA is ever out, your CSM arranges a <strong>trained backup within hours</strong>, at no charge.</p>
           </div>
         </div>

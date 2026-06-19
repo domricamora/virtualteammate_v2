@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Stop paying clinical-MA wages for documentation work that doesn&rsquo;t need to happen in the room.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-stethoscope"></i></span><h3>Clinical Workflow Fluent</h3><p>Trained on triage, refills, prior auth, results routing and care coordination, not just generic admin.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Recover 50% of MA Time</h3><p>Your in-room MAs stay focused on rooming, vitals and patient care, not pharmacy phone trees.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Replaces $48k&ndash;$58k loaded MA cost. Transparent flat rate: no benefits, PTO or payroll burden.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Encrypted environments only.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Flexible Coverage</h3><p>Single teammate per provider, shared across a panel, or a full team for a multi-physician practice. Scale as you grow.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Quality monitoring, backup coverage, and quarterly performance reviews on every placement.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-stethoscope"></i></span><h3>Clinical workflow fluent</h3><p>Trained on triage, refills, prior auth, results routing and care coordination, not just generic admin.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Recover 50% of MA time</h3><p>Your in-room MAs stay focused on rooming, vitals and patient care, not pharmacy phone trees.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Replaces $48k&ndash;$58k loaded MA cost. Transparent flat rate: no benefits, PTO or payroll burden.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-certified, BAA-compatible. Encrypted environments only.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Flexible coverage</h3><p>Single teammate per provider, shared across a panel, or a full team for a multi-physician practice. Scale as you grow.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Quality monitoring, backup coverage, and quarterly performance reviews on every placement.</p></div>
   </div>
 </section>
 
@@ -155,9 +155,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live MA in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified virtual MAs matched to your specialty and EHR. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">EHR access, SOP handoff, shadow week, and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy call</h3><p class="pstep-desc">Map your clinical workflows, EHR, refill protocols, inbox volume and the exact tasks the virtual MA will own.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified virtual MAs matched to your specialty and EHR. You interview, you choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">EHR access, SOP handoff, shadow week, and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

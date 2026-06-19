@@ -121,32 +121,32 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1">
       <span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span>
-      <h3>Up to 73% Cost Savings</h3>
+      <h3>Up to 73% cost savings</h3>
       <p>Transparent flat-rate pricing replaces salary + benefits + payroll burden. Most practices save $42k&ndash;$58k per teammate per year vs. an equivalent US hire.</p>
     </div>
     <div class="svc-ben reveal d2">
       <span class="ico-circle lg"><i class="fa-solid fa-bolt"></i></span>
-      <h3>Live in 1&ndash;2 Weeks</h3>
+      <h3>Live in 1&ndash;2 weeks</h3>
       <p>Skip months of job posts, recruiter fees and ramp time. Curated shortlist in days, fully onboarded in under two weeks.</p>
     </div>
     <div class="svc-ben reveal d3">
       <span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span>
-      <h3>HIPAA &amp; PHI-Safe</h3>
+      <h3>HIPAA &amp; PHI-safe</h3>
       <p>Every admin teammate is HIPAA-certified, background-checked, and works in a controlled environment with signed confidentiality agreements.</p>
     </div>
     <div class="svc-ben reveal d4">
       <span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span>
-      <h3>Your Time Zone</h3>
+      <h3>Your time zone</h3>
       <p>Matched to your US business hours for real-time chart prep, intake follow-up and same-day turnarounds, no overnight handoffs.</p>
     </div>
     <div class="svc-ben reveal d5">
       <span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span>
-      <h3>Scales With You</h3>
+      <h3>Scales with you</h3>
       <p>Start with one teammate. Add more as patient volume grows. Reduce hours if seasonality slows. No locked-in headcount.</p>
     </div>
     <div class="svc-ben reveal d6">
       <span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span>
-      <h3>Dedicated Success Manager</h3>
+      <h3>Dedicated success manager</h3>
       <p>Every placement comes with a Client Success Manager (CSM) who handles training, performance, backup coverage and quarterly reviews.</p>
     </div>
   </div>
@@ -188,17 +188,17 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="proc-steps">
     <div class="pstep reveal d1">
       <div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div>
-      <h3 class="pstep-title">Strategy Call</h3>
+      <h3 class="pstep-title">Strategy call</h3>
       <p class="pstep-desc">15-minute call to map your admin workflows, EHR stack, time-zone needs and the exact tasks the teammate will own.</p>
     </div>
     <div class="pstep reveal d2">
       <div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div>
-      <h3 class="pstep-title">Shortlist &amp; Interview</h3>
+      <h3 class="pstep-title">Shortlist &amp; interview</h3>
       <p class="pstep-desc">We deliver a curated shortlist of HIPAA-certified admin teammates within days. You interview and pick the perfect fit.</p>
     </div>
     <div class="pstep reveal d3">
       <div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div>
-      <h3 class="pstep-title">Onboard &amp; Launch</h3>
+      <h3 class="pstep-title">Onboard &amp; launch</h3>
       <p class="pstep-desc">Your teammate hits the ground running with a Client Success Manager (CSM), weekly check-ins and full backup coverage built in.</p>
     </div>
   </div>

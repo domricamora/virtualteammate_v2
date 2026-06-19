@@ -266,7 +266,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <!-- Slider on top — drag to set team size -->
     <div class="calc-top">
       <div class="calc-top-head">
-        <h3>Estimate Your Savings</h3>
+        <h3>Estimate your savings</h3>
         <p class="calc-cap">Drag the slider to set your team size: your numbers update instantly.</p>
       </div>
       <div class="calc-slider-wrap">
@@ -388,7 +388,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Epic / Cerner / Athena Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span>
-          <h3 class="spec-title">Medical Virtual Teammates</h3>
+          <h3 class="spec-title">Medical virtual teammates</h3>
         </div>
         <p class="spec-desc">HIPAA-certified medical teammates work inside your EHR to own billing, scribing, prior auth, scheduling and patient calls: so providers stop charting after hours and your AR keeps moving.</p>
 
@@ -421,7 +421,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="spec-eyebrow med"><span class="dot"></span> HIPAA Certified &middot; Dentrix / Open Dental Trained</div>
         <div class="spec-title-row">
           <span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span>
-          <h3 class="spec-title">Dental Virtual Teammates</h3>
+          <h3 class="spec-title">Dental virtual teammates</h3>
         </div>
         <p class="spec-desc">Teammates fluent in your dental software keep chairs full, recall lists worked, and claims clean.</p>
 
@@ -475,17 +475,17 @@ function vtnew_homepage_profiles(int $limit = 6): array
       <div class="g-cards">
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-arrows-rotate"></i></span>
-          <h3>No-Cost Replacement</h3>
+          <h3>No-cost replacement</h3>
           <p>Decide a teammate isn&rsquo;t the right fit inside the first 30 days? Tell us why. We deliver a curated re-shortlist within <strong>2 business days</strong>, onboard the new teammate at no charge, and <strong>pause your billing</strong> until the replacement is live and producing.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-rotate-left"></i></span>
-          <h3>30-Day Money-Back Window</h3>
+          <h3>30-day money-back window</h3>
           <p>Not sure outsourcing fits your practice? Cancel any time in the first 30 days: we refund every billed day in full. <strong>No clawbacks, no termination fees, no minimum-term lock-in.</strong> A staffing partner, not a contract trap.</p>
         </div>
         <div class="g-card">
           <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
-          <h3>Backup Coverage Built In</h3>
+          <h3>Backup coverage built in</h3>
           <p>Sick day, PTO, family emergency? Your Client Success Manager (CSM) arranges a <strong>trained backup teammate within hours</strong>, at no extra cost, briefed on your workflows and EHR access. Coverage ships with every placement: it&rsquo;s not an upsell.</p>
         </div>
       </div>
@@ -524,7 +524,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <i class="fa-solid fa-calendar-check pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Within 24 hours</div>
-      <h3 class="pstep-title">Book a Practice Staffing Audit</h3>
+      <h3 class="pstep-title">Book a practice staffing audit</h3>
       <p class="pstep-desc">Submit the form and we&rsquo;ll confirm your audit slot <strong>within one business day</strong>. The 20-minute diagnostic call maps your practice, workflows, and the exact clinical or admin support to delegate first.</p>
     </div>
     <div class="pstep reveal d2">
@@ -533,7 +533,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <i class="fa-solid fa-users-viewfinder pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> 1&ndash;2 business days</div>
-      <h3 class="pstep-title">Meet &amp; Interview Candidates</h3>
+      <h3 class="pstep-title">Meet &amp; interview candidates</h3>
       <p class="pstep-desc">Curated shortlist of HIPAA-certified teammates delivered in <strong>1&ndash;2 business days</strong>: matched to your specialty, EHR, accent and time-zone preferences. You interview, we coordinate, you choose the fit.</p>
     </div>
     <div class="pstep reveal d3">
@@ -542,7 +542,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <i class="fa-solid fa-rocket pstep-ico"></i>
       </div>
       <div class="pstep-eta"><i class="fa-solid fa-clock"></i> Live in 1&ndash;2 weeks</div>
-      <h3 class="pstep-title">Launch &amp; Go Live</h3>
+      <h3 class="pstep-title">Launch &amp; go live</h3>
       <p class="pstep-desc">Agreement, billing, EHR access and SOP handoff, all wrapped in <strong>1&ndash;2 weeks</strong>. Your teammate starts producing in week one, with a dedicated Client Success Manager (CSM) and the 30-Day Right-Fit Promise behind every placement.</p>
     </div>
   </div>
@@ -640,31 +640,31 @@ function vtnew_homepage_profiles(int $limit = 6): array
   <div class="comp-grid">
     <div class="comp-card reveal d1">
       <span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span>
-      <h3>HIPAA Training &amp; Certification</h3>
+      <h3>HIPAA training &amp; certification</h3>
       <p class="comp-what"><strong>What it is:</strong> every healthcare and dental teammate completes formal HIPAA training and certification <em>before</em> they touch patient data.</p>
       <p class="comp-means"><strong>What it means for you:</strong> the person handling your charts knows exactly what counts as protected health information, and the rules for keeping it private, held to the same standard as your in-house staff.</p>
     </div>
     <div class="comp-card reveal d2">
       <span class="ico-circle lg"><i class="fa-solid fa-file-signature"></i></span>
-      <h3>BAA-Compatible Agreement</h3>
+      <h3>BAA-compatible agreement</h3>
       <p class="comp-what"><strong>What it is:</strong> a Business Associate Agreement (BAA) is the contract HIPAA requires whenever an outside party handles patient data for you. Every VT teammate signs a BAA-compatible confidentiality agreement.</p>
       <p class="comp-means"><strong>What it means for you:</strong> our data-handling duties are in writing and legally binding, not a verbal promise you have to take on trust.</p>
     </div>
     <div class="comp-card reveal d3">
       <span class="ico-circle lg"><i class="fa-solid fa-building-shield"></i></span>
-      <h3>Aligned Controls</h3>
+      <h3>Aligned controls</h3>
       <p class="comp-what"><strong>What it is:</strong> the VT infrastructure that touches your data runs on a documented set of security controls, access management, device hardening, logging and monitoring, aligned to recognized industry standards.</p>
       <p class="comp-means"><strong>What it means for you:</strong> the laptops, logins and networks your teammate works from are locked down to a recognized industry standard, not left to whatever each person happens to have at home.</p>
     </div>
     <div class="comp-card reveal d1">
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span>
-      <h3>Full Audit Trail</h3>
+      <h3>Full audit trail</h3>
       <p class="comp-what"><strong>What it is:</strong> every time a teammate opens, views or changes something in your systems it&rsquo;s logged, who, what, when, from where, and retained for 12 months.</p>
       <p class="comp-means"><strong>What it means for you:</strong> if you ever need to know exactly who accessed a record and when, there&rsquo;s a reviewable paper trail, available from your CSM on request.</p>
     </div>
     <div class="comp-card reveal d2">
       <span class="ico-circle lg"><i class="fa-solid fa-laptop-medical"></i></span>
-      <h3>Device &amp; Access Security</h3>
+      <h3>Device &amp; access security</h3>
       <p class="comp-what"><strong>What it is:</strong> encrypted laptops, hardware multi-factor authentication, a mandatory password manager, controlled network access and least-privilege EHR permissions.</p>
       <p class="comp-means"><strong>What it means for you:</strong> your teammate can reach only the systems they need, only from a secured device: so a lost laptop or stolen password can&rsquo;t expose your records.</p>
     </div>
@@ -682,7 +682,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
       <p class="sec-sub">Done with the hiring grind? We fill your exact gap fast: teammates matched to your specialty, software and US hours, fully managed by your CSM.</p>
 
       <ul class="global-benefits">
-        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in weeks, not months.</strong> Stop carrying open seats: a curated shortlist lands in 5&ndash;7 business days and your teammate is live in 1&ndash;2 weeks.</span></li>
+        <li><span class="ico-circle"><i class="fa-solid fa-bolt"></i></span><span><strong>Fully staffed in weeks, not months.</strong> Stop carrying open seats: a curated shortlist lands in 1&ndash;2 business days and your teammate is live in 1&ndash;2 weeks.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-clock"></i></span><span><strong>Covered in your US time zone.</strong> Morning, afternoon, evening or overnight: your teammate works your hours, not a call-center queue.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><span><strong>Never short-handed again.</strong> Sick day, PTO or turnover? Trained backup coverage steps in within hours, at no extra cost: the work never goes dark.</span></li>
         <li><span class="ico-circle"><i class="fa-solid fa-user-check"></i></span><span><strong>Best-fit talent, not least-cost talent.</strong> A bigger bench lets us recruit for your specialty, EHR, language and accent, not just whoever&rsquo;s available.</span></li>
@@ -741,7 +741,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a medical or dental teammate cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. <strong>Full-time teammates start at $750 bi-weekly</strong> ($400 part-time). <strong>Specialist tier</strong> (medical billing, scribing, advanced coding, dental billing) starts at <strong>$1,000 bi-weekly full-time</strong> ($600 part-time). All-in flat rate: no benefits, payroll tax, recruiter fees or PTO billed on top. Typically 60&ndash;73% less than an equivalent US in-house hire: use the calculator above for your exact savings.</div></div>
     <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-rotate"></i> What happens if my teammate isn&rsquo;t the right fit?</div><div class="faq-a">The VT 30-Day Right-Fit Promise covers two scenarios: <strong>(1)</strong> the teammate isn&rsquo;t the right fit &rarr; we replace them at no cost with a re-shortlist inside 2 business days; <strong>(2)</strong> outsourcing isn&rsquo;t working for your practice &rarr; cancel within the first 30 days and we refund every billed day, no clawback. The guarantee is published in writing, not hidden in a sales call.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> What security &amp; compliance do you carry?</div><div class="faq-a">Five layers: <strong>HIPAA training &amp; certification</strong> for every teammate, a <strong>BAA-compatible</strong> confidentiality agreement, <strong>industry-aligned security controls</strong> on the infrastructure that touches your data, a 12-month <strong>audit trail</strong> of every access event, and locked-down <strong>device &amp; access security</strong> (encrypted laptops, hardware MFA, least-privilege EHR access). Our <a href="#security">Security &amp; Compliance section</a> spells out exactly what each one means for your practice.</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>5&ndash;7 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-bolt"></i> How quickly can I get a teammate started?</div><div class="faq-a">Curated shortlist in <strong>1&ndash;2 business days</strong>. After you pick your teammate, onboarding wraps in <strong>1&ndash;2 weeks</strong>: agreement, EHR access, SOP handoff, shadow week, then live work. Your dedicated Client Success Manager (CSM) runs the timeline so it lands when you need it.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-brain"></i> What EHR and dental software do your teammates know?</div><div class="faq-a">Medical teammates are trained on Epic, Cerner, eClinicalWorks, Athenahealth, NextGen, Practice Fusion and Kareo. Dental teammates are proficient in Dentrix, Dentrix Ascend, Open Dental and Carestream. Plus all major clearinghouses (Availity, Office Ally, Waystar, DentalXChange).</div></div>
     <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-globe"></i> Where are your teammates based?</div><div class="faq-a">Wherever the best fit lives. Our global recruiting reach lets us match for your specialty, EHR, accent, language, and US time-zone shift, not just whoever happens to be on the bench. You hire for skill set; we handle the sourcing.</div></div>
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> Will I have a dedicated point of contact?</div><div class="faq-a">Yes. From day one, a named Client Success Manager (CSM) is on your account: reachable on email, Slack/Teams, and a direct line during your business hours. They own performance, backup coverage and quarterly check-ins so you&rsquo;re never managing the placement alone.</div></div>
@@ -808,7 +808,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <article class="cta-stage" data-cta-intent="buyers-checklist">
       <div class="cta-stage-tag">Just exploring</div>
       <span class="ico-circle lg"><i class="fa-solid fa-file-lines"></i></span>
-      <h3>HIPAA VA Buyer&rsquo;s Checklist</h3>
+      <h3>HIPAA VA buyer&rsquo;s checklist</h3>
       <p class="cta-stage-lead">Key questions to ask any healthcare VA agency before you sign. Drop your email: we&rsquo;ll send the PDF.</p>
       <ul class="cta-stage-list">
         <li>Compliance, BAA, audit-trail questions</li>
@@ -821,7 +821,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <article class="cta-stage cta-stage-mid" data-cta-intent="practice-audit">
       <div class="cta-stage-tag">Ready to diagnose</div>
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
-      <h3>20-min Practice Staffing Audit</h3>
+      <h3>20-min practice staffing audit</h3>
       <p class="cta-stage-lead">Diagnostic-only call. We map your top admin and clinical workflows and tell you what to delegate first.</p>
       <ul class="cta-stage-list">
         <li>Workflow inventory (8&ndash;12 mapped)</li>
@@ -835,8 +835,8 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <article class="cta-stage cta-stage-high" data-cta-intent="strategy-call">
       <div class="cta-stage-tag">Ready to talk</div>
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
-      <h3>Strategy Call &amp; Jumpstart</h3>
-      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get a curated shortlist in 5&ndash;7 business days.</p>
+      <h3>Strategy call &amp; jumpstart</h3>
+      <p class="cta-stage-lead">30-min call. Map your needs, define the role, get a curated shortlist in 1&ndash;2 business days.</p>
       <ul class="cta-stage-list">
         <li>Role scope + EHR / specialty match</li>
         <li>Tailored candidate shortlist</li>

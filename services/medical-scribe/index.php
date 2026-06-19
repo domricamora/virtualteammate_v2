@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Get back your evenings, your patient face-time, and your sanity, without the cost of an in-house scribe.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Reclaim 2&ndash;3 Hrs/Day</h3><p>Stop charting after clinic. Notes are done in real time, not in the parking lot at 9 PM.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>See More Patients</h3><p>Most providers add 1&ndash;3 visits per shift once documentation drag is removed: pure throughput gain.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-face-smile"></i></span><h3>Better Patient Experience</h3><p>Eye contact. Active listening. No keyboard barrier. Patient satisfaction scores climb fast.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces $48k&ndash;$65k loaded in-house scribe cost, with backup coverage included.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero Burnout Risk</h3><p>Backup coverage and quality monitoring built in: the scribe shows up, every shift, no exceptions.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Reclaim 2&ndash;3 hrs/day</h3><p>Stop charting after clinic. Notes are done in real time, not in the parking lot at 9 PM.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>See more patients</h3><p>Most providers add 1&ndash;3 visits per shift once documentation drag is removed: pure throughput gain.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-face-smile"></i></span><h3>Better patient experience</h3><p>Eye contact. Active listening. No keyboard barrier. Patient satisfaction scores climb fast.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces $48k&ndash;$65k loaded in-house scribe cost, with backup coverage included.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Encrypted environments only.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero burnout risk</h3><p>Backup coverage and quality monitoring built in: the scribe shows up, every shift, no exceptions.</p></div>
   </div>
 </section>
 
@@ -155,9 +155,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live scribe in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy Call</h3><p class="pstep-desc">Walk us through your specialty, visit cadence, EHR, templates and documentation pain points.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of EHR-trained scribes matched to your specialty: you interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Go Live</h3><p class="pstep-desc">EHR access, template handoff, shadow week, and a Client Success Manager (CSM). Real-time scribing in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Strategy call</h3><p class="pstep-desc">Walk us through your specialty, visit cadence, EHR, templates and documentation pain points.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of EHR-trained scribes matched to your specialty: you interview, you choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; go live</h3><p class="pstep-desc">EHR access, template handoff, shadow week, and a Client Success Manager (CSM). Real-time scribing in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

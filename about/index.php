@@ -139,12 +139,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">Principles we hire on, <em>and live by</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sun"></i></span><h3>Positive Energy</h3><p>Fuels growth, productivity, and the kind of optimism that makes teams perform under pressure.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-mountain"></i></span><h3>Edge &amp; Resiliency</h3><p>A relentless spirit of possibility: people who push through, not around, hard problems.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Executing to Win</h3><p>Transparency and integrity at every level: material, emotional, and relational value, delivered.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-handshake-angle"></i></span><h3>Alignment of Passion</h3><p>The right teammate matched to the right client need, because mismatches are the #1 reason placements fail.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-crown"></i></span><h3>Value-Creation Leadership</h3><p>Prioritize the team and the client equally: we win when both win.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Trust &amp; Ethical Decision-Making</h3><p>Keeping commitments with kindness and accountability, and principled decisions in every gray area.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sun"></i></span><h3>Positive energy</h3><p>Fuels growth, productivity, and the kind of optimism that makes teams perform under pressure.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-mountain"></i></span><h3>Edge &amp; resiliency</h3><p>A relentless spirit of possibility: people who push through, not around, hard problems.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Executing to win</h3><p>Transparency and integrity at every level: material, emotional, and relational value, delivered.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-handshake-angle"></i></span><h3>Alignment of passion</h3><p>The right teammate matched to the right client need, because mismatches are the #1 reason placements fail.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-crown"></i></span><h3>Value-creation leadership</h3><p>Prioritize the team and the client equally: we win when both win.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Trust &amp; ethical decision-making</h3><p>Keeping commitments with kindness and accountability, and principled decisions in every gray area.</p></div>
   </div>
 </section>
 
@@ -157,12 +157,12 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">More than staffing: a <em>partner that owns outcomes</em></h2>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA by Default</h3><p>Every teammate completes HIPAA certification and BAA-compatible setup before placement.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-globe"></i></span><h3>Global Talent Pool</h3><p>Recruited across the Philippines, Latin America, Africa, and South Asia, vetted at every stage.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your Time Zone</h3><p>Every teammate works your business hours, with backup coverage built in.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Real KPI Reporting</h3><p>Monthly client KPI scorecards: claims worked, payments posted, calls answered, AR collected.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA by default</h3><p>Every teammate completes HIPAA certification and BAA-compatible setup before placement.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-globe"></i></span><h3>Global talent pool</h3><p>Recruited across the Philippines, Latin America, Africa, and South Asia, vetted at every stage.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your time zone</h3><p>Every teammate works your business hours, with backup coverage built in.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Real KPI reporting</h3><p>Monthly client KPI scorecards: claims worked, payments posted, calls answered, AR collected.</p></div>
     <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-user-shield"></i></span><h3>Dedicated CSM</h3><p>A Dedicated Client Success Manager (CSM) owns every engagement: performance, training, escalation.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate, transparent pricing: no hidden fees, no recruiter spread, no surprises.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate, transparent pricing: no hidden fees, no recruiter spread, no surprises.</p></div>
   </div>
 </section>
 
@@ -175,11 +175,11 @@ include __DIR__ . '/../includes/nav.php';
     <h2 class="svc-h2">Five steps from first call to <em>first win</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Pinpoint Goals</h3><p class="pstep-desc">A 30-minute strategy session: surface the bottleneck, the KPI gap, and the workflow you&rsquo;d hand off first.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-lightbulb pstep-ico"></i></div><h3 class="pstep-title">Discover the Fit</h3><p class="pstep-desc">We map your needs to the right role spec: medical, dental, admin, sales, or back-office.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Match Your Teammate</h3><p class="pstep-desc">Curated shortlist within days. You interview, you choose: no commitment until the right candidate.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Pinpoint goals</h3><p class="pstep-desc">A 30-minute strategy session: surface the bottleneck, the KPI gap, and the workflow you&rsquo;d hand off first.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-lightbulb pstep-ico"></i></div><h3 class="pstep-title">Discover the fit</h3><p class="pstep-desc">We map your needs to the right role spec: medical, dental, admin, sales, or back-office.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Match your teammate</h3><p class="pstep-desc">Curated shortlist within days. You interview, you choose: no commitment until the right candidate.</p></div>
     <div class="pstep reveal d4"><div class="pstep-head"><div class="pstep-num">04</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Integrate</h3><p class="pstep-desc">A tailored 1&ndash;2 week integration plan: tools, EHR access, workflows, communication cadence.</p></div>
-    <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-chart-line pstep-ico"></i></div><h3 class="pstep-title">Track &amp; Scale</h3><p class="pstep-desc">Monthly KPI scorecard, and when results land, scale the engagement with confidence.</p></div>
+    <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-chart-line pstep-ico"></i></div><h3 class="pstep-title">Track &amp; scale</h3><p class="pstep-desc">Monthly KPI scorecard, and when results land, scale the engagement with confidence.</p></div>
   </div>
 </section>
 

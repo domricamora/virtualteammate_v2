@@ -114,12 +114,12 @@ include __DIR__ . '/../../includes/nav.php';
     <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained dental-specific admin support without the salary, benefits or onboarding overhead of a US W-2 hire.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% Cost Savings</h3><p>Flat-rate pricing replaces salary + benefits + payroll burden: most practices save $38k&ndash;$52k per teammate per year.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bolt"></i></span><h3>Live in 1&ndash;2 Weeks</h3><p>Curated shortlist in days, fully onboarded in under two weeks: no recruiter fees, no ramp lag.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-Safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Patient data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your Time Zone</h3><p>Matched to your US business hours for same-day insurance breakdowns and chart prep.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Scales With You</h3><p>One teammate or a full remote back office: add or adjust as your schedule and case volume change.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated Success Manager</h3><p>Every placement comes with a Client Success Manager (CSM) handling training, quality and backup coverage.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Flat-rate pricing replaces salary + benefits + payroll burden: most practices save $38k&ndash;$52k per teammate per year.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bolt"></i></span><h3>Live in 1&ndash;2 weeks</h3><p>Curated shortlist in days, fully onboarded in under two weeks: no recruiter fees, no ramp lag.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>HIPAA-certified, background-checked, BAA-compatible. Patient data stays inside approved systems.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clock"></i></span><h3>Your time zone</h3><p>Matched to your US business hours for same-day insurance breakdowns and chart prep.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-up-down-left-right"></i></span><h3>Scales with you</h3><p>One teammate or a full remote back office: add or adjust as your schedule and case volume change.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-user-tie"></i></span><h3>Dedicated success manager</h3><p>Every placement comes with a Client Success Manager (CSM) handling training, quality and backup coverage.</p></div>
   </div>
 </section>
 
@@ -152,9 +152,9 @@ include __DIR__ . '/../../includes/nav.php';
     <h2 class="svc-h2">From call to live teammate in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value Strategy Call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the teammate will own.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; Interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified dental admin teammates within days. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; Launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">Value strategy call</h3><p class="pstep-desc">Map your admin workflows, PMS, insurance mix and the exact tasks the teammate will own.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of HIPAA-certified dental admin teammates within days. You interview, you choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">PMS access, SOP handoff and a Client Success Manager (CSM). Live workflows in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 

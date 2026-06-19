@@ -79,9 +79,9 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-clipboard"></i></span><h3>Administrative</h3><p>Executive assistants, calendar &amp; inbox managers, project coordinators, data entry, document control.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-bullseye"></i></span><h3>Sales &amp; SDR</h3><p>Inbound qualification, outbound prospecting, list research, CRM hygiene, appointment setting, follow-up sequences.</p></div>
     <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing</h3><p>Social-media management, content production, email automation, SEO assistants, paid-ad coordination, analytics reporting.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; Bookkeeping</h3><p>QuickBooks/Xero bookkeeping, AR &amp; AP, expense management, invoicing, budget reporting, payroll prep.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Tier-1 support, ticket triage, live chat, refund &amp; returns, escalation handling, in your time zone, in your tone.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-hand-holding-heart"></i></span><h3>Non-Profit Operations</h3><p>Donor outreach, grant research, volunteer coordination, event logistics, social campaigns, board-meeting prep.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Finance &amp; bookkeeping</h3><p>QuickBooks/Xero bookkeeping, AR &amp; AP, expense management, invoicing, budget reporting, payroll prep.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer service</h3><p>Tier-1 support, ticket triage, live chat, refund &amp; returns, escalation handling, in your time zone, in your tone.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-hand-holding-heart"></i></span><h3>Non-profit operations</h3><p>Donor outreach, grant research, volunteer coordination, event logistics, social campaigns, board-meeting prep.</p></div>
   </div>
 </section>
 
@@ -97,51 +97,51 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="biz-deep">
     <article class="reveal d1">
-      <h3><i class="fa-solid fa-bullseye"></i> Sales Development &amp; Lead Generation VAs</h3>
+      <h3><i class="fa-solid fa-bullseye"></i> Sales development &amp; lead generation VAs</h3>
       <p>A dedicated <strong>lead generation virtual assistant</strong> builds and cleans your target lists, runs outbound prospecting across email and LinkedIn, qualifies inbound enquiries, and books meetings straight onto your reps&rsquo; calendars. Instead of senior salespeople burning hours on research and cold outreach, they walk into sales-qualified conversations that are ready to close.</p>
       <p>For most teams, a single SDR virtual assistant is the fastest, lowest-risk way to keep top-of-funnel volume consistent, without a recruiter fee or a $70k base salary.</p>
       <ul><li>Outbound prospecting</li><li>List building &amp; enrichment</li><li>Appointment setting</li><li>Lead qualification</li><li>Follow-up sequences</li></ul>
     </article>
 
     <article class="reveal d2">
-      <h3><i class="fa-solid fa-bullhorn"></i> Marketing &amp; Demand-Generation VAs</h3>
+      <h3><i class="fa-solid fa-bullhorn"></i> Marketing &amp; demand-generation VAs</h3>
       <p>A <strong>marketing virtual assistant</strong> keeps the demand engine running: publishing social content, building and scheduling email nurture campaigns, updating landing pages, coordinating paid ads, and packaging the SEO and analytics work that turns traffic into tracked leads. They make sure every campaign actually ships on time instead of sitting half-finished.</p>
       <p>The result is a steady flow of inbound interest feeding the same pipeline your sales VAs are working: a compounding client-acquisition loop rather than one-off bursts.</p>
       <ul><li>Social media management</li><li>Email marketing &amp; nurture</li><li>SEO &amp; content support</li><li>Paid-ad coordination</li><li>Landing pages &amp; analytics</li></ul>
     </article>
 
     <article class="reveal d3">
-      <h3><i class="fa-solid fa-bolt"></i> Inbound &amp; Speed-to-Lead VAs</h3>
+      <h3><i class="fa-solid fa-bolt"></i> Inbound &amp; speed-to-lead VAs</h3>
       <p>Studies consistently show the first business to respond wins the majority of deals, yet most inbound leads wait hours for a reply. A time-zone-aligned Virtual Teammate answers live chat, web forms and inbound calls within minutes, qualifies the prospect, and books the meeting before your competitor even sees the lead. <strong>Speed-to-lead</strong> becomes a system, not a scramble.</p>
       <ul><li>Live chat &amp; web-form response</li><li>Inbound qualification</li><li>Instant meeting booking</li><li>Lead routing</li></ul>
     </article>
 
     <article class="reveal d4">
-      <h3><i class="fa-solid fa-diagram-project"></i> CRM &amp; Pipeline-Management VAs</h3>
+      <h3><i class="fa-solid fa-diagram-project"></i> CRM &amp; pipeline-management VAs</h3>
       <p>Pipelines leak when records are stale and follow-ups slip. A <strong>CRM virtual assistant</strong> keeps HubSpot, Salesforce or your pipeline of choice clean and current: logging activity, advancing stages, triggering follow-up tasks, and surfacing the deals going cold. Your reps trust the data, forecasting gets accurate, and no warm lead falls through the cracks.</p>
       <ul><li>CRM data hygiene</li><li>Pipeline &amp; stage updates</li><li>Deal &amp; activity logging</li><li>Reporting &amp; dashboards</li></ul>
     </article>
 
     <article class="reveal d5">
-      <h3><i class="fa-solid fa-clipboard"></i> Executive &amp; Administrative VAs</h3>
+      <h3><i class="fa-solid fa-clipboard"></i> Executive &amp; administrative VAs</h3>
       <p>Every hour a founder or sales leader spends on inbox triage and calendar Tetris is an hour not spent winning clients. An <strong>executive virtual assistant</strong> owns scheduling, inbox management, travel, document prep and project coordination: handing your highest-value people back the time to sell, partner and close.</p>
       <ul><li>Inbox &amp; calendar management</li><li>Meeting &amp; travel coordination</li><li>Document control</li><li>Project &amp; task tracking</li></ul>
     </article>
 
     <article class="reveal d6">
-      <h3><i class="fa-solid fa-sack-dollar"></i> Finance &amp; Bookkeeping VAs</h3>
+      <h3><i class="fa-solid fa-sack-dollar"></i> Finance &amp; bookkeeping VAs</h3>
       <p>Acquisition stalls when cash is tied up in unpaid invoices. A finance VA runs QuickBooks/Xero bookkeeping, invoicing, and disciplined AR follow-up so revenue lands faster and predictably: freeing working capital to reinvest in the marketing and sales that bring the next client in.</p>
       <ul><li>Bookkeeping (QuickBooks / Xero)</li><li>Invoicing &amp; AR follow-up</li><li>AP &amp; expense management</li><li>Budget &amp; cash reporting</li></ul>
     </article>
 
     <article class="reveal d1">
-      <h3><i class="fa-solid fa-headset"></i> Customer-Success &amp; Retention VAs</h3>
+      <h3><i class="fa-solid fa-headset"></i> Customer-success &amp; retention VAs</h3>
       <p>The cheapest client to acquire is the one you keep. A customer-service Virtual Teammate handles tier-1 support, ticket triage, onboarding follow-up and renewal reminders in your tone and time zone: lifting satisfaction, reviews and referrals that feed straight back into new client acquisition.</p>
       <ul><li>Tier-1 support &amp; live chat</li><li>Onboarding follow-up</li><li>Renewal &amp; retention outreach</li><li>Review &amp; referral requests</li></ul>
     </article>
 
     <article class="reveal d2">
-      <h3><i class="fa-solid fa-hand-holding-heart"></i> Non-Profit Development VAs</h3>
+      <h3><i class="fa-solid fa-hand-holding-heart"></i> Non-profit development VAs</h3>
       <p>For mission-driven teams, &ldquo;client acquisition&rdquo; means donors, members and grants. A non-profit Virtual Teammate runs donor prospecting and outreach, grant research and submissions, fundraising-campaign support and volunteer coordination: the same pipeline discipline, pointed at growing your supporter base.</p>
       <ul><li>Donor prospecting &amp; outreach</li><li>Grant research &amp; submissions</li><li>Fundraising campaign support</li><li>Volunteer &amp; event coordination</li></ul>
     </article>
@@ -190,7 +190,7 @@ include __DIR__ . '/../includes/nav.php';
     <article class="cta-stage" data-cta-intent="ops-assessment">
       <div class="cta-stage-tag">Ready to diagnose</div>
       <span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span>
-      <h3>Operational Assessment</h3>
+      <h3>Operational assessment</h3>
       <p class="cta-stage-lead">A diagnostic-only call. We map your busiest back-office workflows and tell you which functions to delegate first.</p>
       <ul class="cta-stage-list">
         <li>Workflow inventory across departments</li>
@@ -203,7 +203,7 @@ include __DIR__ . '/../includes/nav.php';
     <article class="cta-stage cta-stage-high" data-cta-intent="buyback">
       <div class="cta-stage-tag">Ready to delegate</div>
       <span class="ico-circle lg"><i class="fa-solid fa-hourglass-half"></i></span>
-      <h3>Buy Back Your Company&rsquo;s Time</h3>
+      <h3>Buy back your company&rsquo;s time</h3>
       <p class="cta-stage-lead">Tell us the function eating your team&rsquo;s week. We&rsquo;ll build the bench and have a vetted teammate live in 1&ndash;2 weeks.</p>
       <ul class="cta-stage-list">
         <li>Curated shortlist within days</li>

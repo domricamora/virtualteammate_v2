@@ -88,12 +88,12 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-bens-grid">
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-user-doctor"></i></span><h3>Healthcare VA</h3><p>Medical scribes, billers, receptionists, administrative support, medical assistants: HIPAA-trained.</p></div>
     <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-tooth"></i></span><h3>Dental VA</h3><p>Dental admin, billers, scribes, treatment coordinators, receptionists: Dentrix / Open Dental.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span><h3>Administrative Support</h3><p>Calendar, inbox, data entry, document mgmt, executive assistance for SMBs and non-profits.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer Service</h3><p>Inbound &amp; outbound support, ticket triage, live chat, CSAT, for service-heavy operators.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Financial Services</h3><p>Bookkeeping, AR/AP, payroll support, financial reporting and compliance documentation.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-list"></i></span><h3>Administrative support</h3><p>Calendar, inbox, data entry, document mgmt, executive assistance for SMBs and non-profits.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Customer service</h3><p>Inbound &amp; outbound support, ticket triage, live chat, CSAT, for service-heavy operators.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Financial services</h3><p>Bookkeeping, AR/AP, payroll support, financial reporting and compliance documentation.</p></div>
     <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-bullhorn"></i></span><h3>Marketing</h3><p>Content, social, email ops, SEO, paid media support, marketing automation.</p></div>
     <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-handshake"></i></span><h3>Sales</h3><p>Lead gen, CRM hygiene, outbound prospecting, appointment setting, account research.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Business Intelligence</h3><p>Reporting, dashboard ops, KPI analysis, light data engineering and analytics support.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Business intelligence</h3><p>Reporting, dashboard ops, KPI analysis, light data engineering and analytics support.</p></div>
   </div>
   <div style="text-align:center;margin-top:30px;" class="reveal">
     <a href="https://virtualteammate-1719208705.teamtailor.com/" target="_blank" rel="noopener" class="btn-primary">Explore Open Positions <i class="fa-solid fa-arrow-right"></i></a>
@@ -110,12 +110,12 @@ include __DIR__ . '/../includes/nav.php';
     <p class="sec-sub" style="max-width:720px;margin:0 auto;">At Virtual Teammate, we believe in empowering our team members to thrive in a supportive and dynamic environment.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-house-laptop"></i></span><h3>Flexible Work Environment</h3><p>100% remote roles. Work from home, on your own setup, matched to a US client time zone you can sustain.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-graduation-cap"></i></span><h3>Professional Growth</h3><p>HIPAA &amp; EHR training, role-specific upskilling, mentorship from senior teammates, and clear paths to lead roles.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-people-group"></i></span><h3>Supportive Community</h3><p>Real onboarding, real coaching, real backup: never alone in a chat with a client at 2 AM.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Competitive Compensation</h3><p>Transparent, market-aligned pay tied to role band and experience: reviewed regularly, paid on time.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Stable Engagements</h3><p>Clients commit; we commit. We aim for long-running matches, not hire-and-rotate.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span><h3>Healthy Culture</h3><p>Positive-energy values, ethical decision-making, and zero tolerance for ghosting: ours or yours.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-house-laptop"></i></span><h3>Flexible work environment</h3><p>100% remote roles. Work from home, on your own setup, matched to a US client time zone you can sustain.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-graduation-cap"></i></span><h3>Professional growth</h3><p>HIPAA &amp; EHR training, role-specific upskilling, mentorship from senior teammates, and clear paths to lead roles.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-people-group"></i></span><h3>Supportive community</h3><p>Real onboarding, real coaching, real backup: never alone in a chat with a client at 2 AM.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Competitive compensation</h3><p>Transparent, market-aligned pay tied to role band and experience: reviewed regularly, paid on time.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Stable engagements</h3><p>Clients commit; we commit. We aim for long-running matches, not hire-and-rotate.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-heart-pulse"></i></span><h3>Healthy culture</h3><p>Positive-energy values, ethical decision-making, and zero tolerance for ghosting: ours or yours.</p></div>
   </div>
 </section>
 
@@ -153,14 +153,14 @@ include __DIR__ . '/../includes/nav.php';
     <p class="sec-sub">We respect your time. Every applicant gets a response, and every hire walks into Day 1 ready.</p>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-file-lines pstep-ico"></i></div><h3 class="pstep-title">Apply for a Position</h3><p class="pstep-desc">Browse our open roles and submit your application with your resume and target role.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Application Review</h3><p class="pstep-desc">Our recruitment team reviews qualifications and confirms fit with the role spec.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-clipboard-check pstep-ico"></i></div><h3 class="pstep-title">Initial Assessment</h3><p class="pstep-desc">Three short assessments: EFSET English language test, IQ test, and Cultural Index.</p></div>
-    <div class="pstep reveal d4"><div class="pstep-head"><div class="pstep-num">04</div><i class="fa-solid fa-headset pstep-ico"></i></div><h3 class="pstep-title">Interview Call</h3><p class="pstep-desc">Scheduled in the 4 PM&ndash;9 PM PHT window. Includes a technical skills assessment for your role.</p></div>
-    <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-laptop pstep-ico"></i></div><h3 class="pstep-title">IT Check</h3><p class="pstep-desc">We verify your hardware, internet stability, headset, and workspace meet our remote-work standards.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-file-lines pstep-ico"></i></div><h3 class="pstep-title">Apply for a position</h3><p class="pstep-desc">Browse our open roles and submit your application with your resume and target role.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-magnifying-glass pstep-ico"></i></div><h3 class="pstep-title">Application review</h3><p class="pstep-desc">Our recruitment team reviews qualifications and confirms fit with the role spec.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-clipboard-check pstep-ico"></i></div><h3 class="pstep-title">Initial assessment</h3><p class="pstep-desc">Three short assessments: EFSET English language test, IQ test, and Cultural Index.</p></div>
+    <div class="pstep reveal d4"><div class="pstep-head"><div class="pstep-num">04</div><i class="fa-solid fa-headset pstep-ico"></i></div><h3 class="pstep-title">Interview call</h3><p class="pstep-desc">Scheduled in the 4 PM&ndash;9 PM PHT window. Includes a technical skills assessment for your role.</p></div>
+    <div class="pstep reveal d5"><div class="pstep-head"><div class="pstep-num">05</div><i class="fa-solid fa-laptop pstep-ico"></i></div><h3 class="pstep-title">IT check</h3><p class="pstep-desc">We verify your hardware, internet stability, headset, and workspace meet our remote-work standards.</p></div>
     <div class="pstep reveal d6"><div class="pstep-head"><div class="pstep-num">06</div><i class="fa-solid fa-graduation-cap pstep-ico"></i></div><h3 class="pstep-title">Orientation</h3><p class="pstep-desc">Comprehensive onboarding: VT culture, role-specific training, HIPAA (for healthcare roles), tools.</p></div>
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">07</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Endorsement to Talent Pool</h3><p class="pstep-desc">Your profile is circulated to qualified clients. Interview opportunities follow within days.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">08</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Client Selection &amp; Onboarding</h3><p class="pstep-desc">Kick-off call with your assigned client. You start work, supported by your CSM from day one.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">07</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Endorsement to talent pool</h3><p class="pstep-desc">Your profile is circulated to qualified clients. Interview opportunities follow within days.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">08</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Client selection &amp; onboarding</h3><p class="pstep-desc">Kick-off call with your assigned client. You start work, supported by your CSM from day one.</p></div>
   </div>
 </section>
 

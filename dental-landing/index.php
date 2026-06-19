@@ -287,12 +287,12 @@ include __DIR__ . '/../includes/nav.php';
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-certified, PMS-trained, and matched to your time zone, your Virtual Teammate owns the repeatable work so your front desk and clinical team can focus on patients in the chair.</p>
     </div>
     <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; Recall</h3><p>Booking, confirmations, reschedules, hygiene recare and reactivation calls: the schedule stays full and holes get filled.</p></div>
-      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Insurance &amp; Verification</h3><p>Eligibility checks, breakdown of benefits and pre-authorizations completed before the visit, not at the chair.</p></div>
-      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; Claims</h3><p>Claims submission, attachments, EOB and payment posting, and AR follow-up worked daily so production lands faster.</p></div>
-      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Treatment Plan Follow-Up</h3><p>Unscheduled treatment chased down and financial arrangements set up so case acceptance turns into seated appointments.</p></div>
-      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient Calls &amp; Reminders</h3><p>Inbound and outbound calls, appointment reminders and recall outreach handled in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS Management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Open Dental and more, never backlogged.</p></div>
+      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; recall</h3><p>Booking, confirmations, reschedules, hygiene recare and reactivation calls: the schedule stays full and holes get filled.</p></div>
+      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Insurance &amp; verification</h3><p>Eligibility checks, breakdown of benefits and pre-authorizations completed before the visit, not at the chair.</p></div>
+      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; claims</h3><p>Claims submission, attachments, EOB and payment posting, and AR follow-up worked daily so production lands faster.</p></div>
+      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Treatment plan follow-up</h3><p>Unscheduled treatment chased down and financial arrangements set up so case acceptance turns into seated appointments.</p></div>
+      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient calls &amp; reminders</h3><p>Inbound and outbound calls, appointment reminders and recall outreach handled in your tone and time zone.</p></div>
+      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Open Dental and more, never backlogged.</p></div>
     </div>
   </section>
 
