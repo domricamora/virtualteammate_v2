@@ -126,7 +126,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       "description": "HIPAA-certified medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "2425 East Camelback Road, Suite 150",
+        "streetAddress": "2425 East Camelback Road, Suite 400",
         "addressLocality": "Phoenix",
         "addressRegion": "AZ",
         "postalCode": "85016",
@@ -228,7 +228,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
   'description' => 'HIPAA-certified medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.',
   'address'     => [
     '@type'           => 'PostalAddress',
-    'streetAddress'   => '2425 East Camelback Road, Suite 150',
+    'streetAddress'   => '2425 East Camelback Road, Suite 400',
     'addressLocality' => 'Phoenix',
     'addressRegion'   => 'AZ',
     'postalCode'      => '85016',
