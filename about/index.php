@@ -62,6 +62,24 @@ include __DIR__ . '/../includes/nav.php';
 }
 </script>
 
+<style>
+/* About page — graphic info panels replace stock photos (VT glass/gold style).
+   The frames carry aspect-ratio + rounded clip, so anchor the panel to them. */
+.svc-hero-vis .hv-card,.svc-split .svc-side-img{position:relative;}
+.ab-panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:15px;
+  padding:32px 30px;background:linear-gradient(150deg,rgba(57,25,186,.5),rgba(20,15,55,.9) 55%,rgba(223,169,73,.16));}
+.ab-panel-h{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:2px;}
+.ab-panel-h i{color:var(--gold,#dfa949);font-size:17px;}
+.ab-row{display:flex;align-items:flex-start;gap:13px;}
+.ab-row .ic{flex:0 0 38px;width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  background:rgba(223,169,73,.14);border:1px solid rgba(223,169,73,.4);color:var(--gold,#dfa949);font-size:15px;}
+.ab-row .tx{font-size:13.5px;line-height:1.4;color:rgba(255,255,255,.82);}
+.ab-row .tx strong{color:#fff;display:block;font-size:14px;margin-bottom:1px;}
+.ab-panel-foot{margin-top:4px;border-top:1px solid rgba(255,255,255,.12);padding-top:15px;}
+.ab-panel-foot .n{font-size:26px;font-weight:800;color:var(--gold,#dfa949);letter-spacing:-.02em;line-height:1;}
+.ab-panel-foot .l{font-size:11.5px;text-transform:uppercase;letter-spacing:.8px;color:rgba(255,255,255,.6);font-weight:700;margin-top:5px;}
+</style>
+
 <main>
 
 <!-- HERO -->
@@ -81,7 +99,13 @@ include __DIR__ . '/../includes/nav.php';
     <div class="hv-chip c1"><i class="fa-solid fa-handshake"></i> 600+ Clients</div>
     <div class="hv-chip c2"><i class="fa-solid fa-users"></i> 2,000+ Placed</div>
     <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.webp" alt="Virtual Teammate team supporting healthcare practices and businesses across the US" loading="lazy"/>
+      <div class="ab-panel" role="img" aria-label="Virtual Teammate at a glance: US-owned, HIPAA-compliant, global vetting network, measured on value">
+        <div class="ab-panel-h"><i class="fa-solid fa-building-shield"></i> Virtual Teammate, at a glance</div>
+        <div class="ab-row"><span class="ic"><i class="fa-solid fa-flag-usa"></i></span><span class="tx"><strong>US-owned</strong>Headquartered in Phoenix, Arizona</span></div>
+        <div class="ab-row"><span class="ic"><i class="fa-solid fa-shield-halved"></i></span><span class="tx"><strong>HIPAA-compliant</strong>Certified &amp; BAA-ready before placement</span></div>
+        <div class="ab-row"><span class="ic"><i class="fa-solid fa-globe"></i></span><span class="tx"><strong>Global vetting network</strong>PH &middot; LATAM &middot; Africa &middot; S. Asia</span></div>
+        <div class="ab-row"><span class="ic"><i class="fa-solid fa-chart-line"></i></span><span class="tx"><strong>Measured on value</strong>Monthly KPI scorecards, not hours billed</span></div>
+      </div>
     </div>
   </div>
 </header>
@@ -129,7 +153,13 @@ include __DIR__ . '/../includes/nav.php';
     </ul>
   </div>
   <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/How-Our-Virtual-Teammate-Help-Reduce-Costs.webp" alt="Virtual Teammate value creation in practice — measurable KPI outcomes for healthcare clients" loading="lazy"/>
+    <div class="ab-panel" role="img" aria-label="We measure on outcomes: cost savings and revenue growth, hours reclaimed, patient experience improved">
+      <div class="ab-panel-h"><i class="fa-solid fa-bullseye"></i> Measured on outcomes, not hours</div>
+      <div class="ab-row"><span class="ic"><i class="fa-solid fa-sack-dollar"></i></span><span class="tx"><strong>Cost savings &amp; revenue growth</strong>Up to 73% vs an in-house hire</span></div>
+      <div class="ab-row"><span class="ic"><i class="fa-solid fa-clock"></i></span><span class="tx"><strong>Hours reclaimed</strong>Back to patients and high-value work</span></div>
+      <div class="ab-row"><span class="ic"><i class="fa-solid fa-heart-pulse"></i></span><span class="tx"><strong>Patient experience improved</strong>Faster response, cleaner workflows</span></div>
+      <div class="ab-panel-foot"><div class="n">100%</div><div class="l">Scoped to the KPIs you choose</div></div>
+    </div>
   </div>
 </section>
 

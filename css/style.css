@@ -214,14 +214,17 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   /* Fluid size so the headline scales smoothly with the viewport instead of
      staying fixed and reflowing at breakpoints when the window is resized.
      clamp range matches the old stepped sizes (28px floor … 62px cap). */
-  font-size:clamp(28px, 4.8vw, 62px);line-height:1.18;
+  /* Continuous viewport-based scaling with a low floor so the headline keeps
+     shrinking on narrow screens instead of hitting a fixed size and overflowing. */
+  font-size:clamp(22px, 5vw, 62px);line-height:1.18;
   color:#fff;margin-bottom:26px;font-weight:800;
   letter-spacing:-0.02em;
   max-width:none;
   text-wrap:balance;
+  overflow-wrap:break-word;
 }
 /* Second line scaled down — the hook ("Short-Staffed and Overworked?") stays large. */
-.hero-h1 .hero-h1-sub{font-size:clamp(21px, 3vw, 38px);line-height:1.2;display:inline-block;margin-top:10px;}
+.hero-h1 .hero-h1-sub{font-size:clamp(17px, 3.2vw, 38px);line-height:1.2;display:inline-block;margin-top:10px;}
 .hero-h1 em{
   color:transparent;
   background:linear-gradient(120deg, #dfa949 0%, #f5e4b8 40%, #dfa949 60%, #f5e4b8 100%);
@@ -231,10 +234,11 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   animation:shimmer 6s linear infinite;
 }
 .hero-sub{
-  font-size:clamp(15px, 1.45vw, 18px);color:rgba(255,255,255,0.72);
+  font-size:clamp(13.5px, 1.6vw, 18px);color:rgba(255,255,255,0.72);
   line-height:1.65;max-width:760px;
   margin-bottom:20px;font-weight:400;
   text-wrap:balance;
+  overflow-wrap:break-word;
 }
 .hero-sub strong{color:#fff;font-weight:700;}
 /* Long pitch paragraph split into two columns to declutter the hero. */
