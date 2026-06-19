@@ -5,6 +5,7 @@ $og_title         = 'Case Studies: KPI Results from Real Healthcare Practices';
 $og_description   = 'See the measurable value Virtual Teammate delivers: claims worked, insurance verifications, payment posting and pre-certifications. Real numbers from real practices, reported by workstream.';
 $canonical        = 'https://virtualteammate.com/case-studies/';
 $home_base        = '../';
+$has_cta_section  = true;   // uses the homepage "Ways to Start" #cta block below
 $breadcrumbs      = [
   ['name' => 'Home',         'url' => '/'],
   ['name' => 'Case Studies', 'url' => '/case-studies/'],
@@ -346,16 +347,8 @@ include __DIR__ . '/../includes/nav.php';
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="svc-cta">
-  <h2>Want results like these on <em style="color:var(--gold);font-style:normal;">your</em> scorecard?</h2>
-  <p>Book a value strategy session. We&rsquo;ll map your top three KPI gaps to a role spec, give you a transparent quote, and place your teammate inside 1&ndash;2 weeks.</p>
-  <div class="svc-cta-btns">
-    <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="#cta-buyers-checklist" class="btn-glass" data-cta-intent="buyers-checklist">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-arrow-right"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-  </div>
-</section>
+<!-- FINAL CTA — homepage "Ways to Start" stages block -->
+<?php include __DIR__ . '/../includes/cta-stages.php'; ?>
 
 </main>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

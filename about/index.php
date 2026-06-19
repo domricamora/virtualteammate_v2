@@ -5,6 +5,7 @@ $og_title         = 'About Virtual Teammate — The People Behind 2,000+ VA Plac
 $og_description   = 'US-owned, HIPAA-compliant VA agency. Founder Chris McShanag, leadership team, mission, values and the 5-step engagement process behind every match.';
 $canonical        = 'https://virtualteammate.com/about/';
 $home_base        = '../';
+$has_cta_section  = true;   // uses the homepage "Ways to Start" #cta block
 $breadcrumbs      = [
   ['name' => 'Home',  'url' => '/'],
   ['name' => 'About', 'url' => '/about/'],
@@ -198,6 +199,6 @@ include __DIR__ . '/../includes/nav.php';
   </div>
 </section>
 
-<?php include __DIR__ . '/../includes/service-cta.php'; ?>
+<?php include __DIR__ . '/../includes/cta-stages.php'; ?>
 </main>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

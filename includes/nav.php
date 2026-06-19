@@ -113,7 +113,7 @@ $topbar_cta = $has_cta_section ? '#cta' : '#cta-strategy-call';
             <i class="fa-solid fa-circle-info"></i>
             <span><strong>About Virtual Teammate</strong><em>Founder, leadership &amp; mission</em></span>
           </a>
-          <a class="nav-mega-link" href="<?= $home_base ?>guarantee/" role="menuitem">
+          <a class="nav-mega-link" href="<?= $home_base ?>#guarantee" role="menuitem">
             <i class="fa-solid fa-shield-halved"></i>
             <span><strong>30-Day Right-Fit Promise</strong><em>Our no-risk hiring guarantee</em></span>
           </a>
