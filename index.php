@@ -777,7 +777,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span>
-      <p><strong>A dedicated CSM</strong> on your account from day one.</p>
+      <p><strong>Your dedicated Client Success Manager (CSM)</strong> ensures you hit your goals, partnering closely with you and your Virtual Teammates. Beyond weekly and monthly check-ins, your CSM is your dedicated point of contact across the communication platform that your practice already uses. We go where your team talks.</p>
     </div>
     <div class="offer-item">
       <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>

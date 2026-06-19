@@ -229,17 +229,18 @@ include __DIR__ . '/../includes/nav.php';
 
       <article class="case-card reveal d4">
         <div class="case-metric">
-          <div class="case-metric-h">Claims Processed </div>
+          <div class="case-metric-h">Patient Engagement</div>
           <div class="case-metric-row">
-            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
+            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+30%</span></div>
           </div>
+          <div class="case-metric-foot">Also grew AR by <strong>12%</strong></div>
         </div>
-        <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for an endodontics &amp; oral-surgery group: a full surgical schedule billed on time.</p>
+        <p class="case-q">Improvement in patient scheduling and fewer missed appointments&mdash;helping our home healthcare client maximize care delivery and patient engagement.</p>
         <div class="case-auth">
-          <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+          <span class="ico-circle case-ico"><i class="fa-solid fa-house-medical"></i></span>
           <div>
-            <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
-            <div class="case-svc"><i class="fa-solid fa-tooth"></i> Specialty Billing &amp; RCM VA</div>
+            <div class="case-name">Home Healthcare Client</div>
+            <div class="case-svc"><i class="fa-solid fa-location-dot"></i> East Coast</div>
           </div>
         </div>
       </article>
