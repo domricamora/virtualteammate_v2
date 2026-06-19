@@ -372,9 +372,10 @@ function vtnew_homepage_profiles(int $limit = 6): array
 
   <div class="spec-grid">
     <article class="spec-card reveal d1">
-      <div class="spec-photo">
-        <img src="images/photos/medical-section.webp" alt="Bright, modern medical clinic corridor with waiting-area seating" width="1400" height="934" loading="lazy"/>
-        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Medical Practices</span>Focused on Outcomes.<br>Measured in Results.</div>
+      <div class="spec-aside spec-aside--med">
+        <span class="spec-aside-eyebrow">For Medical Practices</span>
+        <span class="spec-medallion"><i class="fa-solid fa-user-doctor"></i></span>
+        <div class="spec-aside-cap">Focused on Outcomes.<br>Measured in Results.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Proof in the numbers: medical practices</div>
           <ul>
@@ -405,9 +406,10 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </article>
 
     <article class="spec-card alt reveal d2">
-      <div class="spec-photo">
-        <img src="images/photos/dental-section.webp" alt="Treatment chair in a clean modern dental clinic" width="1400" height="934" loading="lazy"/>
-        <div class="spec-photo-cap"><span class="spec-photo-eyebrow">For Dental Practices</span>Chairs Full.<br>Claims Clean.</div>
+      <div class="spec-aside spec-aside--dent">
+        <span class="spec-aside-eyebrow">For Dental Practices</span>
+        <span class="spec-medallion"><i class="fa-solid fa-tooth"></i></span>
+        <div class="spec-aside-cap">Chairs Full.<br>Claims Clean.</div>
         <div class="spec-proof">
           <div class="spec-proof-h"><i class="fa-solid fa-chart-line"></i> Outcomes our dental teammates deliver</div>
           <ul>
@@ -440,7 +442,6 @@ function vtnew_homepage_profiles(int $limit = 6): array
 
   <!-- HIPAA STRIP -->
   <div class="hipaa reveal">
-    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
     <div class="hbadges">
       <div class="hbadge">
         <span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span>
@@ -459,8 +460,13 @@ function vtnew_homepage_profiles(int $limit = 6): array
         <div class="hbadge-txt"><strong>Your Time Zone</strong><span>Real-time collaboration</span></div>
       </div>
     </div>
-    <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
+    <div class="hipaa-main">
+      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
+      <div class="hipaa-cta">
+        <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+        <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -861,7 +867,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
     <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
     <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA buyer&rsquo;s checklist</h2>
-    <p class="cta-modal-sub">Unlock new levels of productivity and patient care. Enter your email to receive our HIPAA VA Buyer&rsquo;s Checklist and learn how to choose the right virtual staffing partner for long-term success.</p>
+    <p class="cta-modal-sub">Unlock new levels of productivity and patient care. Enter your email to receive our HIPAA VA buyer&rsquo;s checklist and learn how to choose the right virtual staffing partner for long-term success.</p>
     <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
           data-lead-thanks="Check your inbox: your checklist is on the way.">
       <input type="hidden" name="intent" value="buyers-checklist">
