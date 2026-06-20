@@ -275,6 +275,69 @@ function lead_push_hubspot(PDO $pdo, array $lead): void
     } catch (Throwable $_) {}
 }
 
+/**
+ * Submit the lead to the matching HubSpot FORM (by intent) via the public Forms
+ * API — records a real form submission (form analytics/workflows) on top of the
+ * contact upsert. No token needed. Best-effort, post-response, skips localhost.
+ */
+function lead_submit_hubspot_form(array $lead): void
+{
+    try {
+        if (!function_exists('curl_init')) { return; }
+        $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+        if ($host === '' || str_contains($host, 'localhost') || str_starts_with($host, '127.0.0.1')) { return; }
+
+        $cfg = @include __DIR__ . '/includes/hubspot-config.php';
+        if (!is_array($cfg) || empty($cfg['hub_id'])) { return; }
+
+        $intent = strtolower(trim((string) ($lead['intent'] ?? '')));
+        $intent = ['jumpstart' => 'strategy-call', 'book' => 'contact'][$intent] ?? $intent;
+        $guid    = $cfg['forms'][$intent] ?? '';
+        $allowed = $cfg['form_fields'][$intent] ?? [];
+        if ($guid === '' || !$allowed) { return; }
+
+        $valueByField = [
+            'email'     => $lead['email'] ?? '',
+            'firstname' => $lead['first'] ?? '',
+            'lastname'  => $lead['last'] ?? '',
+            'phone'     => $lead['phone'] ?? '',
+            'company'   => $lead['company'] ?? '',
+            'message'   => $lead['message'] ?? '',
+        ];
+        $fields = [];
+        $hasEmail = false;
+        foreach ($allowed as $fn) {
+            $v = trim((string) ($valueByField[$fn] ?? ''));
+            if ($v !== '') { $fields[] = ['name' => $fn, 'value' => $v]; if ($fn === 'email') { $hasEmail = true; } }
+        }
+        if (!$hasEmail) { return; } // email is required on every form
+
+        $body = json_encode([
+            'fields'  => $fields,
+            'context' => [
+                'pageUri'   => 'https://' . $host . '/',
+                'pageName'  => 'VT lead: ' . $intent,
+                'ipAddress' => $_SERVER['REMOTE_ADDR'] ?? '',
+            ],
+        ]);
+        $url = 'https://api.hsforms.com/submissions/v3/integration/submit/' . $cfg['hub_id'] . '/' . $guid;
+
+        $ch  = curl_init($url);
+        $opt = [
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $body,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 8,
+            CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
+        ];
+        $ca = __DIR__ . '/portal/cacert.pem';
+        if (is_file($ca)) { $opt[CURLOPT_CAINFO] = $ca; }
+        curl_setopt_array($ch, $opt);
+        curl_exec($ch);
+        curl_close($ch);
+    } catch (Throwable $_) {}
+}
+
 /** Minimal HubSpot API call. Returns the HTTP status (0 on transport error). */
 function lead_hubspot_call(string $method, string $url, string $token, string $body): int
 {
@@ -401,12 +464,14 @@ if (function_exists('fastcgi_finish_request')) {
     fastcgi_finish_request();          // client gets the response now; rest in bg
     lead_notify_team($pdo, $leadForMail);
     lead_push_hubspot($pdo, $leadForMail);
+    lead_submit_hubspot_form($leadForMail);
 } else {
     // No FPM: body is sent at script end. Capture+discard any stray output so it
     // can never append to (corrupt) the JSON response.
     ob_start();
     lead_notify_team($pdo, $leadForMail);
     lead_push_hubspot($pdo, $leadForMail);
+    lead_submit_hubspot_form($leadForMail);
     ob_end_clean();
 }
 exit;

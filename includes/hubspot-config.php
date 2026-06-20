@@ -15,4 +15,15 @@ return [
         'vt-request'       => '497e0c5b-6cac-4424-afb4-69a7b26b79df',
         'roi'              => '66175951-e1e3-40c0-bc49-a9374839d103',
     ],
+    // Fields each form accepts — a Forms-API submit must only send these, or
+    // HubSpot 400s on an unknown field. Matches what was created via the API.
+    'form_fields' => [
+        'buyers-checklist' => ['email'],
+        'practice-audit'   => ['firstname', 'lastname', 'email', 'phone', 'company'],
+        'strategy-call'    => ['firstname', 'lastname', 'email', 'phone', 'company'],
+        'contact'          => ['firstname', 'lastname', 'email', 'phone', 'message'],
+        'careers'          => ['firstname', 'lastname', 'email', 'phone', 'message'],
+        'vt-request'       => ['firstname', 'lastname', 'email', 'company'],
+        'roi'              => ['firstname', 'email', 'phone'],
+    ],
 ];
