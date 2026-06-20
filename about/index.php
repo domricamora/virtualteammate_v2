@@ -110,8 +110,6 @@ include __DIR__ . '/../includes/nav.php';
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day</span>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-handshake"></i> 600+ Clients</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-users"></i> 2,000+ Placed</div>
     <div class="ab-panel" role="img" aria-label="Virtual Teammate at a glance: US-owned, HIPAA-compliant, global vetting network, measured on value">
       <div class="ab-panel-h"><i class="fa-solid fa-building-shield"></i> Virtual Teammate, at a glance</div>
       <div class="ab-row"><span class="ic"><i class="fa-solid fa-flag-usa"></i></span><span class="tx"><strong>US-owned</strong>Headquartered in Phoenix, Arizona</span></div>
