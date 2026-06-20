@@ -25,6 +25,9 @@ html{font-size:16px;scroll-behavior:smooth;
   --glass-blur-sm: blur(10px);
 }
 
+/* Never allow a horizontal scrollbar on any device — clip stray overflow at the
+   root. overflow-x:clip (not hidden) keeps position:sticky working. */
+html{overflow-x:clip;}
 body{
   font-family:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: linear-gradient(180deg, #1a1535 0%, #2e1f6e 35%, #1a1535 70%, var(--violet) 100%);
@@ -249,10 +252,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   overflow-wrap:break-word;
 }
 .hero-sub strong{color:#fff;font-weight:700;}
-/* Hero pitch as a single-column bullet list — full width so each point stays on
-   one line instead of wrapping inside a cramped column. */
+/* Long pitch paragraph split into two columns to declutter the hero. */
 .hero-sub-cols{
-  column-count:1;
+  column-count:2;column-gap:38px;
+  column-rule:1px solid rgba(255,255,255,0.10);
 }
 /* Hero pitch as a bulleted list — gold dots, kept whole within each column. */
 .hero-sub-list{list-style:none;padding:0;}
@@ -507,13 +510,13 @@ a.gr-link:hover{color:var(--gold-lt,#f5e4b8);}
 .sec{padding:78px 80px;position:relative;}
 .sec-lbl{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;text-align:center;}
 .sec-lbl i{margin-right:6px;}
-.sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;white-space:nowrap;text-align:center;}
+.sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;text-wrap:balance;overflow-wrap:break-word;text-align:center;}
 .sec-h2 em{color:var(--gold);font-style:normal;font-weight:800;}
 /* ROI calculator headline must stay on ONE line at every width: nowrap + a fluid
    size that scales with the viewport so it shrinks to fit narrow phones rather
    than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
    it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
-#calc-h{font-size:clamp(28px,4vw,46px);white-space:nowrap;}
+#calc-h{font-size:clamp(28px,4vw,46px);overflow-wrap:break-word;}
 .sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;text-align:center;}
 /* Section headers center by default. Split / two-column layouts (guarantee strip,
    global map, lead bands, talent hero & match card) keep their copy left-aligned. */
@@ -2413,7 +2416,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .sec{padding:64px 32px;}
   /* Let centered section titles wrap below desktop so long ones don't get
      clipped by body{overflow-x:hidden}. #calc-h stays nowrap (clamp shrinks it). */
-  .sec-h2{font-size:40px;white-space:normal;}
+  .sec-h2{font-size:40px;white-space:normal;overflow-wrap:break-word;}
   .sec-sub{font-size:16px;}
 
   .calc-wrap{padding:70px 32px 40px;}
