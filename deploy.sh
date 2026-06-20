@@ -29,6 +29,10 @@ MAX_PAR="${FTP_PARALLEL:-8}"
 # Top-level production files at the repo root.
 TOP_FILES=(
   "index.php"
+  "404.php"
+  "403.php"
+  "500.php"
+  "installer.php"
   ".htaccess"
   "robots.txt"
   "sitemap.xml"

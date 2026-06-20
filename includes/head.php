@@ -65,12 +65,25 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <meta name="theme-color" content="#1a1535"/>
+<?php /* Google Analytics 4 (gtag.js). Emitted on production only — $__vt_nonprod
+        suppresses it on localhost/staging so dev traffic stays out of the property. */ ?>
+<?php if (empty($__vt_nonprod)): ?>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VTZ5Q9J6X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-9VTZ5Q9J6X');
+</script>
+<?php endif; ?>
 <title><?= $h($page_title) ?></title>
 <meta name="description" content="<?= $h($page_description) ?>"/>
 <meta name="robots" content="<?= $h($robots) ?>"/>
 <meta name="googlebot" content="<?= $h($robots) ?>"/>
 <meta name="format-detection" content="telephone=no"/>
 <meta name="author" content="Virtual Teammate"/>
+<meta name="google-site-verification" content="aFmbyBXzDf9yIsiP5XQuJ6zTTyCVdlZRZdrAvQgsNl0"/>
 <link rel="canonical" href="<?= $h($canonical) ?>"/>
 
 <!-- Open Graph -->

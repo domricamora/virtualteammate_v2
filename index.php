@@ -75,7 +75,7 @@ include 'includes/nav.php';
   <div class="hero-stats reveal d5">
     <div class="hstat"><div class="hstat-num" data-count="73" data-suffix="%">73%</div><div class="hstat-lbl">Lower Staffing Cost</div></div>
     <div class="hstat"><div class="hstat-num" data-count="95" data-suffix="%">95%</div><div class="hstat-lbl">Clean-Claim Rate</div></div>
-    <div class="hstat"><div class="hstat-num hstat-rating"><span data-count="4.9" data-decimals="1">4.9</span><i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating</div></div>
+    <a class="hstat" href="https://share.google/yAZIjlQlSLbydqWYJ" target="_blank" rel="noopener noreferrer" aria-label="Read our 4.9-star Google reviews"><div class="hstat-num hstat-rating"><span data-count="4.9" data-decimals="1">4.9</span><i class="fa-solid fa-star"></i></div><div class="hstat-lbl"><i class="fa-brands fa-google" aria-hidden="true"></i> Avg Google Rating</div></a>
     <div class="hstat"><div class="hstat-num" data-count="30" data-suffix="-Day">30-Day</div><div class="hstat-lbl">Right-Fit Promise</div></div>
   </div>
 

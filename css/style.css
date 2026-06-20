@@ -353,6 +353,12 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .hstat-rating{display:inline-flex;align-items:baseline;gap:4px;}
 .hstat-rating i{font-size:30px;}
 .hstat-lbl{font-size:12px;color:rgba(255,255,255,0.6);margin-top:8px;text-transform:uppercase;letter-spacing:0.7px;font-weight:700;}
+/* Google-review link wrappers — keep the stat/card styling, just make it clickable. */
+a.hstat{text-decoration:none;color:inherit;transition:background .2s ease;}
+a.hstat:hover{background:rgba(255,255,255,0.04);}
+a.hstat:hover .hstat-lbl{color:var(--gold-lt,#f5e4b8);}
+.gr-link{text-decoration:none;color:inherit;cursor:pointer;transition:color .2s ease;}
+a.gr-link:hover{color:var(--gold-lt,#f5e4b8);}
 
 /* ───── HERO RIGHT VISUAL (photo collage) ───── */
 .hero-visual{position:relative;z-index:2;height:600px;}

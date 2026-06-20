@@ -162,7 +162,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="hcq-proofbar reveal">
     <div class="trust-row">
       <div class="trust-item"><i class="fa-solid fa-location-dot"></i> Trusted by practices across the U.S.</div>
-      <div class="trust-item"><i class="fa-brands fa-google"></i> 4.9 Google rating</div>
+      <div class="trust-item"><a class="gr-link" href="https://share.google/yAZIjlQlSLbydqWYJ" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-google"></i> 4.9 Google rating</a></div>
       <div class="trust-item"><i class="fa-solid fa-file-circle-check"></i> 95%+ clean-claim rate</div>
     </div>
   </div>
@@ -170,7 +170,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Lower Staffing Cost</div></div>
     <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Clean-Claim Rate</div></div>
     <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Live</div></div>
-    <div class="svc-stat"><div class="svc-stat-num">4.9</div><div class="svc-stat-lbl">Avg Google Rating</div></div>
+    <div class="svc-stat"><a class="gr-link" href="https://share.google/yAZIjlQlSLbydqWYJ" target="_blank" rel="noopener noreferrer" style="display:block;"><div class="svc-stat-num">4.9</div><div class="svc-stat-lbl">Avg Google Rating</div></a></div>
   </div>
 
   <div class="divider"></div>

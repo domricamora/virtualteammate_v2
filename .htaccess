@@ -1,8 +1,28 @@
 # --- Default document --------------------------------------------------------
 DirectoryIndex index.php index.html
 
+# --- Custom error pages -------------------------------------------------------
+ErrorDocument 403 /403.php
+ErrorDocument 404 /404.php
+ErrorDocument 500 /500.php
+
+# --- Disable directory listing (no auto-index of images/, css/, js/, etc.) ----
+Options -Indexes
+
 # --- Block hidden / sensitive files ------------------------------------------
 <FilesMatch "^(\.ftp\.local|\.env.*|\.git.*|deploy\.sh|smtp\.local\.php)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# --- Block source / data / backup file types (defensive; deploy already skips
+#     most of these, but never serve them if one slips onto the server) --------
+<FilesMatch "\.(md|sql|sqlite|sqlite-journal|sqlite-wal|sqlite-shm|log|local|example|bak|ini|sh)$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
