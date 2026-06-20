@@ -246,7 +246,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 }
 .hero-sub{
   font-size:clamp(13.5px, 1.6vw, 18px);color:rgba(255,255,255,0.72);
-  line-height:1.65;max-width:760px;
+  line-height:1.65;max-width:none;
   margin-bottom:20px;font-weight:400;
   text-wrap:balance;
   overflow-wrap:break-word;
