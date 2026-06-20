@@ -64,6 +64,9 @@ switch ($action) {
     /* ───────────────────────── Force HTTPS (super admin) ─────────────────────────── */
     case 'ssl.toggle':      handle_ssl_toggle();         break;
 
+    /* ───────────────────────── Client funnel (super admin) ───────────────────────── */
+    case 'funnel':          handle_funnel();             break;
+
     /* ───────────────────────── HubSpot sync (super admin) ─────────────────────────── */
     case 'hubspot':                handle_hubspot_page();            break;
     case 'hubspot.save_settings':  handle_hubspot_save_settings();   break;
@@ -1902,6 +1905,75 @@ function handle_ssl_toggle(): void
             : 'Force HTTPS disabled — requests are served on whatever scheme they arrive on.');
     }
     redirect(portal_url('dashboard'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * CLIENT FUNNEL (super admin only)
+ * A live monitor: lead capture (local leads table) → deal pipeline (HubSpot)
+ * → recent HubSpot webhook activity (hubspot_events, fed by /hubapi).
+ * ═════════════════════════════════════════════════════════════════════════ */
+function handle_funnel(): void
+{
+    $u   = require_role('super_admin');
+    $pdo = db();
+
+    // ── Lead capture (local) ──
+    $leadTotal = $lead7 = $lead30 = 0; $byForm = $recentLeads = [];
+    try {
+        $leadTotal = (int) $pdo->query("SELECT COUNT(*) FROM leads")->fetchColumn();
+        $lead7  = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE created_at >= datetime('now','-7 days')")->fetchColumn();
+        $lead30 = (int) $pdo->query("SELECT COUNT(*) FROM leads WHERE created_at >= datetime('now','-30 days')")->fetchColumn();
+        $byForm = $pdo->query("SELECT COALESCE(NULLIF(form,''),COALESCE(NULLIF(source,''),'website')) AS k, COUNT(*) n FROM leads GROUP BY k ORDER BY n DESC LIMIT 12")->fetchAll(PDO::FETCH_ASSOC);
+        $recentLeads = $pdo->query("SELECT name,email,COALESCE(NULLIF(form,''),source) AS src,created_at FROM leads ORDER BY id DESC LIMIT 15")->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $_) {}
+
+    // ── HubSpot webhook activity (local, from /hubapi) ──
+    $events = [];
+    try {
+        $events = $pdo->query("SELECT subscription_type,object_id,property_name,property_value,created_at FROM hubspot_events ORDER BY id DESC LIMIT 25")->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Throwable $_) {}
+
+    // ── Deal pipeline (HubSpot, best-effort) ──
+    $stages = []; $pipelineError = ''; $dealTotal = 0;
+    try {
+        $cfg = include __DIR__ . '/../includes/hubspot-config.php';
+        require_once __DIR__ . '/hubspot.php';
+        $hs = new HubSpotClient((string) get_setting('hs_token', ''), 15);
+        $pl = $hs->request('GET', '/crm/v3/pipelines/deals/' . $cfg['pipeline_id']);
+        if ($pl['ok']) {
+            $stageDefs = $pl['data']['stages'] ?? [];
+            usort($stageDefs, fn($a, $b) => ($a['displayOrder'] ?? 0) <=> ($b['displayOrder'] ?? 0));
+            // One read of the pipeline's deals, grouped client-side.
+            $counts = [];
+            $dr = $hs->request('GET', '/crm/v3/objects/deals?limit=100&properties=dealstage,pipeline,amount');
+            foreach (($dr['data']['results'] ?? []) as $d) {
+                if (($d['properties']['pipeline'] ?? '') !== $cfg['pipeline_id']) { continue; }
+                $sid = $d['properties']['dealstage'] ?? '';
+                $counts[$sid] = ($counts[$sid] ?? 0) + 1;
+                $dealTotal++;
+            }
+            foreach ($stageDefs as $s) {
+                $stages[] = [
+                    'label'  => $s['label'] ?? '',
+                    'count'  => $counts[$s['id']] ?? 0,
+                    'closed' => (($s['metadata']['isClosed'] ?? 'false') === 'true'),
+                ];
+            }
+        } else {
+            $pipelineError = $pl['error'] ?? 'Could not read the deal pipeline.';
+        }
+    } catch (Throwable $e) {
+        $pipelineError = $e->getMessage();
+    }
+
+    render('funnel', [
+        'title'    => 'Client Funnel',
+        'subtitle' => 'Lead capture → nurture → contract, monitored live.',
+        'user'     => $u,
+        'leadTotal' => $leadTotal, 'lead7' => $lead7, 'lead30' => $lead30,
+        'byForm'   => $byForm, 'recentLeads' => $recentLeads, 'events' => $events,
+        'stages'   => $stages, 'dealTotal' => $dealTotal, 'pipelineError' => $pipelineError,
+    ]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

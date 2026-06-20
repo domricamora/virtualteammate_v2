@@ -67,6 +67,7 @@ TOP_DIRS=(
   "terms"
   "privacy-policy"
   "portal"
+  "hubapi"
 )
 
 # data/ is uploaded selectively — never ship the SQLite DB, sync state,

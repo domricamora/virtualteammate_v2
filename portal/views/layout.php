@@ -22,6 +22,7 @@ $nav[] = ['p' => 'dashboard', 'label' => 'Dashboard', 'icon' => 'fa-house'];
 if ($role === 'super_admin') {
     // Lead-gen + people first, then operations, then comms, then system tools.
     $nav[] = ['p' => 'leads',       'label' => 'Leads',         'icon' => 'fa-bullseye'];
+    $nav[] = ['p' => 'funnel',      'label' => 'Client Funnel', 'icon' => 'fa-filter'];
     $nav[] = ['p' => 'clients',     'label' => 'Clients',       'icon' => 'fa-building'];
     $nav[] = ['p' => 'csms',        'label' => 'CSMs',          'icon' => 'fa-user-tie'];
     $nav[] = ['p' => 'vts',         'label' => 'VT Profiles',   'icon' => 'fa-user-doctor'];
