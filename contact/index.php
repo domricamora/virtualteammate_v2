@@ -134,6 +134,11 @@ include __DIR__ . '/../includes/nav.php';
 .ct-hc-foot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
   font-size:12.5px;color:rgba(255,255,255,.62);display:flex;align-items:center;gap:9px;line-height:1.4;}
 .ct-hc-foot i{color:var(--gold,#dfa949);}
+@media (max-width:480px){
+  .ct-hero-card{padding:24px 20px;}
+  .ct-hc-ico{flex:0 0 40px;width:40px;height:40px;}
+  .ct-hc-list .v{font-size:14px;}
+}
 </style>
 
 <main>
