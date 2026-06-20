@@ -465,7 +465,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
     </div>
     <div class="hipaa-row">
     <div class="hipaa-main">
-      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
+      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-vt-version.webp" alt="HIPAA Compliant" width="800" height="800" loading="lazy">
       <div class="hipaa-cta">
         <a href="#cta-practice-audit" class="btn-gold" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
         <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
@@ -642,7 +642,7 @@ function vtnew_homepage_profiles(int $limit = 6): array
      safeguard is, and what it actually means for the practice. -->
 <section class="sec comp-section" id="security" aria-labelledby="comp-h">
   <div style="text-align:center;max-width:680px;margin:0 auto;" class="reveal">
-    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy" style="margin:0 auto 20px;">
+    <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-vt-version.webp" alt="HIPAA Compliant" width="800" height="800" loading="lazy" style="margin:0 auto 20px;">
     <div class="sec-lbl"><i class="fa-solid fa-lock"></i> Security &amp; Compliance</div>
     <h2 class="sec-h2">Patient data, <em>protected by design</em></h2>
     <p class="sec-sub" style="margin:0 auto;">Compliance here isn&rsquo;t a checkbox: here&rsquo;s what each safeguard is, and what it actually means for your practice, in plain English.</p>

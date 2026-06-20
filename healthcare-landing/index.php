@@ -287,7 +287,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- SOLUTION GRID — WHAT THEY HANDLE -->
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
-      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy" style="margin:0 auto 20px;">
+      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-vt-version.webp" alt="HIPAA Compliant" width="800" height="800" loading="lazy" style="margin:0 auto 20px;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One teammate. <em>The whole back office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-compliant, EHR-trained, and matched to your time zone: your Virtual Teammate owns the repeatable work so your clinical team can focus on patients.</p>

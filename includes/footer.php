@@ -24,7 +24,7 @@ $hide_footer = $hide_footer ?? false;
         <img src="<?= $home_base ?>images/logo.webp" alt="Virtual Teammate" width="180" height="60" loading="lazy"/>
       </div>
       <p class="ft-about">HIPAA-compliant virtual assistants for medical and dental practices: vetted, trained on your systems, matched to your US time zone.</p>
-      <img class="hipaa-seal hipaa-seal--footer" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy">
+      <img class="hipaa-seal hipaa-seal--footer" src="<?= $home_base ?>images/hipaa-vt-version.webp" alt="HIPAA Compliant" width="800" height="800" loading="lazy">
       <address class="ft-contact" style="font-style:normal;">
         <i class="fa-solid fa-location-dot" aria-hidden="true"></i> 2425 East Camelback Road, Suite 400, Phoenix, AZ 85016<br>
         <i class="fa-solid fa-phone" aria-hidden="true"></i> <a href="tel:+14808472498">(480) 847-2498</a><br>

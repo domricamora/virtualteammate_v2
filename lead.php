@@ -224,6 +224,70 @@ function lead_email_html(array $lead): string
         . '</table></body></html>';
 }
 
+/**
+ * Push the lead to HubSpot as a contact (upsert by email) using the portal's
+ * private-app token (app_settings.hs_token). Called AFTER the JSON response so it
+ * never delays the form. Best-effort: every failure is swallowed. Skipped on
+ * localhost and when no token is configured. Dedupes by email on HubSpot's side.
+ */
+function lead_push_hubspot(PDO $pdo, array $lead): void
+{
+    try {
+        if (!function_exists('curl_init')) { return; }
+        $host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+        if ($host === '' || str_contains($host, 'localhost') || str_starts_with($host, '127.0.0.1')) { return; }
+
+        $token = '';
+        try {
+            $st = $pdo->query("SELECT value FROM app_settings WHERE key = 'hs_token'");
+            $token = trim((string) ($st ? $st->fetchColumn() : ''));
+        } catch (Throwable $_) {}
+        if ($token === '') { return; }
+
+        $email = trim((string) ($lead['email'] ?? ''));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { return; }
+
+        // Only standard contact properties (present in every HubSpot portal) so an
+        // unknown-property error can never reject the whole upsert.
+        $props = ['email' => $email, 'lifecyclestage' => 'lead'];
+        foreach (['firstname' => 'first', 'lastname' => 'last', 'phone' => 'phone', 'company' => 'company'] as $hsKey => $leadKey) {
+            $v = trim((string) ($lead[$leadKey] ?? ''));
+            if ($v !== '') { $props[$hsKey] = $v; }
+        }
+        $body = json_encode(['properties' => $props]);
+
+        // Upsert: update by email; if the contact doesn't exist (404), create it.
+        $status = lead_hubspot_call('PATCH',
+            'https://api.hubapi.com/crm/v3/objects/contacts/' . rawurlencode($email) . '?idProperty=email',
+            $token, $body);
+        if ($status === 404) {
+            lead_hubspot_call('POST', 'https://api.hubapi.com/crm/v3/objects/contacts', $token, $body);
+        }
+    } catch (Throwable $_) {}
+}
+
+/** Minimal HubSpot API call. Returns the HTTP status (0 on transport error). */
+function lead_hubspot_call(string $method, string $url, string $token, string $body): int
+{
+    $ch = curl_init($url);
+    $opts = [
+        CURLOPT_CUSTOMREQUEST  => $method,
+        CURLOPT_POSTFIELDS     => $body,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 8,
+        CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $token, 'Content-Type: application/json'],
+    ];
+    // Ship-with-the-app CA bundle so SSL verification works on hosts whose default
+    // bundle is missing/stale (the portal already relies on this file).
+    $ca = __DIR__ . '/portal/cacert.pem';
+    if (is_file($ca)) { $opts[CURLOPT_CAINFO] = $ca; }
+    curl_setopt_array($ch, $opts);
+    curl_exec($ch);
+    $status = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return $status;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { lead_fail('Method not allowed.', 405); }
 
 // Honeypot — bots fill this hidden field; pretend success so they don't retry.
@@ -320,16 +384,19 @@ echo json_encode(['ok' => true]);
 $leadForMail = [
     'name' => $name, 'email' => $email, 'phone' => $phone, 'company' => $company,
     'source' => $source, 'form' => $form, 'message' => $message,
+    'first' => $first, 'last' => $last,
     'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
 ];
 if (function_exists('fastcgi_finish_request')) {
-    fastcgi_finish_request();          // client gets the response now; mail in bg
+    fastcgi_finish_request();          // client gets the response now; rest in bg
     lead_notify_team($pdo, $leadForMail);
+    lead_push_hubspot($pdo, $leadForMail);
 } else {
-    // No FPM: body is sent at script end. Capture+discard any stray mailer
-    // output so it can never append to (corrupt) the JSON response.
+    // No FPM: body is sent at script end. Capture+discard any stray output so it
+    // can never append to (corrupt) the JSON response.
     ob_start();
     lead_notify_team($pdo, $leadForMail);
+    lead_push_hubspot($pdo, $leadForMail);
     ob_end_clean();
 }
 exit;
