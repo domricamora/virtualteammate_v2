@@ -52,9 +52,11 @@ include 'includes/nav.php';
     <path class="hg-line" d="<?= $hgLineD ?>" fill="none" stroke="url(#hgLine)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
     <circle class="hg-dot" cx="<?= $hgEnd[0] ?>" cy="<?= $hgEnd[1] ?>" r="6" fill="#f5e4b8"/>
   </svg>
-  <div class="hero-inner">
+  <div class="hero-head">
     <div class="hero-eyebrow reveal"><span class="dot"></span> 30-Day Right-Fit Promise &middot; HIPAA-Compliant</div>
     <h1 class="hero-h1 reveal d1">Short-staffed and overworked?<br><span class="hero-h1-sub">Fully staff your practice <em>in weeks</em>, not months, for <em>73% less</em>.</span></h1>
+  </div>
+  <div class="hero-inner">
     <ul class="hero-sub hero-sub-list hero-sub-cols reveal d2">
       <li>HIPAA-compliant medical &amp; dental virtual assistants trained on Epic, Athena, Dentrix and Open Dental.</li>
       <li>We own billing, scribing, scheduling and prior auth.</li>

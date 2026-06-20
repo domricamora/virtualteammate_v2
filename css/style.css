@@ -190,6 +190,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .orb3{width:320px;height:320px;background:rgba(120,104,196,0.30);top:100px;left:35%;animation:orbPulse 18s ease-in-out infinite;}
 
 .hero-inner{position:relative;z-index:3;max-width:none;}
+/* Header band spans the full hero width (across both grid columns) so the
+   headline + subheadline get the whole section width and stay on one line on
+   desktop. Drops back into the normal flow (wrapping) at ≤1280px. */
+.hero-head{position:relative;z-index:3;grid-column:1 / -1;max-width:none;}
 
 /* Subtle, premium animated rising graph — now the hero's main backdrop. */
 .hero-graph{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;
@@ -222,9 +226,13 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   max-width:none;
   text-wrap:balance;
   overflow-wrap:break-word;
+  /* Desktop: keep the hook + subhook each on a single full-width line. The
+     ≤1280px breakpoint restores normal wrapping (and hides the <br>) so it
+     never overflows on tablet/phone. */
+  white-space:nowrap;
 }
 /* Second line scaled down — the hook ("Short-Staffed and Overworked?") stays large. */
-.hero-h1 .hero-h1-sub{font-size:clamp(17px, 3.2vw, 38px);line-height:1.2;display:inline-block;margin-top:10px;}
+.hero-h1 .hero-h1-sub{font-size:clamp(17px, 2.7vw, 34px);line-height:1.2;display:inline-block;margin-top:10px;}
 .hero-h1 em{
   color:transparent;
   background:linear-gradient(120deg, #dfa949 0%, #f5e4b8 40%, #dfa949 60%, #f5e4b8 100%);
@@ -241,10 +249,10 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   overflow-wrap:break-word;
 }
 .hero-sub strong{color:#fff;font-weight:700;}
-/* Long pitch paragraph split into two columns to declutter the hero. */
+/* Hero pitch as a single-column bullet list — full width so each point stays on
+   one line instead of wrapping inside a cramped column. */
 .hero-sub-cols{
-  column-count:2;column-gap:38px;
-  column-rule:1px solid rgba(255,255,255,0.10);
+  column-count:1;
 }
 /* Hero pitch as a bulleted list — gold dots, kept whole within each column. */
 .hero-sub-list{list-style:none;padding:0;}
@@ -505,7 +513,7 @@ a.gr-link:hover{color:var(--gold-lt,#f5e4b8);}
    size that scales with the viewport so it shrinks to fit narrow phones rather
    than wrapping, and caps at the 50px design size on desktop (zoom ladder scales
    it further on ultra-wide). Id-scoped so it overrides the .sec-h2 breakpoints. */
-#calc-h{font-size:clamp(28px,4vw,46px);}
+#calc-h{font-size:clamp(28px,4vw,46px);white-space:nowrap;}
 .sec-sub{font-size:18px;color:rgba(255,255,255,0.65);line-height:1.65;max-width:100%;font-weight:400;text-align:center;}
 /* Section headers center by default. Split / two-column layouts (guarantee strip,
    global map, lead bands, talent hero & match card) keep their copy left-aligned. */
@@ -2388,7 +2396,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .nav-mega-foot{display:none;}
 
   .hero{padding:80px 32px 60px;grid-template-columns:1fr;gap:44px;min-height:auto;align-items:start;}
-  .hero-h1{max-width:none;}
+  .hero-h1{max-width:none;white-space:normal;}
   .hero-sub{max-width:none;}
   .hero-sub-cols{column-gap:32px;}
   .hero-stats{max-width:620px;}
@@ -2403,7 +2411,9 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .orb3{width:240px;height:240px;}
 
   .sec{padding:64px 32px;}
-  .sec-h2{font-size:40px;}
+  /* Let centered section titles wrap below desktop so long ones don't get
+     clipped by body{overflow-x:hidden}. #calc-h stays nowrap (clamp shrinks it). */
+  .sec-h2{font-size:40px;white-space:normal;}
   .sec-sub{font-size:16px;}
 
   .calc-wrap{padding:70px 32px 40px;}
