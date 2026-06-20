@@ -254,6 +254,15 @@ function lead_push_hubspot(PDO $pdo, array $lead): void
             $v = trim((string) ($lead[$leadKey] ?? ''));
             if ($v !== '') { $props[$hsKey] = $v; }
         }
+        // Funnel segmentation (custom properties in the vt_funnel group). lead_intent
+        // is an enumeration — only send a recognised value so HubSpot never 400s.
+        $intent = strtolower(trim((string) ($lead['intent'] ?? '')));
+        $intent = ['jumpstart' => 'strategy-call', 'book' => 'contact'][$intent] ?? $intent;
+        if (in_array($intent, ['buyers-checklist', 'practice-audit', 'strategy-call', 'contact', 'careers', 'vt-request', 'roi'], true)) {
+            $props['lead_intent'] = $intent;
+        }
+        $srcForm = trim((string) ($lead['form'] ?? ''));
+        if ($srcForm !== '') { $props['lead_source_form'] = mb_substr($srcForm, 0, 100); }
         $body = json_encode(['properties' => $props]);
 
         // Upsert: update by email; if the contact doesn't exist (404), create it.
@@ -320,6 +329,7 @@ $company = $pick($fields, ['company', 'practice', 'clinic', 'organization', 'rol
 $message = $pick($fields, ['message', 'notes', 'comments']);
 $source  = $pick($fields, ['source']) ?: 'website';
 $form    = $pick($fields, ['form']) ?: $source;
+$intent  = $pick($fields, ['intent']);
 $vtId    = (int) ($fields['vt_id'] ?? 0);
 $vtName  = $pick($fields, ['vt_interest']);
 
@@ -383,7 +393,7 @@ echo json_encode(['ok' => true]);
 
 $leadForMail = [
     'name' => $name, 'email' => $email, 'phone' => $phone, 'company' => $company,
-    'source' => $source, 'form' => $form, 'message' => $message,
+    'source' => $source, 'form' => $form, 'message' => $message, 'intent' => $intent,
     'first' => $first, 'last' => $last,
     'ip' => $_SERVER['REMOTE_ADDR'] ?? '',
 ];
