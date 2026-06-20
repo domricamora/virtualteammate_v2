@@ -344,6 +344,9 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 
 .hero-stats{
   align-self:center;
+  /* Nudge the stats card up so it sits higher than the centered pitch column.
+     Reset to 0 at ≤1280px where it stacks below the pitch. */
+  margin-top:-300px;
   display:grid;grid-template-columns:repeat(2,1fr);
   background:rgba(255,255,255,0.07);
   backdrop-filter:var(--glass-blur);
@@ -2402,7 +2405,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .hero-h1{max-width:none;white-space:normal;}
   .hero-sub{max-width:none;}
   .hero-sub-cols{column-gap:32px;}
-  .hero-stats{max-width:620px;}
+  .hero-stats{max-width:620px;margin-top:0;}
   .hero-visual{height:480px;max-width:600px;margin:0 auto;}
   .hv-main{width:380px;height:440px;right:30px;}
   .hv-side{width:200px;height:240px;}
