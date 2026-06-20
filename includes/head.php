@@ -1,4 +1,7 @@
 <?php
+// Force HTTPS (super-admin toggleable; see includes/force-ssl.php). Runs first,
+// before any output, so it can 301 http→https cleanly.
+require __DIR__ . '/force-ssl.php';
 // HTML pages must never be cached by browsers or intermediaries — otherwise
 // content edits stay invisible until a hard refresh. The .htaccess sets
 // `text/html access plus 0 seconds` via mod_expires, but not every host has
@@ -104,13 +107,11 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
 <link rel="apple-touch-icon" sizes="180x180" href="<?= $home_base ?>images/apple-touch-icon.png"/>
 <meta name="msapplication-TileImage" content="<?= $site_url ?>/images/favicon-192x192.png"/>
 <link rel="preload" as="image" href="<?= $home_base ?>images/vt-logo.webp" fetchpriority="high"/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-<!-- Font Awesome loaded async so it doesn't block first paint; icons swap in on load. -->
-<link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" onload="this.onload=null;this.rel='stylesheet'"/>
-<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer"/></noscript>
+<!-- Self-hosted fonts + icons — no external font/CDN requests. Preload the above-
+     the-fold woff2s (text + solid icons); @font-face uses font-display:swap. -->
+<link rel="preload" as="font" type="font/woff2" href="<?= $home_base ?>fonts/manrope-latin.woff2" crossorigin/>
+<link rel="preload" as="font" type="font/woff2" href="<?= $home_base ?>webfonts/fa-solid-900.woff2" crossorigin/>
+<link rel="stylesheet" href="<?= $home_base ?>css/fontawesome.min.css?v=<?= vt_asset_ver(__DIR__ . '/../css/fontawesome.min.css') ?>"/>
 <link rel="stylesheet" href="<?= $home_base ?>css/style.css?v=<?= vt_asset_ver(__DIR__ . '/../css/style.css') ?>"/>
 
 <?php if ($is_homepage): ?>
@@ -137,6 +138,17 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       "email": "clientsuccess@virtualteammate.com",
       "priceRange": "$$",
       "description": "HIPAA-compliant medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.",
+      "slogan": "HIPAA-compliant medical & dental virtual assistants, matched to your US time zone.",
+      "founder": { "@type": "Person", "name": "Chris McShanag", "jobTitle": "Founder" },
+      "foundingLocation": { "@type": "Place", "name": "Phoenix, Arizona, USA" },
+      "knowsAbout": ["Medical virtual assistants","Dental virtual assistants","Medical billing","Revenue cycle management","Insurance verification","Prior authorization","Medical scribing","HIPAA compliance","Dental front office","Patient scheduling"],
+      "sameAs": [
+        "https://www.linkedin.com/company/virtualteammate",
+        "https://www.facebook.com/p/Virtual-Teammate-61560282482628/",
+        "https://www.instagram.com/virtual_teammate/",
+        "https://www.youtube.com/@virtualteammate",
+        "https://share.google/yAZIjlQlSLbydqWYJ"
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "2425 East Camelback Road, Suite 400",
@@ -145,7 +157,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
         "postalCode": "85016",
         "addressCountry": "US"
       },
-      "areaServed": ["US","CA","GB","AU"],
+      "areaServed": ["US","CA","GB","AE"],
       "medicalSpecialty": ["PrimaryCare","Dentistry","Surgical","Geriatric","Cardiovascular"],
       "aggregateRating": { "@type":"AggregateRating", "ratingValue":"4.9", "reviewCount":"200" },
       "review": [
@@ -179,7 +191,7 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
       "@type": "Service",
       "serviceType": "Medical Virtual Assistant Staffing",
       "provider": { "@id": "<?= $site_url ?>/#org" },
-      "areaServed": ["US","CA","GB","AU"],
+      "areaServed": ["US","CA","GB","AE"],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Healthcare Virtual Assistant Services",
@@ -239,6 +251,17 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
   'telephone'   => '+1-480-847-2498',
   'email'       => 'clientsuccess@virtualteammate.com',
   'description' => 'HIPAA-compliant medical and dental virtual assistant staffing: sourced from a global talent network, delivered in your time zone.',
+  'slogan'      => 'HIPAA-compliant medical & dental virtual assistants, matched to your US time zone.',
+  'founder'     => ['@type' => 'Person', 'name' => 'Chris McShanag', 'jobTitle' => 'Founder'],
+  'foundingLocation' => ['@type' => 'Place', 'name' => 'Phoenix, Arizona, USA'],
+  'knowsAbout'  => ['Medical virtual assistants','Dental virtual assistants','Medical billing','Revenue cycle management','Insurance verification','Prior authorization','Medical scribing','HIPAA compliance','Dental front office','Patient scheduling'],
+  'sameAs'      => [
+    'https://www.linkedin.com/company/virtualteammate',
+    'https://www.facebook.com/p/Virtual-Teammate-61560282482628/',
+    'https://www.instagram.com/virtual_teammate/',
+    'https://www.youtube.com/@virtualteammate',
+    'https://share.google/yAZIjlQlSLbydqWYJ',
+  ],
   'address'     => [
     '@type'           => 'PostalAddress',
     'streetAddress'   => '2425 East Camelback Road, Suite 400',
@@ -246,6 +269,37 @@ $h = function ($v) { return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'U
     'addressRegion'   => 'AZ',
     'postalCode'      => '85016',
     'addressCountry'  => 'US',
+  ],
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
+</script>
+<?php endif; ?>
+
+<?php
+/* Per-service Service schema — auto-built on the service pages (which all set
+   $svc_slug). Name comes from the last breadcrumb; billing/coding roles are the
+   $1,000 specialist tier, every other role is the $750 base tier. */
+if (!empty($svc_slug)):
+  $vt_svc_name  = (!empty($breadcrumbs) && is_array($breadcrumbs))
+      ? $breadcrumbs[array_key_last($breadcrumbs)]['name']
+      : 'Virtual Assistant';
+  $vt_svc_price = (strpos((string) $svc_slug, 'biller') !== false) ? '1000' : '750';
+?>
+<script type="application/ld+json">
+<?= json_encode([
+  '@context'    => 'https://schema.org',
+  '@type'       => 'Service',
+  'name'        => $vt_svc_name . ' Virtual Assistant',
+  'serviceType' => $vt_svc_name . ' Virtual Assistant Staffing',
+  'description' => $page_description,
+  'url'         => $canonical,
+  'provider'    => ['@id' => $site_url . '/#org'],
+  'areaServed'  => ['US', 'CA', 'GB', 'AE'],
+  'offers'      => [
+    '@type'         => 'Offer',
+    'priceCurrency' => 'USD',
+    'price'         => $vt_svc_price,
+    'description'   => 'Flat-rate, all-in: from $' . $vt_svc_price . ' bi-weekly full-time. No benefits, payroll tax, recruiter fees or PTO.',
+    'availability'  => 'https://schema.org/InStock',
   ],
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) ?>
 </script>

@@ -318,20 +318,7 @@ include __DIR__ . '/../includes/nav.php';
 })();
 </script>
 
-<!-- HubSpot Meetings embed loader — powers the scheduler inside the booking modals.
-     A resize nudge on open makes the iframe size correctly after the modal shows. -->
-<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-<script>
-window.addEventListener('hashchange', function () {
-  var h = location.hash;
-  if (!h || h.length < 2) { return; }
-  try {
-    var m = document.querySelector(h);
-    if (m && m.querySelector('.meetings-iframe-container')) {
-      setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 80);
-    }
-  } catch (e) {}
-});
-</script>
+<!-- HubSpot Meetings embed — lazy-loaded (no external request until needed). -->
+<?php include __DIR__ . '/../includes/hubspot-loader.php'; ?>
 <?php $hide_lead_band = true; /* page has its own entry-point CTA forms above */ ?>
 <?php include __DIR__ . '/../includes/footer.php'; ?>

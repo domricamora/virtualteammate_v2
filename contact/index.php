@@ -53,7 +53,7 @@ include __DIR__ . '/../includes/nav.php';
           "telephone":"+1-480-847-2498",
           "contactType":"customer service",
           "email":"clientsuccess@virtualteammate.com",
-          "areaServed":["US","CA","GB","AU"],
+          "areaServed":["US","CA","GB","AE"],
           "availableLanguage":["English"]
         },
         {
@@ -61,10 +61,10 @@ include __DIR__ . '/../includes/nav.php';
           "telephone":"+1-480-847-2498",
           "contactType":"sales",
           "email":"clientsuccess@virtualteammate.com",
-          "areaServed":["US","CA","GB","AU"]
+          "areaServed":["US","CA","GB","AE"]
         }
       ],
-      "areaServed":["US","CA","GB","AU"],
+      "areaServed":["US","CA","GB","AE"],
       "openingHoursSpecification":{
         "@type":"OpeningHoursSpecification",
         "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],

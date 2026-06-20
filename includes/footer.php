@@ -103,5 +103,8 @@ $hide_footer = $hide_footer ?? false;
   else { window.addEventListener('load', vtTrack); }
 })();
 </script>
+<?php /* Third-party tracking — production only (skip localhost/staging via $__vt_nonprod set in head.php). */ ?>
+<?php if (empty($__vt_nonprod)) { include __DIR__ . '/hubspot-chat.php'; } ?>
+<?php if (empty($__vt_nonprod)) { include __DIR__ . '/leaddyno.php'; } ?>
 </body>
 </html>

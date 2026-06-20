@@ -19,6 +19,10 @@ $vtIsLocalHost = PHP_SAPI === 'cli'
 ini_set('display_errors', $vtIsLocalHost ? '1' : '0');
 ini_set('log_errors', '1');
 
+// Force HTTPS (super-admin toggleable; shares data/force_ssl.off with the
+// marketing site). No-ops on CLI and already-secure requests.
+require __DIR__ . '/../includes/force-ssl.php';
+
 if (PHP_SAPI !== 'cli') {
     ini_set('session.use_strict_mode',  '1');
     ini_set('session.cookie_httponly',  '1');

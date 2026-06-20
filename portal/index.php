@@ -61,6 +61,9 @@ switch ($action) {
     case 'cache.toggle':    handle_cache_toggle();       break;
     case 'cache.flush':     handle_cache_flush();        break;
 
+    /* ───────────────────────── Force HTTPS (super admin) ─────────────────────────── */
+    case 'ssl.toggle':      handle_ssl_toggle();         break;
+
     /* ───────────────────────── HubSpot sync (super admin) ─────────────────────────── */
     case 'hubspot':                handle_hubspot_page();            break;
     case 'hubspot.save_settings':  handle_hubspot_save_settings();   break;
@@ -212,7 +215,7 @@ function handle_dashboard(): void
 {
     $u = require_login();
     switch ($u['role']) {
-        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats(), 'traffic' => dashboard_traffic_summary(), 'trend' => dashboard_trend_series(14), 'cache' => cache_state()]); break;
+        case 'super_admin': render('dashboard-super', ['user' => $u, 'stats' => dashboard_super_stats(), 'traffic' => dashboard_traffic_summary(), 'trend' => dashboard_trend_series(14), 'cache' => cache_state(), 'ssl' => ssl_state()]); break;
         case 'client':      render('dashboard-client', ['user' => $u, 'data' => dashboard_client_data($u)]); break;
         case 'csm':         render('dashboard-csm', ['user' => $u, 'data' => dashboard_csm_data($u)]); break;
         case 'vt_hired':
@@ -1850,6 +1853,53 @@ function handle_cache_flush(): void
         flash('error', 'Could not write data/cache-state.php (check permissions). Cache was not flushed.');
     } else {
         flash('success', 'Cache flushed — visitors will pull fresh CSS/JS on their next page load.');
+    }
+    redirect(portal_url('dashboard'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * FORCE HTTPS (super admin only)
+ * Toggles a site-wide http→https 301. State lives in app_settings.force_ssl
+ * (default '0' = off, the safe default) and is mirrored to data/force_ssl.on,
+ * which both the marketing site (includes/head.php) and the portal
+ * (bootstrap.php) read via includes/force-ssl.php. ON = on-flag present.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+/** Current force-HTTPS state for the dashboard view. */
+function ssl_state(): array
+{
+    return ['enabled' => get_setting('force_ssl', '0') === '1'];
+}
+
+/** Mirror the setting to data/force_ssl.on so the public site honors it. */
+function ssl_state_sync(): bool
+{
+    $onFile = __DIR__ . '/../data/force_ssl.on';
+    if (ssl_state()['enabled']) {
+        // ON = create the on-flag so head.php / bootstrap.php force the redirect.
+        $dir = dirname($onFile);
+        if (!is_dir($dir)) { @mkdir($dir, 0775, true); }
+        return @file_put_contents($onFile, "Force-HTTPS enabled via the portal toggle.\n", LOCK_EX) !== false;
+    }
+    // OFF = remove the on-flag (the default state).
+    return is_file($onFile) ? @unlink($onFile) : true;
+}
+
+function handle_ssl_toggle(): void
+{
+    require_role('super_admin');
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('dashboard')); }
+    csrf_verify();
+    $enabled = (($_POST['enabled'] ?? '') === '1');
+    set_setting('force_ssl', $enabled ? '1' : '0');
+    $ok = ssl_state_sync();
+    audit_log('ssl_toggle', 'ssl', 0, 'enabled=' . ($enabled ? '1' : '0'));
+    if (!$ok) {
+        flash('error', 'Saved the setting, but could not update data/force_ssl.off (check data/ permissions).');
+    } else {
+        flash('success', $enabled
+            ? 'Force HTTPS enabled — http:// requests now 301-redirect to https://.'
+            : 'Force HTTPS disabled — requests are served on whatever scheme they arrive on.');
     }
     redirect(portal_url('dashboard'));
 }

@@ -125,7 +125,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-stat"><div class="svc-stat-num">2,000+</div><div class="svc-stat-lbl">Virtual Teammates Placed</div></div>
   <div class="svc-stat"><div class="svc-stat-num">600+</div><div class="svc-stat-lbl">Practices &amp; Businesses Served</div></div>
   <div class="svc-stat"><div class="svc-stat-num">30+</div><div class="svc-stat-lbl">Years Operational Leadership</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">4</div><div class="svc-stat-lbl">Countries Served (US/CA/GB/AU)</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">4</div><div class="svc-stat-lbl">Countries Served (US / CA / GB / AE)</div></div>
 </div>
 
 <!-- FOUNDER -->

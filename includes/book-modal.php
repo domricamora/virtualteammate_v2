@@ -26,12 +26,5 @@ define('VT_BOOK_MODAL_RENDERED', true);
     </div>
   </div>
 </div>
-<!-- HubSpot Meetings embed loader — a resize nudge on open sizes the iframe correctly. -->
-<script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-<script>
-window.addEventListener('hashchange', function () {
-  if (location.hash === '#cta-book') {
-    setTimeout(function () { window.dispatchEvent(new Event('resize')); }, 80);
-  }
-});
-</script>
+<!-- HubSpot Meetings embed — lazy-loaded (no external request until needed). -->
+<?php include __DIR__ . '/hubspot-loader.php'; ?>

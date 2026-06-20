@@ -1,9 +1,10 @@
-<?php /** @var array $user @var array $stats @var array $traffic @var array $trend @var array $cache */
+<?php /** @var array $user @var array $stats @var array $traffic @var array $trend @var array $cache @var array $ssl */
 $pageTitle = 'Super Admin Dashboard';
 $subtitle  = 'Operational overview of the VT portal.';
 $traffic   = $traffic ?? ['recent' => [], 'top_countries' => [], 'top_pages' => []];
 $trend     = $trend ?? ['labels' => [], 'leads' => [], 'traffic' => []];
 $cache     = $cache ?? ['enabled' => true, 'version' => ''];
+$ssl       = $ssl ?? ['enabled' => false];
 ?>
 
 <div class="stat-grid">
@@ -291,5 +292,37 @@ $cache     = $cache ?? ['enabled' => true, 'version' => ''];
       <?= csrf_field() ?>
       <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-broom"></i> Flush cache</button>
     </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-h">
+    <h3><i class="fa-solid fa-lock" style="color:var(--gold);margin-right:8px;"></i> Force HTTPS</h3>
+    <span class="pill <?= $ssl['enabled'] ? 'pill-active' : 'pill-paused' ?>">
+      <?= $ssl['enabled'] ? 'HTTPS forced' : 'Not forced' ?>
+    </span>
+  </div>
+  <p class="muted small" style="margin:0 0 16px;">
+    Redirects every <code>http://</code> request to <code>https://</code> across the marketing site and portal (301).
+    <strong>On</strong> — secure by default. <strong>Off</strong> — pages load on whatever scheme they arrive on.
+    Localhost and already-secure requests are never redirected.
+    <br><span class="muted">Off by default. Only turn it on once a valid SSL certificate is active on the domain, or pages will fail to load. If you ever get locked out, delete <code>data/force_ssl.on</code> on the server (via FTP) to turn it back off.</span>
+  </p>
+  <div class="actions-row">
+    <?php if ($ssl['enabled']): ?>
+      <form method="post" action="<?= e(portal_url('ssl.toggle')) ?>" style="display:inline;"
+            onsubmit="return confirm('Disable Force HTTPS? Pages will load on http or https as requested.');">
+        <?= csrf_field() ?>
+        <input type="hidden" name="enabled" value="0">
+        <button type="submit" class="btn-portal-secondary"><i class="fa-solid fa-toggle-off"></i> Disable Force HTTPS</button>
+      </form>
+    <?php else: ?>
+      <form method="post" action="<?= e(portal_url('ssl.toggle')) ?>" style="display:inline;"
+            onsubmit="return confirm('Enable Force HTTPS? Make sure a valid SSL certificate is active first.');">
+        <?= csrf_field() ?>
+        <input type="hidden" name="enabled" value="1">
+        <button type="submit" class="btn-portal-primary"><i class="fa-solid fa-toggle-on"></i> Enable Force HTTPS</button>
+      </form>
+    <?php endif; ?>
   </div>
 </div>
