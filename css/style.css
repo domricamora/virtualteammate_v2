@@ -529,6 +529,13 @@ a.gr-link:hover{color:var(--gold-lt,#f5e4b8);}
 .sec{padding:78px 80px;position:relative;}
 .sec-lbl{font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:12px;text-align:center;}
 .sec-lbl i{margin-right:6px;}
+/* Eyebrow follows its heading. Pages built on .svc-h2 (left by default, centered
+   only via a text-align:center wrapper) and hero eyebrows above an <h1> inherit
+   the wrapper's alignment instead of the global centered default, so the eyebrow
+   always lines up with the heading directly below it — center stays center, left
+   stays left. (.sec-h2 sections keep the centered default; handled by rules above.) */
+.sec-lbl:has(+ h1),
+.sec-lbl:has(+ .svc-h2){text-align:inherit;}
 .sec-h2{font-size:50px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:16px;letter-spacing:-0.02em;text-wrap:balance;overflow-wrap:break-word;text-align:center;}
 .sec-h2 em{color:var(--gold);font-style:normal;font-weight:800;}
 /* ROI calculator headline must stay on ONE line at every width: nowrap + a fluid
@@ -1146,16 +1153,24 @@ a.pill i{font-size:9px;color:var(--gold);}
 .roi-lbl{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.55;font-weight:500;}
 
 /* ───── PROCESS ───── */
-.proc-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;}
+.proc-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:60px;position:relative;}
 .pstep{
-  background:var(--glass-bg);
+  position:relative;
+  background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.035));
   backdrop-filter:var(--glass-blur-sm);
   border:1px solid var(--glass-border);
-  border-radius:18px;padding:36px;
+  border-radius:20px;padding:36px;
   display:flex;flex-direction:column;
-  transition:transform .3s ease, border-color .3s ease;
+  transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
 }
-.pstep:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.4);}
+.pstep:hover{transform:translateY(-5px);border-color:rgba(223,169,73,0.5);
+  background:linear-gradient(160deg,rgba(223,169,73,0.10),rgba(255,255,255,0.04));
+  box-shadow:0 22px 55px -26px rgba(223,169,73,0.45);}
+/* Gold connector bridging the gap between steps at the number-badge row (desktop). */
+@media (min-width:981px){
+  .pstep:not(:last-child)::after{content:"";position:absolute;top:59px;right:-28px;width:28px;height:2px;
+    background:linear-gradient(90deg,rgba(223,169,73,0.55),rgba(223,169,73,0));}
+}
 .pstep-head{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
 .pstep-num{
   width:46px;height:46px;
@@ -2206,17 +2221,21 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 /* Quick stat bar under hero */
 .svc-stats{
   display:grid;grid-template-columns:repeat(4,1fr);
-  background:rgba(255,255,255,0.06);
+  background:linear-gradient(180deg,rgba(255,255,255,0.075),rgba(255,255,255,0.04));
   backdrop-filter:var(--glass-blur);
   border:1px solid var(--glass-border);
-  border-radius:16px;
+  border-radius:18px;
   margin:0 80px;
   overflow:hidden;
 }
-.svc-stat{padding:24px 22px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);}
+.svc-stat{padding:28px 22px;text-align:center;border-right:1px solid rgba(255,255,255,0.08);position:relative;transition:background .25s ease;}
+.svc-stat::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:0;height:3px;
+  background:var(--gold);border-radius:0 0 3px 3px;transition:width .3s ease;}
+.svc-stat:hover{background:rgba(223,169,73,0.06);}
+.svc-stat:hover::before{width:44px;}
 .svc-stat:last-child{border-right:none;}
-.svc-stat-num{font-size:38px;font-weight:800;color:var(--gold);line-height:1;}
-.svc-stat-lbl{font-size:12px;color:rgba(255,255,255,0.62);margin-top:8px;text-transform:uppercase;letter-spacing:.8px;font-weight:700;}
+.svc-stat-num{font-size:40px;font-weight:800;color:var(--gold);line-height:1;letter-spacing:-0.02em;}
+.svc-stat-lbl{font-size:12px;color:rgba(255,255,255,0.62);margin-top:10px;text-transform:uppercase;letter-spacing:.8px;font-weight:700;}
 
 /* Two-column "What does this VA do" + benefits */
 .svc-split{
@@ -2279,14 +2298,16 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   box-shadow:0 8px 22px rgba(0,0,0,0.35);background:#1a1535;
 }
 .svc-ben{
-  background:rgba(255,255,255,0.05);
+  background:linear-gradient(160deg,rgba(255,255,255,0.06),rgba(255,255,255,0.035));
   backdrop-filter:var(--glass-blur-sm);
   border:1px solid var(--glass-border);
-  border-radius:18px;
+  border-radius:20px;
   padding:30px 26px;
-  transition:transform .3s ease, border-color .3s ease, background .3s ease;
+  transition:transform .28s ease, border-color .28s ease, box-shadow .28s ease, background .28s ease;
 }
-.svc-ben:hover{transform:translateY(-4px);border-color:rgba(223,169,73,0.45);background:rgba(255,255,255,0.07);}
+.svc-ben:hover{transform:translateY(-5px);border-color:rgba(223,169,73,0.5);
+  background:linear-gradient(160deg,rgba(223,169,73,0.10),rgba(255,255,255,0.04));
+  box-shadow:0 22px 55px -26px rgba(223,169,73,0.45);}
 .svc-ben .ico-circle{margin-bottom:18px;}
 .svc-ben h3{font-size:19px;font-weight:700;color:#fff;margin-bottom:10px;}
 .svc-ben p{font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.7);}
@@ -2310,7 +2331,9 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   border-radius:30px;
   padding:9px 16px;
   font-size:13.5px;font-weight:600;color:#fff;
+  transition:border-color .2s ease, background .2s ease, transform .2s ease;
 }
+.svc-tool-chip:hover{border-color:rgba(223,169,73,0.5);background:rgba(223,169,73,0.09);transform:translateY(-2px);}
 .svc-tool-chip i{color:var(--gold);font-size:13px;}
 
 /* Mini 3-step process inside service page */

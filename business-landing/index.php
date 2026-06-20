@@ -150,7 +150,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- WHAT THEY HANDLE -->
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
+      <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One teammate. <em>The whole back office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">Multi-stage vetted, trained on your tools, and matched to your time zone, your Virtual Teammate owns the repeatable work so you can focus on clients and growth.</p>
     </div>
@@ -169,7 +169,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- FAQ -->
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+      <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
       <h2 class="svc-h2">Questions business owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">

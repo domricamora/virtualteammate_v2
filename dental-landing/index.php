@@ -183,7 +183,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- PROOF BLOCK -->
   <section class="sec" id="proof" aria-labelledby="proof-h">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
+      <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
       <h2 class="svc-h2" id="proof-h">The numbers from our <em>dental clients</em></h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto;">No projections, no spin: real KPIs from recent dental placements.</p>
     </div>
@@ -268,7 +268,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- PAIN -->
   <section class="sec" id="pain">
     <div class="dq-pain reveal">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
+      <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
       <h2 class="svc-h2">Every hour on the phones is an hour <em>off the schedule</em></h2>
       <p class="svc-p">Insurance verification, recall, follow-up, claims and payments: front desk admin eats your team&rsquo;s time when they should be driving growth, not chasing paperwork.</p>
       <div class="dq-pain-grid">
@@ -286,7 +286,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- OFFER BLOCK -->
   <section class="sec" id="offer" aria-labelledby="offer-h">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
+      <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> The Offer</div>
       <h2 class="svc-h2" id="offer-h">What you get with a <em>Virtual Teammate</em></h2>
       <p class="sec-sub" style="max-width:760px;margin:0 auto;">HIPAA-compliant dental VAs take the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
@@ -314,7 +314,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- QUIZ -->
   <section class="sec" id="quiz">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
+      <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> Dental Practice Efficiency Quiz</div>
       <h2 class="svc-h2">Not sure where the hours are going? <em>Find out in 2 minutes.</em></h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto 8px;">Take the 2-minute efficiency quiz, see the weekly hours and production admin is costing you. Enter your email to get the full report.</p>
     </div>
@@ -364,7 +364,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- FAQ -->
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+      <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
       <h2 class="svc-h2">Questions practice owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">

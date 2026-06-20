@@ -178,7 +178,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- PROOF BLOCK -->
   <section class="sec" id="proof" aria-labelledby="proof-h">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
+      <div class="sec-lbl"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
       <h2 class="svc-h2" id="proof-h">Real numbers from our <em>latest clients</em></h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto;">No projections, no spin: results our virtual teammates delivered against the targets that matter most to a practice.</p>
     </div>
@@ -269,7 +269,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- PAIN -->
   <section class="sec" id="pain">
     <div class="hcq-pain reveal">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of Admin</div>
+      <div class="sec-lbl"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of Admin</div>
       <h2 class="svc-h2">Every hour on paperwork is an hour <em>away from patients</em></h2>
       <p class="svc-p">Scheduling, insurance verification, charting, callbacks, claims follow-up: the back office quietly eats the time you meant to spend on care and on growing the practice. It doesn&rsquo;t show up on a P&amp;L, but you feel it in late nights, slow follow-ups and stalled revenue.</p>
       <div class="hcq-pain-grid">
@@ -288,7 +288,7 @@ include __DIR__ . '/../includes/nav.php';
   <section class="svc-bens">
     <div class="reveal" style="text-align:center;">
       <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-vt-version.webp" alt="HIPAA Compliant" width="800" height="800" loading="lazy" style="margin:0 auto 20px;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
+      <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
       <h2 class="svc-h2">One teammate. <em>The whole back office.</em></h2>
       <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-compliant, EHR-trained, and matched to your time zone: your Virtual Teammate owns the repeatable work so your clinical team can focus on patients.</p>
     </div>
@@ -308,7 +308,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- OFFER BLOCK -->
   <section class="sec" id="offer" aria-labelledby="offer-h">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
+      <div class="sec-lbl"><i class="fa-solid fa-box-open"></i> The Offer</div>
       <h2 class="svc-h2" id="offer-h">What you get with a <em>Virtual Teammate</em></h2>
       <p class="sec-sub" style="max-width:760px;margin:0 auto;">HIPAA-compliant medical VAs take the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
@@ -335,7 +335,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- QUIZ -->
   <section class="sec" id="quiz">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-stethoscope"></i> Practice Efficiency Quiz</div>
+      <div class="sec-lbl"><i class="fa-solid fa-stethoscope"></i> Practice Efficiency Quiz</div>
       <h2 class="svc-h2">Not sure where to start? <em>See what admin is costing you</em> in 2 minutes.</h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto 8px;">Answer 6 quick questions and you&rsquo;ll see the hours you could reclaim each week, the weekly revenue your admin work is costing you, and a downloadable report. Takes about 2 minutes.</p>
     </div>
@@ -385,7 +385,7 @@ include __DIR__ . '/../includes/nav.php';
   <!-- FAQ -->
   <section class="sec" id="faq" style="padding-top:60px;">
     <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+      <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
       <h2 class="svc-h2">Questions practice owners <em>ask us first</em></h2>
     </div>
     <div class="faq-grid">

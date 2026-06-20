@@ -167,7 +167,7 @@ include __DIR__ . '/../includes/nav.php';
 
 <section class="sec" id="faq" style="padding-top:70px;">
   <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-circle-question"></i> FAQ</div>
+    <div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div>
     <h2 class="svc-h2">Business virtual assistant <em>questions</em></h2>
   </div>
   <div class="faq-grid">

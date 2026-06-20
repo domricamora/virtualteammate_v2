@@ -132,7 +132,7 @@ if ($vtc_filterable) {
 ?>
 <section class="sec vtd-directory vt-cards" aria-labelledby="vtc-h"<?php if ($vtc_filterable): ?> id="vtcDirectory" data-page="<?= (int) $vtc_page ?>" data-dept-skills="<?= $vtc_h(json_encode($vtc_deptSkills, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) ?>"<?php endif; ?>>
   <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-id-badge"></i> <?= $vtc_h($vtc_label) ?></div>
+    <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> <?= $vtc_h($vtc_label) ?></div>
     <h2 class="svc-h2" id="vtc-h"><?= $vtc_heading /* HTML allowed */ ?></h2>
     <p class="sec-sub" style="max-width:700px;margin:0 auto;"><?= $vtc_sub /* HTML allowed */ ?></p>
   </div>
