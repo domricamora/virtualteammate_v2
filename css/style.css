@@ -536,6 +536,15 @@ a.gr-link:hover{color:var(--gold-lt,#f5e4b8);}
 /* VT profiles header lives in a left text column beside a CTA: left-align the
    eyebrow, title and subheader; title uses the standard white + gold-em styling. */
 #profiles .sec-lbl, #profiles .sec-h2, #profiles .sec-sub{text-align:left;}
+/* VT profiles header: title left, CTA right on desktop; stacks + centers on mobile. */
+.prof-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;gap:24px;}
+.prof-head-cta{text-align:right;}
+.prof-head-cta .btn-primary{font-size:15px;padding:14px 28px;}
+@media (max-width:768px){
+  .prof-head{flex-direction:column;align-items:stretch;gap:16px;}
+  .prof-head-cta{text-align:center;}
+  .prof-head-cta .btn-primary{display:flex;width:100%;justify-content:center;font-size:13px;padding:12px 16px;margin:14px 0;}
+}
 /* Compliance section keeps its h2 centered. */
 .comp-section .sec-h2{text-align:center;}
 

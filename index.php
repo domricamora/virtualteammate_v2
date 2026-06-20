@@ -567,13 +567,13 @@ function vtnew_homepage_profiles(int $limit = 6): array
 <?php $homepage_profiles = vtnew_homepage_profiles(8); ?>
 <!-- PROFILES (live from the VT portal — medical + dental only) -->
 <section class="sec" id="profiles">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;" class="reveal">
+  <div class="prof-head reveal">
     <div>
       <div class="sec-lbl"><i class="fa-solid fa-id-badge"></i> Meet the Team</div>
       <h2 class="sec-h2" style="margin-bottom:0;">Your future <em>healthcare teammates</em></h2>
     </div>
-    <div style="text-align:right;">
-      <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary" style="font-size:15px;padding:14px 28px;">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+    <div class="prof-head-cta">
+      <a href="#cta-practice-audit" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
     </div>
   </div>
