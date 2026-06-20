@@ -16,7 +16,7 @@ $faqs = [
   ['q' => 'What does a billing teammate actually do?',
    'a' => 'They own the money side of every visit: sending out clean claims, fixing and resubmitting denials, chasing unpaid claims with the insurers, posting payments, and handling patient balances — all inside the system you already use.'],
   ['q' => 'Will this actually get my money in faster?',
-   'a' => 'Yes. With someone working claims and denials every single day, most practices see unpaid claims drop from 45-plus days down to under 30 within the first few months.'],
+   'a' => 'Yes. With someone working claims and denials every single day, most practices see their unpaid claims clear noticeably faster within the first few months.'],
   ['q' => 'Do they know my software?',
    'a' => 'They do. Your teammate works daily in systems like Epic, athenahealth and eClinicalWorks, plus the major clearinghouses, and we confirm the fit before they start.'],
   ['q' => 'Is my patient data safe?',
@@ -57,29 +57,20 @@ include __DIR__ . '/../../includes/nav.php';
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
     <div class="svc-snap">
-      <div class="svc-snap-h"><i class="fa-solid fa-chart-line"></i> What changes after a few months</div>
-      <div class="svc-snap-row">
-        <div class="svc-snap-line"><span>Claims paid the first time</span><span class="v">95%+</span></div>
-        <div class="svc-snap-bar"><i style="width:95%"></i></div>
-      </div>
-      <div class="svc-snap-row">
-        <div class="svc-snap-line"><span>Most claims paid in</span><span class="v">&lt;30 days</span></div>
-        <div class="svc-snap-bar"><i style="width:82%"></i></div>
-      </div>
-      <div class="svc-snap-row">
-        <div class="svc-snap-line"><span>Cost vs. an in-house biller</span><span class="v">~&frac13;</span></div>
-        <div class="svc-snap-bar"><i style="width:33%"></i></div>
-      </div>
-      <div class="svc-snap-foot"><i class="fa-solid fa-envelope-open-text"></i> A plain-English numbers update lands in your inbox every week.</div>
+      <div class="svc-snap-h"><i class="fa-solid fa-circle-check"></i> What you&rsquo;re signing up for</div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Lower cost vs. an in-house hire</span><span class="v">up to 73%</span></div></div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Up and running</span><span class="v">1&ndash;2 weeks</span></div></div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Average Google rating</span><span class="v">4.9&#9733;</span></div></div>
+      <div class="svc-snap-foot"><i class="fa-solid fa-shield-halved"></i> Covered by the 30-Day Right-Fit Promise &mdash; replace at no cost or money back.</div>
     </div>
   </div>
 </header>
 
 <div class="svc-stats reveal">
-  <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Claims Paid First Time</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">&lt;30</div><div class="svc-stat-lbl">Days to Get Paid</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Less Than In-House</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Live</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">Up to 73%</div><div class="svc-stat-lbl">Lower Cost vs In-House</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">1&ndash;2 wks</div><div class="svc-stat-lbl">To Get Started</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">4.9&#9733;</div><div class="svc-stat-lbl">Avg Google Rating</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">30-Day</div><div class="svc-stat-lbl">Right-Fit Promise</div></div>
 </div>
 
 <section class="svc-split">
@@ -110,7 +101,7 @@ include __DIR__ . '/../../includes/nav.php';
       <div class="svc-ba-col is-after">
         <div class="svc-ba-lbl">With a teammate</div>
         <ul>
-          <li><i class="fa-solid fa-check"></i> Most claims paid in under 30 days</li>
+          <li><i class="fa-solid fa-check"></i> Claims paid faster, not chased for months</li>
           <li><i class="fa-solid fa-check"></i> Denials worked every day</li>
           <li><i class="fa-solid fa-check"></i> Your team back with patients</li>
           <li><i class="fa-solid fa-check"></i> You see the numbers weekly</li>
@@ -180,7 +171,7 @@ include __DIR__ . '/../../includes/nav.php';
   <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Questions practices ask us</h2></div>
   <div class="faq-grid">
     <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a billing teammate actually do?</div><div class="faq-a">They own the money side of every visit: sending out clean claims, fixing and resubmitting denials, chasing unpaid claims with the insurers, posting payments, and handling patient balances &mdash; all inside the system you already use.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will this actually get my money in faster?</div><div class="faq-a">Yes. With someone working claims and denials every single day, most practices see unpaid claims drop from 45-plus days down to under 30 within the first few months.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will this actually get my money in faster?</div><div class="faq-a">Yes. With someone working claims and denials every single day, most practices see their unpaid claims clear noticeably faster within the first few months.</div></div>
     <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my software?</div><div class="faq-a">They do. Your teammate works daily in systems like Epic, athenahealth and eClinicalWorks, plus the major clearinghouses, and we confirm the fit before they start.</div></div>
     <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is my patient data safe?</div><div class="faq-a">Yes. Every teammate is HIPAA-trained and certified, background-checked, and signs a confidentiality agreement before they ever touch a record.</div></div>
     <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> What does it cost?</div><div class="faq-a">A flat rate for a full-time specialist biller &mdash; typically 60&ndash;73% less than a US in-house hire once you add benefits, taxes and overhead. See the pricing on our homepage, or book an audit for a number tailored to your practice.</div></div>
