@@ -1465,6 +1465,8 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 .ft-links li{margin-bottom:12px;}
 .ft-links a{font-size:14px;color:rgba(255,255,255,0.45);text-decoration:none;transition:color .2s ease;}
 .ft-links a:hover{color:#fff;}
+/* Non-clickable service entries (mirrors the nav's non-link service spans). */
+.ft-links .ft-disabled{font-size:14px;color:rgba(255,255,255,0.45);cursor:default;}
 .ft-bottom{
   border-top:1px solid rgba(255,255,255,0.07);
   padding-top:26px;

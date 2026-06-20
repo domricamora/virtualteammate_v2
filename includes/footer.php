@@ -34,30 +34,30 @@ $hide_footer = $hide_footer ?? false;
     <nav aria-label="Medical services">
       <div class="ft-h">Medical VAs</div>
       <ul class="ft-links">
-        <li><a href="<?= $home_base ?>services/medical-administrative-support/">Medical Administrative Support</a></li>
-        <li><a href="<?= $home_base ?>services/medical-receptionist/">Medical Receptionist</a></li>
-        <li><a href="<?= $home_base ?>services/medical-biller/">Medical Biller</a></li>
-        <li><a href="<?= $home_base ?>services/medical-scribe/">Medical Scribe</a></li>
-        <li><a href="<?= $home_base ?>services/medical-assistant/">Medical Assistant</a></li>
+        <li><span class="ft-disabled">Medical Administrative Support</span></li>
+        <li><span class="ft-disabled">Medical Receptionist</span></li>
+        <li><span class="ft-disabled">Medical Biller</span></li>
+        <li><span class="ft-disabled">Medical Scribe</span></li>
+        <li><span class="ft-disabled">Medical Assistant</span></li>
       </ul>
     </nav>
     <nav aria-label="Dental services">
       <div class="ft-h">Dental VAs</div>
       <ul class="ft-links">
-        <li><a href="<?= $home_base ?>services/dental-admin/">Dental Administrative Support</a></li>
-        <li><a href="<?= $home_base ?>services/dental-receptionist/">Dental Receptionist</a></li>
-        <li><a href="<?= $home_base ?>services/dental-biller/">Dental Biller</a></li>
-        <li><a href="<?= $home_base ?>services/dental-scribe/">Dental Scribe</a></li>
-        <li><a href="<?= $home_base ?>services/dental-coordinator/">Dental Coordinator</a></li>
+        <li><span class="ft-disabled">Dental Administrative Support</span></li>
+        <li><span class="ft-disabled">Dental Receptionist</span></li>
+        <li><span class="ft-disabled">Dental Biller</span></li>
+        <li><span class="ft-disabled">Dental Scribe</span></li>
+        <li><span class="ft-disabled">Dental Coordinator</span></li>
       </ul>
     </nav>
     <nav aria-label="Company">
       <div class="ft-h">Company</div>
       <ul class="ft-links">
         <li><a href="<?= $home_base ?>about/">About Us</a></li>
-        <li><a href="<?= $home_base ?>virtual-teammates/">Virtual Teammates</a></li>
+        <li><a href="<?= $home_base ?>#profiles">Virtual Teammates</a></li>
         <li><a href="<?= $home_base ?>business/">Business &amp; Non-Profit VAs</a></li>
-        <li><a href="<?= $home_base ?>guarantee/">30-Day Right-Fit Promise</a></li>
+        <li><a href="<?= $home_base ?>#guarantee">30-Day Right-Fit Promise</a></li>
         <li><a href="<?= $home_base ?>case-studies/">Case Studies</a></li>
         <li><a href="<?= $home_base ?>careers/">Careers</a></li>
         <li><a href="<?= $home_base ?>contact/">Contact</a></li>

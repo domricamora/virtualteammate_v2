@@ -114,7 +114,7 @@ include __DIR__ . '/../includes/nav.php';
     <h1 class="svc-h1">Real practices. Real workstreams. <em>Real numbers.</em></h1>
     <p class="svc-p">Every Virtual Teammate engagement is scoped against targeted outcomes and KPIs <em>you</em> choose. These are the most recent documented results across four active healthcare clients: claims worked, insurance verifications, payment posting, and pre-certifications. Targets set together. Numbers reported monthly. Outcomes you can take to the board.</p>
     <div class="svc-hero-ctas">
-      <a href="#cta" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#clients" class="btn-glass">See real client results <i class="fa-solid fa-chart-pie"></i></a>
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>KPI scorecards delivered monthly</span>
@@ -122,7 +122,7 @@ include __DIR__ . '/../includes/nav.php';
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
     <div class="hv-card">
       <div class="cs-graphic" role="img" aria-label="Sample monthly KPI scorecard: insurance verifications +30%, pre-certifications +60%, payment posting +40%, average achievement +44%">
-        <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-chart-column"></i> Monthly KPI Scorecard</span><span class="tag">Spring 2025</span></div>
+        <div class="cs-graphic-h"><span class="t"><i class="fa-solid fa-chart-column"></i> Over client baselines</span><span class="tag">Spring 2025</span></div>
         <div class="cs-graphic-kpi">
           <div class="cs-graphic-row"><span>Insurance Verifications</span><span class="v">+30%</span></div>
           <div class="cs-graphic-bar"><i style="width:82%"></i></div>
@@ -144,8 +144,8 @@ include __DIR__ . '/../includes/nav.php';
 <section class="sec" id="by-area" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-chart-pie"></i> Across All Workstreams</div>
-    <h2 class="svc-h2">Aggregate achievement <em>by functional area</em></h2>
-    <p class="sec-sub" style="max-width:740px;margin:0 auto;">When you roll the four client engagements up by workstream, this is what came out the other end: reported as average percent over target across all participating clients in the period.</p>
+    <h2 class="svc-h2">Proven Outcomes <em>Across Every Engagement</em></h2>
+    <p class="sec-sub" style="max-width:740px;margin:0 auto;">The results tell a powerful story. Our Virtual Teammates deliver measurable impact that drives productivity, performance, and growth.</p>
   </div>
   <div class="cs-by-area">
     <div class="cs-area-card reveal d1">

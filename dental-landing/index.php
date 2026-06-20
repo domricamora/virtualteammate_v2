@@ -13,7 +13,7 @@ $breadcrumbs      = [
 $faqs = [
   ['q' => 'Are your dental teammates HIPAA compliant?',
    'a' => 'Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.'],
-  ['q' => 'Do they know my practice-management software?',
+  ['q' => 'Do they know my dental software?',
    'a' => 'We match on tool fluency. Our teammates work daily in Dentrix, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.'],
   ['q' => 'How fast can someone start?',
    'a' => 'Most practices receive a curated shortlist within days and have their teammate live in 1–2 weeks, every placement backed by the 30-Day Right-Fit Promise.'],
@@ -43,6 +43,9 @@ include __DIR__ . '/../includes/nav.php';
 .dq-hero h1{font-size:44px;line-height:1.1;letter-spacing:-.5px;margin:16px 0 16px;color:#fff;}
 .dq-hero h1 em{color:var(--gold);font-style:normal;}
 .dq-hero .dq-sub{font-size:17px;line-height:1.65;color:var(--text-soft,#c9c8e2);margin:0 auto 14px;max-width:760px;}
+.dq-hero .dq-sub-grid{list-style:none;margin:0 auto 22px;padding:0;max-width:720px;display:grid;grid-template-columns:1fr 1fr;gap:11px 26px;text-align:left;}
+.dq-hero .dq-sub-grid li{position:relative;padding-left:27px;font-size:15px;line-height:1.55;color:var(--text-soft,#c9c8e2);}
+.dq-hero .dq-sub-grid li::before{content:"\f00c";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;left:0;top:2px;font-size:13px;color:var(--gold);}
 .dq-hero .dq-promise{font-size:15px;line-height:1.6;color:rgba(255,255,255,.82);margin:0 auto 26px;max-width:740px;}
 .dq-hero .dq-promise strong{color:#fff;}
 .dq-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;align-items:center;}
@@ -135,6 +138,7 @@ include __DIR__ . '/../includes/nav.php';
   .dq-hero{padding:40px 18px 18px;}
   .dq-hero .sec-lbl{justify-content:center;}
   .dq-hero h1{font-size:31px;}
+  .dq-hero .dq-sub-grid{grid-template-columns:1fr;gap:9px;max-width:420px;}
   .dq-hero-btns{flex-direction:column;align-items:stretch;}
   .quiz-container{padding:24px 20px;}
   #offer .offer-grid > .offer-item:last-child{max-width:none;}
@@ -144,16 +148,19 @@ include __DIR__ . '/../includes/nav.php';
 <main>
   <!-- HERO — offer-led, with CTA ladder -->
   <header class="dq-hero reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> HIPAA-compliant dental VAs &middot; backed by the 30-Day Right-Fit Promise</div>
-    <h1>Fully staff your front office in weeks, not months, for <em>up to 73% less</em>.</h1>
-    <p class="dq-sub">A dedicated, HIPAA-compliant dental Virtual Teammate keeps chairs full, recall worked, treatment plans followed up and claims clean, trained on Dentrix, Dentrix Ascend, Open Dental, Curve, Denticon and Carestream, matched to your US time zone. Published flat-rate pricing from $750 bi-weekly full time, all-in.</p>
-    <p class="dq-promise">Not the right fit in month one? <strong>We replace them at no cost, or refund every billed day.</strong> No clawback, no lock-in.</p>
+    <div class="sec-lbl"><i class="fa-solid fa-tooth"></i> HIPAA-compliant dental VAs &middot; 30-Day Right-Fit Promise</div>
+    <h1>Our teammates. Your whole back office. <em>73% less</em> than in-house hires.</h1>
+    <ul class="dq-sub-grid">
+      <li>Trained on Dentrix, Dentrix Ascend, Open Dental, Curve, Denticon and Carestream</li>
+      <li>Not the right fit in month one? We replace at no cost or refund every billed day.</li>
+      <li>From $750 bi-weekly full time, all-in.</li>
+      <li>Go live in 1&ndash;2 weeks</li>
+    </ul>
     <div class="dq-hero-btns">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="#cta-buyers-checklist" data-cta-intent="buyers-checklist" class="btn-glass">Get the HIPAA VA buyer&rsquo;s checklist <i class="fa-solid fa-clipboard-check"></i></a>
     </div>
     <div><a href="#quiz" class="dq-hero-tert">Not sure where your time is going? Take the 2-min efficiency quiz &rarr;</a></div>
-    <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> No commitment. Covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
   </header>
 
   <!-- PROOF BAR -->
@@ -177,17 +184,33 @@ include __DIR__ . '/../includes/nav.php';
   <section class="sec" id="proof" aria-labelledby="proof-h">
     <div class="reveal" style="text-align:center;">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-chart-column"></i> Proven Client Impact</div>
-      <h2 class="svc-h2" id="proof-h">The numbers from our <em>latest clients</em></h2>
+      <h2 class="svc-h2" id="proof-h">The numbers from our <em>dental clients</em></h2>
       <p class="sec-sub" style="max-width:720px;margin:0 auto;">No projections, no spin: real KPIs from recent dental placements.</p>
     </div>
     <div class="case-grid case-grid-4">
       <article class="case-card reveal d1">
         <div class="case-metric">
+          <div class="case-metric-h">Claims Processed </div>
+          <div class="case-metric-row">
+            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
+          </div>
+        </div>
+        <p class="case-q">A specialty-billing teammate cleared claims <strong>33% above target</strong> for an endodontics &amp; oral-surgery group: a full surgical schedule billed on time.</p>
+        <div class="case-auth">
+          <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
+          <div>
+            <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
+            <div class="case-svc"><i class="fa-solid fa-tooth"></i> Specialty Billing &amp; RCM VA</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="case-card reveal d2">
+        <div class="case-metric">
           <div class="case-metric-h">No-Show Rate</div>
           <div class="case-metric-row">
             <div class="case-metric-after"><span class="lbl">Now</span><span class="val">9%</span></div>
           </div>
-          <div class="case-metric-foot">Down from <strong>22%</strong></div>
         </div>
         <p class="case-q">No-shows cut 22% &rarr; 9%: pediatric dental practice, Tampa, FL.</p>
         <div class="case-auth">
@@ -199,7 +222,7 @@ include __DIR__ . '/../includes/nav.php';
         </div>
       </article>
 
-      <article class="case-card reveal d2">
+      <article class="case-card reveal d3">
         <div class="case-metric">
           <div class="case-metric-h">Visits Recovered</div>
           <div class="case-metric-row">
@@ -216,29 +239,11 @@ include __DIR__ . '/../includes/nav.php';
         </div>
       </article>
 
-      <article class="case-card reveal d3">
-        <div class="case-metric">
-          <div class="case-metric-h">Claims Cleared</div>
-          <div class="case-metric-row">
-            <div class="case-metric-after"><span class="lbl">Delivered</span><span class="val">+33%</span></div>
-          </div>
-          <div class="case-metric-foot">Above target</div>
-        </div>
-        <p class="case-q">Claims cleared 33% above target: endodontics &amp; oral-surgery group.</p>
-        <div class="case-auth">
-          <span class="ico-circle case-ico"><i class="fa-solid fa-tooth"></i></span>
-          <div>
-            <div class="case-name">Endodontics &amp; Oral Surgery Group</div>
-            <div class="case-svc"><i class="fa-solid fa-file-invoice-dollar"></i> Specialty Billing &amp; RCM VA</div>
-          </div>
-        </div>
-      </article>
-
       <article class="case-card reveal d4">
         <div class="case-metric">
           <div class="case-metric-h">First-Pass Clean Claims</div>
           <div class="case-metric-row">
-            <div class="case-metric-after"><span class="lbl">Rate</span><span class="val">95%+</span></div>
+            <div class="case-metric-after"><span class="lbl">Rate</span><span class="val">+95%</span></div>
           </div>
         </div>
         <p class="case-q">95%+ first-pass clean-claim rate: CDT-coded claims with narratives.</p>
@@ -265,7 +270,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="dq-pain reveal">
       <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-triangle-exclamation"></i> The Hidden Cost of a Busy Front Desk</div>
       <h2 class="svc-h2">Every hour on the phones is an hour <em>off the schedule</em></h2>
-      <p class="svc-p">Scheduling, insurance verification, recall, treatment-plan follow-up, claims and payment posting: the front desk eats the time you meant to spend filling the schedule and seating treatment. It doesn&rsquo;t show up on a P&amp;L, but you feel it in open chairs, unscheduled treatment and production that walks out the door.</p>
+      <p class="svc-p">Insurance verification, recall, follow-up, claims and payments: front desk admin eats your team&rsquo;s time when they should be driving growth, not chasing paperwork.</p>
       <div class="dq-pain-grid">
         <div class="dq-pain-item"><i class="fa-solid fa-calendar-xmark"></i><span><strong>Open chairs and last-minute holes</strong> nobody had time to backfill.</span></div>
         <div class="dq-pain-item"><i class="fa-solid fa-bell-slash"></i><span><strong>Lapsed hygiene recall</strong> that lets patients, and recurring production, slip away.</span></div>
@@ -278,21 +283,29 @@ include __DIR__ . '/../includes/nav.php';
 
   <div class="divider"></div>
 
-  <!-- SOLUTION GRID — WHAT THEY HANDLE -->
-  <section class="svc-bens">
+  <!-- OFFER BLOCK -->
+  <section class="sec" id="offer" aria-labelledby="offer-h">
     <div class="reveal" style="text-align:center;">
-      <img class="hipaa-seal" src="<?= $home_base ?>images/hipaa-compliant-logo.webp" alt="HIPAA Compliant" width="792" height="748" loading="lazy" style="margin:0 auto 20px;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-list-check"></i> What They Take Off Your Plate</div>
-      <h2 class="svc-h2">One teammate. <em>The whole front office.</em></h2>
-      <p class="sec-sub" style="max-width:700px;margin:0 auto;">HIPAA-compliant, PMS-trained, and matched to your time zone, your Virtual Teammate owns the repeatable work so your front desk and clinical team can focus on patients in the chair.</p>
+      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
+      <h2 class="svc-h2" id="offer-h">What you get with a <em>Virtual Teammate</em></h2>
+      <p class="sec-sub" style="max-width:760px;margin:0 auto;">HIPAA-compliant dental VAs take the entire back office off your plate. Here&rsquo;s what&rsquo;s included, at a published flat rate, with nothing billed on top.</p>
     </div>
-    <div class="svc-bens-grid">
-      <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span><h3>Scheduling &amp; recall</h3><p>Booking, confirmations, reschedules, hygiene recare and reactivation calls: the schedule stays full and holes get filled.</p></div>
-      <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Insurance &amp; verification</h3><p>Eligibility checks, breakdown of benefits and pre-authorizations completed before the visit, not at the chair.</p></div>
-      <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-file-invoice-dollar"></i></span><h3>Billing &amp; claims</h3><p>Claims submission, attachments, EOB and payment posting, and AR follow-up worked daily so production lands faster.</p></div>
-      <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-clipboard-check"></i></span><h3>Treatment plan follow-up</h3><p>Unscheduled treatment chased down and financial arrangements set up so case acceptance turns into seated appointments.</p></div>
-      <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-headset"></i></span><h3>Patient calls &amp; reminders</h3><p>Inbound and outbound calls, appointment reminders and recall outreach handled in your tone and time zone.</p></div>
-      <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-inbox"></i></span><h3>Inbox &amp; PMS management</h3><p>Patient messages, forms, referrals and records kept current in Dentrix, Open Dental and more, never backlogged.</p></div>
+    <div class="offer-grid reveal d1">
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, HIPAA-compliant VA</strong> matched to your specialty, PMS and US time zone.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-calendar-check"></i></span><p><strong>Scheduling, recall &amp; reactivation:</strong> chairs filled, hygiene recare worked.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><p><strong>Insurance verification &amp; benefit breakdowns</strong> done before the visit.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-file-invoice-dollar"></i></span><p><strong>CDT-coded claims with narratives</strong>, EOB posting and AR follow-up.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-clipboard-check"></i></span><p><strong>Treatment-plan follow-up:</strong> unscheduled treatment chased, financial arrangements set.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><p><strong>A dedicated Client Success Manager</strong> running performance and backup coverage.</p></div>
+      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-shield"></i></span><p><strong>Built-in backup</strong> the day your VA is out, arranged within hours, no charge.</p></div>
+    </div>
+    <div class="dq-price reveal">
+      <strong>From $750 bi-weekly full time ($400 part-time).</strong> Specialist tier (dental billing &amp; coding): $1,000 bi-weekly full-time ($600 part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
+    </div>
+    <p class="dq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. No long-term contract.</p>
+    <div class="dq-offer-cta reveal">
+      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
+      <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
   </section>
 
@@ -312,34 +325,6 @@ include __DIR__ . '/../includes/nav.php';
         </div>
         <div id="quiz-body"></div>
       </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- OFFER BLOCK -->
-  <section class="sec" id="offer" aria-labelledby="offer-h">
-    <div class="reveal" style="text-align:center;">
-      <div class="sec-lbl" style="justify-content:center;display:inline-flex;"><i class="fa-solid fa-box-open"></i> The Offer</div>
-      <h2 class="svc-h2" id="offer-h">Everything included, <em>one flat rate</em></h2>
-      <p class="sec-sub" style="max-width:760px;margin:0 auto;">Your dental Virtual Teammate, fully managed:</p>
-    </div>
-    <div class="offer-grid reveal d1">
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-doctor"></i></span><p><strong>A dedicated, HIPAA-compliant VA</strong> matched to your specialty, PMS and US time zone.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-calendar-check"></i></span><p><strong>Scheduling, recall &amp; reactivation:</strong> chairs filled, hygiene recare worked.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-shield-halved"></i></span><p><strong>Insurance verification &amp; benefit breakdowns</strong> done before the visit.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-file-invoice-dollar"></i></span><p><strong>CDT-coded claims with narratives</strong>, EOB posting and AR follow-up.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-clipboard-check"></i></span><p><strong>Treatment-plan follow-up:</strong> unscheduled treatment chased, financial arrangements set.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-tie"></i></span><p><strong>A dedicated Client Success Manager</strong> running performance and backup coverage.</p></div>
-      <div class="offer-item"><span class="ico-circle"><i class="fa-solid fa-user-shield"></i></span><p><strong>Built-in backup</strong> the day your VA is out, arranged within hours, no charge.</p></div>
-    </div>
-    <div class="dq-price reveal">
-      <strong>From $750 bi-weekly full time ($400 part-time).</strong> Specialist tier (dental billing &amp; coding): $1,000 bi-weekly full-time ($600 part-time). All-in flat rate, no payroll tax, benefits, recruiter fees or PTO, <strong>up to 73% less</strong> than an equivalent in-house front-desk hire.
-    </div>
-    <p class="dq-close reveal">Curated shortlist in 2 business days. Live in 1&ndash;2 weeks. No long-term contract.</p>
-    <div class="dq-offer-cta reveal">
-      <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-      <div class="dq-cta-note"><i class="fa-solid fa-shield-halved"></i> Diagnostic only. No commitment, covered by the 30-Day Right-Fit Promise: replace at no cost or refund every billed day.</div>
     </div>
   </section>
 
@@ -384,7 +369,7 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <div class="faq-grid">
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Are your dental teammates HIPAA compliant?</div><div class="faq-a">Yes. Every dental teammate completes HIPAA training and certification before placement, works in encrypted environments only, and is BAA-compatible.</div></div>
-      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my practice-management software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
+      <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-tooth"></i> Do they know my dental software?</div><div class="faq-a">We match on tool fluency. Our teammates work daily in Dentrix, Open Dental, Curve, Denticon, Dentrix Ascend and more, and we confirm the fit during selection.</div></div>
       <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-clock"></i> How fast can someone start?</div><div class="faq-a">Most practices receive a curated shortlist within days and have their teammate live in 1&ndash;2 weeks, every placement backed by the 30-Day Right-Fit Promise.</div></div>
       <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a dental VA cost?</div><div class="faq-a">Published flat-rate pricing, no quote required. From $750 bi-weekly full time ($400 part-time); Specialist tier (dental billing &amp; coding) $1,000 bi-weekly full-time ($600 part-time). All-in, no benefits, payroll tax, recruiter fees or PTO. Up to 73% less than an equivalent in-house front-desk hire.</div></div>
       <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-contract"></i> Am I locked into a contract?</div><div class="faq-a">No. Month-to-month after your first 90 days, pause, scale up or down, or cancel with no early-termination fees. The 30-Day Right-Fit Promise covers your first month on top of that.</div></div>

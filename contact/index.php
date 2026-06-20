@@ -5,6 +5,7 @@ $og_title         = 'Contact Virtual Teammate: Phoenix HQ + Global VA Network';
 $og_description   = 'US-owned office in Phoenix, AZ. Global bench across 5 continents. Talk to a real Dedicated Client Success Manager today.';
 $canonical        = 'https://virtualteammate.com/contact/';
 $home_base        = '../';
+$has_cta_section  = true;   // uses the homepage "Ways to Start" #cta block below
 $breadcrumbs      = [
   ['name' => 'Home',    'url' => '/'],
   ['name' => 'Contact', 'url' => '/contact/'],
@@ -77,17 +78,23 @@ include __DIR__ . '/../includes/nav.php';
 
 <style>
 /* Contact page — scoped overrides. */
+/* The hero is left-aligned, but .sec-lbl defaults to centered — left-align the
+   eyebrow so it lines up with the headline and lead paragraph below it. */
+.svc-hero .sec-lbl{text-align:left;}
 .ct-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:34px;}
 @media (max-width:980px){.ct-grid{grid-template-columns:1fr;}}
-.ct-card{background:var(--glass-bg,rgba(255,255,255,0.04));backdrop-filter:blur(var(--glass-blur,18px));-webkit-backdrop-filter:blur(var(--glass-blur,18px));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 24px;text-align:center;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
+.ct-card{background:var(--glass-bg,rgba(255,255,255,0.04));backdrop-filter:blur(var(--glass-blur,18px));-webkit-backdrop-filter:blur(var(--glass-blur,18px));border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
 .ct-card:hover{transform:translateY(-4px);border-color:rgba(223,169,73,.45);box-shadow:0 18px 50px -22px rgba(223,169,73,.35);}
 .ct-card .ico-circle{margin:0 auto 14px;}
 .ct-card h3{font-size:18px;font-weight:700;margin:0 0 6px;letter-spacing:-.2px;}
 .ct-card .ct-lbl{font-size:11px;text-transform:uppercase;letter-spacing:1.1px;color:var(--gold,#d4a64a);font-weight:600;margin-bottom:14px;display:block;}
 .ct-card a.ct-link{display:inline-block;color:#fff;font-size:17px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.22);padding-bottom:3px;margin-bottom:10px;transition:border-color .2s,color .2s;}
 .ct-card a.ct-link:hover{color:var(--gold,#d4a64a);border-color:var(--gold,#d4a64a);}
+/* Invisible placeholder that reserves the exact height of a .ct-link line, so the
+   audit card (which has no link) keeps its meta + CTA aligned with the others. */
+.ct-card .ct-link-ph{display:inline-block;font-size:17px;font-weight:600;padding-bottom:3px;margin-bottom:10px;border-bottom:1px solid transparent;visibility:hidden;}
 .ct-card .ct-meta{font-size:13px;color:var(--text-mute,#a8a7c3);line-height:1.55;}
-.ct-card .ct-cta{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;font-weight:600;color:var(--gold,#d4a64a);text-decoration:none;}
+.ct-card .ct-cta{display:inline-flex;align-items:center;gap:8px;margin-top:auto;padding-top:16px;font-size:13px;font-weight:600;color:var(--gold,#d4a64a);text-decoration:none;}
 .ct-card .ct-cta:hover{text-decoration:underline;}
 .ct-map-wrap{margin-top:34px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 30px 80px -40px rgba(0,0,0,.6);position:relative;background:#0a0918;}
 .ct-map-wrap iframe{display:block;width:100%;height:480px;border:0;filter:saturate(.85) contrast(.95);}
@@ -104,6 +111,29 @@ include __DIR__ . '/../includes/nav.php';
 .ct-quick-card .ico{font-size:22px;color:var(--gold,#d4a64a);margin-bottom:8px;}
 .ct-quick-card .nm{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px;}
 .ct-quick-card .sub{font-size:12px;color:var(--text-mute,#a8a7c3);line-height:1.5;}
+
+/* Hero "Client Success Desk" card — graphic element that replaces the stock
+   photo in the hero visual slot (glass + gold, matching the dark theme). */
+.ct-hero-card{position:relative;border-radius:24px;padding:30px 28px;
+  background:linear-gradient(155deg,rgba(57,25,186,.42),rgba(20,15,55,.92) 58%,rgba(223,169,73,.14));
+  border:1px solid rgba(255,255,255,.13);box-shadow:0 40px 100px rgba(0,0,0,.5);
+  backdrop-filter:blur(var(--glass-blur,18px));-webkit-backdrop-filter:blur(var(--glass-blur,18px));}
+.ct-hc-top{display:flex;align-items:center;gap:13px;padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid rgba(255,255,255,.1);}
+.ct-hc-ping{flex:0 0 auto;width:11px;height:11px;border-radius:50%;background:#43d17a;
+  box-shadow:0 0 0 4px rgba(67,209,122,.18);animation:ctPing 2.4s ease-in-out infinite;}
+@keyframes ctPing{0%,100%{box-shadow:0 0 0 4px rgba(67,209,122,.18);}50%{box-shadow:0 0 0 7px rgba(67,209,122,.05);}}
+.ct-hc-title{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.2px;}
+.ct-hc-status{font-size:12.5px;color:rgba(255,255,255,.6);margin-top:2px;}
+.ct-hc-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px;}
+.ct-hc-list li{display:flex;align-items:center;gap:14px;}
+.ct-hc-list a{text-decoration:none;}
+.ct-hc-ico{flex:0 0 44px;width:44px;height:44px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(223,169,73,.14);border:1px solid rgba(223,169,73,.34);color:var(--gold,#dfa949);font-size:16px;}
+.ct-hc-list .l{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:1.1px;color:rgba(255,255,255,.55);font-weight:700;}
+.ct-hc-list .v{display:block;font-size:15px;font-weight:600;color:#fff;margin-top:3px;line-height:1.3;word-break:break-word;}
+.ct-hc-foot{margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
+  font-size:12.5px;color:rgba(255,255,255,.62);display:flex;align-items:center;gap:9px;line-height:1.4;}
+.ct-hc-foot i{color:var(--gold,#dfa949);}
 </style>
 
 <main>
@@ -112,8 +142,8 @@ include __DIR__ . '/../includes/nav.php';
 <header class="svc-hero">
   <div class="reveal">
     <div class="sec-lbl"><i class="fa-solid fa-headset"></i> Contact Virtual Teammate</div>
-    <h1 class="svc-h1">Talk to a <em>real person</em> in our Phoenix HQ, backed by a global bench</h1>
-    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>Dedicated Client Success Manager (CSM)</strong>, not an offshore queue. Most inbound requests get a reply within <strong>one business day</strong>.</p>
+    <h1 class="svc-h1">Talk to a <em>real person</em>, backed by a global team</h1>
+    <p class="svc-p">Whether you&rsquo;re scoping a healthcare engagement, asking about pricing, or chasing a specific role spec, you&rsquo;ll reach a <strong>Dedicated Client Success Manager (CSM)</strong>, requests get a reply within <strong>the business day</strong>.</p>
     <div class="svc-hero-ctas">
       <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
       <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
@@ -121,29 +151,40 @@ include __DIR__ . '/../includes/nav.php';
     </div>
     <span class="btn-mini-note"><i class="fa-solid fa-clock" style="color:var(--gold);margin-right:6px;"></i>Reply within 1 business day &middot; Mon&ndash;Fri, 8am&ndash;6pm MST</span>
   </div>
-  <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-location-dot"></i> Phoenix, AZ HQ</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-earth-americas"></i> Global Bench</div>
-    <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants-for-Efficient-Operations.webp" alt="Virtual Teammate Dedicated Client Success Manager ready to talk to you" loading="lazy"/>
+  <div class="svc-hero-vis reveal d2">
+    <div class="ct-hero-card">
+      <div class="ct-hc-top">
+        <span class="ct-hc-ping" aria-hidden="true"></span>
+        <div>
+          <div class="ct-hc-title">Client Success Desk</div>
+          <div class="ct-hc-status">Phoenix, AZ HQ &middot; global bench</div>
+        </div>
+      </div>
+      <ul class="ct-hc-list">
+        <li>
+          <span class="ct-hc-ico"><i class="fa-solid fa-phone"></i></span>
+          <a href="tel:+14808472498"><span class="l">Call</span><span class="v">(480) 847-2498</span></a>
+        </li>
+        <li>
+          <span class="ct-hc-ico"><i class="fa-solid fa-envelope"></i></span>
+          <a href="mailto:clientsuccess@virtualteammate.com"><span class="l">Email</span><span class="v">clientsuccess@virtualteammate.com</span></a>
+        </li>
+        <li>
+          <span class="ct-hc-ico"><i class="fa-solid fa-location-dot"></i></span>
+          <div><span class="l">Visit</span><span class="v">2425 E Camelback Rd, Suite 400, Phoenix, AZ</span></div>
+        </li>
+      </ul>
+      <div class="ct-hc-foot"><i class="fa-solid fa-clock"></i> Replies within 1 business day &middot; Mon&ndash;Fri, 8am&ndash;6pm MST</div>
     </div>
   </div>
 </header>
-
-<!-- STATS -->
-<div class="svc-stats reveal">
-  <div class="svc-stat"><div class="svc-stat-num">1</div><div class="svc-stat-lbl">Business-Day Reply</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">100%</div><div class="svc-stat-lbl">US-Based CSMs</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">5</div><div class="svc-stat-lbl">Continents Covered</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">4</div><div class="svc-stat-lbl">Time Zones Served (US/CA/GB/AU)</div></div>
-</div>
 
 <!-- 3-CHANNEL CONTACT -->
 <section class="sec" id="reach" style="padding-top:60px;">
   <div class="reveal" style="text-align:center;">
     <div class="sec-lbl"><i class="fa-solid fa-comments"></i> Three Ways to Reach Us</div>
     <h2 class="svc-h2">Pick the channel <em>that fits your question</em></h2>
-    <p class="sec-sub" style="max-width:720px;margin:0 auto;">Every channel routes to a US-based teammate. No call trees, no offshore queues, no &ldquo;we&rsquo;ll get back to you.&rdquo;</p>
+    <p class="sec-sub" style="max-width:720px;margin:0 auto;">Every channel routes to a US-based teammate. No call trees, no offshore queues.</p>
   </div>
 
   <div class="ct-grid">
@@ -168,9 +209,9 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-card reveal d3">
       <span class="ico-circle lg"><i class="fa-solid fa-calendar-check"></i></span>
       <span class="ct-lbl">Book a Call</span>
-      <h3>Value strategy session</h3>
-      <a class="ct-link" href="#cta-book" data-cta-intent="book">30-min consult</a>
-      <div class="ct-meta">No commitment. Walk out with a scope, a price and a timeline.</div>
+      <h3>Practice staffing audit</h3>
+      <span class="ct-link-ph" aria-hidden="true">&nbsp;</span>
+      <div class="ct-meta">No commitment, we identify what to delegate first and leave you with a clear scope, timeline, and price.</div>
       <a class="ct-cta" href="#cta-book" data-cta-intent="book">Pick a time <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
@@ -190,7 +231,7 @@ include __DIR__ . '/../includes/nav.php';
     <div class="ct-quick-card reveal d3">
       <div class="ico"><i class="fa-solid fa-globe"></i></div>
       <div class="nm">Service Area</div>
-      <div class="sub">United States, Canada,<br>United Kingdom, Australia</div>
+      <div class="sub">United States, Canada</div>
     </div>
     <div class="ct-quick-card reveal d4">
       <div class="ico"><i class="fa-solid fa-lock"></i></div>
@@ -290,16 +331,7 @@ include __DIR__ . '/../includes/nav.php';
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="svc-cta">
-  <h2>Ready to <em style="color:var(--gold);font-style:normal;">start the conversation</em>?</h2>
-  <p>Pick the channel that fits. We&rsquo;ll reply within one business day with a clear scope, a price, and a timeline: no commitment required.</p>
-  <div class="svc-cta-btns">
-    <a href="#cta-book" data-cta-intent="practice-audit" class="btn-primary">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
-    <a href="tel:+14808472498" class="btn-glass">Call (480) 847-2498 <i class="fa-solid fa-phone"></i></a>
-    <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
-  </div>
-</section>
+<?php include __DIR__ . '/../includes/cta-stages.php'; ?>
 
 </main>
 <?php
