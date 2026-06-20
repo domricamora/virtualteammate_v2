@@ -1531,8 +1531,9 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 
 /* ───── SCROLL TO TOP BUTTON ───── */
 .scroll-top{
-  position:fixed;bottom:32px;right:32px;z-index:200;
-  width:54px;height:54px;border-radius:50%;
+  /* Stacked directly ABOVE the HubSpot chat launcher (same right edge + size). */
+  position:fixed;bottom:96px;right:24px;z-index:200;
+  width:60px;height:60px;border-radius:50%;
   background:rgba(20,15,55,0.65);
   backdrop-filter:var(--glass-blur);
   border:1px solid rgba(223,169,73,0.45);
@@ -1545,7 +1546,10 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   box-shadow:0 14px 34px rgba(0,0,0,0.42);
   font-family:inherit;
 }
-.scroll-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+/* Shown (past the scroll threshold) at 50% opacity; fully opaque only while
+   actively scrolling (JS adds .scrolling) or on hover/focus. */
+.scroll-top.show{opacity:0.5;visibility:visible;transform:translateY(0);}
+.scroll-top.show.scrolling,.scroll-top.show:hover,.scroll-top.show:focus-visible{opacity:1;}
 .scroll-top:hover{
   background:rgba(223,169,73,0.25);
   border-color:rgba(223,169,73,0.7);
@@ -2768,7 +2772,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
 
   .divider{margin:0 18px;}
 
-  .scroll-top{bottom:20px;right:20px;width:46px;height:46px;font-size:15px;}
+  .scroll-top{bottom:84px;right:18px;width:56px;height:56px;font-size:16px;}
 
   /* Service pages — mobile */
   .svc-hero{padding:40px 18px 50px;gap:28px;}

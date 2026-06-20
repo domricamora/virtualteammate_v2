@@ -75,12 +75,17 @@
   if (scrollTopBtn){
     var showAfter = 600;
     var ticking = false;
+    var idleTimer;
     function syncScrollTop(){
       scrollTopBtn.classList.toggle('show', window.scrollY > showAfter);
       ticking = false;
     }
     window.addEventListener('scroll', function(){
       if (!ticking){ requestAnimationFrame(syncScrollTop); ticking = true; }
+      // Fully opaque while actively scrolling; fade back to 50% when idle.
+      scrollTopBtn.classList.add('scrolling');
+      clearTimeout(idleTimer);
+      idleTimer = setTimeout(function(){ scrollTopBtn.classList.remove('scrolling'); }, 700);
     }, { passive: true });
     scrollTopBtn.addEventListener('click', function(){
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
