@@ -865,27 +865,8 @@ function vtnew_homepage_profiles(int $limit = 6): array
      #cta-<intent> hash (CSS :target, so they work with JS off too); the script
      near the footer adds scroll-lock, autofocus and ESC-to-close. Each posts to
      lead.php and creates a lead. -->
-<div class="cta-modal" id="cta-buyers-checklist" role="dialog" aria-modal="true" aria-labelledby="ccm-bc-h">
-  <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
-  <div class="cta-modal-card">
-    <a class="cta-modal-x" href="#cta" aria-label="Close form">&times;</a>
-    <div class="cta-modal-tag"><i class="fa-solid fa-file-lines"></i> Just exploring</div>
-    <h2 class="cta-modal-h" id="ccm-bc-h">Grab the HIPAA VA buyer&rsquo;s checklist</h2>
-    <p class="cta-modal-sub">Unlock new levels of productivity and patient care. Enter your email to receive our HIPAA VA buyer&rsquo;s checklist and learn how to choose the right virtual staffing partner for long-term success.</p>
-    <form class="cta-modal-form" id="ctaChecklistForm" method="post" action="<?= $home_base ?>lead.php"
-          data-lead-thanks="Check your inbox: your checklist is on the way.">
-      <input type="hidden" name="intent" value="buyers-checklist">
-      <input type="hidden" name="form" value="homepage-checklist">
-      <input type="hidden" name="source" value="HIPAA VA Buyer&rsquo;s Checklist">
-      <div class="cf-row" style="grid-template-columns:1fr;margin-bottom:16px;">
-        <input class="cf-field" name="email" type="email" placeholder="Work Email" required>
-      </div>
-      <input type="text" name="vt_hp" tabindex="-1" autocomplete="off" class="vtd-hp" aria-hidden="true">
-      <button class="cf-submit" type="submit">Send me the checklist <i class="fa-solid fa-arrow-right"></i></button>
-      <div class="cf-note" data-lead-note>No spam &middot; Just the checklist and the occasional helpful tip</div>
-    </form>
-  </div>
-</div>
+<?php /* Buyer's-checklist modal — shared include now renders the HubSpot embedded form. */ ?>
+<?php include __DIR__ . '/includes/checklist-modal.php'; ?>
 
 <div class="cta-modal" id="cta-practice-audit" role="dialog" aria-modal="true" aria-labelledby="ccm-pa-h">
   <a class="cta-modal-scrim" href="#cta" aria-label="Close" tabindex="-1"></a>
