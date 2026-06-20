@@ -1,8 +1,8 @@
 <?php
-$page_title       = 'Medical Biller Virtual Assistants | HIPAA-Compliant Medical Billing VAs | Virtual Teammate';
-$page_description = 'Hire HIPAA-compliant medical biller virtual assistants. Claims, AR follow-up, denials, payment posting & full RCM: clean claim rates above 95%. Save up to 73%.';
-$og_title         = 'Medical Biller Virtual Assistants: Clean Claims, Faster Cash';
-$og_description   = 'Specialized virtual medical billers handling claims, denials, AR and full RCM. Trained in CPT, ICD-10, HCPCS & every major clearinghouse.';
+$page_title       = 'Medical Billing Virtual Assistants | Get Paid Faster | Virtual Teammate';
+$page_description = 'A dedicated billing teammate who sends out clean claims, works every denial, and chases unpaid claims until you are paid — about a third of the cost of hiring in-house. HIPAA-compliant, live in 1–2 weeks.';
+$og_title         = 'Get paid for the work you have already done';
+$og_description   = 'A dedicated, HIPAA-compliant billing teammate keeps your claims clean, your denials worked, and your cash moving — for about a third of an in-house hire.';
 $canonical        = 'https://virtualteammate.com/services/medical-biller/';
 $home_base        = '../../';
 $svc_slug         = 'medical-biller';
@@ -13,36 +13,22 @@ $breadcrumbs      = [
 ];
 // FAQPage schema — text mirrors the visible FAQ section below.
 $faqs = [
-  ['q' => 'What does a medical billing virtual assistant do?',
-   'a' => 'Full revenue cycle: charge entry, claim scrubbing & submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting, inside your existing EHR and clearinghouse.'],
-  ['q' => 'Will a billing teammate actually reduce my AR days?',
-   'a' => 'Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.'],
-  ['q' => 'Are your billing teammates trained in CPT, ICD-10 and HCPCS?',
-   'a' => 'Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines: plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).'],
-  ['q' => 'Is patient and payer data safe?',
-   'a' => 'Yes. Every biller is HIPAA-compliant, background-checked, and signs a BAA-compatible confidentiality agreement before placement.'],
-  ['q' => 'How much does a virtual medical biller cost?',
-   'a' => 'Flat-rate pricing typically 60–73% less than a fully-loaded US in-house biller (k–k all-in). Use the homepage ROI calculator for a specialty-specific quote.'],
-  ['q' => 'What happens if my biller is sick or on PTO?',
-   'a' => 'Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.'],
+  ['q' => 'What does a billing teammate actually do?',
+   'a' => 'They own the money side of every visit: sending out clean claims, fixing and resubmitting denials, chasing unpaid claims with the insurers, posting payments, and handling patient balances — all inside the system you already use.'],
+  ['q' => 'Will this actually get my money in faster?',
+   'a' => 'Yes. With someone working claims and denials every single day, most practices see unpaid claims drop from 45-plus days down to under 30 within the first few months.'],
+  ['q' => 'Do they know my software?',
+   'a' => 'They do. Your teammate works daily in systems like Epic, athenahealth and eClinicalWorks, plus the major clearinghouses, and we confirm the fit before they start.'],
+  ['q' => 'Is my patient data safe?',
+   'a' => 'Yes. Every teammate is HIPAA-trained and certified, background-checked, and signs a confidentiality agreement before they ever touch a record.'],
+  ['q' => 'What does it cost?',
+   'a' => 'A flat rate for a full-time specialist biller — typically 60–73% less than a US in-house hire once you add benefits, taxes and overhead. See the pricing on our homepage, or book an audit for a number tailored to your practice.'],
+  ['q' => 'What if my teammate is out sick?',
+   'a' => 'Your Client Success Manager arranges trained backup so your claims and follow-up never go a day without attention.'],
 ];
 include __DIR__ . '/../../includes/head.php';
 include __DIR__ . '/../../includes/nav.php';
 ?>
-
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Service",
-  "serviceType":"Medical Billing Virtual Assistant",
-  "name":"Medical Biller Virtual Assistants",
-  "description":"HIPAA-compliant virtual medical billers handling claim submission, denial management, AR follow-up, payment posting, patient billing and full revenue cycle management for medical practices.",
-  "provider":{"@type":"MedicalBusiness","name":"Virtual Teammate","url":"https://virtualteammate.com/"},
-  "areaServed":["US","CA","GB","AU"],
-  "audience":{"@type":"MedicalAudience","audienceType":"Healthcare Provider"},
-  "offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","url":"https://virtualteammate.com/services/medical-biller/"}
-}
-</script>
 <main>
 <header class="svc-hero">
   <div class="orb orb1"></div><div class="orb orb2"></div>
@@ -54,14 +40,13 @@ include __DIR__ . '/../../includes/nav.php';
       <i class="fa-solid fa-chevron-right"></i>
       <span aria-current="page">Medical Biller</span>
     </nav>
-    <div class="svc-eyebrow"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing &amp; RCM VAs &middot; HIPAA Compliant</div>
-    <h1 class="svc-h1">Medical biller <em>virtual</em> assistants</h1>
-    <p class="svc-lead">Get paid faster. Our <strong>HIPAA-compliant virtual medical billers</strong> own your full revenue cycle, clean claims, denial work, AR follow-up and payment posting, trained in CPT, ICD-10 and every major clearinghouse, at up to <strong>73% less</strong> than an in-house RCM hire.</p>
+    <div class="svc-eyebrow"><i class="fa-solid fa-file-invoice-dollar"></i> Medical Billing Help</div>
+    <h1 class="svc-h1">Get paid for the work you&rsquo;ve <em>already done</em></h1>
+    <p class="svc-lead">Denials pile up, claims slip through the cracks, and money you&rsquo;ve earned just sits there. A dedicated, <strong>HIPAA-compliant</strong> billing teammate stays on top of all of it &mdash; clean claims out the door, denials fixed fast, and every unpaid claim chased until it&rsquo;s collected. For about <strong>a third of the cost</strong> of hiring in-house.</p>
     <div class="svc-trust">
       <div class="trust-item"><i class="fa-solid fa-shield-halved"></i> HIPAA Compliant</div>
-      <div class="trust-item"><i class="fa-solid fa-chart-line"></i> 95%+ Clean Claim Rate</div>
-      <div class="trust-item"><i class="fa-solid fa-stopwatch"></i> 30-Day AR Targets</div>
       <div class="trust-item"><i class="fa-solid fa-bolt"></i> Live in 1&ndash;2 Weeks</div>
+      <div class="trust-item"><i class="fa-solid fa-rotate"></i> 30-Day Right-Fit Promise</div>
     </div>
     <div class="svc-cta-row">
       <a href="#cta-book" class="btn-primary" data-cta-intent="practice-audit">Book my practice staffing audit <i class="fa-solid fa-arrow-right"></i></a>
@@ -71,37 +56,67 @@ include __DIR__ . '/../../includes/nav.php';
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> 95%+ Clean Claims</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-coins"></i> Faster Cash</div>
-    <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/healthcare/Why-the-Healthcare-Industry-Is-Turning-to-Virtual-Assistants.webp" alt="Virtual medical biller working on claims and AR" loading="lazy"/>
+    <div class="svc-snap">
+      <div class="svc-snap-h"><i class="fa-solid fa-chart-line"></i> What changes after a few months</div>
+      <div class="svc-snap-row">
+        <div class="svc-snap-line"><span>Claims paid the first time</span><span class="v">95%+</span></div>
+        <div class="svc-snap-bar"><i style="width:95%"></i></div>
+      </div>
+      <div class="svc-snap-row">
+        <div class="svc-snap-line"><span>Most claims paid in</span><span class="v">&lt;30 days</span></div>
+        <div class="svc-snap-bar"><i style="width:82%"></i></div>
+      </div>
+      <div class="svc-snap-row">
+        <div class="svc-snap-line"><span>Cost vs. an in-house biller</span><span class="v">~&frac13;</span></div>
+        <div class="svc-snap-bar"><i style="width:33%"></i></div>
+      </div>
+      <div class="svc-snap-foot"><i class="fa-solid fa-envelope-open-text"></i> A plain-English numbers update lands in your inbox every week.</div>
     </div>
   </div>
 </header>
 
 <div class="svc-stats reveal">
-  <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Clean Claim Rate</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">&lt;30</div><div class="svc-stat-lbl">Target AR Days</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Avg. Cost Savings</div></div>
-  <div class="svc-stat"><div class="svc-stat-num">$40k+</div><div class="svc-stat-lbl">Avg. AR Recovered/Yr</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">95%+</div><div class="svc-stat-lbl">Claims Paid First Time</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">&lt;30</div><div class="svc-stat-lbl">Days to Get Paid</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">73%</div><div class="svc-stat-lbl">Less Than In-House</div></div>
+  <div class="svc-stat"><div class="svc-stat-num">1&ndash;2</div><div class="svc-stat-lbl">Weeks to Live</div></div>
 </div>
 
 <section class="svc-split">
   <div class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-file-invoice-dollar"></i> What They Handle</div>
-    <h2 class="svc-h2">Full revenue cycle <em>coverage</em></h2>
-    <p class="svc-p">Most independent practices leak <strong>5&ndash;12% of collectable revenue</strong> to denials, unworked AR and missed timely-filing windows. A dedicated medical billing teammate does the daily, unglamorous work that closes that gap, without adding a $58k&ndash;$78k in-house salary.</p>
+    <div class="sec-lbl"><i class="fa-solid fa-list-check"></i> What they handle</div>
+    <h2 class="svc-h2">The money side of every visit, <em>handled</em></h2>
+    <p class="svc-p">Most independent practices quietly lose real money to denials, claims nobody followed up on, and filing deadlines that slipped by. Your teammate does the steady, daily work that closes that gap &mdash; without a full in-house salary.</p>
     <ul class="svc-checks">
-      <li><i class="fa-solid fa-check"></i><span><strong>Clean claim submission:</strong> daily charge entry, modifier review, NCCI edits, scrub &amp; submit through your clearinghouse.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Denial management:</strong> root-cause coding, payer appeals, corrected claims, write-off triage.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>AR follow-up:</strong> aged bucket work (30/60/90+), payer calls, status checks: AR days down, cash velocity up.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Payment posting &amp; reconciliation:</strong> ERA/EOB posting, copay reconciliation, secondary claim release.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Patient billing &amp; collections:</strong> statements, payment plans, soft collections workflows.</span></li>
-      <li><i class="fa-solid fa-check"></i><span><strong>Eligibility &amp; pre-authorization:</strong> benefits checks, prior auth submission &amp; tracking, EOB explanations.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Sends out clean claims daily</strong> &mdash; coded right the first time, so they don&rsquo;t bounce back.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Works every denial</strong> &mdash; finds why it was rejected, fixes it, resubmits, and appeals when it&rsquo;s worth it.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Chases unpaid claims</strong> &mdash; calls the insurers, works the aging list, keeps the cash moving.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Posts and reconciles payments</strong> &mdash; so your books match what actually came in.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Handles patient balances</strong> &mdash; clear statements, payment plans, and gentle follow-up.</span></li>
+      <li><i class="fa-solid fa-check"></i><span><strong>Checks coverage and prior auths</strong> &mdash; before the visit, not after the claim is denied.</span></li>
     </ul>
   </div>
-  <div class="svc-side-img reveal d2">
-    <img src="<?= $home_base ?>images/photos/healthcare/Healthcare-Virtual-Assistants.webp" alt="Medical biller reviewing claims and AR reports" loading="lazy"/>
+  <div class="svc-side-img reveal d2" style="box-shadow:none;border:0;background:none;aspect-ratio:auto;">
+    <div class="svc-ba">
+      <div class="svc-ba-col is-before">
+        <div class="svc-ba-lbl">Right now</div>
+        <ul>
+          <li><i class="fa-solid fa-xmark"></i> Unpaid claims creeping past 45 days</li>
+          <li><i class="fa-solid fa-xmark"></i> Denials stacking up, unworked</li>
+          <li><i class="fa-solid fa-xmark"></i> Front desk stuck on hold with payers</li>
+          <li><i class="fa-solid fa-xmark"></i> Revenue leaking, quietly</li>
+        </ul>
+      </div>
+      <div class="svc-ba-col is-after">
+        <div class="svc-ba-lbl">With a teammate</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Most claims paid in under 30 days</li>
+          <li><i class="fa-solid fa-check"></i> Denials worked every day</li>
+          <li><i class="fa-solid fa-check"></i> Your team back with patients</li>
+          <li><i class="fa-solid fa-check"></i> You see the numbers weekly</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -109,26 +124,26 @@ include __DIR__ . '/../../includes/nav.php';
 
 <section class="svc-bens">
   <div class="reveal" style="text-align:center;">
-    <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why Practices Choose VT</div>
-    <h2 class="svc-h2">Why outsource medical billing to a teammate?</h2>
-    <p class="sec-sub" style="max-width:700px;margin:0 auto;">Trained, dedicated billers without the cost, or the turnover, of in-house RCM staffing.</p>
+    <div class="sec-lbl"><i class="fa-solid fa-star"></i> Why practices do this</div>
+    <h2 class="svc-h2">A trained biller, without the in-house headache</h2>
+    <p class="sec-sub" style="max-width:700px;margin:0 auto;">All the upside of a great biller &mdash; none of the hiring, training, or turnover.</p>
   </div>
   <div class="svc-bens-grid">
-    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Faster cash, lower AR</h3><p>Daily AR work and aggressive denial follow-up typically cut AR days to under 30 and recover thousands in stalled claims.</p></div>
-    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>95%+ clean claim rate</h3><p>Trained billers catch coding errors, modifier mistakes and missing data before claims leave the building.</p></div>
-    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>HIPAA &amp; PHI-safe</h3><p>Background-checked, HIPAA-compliant, BAA-compatible. Patient and payer data stays inside approved systems.</p></div>
-    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>Up to 73% cost savings</h3><p>Transparent flat-rate pricing replaces $58k&ndash;$78k loaded biller cost: no benefits, PTO or recruiter fees.</p></div>
-    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>Zero turnover risk</h3><p>Your Client Success Manager (CSM) handles backup coverage if your biller is sick or on PTO: never a billing dark day.</p></div>
-    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>Weekly RCM reporting</h3><p>Charges, claims, denials, AR aging and net collections: rolled up weekly so you always know where you stand.</p></div>
+    <div class="svc-ben reveal d1"><span class="ico-circle lg"><i class="fa-solid fa-coins"></i></span><h3>Cash comes in faster</h3><p>Someone works your unpaid claims and denials every day, so money stops sitting and starts landing.</p></div>
+    <div class="svc-ben reveal d2"><span class="ico-circle lg"><i class="fa-solid fa-circle-check"></i></span><h3>Fewer claims bounce</h3><p>Claims go out coded correctly the first time, so you spend less time reworking rejections.</p></div>
+    <div class="svc-ben reveal d3"><span class="ico-circle lg"><i class="fa-solid fa-shield-halved"></i></span><h3>Your data stays safe</h3><p>HIPAA-trained, background-checked, and working only in your approved systems. No shortcuts.</p></div>
+    <div class="svc-ben reveal d4"><span class="ico-circle lg"><i class="fa-solid fa-sack-dollar"></i></span><h3>One flat rate</h3><p>A predictable monthly cost &mdash; no benefits, no payroll taxes, no recruiter fees, no surprises.</p></div>
+    <div class="svc-ben reveal d5"><span class="ico-circle lg"><i class="fa-solid fa-arrows-spin"></i></span><h3>No dark days</h3><p>If your teammate is sick or on leave, trained backup steps in so your billing never stops.</p></div>
+    <div class="svc-ben reveal d6"><span class="ico-circle lg"><i class="fa-solid fa-chart-line"></i></span><h3>You stay in the loop</h3><p>A clear weekly update on what got paid, what&rsquo;s pending, and what needs your call.</p></div>
   </div>
 </section>
 
 <section class="svc-tools">
   <div class="svc-tools-wrap reveal">
     <div>
-      <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Coding &amp; Clearinghouse Stack</div>
-      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">Trained on your tools</h2>
-      <p class="svc-p" style="margin-bottom:0;">Fluent in the EHRs, PM systems and clearinghouses that move money in US healthcare.</p>
+      <div class="sec-lbl"><i class="fa-solid fa-screwdriver-wrench"></i> Works in your systems</div>
+      <h2 class="svc-h2" style="font-size:30px;margin-bottom:12px;">No new software to learn</h2>
+      <p class="svc-p" style="margin-bottom:0;">Your teammate works inside the tools your practice already runs on.</p>
     </div>
     <div class="svc-tools-chips">
       <span class="svc-tool-chip"><i class="fa-solid fa-laptop-medical"></i> Epic</span>
@@ -141,7 +156,6 @@ include __DIR__ . '/../../includes/nav.php';
       <span class="svc-tool-chip"><i class="fa-solid fa-network-wired"></i> Office Ally</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-network-wired"></i> Waystar</span>
       <span class="svc-tool-chip"><i class="fa-solid fa-network-wired"></i> Change Healthcare</span>
-      <span class="svc-tool-chip"><i class="fa-solid fa-code"></i> CPT &middot; ICD-10 &middot; HCPCS</span>
     </div>
   </div>
 </section>
@@ -150,27 +164,27 @@ include __DIR__ . '/../../includes/nav.php';
 
 <section class="svc-proc">
   <div style="text-align:center;max-width:640px;margin:0 auto;" class="reveal">
-    <div class="sec-lbl"><i class="fa-solid fa-route"></i> How It Works</div>
-    <h2 class="svc-h2">From call to live biller in <em>under two weeks</em></h2>
+    <div class="sec-lbl"><i class="fa-solid fa-route"></i> How it works</div>
+    <h2 class="svc-h2">From first call to working biller in <em>under two weeks</em></h2>
   </div>
   <div class="proc-steps">
-    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">RCM value audit call</h3><p class="pstep-desc">15-minute call to review your specialty, payer mix, EHR/clearinghouse, denial trends and AR aging.</p></div>
-    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Shortlist &amp; interview</h3><p class="pstep-desc">Curated shortlist of billers matched to your specialty, EHR and payer mix. You interview, you choose.</p></div>
-    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">Onboard &amp; launch</h3><p class="pstep-desc">EHR/clearinghouse access, SOP handoff, daily workflows and a Client Success Manager (CSM): live in 1&ndash;2 weeks.</p></div>
+    <div class="pstep reveal d1"><div class="pstep-head"><div class="pstep-num">01</div><i class="fa-solid fa-calendar-check pstep-ico"></i></div><h3 class="pstep-title">A quick, honest call</h3><p class="pstep-desc">15 minutes to understand your practice, your software, and where the money is getting stuck.</p></div>
+    <div class="pstep reveal d2"><div class="pstep-head"><div class="pstep-num">02</div><i class="fa-solid fa-users-viewfinder pstep-ico"></i></div><h3 class="pstep-title">Meet your shortlist</h3><p class="pstep-desc">We hand-pick a few billers who fit your specialty and systems. You interview them and choose.</p></div>
+    <div class="pstep reveal d3"><div class="pstep-head"><div class="pstep-num">03</div><i class="fa-solid fa-rocket pstep-ico"></i></div><h3 class="pstep-title">They get to work</h3><p class="pstep-desc">Access, a smooth handoff, and a dedicated Client Success Manager &mdash; up and running in 1&ndash;2 weeks.</p></div>
   </div>
 </section>
 
 <div class="divider"></div>
 
 <section class="sec" id="faq" style="padding-top:70px;">
-  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Medical biller teammate FAQs</h2></div>
+  <div class="reveal"><div class="sec-lbl"><i class="fa-solid fa-circle-question"></i> FAQ</div><h2 class="svc-h2">Questions practices ask us</h2></div>
   <div class="faq-grid">
-    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a medical billing virtual assistant do?</div><div class="faq-a">Full revenue cycle: charge entry, claim scrubbing &amp; submission, denial management, AR follow-up, payment posting, patient billing and weekly RCM reporting: inside your existing EHR and clearinghouse.</div></div>
-    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will a billing teammate actually reduce my AR days?</div><div class="faq-a">Yes. Most practices cut AR days from 45+ down to under 30 within the first 90 days from consistent daily aged-bucket work and aggressive denial follow-up.</div></div>
-    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-code"></i> Are your billing teammates trained in CPT, ICD-10 and HCPCS?</div><div class="faq-a">Yes. Every biller is trained in CPT, ICD-10-CM, HCPCS, payer modifiers, NCCI edits and CMS guidelines: plus all major clearinghouses (Availity, Office Ally, Waystar, Change Healthcare).</div></div>
-    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is patient and payer data safe?</div><div class="faq-a">Yes. Every biller is HIPAA-compliant, background-checked, and signs a BAA-compatible confidentiality agreement before placement.</div></div>
-    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> How much does a virtual medical biller cost?</div><div class="faq-a">Flat-rate pricing typically 60&ndash;73% less than a fully-loaded US in-house biller ($58k&ndash;$78k all-in). Use the homepage ROI calculator for a specialty-specific quote.</div></div>
-    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What happens if my biller is sick or on PTO?</div><div class="faq-a">Your Client Success Manager (CSM) arranges trained backup coverage so claims, denials and AR work never go dark.</div></div>
+    <div class="faq-item reveal d1"><div class="faq-q"><i class="fa-solid fa-file-invoice-dollar"></i> What does a billing teammate actually do?</div><div class="faq-a">They own the money side of every visit: sending out clean claims, fixing and resubmitting denials, chasing unpaid claims with the insurers, posting payments, and handling patient balances &mdash; all inside the system you already use.</div></div>
+    <div class="faq-item reveal d2"><div class="faq-q"><i class="fa-solid fa-stopwatch"></i> Will this actually get my money in faster?</div><div class="faq-a">Yes. With someone working claims and denials every single day, most practices see unpaid claims drop from 45-plus days down to under 30 within the first few months.</div></div>
+    <div class="faq-item reveal d3"><div class="faq-q"><i class="fa-solid fa-laptop-medical"></i> Do they know my software?</div><div class="faq-a">They do. Your teammate works daily in systems like Epic, athenahealth and eClinicalWorks, plus the major clearinghouses, and we confirm the fit before they start.</div></div>
+    <div class="faq-item reveal d4"><div class="faq-q"><i class="fa-solid fa-shield-halved"></i> Is my patient data safe?</div><div class="faq-a">Yes. Every teammate is HIPAA-trained and certified, background-checked, and signs a confidentiality agreement before they ever touch a record.</div></div>
+    <div class="faq-item reveal d5"><div class="faq-q"><i class="fa-solid fa-sack-dollar"></i> What does it cost?</div><div class="faq-a">A flat rate for a full-time specialist biller &mdash; typically 60&ndash;73% less than a US in-house hire once you add benefits, taxes and overhead. See the pricing on our homepage, or book an audit for a number tailored to your practice.</div></div>
+    <div class="faq-item reveal d6"><div class="faq-q"><i class="fa-solid fa-user-tie"></i> What if my teammate is out sick?</div><div class="faq-a">Your Client Success Manager arranges trained backup so your claims and follow-up never go a day without attention.</div></div>
   </div>
 </section>
 
