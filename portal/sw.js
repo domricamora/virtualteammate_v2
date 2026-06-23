@@ -11,7 +11,7 @@
  */
 'use strict';
 
-const CACHE_VERSION = 'vtportal-v2';
+const CACHE_VERSION = 'vtportal-v3';
 const STATIC_CACHE  = CACHE_VERSION + '-static';
 const OFFLINE_URL   = 'offline.html';
 
@@ -124,11 +124,15 @@ self.addEventListener('push', function (event) {
 
   var title = data.title || 'VT Portal';
   var options = {
-    body:  data.body || '',
-    icon:  'assets/icons/icon-192.png',
-    badge: 'assets/icons/icon-192.png',
-    tag:   data.kind || 'vtportal',
-    data:  { link: data.link || 'index.php?p=dashboard' }
+    body:      data.body || '',
+    icon:      'assets/icons/icon-192.png',
+    badge:     'assets/icons/icon-192.png',
+    vibrate:   [120, 60, 120],
+    // renotify with a per-message tag so every notification re-alerts (sound +
+    // vibration) instead of silently replacing the previous one.
+    tag:       'vt-' + Date.now(),
+    renotify:  true,
+    data:      { link: data.link || 'index.php?p=dashboard' }
   };
   event.waitUntil(self.registration.showNotification(title, options));
 });
