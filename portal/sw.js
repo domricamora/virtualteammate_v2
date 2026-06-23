@@ -11,7 +11,7 @@
  */
 'use strict';
 
-const CACHE_VERSION = 'vtportal-v1';
+const CACHE_VERSION = 'vtportal-v2';
 const STATIC_CACHE  = CACHE_VERSION + '-static';
 const OFFLINE_URL   = 'offline.html';
 
@@ -114,4 +114,39 @@ self.addEventListener('fetch', (event) => {
 
   // Everything else (JSON/AJAX: messages.fetch, notifications.*, *_json, media)
   // -> network-only. Do not call respondWith so the browser handles it normally.
+});
+
+/* ───────────── Web Push ───────────── */
+self.addEventListener('push', function (event) {
+  var data = {};
+  try { data = event.data ? event.data.json() : {}; }
+  catch (e) { data = { title: 'VT Portal', body: event.data ? event.data.text() : '' }; }
+
+  var title = data.title || 'VT Portal';
+  var options = {
+    body:  data.body || '',
+    icon:  'assets/icons/icon-192.png',
+    badge: 'assets/icons/icon-192.png',
+    tag:   data.kind || 'vtportal',
+    data:  { link: data.link || 'index.php?p=dashboard' }
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener('notificationclick', function (event) {
+  event.notification.close();
+  var link = (event.notification.data && event.notification.data.link) || 'index.php?p=dashboard';
+  var url  = new URL(link, self.registration.scope).href;
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (wins) {
+      for (var i = 0; i < wins.length; i++) {
+        var w = wins[i];
+        if (w.url.indexOf(self.registration.scope) === 0 && 'focus' in w) {
+          if ('navigate' in w) { w.navigate(url); }
+          return w.focus();
+        }
+      }
+      if (self.clients.openWindow) { return self.clients.openWindow(url); }
+    })
+  );
 });

@@ -475,6 +475,32 @@ function notify(int $userId, string $kind, string $title, string $body = '', str
         if ($r && (int) ($r['notify_by_email'] ?? 0) === 1 && !empty($r['email'])) {
             notify_send_email((string) $r['email'], $title, $body, $link);
         }
+
+        // Web push to the user's installed devices. Best-effort and isolated:
+        // only loads the crypto lib if there are subscriptions; prunes dead ones.
+        try {
+            $subStmt = $pdo->prepare('SELECT id, endpoint, p256dh, auth FROM push_subscriptions WHERE user_id = :u');
+            $subStmt->execute([':u' => $userId]);
+            $subs = $subStmt->fetchAll();
+            if ($subs) {
+                require_once __DIR__ . '/webpush.php';
+                $payload = (string) json_encode(
+                    ['title' => $title, 'body' => $body, 'link' => $link, 'kind' => $kind],
+                    JSON_UNESCAPED_SLASHES
+                );
+                foreach ($subs as $s) {
+                    $res = webpush_send(
+                        ['endpoint' => $s['endpoint'], 'p256dh' => $s['p256dh'], 'auth' => $s['auth']],
+                        $payload
+                    );
+                    if (!$res['ok'] && in_array($res['status'], [404, 410], true)) {
+                        $pdo->prepare('DELETE FROM push_subscriptions WHERE id = :id')->execute([':id' => $s['id']]);
+                    }
+                }
+            }
+        } catch (Throwable $_) {
+            // Table may not exist yet, or push service unreachable — never fatal.
+        }
     } catch (Throwable $_) {
         // Notifying must never crash the request.
     }

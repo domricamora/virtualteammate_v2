@@ -96,40 +96,71 @@
     return bar;
   }
 
-  if (isStandalone() || recentlyDismissed()) { return; }
+  var ua = window.navigator.userAgent || '';
+  var isIOS = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
+  var isIOSSafari = isIOS && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua);
 
   var deferredPrompt = null;
   var banner = null;
 
-  // Chromium: capture the install event and show our own button.
+  function doPrompt() {
+    if (!deferredPrompt) { return; }
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.finally(function () {
+      deferredPrompt = null;
+      if (banner) { banner.remove(); banner = null; }
+    });
+  }
+
+  function hideCtas() {
+    document.querySelectorAll('.pwa-install-cta').forEach(function (el) { el.style.display = 'none'; });
+  }
+
+  // Chromium fires this when the app is installable — keep the prompt for the
+  // explicit "Install app" buttons, and gently surface a banner too.
   window.addEventListener('beforeinstallprompt', function (e) {
     e.preventDefault();
     deferredPrompt = e;
-    if (banner) { return; }
-    banner = buildBanner({
-      subtitle: 'Add it to your home screen for one-tap access.',
-      actionLabel: 'Install',
-      onAction: function () {
-        if (!deferredPrompt) { return; }
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.finally(function () {
-          deferredPrompt = null;
-          if (banner) { banner.remove(); banner = null; }
-        });
-      }
-    });
+    if (!banner && !isStandalone() && !recentlyDismissed()) {
+      banner = buildBanner({
+        subtitle: 'Add it to your home screen for one-tap access.',
+        actionLabel: 'Install',
+        onAction: doPrompt
+      });
+    }
   });
 
   window.addEventListener('appinstalled', function () {
     rememberDismiss();
     if (banner) { banner.remove(); banner = null; }
+    hideCtas();
   });
 
-  // iOS Safari never fires beforeinstallprompt — show a manual hint instead.
-  var ua = window.navigator.userAgent || '';
-  var isIOS = /iphone|ipad|ipod/i.test(ua) && !window.MSStream;
-  var isIOSSafari = isIOS && /safari/i.test(ua) && !/crios|fxios|edgios/i.test(ua);
-  if (isIOSSafari) {
+  // Public entry point for the "Install app" links on the dashboard + login.
+  window.vtPromptInstall = function () {
+    if (deferredPrompt) { doPrompt(); return; }
+    if (banner) { return; }
+    banner = buildBanner({
+      subtitle: isIOSSafari
+        ? 'Tap the Share icon, then “Add to Home Screen”.'
+        : 'Open your browser menu and choose “Install app” / “Add to Home screen”.',
+      actionLabel: null,
+      onAction: null
+    });
+  };
+
+  // Wire up the explicit install buttons (hidden once running as an app).
+  function bindCtas() {
+    if (isStandalone()) { hideCtas(); return; }
+    document.querySelectorAll('.pwa-install-cta').forEach(function (el) {
+      el.addEventListener('click', function (ev) { ev.preventDefault(); window.vtPromptInstall(); });
+    });
+  }
+  if (document.readyState !== 'loading') { bindCtas(); }
+  else { document.addEventListener('DOMContentLoaded', bindCtas); }
+
+  // iOS Safari never fires beforeinstallprompt — auto-hint once (unless dismissed).
+  if (isIOSSafari && !isStandalone() && !recentlyDismissed()) {
     window.addEventListener('load', function () {
       if (banner) { return; }
       banner = buildBanner({

@@ -1379,6 +1379,23 @@ select option:checked{background-color:#3919BA;color:#fff;}
 
 /* ═══════════════ PWA: install banner, bottom tab bar, standalone ═══════════════ */
 
+/* ── "Install app" CTA (dashboard top bar + login footer) ── */
+.pwa-install-cta{
+  display:inline-flex;align-items:center;gap:7px;
+  font:inherit;font-size:13px;font-weight:700;cursor:pointer;
+  color:var(--gold,#dfa949);
+  background:rgba(247,185,69,.10);
+  border:1px solid rgba(247,185,69,.38);
+  border-radius:30px;padding:7px 14px;line-height:1;
+  transition:background .15s ease, border-color .15s ease, transform .15s ease;
+}
+.pwa-install-cta:hover{background:rgba(247,185,69,.18);border-color:rgba(247,185,69,.6);transform:translateY(-1px);}
+.pwa-install-cta:active{transform:translateY(0);}
+.pwa-install-cta i{font-size:14px;}
+/* In the login footer, center it above the back link. */
+.naked-foot .pwa-install-cta{margin:0 auto 12px;}
+.naked-foot{display:flex;flex-direction:column;align-items:center;}
+
 /* ── Install banner (top slide-down so it never collides with the tab bar) ── */
 .pwa-install-banner{
   position:fixed;z-index:60;

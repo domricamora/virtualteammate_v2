@@ -331,3 +331,18 @@ CREATE INDEX IF NOT EXISTS idx_meetings_organizer     ON meetings(organizer_user
 CREATE INDEX IF NOT EXISTS idx_tasks_created_by       ON tasks(created_by);
 CREATE INDEX IF NOT EXISTS idx_task_attachments_user  ON task_attachments(uploaded_by);
 CREATE INDEX IF NOT EXISTS idx_messages_sender        ON messages(sender_user_id);
+
+-- Web Push device subscriptions (PWA notifications). One row per browser/device
+-- endpoint; pruned automatically when the push service reports 404/410 Gone.
+CREATE TABLE IF NOT EXISTS push_subscriptions (
+  id           INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id      INTEGER NOT NULL,
+  endpoint     TEXT    NOT NULL UNIQUE,
+  p256dh       TEXT    NOT NULL,
+  auth         TEXT    NOT NULL,
+  user_agent   TEXT,
+  created_at   TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_used_at TEXT,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+CREATE INDEX IF NOT EXISTS idx_push_subs_user ON push_subscriptions(user_id);

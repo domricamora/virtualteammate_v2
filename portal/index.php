@@ -122,6 +122,10 @@ switch ($action) {
     case 'notifications.delete':       handle_notifications_delete();         break;
     case 'notifications.delete_all':   handle_notifications_delete_all();     break;
     case 'notifications.toggle_email': handle_notifications_toggle_email();   break;
+    case 'push.key':                   handle_push_key();                     break;
+    case 'push.subscribe':             handle_push_subscribe();               break;
+    case 'push.unsubscribe':           handle_push_unsubscribe();             break;
+    case 'push.test':                  handle_push_test();                    break;
     case 'resources':              handle_resources();               break;
     case 'knowledge-center':       handle_knowledge_center();        break;
     case 'payslips':               handle_payslips();                break;
@@ -3600,6 +3604,118 @@ function handle_notifications_toggle_email(): void
     }
     flash('success', $on ? 'Email notifications turned ON.' : 'Email notifications turned OFF.');
     redirect(portal_url('notifications'));
+}
+
+/* ═════════════════════════════════════════════════════════════════════════
+ * WEB PUSH — VAPID key handoff + subscription management for the PWA.
+ * ═════════════════════════════════════════════════════════════════════════ */
+
+function handle_push_key(): void
+{
+    $u = require_login();
+    require_once __DIR__ . '/webpush.php';
+    push_ensure_table(db());
+    $cnt = db()->prepare('SELECT COUNT(*) FROM push_subscriptions WHERE user_id = :u');
+    $cnt->execute([':u' => $u['id']]);
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo json_encode([
+        'ok'         => true,
+        'key'        => webpush_public_key(),
+        'subscribed' => ((int) $cnt->fetchColumn()) > 0,
+        'csrf'       => csrf_token(),
+    ], JSON_UNESCAPED_SLASHES);
+}
+
+function handle_push_subscribe(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    require_once __DIR__ . '/webpush.php';
+
+    $endpoint = trim((string) ($_POST['endpoint'] ?? ''));
+    $p256dh   = trim((string) ($_POST['p256dh'] ?? ''));
+    $auth     = trim((string) ($_POST['auth'] ?? ''));
+    if ($endpoint === '' || $p256dh === '' || $auth === '') {
+        http_response_code(400);
+        header('Content-Type: application/json');
+        echo json_encode(['ok' => false, 'error' => 'missing fields']);
+        return;
+    }
+
+    push_ensure_table(db());
+    // One row per endpoint; re-subscribing (or a new owner on a shared device)
+    // updates the existing row rather than duplicating it.
+    db()->prepare(
+        'INSERT INTO push_subscriptions (user_id, endpoint, p256dh, auth, user_agent, last_used_at)
+         VALUES (:u, :e, :p, :a, :ua, CURRENT_TIMESTAMP)
+         ON CONFLICT(endpoint) DO UPDATE SET
+            user_id = excluded.user_id, p256dh = excluded.p256dh,
+            auth = excluded.auth, user_agent = excluded.user_agent,
+            last_used_at = CURRENT_TIMESTAMP'
+    )->execute([
+        ':u' => $u['id'], ':e' => $endpoint, ':p' => $p256dh, ':a' => $auth,
+        ':ua' => mb_substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255),
+    ]);
+
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo json_encode(['ok' => true, 'subscribed' => true]);
+}
+
+function handle_push_unsubscribe(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    require_once __DIR__ . '/webpush.php';
+    push_ensure_table(db());
+
+    $endpoint = trim((string) ($_POST['endpoint'] ?? ''));
+    if ($endpoint !== '') {
+        db()->prepare('DELETE FROM push_subscriptions WHERE endpoint = :e AND user_id = :u')
+            ->execute([':e' => $endpoint, ':u' => $u['id']]);
+    }
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo json_encode(['ok' => true, 'subscribed' => false]);
+}
+
+function handle_push_test(): void
+{
+    $u = require_login();
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') { redirect(portal_url('notifications')); }
+    csrf_verify();
+    require_once __DIR__ . '/webpush.php';
+    push_ensure_table(db());
+
+    $subStmt = db()->prepare('SELECT id, endpoint, p256dh, auth FROM push_subscriptions WHERE user_id = :u');
+    $subStmt->execute([':u' => $u['id']]);
+    $subs = $subStmt->fetchAll();
+
+    $payload = (string) json_encode([
+        'title' => 'VT Portal',
+        'body'  => 'Push notifications are working. 🎉',
+        'link'  => 'index.php?p=notifications',
+        'kind'  => 'info',
+    ], JSON_UNESCAPED_SLASHES);
+
+    $sent = 0; $errors = [];
+    foreach ($subs as $s) {
+        $res = webpush_send(['endpoint' => $s['endpoint'], 'p256dh' => $s['p256dh'], 'auth' => $s['auth']], $payload);
+        if ($res['ok']) {
+            $sent++;
+        } else {
+            $errors[] = $res['status'] . ' ' . ($res['error'] ?? '');
+            if (in_array($res['status'], [404, 410], true)) {
+                db()->prepare('DELETE FROM push_subscriptions WHERE id = :id')->execute([':id' => $s['id']]);
+            }
+        }
+    }
+    header('Content-Type: application/json');
+    header('Cache-Control: no-store');
+    echo json_encode(['ok' => true, 'sent' => $sent, 'devices' => count($subs), 'errors' => $errors]);
 }
 
 /* ═════════════════════════════════════════════════════════════════════════

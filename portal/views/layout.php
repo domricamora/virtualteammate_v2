@@ -192,6 +192,9 @@ if ($me && $role === 'super_admin') {
         <?php endif; ?>
       </div>
       <div class="portal-top-r">
+        <?php if ($active === 'dashboard'): ?>
+          <button type="button" class="pwa-install-cta" title="Install VT Portal as an app"><i class="fa-solid fa-circle-down"></i><span>Install app</span></button>
+        <?php endif; ?>
         <?php if ($me): ?>
           <a class="portal-top-bell" href="<?= e(portal_url('notifications')) ?>" title="<?= (int) $unreadNotiCount ?> unread notification<?= $unreadNotiCount === 1 ? '' : 's' ?>">
             <i class="fa-solid fa-bell"></i>

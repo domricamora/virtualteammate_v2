@@ -32,6 +32,14 @@ $kindIcon = static function (string $k): string {
         <span class="notif-toggle-track"></span>
         <span class="notif-toggle-label"><i class="fa-solid fa-envelope"></i> Email notifications</span>
       </label>
+      <label class="notif-toggle" title="Get push notifications on this device (install the app first for the best experience)" data-push-wrap hidden>
+        <input type="checkbox" data-noti-push-toggle>
+        <span class="notif-toggle-track"></span>
+        <span class="notif-toggle-label"><i class="fa-solid fa-mobile-screen"></i> Push on this device</span>
+      </label>
+      <button class="btn-portal-secondary btn-sm" type="button" data-noti-push-test hidden>
+        <i class="fa-solid fa-paper-plane"></i> Send test
+      </button>
       <button class="btn-portal-secondary btn-sm" type="button" data-noti-mark-all-read <?= empty($unread) ? 'disabled' : '' ?>>
         <i class="fa-solid fa-check-double"></i> Mark all read
       </button>
@@ -261,3 +269,4 @@ $kindIcon = static function (string $k): string {
   }
 })();
 </script>
+<script src="assets/push.js?v=<?= @filemtime(__DIR__ . '/../assets/push.js') ?: time() ?>" defer></script>

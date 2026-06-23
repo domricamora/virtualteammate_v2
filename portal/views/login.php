@@ -44,6 +44,7 @@
   </form>
 
   <footer class="naked-foot">
+    <button type="button" class="pwa-install-cta"><i class="fa-solid fa-circle-down"></i><span>Install the app</span></button>
     <a href="<?= e(site_url()) ?>" class="naked-back">&larr; Back to marketing site</a>
   </footer>
 </main>
