@@ -140,9 +140,10 @@ if ($me && $role === 'super_admin') {
 <head>
 <meta charset="UTF-8">
 <title><?= e($pageTitle) ?> &middot; VT Portal</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/png" href="<?= e(site_url('images/favicon-32x32.png')) ?>">
+<?php include __DIR__ . '/_pwa-head.php'; ?>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -218,6 +219,25 @@ if ($me && $role === 'super_admin') {
       <?php require __DIR__ . '/' . $view . '.php'; ?>
     </section>
   </main>
+
+  <?php /* App-style bottom tab bar — mobile/standalone only (hidden ≥900px via CSS). Reuses the role-aware $nav. */ ?>
+  <nav class="portal-tabbar" aria-label="Quick navigation">
+    <?php foreach (array_slice($nav, 0, 4) as $item): ?>
+      <?php $itemUrl = $item['url'] ?? portal_url($item['p']); $itemExt = !empty($item['external']); ?>
+      <a class="portal-tab<?= $itemExt ? '' : $baseFlag($item['p']) ?>" href="<?= e($itemUrl) ?>"<?= $itemExt ? ' target="_blank" rel="noopener"' : '' ?>>
+        <i class="fa-solid <?= e($item['icon']) ?>"></i>
+        <span><?= e($item['label']) ?></span>
+        <?php $tabBadge = $item['p'] === 'notifications' ? $unreadNotiCount : ($item['p'] === 'leads' ? $newLeadsCount : 0); ?>
+        <?php if ($tabBadge > 0): ?>
+          <span class="portal-tab-badge"><?= $tabBadge > 99 ? '99+' : (int) $tabBadge ?></span>
+        <?php endif; ?>
+      </a>
+    <?php endforeach; ?>
+    <button type="button" class="portal-tab portal-tab-more" id="portalTabMore" aria-label="More menu" aria-controls="portalShell">
+      <i class="fa-solid fa-ellipsis"></i>
+      <span>More</span>
+    </button>
+  </nav>
 
 </div>
 <script src="assets/portal.js?v=<?= @filemtime(__DIR__ . '/../assets/portal.js') ?: time() ?>" defer></script>

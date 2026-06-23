@@ -14,6 +14,14 @@
         ham.setAttribute('aria-expanded', 'false');
       });
     });
+    // Bottom tab bar "More" button reuses the same slide-out menu.
+    var more = document.getElementById('portalTabMore');
+    if (more) {
+      more.addEventListener('click', function () {
+        var open = shell.classList.toggle('nav-open');
+        ham.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
   }
 
   // ── Flash auto-dismiss ──────────────────────────────────────────────

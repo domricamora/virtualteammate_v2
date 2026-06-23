@@ -35,3 +35,23 @@
     Require all denied
   </IfModule>
 </FilesMatch>
+
+# ── PWA ──
+# The manifest must be served as application/manifest+json or install fails.
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Always revalidate the service worker + manifest so app updates ship promptly.
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.webmanifest$">
+    Header set Cache-Control "no-cache, max-age=0, must-revalidate"
+  </FilesMatch>
+  # App icons are content-stable — let them cache hard.
+  <FilesMatch "(icon-.*|apple-touch-.*)\.png$">
+    Header set Cache-Control "public, max-age=2592000, immutable"
+  </FilesMatch>
+</IfModule>
