@@ -37,9 +37,6 @@ $kindIcon = static function (string $k): string {
         <span class="notif-toggle-track"></span>
         <span class="notif-toggle-label"><i class="fa-solid fa-mobile-screen"></i> Push on this device</span>
       </label>
-      <button class="btn-portal-secondary btn-sm" type="button" data-noti-push-test hidden>
-        <i class="fa-solid fa-paper-plane"></i> Send test
-      </button>
       <button class="btn-portal-secondary btn-sm" type="button" data-noti-mark-all-read <?= empty($unread) ? 'disabled' : '' ?>>
         <i class="fa-solid fa-check-double"></i> Mark all read
       </button>

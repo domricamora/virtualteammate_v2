@@ -1,21 +1,26 @@
-/* VT Portal web-push opt-in. Drives the "Push on this device" toggle on the
- * notifications page: requests permission, subscribes via PushManager, and
- * registers/removes the subscription server-side. No dependencies. */
+/* VT Portal web-push client. Powers two optional controls:
+ *   - the "Push on this device" toggle on the notifications page (any user)
+ *   - the "Send test notification" button on the super-admin dashboard
+ * "Send test" auto-subscribes this device first if needed. No dependencies. */
 (function () {
   'use strict';
 
-  var toggle = document.querySelector('[data-noti-push-toggle]');
-  if (!toggle) { return; }
-  var wrap = document.querySelector('[data-push-wrap]');
+  var toggle   = document.querySelector('[data-noti-push-toggle]');
+  var testBtns = Array.prototype.slice.call(document.querySelectorAll('[data-push-test]'));
+  if (!toggle && !testBtns.length) { return; }
 
+  var wrap = document.querySelector('[data-push-wrap]');
   var supported = ('serviceWorker' in navigator) && ('PushManager' in window) && ('Notification' in window);
-  if (!supported || window.Notification.permission === 'denied') {
-    return; // leave the control hidden — not usable on this browser
+  if (!supported || !window.isSecureContext || window.Notification.permission === 'denied') {
+    if (wrap) { wrap.hidden = true; }            // unusable here — keep controls hidden
+    return;
   }
   if (wrap) { wrap.hidden = false; }
-
-  var testBtn = document.querySelector('[data-noti-push-test]');
-  if (testBtn) { testBtn.hidden = false; }
+  testBtns.forEach(function (b) {
+    b.hidden = false;
+    var card = b.closest('[data-push-test-card]');
+    if (card) { card.hidden = false; }
+  });
 
   var cfg = { key: null, csrf: null };
 
@@ -37,7 +42,7 @@
       .then(function (r) { if (!r.ok) { throw new Error('HTTP ' + r.status); } return r.json(); });
   }
 
-  // Load VAPID key + CSRF + current state, then reflect it in the toggle.
+  // Load VAPID key + CSRF + current subscription state.
   fetch('index.php?p=push.key', { credentials: 'same-origin' })
     .then(function (r) { return r.json(); })
     .then(function (d) {
@@ -46,36 +51,13 @@
     })
     .then(function (reg) { return reg.pushManager.getSubscription(); })
     .then(function (sub) {
-      toggle.checked = !!sub && window.Notification.permission === 'granted';
+      if (toggle) { toggle.checked = !!sub && window.Notification.permission === 'granted'; }
     })
-    .catch(function () { /* leave unchecked */ });
+    .catch(function () { /* leave defaults */ });
 
-  toggle.addEventListener('change', function () {
-    toggle.disabled = true;
-    var done = function () { toggle.disabled = false; };
-    if (toggle.checked) { enable().then(done, done); }
-    else { disable().then(done, done); }
-  });
-
-  // "Send test" — fire a push to this user's subscribed devices.
-  if (testBtn) {
-    testBtn.addEventListener('click', function () {
-      if (!cfg.csrf) { alert('Still loading — try again in a second.'); return; }
-      testBtn.disabled = true;
-      post('push.test', {})
-        .then(function (r) {
-          if (r.sent > 0) { alert('Sent to ' + r.sent + ' device(s). Check your notifications.'); }
-          else if (r.devices === 0) { alert('No devices subscribed yet — turn on “Push on this device” first.'); }
-          else { alert('Could not deliver to ' + r.devices + ' device(s). ' + ((r.errors || []).join('; '))); }
-        })
-        .catch(function () { alert('Test failed. Please try again.'); })
-        .then(function () { testBtn.disabled = false; });
-    });
-  }
-
-  function enable() {
+  function subscribe() {
     return window.Notification.requestPermission().then(function (perm) {
-      if (perm !== 'granted') { toggle.checked = false; return; }
+      if (perm !== 'granted') { return false; }
       return navigator.serviceWorker.ready
         .then(function (reg) {
           return reg.pushManager.subscribe({
@@ -85,29 +67,60 @@
         })
         .then(function (sub) {
           var j = sub.toJSON();
-          return post('push.subscribe', {
-            endpoint: sub.endpoint,
-            p256dh: j.keys.p256dh,
-            auth: j.keys.auth
-          });
+          return post('push.subscribe', { endpoint: sub.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth });
         })
-        .catch(function () {
-          toggle.checked = false;
-          alert('Could not enable push notifications on this device.');
-        });
+        .then(function () { return true; });
     });
   }
 
-  function disable() {
+  function unsubscribe() {
     return navigator.serviceWorker.ready
       .then(function (reg) { return reg.pushManager.getSubscription(); })
       .then(function (sub) {
         if (!sub) { return; }
         var endpoint = sub.endpoint;
-        return sub.unsubscribe().then(function () {
-          return post('push.unsubscribe', { endpoint: endpoint });
-        });
-      })
-      .catch(function () { /* best-effort */ });
+        return sub.unsubscribe().then(function () { return post('push.unsubscribe', { endpoint: endpoint }); });
+      });
   }
+
+  function ensureSubscribed() {
+    return navigator.serviceWorker.ready
+      .then(function (reg) { return reg.pushManager.getSubscription(); })
+      .then(function (sub) {
+        if (sub && window.Notification.permission === 'granted') { return true; }
+        return subscribe();
+      });
+  }
+
+  // Notifications-page opt-in toggle (all users).
+  if (toggle) {
+    toggle.addEventListener('change', function () {
+      toggle.disabled = true;
+      var done = function () { toggle.disabled = false; };
+      if (toggle.checked) {
+        subscribe().then(function (ok) { if (!ok) { toggle.checked = false; } }).then(done, done);
+      } else {
+        unsubscribe().then(done, done);
+      }
+    });
+  }
+
+  // "Send test" button(s) — super-admin dashboard. Subscribes first if needed.
+  testBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (!cfg.csrf) { alert('Still loading — try again in a second.'); return; }
+      btn.disabled = true;
+      ensureSubscribed()
+        .then(function (ok) {
+          if (!ok) { alert('Push permission was not granted on this device.'); return; }
+          if (toggle) { toggle.checked = true; }
+          return post('push.test', {}).then(function (r) {
+            if (r.sent > 0) { alert('Sent to ' + r.sent + ' device(s). Check your notifications.'); }
+            else { alert('Could not deliver to ' + (r.devices || 0) + ' device(s). ' + ((r.errors || []).join('; '))); }
+          });
+        })
+        .catch(function () { alert('Test failed. Please try again.'); })
+        .then(function () { btn.disabled = false; });
+    });
+  });
 })();

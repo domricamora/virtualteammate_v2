@@ -50,6 +50,16 @@ $ssl       = $ssl ?? ['enabled' => false];
   </a>
 </div>
 
+<div class="card" data-push-test-card hidden style="display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;">
+  <div>
+    <h3 style="margin:0 0 3px;"><i class="fa-solid fa-mobile-screen" style="color:var(--gold);margin-right:8px;"></i> Mobile app &amp; push</h3>
+    <div class="muted small">Send a push notification to your own subscribed devices to confirm push is working.</div>
+  </div>
+  <button class="btn-portal-secondary" type="button" data-push-test hidden>
+    <i class="fa-solid fa-paper-plane"></i> Send test notification
+  </button>
+</div>
+
 <div class="card tc-card">
   <div class="card-h">
     <h3><i class="fa-solid fa-chart-area" style="color:var(--gold);margin-right:8px;"></i> Leads &amp; Traffic <span class="muted small">&mdash; last 14 days</span></h3>
@@ -326,3 +336,5 @@ $ssl       = $ssl ?? ['enabled' => false];
     <?php endif; ?>
   </div>
 </div>
+
+<script src="assets/push.js?v=<?= @filemtime(__DIR__ . '/../assets/push.js') ?: time() ?>" defer></script>
