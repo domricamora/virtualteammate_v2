@@ -272,7 +272,134 @@ This `leads` table is the **same table** read by the portal's **Leads** page —
 
 ---
 
-## 10. Deployment
+## 10. PHP function reference
+
+Every server-side function defined in the marketing site (the portal has its own). Most pages
+are procedural templates; the functions below are the reusable logic. Several endpoints
+(`vt-link.php`, `talent-media.php`, the page templates) are intentionally procedural and define
+no named functions.
+
+### `includes/cache.php`
+
+| Function | Purpose |
+|----------|---------|
+| `vt_cache_state(): array` | Reads `data/cache-state.php` and returns the asset-cache on/off state (toggled from the portal's cache control). |
+| `vt_asset_ver(string $absPath): string` | Returns the `?v=` cache-busting suffix for an asset URL: `filemtime` when caching is **on** (stable, busts on change), a unique per-load token when **off** (forces fresh fetches in development). |
+
+### `index.php`
+
+| Function | Purpose |
+|----------|---------|
+| `vtnew_homepage_profiles(int $limit = 6): array` | Queries `data/portal.sqlite` for active medical/dental VT profiles that have a photo on disk, tags each Medical/Dental, and returns up to `$limit` rows for the homepage "Meet the Team" grid. Returns `[]` if the portal DB isn't present, so the page still renders. |
+
+### `lead.php` (the lead-capture endpoint)
+
+| Function | Purpose |
+|----------|---------|
+| `lead_respond(array $payload, int $code = 200): void` | Discards any output buffer, sets the status, emits the final JSON, and exits. Every response routes through here so stray output can't corrupt the JSON body. |
+| `lead_fail(string $msg, int $code = 400): void` | Shorthand for an error response — `{"ok":false,"error":$msg}`. |
+| `lead_notify_team(PDO $pdo, array $lead): void` | Best-effort branded team-notification email sent **after** the response. Recipient from `app_settings.lead_notify_email` (default `nricamora@virtualteammate.com`). Skipped on localhost only when no SMTP relay is configured. |
+| `lead_smtp_config(): ?array` | Loads and statically caches outbound SMTP credentials from `portal/smtp.local.php`; returns the config array or `null` (→ fall back to native `mail()`). Never throws. |
+| `lead_smtp_send(array $cfg, string $from, string $to, string $message): bool` | Minimal STARTTLS + AUTH LOGIN SMTP client; returns `true` only when the server accepts the message (250 at end-of-DATA). |
+| `lead_send_mail(string $to, string $subject, string $html, string $text): bool` | Builds a MIME multipart (HTML + text) message and sends it via the SMTP relay when configured, else native `mail()`. |
+| `lead_email_html(array $lead): string` | Renders the branded HTML body for the team-notification email. |
+| `lead_push_hubspot(PDO $pdo, array $lead): void` | Upserts the lead as a HubSpot CRM contact by email (PATCH then POST), setting custom properties (`lead_intent`, `lead_source_form`). |
+| `lead_submit_hubspot_form(array $lead): void` | POSTs a real submission to the HubSpot Forms API, mapping the funnel `intent` → form GUID (so HubSpot workflows fire). |
+| `lead_hubspot_call(string $method, string $url, string $token, string $body): array` | Thin cURL wrapper for HubSpot API calls; returns `[status, body]`. |
+
+### `track.php` (pageview beacon)
+
+| Function | Purpose |
+|----------|---------|
+| `track_done(): void` | Sends `204 No Content` and exits. |
+| `track_client_ip(): string` | Best-effort client IP, honoring `CF-Connecting-IP`, `X-Forwarded-For` (first hop), `X-Real-IP`, then `REMOTE_ADDR`. |
+| `track_geo(PDO $pdo, string $ip): array` | Resolves `[country, region, city]` from the `geo_cache` table, falling back to ip-api.com (then cached per IP). Private/loopback ranges are tagged `Local`. |
+
+### `talent-photo.php` (public VT photo server)
+
+| Function | Purpose |
+|----------|---------|
+| `tp_serve_placeholder(): void` | Serves `images/photos/placeholder-avatar.svg` (1-day cache) and exits — the graceful avatar fallback whenever a real photo can't be returned. |
+
+---
+
+## 11. Client-side (JavaScript) function reference
+
+Beyond the global behaviors in `js/main.js` (§7), several pages and includes carry their own
+inline `<script>` modules. These are the named functions, grouped by module.
+
+### Homepage CTA modals & lead forms — `index.php` (inline)
+
+| Function | Purpose |
+|----------|---------|
+| `resetForms()` / `lock()` / `unlock()` / `sync()` | The modal state machine: lock/restore page scroll and sync open/closed state to the URL hash. |
+| `fillRequest(a)` | Populates the "Request a teammate" modal from a clicked profile card's `data-vt-*` attributes. |
+| `postLead(form)` | AJAX-submits a lead form to `lead.php` and swaps in the thank-you state. |
+| `resetBtn()` | Restores a submit button after a request completes or fails. |
+| `handleCsmCallback(e)` / `handleChecklist(e)` / `handlePracticeAudit(e)` / `handleStrategyCall(e)` / `handleRequest(e)` | Per-form submit handlers for each CTA intent. |
+| `attach(id, handler)` | Wires a handler to a form by id. `init()` boots all the above on load. |
+
+### Reusable request modal — `includes/request-modal.php`
+
+| Function | Purpose |
+|----------|---------|
+| `fillRequest(a)`, `postLead(form)`, `resetBtn()`, `resetForms()`, `lock()`, `unlock()`, `sync()` | The non-homepage version of the request-modal + lead logic above. |
+| `bindForm()` / `initBehavior()` | Bind the form's submit handler and wire scroll-lock / ESC / autofocus behavior. |
+
+### Modal embed loaders
+
+| Function | Module | Purpose |
+|----------|--------|---------|
+| `createForm()` / `loadEmbed()` / `maybeHash()` | `includes/checklist-modal.php` | Lazily build and inject the HubSpot checklist form embed when the modal opens (or on a deep-link hash). |
+| `loadHS()` | `includes/hubspot-loader.php` | Inject the HubSpot Meetings embed script on demand (used by the booking modals). |
+| `loadLeadDyno()` | `includes/leaddyno.php` | Load the LeadDyno referral-tracking script. |
+| `vtTrack()` | `includes/footer.php` | Fire the post-load pageview beacon to `track.php`. |
+| `gtag()` | `includes/head.php` | Standard GA4 command stub (production only). |
+
+### Business page CTAs — `business/index.php`
+
+| Function | Purpose |
+|----------|---------|
+| `resetForms()` / `lock()` / `unlock()` / `sync()` | Modal scroll-lock + hash state for the operational-assessment, buy-back, and request modals. |
+
+### VA card filtering — `includes/vt-cards.php` (business "Meet the Bench")
+
+| Function | Purpose |
+|----------|---------|
+| `norm(s)` | Normalize a string for case-insensitive search. |
+| `matches(card)` | Test one card against the current search + department + skill filters. |
+| `apply()` | Re-filter and re-render the visible card set. |
+| `populateSkills()` | Repopulate the skill dropdown for the selected department. |
+
+### Talent directory — `virtual-teammates/index.php`
+
+| Function | Purpose |
+|----------|---------|
+| `esc(s)` | HTML-escape a string before injecting it into the modal. |
+| `matches(card)` / `apply()` / `populateSkills()` | Search + department/skill filtering of the bench grid. |
+| `driveId(u)` | Extract a Google Drive file id from a share URL. |
+| `videoEmbed(url, poster)` | Build the right intro-video embed (Drive / YouTube / Vimeo / hosted `<video>`). |
+| `ctaBlock(id, full, fn)` | Render the modal's CTA depending on auth state (member request vs. lead-form scroll). |
+| `submitRequest(btn)` | POST a logged-in client's "request this teammate" action. |
+| `openModal(card)` / `closeModal()` | Open the profile modal (full CV for members, teaser for anonymous) / close it. |
+| `resetBtn()` | Restore the request button after submit. |
+
+### Landing-page quiz engine — `healthcare-landing/`, `dental-landing/`, `business-landing/`
+
+Each landing page carries the same quiz module (question counts differ — 6/6/8):
+
+| Function | Purpose |
+|----------|---------|
+| `loadQuestion()` | Render the current quiz question and advance the progress bar. |
+| `showResults()` | Compute and display the efficiency tier, estimated hours saved, and revenue impact. |
+| `generatePDF(…)` | Build the downloadable results report (args vary per page: `tier, hoursSaved, revenuePotential` on business; `hoursSaved, revenuePotential` on healthcare/dental). |
+| `restartQuiz()` | Reset the quiz to the first question. |
+| `submitToHubSpot(email, phone, leadsource)` | POST the captured contact + quiz outcome to the HubSpot Forms API. |
+| `submitToLeadDB(email, phone, …)` | POST the same to the site's own `lead.php` (dual capture). |
+
+---
+
+## 12. Deployment
 
 `deploy.sh` uploads over **plain FTP** (port 21 — FTPS fails on a cert principal mismatch) using
 credentials from the gitignored `.ftp.local` (`FTP_USER`, `FTP_PASS`, `FTP_HOST`).

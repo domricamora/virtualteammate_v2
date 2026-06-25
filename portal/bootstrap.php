@@ -609,12 +609,14 @@ function smtp_send(array $cfg, string $from, string $to, string $message): bool
     $user = (string) ($cfg['user'] ?? '');
     $pass = (string) ($cfg['pass'] ?? '');
 
-    $fp = @fsockopen($host, $port, $errno, $errstr, 15);
+    // Short connect timeout: if the host firewall blocks outbound SMTP, fail
+    // fast so portal_send_mail() can fall back to native mail() without hanging.
+    $fp = @fsockopen($host, $port, $errno, $errstr, 6);
     if (!$fp) {
         error_log("smtp_send: connect failed to {$host}:{$port} — {$errstr} ({$errno})");
         return false;
     }
-    stream_set_timeout($fp, 15);
+    stream_set_timeout($fp, 12);
 
     // Read a (possibly multiline) reply; return its leading 3-digit code, 0 on EOF.
     $read = static function () use ($fp): int {
@@ -711,10 +713,14 @@ function portal_send_mail(string $to, string $subject, string $html, string $tex
                  . "X-Mailer: VT Portal\r\n"
                  . "\r\n"
                  . $bodyPart;
-        return smtp_send($cfg, $fromAddr, $to, $message);
+        if (smtp_send($cfg, $fromAddr, $to, $message)) { return true; }
+        // SMTP couldn't deliver (e.g. the host firewall blocks outbound 587/465,
+        // as the live server does). Fall through to native mail() — the same
+        // local-sendmail path WordPress's wp_mail() uses, which the host relays.
+        error_log('portal_send_mail: SMTP send failed; falling back to native mail()');
     }
 
-    // ── Fallback: native mail() (no relay on localhost; works if host MTA set) ──
+    // ── Native mail() — the wp_mail() path: hand off to the local MTA ──
     $headers = implode("\r\n", [
         'From: ' . $fromName . ' <' . $fromAddr . '>',
         'Reply-To: ' . $fromAddr,

@@ -22,6 +22,8 @@ const FILES = [
   'portal-guide-clients.md',
   'portal-guide-csm.md',
   'portal-guide-vt.md',
+  'DOCS-MARKETING.md',
+  'DOCS-BACKEND.md',
 ];
 
 const CHROME_CANDIDATES = [
