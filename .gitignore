@@ -53,3 +53,6 @@ data/task-attachments/
 
 # Local agent/editor config
 .claude/
+
+# Agent instructions — local only, never tracked
+CLAUDE.md
