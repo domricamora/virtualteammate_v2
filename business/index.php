@@ -62,10 +62,13 @@ include __DIR__ . '/../includes/nav.php';
     </div>
   </div>
   <div class="svc-hero-vis reveal d2" aria-hidden="true">
-    <div class="hv-chip c1"><i class="fa-solid fa-circle-check"></i> Multi-Stage Vetted</div>
-    <div class="hv-chip c2"><i class="fa-solid fa-clock"></i> Your Time Zone</div>
-    <div class="hv-card">
-      <img src="<?= $home_base ?>images/photos/business/email-management.webp" alt="Business virtual assistant managing a client inbox and email workflows" width="760" height="1139" loading="lazy"/>
+    <div class="svc-snap">
+      <div class="svc-snap-h"><i class="fa-solid fa-circle-check"></i> Same engine, every function</div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Lower cost vs. an in-house hire</span><span class="v">up to 73%</span></div></div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Up and running</span><span class="v">1&ndash;2 weeks</span></div></div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Talent network sourced across</span><span class="v">12+ countries</span></div></div>
+      <div class="svc-snap-row"><div class="svc-snap-line"><span>Average Google rating</span><span class="v">4.9&#9733;</span></div></div>
+      <div class="svc-snap-foot"><i class="fa-solid fa-shield-halved"></i> Multi-stage vetted &amp; background-checked &mdash; covered by the 30-Day Right-Fit Promise.</div>
     </div>
   </div>
 </header>

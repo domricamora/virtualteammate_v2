@@ -146,7 +146,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 /* ───── NAV ───── */
 .nav{
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 80px;height:88px;
+  padding:0 52px;height:88px;
   background:rgba(255,255,255,0.07);
   backdrop-filter:var(--glass-blur);
   border-bottom:1px solid var(--glass-border);
@@ -162,7 +162,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   filter: brightness(0) invert(1);
   -webkit-filter: brightness(0) invert(1);
 }
-.nav-links{display:flex;align-items:center;gap:36px;}
+.nav-links{display:flex;align-items:center;gap:25px;}
 .nav-links a{font-size:14px;font-weight:700;color:rgba(255,255,255,0.82);text-decoration:none;transition:color .2s;}
 .nav-links a:hover{color:#fff;}
 .nav-badge{
@@ -172,7 +172,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
   font-size:11px;font-weight:800;
   padding:2px 8px;border-radius:12px;margin-left:5px;
 }
-.nav-right{display:flex;align-items:center;gap:22px;}
+.nav-right{display:flex;align-items:center;gap:16px;}
 .nav-phone{font-size:14px;font-weight:700;color:var(--gold-lt);text-decoration:none;}
 .nav-phone i{margin-right:6px;}
 .btn-nav{
@@ -356,7 +356,7 @@ i.fa, i.fas, i.far, i.fa-solid, i.fa-regular, i.fa-brands { color: var(--gold); 
 .hipaa-badge--nav{padding:6px 11px;font-size:10.5px;letter-spacing:.6px;}
 .hipaa-badge--nav .hipaa-badge-logo{height:14px;}
 .hipaa-badge--footer{margin-top:18px;}
-@media (max-width:980px){.hipaa-badge--nav{display:none;}}
+@media (max-width:1440px){.hipaa-badge--nav{display:none;}}
 
 .hero-stats{
   align-self:center;
@@ -1504,7 +1504,7 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   border-top:1px solid rgba(255,255,255,0.08);
   padding:72px 80px 32px;
 }
-.ft-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:60px;margin-bottom:56px;}
+.ft-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr 1fr;gap:44px;margin-bottom:56px;}
 .ft-logo{
   display:inline-flex;align-items:center;
   margin-bottom:20px;
@@ -2543,7 +2543,8 @@ html.cta-locked body{position:fixed;left:0;right:0;width:100%;}
   .diff-num{font-size:42px;}
 
   .footer{padding:60px 32px 28px;}
-  .ft-grid{grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;}
+  .ft-grid{grid-template-columns:1fr 1fr;gap:32px 44px;}
+  .ft-grid > div:first-child{grid-column:1 / -1;}
 
   .divider{margin:0 32px;}
 

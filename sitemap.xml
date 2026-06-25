@@ -71,6 +71,36 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://virtualteammate.com/business/administrative/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://virtualteammate.com/business/sales-lead-generation/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://virtualteammate.com/business/marketing/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://virtualteammate.com/business/finance-bookkeeping/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://virtualteammate.com/business/customer-support/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://virtualteammate.com/business/non-profit/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://virtualteammate.com/careers/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

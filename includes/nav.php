@@ -99,6 +99,52 @@ $topbar_cta = $has_cta_section ? '#cta' : '#cta-strategy-call';
         </div>
       </div>
     </div>
+    <div class="nav-drop">
+      <a href="<?= $home_base ?>business/" class="nav-drop-trigger" aria-haspopup="true" aria-expanded="false">
+        Business
+        <i class="fa-solid fa-chevron-down nav-caret" aria-hidden="true"></i>
+      </a>
+      <div class="nav-mega" role="menu" aria-label="Business &amp; non-profit virtual assistants">
+        <div class="nav-mega-col">
+          <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-arrow-trend-up"></i></span> Grow Revenue</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/sales-lead-generation/" role="menuitem">
+            <i class="fa-solid fa-bullseye"></i>
+            <span><strong>Sales &amp; Lead Generation</strong><em>Prospecting, qualifying &amp; appointment setting</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/marketing/" role="menuitem">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span><strong>Marketing &amp; Demand Gen</strong><em>Social, email, SEO &amp; paid-ad support</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/customer-support/" role="menuitem">
+            <i class="fa-solid fa-headset"></i>
+            <span><strong>Customer Service &amp; Support</strong><em>Tier-1 support, live chat &amp; retention</em></span>
+          </a>
+        </div>
+        <div class="nav-mega-col">
+          <div class="nav-mega-h"><span class="ico-circle sm"><i class="fa-solid fa-gears"></i></span> Run the Business</div>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/administrative/" role="menuitem">
+            <i class="fa-solid fa-clipboard"></i>
+            <span><strong>Administrative &amp; Executive</strong><em>Inbox, calendar &amp; project coordination</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/finance-bookkeeping/" role="menuitem">
+            <i class="fa-solid fa-sack-dollar"></i>
+            <span><strong>Finance &amp; Bookkeeping</strong><em>Bookkeeping, invoicing &amp; AR follow-up</em></span>
+          </a>
+          <a class="nav-mega-link" href="<?= $home_base ?>business/non-profit/" role="menuitem">
+            <i class="fa-solid fa-hand-holding-heart"></i>
+            <span><strong>Non-Profit Operations</strong><em>Donor outreach, grants &amp; volunteers</em></span>
+          </a>
+        </div>
+        <div class="nav-mega-foot">
+          <div class="nav-mega-foot-txt">
+            <i class="fa-solid fa-circle-nodes"></i>
+            <span><strong>Not sure which role you need?</strong> Same vetted global network and flat-rate model behind our healthcare placements, for every back-office function.</span>
+          </div>
+          <a href="<?= $home_base ?>business/" class="nav-mega-foot-btn">Explore all business roles <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
+        </div>
+      </div>
+    </div>
     <a href="<?= $home_base ?>#profiles">Virtual Teammates</a>
     <a href="<?= $home_base ?>case-studies/">Case Studies</a>
     <div class="nav-drop">
