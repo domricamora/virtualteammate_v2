@@ -41,12 +41,19 @@ $canonical        = $canonical        ?? $site_url . '/';
 $og_title         = $og_title         ?? $page_title;
 $og_description   = $og_description   ?? $page_description;
 $is_homepage      = $is_homepage      ?? false;
-// Indexing is allowed on every host (including localhost + staging). A page can
-// still force its own directive by setting $robots before this include (e.g.
-// 'noindex,nofollow' for utility pages).
+// Non-production hosts (localhost + any "staging" host) are kept OUT of search:
+// they default to noindex,nofollow and also emit an X-Robots-Tag header below, so
+// the staging mirror never competes with production in the index. Production
+// (virtualteammate.com) indexes normally. A page can still force its own
+// directive by setting $robots before this include.
 $__vt_host        = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
 $__vt_nonprod     = str_contains($__vt_host, 'localhost') || str_starts_with($__vt_host, '127.0.0.1') || str_contains($__vt_host, 'staging');
-$robots           = $robots           ?? 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1';
+$robots           = $robots           ?? ($__vt_nonprod
+                      ? 'noindex,nofollow'
+                      : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1');
+// Authoritative header so non-HTML responses on staging are excluded too (covers
+// anything a crawler fetches that never parses the <meta robots> tag).
+if ($__vt_nonprod && !headers_sent()) { header('X-Robots-Tag: noindex, nofollow', true); }
 // Non-prod hosts get a self-referential canonical (and matching og:url) so that
 // staging/localhost pages are validly self-canonical and can be indexed in their
 // own right, instead of pointing cross-domain at production and being skipped.
