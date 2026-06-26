@@ -140,7 +140,7 @@ $topbar_cta = $has_cta_section ? '#cta' : '#cta-strategy-call';
             <i class="fa-solid fa-circle-nodes"></i>
             <span><strong>Not sure which role you need?</strong> Same vetted global network and flat-rate model behind our healthcare placements, for every back-office function.</span>
           </div>
-          <a href="#cta-strategy-call" class="nav-mega-foot-btn" data-cta-intent="strategy-call">Explore all business roles <i class="fa-solid fa-arrow-right"></i></a>
+          <a href="#cta-strategy-call" class="nav-mega-foot-btn" data-cta-intent="strategy-call">My business staffing audit <i class="fa-solid fa-arrow-right"></i></a>
           <div class="cta-note"><i class="fa-solid fa-shield-halved"></i> Covered by our 30-Day Right-Fit Promise: free replacement or your money back.</div>
         </div>
       </div>
