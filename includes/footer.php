@@ -54,13 +54,13 @@ $hide_footer = $hide_footer ?? false;
     <nav aria-label="Business services">
       <div class="ft-h">Business VAs</div>
       <ul class="ft-links">
-        <li><a href="<?= $home_base ?>business/administrative/">Administrative &amp; Executive</a></li>
-        <li><a href="<?= $home_base ?>business/sales-lead-generation/">Sales &amp; Lead Generation</a></li>
-        <li><a href="<?= $home_base ?>business/marketing/">Marketing &amp; Demand Gen</a></li>
-        <li><a href="<?= $home_base ?>business/finance-bookkeeping/">Finance &amp; Bookkeeping</a></li>
-        <li><a href="<?= $home_base ?>business/customer-support/">Customer Service &amp; Support</a></li>
-        <li><a href="<?= $home_base ?>business/non-profit/">Non-Profit Operations</a></li>
-        <li><a href="<?= $home_base ?>business/">All Business &amp; Non-Profit VAs</a></li>
+        <li><a tabindex="0">Administrative &amp; Executive</a></li>
+        <li><a tabindex="0">Sales &amp; Lead Generation</a></li>
+        <li><a tabindex="0">Marketing &amp; Demand Gen</a></li>
+        <li><a tabindex="0">Finance &amp; Bookkeeping</a></li>
+        <li><a tabindex="0">Customer Service &amp; Support</a></li>
+        <li><a tabindex="0">Non-Profit Operations</a></li>
+        <li><a tabindex="0">All Business &amp; Non-Profit VAs</a></li>
       </ul>
     </nav>
     <nav aria-label="Company">
