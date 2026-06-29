@@ -30,12 +30,26 @@ $activeCount = 0; foreach ($links as $l) { if ((int) $l['revoked'] !== 1 && (int
         <?= csrf_field() ?>
         <input type="hidden" name="action" value="generate">
         <label class="sl-label">Virtual Teammate
+          <?php
+            $optionRow = static function (array $v) use ($vtName): string {
+                $r = trim((string) ($v['role_title'] ?? '')) ?: trim((string) ($v['department'] ?? ''));
+                return '<option value="' . (int) $v['id'] . '">' . e($vtName($v)) . ($r !== '' ? ' — ' . e($r) : '') . '</option>';
+            };
+            $engaged   = array_filter($pool, static fn (array $v): bool => ($v['role'] ?? '') === 'vt_hired');
+            $available = array_filter($pool, static fn (array $v): bool => ($v['role'] ?? '') !== 'vt_hired');
+          ?>
           <select name="vt_id" class="sl-select" required>
             <option value="">Choose a teammate…</option>
-            <?php foreach ($pool as $v):
-              $r = trim((string) ($v['role_title'] ?? '')) ?: trim((string) ($v['department'] ?? '')); ?>
-              <option value="<?= (int) $v['id'] ?>"><?= e($vtName($v)) ?><?= $r !== '' ? ' — ' . e($r) : '' ?></option>
-            <?php endforeach; ?>
+            <?php if ($engaged): ?>
+              <optgroup label="Hired / Engaged">
+                <?php foreach ($engaged as $v) { echo $optionRow($v); } ?>
+              </optgroup>
+            <?php endif; ?>
+            <?php if ($available): ?>
+              <optgroup label="Available (Pool)">
+                <?php foreach ($available as $v) { echo $optionRow($v); } ?>
+              </optgroup>
+            <?php endif; ?>
           </select>
         </label>
         <label class="sl-label">Link lifetime

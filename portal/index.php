@@ -5444,10 +5444,10 @@ function handle_special_links(): void
             $vtId  = (int) ($_POST['vt_id'] ?? 0);
             $hours = (int) ($_POST['hours'] ?? 72);
             if (!in_array($hours, [24, 72, 168, 720], true)) { $hours = 72; }
-            $chk = $pdo->prepare("SELECT 1 FROM users WHERE id = :id AND role = 'vt_onpool' AND active = 1");
+            $chk = $pdo->prepare("SELECT 1 FROM users WHERE id = :id AND role IN ('vt_onpool','vt_hired') AND active = 1");
             $chk->execute([':id' => $vtId]);
             if (!$chk->fetchColumn()) {
-                flash('error', 'Pick an available teammate to generate a link.');
+                flash('error', 'Pick an available or engaged teammate to generate a link.');
                 redirect(portal_url('special-links'));
             }
             $token = bin2hex(random_bytes(16));
@@ -5468,12 +5468,13 @@ function handle_special_links(): void
         redirect(portal_url('special-links'));
     }
 
-    // Available pool VTs for the picker.
+    // Picker pool: available (on-pool) plus hired/engaged VTs. Engaged teammates
+    // listed first, then the bench, each block alphabetical.
     $pool = $pdo->query(
-        "SELECT u.id, u.first_name, u.last_name, u.photo_url, p.role_title, p.department
+        "SELECT u.id, u.first_name, u.last_name, u.photo_url, u.role, p.role_title, p.department
          FROM users u JOIN vt_profiles p ON p.user_id = u.id
-         WHERE u.role = 'vt_onpool' AND u.active = 1
-         ORDER BY u.first_name, u.last_name"
+         WHERE u.role IN ('vt_onpool','vt_hired') AND u.active = 1
+         ORDER BY (u.role = 'vt_hired') DESC, u.first_name, u.last_name"
     )->fetchAll();
 
     // This CSM's links (admins see all), newest first.

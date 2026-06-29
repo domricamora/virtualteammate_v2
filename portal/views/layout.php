@@ -26,6 +26,7 @@ if ($role === 'super_admin') {
     $nav[] = ['p' => 'clients',     'label' => 'Clients',       'icon' => 'fa-building'];
     $nav[] = ['p' => 'csms',        'label' => 'CSMs',          'icon' => 'fa-user-tie'];
     $nav[] = ['p' => 'vts',         'label' => 'VT Profiles',   'icon' => 'fa-user-doctor'];
+    $nav[] = ['p' => 'special-links','label' => 'Special Links', 'icon' => 'fa-link'];
     $nav[] = ['p' => 'users',       'label' => 'Users',         'icon' => 'fa-users'];
     $nav[] = ['p' => 'tasks',       'label' => 'Task Management','icon' => 'fa-list-check'];
     $nav[] = ['p' => 'relationships','label' => 'Relationships', 'icon' => 'fa-share-nodes'];
