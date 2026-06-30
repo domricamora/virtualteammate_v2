@@ -3755,7 +3755,7 @@ function handle_resources(): void
             'playbook'  => [
                 'title' => 'Virtual Teammate Client Playbook',
                 'desc'  => 'Start here to align expectations, simplify communication, and establish a smooth workflow — so your Virtual Teammate can deliver faster.',
-                'url'   => 'https://virtualteammate.com/client-playbook-3/',
+                'url'   => 'https://virtualteammate.com/client-playbook/',
             ],
         ];
     }
