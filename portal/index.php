@@ -5465,6 +5465,15 @@ function handle_special_links(): void
             flash('success', 'Link revoked.');
             redirect(portal_url('special-links'));
         }
+        if ($action === 'delete') {
+            $token = (string) ($_POST['token'] ?? '');
+            $sql   = 'DELETE FROM vt_special_links WHERE token = :t';
+            $params = [':t' => $token];
+            if ($role !== 'super_admin') { $sql .= ' AND created_by = :b'; $params[':b'] = (int) $u['id']; }
+            $pdo->prepare($sql)->execute($params);
+            flash('success', 'Link deleted.');
+            redirect(portal_url('special-links'));
+        }
         redirect(portal_url('special-links'));
     }
 

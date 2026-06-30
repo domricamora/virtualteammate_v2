@@ -1,22 +1,28 @@
 #!/usr/bin/env bash
-# Deploy the Virtual Teammate site to the staging FTP server.
-# Reads credentials from .ftp.local (gitignored). Uploads production
-# assets only — skips git/dev files (.git, *.md, .gitignore, deploy.sh).
+# Deploy the Virtual Teammate site over FTP.
+# Reads credentials from a creds file (gitignored). Defaults to .ftp.local
+# (staging) so the pre-push hook keeps deploying to staging; pass a different
+# creds file to target another environment, e.g.:
+#     ./deploy.sh .ftp.live.local      # upload to live (vtnew@virtualteammate.com)
+# Uploads production assets only — skips git/dev files (.git, *.md, .gitignore,
+# deploy.sh). FTP is plain (not FTPS) — the host's cert principal mismatches.
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-if [ ! -f .ftp.local ]; then
-  echo "deploy.sh: .ftp.local not found in $SCRIPT_DIR — skipping deploy." >&2
+CREDS_FILE="${1:-.ftp.local}"
+
+if [ ! -f "$CREDS_FILE" ]; then
+  echo "deploy.sh: $CREDS_FILE not found in $SCRIPT_DIR — skipping deploy." >&2
   exit 0
 fi
 # shellcheck disable=SC1091
-. ./.ftp.local
+. "./$CREDS_FILE"
 
-: "${FTP_USER:?FTP_USER missing in .ftp.local}"
-: "${FTP_PASS:?FTP_PASS missing in .ftp.local}"
-: "${FTP_HOST:?FTP_HOST missing in .ftp.local}"
+: "${FTP_USER:?FTP_USER missing in $CREDS_FILE}"
+: "${FTP_PASS:?FTP_PASS missing in $CREDS_FILE}"
+: "${FTP_HOST:?FTP_HOST missing in $CREDS_FILE}"
 
 USER_PASS="${FTP_USER}:${FTP_PASS}"
 REMOTE_BASE="ftp://${FTP_HOST}/"

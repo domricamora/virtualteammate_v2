@@ -92,8 +92,8 @@ $activeCount = 0; foreach ($links as $l) { if ((int) $l['revoked'] !== 1 && (int
             </div>
             <div class="sl-item-foot">
               <span class="muted small"><i class="fa-regular fa-clock"></i> <?= e($expiryLabel((int) $l['expires_at'], $now)) ?> · created <?= e(date('M j, Y', strtotime((string) $l['created_at']))) ?></span>
-              <?php if ($live): ?>
-                <div class="sl-foot-btns">
+              <div class="sl-foot-btns">
+                <?php if ($live): ?>
                   <a class="btn-portal-secondary btn-sm" href="<?= e($url) ?>" target="_blank" rel="noopener"><i class="fa-solid fa-up-right-from-square"></i> Open</a>
                   <form method="post" action="<?= e(portal_url('special-links')) ?>" onsubmit="return confirm('Revoke this link? It will stop working immediately.');" style="display:inline;">
                     <?= csrf_field() ?>
@@ -101,8 +101,14 @@ $activeCount = 0; foreach ($links as $l) { if ((int) $l['revoked'] !== 1 && (int
                     <input type="hidden" name="token" value="<?= e($l['token']) ?>">
                     <button type="submit" class="btn-portal-danger btn-sm"><i class="fa-solid fa-ban"></i> Revoke</button>
                   </form>
-                </div>
-              <?php endif; ?>
+                <?php endif; ?>
+                <form method="post" action="<?= e(portal_url('special-links')) ?>" onsubmit="return confirm('Permanently delete this link? It will be removed from the list and will no longer work.');" style="display:inline;">
+                  <?= csrf_field() ?>
+                  <input type="hidden" name="action" value="delete">
+                  <input type="hidden" name="token" value="<?= e($l['token']) ?>">
+                  <button type="submit" class="btn-portal-secondary btn-sm sl-del"><i class="fa-solid fa-trash"></i> Delete</button>
+                </form>
+              </div>
             </div>
           </div>
         <?php endforeach; ?>
@@ -132,7 +138,9 @@ $activeCount = 0; foreach ($links as $l) { if ((int) $l['revoked'] !== 1 && (int
 .sl-url:focus{outline:none;border-color:var(--gold);}
 .sl-copy{flex:0 0 auto;}
 .sl-item-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.sl-foot-btns{display:flex;gap:8px;}
+.sl-foot-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.sl-del:hover{border-color:rgba(225,87,87,.45);color:#f4baba;}
+.sl-del i{color:#e15757;}
 .sl-empty{text-align:center;padding:34px 18px;}
 .sl-empty i{font-size:26px;color:var(--gold);margin-bottom:10px;}
 @media (max-width:900px){ .sl-grid{grid-template-columns:1fr;} }
