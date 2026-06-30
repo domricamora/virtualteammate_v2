@@ -67,6 +67,7 @@ TOP_DIRS=(
   "about"
   "careers"
   "case-studies"
+  "client-playbook"
   "contact"
   "guarantee"
   "virtual-teammates"
